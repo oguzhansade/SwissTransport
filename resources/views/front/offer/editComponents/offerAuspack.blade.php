@@ -313,6 +313,28 @@
     spesen = ma * 20;
     $("input[name=auspackextra1]").val(spesen);
     })
+
+    var isAuspackKostendachButton = $("div.isAuspackKostendach");
+    var isAuspackPauschalbutton = $("div.isAuspackPauschal");
+    isAuspackKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-kostendach-area").show(700);
+        }
+        else{
+            $(".auspack-kostendach-area").hide(500);
+        }
+    })
+
+    isAuspackPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-pauschal-area").show(700);
+        }
+        else{
+            $(".auspack-pauschal-area").hide(500);
+        }
+    })
 </script>
 
 {{-- İlave ücret Aç/kapa --}}

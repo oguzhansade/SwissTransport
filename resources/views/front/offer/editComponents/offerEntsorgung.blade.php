@@ -259,7 +259,7 @@
                 @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost')) checked @endif>
             </div>
 
-            <div class="einpack-kostendach-area" @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost')) style="display: block;" @else style="display: none;" @endif >
+            <div class="entsorgung-kostendach-area" @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost')) style="display: block;" @else style="display: none;" @endif >
                 <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
                 @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') != NULL) 
                     value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') }}"
@@ -364,6 +364,28 @@
         spesen = ma * 20;
         $("input[name=entsorgungextra1]").val(spesen);
       })
+
+        var isEntsorgungKostendachButton = $("div.isEntsorgungKostendach");
+        var isEntsorgungPauschalbutton = $("div.isEntsorgungPauschal");
+        isEntsorgungKostendachButton.click(function(){
+            if($(this).hasClass("checkbox-checked"))
+            {
+                $(".entsorgung-kostendach-area").show(700);
+            }
+            else{
+                $(".entsorgung-kostendach-area").hide(500);
+            }
+        })
+
+        isEntsorgungPauschalbutton.click(function(){
+            if($(this).hasClass("checkbox-checked"))
+            {
+                $(".entsorgung-pauschal-area").show(700);
+            }
+            else{
+                $(".entsorgung-pauschal-area").hide(500);
+            }
+        })
 </script>
 
 
@@ -383,66 +405,67 @@
 <script>
     $(document).ready(function(){
         var morebutton7 = $("div.entsorgung-control");
-    morebutton7.click(function(){
-        if($(this).hasClass("checkbox-checked"))
+        morebutton7.click(function(){
+            if($(this).hasClass("checkbox-checked"))
+            {
+                $(".entsorgung--area").show(700);
+                $("select[name=entsorgungVolume]").prop('required',true);      
+                $("select[name=entsorgungTariff]").prop('required',true);  
+                $("input[name=entsorgungTotalPrice]").prop('required',true); 
+            }
+            else{
+                $(".entsorgung--area").hide(500);
+                $("select[name=entsorgungVolume]").prop('required',false);      
+                $("select[name=entsorgungTariff]").prop('required',false);  
+                $("input[name=entsorgungTotalPrice]").prop('required',false); 
+            }
+        })
+
+        $("select[name=entsorgungVolume]").on("change",function () {
+        let chf = $(this).find(":selected").data("chf");
+        let control = $(this).find(":selected").data('selection');
+        if (control != 'bos')
         {
-            $(".entsorgung--area").show(700);
-            $("select[name=entsorgungVolume]").prop('required',true);      
-            $("select[name=entsorgungTariff]").prop('required',true);  
-            $("input[name=entsorgungTotalPrice]").prop('required',true); 
-        }
-        else{
-            $(".entsorgung--area").hide(500);
-            $("select[name=entsorgungVolume]").prop('required',false);      
+            $('.entsorgung-chfVolume--area').show(300)  
             $("select[name=entsorgungTariff]").prop('required',false);  
-            $("input[name=entsorgungTotalPrice]").prop('required',false); 
         }
+        else
+        {
+            $('input[name=entsorgungVolumeChf]').val(0);
+            $('.entsorgung-chfVolume--area').hide(300)
+        }
+        $('input[name=entsorgungVolumeChf]').val(chf);
+        })
+
+
+        $("select[name=entsorgungTariff]").on("change",function () {
+
+        let chf = $(this).find(":selected").data("chf");
+        let ma = $(this).find(":selected").data("ma");
+        let lkw = $(this).find(":selected").data("lkw");
+        let anhanger = $(this).find(":selected").data("an");
+        let control = $(this).find(":selected").data('selection');
+    
+        if (control != 'bos')
+        {
+            $('.entsorgung-tariffs--area').show(300)
+            $("select[name=entsorgungVolume]").prop('required',false);      
+        }
+        else
+        {
+            $('input[name=entsorgungchf]').val(0);
+            $('input[name=entsorgungma]').val(0);
+            $('input[name=entsorgunglkw]').val(0);
+            $('input[name=entsorgunganhanger]').val(0);
+            $('.entsorgung-tariffs--area').hide(300)
+        }
+    
+        $('input[name=entsorgungchf]').val(chf);
+        $('input[name=entsorgungma]').val(ma);
+        $('input[name=entsorgunglkw]').val(lkw);
+        $('input[name=entsorgunganhanger]').val(anhanger);
+        })
     })
-
-    $("select[name=entsorgungVolume]").on("change",function () {
-     let chf = $(this).find(":selected").data("chf");
-     let control = $(this).find(":selected").data('selection');
-     if (control != 'bos')
-     {
-        $('.entsorgung-chfVolume--area').show(300)  
-        $("select[name=entsorgungTariff]").prop('required',false);  
-     }
-     else
-     {
-        $('input[name=entsorgungVolumeChf]').val(0);
-        $('.entsorgung-chfVolume--area').hide(300)
-     }
-     $('input[name=entsorgungVolumeChf]').val(chf);
-    })
-
-
-    $("select[name=entsorgungTariff]").on("change",function () {
-
-       let chf = $(this).find(":selected").data("chf");
-       let ma = $(this).find(":selected").data("ma");
-       let lkw = $(this).find(":selected").data("lkw");
-       let anhanger = $(this).find(":selected").data("an");
-       let control = $(this).find(":selected").data('selection');
-  
-       if (control != 'bos')
-       {
-          $('.entsorgung-tariffs--area').show(300)
-          $("select[name=entsorgungVolume]").prop('required',false);      
-       }
-       else
-       {
-          $('input[name=entsorgungchf]').val(0);
-          $('input[name=entsorgungma]').val(0);
-          $('input[name=entsorgunglkw]').val(0);
-          $('input[name=entsorgunganhanger]').val(0);
-          $('.entsorgung-tariffs--area').hide(300)
-       }
-  
-       $('input[name=entsorgungchf]').val(chf);
-       $('input[name=entsorgungma]').val(ma);
-       $('input[name=entsorgunglkw]').val(lkw);
-       $('input[name=entsorgunganhanger]').val(anhanger);
-      })
 </script>
 
 

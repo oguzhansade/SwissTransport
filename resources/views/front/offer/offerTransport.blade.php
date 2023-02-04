@@ -181,16 +181,28 @@
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
             <input class="form-control"  name="transportDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <div class="mt-2 isTransportKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            <div class="transport-kostendach-area" style="display: none;">
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+
+            <div class="mt-3 isTransportPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+
+            <div class="transport-pauschal-area " style="display:none;">
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            </div>
         </div>
     </div>
 </div>
@@ -207,7 +219,6 @@
             $("select[name=transportTariff]").prop('required',true); 
             $("input[name=transporthour]").prop('required',true); 
             $("input[name=transportCost]").prop('required',true); 
-            $("input[name=transportDefaultPrice]").prop('required',true); 
         }
         else{
             $(".transport--area").hide(500);
@@ -215,7 +226,6 @@
             $("select[name=transportTariff]").prop('required',false); 
             $("input[name=transporthour]").prop('required',false); 
             $("input[name=transportCost]").prop('required',false); 
-            $("input[name=transportDefaultPrice]").prop('required',false); 
         }
     })
 
@@ -248,6 +258,28 @@
         if($("input[name=transportFixedTariff]").val())
         {
             $("select[name=transportTariff]").prop('required',false); 
+        }
+    })
+
+    var isTransportKostendachButton = $("div.isTransportKostendach");
+    var isTransportPauschalbutton = $("div.isTransportPauschal");
+    isTransportKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport-kostendach-area").show(700);
+        }
+        else{
+            $(".transport-kostendach-area").hide(500);
+        }
+    })
+
+    isTransportPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport-pauschal-area").show(700);
+        }
+        else{
+            $(".transport-pauschal-area").hide(500);
         }
     })
 

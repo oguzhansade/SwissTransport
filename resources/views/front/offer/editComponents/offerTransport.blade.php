@@ -328,24 +328,38 @@
                 @else value="{{ 0 }}"
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost') != NULL) 
-                value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'topCost') }}"
-                @else value="{{ 0 }}"
-            @endif>
+            <div class="mt-2 isTransportKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            <div class="transport-kostendach-area" @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost') != NULL) 
+                    value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'topCost') }}"
+                    @else value="{{ 0 }}"
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') != NULL) 
-                value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') }}"
-                @else value="{{ 0 }}"
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+
+            <div class="mt-3 isTransportPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="transport-pauschal-area " @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') != NULL) 
+                    value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') }}"
+                    @else value="{{ 0 }}"
+                @endif>
+            </div>
         </div>
     </div>
 </div>
@@ -362,7 +376,6 @@
              $("select[name=transportTariff]").prop('required',true); 
              $("input[name=transporthour]").prop('required',true); 
              $("input[name=transportCost]").prop('required',true); 
-             $("input[name=transportDefaultPrice]").prop('required',true); 
          }
          else{
              $(".transport--area").hide(500);
@@ -370,9 +383,30 @@
              $("select[name=transportTariff]").prop('required',false); 
              $("input[name=transporthour]").prop('required',false); 
              $("input[name=transportCost]").prop('required',false); 
-             $("input[name=transportDefaultPrice]").prop('required',false); 
          }
      })
+
+    var isTransportKostendachButton = $("div.isTransportKostendach");
+    var isTransportPauschalbutton = $("div.isTransportPauschal");
+    isTransportKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport-kostendach-area").show(700);
+        }
+        else{
+            $(".transport-kostendach-area").hide(500);
+        }
+    })
+
+    isTransportPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport-pauschal-area").show(700);
+        }
+        else{
+            $(".transport-pauschal-area").hide(500);
+        }
+    })
  
      $("select[name=transportTariff]").on("change",function () {
          let chf = $(this).find(":selected").data("chf");
@@ -420,6 +454,8 @@
              $(".transport--extra--cost--area").hide(500);
          }
      })
+
+    
  </script>
  
  <script>
