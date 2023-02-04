@@ -113,16 +113,16 @@
             @endif> 
 
             <div class="mt-2 lagerung-fixed-control">
-                <small class=" text-primary">Pauschal</small>
-                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice')) checked @endif>
+            </div>
 
 
             <div class="lagerung-fixed-area" style="display: none;">
                 <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
                 @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') != NULL) 
                     value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') }}"
-                    @else value="{{ 0 }}"
                 @endif>
             </div>
         </div>

@@ -71,9 +71,9 @@
             <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
 
             <div class="mt-2 lagerung-fixed-control">
-                <small class=" text-primary">Pauschal</small>
+                <label class="col-form-label" for="l0">Pauschal</label>
                 <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            </div>
 
             <div class="lagerung-fixed-area" style="display: none;">
                 <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
@@ -93,13 +93,11 @@ morebutton9.click(function(){
         {
             $(".lagerung--area").show(700);
             $("select[name=lagerungTariff]").prop('required',true);      
-            $("input[name=lagerungVolume]").prop('required',true);   
             $("input[name=lagerungCost]").prop('required',true);  
         }
         else{
             $(".lagerung--area").hide(500);
             $("select[name=lagerungTariff]").prop('required',false);      
-            $("input[name=lagerungVolume]").prop('required',false);   
             $("input[name=lagerungCost]").prop('required',false);
         }
     })

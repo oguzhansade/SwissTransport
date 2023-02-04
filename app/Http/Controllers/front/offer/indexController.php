@@ -523,8 +523,8 @@ class indexController extends Controller
                 'extraDiscountText2' => $request->transportExtraDiscountText2,
                 'extraDiscountValue2' => $request->transportExtraDiscount2,
                 'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->transportTopPrice,
-                'fixedPrice' => $request->transportFixedPrice,
+                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
             ];
 
             OfferteTransport::create($offerTransport);
@@ -545,7 +545,8 @@ class indexController extends Controller
                 'discountText' => $request->lagerungExtraDiscountText, 
                 'discountValue' => $request->lagerungExtraDiscount, 
                 'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->lagerungFixedPrice, 
+                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+                
             ];
 
             OfferteLagerung::create($offerLagerung);
@@ -1174,8 +1175,8 @@ class indexController extends Controller
                 'extraDiscountText2' => $request->transportExtraDiscountText2,
                 'extraDiscountValue2' => $request->transportExtraDiscount2,
                 'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->transportTopPrice,
-                'fixedPrice' => $request->transportFixedPrice,
+                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
             ];
 
             OfferteTransport::create($offerTransport);
@@ -1196,7 +1197,7 @@ class indexController extends Controller
                 'discountText' => $request->lagerungExtraDiscountText, 
                 'discountValue' => $request->lagerungExtraDiscount, 
                 'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->lagerungFixedPrice, 
+                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
             ];
 
             OfferteLagerung::create($offerLagerung);
