@@ -376,8 +376,8 @@ class indexController extends Controller
                 'extraCostName' => $request->auspackExtraDiscountText,
                 'extraCostPrice' => $request->auspackExtraDiscount,
                 'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->auspackTopPrice ?  $request->auspackTopPrice : 0,
-                'fixedPrice' => $request->auspackDefaultPrice ? $request->auspackDefaultPrice : 0,
+                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
             ];
 
             OfferteAuspack::create($offerAuspack);
@@ -1027,8 +1027,8 @@ class indexController extends Controller
                 'extraCostName' => $request->auspackExtraDiscountText,
                 'extraCostPrice' => $request->auspackExtraDiscount,
                 'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->auspackTopPrice ?  $request->auspackTopPrice : 0,
-                'fixedPrice' => $request->auspackDefaultPrice ? $request->auspackDefaultPrice : 0,
+                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
             ];
 
             OfferteAuspack::create($offerAuspack);

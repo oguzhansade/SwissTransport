@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <input class="form-control" name="auspackextra1" type="number" value="10">
+                        <input class="form-control" name="auspackextra1" type="number" value="20">
                     </div>
                 </div> 
                 
@@ -116,16 +116,28 @@
         <label class="col-form-label" for="l0">Geschätzte Kosten</label>
         <input class="form-control"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
-        <label class="col-form-label" for="l0">Kostendach</label>
-        <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+        <div class="mt-2 isAuspackKostendach">
+            <label class="col-form-label" for="l0">Kostendach</label>
+            <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+        </div>
 
-        <div class="mt-2">
-            <small class=" text-primary">manuell gesetzt</small>
-            <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-        </div> <br>
+        <div class="auspack-kostendach-area" style="display: none;">
+            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
 
-        <label class="col-form-label" for="l0">Pauschal</label>
-        <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <div class="mt-2">
+                <small class=" text-primary">manuell gesetzt</small>
+                <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+        </div>
+
+        <div class="mt-3 isAuspackPauschal">
+            <label class="col-form-label" for="l0">Pauschal</label>
+            <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+        </div>
+
+        <div class="auspack-pauschal-area " style="display:none;">
+            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+        </div>
     </div>
 </div>
 
@@ -140,6 +152,7 @@
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
+    let spesen = $("input[name=auspackextra1]").val(20);
 
     if (control != 'bos')
     {
@@ -154,6 +167,30 @@
 
     $('input[name=auspack1chf]').val(chf);
     $('input[name=auspack1ma]').val(ma);
+    spesen = ma * 20;
+    $("input[name=auspackextra1]").val(spesen);
+    })
+
+    var isAuspackKostendachButton = $("div.isAuspackKostendach");
+    var isAuspackPauschalbutton = $("div.isAuspackPauschal");
+    isAuspackKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-kostendach-area").show(700);
+        }
+        else{
+            $(".auspack-kostendach-area").hide(500);
+        }
+    })
+
+    isAuspackPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-pauschal-area").show(700);
+        }
+        else{
+            $(".auspack-pauschal-area").hide(500);
+        }
     })
 </script>
 

@@ -102,7 +102,7 @@
                             <input class="form-control" name="einpackextra1" type="number" 
                             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra')) 
                                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra') }}" 
-                                @else value="{{ 10 }}" 
+                                @else value="{{ 20 }}" 
                             @endif>
                         </div>
                     </div> 
@@ -158,9 +158,6 @@
                         </div>
                     </div>
                 </div>
-
-                
-                            
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>

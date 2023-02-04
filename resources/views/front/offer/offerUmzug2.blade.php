@@ -281,7 +281,7 @@
         let lkw = $(this).find(":selected").data("lkw");
         let anhanger = $(this).find(":selected").data("an");
         let control = $(this).find(":selected").data('selection');
-        let spesen = $("input[name=extra1]").val();
+        let spesen = $("input[name=extra1]").val(20);
         
         if (control != 'bos')
         {
