@@ -350,18 +350,12 @@
             $("select[name=einpackTariff]").prop('required',true);    
             $("input[name=einpackHours]").prop('required',true);  
             $("input[name=einpackCost]").prop('required',true);
-            $("input[name=einpackTotalPrice]").prop('required',true);
-            $("input[name=einpackTopPrice]").prop('required',true);
-            $("input[name=einpackDefaultPrice]").prop('required',true);
         }
         else{
             $(".einpack--area").hide(500);
             $("select[name=einpackTariff]").prop('required',false);    
             $("input[name=einpackHours]").prop('required',false);  
             $("input[name=einpackCost]").prop('required',false);
-            $("input[name=einpackTotalPrice]").prop('required',false);
-            $("input[name=einpackTopPrice]").prop('required',false);
-            $("input[name=einpackDefaultPrice]").prop('required',false);
         }
     })
 

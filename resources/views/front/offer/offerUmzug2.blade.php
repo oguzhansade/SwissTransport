@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <input class="form-control" name="extra1" type="number" value="10">
+                        <input class="form-control" name="extra1" type="number" value="20">
                     </div>
                 </div> 
                 
@@ -282,10 +282,10 @@
         let anhanger = $(this).find(":selected").data("an");
         let control = $(this).find(":selected").data('selection');
         let spesen = $("input[name=extra1]").val();
+        
         if (control != 'bos')
         {
         $('.umzug-tarif-area').show(300)
-
         }
         else
         {

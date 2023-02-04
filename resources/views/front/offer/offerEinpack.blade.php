@@ -116,16 +116,29 @@
         <label class="col-form-label" for="l0">Geschätzte Kosten</label>
         <input class="form-control"  name="einpackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
-        <label class="col-form-label" for="l0">Kostendach</label>
-        <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+        <div class="mt-2 isEinpackKostendach">
+            <label class="col-form-label" for="l0">Kostendach</label>
+            <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+        </div>
 
-        <div class="mt-2">
-            <small class=" text-primary">manuell gesetzt</small>
-            <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-        </div> <br>  
+        <div class="einpack-kostendach-area" style="display: none;">
+            <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
 
-        <label class="col-form-label" for="l0">Pauschal</label>
-        <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <div class="mt-2">
+                <small class=" text-primary">manuell gesetzt</small>
+                <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+        </div>
+
+        <div class="mt-3 isEinpackPauschal">
+            <label class="col-form-label" for="l0">Pauschal</label>
+            <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+        </div>
+
+        <div class="einpack-pauschal-area " style="display:none;">
+            <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+        </div>
+       
     </div>
 </div>
 
@@ -140,6 +153,7 @@
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
+    let spesen = $("input[name=einpackextra1]").val();
 
     if (control != 'bos')
     {
@@ -154,7 +168,32 @@
 
     $('input[name=einpack1chf]').val(chf);
     $('input[name=einpack1ma]').val(ma);
+    spesen = ma * 20;
+    $("input[name=einpackextra1]").val(spesen);
     })
+
+    var isEinpackKostendachButton = $("div.isEinpackKostendach");
+    var isEinpackPauschalbutton = $("div.isEinpackPauschal");
+    isEinpackKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpack-kostendach-area").show(700);
+        }
+        else{
+            $(".einpack-kostendach-area").hide(500);
+        }
+    })
+
+    isEinpackPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpack-pauschal-area").show(700);
+        }
+        else{
+            $(".einpack-pauschal-area").hide(500);
+        }
+    })
+
 </script>
 
 {{-- İlave ücret Aç/kapa --}}

@@ -344,8 +344,8 @@ class indexController extends Controller
                 'extraCostName' => $request->einpackExtraDiscountText,
                 'extraCostPrice' => $request->einpackExtraDiscount,
                 'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->einpackTopPrice ?  $request->einpackTopPrice : 0,
-                'fixedPrice' => $request->einpackDefaultPrice ? $request->einpackDefaultPrice : 0,
+                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
             ];
 
             OfferteEinpack::create($offerEinpack);
@@ -966,8 +966,8 @@ class indexController extends Controller
                 'extraCostName' => $request->umzugExtraDiscountText,
                 'extraCostPrice' => $request->umzugExtraDiscount,
                 'defaultPrice' => $request->umzugTotalPrice,
-                'topCost' => $request->umzugTopPrice ?  $request->umzugTopPrice : 0,
-                'fixedPrice' => $request->umzugDefaultPrice ? $request->umzugDefaultPrice : 0,
+                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
             ];
             OfferteUmzug::create($offerUmzug);
             $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id','DESC')->first();
@@ -996,8 +996,8 @@ class indexController extends Controller
                 'extraCostName' => $request->einpackExtraDiscountText,
                 'extraCostPrice' => $request->einpackExtraDiscount,
                 'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->einpackTopPrice ?  $request->einpackTopPrice : 0,
-                'fixedPrice' => $request->einpackDefaultPrice ? $request->einpackDefaultPrice : 0,
+                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
             ];
 
             OfferteEinpack::create($offerEinpack);
