@@ -342,7 +342,6 @@
         }
     })
 
-
     morebutton3.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
