@@ -258,17 +258,12 @@
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
                 <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div>
+            </div><br>
         </div>  
+        
 
-        <div class="mt-3 isPauschal">
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-        </div>
-
-        <div class="pauschal-area " style="display:none;">
-            <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
-        </div>
+        <label class="col-form-label" for="l0">Pauschal</label>
+        <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
     </div>
 </div>
 
@@ -305,7 +300,6 @@
     })
 
     var isKostendachbutton = $("div.isKostendach");
-    var isPauschalbutton = $("div.isPauschal");
     isKostendachbutton.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
@@ -315,17 +309,7 @@
             $(".kostendach-area").hide(500);
         }
     })
-
-    isPauschalbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".pauschal-area").show(700);
-        }
-        else{
-            $(".pauschal-area").hide(500);
-        }
-    })
-    
+    // if($('input[name=isKostendach]').is(":checked"))
        
 </script>
 {{-- İlave ücret Aç/kapa --}}
@@ -511,9 +495,11 @@
             
             if($('input[name=isKostendach]').is(":checked"))
             {
+                $('.kostendach-area').show(300)
                 $('input[name=umzugTopPrice]').val();
             }
             else{
+                $('.kostendach-area').hide(300)
                 umzugTopPrice = umzugTotalPrice + parseFloat(chf);
                 $('input[name=umzugTopPrice]').val(umzugTopPrice);
             }

@@ -247,9 +247,9 @@
         <label class="col-form-label" for="l0">Geschätzte Kosten</label>
         <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
-        <div class="mt-2 isKostendach">
+        <div class="mt-2">
             <label class="col-form-label" for="l0">Kostendach</label>
-            <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <input type="checkbox" name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
         </div>
 
         <div class="kostendach-area" style="display: none;">
@@ -258,17 +258,12 @@
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
                 <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div>
+            </div><br>
         </div>  
+        
 
-        <div class="mt-3 isPauschal">
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-        </div>
-
-        <div class="pauschal-area " style="display:none;">
-            <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
-        </div>
+        <label class="col-form-label" for="l0">Pauschal</label>
+        <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
     </div>
 </div>
 
@@ -304,29 +299,6 @@
         $("input[name=extra1]").val(spesen);
     })
 
-    var isKostendachbutton = $("div.isKostendach");
-    var isPauschalbutton = $("div.isPauschal");
-    isKostendachbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".kostendach-area").show(700);
-        }
-        else{
-            $(".kostendach-area").hide(500);
-        }
-    })
-
-    isPauschalbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".pauschal-area").show(700);
-        }
-        else{
-            $(".pauschal-area").hide(500);
-        }
-    })
-    
-       
 </script>
 {{-- İlave ücret Aç/kapa --}}
 <script>
@@ -347,7 +319,15 @@
         var umzugTotalPrice = 0;
         var umzugTopPrice = 0;
         var umzugDefaultPrice = 0;
-        
+        if($('input[name=isKostendach]').is(":checked"))
+            {
+                $('.kostendach-area').show(300)
+                
+            }
+            else{
+                $('.kostendach-area').hide(300)
+                
+            }
         $('input[name=umzugCost]').on('click',function () {         
             if ($('input[name=masraf]').is(":checked")){
                var extra1 = parseFloat($('input[name=extra1]').val());               
@@ -511,9 +491,11 @@
             
             if($('input[name=isKostendach]').is(":checked"))
             {
+                $('.kostendach-area').show(300)
                 $('input[name=umzugTopPrice]').val();
             }
             else{
+                $('.kostendach-area').hide(300)
                 umzugTopPrice = umzugTotalPrice + parseFloat(chf);
                 $('input[name=umzugTopPrice]').val(umzugTopPrice);
             }

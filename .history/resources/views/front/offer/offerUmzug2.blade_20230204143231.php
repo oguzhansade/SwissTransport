@@ -252,7 +252,7 @@
             <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
         </div>
 
-        <div class="kostendach-area" style="display: none;">
+        <div class="kostendach-area pl-3" style="display: none;">
             <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
             
             <div class="mt-2">
@@ -261,12 +261,12 @@
             </div>
         </div>  
 
-        <div class="mt-3 isPauschal">
+        <div class="mt-2 isPauschal">
             <label class="col-form-label" for="l0">Pauschal</label>
             <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
         </div>
 
-        <div class="pauschal-area " style="display:none;">
+        <div class="pauschal-area pl-3" style="display:none;">
             <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
         </div>
     </div>

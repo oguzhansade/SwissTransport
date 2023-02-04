@@ -261,7 +261,7 @@
             </div>
         </div>  
 
-        <div class="mt-3 isPauschal">
+        <div class="mt-2 isPauschal">
             <label class="col-form-label" for="l0">Pauschal</label>
             <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
         </div>
