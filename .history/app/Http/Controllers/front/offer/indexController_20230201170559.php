@@ -313,9 +313,9 @@ class indexController extends Controller
                 'compromiser' => $request->umzugCompromiser,
                 'extraCostName' => $request->umzugExtraDiscountText,
                 'extraCostPrice' => $request->umzugExtraDiscount,
-                'defaultPrice' => $request->umzugTotalPrice, 
-                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+                'defaultPrice' => $request->umzugTotalPrice,
+                'topCost' => $request->umzugTopPrice ?  $request->umzugTopPrice : 0,
+                'fixedPrice' => $request->umzugDefaultPrice ? $request->umzugDefaultPrice : 0,
             ];
             OfferteUmzug::create($offerUmzug);
             $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id','DESC')->first();
