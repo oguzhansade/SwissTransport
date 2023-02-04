@@ -122,7 +122,7 @@
         </table>
         
         <br />
-        <div><img src="{{ asset('assets/demo/swiss-logo.png') }}" width="420" /></div>
+        <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="420" /></div>
         <br />
         <div><img src="https://menspower-umzuege-crm.ch/Content/accountdata/7/mail/img/freferences.png" width="840" /></div>
         <br />

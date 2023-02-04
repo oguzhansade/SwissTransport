@@ -731,7 +731,22 @@ class indexController extends Controller
         
         $pdf = Pdf::loadView('offerPdf', $pdfData);
         $pdf->setPaper('A4');
+    //     // Offerte {{ route('customerOfferView', $data['token2']) }}"
+    //    >Ansicht </a>
 
+    
+        $customLinks = "<a href=".route('customerOfferView', $zToken).'
+        style="background-color: #713CE8;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'LİNKKKKK'.'</a>';
   
         $emailData = [
             'appType' => $offer['appType'],
@@ -749,7 +764,8 @@ class indexController extends Controller
             'customEmailContent' => $customEmail,
             'pdf' => $pdf,
             'token' => $oToken,
-            'token2' => $zToken
+            'token2' => $zToken,
+            'customLinks' => $customLinks
         ];
 
         if ($isCustomEmailSend)
