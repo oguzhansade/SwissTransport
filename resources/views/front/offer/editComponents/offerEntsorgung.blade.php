@@ -169,7 +169,7 @@
                             <input class="form-control" name="entsorgungextra1" type="number" 
                             @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'entsorgungExtra1') != NULL) 
                                 value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'entsorgungExtra1') }}"
-                                @else value="{{ 10 }}"
+                                @else value="{{ 20 }}"
                             @endif>
                         </div>
                     </div> 
@@ -253,30 +253,52 @@
                 @else value="{{ 0 }}"
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') != NULL) 
-                value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') }}"
-                @else value="{{ 0 }}"
-            @endif>
+            <div class="mt-2 isEntsorgungKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isEntsorgungKostendach" id="isEntsorgungKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            <div class="einpack-kostendach-area" @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') != NULL) 
+                    value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'topCost') }}"
+                    @else value="{{ 0 }}"
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice') != NULL) 
-                value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice') }}"
-                @else value="{{ 0 }}"
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+
+            <div class="mt-3 isEntsorgungPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isEntsorgungPauschal" id="isEntsorgungPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="entsorgung-pauschal-area " @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
+                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice') != NULL) 
+                    value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice') }}"
+                    @else value="{{ 0 }}"
+                @endif>
+            </div>
         </div>
     </div>
 </div>
 @section('offerEntsorgung')
 
 <script>        
+
+    $(document).ready(function(){
+        let ma = $("select[name=entsorgungTariff]").find(":selected").data("ma");
+        let spesen = $("input[name=entsorgungextra1]").val();
+        spesen = ma * 20;
+        $("input[name=entsorgungextra1]").val(spesen);
+    })
+
     var morebutton7 = $("div.entsorgung-control");
     morebutton7.click(function(){
         if($(this).hasClass("checkbox-checked"))
@@ -297,6 +319,7 @@
     $("select[name=entsorgungVolume]").on("change",function () {
      let chf = $(this).find(":selected").data("chf");
      let control = $(this).find(":selected").data('selection');
+
      if (control != 'bos')
      {
         $('.entsorgung-chfVolume--area').show(300)  
@@ -318,7 +341,8 @@
        let lkw = $(this).find(":selected").data("lkw");
        let anhanger = $(this).find(":selected").data("an");
        let control = $(this).find(":selected").data('selection');
-  
+       let spesen = $("input[name=entsorgungextra1]").val(20);
+
        if (control != 'bos')
        {
           $('.entsorgung-tariffs--area').show(300)
@@ -333,10 +357,12 @@
           $('.entsorgung-tariffs--area').hide(300)
        }
   
-       $('input[name=entsorgungchf]').val(chf);
-       $('input[name=entsorgungma]').val(ma);
-       $('input[name=entsorgunglkw]').val(lkw);
-       $('input[name=entsorgunganhanger]').val(anhanger);
+        $('input[name=entsorgungchf]').val(chf);
+        $('input[name=entsorgungma]').val(ma);
+        $('input[name=entsorgunglkw]').val(lkw);
+        $('input[name=entsorgunganhanger]').val(anhanger);
+        spesen = ma * 20;
+        $("input[name=entsorgungextra1]").val(spesen);
       })
 </script>
 

@@ -478,8 +478,8 @@ class indexController extends Controller
                 'extraDiscountText' => $request->entsorgungExtraDiscountText,
                 'extraDiscountPrice' => $request->entsorgungExtraDiscount,
                 'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->entsorgungTopPrice,
-                'fixedPrice' => $request->entsorgungDefaultPrice,
+                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
             ];
 
             OfferteEntsorgung::create($offerEntsorgung);
@@ -1129,8 +1129,8 @@ class indexController extends Controller
                 'extraDiscountText' => $request->entsorgungExtraDiscountText,
                 'extraDiscountPrice' => $request->entsorgungExtraDiscount,
                 'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->entsorgungTopPrice,
-                'fixedPrice' => $request->entsorgungDefaultPrice,
+                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
             ];
 
             OfferteEntsorgung::create($offerEntsorgung);

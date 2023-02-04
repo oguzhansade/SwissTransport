@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <input class="form-control" name="entsorgungextra1" type="number" value="10">
+                            <input class="form-control" name="entsorgungextra1" type="number" value="20">
                         </div>
                     </div> 
     
@@ -158,16 +158,28 @@
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
             <input class="form-control"  name="entsorgungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <div class="mt-2 isEntsorgungKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isEntsorgungKostendach" id="isEntsorgungKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br>  
+            <div class="entsorgung-kostendach-area" style="display: none;">
+                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div> 
+            </div>
+
+            <div class="mt-3 isEntsorgungPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isEntsorgungPauschal" id="isEntsorgungPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+
+            <div class="entsorgung-pauschal-area " style="display:none;">
+                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            </div>
         </div>
     </div>
 </div>
@@ -216,7 +228,8 @@
        let lkw = $(this).find(":selected").data("lkw");
        let anhanger = $(this).find(":selected").data("an");
        let control = $(this).find(":selected").data('selection');
-  
+       let spesen = $("input[name=entsorgungextra1]").val(20);
+
        if (control != 'bos')
        {
           $('.entsorgung-tariffs--area').show(300)
@@ -231,11 +244,35 @@
           $('.entsorgung-tariffs--area').hide(300)
        }
   
-       $('input[name=entsorgungchf]').val(chf);
-       $('input[name=entsorgungma]').val(ma);
-       $('input[name=entsorgunglkw]').val(lkw);
-       $('input[name=entsorgunganhanger]').val(anhanger);
+        $('input[name=entsorgungchf]').val(chf);
+        $('input[name=entsorgungma]').val(ma);
+        $('input[name=entsorgunglkw]').val(lkw);
+        $('input[name=entsorgunganhanger]').val(anhanger);
+        spesen = ma * 20;
+        $("input[name=entsorgungextra1]").val(spesen);
       })
+
+    var isEntsorgungKostendachButton = $("div.isEntsorgungKostendach");
+    var isEntsorgungPauschalbutton = $("div.isEntsorgungPauschal");
+    isEntsorgungKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".entsorgung-kostendach-area").show(700);
+        }
+        else{
+            $(".entsorgung-kostendach-area").hide(500);
+        }
+    })
+
+    isEntsorgungPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".entsorgung-pauschal-area").show(700);
+        }
+        else{
+            $(".entsorgung-pauschal-area").hide(500);
+        }
+    })
 </script>
 
 
