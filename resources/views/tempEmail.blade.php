@@ -1,0 +1,1 @@
+<h1>{{ $data['name']  }} {{ $data['surname']  }} Customer Appointment added to your google calendar</h1>

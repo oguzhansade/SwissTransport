@@ -1,0 +1,658 @@
+<?php
+
+namespace App\Http\Controllers\front\appointment;
+
+use App\Http\Controllers\Controller;
+use App\Mail\InformationMail;
+use App\Mail\CompanyMail;
+use App\Models\AppoinmentService;
+use App\Models\Appointment;
+use App\Models\AppointmentMaterial;
+use App\Models\AuspackService;
+use App\Models\Company;
+use App\Models\Customer;
+use App\Models\EinpackService;
+use App\Models\EntsorgungService;
+use App\Models\LagerungService;
+use App\Models\offerte;
+use App\Models\ReinigungService;
+use App\Models\TransportService;
+use App\Models\UmzugService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
+
+class indexController extends Controller
+{
+    public function index()
+    {
+        
+
+        return view('front.appointment.index');
+        
+        
+    }
+    public function create($id)
+    { 
+        $data = Customer::where('id',$id)->first();
+        $data2 = Customer::where('id',$id)->first();
+        return view('front.appointment.create',['data'=>$data,'data2' => $data2]);
+    }
+
+    public function createFromOffer($id,$customer)
+    {
+        $offer = offerte::where('id',$id)->first();
+        $data = Customer::where('id',$customer)->first();
+        $data2 = Customer::where('id',$customer)->first();
+        return view('front.appointment.createFromOffer',['offer'=>$offer,'data'=>$data]);
+    }
+
+    public function store(Request $request)
+    {        
+        
+        $customerId = $request->route('id');
+        $cekboks = $request->get('appType');
+        $deliveryAble = $request->get('deliverable');
+        $isEmailSend = $request->get('isEmail');
+        $isCustomEmailSend = $request->get('isCustomEmail');
+        $customEmail = $request->get('customEmail');
+        
+
+        // Tanımlamalar
+        $sub = '';
+        $from = Company::InfoCompany('email'); // gösterilen mail.
+        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
+        $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname'); // Customer Surname
+        $appointmentDate = collect([]);
+        $appDateArray = [];
+        $ADC = 0;
+
+        // Servis Tanımlamaları
+        $umzugId = NULL; // Umzug 1 Id
+        $umzug2Id = NULL; // Umzug 2 Id
+        $umzug3Id = NULL; // Umzug 3 Id
+        $einpackId = NULL; // Einpack Id
+        $auspackId = NULL; // Auspack Id
+        $reinigungId = NULL; // Reinigung Id
+        $reinigung2Id = NULL; // Reinigung 2 Id
+        $entsorgungId = NULL; // Entsorgung Id
+        $transportId = NULL; // Transport Id
+        $lagerungId = NULL; // Lagerung Id
+
+        if($cekboks == 2)
+        {
+        // Servis ekleme Alanı
+            // Umzug Ekleme Alanı     
+                $isUmzug = $request->get('isUmzug');
+                $isUmzug2 = $request->get('isUmzug2');
+                $isUmzug3 = $request->get('umzug3date');
+
+                if($isUmzug)
+                {            
+                    $umzug1 = [
+                        'umzugDate' => $request->umzug1date,
+                        'umzugTime' => $request->umzug1time,
+                        'workHours' => $request->umzug1hours,
+                        'ma' => $request->umzug1ma,
+                        'lkw' => $request->umzug1lkw,
+                        'anhanger' => $request->umzug1anhanger,               
+                    ];
+                    
+                    $umzug1Olustur = UmzugService::create($umzug1);
+                    
+                    $umzugIdBul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
+                    $umzugId = $umzugIdBul->id;
+                    $appDateArray[$ADC]['date'] = $umzugIdBul->umzugDate;
+                    $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['serviceName'] = 'Umzug';
+                    $ADC++;
+                    
+                    
+                }
+                
+                if($isUmzug2)
+                {
+                    $umzug2 = [
+                        'umzugDate' => $request->umzug2date,
+                        'umzugTime' => $request->umzug2time,
+                        'workHours' => $request->umzug2hours,
+                        'ma' => $request->umzug2ma,
+                        'lkw' => $request->umzug2lkw,
+                        'anhanger' => $request->umzug2anhanger,
+                        
+                    ];
+
+                    $umzug2Olustur = UmzugService::create($umzug2);                   
+
+                    $umzugId2Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
+                    $umzug2Id = $umzugId2Bul->id;
+                    $appDateArray[$ADC]['date'] = $umzugId2Bul->umzugDate;
+                    $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['serviceName'] = 'Umzug 2';
+                    $ADC++;
+                }
+
+                
+                if($isUmzug3)
+                {
+                    $umzug3 = [
+                        'umzugDate' => $request->umzug3date,
+                        'umzugTime' => $request->umzug3time,
+                        'workHours' => $request->umzug3hours,
+                        'ma' => $request->umzug3ma,
+                        'lkw' => $request->umzug3lkw,
+                        'anhanger' => $request->umzug3anhanger,
+                        
+                    ];
+
+                    $umzug3Olustur = UmzugService::create($umzug3);
+                    
+                    $umzugId3Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
+                    $umzug3Id = $umzugId3Bul->id;
+                    $appDateArray[$ADC]['date'] = $umzugId3Bul->umzugDate;
+                    $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['serviceName'] = 'Umzug 3';
+                    $ADC++;
+                }           
+            // Umzug Ekleme Alanı Bitiş
+        
+            // Einpackservice Ekleme Alanı
+                $isEinpack = $request->get('isEinpackservice');
+                if($isEinpack)
+                {
+                    $einpack = [
+                        'einpackDate' => $request->einpackdate,
+                        'einpackTime' => $request->einpacktime,
+                        'workHours' => $request->einpackhours,
+                        'ma' => $request->einpackma,
+                        'lkw' => $request->einpacklkw,
+                        'anhanger' => $request->einpackanhanger,               
+                    ];
+
+                    $einpackOlustur = EinpackService::create($einpack);
+                    $einpackIdBul = DB::table('einpack_services')->orderBy('id','DESC')->first(); // Son Eklenen Einpack un id'si
+                    $einpackId = $einpackIdBul->id;
+                    $appDateArray[$ADC]['date'] = $einpackIdBul->einpackDate;
+                    $appDateArray[$ADC]['time'] = $einpackIdBul->einpackTime;
+                    $appDateArray[$ADC]['serviceName'] = 'Einpack';
+                    $ADC++;
+                }
+            // Einpackservice Ekleme Alanı Bitiş
+
+            // Auspackservice Ekleme Alanı
+                $isAuspack = $request->get('isAuspackservice');
+                if($isAuspack)
+                {
+                    $auspack = [
+                        'auspackDate' => $request->auspackdate,
+                        'auspackTime' => $request->auspacktime,
+                        'workHours' => $request->auspackhours,
+                        'ma' => $request->auspackma,
+                        'lkw' => $request->auspacklkw,
+                        'anhanger' => $request->auspackanhanger,               
+                    ];
+        
+                    $auspackOlustur = AuspackService::create($auspack);
+
+                    $auspackIdBul = DB::table('auspack_services')->orderBy('id','DESC')->first(); // Son Eklenen Auspackservice un id'si
+                    $auspackId = $auspackIdBul->id;
+                    $appDateArray[$ADC]['date'] = $auspackIdBul->auspackDate;
+                    $appDateArray[$ADC]['time'] = $auspackIdBul->auspackTime;
+                    $appDateArray[$ADC]['serviceName'] = 'Auspack';
+                    $ADC++;
+                }
+            // Auspackservice Ekleme Alanı Bitiş
+
+            // Reinigung Ekleme Alanı
+                $isReinigung = $request->get('isReinigung');
+                if($isReinigung)
+                {
+                    $reinigung = [
+                        'reinigungStartDate' => $request->reinigung1Startdate,
+                        'reinigungStartTime' => $request->reinigung1Starttime,
+                        'reinigungEndDate' => $request->reinigung1Enddate,
+                        'reinigungEndTime' => $request->reinigung1Endtime,               
+                    ];
+        
+                    $reinigungOlustur = ReinigungService::create($reinigung);
+
+                    $reinigungIdBul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
+                    $reinigungId = $reinigungIdBul->id;
+                    $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
+                    $appDateArray[$ADC]['serviceName'] = 'Reinigung';
+                    $ADC++;
+                }
+            // Reinigung Ekleme Alanı Bitiş
+
+            // Reinigung 2 Ekleme Alanı
+                $isReinigung2 = $request->get('isReinigung2');
+                if($isReinigung2)
+                {
+                    $reinigung2 = [
+                        'reinigungStartDate' => $request->reinigung2Startdate,
+                        'reinigungStartTime' => $request->reinigung2Starttime,
+                        'reinigungEndDate' => $request->reinigung2Enddate,
+                        'reinigungEndTime' => $request->reinigung2Endtime,               
+                    ];
+
+                    $reinigung2Olustur = ReinigungService::create($reinigung2);
+                    $reinigungId2Bul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
+                    $reinigung2Id = $reinigungId2Bul->id;
+                    $appDateArray[$ADC]['date'] = $reinigungId2Bul->reinigungStartDate;
+                    $appDateArray[$ADC]['serviceName'] = 'Reinigung 2';
+                    $ADC++;
+                }
+            // Reinigung 2 Ekleme Alanı Bitiş
+
+            // Entsorgung Ekleme Alanı
+                $isEntsorgung = $request->get('isEntsorgung');
+                if($isEntsorgung)
+                {
+                    $entsorgung = [
+                        'entsorgungDate' => $request->entsorgungdate,
+                        'entsorgungTime' => $request->entsorgungtime,
+                        'workHours' => $request->entsorgunghours,
+                        'ma' => $request->entsorgungma,   
+                        'lkw' => $request->entsorgunglkw,     
+                        'anhanger' => $request->entsorgunganhanger,                 
+                    ];
+
+                    $entsorgungOlustur = EntsorgungService::create($entsorgung);
+                    $entsorgungIdBul = DB::table('entsorgung_services')->orderBy('id','DESC')->first(); // Son Eklenen Entsorgung un id'si
+                    $entsorgungId = $entsorgungIdBul->id;
+                    $appDateArray[$ADC]['date'] = $entsorgungIdBul->entsorgungDate;
+                    $appDateArray[$ADC]['serviceName'] = 'Entsorgung';
+                    $ADC++;
+                }
+            // Entsorgung Ekleme Alanı Bitiş
+
+            // Transport Ekleme Alanı
+                $isTransport = $request->get('isTransport');
+                if($isTransport)
+                {
+                    $transport = [
+                        'transportDate' => $request->transportdate,
+                        'transportTime' => $request->transporttime,
+                        'destination' => $request->destination,
+                        'arrival' => $request->arrival,
+                        'workHours' => $request->transporthours,
+                        'ma' => $request->transportma,   
+                        'lkw' => $request->transportlkw,     
+                        'anhanger' => $request->transportanhanger,                 
+                    ];
+
+                    $transportOlustur = TransportService::create($transport);
+                    $transportIdBul = DB::table('transport_services')->orderBy('id','DESC')->first(); // Son Eklenen Transport un id'si
+                    $transportId = $transportIdBul->id;
+                    $appDateArray[$ADC]['date'] = $transportIdBul->transportDate;
+                    $appDateArray[$ADC]['serviceName'] = 'Transport';
+                    $ADC++;
+                }
+            // Transport Ekleme Alanı Bitiş
+
+            // Lagerung Ekleme Alanı
+                $isLagerung = $request->get('isLagerung');
+                if($isLagerung)
+                {
+                    $lagerung = [
+                        'lagerungDate' => $request->lagerungdate,
+                        'lagerungTime' => $request->lagerungtime,                
+                    ];
+
+                    $lagerungOlustur = LagerungService::create($lagerung);
+                    $lagerungIdBul = DB::table('lagerung_services')->orderBy('id','DESC')->first(); // Son Eklenen Lagerung un id'si
+                    $lagerungId = $lagerungIdBul->id;
+                    $appDateArray[$ADC]['date'] = $lagerungIdBul->lagerungDate;
+                    $appDateArray[$ADC]['serviceName'] = 'Lagerung';
+                    $ADC++;
+                }
+            // Lagerung Ekleme Alanı Bitiş
+    
+            
+        // Servis ekleme Alanı Bitiş
+        }
+
+        // Keşif Randevusu
+        $appointment = [
+            'contactType' => $request->contactType,
+            'address' => $request->address,
+            'date'=> $request->date,
+            'time'=> $request->time,
+            'calendarTitle'=>$request->calendarTitle,
+            'calendarContent'=>$request->calendarContent,
+            'customerId' => $customerId
+        ];
+
+        
+
+        // Onay Randevusu
+        $appointmentService = [
+            'paymentType' => $request->paymentType,
+            'address' => $request->address,
+            'calendarTitle' => $request->calendarTitle,
+            'calendarContent' => $request->calendarContent,
+            'customerId' => $customerId,
+            'umzugId' => $umzugId,
+            'umzug2Id'=> $umzug2Id,
+            'umzug3Id' => $umzug3Id,
+            'einpackId' => $einpackId,
+            'auspackId' => $auspackId,
+            'reinigungId' => $reinigungId,
+            'reinigung2Id' => $reinigung2Id,
+            'entsorgungId' => $entsorgungId,
+            'transportId' => $transportId,
+            'lagerungId' => $lagerungId
+
+        ];
+
+        // Teslimat Randevusu
+        $appointmentMaterial = [
+            'deliverable' => $request->deliverable,
+            'deliveryType' => $request->deliveryType,
+            'meetingDate'=> $request->meetingDate,
+            'meetingHour1'=> $request->meetingHour1,
+            'meetingHour2'=>$request->meetingHour2,
+            'address' => $request->address,
+            'calendarTitle' => $request->calendarTitle,
+            'calendarContent' => $request->calendarContent,
+            'customerId' => $customerId
+        ];
+
+        if ($deliveryAble == 1)
+        {
+            $appointmentMaterial['deliveryType'] = NULL;
+        }
+        
+        $all = NULL;
+        switch($cekboks){
+            case(1);
+                $sub = 'Ihr Besichtigungstermin wurde erstellt.';
+                $appDateArray = [];
+                $appDateArray[$ADC]['date'] = $appointment['date'];
+                $appDateArray[$ADC]['time'] = $appointment['time'];
+                $appDateArray[$ADC]['serviceName'] = 'Besichtigung';
+                $ADC++;
+                $appointmentDate =  $appDateArray;
+                           
+                $all = Appointment::create($appointment);
+                $randevuTipi = 'Besichtigung';
+            break;
+            case(2);
+                $sub = 'Ihr Auftragsbestätigungstermin wurde erstellt.';
+                $randevuTipi = 'Auftragsbestätigung';
+                $appointmentDate = $appDateArray;
+                $all = AppoinmentService::create($appointmentService);
+
+            break;
+            case(3);
+                $sub = 'Ihr Lieferungstermin wurde erstellt.';
+                $appDateArray = [];
+                $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
+                $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
+                $appDateArray[$ADC]['serviceName'] = 'Lieferung';
+                $ADC++;
+                $all = AppointmentMaterial::create($appointmentMaterial);
+                $randevuTipi = 'Lieferung';
+            break;
+            
+
+        }
+          
+        $customerData = Customer::where('id',$customerId)->first();
+        $emailData = [
+            'name' => $customer,
+            'gender' => $customerData['gender'],
+            'surname' => $customerSurname,
+            'address' => $request->address,
+            'sub' => $sub,
+            'from' => $from,
+            'companyName' => $companyName,
+            'email' => $request->email,
+            'appDate' =>$appDateArray,
+            'emailContent'=> $request->emailContent,
+            'isCustomEmailSend' => $isCustomEmailSend,
+            'customEmailContent' => $customEmail
+        ];
+
+        if ($isCustomEmailSend)
+        {
+            Arr::set($emailData, 'customEmailContent', $customEmail);
+        }
+        
+
+
+        if($all)
+        {   
+            $mailSuccess = '';
+            if($isEmailSend)
+            {
+                Mail::to($emailData['email'])->send(new InformationMail($emailData));
+                Mail::to($from)->send(new CompanyMail($emailData));
+                $mailSuccess = ', Mail Başarıyla Gönderildi';
+            }                  
+            return redirect()->back()->with('status',$randevuTipi.' '.'Randevusu Başarıyla Eklendi'.' '.$mailSuccess );
+        }
+        else {
+            return redirect()->back()->with('status-err','Hata:Randevu Eklenemedi, Mail Gönderilemedi');
+        }
+    }
+
+    public function data(Request $request)
+    {
+        $appType = $request->get('appType');
+
+        $array = [];
+        $i = 0;
+
+        $customerId = $request->route('id');
+        
+        $table=DB::table('appointments')->where('customerId','=', $customerId)->get()->toArray();   
+        if($table)
+        {
+            foreach($table as $k=>$v)
+            {
+                $array[$i]["aid"] = $i+1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 1 ? 'Besichtigung' : '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["tarih"] = date('d-m-Y', strtotime($v->date)).' '.$v->time;
+                
+                $i++;
+
+            }
+        }
+
+        $table2=DB::table('appointment_materials')->where('customerId','=', $customerId)->get()->toArray();   
+        if($table2)
+        {
+            foreach($table2 as $k=>$v)
+            {
+                $array[$i]["aid"] = $i+1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 3 ? 'Lieferung': '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["tarih"] = date('d-m-Y', strtotime($v->meetingDate)).' '.$v->meetingHour1;
+                $i++;
+
+            }
+        }
+
+        
+
+        $table3=DB::table('appoinment_services')->where('customerId','=', $customerId)->get()->toArray();   
+        if($table3)
+        {
+            $j = 0;
+            $tableService=AppoinmentService::where('customerId',$customerId)->get()->toArray();
+            foreach($table3 as $k=>$v)
+            {
+               
+                $array[$i]["aid"] = $i+1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 3 ? 'Auftragsbestätigung': '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["tarih"] = date('d-m-Y', strtotime(UmzugService::where('id',$tableService[$j]['umzugId'])->first()['umzugDate'])).' '.UmzugService::where('id',$tableService[$j]['umzugId'])->first()['umzugTime'];                
+                $i++;   
+                $j++;             
+
+            }
+        }
+       
+
+        $data=DataTables::of($array)
+        ->addColumn('option',function($array) 
+        {
+            switch($array['appType'])
+            {
+                case('Besichtigung');
+                    return '
+                    <a class="btn btn-sm  btn-primary" href="'.route('appointment.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-edit" href="'.route('appointment.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-danger"  href="'.route('appointment.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
+                break;
+                case('Auftragsbestätigung');
+                    return '
+                    <a class="btn btn-sm  btn-primary" href="'.route('appointmentService.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-edit" href="'.route('appointmentService.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-danger"  href="'.route('appointmentService.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
+                break;
+                case('Lieferung');
+                    return '
+                    <a class="btn btn-sm  btn-primary" href="'.route('appointmentMaterial.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-edit" href="'.route('appointmentMaterial.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-danger"  href="'.route('appointmentMaterial.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
+                break;
+            }
+
+        })
+        
+        ->rawColumns(['option'])
+        ->make(true);
+
+
+        return $data;
+    }
+
+    public function edit(Request $request)
+    {
+        $id = $request->route('id');
+        $c = Appointment::where('id',$id)->count();
+
+        if($c !=0)
+        {
+            $data = Appointment::where('id',$id)->first();
+            $data2 = Customer::where('id',$data['customerId'])->first();
+            return view ('front.appointment.edit', ['data' => $data,'data2' => $data2]);
+        }
+    }
+
+    public function detail(Request $request)
+    {
+        $id = $request->route('id');
+        $c = Appointment::where('id',$id)->count();
+
+        if($c !=0)
+        {
+            $data = Appointment::where('id',$id)->first();
+            $data2 = Customer::where('id',$data['customerId'])->first();
+            return view ('front.appointment.detail', ['data' => $data,'data2' => $data2]);
+        }
+    }
+
+
+    public function update(Request $request)
+    {
+
+
+        $id = $request->route('id');
+        $c = Appointment::where('id',$id)->count();
+        $d = Appointment::where('id',$id)->first();  
+        $customer = Customer::where('id',$d['customerId'])->first();
+        
+             
+        $customerId = Customer::where('id','=',$d['customerId'])->first('id');
+        $isEmailSend = $request->get('isEmail');
+        $isCustomEmailSend = $request->get('isCustomEmail');
+        $customEmail = $request->get('customEmail');
+
+        $ADC = 0;
+
+        $appDateArray = [];
+        $appDateArray[$ADC]['date'] = $request->date;
+        $appDateArray[$ADC]['time'] = $request->time;
+        $appDateArray[$ADC]['serviceName'] = 'Keşif';
+        $ADC++;
+       
+
+        $sub = 'Ihr Besichtigungstermin wurde aktualisiert';
+        $from = Company::InfoCompany('email'); // gösterilen mail.
+        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        
+        $emailData = [
+            'name' => $customer['name'],
+            'gender' => $customer['gender'],
+            'surname' => $customer['surname'],
+            'address' => $request->address,
+            'sub' => $sub,
+            'from' => $from,
+            'companyName' => $companyName,
+            'email' => $request->email,
+            'appDate' =>$appDateArray,
+            'emailContent'=> $request->emailContent,
+            'isCustomEmailSend' => $isCustomEmailSend,
+            'customEmailContent' => $customEmail
+        ];
+
+        if ($isCustomEmailSend)
+        {
+            Arr::set($emailData, 'customEmailContent', $customEmail);
+        }
+
+
+        if($c !=0)
+        {
+ 
+            
+            $all = $request->except('_token','email','customEmail','isEmail','emailContent','isCustomEmail');
+            
+
+            $update = Appointment::where('id',$id)->update($all);
+            if($update) 
+            {
+                $mailSuccess = '';
+                if($isEmailSend)
+                {
+                    
+                    Mail::to($emailData['email'])->send(new InformationMail($emailData));
+                    Mail::to($from)->send(new CompanyMail($emailData));
+                    $mailSuccess = 'Mail Başarıyla Gönderildi';
+                }          
+                return redirect()->back()->with('status','Keşif Randevusu Başarıyla Düzenlendi'.' '.$mailSuccess );
+            }
+            else {
+                return redirect()->back()->with('status-danger','HATA:Keşif Randevusu Düzenlenemedi');
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+
+        $c = Appointment::where('id',$id)->count();
+        
+        if($c !=0)
+        {
+            $data = Appointment::where('id',$id)->get();
+            Appointment::where('id',$id)->delete();
+            return redirect()->back()->with('status','Keşif Randevusu Başarıyla Silindi');
+        }
+        else {
+            return redirect('/');
+        }
+    }
+    
+}
