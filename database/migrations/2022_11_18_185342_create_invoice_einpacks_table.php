@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoice_einpacks', function (Blueprint $table) {
             $table->id();
-            $table->date('einpackDate');
-            $table->integer('einpackHour');
-            $table->integer('einpackChf');
+            $table->date('einpackDate')->nullable();
+            $table->integer('einpackHour')->nullable();
+            $table->integer('einpackChf')->nullable();
             $table->integer('einpackHour2')->nullable();
             $table->integer('einpackChf2')->nullable();
             $table->integer('einpackRoadChf')->nullable();
@@ -33,12 +33,12 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('einpackCost');
+            $table->float('einpackCost')->nullable();
             $table->float('einpackFixedCost')->nullable();
             $table->float('einpackPaid1')->nullable();
             $table->float('einpackPaid2')->nullable();
             $table->float('einpackPaid3')->nullable();
-            $table->float('einpackTotalPrice');
+            $table->float('einpackTotalPrice')->nullable();
             $table->timestamps();
         });
     }
