@@ -67,7 +67,12 @@
     <div class="mt-1">
         <div class="container bg-white m-auto b-shadow   rounded-custom p-5">
             <h1 class="text-primary text-center "><i class="feather feather-alert-circle" ></i></h1><br>
+            @if($offer['offerteStatus'] == 'Onaylandı') 
             <h3 class="text-primary text-center " style="margin-top:-15px;">Dieses Angebot wurde bereits genehmigt </h3>
+            @endif
+            @if($offer['offerteStatus'] == 'Onaylanmadı') 
+            <h3 class="text-primary text-center " style="margin-top:-15px;">Dieses Angebot wurde bereits abgelehnt </h3>
+            @endif
         </div>
     </div>
 

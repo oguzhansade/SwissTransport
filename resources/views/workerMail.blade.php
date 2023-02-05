@@ -38,38 +38,32 @@
         Wenn Sie sich mit den oben genannten Informationen nicht anmelden können, kontaktieren Sie uns bitte..<br>
     </div>
     <div class="footer">
-        <table >
-            <tbody>
-            <tr>
-                <td valign="top" style="padding:10px;">
-                    <div><strong>Büro</strong></div>
-                    <div>{{ \App\Models\Company::InfoCompany('street') }}</div>
-                    <div>{{ \App\Models\Company::InfoCompany('post_code') }} {{ \App\Models\Company::InfoCompany('city') }}</div>
-                    <br />
-                    <div><strong>Lager</strong></div>
-                    <div>Adlikerstrasse 280</div>
-                    <div>8105 Regensdorf ZH</div>
+        <div>Freundliche Grüsse</div>
+        <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>
+        <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="200" /></div><br>
+        <div><strong>{{ \App\Models\Company::InfoCompany('name') }}</strong></div>
+        <div>{{ \App\Models\Company::InfoCompany('street') }}</div>
+        <div>CH-{{ \App\Models\Company::InfoCompany('post_code') }} {{ \App\Models\Company::InfoCompany('city') }}</div> <br>
+        <table valign="top" align="left" style="padding:0px!important;">
+            <tbody valign="top" align="left" style="padding:0px!important;">
+            <tr valign="top" align="left" style="padding:0px!important;">
+                <td valign="top" align="left" style="padding:0px!important;">
+                    Telefon: <br>
+                    E-Mail: <br>
+                    Internet:
                 </td>
-                <td valign="top" style="padding:10px;">
-                    <div><strong>{{ \App\Models\Company::InfoCompany('contact_person') }}</strong></div>
-                    <div>Ihr persönlicher Umzugsberater</div>
-                    <br />
-                    <div>Tel : {{ \App\Models\Company::InfoCompany('phone') }}</div>
-                    <div>Mobile : {{ \App\Models\Company::InfoCompany('mobile') }}</div>
-                    <br />
-                    <div>{{ \App\Models\Company::InfoCompany('email') }}</div>
-                    <div><a href="{{ \App\Models\Company::InfoCompany('website') }}" target="_blank">swisstransport.ch</a></div>
+                <td valign="top" align="left" style="padding:0px!important;">
+                    {{ \App\Models\Company::InfoCompany('phone') }} <br>
+                    {{ \App\Models\Company::InfoCompany('email') }} <br>
+                    <a href="{{ \App\Models\Company::InfoCompany('website') }}" target="_blank">{{ \App\Models\Company::InfoCompany('name') }}</a>
                 </td>
             </tr>
             </tbody>
-        </table>
-        
+        </table> <br> <br>
+        <div><br> <br><img src="https://www.swisstransport-crm.ch/public/assets/demo/topservice_300.png" width="200" /></div>
+        <div><strong><i>- Gegenseitiges Vertrauen ist beidseitig gewinnbringend -</i></strong></div>
         <br />
-        <div><img src="{{ asset('assets/demo/swiss-logo.png') }}" width="420" /></div>
-        <br />
-        <div><img src="https://menspower-umzuege-crm.ch/Content/accountdata/7/mail/img/freferences.png" width="840" /></div>
-        <br />
-        <div><span style="font-size: 11.0px;">Der Inhalt dieser E-Mail ist vertraulich und nur für den bezeichneten Adressaten bestimmt. Wenn Sie nicht der Adressat oder Vertreter dieser E-Mail sind, beachten Sie bitte, dass jede Entgegennahme, Veröffentlichung, Vervielfältigung oder Übermittlung des Inhalts dieser E-Mail untersagt ist. Wenden Sie sich in diesem Fall bitte an den Absender.</span></div>
+        <div><span style="font-size: 11.0px;">Diese E-Mail ist ausschliesslich für den angeführten Empfänger bestimmt. Sie enthält vertrauliche Informationen. Falls Sie diese E-Mail versehentlich erhalten haben, informieren Sie bitte unverzüglich den Absender.</span></div>
         </div>
     </div>
 </body>

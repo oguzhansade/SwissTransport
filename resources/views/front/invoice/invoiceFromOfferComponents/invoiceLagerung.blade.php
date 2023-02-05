@@ -113,7 +113,7 @@
 
             <label class="col-form-label" for="l0">Betrag</label>
             <input class="form-control total-piece"  name="lagerungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @else value="{{ $lagerung['totalPrice'] }}" @endif>
+            @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @elseif($lagerung && $lagerung['totalPrice']) value="{{ $lagerung['totalPrice'] }}" @endif>
         </div>
     </div>
 </div>

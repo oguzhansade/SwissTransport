@@ -919,11 +919,8 @@ $(document).ready(function(){
         {
             console.log(value)
             let dateArray = [];
-
-            
                 let umzug1ke = $("input[name=umzug1date]").on("input", function(){   
                 var tarih1 = $('input[name=umzug1date]').val();                      
-                
                 // dateArray[dateArray.length] = 'Umzug 1' + ' ' + 'Tarihi:' +' '+ tarih1 + '<br>'
                 dateArray[dateArray.length] = '<tr>' + '<td>Umzug</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>' + '<br>'
                 // console.log(dateArray,'Tarihler');

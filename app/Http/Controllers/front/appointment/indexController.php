@@ -47,7 +47,7 @@ class indexController extends Controller
         $offer = offerte::where('id',$id)->first();
         $data = Customer::where('id',$customer)->first();
         $data2 = Customer::where('id',$customer)->first();
-        return view('front.appointment.createFromOffer',['offer'=>$offer,'data'=>$data]);
+        return view('front.appointment.createFromOffer',['offer'=>$offer,'data'=>$data,'data2' => $data2]);
     }
 
     public function store(Request $request)

@@ -216,7 +216,7 @@
                             </div>
                             
 
-                            <div class="row form-group email--area" style="display: none;">
+                            <div class="row form-group email--area" style="display: block;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
                                     <input class="form-control" name="email"  type="text" value="{{   $data['email']  }}">                                
@@ -231,7 +231,7 @@
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                            @include('../../offerEmail',['data2' => $data])
+                                            @include('../../offerMailHeader',['data2' => $data])
                                     </textarea>
                                 </div>
                             </div>
@@ -400,7 +400,14 @@
       plugins: 'code',
     });
 </script>
-
+{{-- <script>
+    if($('input[name=appOfferType]').on('click'))
+    {
+        tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['date' => '${data2}'])`);
+        tinymce.execCommand("mceRepaint");   
+    }
+     
+</script> --}}
 @yield('offerFooter')
 @yield('offerFooter1')
 @yield('offerFooter2')

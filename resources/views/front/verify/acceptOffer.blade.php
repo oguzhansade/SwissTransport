@@ -86,7 +86,7 @@
                 <div class="col-md-12 widget-holder">
                     <div class="widget-bg">
                         <div class="widget-body clearfix p-0">
-                            <form action="{{ route('acceptOffer',['token' => $token]) }}" method="POST">
+                            <form action="" method="POST">
                                 @csrf
                                 <div class="row form-group mt-0">
                                     <div class="col-md-12">
@@ -97,7 +97,8 @@
                                 <div class="form-actions d-flex justify-content-center">
                                     <div class="form-group row d-flex justify-content-center">
                                         <div class="col-md-12 ml-md-auto btn-list">
-                                            <button class="btn btn-primary btn-rounded" type="submit">Angebot bestätigen</button>
+                                            <input class="btn btn-primary btn-rounded" type="submit" value="Bestätigen" formaction="{{ URL::to('/verifyoffer',['token' =>$token]) }}">
+                                            <input class="btn btn-danger btn-rounded" type="submit" value="Absagen" formaction="{{ URL::to('/rejectoffer',['token' =>$token]) }}">
                                         </div>
                                     </div>
                                 </div>

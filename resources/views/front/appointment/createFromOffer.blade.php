@@ -85,7 +85,7 @@
                         </div>
 
                         {{-- Onay Alanı Başlangıç --}}
-                        <div class="confirmation--area" style="display: none;">
+                        <div class="confirmation--area" style="display: block;">
                             <div class="form-group row">
                                 <div class="col-md-12 umzug-control">
                                     <label for="" class="col-form-label">Payment Type</label><br>
@@ -629,7 +629,7 @@
                             </div>
                         </div>
                         
-                        <div class="form-group row contactType--area">
+                        <div class="form-group row contactType--area" style="display:none;">
                             <div class="col-md-12">
                                 <label for="" class="col-form-label">Besichtigungsort</label>
                                 <div class="radiobox">
@@ -661,7 +661,7 @@
                             </div>                           
                         </div>
 
-                        <div class="form-group row dateHour--area">
+                        <div class="form-group row dateHour--area" style="display:none;">
                             <div class="col-md-6">
                                 <label class=" col-form-label" for="l0">Datum</label>
                                 <input class="form-control" class="date" id="datepicker"  name="date"  type="date" >                                
@@ -742,165 +742,157 @@
 {{-- Onay Alanı Ayarları --}}
 <script>
 
-console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
+        var umzugbutton = $("div.umzug-control");
+        var umzugbutton2 = $("div.umzug-control2");
+        var einpackservicebutton = $("div.einpackservice-control");
+        var auspackservicebutton = $("div.auspackservice-control");
+        var reinigungbutton = $("div.reinigung-control");
+        var reinigungbutton2 = $("div.reinigung2-control");
+        var entsorgungbutton2 = $("div.entsorgung-control");
+        var transportbutton = $("div.transport-control");
+        var lagerungbutton = $("div.lagerung-control");
 
+    umzugbutton.click(function(){
+        if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
+        {
+            $(".umzug--area").show(300);
+            $("input[name=umzug1date]").prop('required',true);      
+            $("input[name=umzug1time]").prop('required',true);   
+        }
+        else
+        {           
+            $(".umzug--area").hide(300);
+            $("input[name=umzug1date]").prop('required',false);      
+            $("input[name=umzug1time]").prop('required',false);   
+        }
+    })
 
+    umzugbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".umzug--area2").show(300);
+            $("input[name=umzug2date]").prop('required',true);      
+            $("input[name=umzug2time]").prop('required',true);   
+        }
+        else
+        {
+            $(".umzug--area2").hide(300);
+            $("input[name=umzug2date]").prop('required',false);      
+            $("input[name=umzug2time]").prop('required',false);   
+        }
+    })
 
-    var umzugbutton = $("div.umzug-control");
-    var umzugbutton2 = $("div.umzug-control2");
-    var einpackservicebutton = $("div.einpackservice-control");
-    var auspackservicebutton = $("div.auspackservice-control");
-    var reinigungbutton = $("div.reinigung-control");
-    var reinigungbutton2 = $("div.reinigung2-control");
-    var entsorgungbutton2 = $("div.entsorgung-control");
-    var transportbutton = $("div.transport-control");
-    var lagerungbutton = $("div.lagerung-control");
+    einpackservicebutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpackservice--area").show(300);
+            $("input[name=einpackdate]").prop('required',true);      
+            $("input[name=einpacktime]").prop('required',true); 
+        }
+        else
+        {
+            $(".einpackservice--area").hide(300);
+            $("input[name=einpackdate]").prop('required',false);      
+            $("input[name=einpacktime]").prop('required',false); 
+        }
+    })
 
-    // Validator
-    
-    $(document).ready(function(){
-        umzugbutton.click(function(){
-            if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
-            {
-                $(".umzug--area").show(300);
-                $("input[name=umzug1date]").prop('required',true);      
-                $("input[name=umzug1time]").prop('required',true);   
-            }
-            else
-            {           
-                $(".umzug--area").hide(300);
-                $("input[name=umzug1date]").prop('required',false);      
-                $("input[name=umzug1time]").prop('required',false);   
-            }
-        })
+    auspackservicebutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspackservice--area").show(300);
+            $("input[name=auspackdate]").prop('required',true);      
+            $("input[name=auspacktime]").prop('required',true);
+        }
+        else
+        {
+            $(".auspackservice--area").hide(300);
+            $("input[name=auspackdate]").prop('required',false);      
+            $("input[name=auspacktime]").prop('required',false);
+        }
+    })
 
-        umzugbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".umzug--area2").show(300);
-                $("input[name=umzug2date]").prop('required',true);      
-                $("input[name=umzug2time]").prop('required',true);   
-            }
-            else
-            {
-                $(".umzug--area2").hide(300);
-                $("input[name=umzug2date]").prop('required',false);      
-                $("input[name=umzug2time]").prop('required',false);   
-            }
-        })
+    reinigungbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".reinigung--area").show(300);
+            $("input[name=reinigung1Startdate]").prop('required',true);      
+            $("input[name=reinigung1Starttime]").prop('required',true);   
+            $("input[name=reinigung1Enddate]").prop('required',true);  
+            $("input[name=reinigung1Endtime]").prop('required',true); 
+        }
+        else
+        {
+            $(".reinigung--area").hide(300);
+            $("input[name=reinigung1Startdate]").prop('required',false);      
+            $("input[name=reinigung1Starttime]").prop('required',false);   
+            $("input[name=reinigung1Enddate]").prop('required',false);  
+            $("input[name=reinigung1Endtime]").prop('required',false); 
+        }
+    })
 
-        einpackservicebutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".einpackservice--area").show(300);
-                $("input[name=einpackdate]").prop('required',true);      
-                $("input[name=einpacktime]").prop('required',true); 
-            }
-            else
-            {
-                $(".einpackservice--area").hide(300);
-                $("input[name=einpackdate]").prop('required',false);      
-                $("input[name=einpacktime]").prop('required',false); 
-            }
-        })
+    reinigungbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".reinigung2--area").show(300);
+            $("input[name=reinigung2Startdate]").prop('required',true);      
+            $("input[name=reinigung2Starttime]").prop('required',true);   
+            $("input[name=reinigung2Enddate]").prop('required',true);  
+            $("input[name=reinigung2Endtime]").prop('required',true); 
+        }
+        else
+        {
+            $(".reinigung2--area").hide(300);
+            $("input[name=reinigung2Startdate]").prop('required',false);      
+            $("input[name=reinigung2Starttime]").prop('required',false);   
+            $("input[name=reinigung2Enddate]").prop('required',false);  
+            $("input[name=reinigung2Endtime]").prop('required',false); 
+        }
+    })
 
-        auspackservicebutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".auspackservice--area").show(300);
-                $("input[name=auspackdate]").prop('required',true);      
-                $("input[name=auspacktime]").prop('required',true);
-            }
-            else
-            {
-                $(".auspackservice--area").hide(300);
-                $("input[name=auspackdate]").prop('required',false);      
-                $("input[name=auspacktime]").prop('required',false);
-            }
-        })
+    entsorgungbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".entsorgung--area").show(300);
+            $("input[name=entsorgungdate]").prop('required',true);      
+            $("input[name=entsorgungtime]").prop('required',true); 
+        }
+        else
+        {
+            $(".entsorgung--area").hide(300);
+            $("input[name=entsorgungdate]").prop('required',false);      
+            $("input[name=entsorgungtime]").prop('required',false); 
+        }
+    })
 
-        reinigungbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".reinigung--area").show(300);
-                $("input[name=reinigung1Startdate]").prop('required',true);      
-                $("input[name=reinigung1Starttime]").prop('required',true);   
-                $("input[name=reinigung1Enddate]").prop('required',true);  
-                $("input[name=reinigung1Endtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".reinigung--area").hide(300);
-                $("input[name=reinigung1Startdate]").prop('required',false);      
-                $("input[name=reinigung1Starttime]").prop('required',false);   
-                $("input[name=reinigung1Enddate]").prop('required',false);  
-                $("input[name=reinigung1Endtime]").prop('required',false); 
-            }
-        })
+    transportbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport--area").show(300);
+            $("input[name=transportdate]").prop('required',true);      
+            $("input[name=transporttime]").prop('required',true); 
+        }
+        else
+        {
+            $(".transport--area").hide(300);
+            $("input[name=transportdate]").prop('required',false);      
+            $("input[name=transporttime]").prop('required',false); 
+        }
+    })
 
-        reinigungbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".reinigung2--area").show(300);
-                $("input[name=reinigung2Startdate]").prop('required',true);      
-                $("input[name=reinigung2Starttime]").prop('required',true);   
-                $("input[name=reinigung2Enddate]").prop('required',true);  
-                $("input[name=reinigung2Endtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".reinigung2--area").hide(300);
-                $("input[name=reinigung2Startdate]").prop('required',false);      
-                $("input[name=reinigung2Starttime]").prop('required',false);   
-                $("input[name=reinigung2Enddate]").prop('required',false);  
-                $("input[name=reinigung2Endtime]").prop('required',false); 
-            }
-        })
-
-        entsorgungbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".entsorgung--area").show(300);
-                $("input[name=entsorgungdate]").prop('required',true);      
-                $("input[name=entsorgungtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".entsorgung--area").hide(300);
-                $("input[name=entsorgungdate]").prop('required',false);      
-                $("input[name=entsorgungtime]").prop('required',false); 
-            }
-        })
-
-        transportbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".transport--area").show(300);
-                $("input[name=transportdate]").prop('required',true);      
-                $("input[name=transporttime]").prop('required',true); 
-            }
-            else
-            {
-                $(".transport--area").hide(300);
-                $("input[name=transportdate]").prop('required',false);      
-                $("input[name=transporttime]").prop('required',false); 
-            }
-        })
-
-        lagerungbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".lagerung--area").show(300);
-                $("input[name=lagerungdate]").prop('required',true);      
-                $("input[name=lagerungtime]").prop('required',true);
-            }
-            else
-            {
-                $(".lagerung--area").hide(300);
-                $("input[name=lagerungdate]").prop('required',false);      
-                $("input[name=lagerungtime]").prop('required',false);
-            }
-        })
+    lagerungbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".lagerung--area").show(300);
+            $("input[name=lagerungdate]").prop('required',true);      
+            $("input[name=lagerungtime]").prop('required',true);
+        }
+        else
+        {
+            $(".lagerung--area").hide(300);
+            $("input[name=lagerungdate]").prop('required',false);      
+            $("input[name=lagerungtime]").prop('required',false);
+        }
     })
 </script>
 
@@ -934,18 +926,13 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
 
 {{-- Randevu Tipi Ayarları --}}
 <script>
-    $(document).ready(function(){
-        
-        var value = '2';
-
-        $(".confirmation--area").show(300);
-        $(".deliverable--area").hide(300);
-        $(".contactType--area").hide(500);
-        $(".dateHour--area").hide(300);
-
-        $(".appointment-type").click(function() {
-        value = $(this).val();
-        switch(value) {
+    $(document).ready(function () {
+        var valueA = 2;
+        console.log(valueA,'Value A')
+    })
+    $(".appointment-type").click(function() {
+        valueA = $(this).val();
+        switch(valueA) {
             case '1':                
                 $(".deliverable--area").hide(300);
                 $(".confirmation--area").hide(300);
@@ -966,9 +953,7 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
                 break;
         }
         
-        });
-    })
-    
+    });
 </script>
 
 {{-- Randevu Tipi Teslimat Ayarları --}}
@@ -999,14 +984,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
 {{-- TinyMce Email Format Ayarları --}}
 <script> 
 
-var value;
+var valueZ = 2;
 
 $(document).ready(function(){
     $(".appointment-type").on("input",function() {
-        value = $(this).val();
+        valueZ = $(this).val();
         tinymce.execCommand("mceRepaint");
 
-        if (value == 1)
+        if (valueZ == 1)
         {
             $("#datepicker").on("input", function(){           
             let dateArray = [];
@@ -1019,15 +1004,13 @@ $(document).ready(function(){
             });
         }
 
-        if (value == 2)
+        if (valueZ == 2)
         {
-            console.log(value)
+            console.log(valueZ,'AppType')
             let dateArray = [];
-
             
-                let umzug1ke = $("body").on("change","confirmation--area" ,function(){   
+                let umzug1ke = $("input[name=umzug1date]").on("input", function(){   
                 var tarih1 = $('input[name=umzug1date]').val();                      
-                
                 // dateArray[dateArray.length] = 'Umzug 1' + ' ' + 'Tarihi:' +' '+ tarih1 + '<br>'
                 dateArray[dateArray.length] = '<tr>' + '<td>Umzug</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>' + '<br>'
                 // console.log(dateArray,'Tarihler');
@@ -1036,8 +1019,6 @@ $(document).ready(function(){
                 tinymce.execCommand("mceRepaint");      
             });
            
-            
-            
             $("input[name=umzug2date]").on("input", function(){                      
                 var tarih1 = $(this).val();
                 dateArray[dateArray.length] = '<tr>' + '<td>Umzug 2</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>' + '<br>'
@@ -1121,7 +1102,7 @@ $(document).ready(function(){
 
         }
 
-        if (value == 3)
+        if (valueZ == 3)
         {
             console.log(value)
             $("#teslimatDate").on("input", function(){           

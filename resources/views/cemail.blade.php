@@ -27,8 +27,19 @@
 </head>
 <body>
 <div>
-<div><strong>@if($data2['gender'] == 'male') Herr, @else Frau, @endif</strong>
-        {{ $data2['name'] }} {{ $data2['surname'] }}
+<div>
+    <strong>
+        @if($data2)
+            @if($data2['gender'] == 'male') Herr, @else Frau, @endif</strong>
+            {{ $data2['name'] }} {{ $data2['surname'] }}
+        
+        @elseif($data)
+        {
+            @if($data['gender'] == 'male') Herr, @else Frau, @endif</strong>
+            {{ $data['name'] }} {{ $data['surname'] }}
+        }
+        @endif
+    
 </div>
 
 <div id="degisken">

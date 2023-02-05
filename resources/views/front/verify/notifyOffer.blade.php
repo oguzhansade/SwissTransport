@@ -67,7 +67,7 @@
     <div class="mt-1">
         <div class="container bg-white m-auto b-shadow  rounded-custom p-5">
             <h1 class="text-primary text-center "><i class="feather feather-check-circle" ></i></h1><br>
-            <h3 class="text-primary text-center " style="margin-top:-15px;">Ihr Angebot wurde erfolgreich genehmigt. Vielen Dank </h3>
+            <h3 class="text-primary text-center " style="margin-top:-15px;">Transaktion abgeschlossen Vielen Dank </h3>
         </div>
     </div>
 

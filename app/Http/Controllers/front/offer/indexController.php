@@ -621,7 +621,7 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Onaylanmadı'
+            'offerteStatus' => 'Beklemede'
         ];
 
         $create = offerte::create($offerte);
@@ -736,7 +736,7 @@ class indexController extends Controller
 
     
         $customLinks = "<a href=".route('customerOfferView', $zToken).'
-        style="background-color: #713CE8;
+        style="background-color: #02017A;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;
@@ -746,7 +746,19 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'LİNKKKKK'.'</a>';
+        '.'>'.'Ansicht Offerte'.'</a>'.'<br>'."<a href=".route('acceptOfferView', $oToken).'
+        style="background-color: #8253EB;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'Angebot Bestätigen/Absagen'.'</a>';
+        $offerMailFooter = view('offerMailFooter');
   
         $emailData = [
             'appType' => $offer['appType'],
@@ -765,7 +777,8 @@ class indexController extends Controller
             'pdf' => $pdf,
             'token' => $oToken,
             'token2' => $zToken,
-            'customLinks' => $customLinks
+            'customLinks' => $customLinks,
+            'offerMailFooter' => $offerMailFooter
         ];
 
         if ($isCustomEmailSend)

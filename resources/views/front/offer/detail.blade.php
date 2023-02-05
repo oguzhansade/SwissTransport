@@ -56,7 +56,11 @@
                                 <span class="h5 font-weight-bolder"> <strong>Offertennr:</strong> </span> <span class="h5 ml-3 text-primary">{{ $data['id'] }}</span>
                             </div>
                             <div class="col-md-12">
-                                <span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span> <span class="h5 ml-3 font-weight-bold text-primary">@if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Zugelassen @else Nicht Bestätigt  @endif</span>
+                                <span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span> <span class="h5 ml-3 font-weight-bold text-primary">
+                                    @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Zugelassen 
+                                    @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt  
+                                    @else in Wartestellung
+                                    @endif</span>
                             </div>
                         </div>
 

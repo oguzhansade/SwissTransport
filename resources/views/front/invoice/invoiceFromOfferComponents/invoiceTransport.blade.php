@@ -232,7 +232,7 @@
 
             <label class="col-form-label" for="l0">Betrag </label>
             <input class="form-control total-piece"  name="transportTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($transport && $transport['fixedPrice']) value="{{ $transport['fixedPrice'] }}" @else value="{{ $transport['defaultPrice'] }}" @endif>
+            @if($transport && $transport['fixedPrice']) value="{{ $transport['fixedPrice'] }}" @elseif($transport && $transport['defaultPrice']) value="{{ $transport['defaultPrice'] }}" @endif>
         </div>
     </div>
 </div>

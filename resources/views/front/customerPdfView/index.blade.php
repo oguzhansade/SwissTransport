@@ -1175,7 +1175,7 @@
                         </div>
 
                         <div class="col-md-12 mt-3 d-flex justify-content-center align-items-center p-2">
-                            <a href="{{ route('acceptOfferView', App\Models\OfferVerify::getToken($offer['id'])) }}" target="_blank" class="btn btn-primary w-100 d-flex justify-content-center align-items-center rounded-custom"><strong>Angebot bestätigen</strong></a>
+                            <a href="{{ route('acceptOfferView', App\Models\OfferVerify::getToken($offer['id'])) }}" target="_blank" class="btn btn-primary w-100 d-flex justify-content-center align-items-center rounded-custom"><strong>Genehmigen oder ablehnen</strong></a>
                         </div>
                     </div>
                 </div>

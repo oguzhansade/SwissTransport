@@ -168,7 +168,7 @@
 
             <label class="col-form-label" for="l0">Betrag </label>
             <input class="form-control total-piece"  name="entsorgungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($entsorgung && $entsorgung['fixedPrice']) value="{{ $entsorgung['fixedPrice'] }}" @else value="{{ $entsorgung['defaultPrice'] }}" @endif>
+            @if($entsorgung && $entsorgung['fixedPrice']) value="{{ $entsorgung['fixedPrice'] }}" @elseif($entsorgung && $entsorgung['defaultPrice']) value="{{ $entsorgung['defaultPrice'] }}" @endif>
         </div>
     </div>
 </div>

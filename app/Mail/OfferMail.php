@@ -35,7 +35,7 @@ class OfferMail extends Mailable
             return $this->view('offerEmail')
                     ->subject($this->data['sub'])
                     ->from($this->data['from'],$this->data['companyName'])
-                    ->html($this->data['customEmailContent'].$this->data['customLinks'])
+                    ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                     ->with('data',$this->data)
                     ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
                     ->attach(asset('assets/demo/AGB.pdf'));

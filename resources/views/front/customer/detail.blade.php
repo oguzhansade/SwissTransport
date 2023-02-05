@@ -45,6 +45,21 @@
             rgba(0, 0, 0, 0.09) 0px 32px 16px;
             /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
         }
+
+        .bg-custom-warning {
+            color:white;
+            background-color: #FFC107;
+            border-radius: 55px;
+            box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, 
+            rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, 
+            rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, 
+            rgba(0, 0, 0, 0.06) 0px 2px 1px, 
+            rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+            rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+            rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+            rgba(0, 0, 0, 0.09) 0px 32px 16px;
+            /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+        }
     </style>
 @endsection
 @section('content')
@@ -529,11 +544,15 @@
                     "createdCell": function (td, cellData, rowData, row, col) {
                         if ( cellData == 'Onaylandı' ) {
                             $(td).css('vertical-align','middle');
-                            $(td).html('<span class="bg-custom-success px-3 py-1 text-center shadow" >Zugelassen <i class="text-center feather feather-check-circle"></i></span>')
+                            $(td).html('<span class="bg-custom-success px-3 py-1 text-center shadow" >Zugelassen <i class="text-center feather feather-check-circle pl-1"></i></span>')
+                        }
+                        else if(cellData == 'Beklemede'){
+                            $(td).css('vertical-align','middle');
+                            $(td).html('<span class="bg-custom-warning px-3 py-1 text-center shadow" >in Wartestellung<i class="text-center feather feather-alert-circle pl-1"></i></span>')
                         }
                         else{
                             $(td).css('vertical-align','middle');
-                            $(td).html('<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nicht Bestätigt<i class="text-center feather feather-x-circle"></i></span>')
+                            $(td).html('<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nicht Bestätigt<i class="text-center feather feather-x-circle pl-1"></i></span>')
                         }
                         
                     }
