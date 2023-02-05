@@ -231,7 +231,7 @@
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                            @include('../../offerMailHeader',['data2' => $data])
+                                            @include('../../offerMailHeader',['data2' => $data,'appType' => '0'])
                                     </textarea>
                                 </div>
                             </div>
@@ -400,14 +400,33 @@
       plugins: 'code',
     });
 </script>
-{{-- <script>
-    if($('input[name=appOfferType]').on('click'))
-    {
-        tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['date' => '${data2}'])`);
-        tinymce.execCommand("mceRepaint");   
-    }
-     
-</script> --}}
+<script>
+   $("select[name=appOfferType]").on("change",function() {
+        value = $(this).val();
+        tinymce.execCommand("mceRepaint");
+        console.log(value,'AppType')
+        switch(value) {
+        case '0':
+                // TODO: bu bölüm blade import değil api olarak kullanılacak
+                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
+                tinymce.execCommand("mceRepaint");  
+            break;
+        case '1':
+            // TODO: bu bölüm blade import değil api olarak kullanılacak
+                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '1'])`);
+                tinymce.execCommand("mceRepaint"); 
+            break;
+        case '2':
+            // TODO: bu bölüm blade import değil api olarak kullanılacak
+                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '2'])`);
+                tinymce.execCommand("mceRepaint"); 
+            break;
+        default:
+                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
+                tinymce.execCommand("mceRepaint");  
+        }
+   })
+</script>
 @yield('offerFooter')
 @yield('offerFooter1')
 @yield('offerFooter2')

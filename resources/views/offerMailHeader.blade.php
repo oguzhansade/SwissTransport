@@ -47,7 +47,8 @@
         @endif 
     </div>
     <div>
-        @if($data['appType'] == 0)
+        @if($appType == '0')
+        
             Besten Dank für Ihr Interesse an unseren Dienstleistungen. <br>
             Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
 
@@ -68,7 +69,8 @@
 
             Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail): <br> <br> <br>
             
-        @elseif($data['appType'] == 1)
+        @elseif($appType == '1')
+        
             Vielen Dank, dass wir Sie heute besuchen durften. <br>
             Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
 
@@ -88,7 +90,8 @@
             </ul> <br><br>
 
             Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
-        @else
+        @elseif($appType == '2')
+        
             Besten Dank für Ihr Interesse an unseren Dienstleistungen. <br>
             Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
 
