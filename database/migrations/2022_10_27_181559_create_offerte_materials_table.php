@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('offerte_materials', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount');
-            $table->integer('deliverPrice');
-            $table->integer('recievePrice');
-            $table->float('totalPrice');
+            $table->integer('discount')->nullable();
+            $table->integer('deliverPrice')->nullable();
+            $table->integer('recievePrice')->nullable();
+            $table->float('totalPrice')->nullable();
             $table->timestamps();
         });
     }

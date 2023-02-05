@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoice_umzugs', function (Blueprint $table) {
             $table->id();
-            $table->date('umzugDate');
-            $table->integer('umzugHour');
-            $table->integer('umzugChf');
+            $table->date('umzugDate')->nullable();
+            $table->integer('umzugHour')->nullable();
+            $table->integer('umzugChf')->nullable();
             $table->integer('umzugHour2')->nullable();
             $table->integer('umzugChf2')->nullable();
             $table->integer('umzugRoadChf')->nullable();
@@ -42,12 +42,12 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('umzugCost');
+            $table->float('umzugCost')->nullable();
             $table->float('umzugFixedCost')->nullable();
             $table->float('umzugPaid1')->nullable();
             $table->float('umzugPaid2')->nullable();
             $table->float('umzugPaid3')->nullable();
-            $table->float('umzugTotalPrice');
+            $table->float('umzugTotalPrice')->nullable();
             $table->timestamps();
         });
     }

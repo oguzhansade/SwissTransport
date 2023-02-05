@@ -23,12 +23,12 @@ return new class extends Migration
             $table->integer('ma')->nullable();
             $table->integer('chf')->nullable();
             $table->string('hours')->nullable();
-            $table->integer('extraService1');
-            $table->integer('extraService2');
-            $table->date('startDate');
-            $table->time('startTime');
-            $table->date('endDate');
-            $table->time('endTime');
+            $table->integer('extraService1')->nullable();
+            $table->integer('extraService2')->nullable();
+            $table->date('startDate')->nullable();
+            $table->time('startTime')->nullable();
+            $table->date('endDate')->nullable();
+            $table->time('endTime')->nullable();
             $table->integer('extra1')->nullable();
             $table->integer('extra2')->nullable();
             $table->integer('extra3')->nullable();
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('discountText')->nullable();
             $table->integer('discount')->nullable();
             $table->integer('discountPercent')->nullable();
-            $table->string('totalPrice');
+            $table->string('totalPrice')->nullable();
             $table->timestamps();
         });
     }

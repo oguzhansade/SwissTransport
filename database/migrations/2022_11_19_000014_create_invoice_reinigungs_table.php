@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('invoice_reinigungs', function (Blueprint $table) {
             $table->id();
-            $table->date('reinigungDate');
-            $table->string('reinigungType');
+            $table->date('reinigungDate')->nullable();
+            $table->string('reinigungType')->nullable();
             $table->string('extraReinigung')->nullable();
             $table->string('reinigungRoom')->nullable();
             $table->integer('reinigungFixedPrice')->nullable();
@@ -35,11 +35,11 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('reinigungCost');
+            $table->float('reinigungCost')->nullable();
             $table->float('reinigungPaid1')->nullable();
             $table->float('reinigungPaid2')->nullable();
             $table->float('reinigungPaid3')->nullable();
-            $table->float('reinigungTotalPrice');
+            $table->float('reinigungTotalPrice')->nullable();
             $table->timestamps();
         });
     }

@@ -17,16 +17,16 @@ return new class extends Migration
             $table->id();
             $table->integer('tariff');
             $table->integer('chf');
-            $table->string('volume');
+            $table->string('volume')->nullable();
             $table->string('extraCostText1')->nullable();
-            $table->integer('extraCostValue1');
+            $table->integer('extraCostValue1')->nullable();
             $table->string('extraCostText2')->nullable();
-            $table->integer('extraCostValue2');
+            $table->integer('extraCostValue2')->nullable();
             $table->integer('discountPercent')->nullable();
             $table->string('discountText')->nullable();
-            $table->integer('discountValue');
-            $table->string('totalPrice');
-            $table->integer('fixedPrice');
+            $table->integer('discountValue')->nullable();
+            $table->string('totalPrice')->nullable();
+            $table->integer('fixedPrice')->nullable();
             $table->timestamps();
         });
     }

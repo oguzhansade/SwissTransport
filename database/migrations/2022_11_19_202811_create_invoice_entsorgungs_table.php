@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoice_entsorgungs', function (Blueprint $table) {
             $table->id();
-            $table->date('entsorgungDate');
+            $table->date('entsorgungDate')->nullable();
             $table->integer('entsorgungVolume')->nullable();
             $table->integer('entsorgungFixedChf')->nullable();
             $table->integer('entsorgungFixedChfCost')->nullable();
@@ -33,11 +33,11 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('entsorgungCost');
+            $table->float('entsorgungCost')->nullable();
             $table->float('entsorgungFixedCost')->nullable();
             $table->float('entsorgungPaid1')->nullable();
             $table->float('entsorgungPaid2')->nullable();
-            $table->float('entsorgungTotalPrice');
+            $table->float('entsorgungTotalPrice')->nullable();
             $table->timestamps();
         });
     }

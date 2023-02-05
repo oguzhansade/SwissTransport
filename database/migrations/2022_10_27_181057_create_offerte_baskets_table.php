@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('offerte_baskets', function (Blueprint $table) {
             $table->id();
             $table->integer('productId');
-            $table->integer('buyType');
+            $table->integer('buyType')->nullable();
             $table->float('productPrice')->default(0);
-            $table->integer('quantity');
-            $table->float('totalPrice');
-            $table->integer('materialId');
+            $table->integer('quantity')->nullable();
+            $table->float('totalPrice')->nullable();
+            $table->integer('materialId')->nullable();
             $table->timestamps();
         });
     }

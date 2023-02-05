@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('invoice_materials', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount');
+            $table->integer('discount')->nullable();
             $table->string('customDiscountText')->nullable();
             $table->integer('customDiscountValue')->nullable();
             $table->integer('deliverPrice')->nullable();
             $table->integer('recievePrice')->nullable();
-            $table->float('totalPrice');
+            $table->float('totalPrice')->nullable();
             $table->timestamps();
         });
     }

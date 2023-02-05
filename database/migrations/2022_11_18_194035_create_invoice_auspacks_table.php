@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoice_auspacks', function (Blueprint $table) {
             $table->id();
-            $table->date('auspackDate');
-            $table->integer('auspackHour');
-            $table->integer('auspackChf');
+            $table->date('auspackDate')->nullable();
+            $table->integer('auspackHour')->nullable();
+            $table->integer('auspackChf')->nullable();
             $table->integer('auspackHour2')->nullable();
             $table->integer('auspackChf2')->nullable();
             $table->integer('auspackRoadChf')->nullable();
@@ -33,12 +33,12 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('auspackCost');
+            $table->float('auspackCost')->nullable();
             $table->float('auspackFixedCost')->nullable();
             $table->float('auspackPaid1')->nullable();
             $table->float('auspackPaid2')->nullable();
             $table->float('auspackPaid3')->nullable();
-            $table->float('auspackTotalPrice');
+            $table->float('auspackTotalPrice')->nullable();
             $table->timestamps();
         });
     }

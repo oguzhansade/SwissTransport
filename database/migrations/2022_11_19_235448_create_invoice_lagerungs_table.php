@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('invoice_lagerungs', function (Blueprint $table) {
             $table->id();
-            $table->date('lagerungStartDate');
-            $table->date('lagerungEndDate');
-            $table->integer('lagerungVolume');
-            $table->integer('lagerungChf');
+            $table->date('lagerungStartDate')->nullable();
+            $table->date('lagerungEndDate')->nullable();
+            $table->integer('lagerungVolume')->nullable();
+            $table->integer('lagerungChf')->nullable();
             $table->string('extraText1')->nullable();
             $table->float('extraValue1')->nullable();
             $table->string('extraText2')->nullable();
@@ -29,11 +29,11 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('lagerungCost');
+            $table->float('lagerungCost')->nullable();
             $table->float('lagerungFixedCost')->nullable();
             $table->float('lagerungPaid1')->nullable();
             $table->float('lagerungPaid2')->nullable();
-            $table->float('lagerungTotalPrice');
+            $table->float('lagerungTotalPrice')->nullable();
             $table->timestamps();
         });
     }

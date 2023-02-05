@@ -18,16 +18,16 @@ return new class extends Migration
             $table->integer('volume');
             $table->integer('volumeCHF');
             $table->integer('fixedCost')->nullable();
-            $table->integer('m3');
+            $table->integer('m3')->nullable();
             $table->integer('tariff')->nullable();
-            $table->integer('ma');
-            $table->integer('lkw');
-            $table->integer('anhanger');
-            $table->integer('chf');
+            $table->integer('ma')->nullable();
+            $table->integer('lkw')->nullable();
+            $table->integer('anhanger')->nullable();
+            $table->integer('chf')->nullable();
             $table->integer('hour')->nullable();
-            $table->date('entsorgungDate');
-            $table->time('entsorgungTime');
-            $table->integer('arrivalReturn');
+            $table->date('entsorgungDate')->nullable();
+            $table->time('entsorgungTime')->nullable();
+            $table->integer('arrivalReturn')->nullable();
             $table->integer('entsorgungExtra1')->nullable();
             $table->string('extraCostText1')->nullable();
             $table->integer('extraCostValue1')->nullable();
@@ -37,9 +37,9 @@ return new class extends Migration
             $table->integer('discountPercent')->nullable();
             $table->string('extraDiscountText')->nullable();
             $table->integer('extraDiscountPrice')->nullable();
-            $table->integer('defaultPrice');
-            $table->integer('topCost');
-            $table->integer('fixedPrice');
+            $table->integer('defaultPrice')->nullable();
+            $table->integer('topCost')->nullable();
+            $table->integer('fixedPrice')->nullable();
             $table->timestamps();
         });
     }

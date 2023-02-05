@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invoice_transports', function (Blueprint $table) {
             $table->id();
             $table->string('pdfText')->nullable();
-            $table->date('transportDate');
+            $table->date('transportDate')->nullable();
             $table->integer('transportFixedTariff')->nullable();
             $table->integer('transportHours')->nullable();
             $table->integer('transportChf')->nullable();
@@ -43,12 +43,12 @@ return new class extends Migration
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();
             $table->float('extraDiscountValue2')->nullable();
-            $table->float('transportCost');
+            $table->float('transportCost')->nullable();
             $table->float('transportFixedCost')->nullable();
             $table->float('transportPaid1')->nullable();
             $table->float('transportPaid2')->nullable();
             $table->float('transportPaid3')->nullable();
-            $table->float('transportTotalPrice');
+            $table->float('transportTotalPrice')->nullable();
             $table->timestamps();
         });
     }

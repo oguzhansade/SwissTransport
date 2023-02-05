@@ -20,9 +20,9 @@ return new class extends Migration
             $table->integer('lkw');
             $table->integer('anhanger');
             $table->integer('chf');
-            $table->date('moveDate');
-            $table->time('moveTime');
-            $table->date('moveDate2');
+            $table->date('moveDate')->nullable();
+            $table->time('moveTime')->nullable();
+            $table->date('moveDate2')->nullable();
             $table->integer('arrivalReturn')->nullable(); // Benzin gideri
             $table->integer('montage')->nullable();
             $table->string('moveHours'); //İkili Olucak Front end kısmını araştır.
@@ -41,15 +41,15 @@ return new class extends Migration
             $table->integer('customCostPrice1')->nullable();
             $table->string('customCostName2')->nullable();
             $table->integer('customCostPrice2')->nullable();
-            $table->string('costPrice');
+            $table->string('costPrice')->nullable();
             $table->integer('discount')->nullable();
             $table->integer('discountPercent')->nullable();
             $table->integer('compromiser')->nullable();
             $table->string('extraCostName')->nullable();
             $table->integer('extraCostPrice')->nullable();
-            $table->string('defaultPrice');
-            $table->integer('topCost');
-            $table->integer('fixedPrice');
+            $table->string('defaultPrice')->nullable();
+            $table->integer('topCost')->nullable();
+            $table->integer('fixedPrice')->nullable();
             $table->timestamps();
         });
     }

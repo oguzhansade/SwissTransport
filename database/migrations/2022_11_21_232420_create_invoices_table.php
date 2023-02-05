@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->integer('customerId');
-            $table->integer('payCondition');
+            $table->integer('payCondition')->nullable();
             $table->string('status')->default('Açık');
-            $table->dateTime('expiryDate');
+            $table->dateTime('expiryDate')->nullable();
             $table->integer('umzugId')->nullable();
             $table->integer('einpackId')->nullable();
             $table->integer('auspackId')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('lagerungId')->nullable();
             $table->integer('materialId')->nullable();
             $table->integer('warningPrice')->nullable();
-            $table->float('totalPrice');
+            $table->float('totalPrice')->nullable();
             $table->integer('withTax')->nullable();
             $table->integer('withoutTax')->nullable();
             $table->integer('freeTax')->nullable();
