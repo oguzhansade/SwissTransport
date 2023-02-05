@@ -93,12 +93,10 @@ morebutton9.click(function(){
         {
             $(".lagerung--area").show(700);
             $("select[name=lagerungTariff]").prop('required',true);      
-            $("input[name=lagerungCost]").prop('required',true);  
         }
         else{
             $(".lagerung--area").hide(500);
             $("select[name=lagerungTariff]").prop('required',false);      
-            $("input[name=lagerungCost]").prop('required',false);
         }
     })
 

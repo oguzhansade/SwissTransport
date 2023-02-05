@@ -148,15 +148,11 @@
     function isRequiredLagerung()
     {
         $("select[name=lagerungTariff]").prop('required',true);      
-        $("input[name=lagerungVolume]").prop('required',true);   
-        $("input[name=lagerungCost]").prop('required',true);  
     }
 
     function isNotRequiredLagerung()
     {
         $("select[name=lagerungTariff]").prop('required',false);      
-        $("input[name=lagerungVolume]").prop('required',false);   
-        $("input[name=lagerungCost]").prop('required',false);  
     }
 
     var morebutton9 = $("div.lagerung-control");

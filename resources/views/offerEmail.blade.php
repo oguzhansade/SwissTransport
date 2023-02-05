@@ -113,7 +113,7 @@
 
 
         @if ($data['token2'])
-        Offerte <a href="{{ route('customerOfferView', $data['token2']) }}"
+        <a href="{{ route('customerOfferView', $data['token2']) }}"
         style="background-color: #02017A;
         border-radius: 30px;
         color: white!important;
@@ -127,7 +127,7 @@
         @endif 
 
         @if ($data['token'])
-        Offerte <a href="{{ route('customerOfferView', $data['token']) }}"
+        <a href="{{ route('acceptOfferView', $data['token']) }}"
         style="background-color: #8253EB;
         border-radius: 30px;
         color: white!important;
