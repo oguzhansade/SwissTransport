@@ -106,7 +106,7 @@
     
                                 <div class="col-md-4 form-group">
                                     <label class="col-form-label"  for="l0">Telefon</label>
-                                    <input class="form-control" type="text"  placeholder="Phone Number" name="phone" required>
+                                    <input class="form-control" type="text"  placeholder="Phone Number" name="phone">
                                 </div>
     
                                 <div class="col-md-4">

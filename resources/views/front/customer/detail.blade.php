@@ -141,7 +141,7 @@
                         <!-- /.contact-details-cell -->
                     </div>
                     <div class="col-md-6">
-                        <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Anrede</small>  <span class="text-primary">{{$data[0]['gender']}}</span>
+                        <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Anrede</small>  <span class="text-primary">@if($data[0]['gender'] == 'male') Herr @else Frau @endif</span>
                         </div>
                         <!-- /.contact-details-cell -->
                     </div>
@@ -164,7 +164,13 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Ort</small>  <span class="text-primary">{{$data[0]['postCode']}}</span>
+                        <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">PLZ</small>  <span class="text-primary">{{$data[0]['postCode']}}</span>
+                        </div>
+                        <!-- /.contact-details-cell -->
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Ort</small>  <span class="text-primary">{{$data[0]['Ort']}}</span>
                         </div>
                         <!-- /.contact-details-cell -->
                     </div>
@@ -187,7 +193,7 @@
                         <!-- /.contact-details-cell -->
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Notiz</small>  <span class="text-primary">{{$data[0]['note']}}</span>
                         </div>
                         <!-- /.contact-details-cell -->

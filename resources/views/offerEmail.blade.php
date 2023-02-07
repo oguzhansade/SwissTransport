@@ -25,25 +25,26 @@
 </head>
 <body>
     <div>
-        Sehr geehrter
+        <strong>Sehr
         @if ($data['name'])
-        <strong>
+        
             @if($data['gender'] == 'male') 
-            Herr, 
-            @else Frau, 
+            geehrter Herr 
+            @else geehrte Frau 
             @endif
-        </strong>
-            {{ $data['surname'] }}
-            <br><br><br>
+        
+        {{ $data['name'] }} {{ $data['surname'] }}</strong>
+        <br><br>
     
         @elseif ($customer['name'])
-            <strong>
+            
                 @if($customer['gender'] == 'male') 
-                Herr, 
-                @else Frau, 
+                geehrter Herr 
+                @else geehrte Frau 
                 @endif
-            </strong>
-            {{ $customer['surname'] }}  <br><br><br>
+            
+         {{ $customer['name'] }} {{ $customer['surname'] }}</strong>
+         <br><br>
         @endif 
     </div>
     <div>
@@ -54,7 +55,7 @@
             Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
             handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br> <br>
+            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
             <ul>
                 <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
                 <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
@@ -64,7 +65,7 @@
                 <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
                 <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
                 <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br><br>
+            </ul> <br>
 
             Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail): <br> <br> <br>
             
@@ -75,7 +76,7 @@
             Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
             handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br> <br>
+            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
             <ul>
                 <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
                 <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
@@ -85,7 +86,7 @@
                 <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
                 <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
                 <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br><br>
+            </ul> <br>
 
             Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
         @else
@@ -95,7 +96,7 @@
             Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
             handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br> <br>
+            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
             <ul>
                 <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
                 <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
@@ -105,7 +106,7 @@
                 <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
                 <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
                 <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br><br>
+            </ul> <br>
 
             Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail): <br> <br> <br>
         @endif

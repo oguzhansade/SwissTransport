@@ -69,10 +69,10 @@
             <div class="row mb-3">
                 <div class="col-md-12 px-2">
                     <span class="text-dark">
-                        <strong>Sehr geehrte/r, </strong>
+                        <p>Sehr @if(App\Models\Customer::getCustomer($offer['customerId'],'gender') == 'male') geehrter Herr @else geehrte Frau @endif
                         {{ App\Models\Customer::getCustomer($offer['customerId'],'name') }} 
-                        {{ App\Models\Customer::getCustomer($offer['customerId'],'surname') }}
-                    </span><br><br>
+                        {{ App\Models\Customer::getCustomer($offer['customerId'],'surname') }}</p>
+                    </span>
                     <span class="text-dark">
                         Besten Dank für Ihr Vertrauen in unser Unternehmen. <br> 
                         Wir würden uns freuen, diesen Auftrag für Sie ausführen zu dürfen und sichern Ihnen schon heute einen termingerechten und fachmännischen Service zu. <br> 

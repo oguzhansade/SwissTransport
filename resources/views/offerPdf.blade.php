@@ -80,7 +80,7 @@
                             <td >{{ date('d.m.Y', strtotime($offer['created_at'])); }}</td>
                         </tr>
                         <tr>
-                            <td>Page</td>
+                            <td>Seiten</td>
                             <td><span class="pagenum"></span></td>
                         </tr>
                     </table>
@@ -101,7 +101,7 @@
                 <table border="0" style="width:100%;">
                     <tr style="width:100%;">
                         <td colspan="4" class="py-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;">Offerte {{ $offerteNumber }} vom {{ date('d.m.Y', strtotime($offer['created_at'])); }} für Herr {{ $customer['name'] }} {{ $customer['surname'] }}</b>
+                            <b style="font-size:13px;">Offerte {{ $offerteNumber }} vom {{ date('d.m.Y', strtotime($offer['created_at'])); }} für {{ $customer['gender'] === "male" ? "Herr" : "Frau" }} {{ $customer['name'] }} {{ $customer['surname'] }}</b>
                         </td>
                     </tr>
                     <tr  style="width:100%;">
@@ -117,7 +117,7 @@
                             <span style="color:#835AB1;font-size:9px;">Auftraggeber:</span><br>
                             {{ $customer['name'] }} {{ $customer['surname'] }}<br>
                             {{ $customer['street'] }} <br>
-                            {{ $customer['postCode'] }} {{ $customer['country'] }} <br>
+                            {{ $customer['postCode'] }} {{ $customer['Ort'] }} {{ $customer['country'] }} <br>
                         </td>
                     </tr>
             
@@ -148,7 +148,7 @@
     
                     <tr  style="width:100%;">
                         <td colspan="4" style="padding-top:30px">
-                            <b>Sehr geehrter Herr {{ $customer['surname'] }} <br>
+                            <b>Sehr {{ $customer['gender'] === "male" ? "geehrter Herr" : "geehrte Frau" }} {{ $customer['surname'] }} <br><br>
                                 Entsprechend unserer Vereinbarung erlauben wir uns, Ihnen die folgenden Leistungen wie folgt zu berechnen:</b>
                         </td>
                     </tr>
@@ -184,7 +184,7 @@
                                     @if ($auszug1['postCode']) CH - {{ $auszug1['postCode'] }} @endif @if ($auszug1['city']) {{ $auszug1['city'] }} @endif <br>
                                     @if ($auszug1['buildType']){{ $auszug1['buildType'] }}@endif<br>
                                     @if($auszug1['floor']) {{ $auszug1['floor'] }} @endif<br>
-                                    @if($auszug1['lift'] == 0) Ja @else Nein @endif
+                                    @if($auszug1['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
     
@@ -201,7 +201,7 @@
                                     CH - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} <br>
                                     {{ $einzug1['buildType'] }}<br>
                                     {{ $einzug1['floor'] }}<br>
-                                    @if($einzug1['lift'] == 0) Ja @else Nein @endif
+                                    @if($einzug1['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
                             
@@ -240,7 +240,7 @@
                                     CH - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} <br>
                                     {{ $auszug2['buildType'] }}<br>
                                     {{ $auszug2['floor'] }}<br>
-                                    @if($auszug2['lift'] == 0) Ja @else Nein @endif
+                                    @if($auszug2['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
                             
@@ -257,7 +257,7 @@
                                     CH - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} <br>
                                     {{ $einzug2['buildType'] }}<br>
                                     {{ $einzug2['floor'] }}<br>
-                                    @if($einzug2['lift'] == 0) Ja @else Nein @endif
+                                    @if($einzug2['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
                         </tr>
@@ -295,7 +295,7 @@
                                     CH - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} <br>
                                     {{ $auszug3['buildType'] }}<br>
                                     {{ $auszug3['floor'] }}<br>
-                                    @if($auszug3['lift'] == 0) Ja @else Nein @endif
+                                    @if($auszug3['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
                             
@@ -312,7 +312,7 @@
                                     CH - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} <br>
                                     {{ $einzug3['buildType'] }}<br>
                                     {{ $einzug3['floor'] }}<br>
-                                    @if($einzug3['lift'] == 0) Ja @else Nein @endif
+                                    @if($einzug3['lift'] == 1) Ja @else Nein @endif
                                 </td>
                             @endif
                         </tr>
@@ -330,7 +330,7 @@
     
                         <tr style="width:100%;">
                             <td colspan="2" style="padding-top:5px;"><b style="">Tarif:</b></td>
-                            <td colspan="2" style="padding-top:5px;">{{ \App\Models\Tariff::infoTariff($umzug['tariff'],'description') }}</td>
+                            <td colspan="2" style="padding-top:5px;">{{  \App\Models\Tariff::infoTariff($umzug['tariff'],'description') }}</td>
                         </tr>
             
                         {{-- Boşluk Bırakma --}}
@@ -349,11 +349,11 @@
                             </td>
                 
                             <td valign="top" style="padding-left:10px;">
-                                {{ $umzug['moveDate'] }}<br>
+                                {{ date("d/m/Y", strtotime($umzug['moveDate'])); }}<br>
                                 {{ $umzug['moveTime'] }}<br>
-                                {{ $umzug['moveDate2'] }}<br>
+                                {{ date("d/m/Y", strtotime($umzug['moveDate2'])); }}<br>
                                 {{ $umzug['arrivalReturn'] }} CHF<br>
-                                    @if ($umzug['montage'] == 2) Kunde @elseif($umzug['montage'] == 3) Firma @else - @endif
+                                    @if ($umzug['montage'] == 2) Kunde @elseif($umzug['montage'] == 3) Swiss Transport @else - @endif
                             </td>
                             <td  valign="top" colspan="2">
                                 <table  border="0">
@@ -475,12 +475,14 @@
                                         <td align="left" valign="top">Geschätzte Kosten:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
                                     </tr>
-                
+                                    
+                                    @if($umzug['topCost'] != NULL)
                                     <tr>
                                         <td align="left" valign="top">Kostendach:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
                                     </tr>
-            
+                                    @endif
+
                                     @if($offer['kostenExkl'])
                                         <tr>
                                             <td colspan="2">
@@ -608,11 +610,14 @@
                                         <td align="left" valign="top">Geschätzte Kosten:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
                                     </tr>
-            
+                                    
+                                    @if($einpack['topCost'] != NULL)
                                     <tr>
                                         <td align="left" valign="top">Kostendach:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
                                     </tr>
+                                    @endif
+
                                     @if($offer['kostenExkl'])
                                         <tr>
                                             <td colspan="2">
@@ -733,11 +738,14 @@
                                         <td align="left" valign="top">Geschätzte Kosten:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
                                     </tr>
-            
+                                    
+                                    @if($auspack['topCost'] != NULL)
                                     <tr>
                                         <td align="left" valign="top">Kostendach:</td>
                                         <td><span style="color:#835AB1;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
                                     </tr>
+                                    @endif
+
                                     @if($offer['kostenExkl'])
                                         <tr>
                                             <td colspan="2">
@@ -788,7 +796,7 @@
                         <tr style="width:100%;">
                             <td colspan="2"><b style="">@if ($reinigung['fixedTariff'])Zimmer: @else Tarif: @endif</b></td>
                             <td colspan="2"> @if ($reinigung['fixedTariff'])
-                            {{ \App\Models\Tariff::infoTariff($reinigung['fixedTariff'],'description') }} @else  {{ \App\Models\Tariff::infoTariff($reinigung['standartTariff'],'description') }}
+                            {{ Str::substr(\App\Models\Tariff::infoTariff($reinigung['fixedTariff'],'description'), 0, 12); }} @else {{ \App\Models\Tariff::infoTariff($reinigung['standartTariff'],'description')  }}
                             @endif</td>
                         </tr>
         
@@ -1327,12 +1335,14 @@
                                     <td align="left" valign="top">@if( $transport['fixedChf'] !=0 ) Pauschal: @else Geschätzte Kosten: @endif  </td>
                                     <td><span style="color:#835AB1;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
                                 </tr>
-        
+                                
+                                @if($transport['topCost'] != NULL)
                                 <tr>
                                     <td align="left" valign="top"> Kostendach: </td>
                                     <td><span style="color:#835AB1;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
                                 </tr>
-        
+                                @endif
+                            
         
                                 @if($offer['kostenExkl'])
                                     <tr>
@@ -1567,7 +1577,7 @@
                     </li>
                     <li><b>Gültigkeit des Angebots</b> 21 Tage
                     </li>
-                    <li><b>Versicherung:</b> Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 50'000.- (ohne Selbstbehalt für den
+                    <li><b>Versicherung:</b> Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100'000.- (ohne Selbstbehalt für den
                         Kunden)
                     </li>
                     <li><b>All-Risk Versicherung</b> (auf Wunsch separat). Deckt z. Bsp. Kunst, Hightech-Geräte, Luxus und Wertgegenstände etc.

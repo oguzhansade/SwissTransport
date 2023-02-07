@@ -93,8 +93,13 @@
                         
                     </span><br><br>
                     <span class="text-dark">
-                        <strong>Sehr geehrter Herr {{ App\Models\Customer::getCustomer($offer['customerId'],'name') }} 
-                            {{ App\Models\Customer::getCustomer($offer['customerId'],'surname') }}</strong> <br>
+                        <strong>Sehr geehrter 
+                        @if (App\Models\Customer::getCustomer($offer['customerId'],'gender') === "male")
+                            Herr
+                        @else
+                            Frau
+                        @endif 
+                        {{ App\Models\Customer::getCustomer($offer['customerId'],'name') }} {{ App\Models\Customer::getCustomer($offer['customerId'],'surname') }}</strong> <br>
                         Wir danken Ihnen herzlich für Ihre Anfrage und freuen uns, Ihnen folgendes Angebot vorlegen zu können:
                     </span>
 

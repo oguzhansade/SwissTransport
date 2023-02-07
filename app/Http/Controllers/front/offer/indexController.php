@@ -671,7 +671,7 @@ class indexController extends Controller
                 }
             // SMS
 
-        $sub = 'Ihre Angebotsdatei';
+        $sub = 'Ihr Angebot';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
@@ -794,7 +794,9 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new OfferMail($emailData));
                 $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
             }          
-            return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
+            //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
+            $data = Customer::where('id',$create->customerId)->get();
+            return view ('front.customer.detail', ['id' => $create->customerId , 'data' => $data]);
         }
         else {
             return redirect()->back()->with('status-err','Hata:Teklif Eklenemedi, Mail Gönderilemedi');
@@ -1337,7 +1339,7 @@ class indexController extends Controller
                 'zToken' => $zToken,
             ]);
 
-        $sub = 'Ihre Angebotsdatei wurde aktualisiert';
+        $sub = 'Ihr Angebot';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name

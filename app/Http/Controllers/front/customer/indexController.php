@@ -28,8 +28,10 @@ class indexController extends Controller
         $create = Customer::create($all);
         
         if($create)
-        {
-            return redirect()->back()->with('status','Müşteri Başarıyla Eklendi');
+        {   
+            $data = Customer::where('id',$create->id)->get();
+            //return redirect()->back()->with('status','Müşteri Başarıyla Eklendi');
+            return view ('front.customer.detail', ['id' => $create->id , 'data' => $data]);
         }
         else {
             return redirect()->back()->with('status','Hata:Müşteri Eklenemedi');

@@ -106,7 +106,7 @@
     
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Telefon</label>
-                                    <input class="form-control"  name="phone"  type="text" value="{{ $data[0]['phone'] }}" required>                                
+                                    <input class="form-control"  name="phone"  type="text" value="{{ $data[0]['phone'] }}">                                
                                 </div>
     
                                 <div class="col-md-4">
