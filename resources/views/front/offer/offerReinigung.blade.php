@@ -299,7 +299,10 @@
             var extra13Cost = 0;
             var reinigungDiscount = 0;
             var reinigungDiscountPercent = 0;
-            $('input[name=reinigungTotalPrice]').on('click',function () {   
+           
+
+            
+            $('body').on('change','.reinigung--area',function(){
                 var SabitFiyat = $('select[name=reinigungFixedPrice]').val();
                 
                 if($('input[name=reinigungmasraf]').is(":checked")){

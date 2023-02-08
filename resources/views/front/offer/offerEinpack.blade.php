@@ -215,7 +215,7 @@
         einpackCost = 0;
         var einpackTopPrice = 0;
         var einpackDefaultPrice = 0;
-        $('input[name=einpackCost]').on('click',function () {         
+        $("body").on("change",".einpack--area",function(){     
             if ($('input[name=einpackmasraf]').is(":checked")){
                var extra1 = parseFloat($('input[name=einpackextra1]').val());               
             }
@@ -258,7 +258,7 @@
             }
         })  
 
-        $('input[name=einpackTotalPrice]').on('click',function () {
+        $("body").on("change",".einpack--area",function(){
             var chf = $('input[name=einpack1chf]').val();
             var Hours = $('input[name=einpackHours]').val();
             let allHours = Hours.split("-");
@@ -288,7 +288,7 @@
             }
 
         })
-        $('input[name=einpackTopPrice]').on('click',function(){
+        $("body").on("change",".einpack--area",function(){
             var chf = $('input[name=einpack1chf]').val();
             var Hours = $('input[name=einpackHours]').val();
 

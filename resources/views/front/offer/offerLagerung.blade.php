@@ -134,7 +134,7 @@ morebutton9.click(function(){
         lagerungCost = 0;
         var lagerungFixedPrice = 0;
         var lagerungCost = 0;
-        $('input[name=lagerungCost]').on('click',function () {         
+        $("body").on("change",".lagerung--area",function(){      
             var extraCost1 = parseFloat($('input[name=lagerungCost1]').val());               
             var extraCost2 = parseFloat($('input[name=lagerungCost2]').val()); 
             var discount = parseFloat($('input[name=lagerungExtraDiscount]').val());  

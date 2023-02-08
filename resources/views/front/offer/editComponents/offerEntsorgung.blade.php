@@ -485,7 +485,7 @@
 <script>
     $(document).ready(function(){
         
-        $('input[name=entsorgungTotalPrice]').on('click',function () {
+        $('body').on('change','.entsorgung--area',function(){
             if ($('input[name=entsorgungmasraf]').is(":checked")){
                 var extra1 = parseFloat($('input[name=entsorgungextra1]').val());               
             }
@@ -869,7 +869,7 @@
                 }
             }
         })
-        $('input[name=entsorgungTopPrice]').on('click',function(){
+        $('body').on('change','.entsorgung--area',function(){
             let tariffChf2 = $('input[name=entsorgungchf]').val();
             let volumeChf = $('input[name=entsorgungVolumeChf]').val();
             let entTotalPrices = $('input[name=entsorgungTotalPrice]').val();

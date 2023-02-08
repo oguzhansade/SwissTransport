@@ -4,11 +4,21 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-    <p>{{ $body }}</p>
+    <strong>{{ $cnote }}</strong> <br>
 
-    <strong>Customer Note:</strong> <br>
+    <p>Offerte Number : {{ $offertenumber }}</p>
+    <p>Kunde Number : {{ $kundenumber }}</p>
+    <p>Kunde : {{ $kunde }}</p>
+    <p>Telefon : {{ $telefon }}</p>
+    <p>Mobile : {{ $phone }}</p>
+    <p>Email : {{ $email }}</p>
+    <br>
+    <strong>Kunden Kommentar:</strong> <br>
     <p>{{ $customerNote }}</p>
-
+    <br>
+    <p>Link zur Offerte:</p>
+    <a href="https://www.swisstransport-crm.ch/offer/detail/{{ $offertenumber }}">Ansicht</a>
+    <br> <br>
     <div class="footer">
         <div>Freundliche Grüsse</div>
         <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>

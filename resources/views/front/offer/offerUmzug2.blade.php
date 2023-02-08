@@ -348,7 +348,7 @@
         var umzugTopPrice = 0;
         var umzugDefaultPrice = 0;
         
-        $('input[name=umzugCost]').on('click',function () {         
+        $('body').on('change','.umzug--area', function () {
             if ($('input[name=masraf]').is(":checked")){
                var extra1 = parseFloat($('input[name=extra1]').val());               
             }
@@ -443,11 +443,9 @@
             {
                 $('input[name=umzugCost]').val('')
             }
-           
-            
-            
-        })  
-        $('input[name=umzugTotalPrice]').on('click',function () {
+        })
+        
+        $("body").on("change",".umzug--area",function(){ 
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
             let allHours = Hours.split("-");
@@ -475,10 +473,9 @@
             {
                 $('input[name=umzugTotalPrice]').val('')
             }
-        }) 
-        
-        $('input[name=umzugTopPrice]').on('click',function(){
-            
+        })
+
+        $("body").on("change",".umzug--area",function(){ 
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
             let umzugTotalPrices = $('input[name=umzugTotalPrice]').val();
@@ -520,7 +517,8 @@
 
             umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
             $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
-        })  
+        })
+      
         
     })
 </script>

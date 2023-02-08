@@ -214,7 +214,8 @@
         auspackCost = 0;
         var auspackTopPrice = 0;
         var auspackDefaultPrice = 0;
-        $('input[name=auspackCost]').on('click',function () {         
+
+        $("body").on("change",".auspack--area",function(){
             if ($('input[name=auspackmasraf]').is(":checked")){
                var extra1 = parseFloat($('input[name=auspackextra1]').val());               
             }
@@ -256,7 +257,7 @@
                 $('input[name=auspackCost]').val('')
             }
         })  
-        $('input[name=auspackTotalPrice]').on('click',function () {
+        $("body").on("change",".auspack--area",function(){
             var chf = $('input[name=auspack1chf]').val();
             var Hours = $('input[name=auspackHours]').val();
 
@@ -286,7 +287,7 @@
             }
             
         })
-        $('input[name=auspackTopPrice]').on('click',function(){
+        $("body").on("change",".auspack--area",function(){
             var chf = $('input[name=auspack1chf]').val();
             var Hours = $('input[name=auspackHours]').val();
 

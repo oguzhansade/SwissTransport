@@ -463,7 +463,7 @@
          transportCost = 0;
          var transportTopPrice = 0;
          var transportDefaultPrice = 0;
-         $('input[name=transportCost]').on('click',function () {         
+         $('body').on('change','.transport--area',function(){      
              
              var roadchf = parseFloat($('input[name=transportRoadChf]').val());
              var chf = parseFloat($('input[name=transportchf]').val());
@@ -505,7 +505,7 @@
              }
             console.log(leftHour,rightHour,roadchf,chf,extra1,extra2,extra3,extra4,extra5,extra6,extra7)
          })  
-         $('input[name=transportDefaultPrice]').on('click',function () {
+         $('body').on('change','.transport--area',function(){
              var transportFixedTariff = $('input[name=transportFixedTariff]').val();
              var discount = $('input[name=transportDiscount]').val();
              var discountPercent = $('input[name=transportDiscountPercent]').val();
@@ -541,7 +541,7 @@
              }
              
          })
-         $('input[name=transportTopPrice]').on('click',function(){
+         $('body').on('change','.transport--area',function(){
              var chf = $('input[name=transportchf]').val();
              var Hours = $('input[name=transporthour]').val();
  

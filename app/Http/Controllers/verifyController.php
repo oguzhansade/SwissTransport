@@ -30,8 +30,14 @@ class verifyController extends Controller
                 offerte::where('id',$verifyOffer['offerId'])->update($verify);
 
                 $data["email"] = Company::InfoCompany('email');
-                $data["title"] = "Swiss Transport AG - Müşteri".' '.$offer['id'].' '."Numaralı Teklifi Onayladı";
-                $data["body"] = "".$verifyOffer['offerId']."".' '."Numaralı Teklif"." "."".$customer['name']." ".$customer['surname'].""." "."Tarafından Onaylandı";
+                $data["title"] = "Swiss Transport AG - Offerten Bestätigung";
+                $data["offertenumber"] = $offer['id'];
+                $data["kundenumber"] = $customer['id'];
+                $data["kunde"] = $customer['name']." ".$customer['surname'];
+                $data["telefon"] = $customer['phone'];
+                $data["phone"] = $customer['mobile'];
+                $data["email"] = $customer['email'];
+                $data["cnote"] = "Der folgende Kunde hat die Offerte bestätigt";
                 $data["customerNote"] = $request->offerteVerifyNote;
 
                 Mail::send('front.verify.offerMailVerification',$data,function($message)use($data){
@@ -66,8 +72,14 @@ class verifyController extends Controller
                 offerte::where('id',$verifyOffer['offerId'])->update($verify);
 
                 $data["email"] = Company::InfoCompany('email');
-                $data["title"] = "Swiss Transport AG - Müşteri".' '.$offer['id'].' '."Numaralı Teklifi Reddetti";
-                $data["body"] = "".$verifyOffer['offerId']."".' '."Numaralı Teklif"." "."".$customer['name']." ".$customer['surname'].""." "."Tarafından Reddedildi";
+                $data["title"] = "Swiss Transport AG - Offerte abgelehnt";
+                $data["offertenumber"] = $offer['id'];
+                $data["kundenumber"] = $customer['id'];
+                $data["kunde"] = $customer['name']." ".$customer['surname'];
+                $data["telefon"] = $customer['phone'];
+                $data["phone"] = $customer['mobile'];
+                $data["email"] = $customer['email'];
+                $data["cnote"] = "Der folgende Kunde hat die Offerte abgelehnt";
                 $data["customerNote"] = $request->offerteVerifyNote;
 
                 Mail::send('front.verify.offerMailVerification',$data,function($message)use($data){

@@ -407,7 +407,7 @@
         var extra13Cost = 0;
         var reinigungDiscount = 0;
         var reinigungDiscountPercent = 0;
-        $('input[name=reinigungTotalPrice2]').on('click',function () {   
+        $('body').on('change','.reinigung2--area',function(){   
             var SabitFiyat = $('select[name=reinigungFixedPrice2]').val();
             
             if($('input[name=reinigungmasraf2]').is(":checked")){
@@ -482,10 +482,7 @@
                 }
                 $('input[name=reinigungTotalPrice2]').val(sabitHesapla);
             }
-
-            
         })  
-        
     })
 </script>
 @endsection

@@ -14,7 +14,7 @@
                 </div> 
                 <div class="col-md-7">
                     <label class=" col-form-label" for="l0">Ort</label>
-                    <input class="form-control" name="ausCity1"  type="text" value="{{   $data['country']  }} " >
+                    <input class="form-control" name="ausCity1"  type="text" value="{{   $data['Ort']  }} " >
                 </div>  
             </div> 
             
@@ -28,7 +28,16 @@
                         <option value="Österreich">Österreich</option>
                         <option value="Italien">Italien</option>
                         <option value="Frankreich">Frankreich</option>
-                    </select> 
+                    </select>
+
+                    <div class="mt-1 isAusCustomLand1">
+                        <label class="col-form-label" for="l0">Custom Land</label>
+                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    </div>
+                    <div class="custom-aus-land-area-1" style="display:none;">
+                        <input class="form-control" type="text" name="ausCustomLand1">
+                    </div>
+
                 </div> 
             </div>
             
@@ -117,6 +126,14 @@
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isEinCustomLand1">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                        </div>
+                        <div class="custom-ein-land-area-1" style="display:none;">
+                            <input class="form-control" type="text" name="einCustomLand1">
+                        </div>
                     </div> 
                 </div>
                 
@@ -211,6 +228,14 @@
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isAusCustomLand2">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isAusCustomLand2" id="isAusCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                        </div>
+                        <div class="custom-aus-land-area-2" style="display:none;">
+                            <input class="form-control" type="text" name="ausCustomLand2">
+                        </div>
                     </div> 
                 </div>
                 
@@ -301,6 +326,14 @@
                                 <option value="Italien">Italien</option>
                                 <option value="Frankreich">Frankreich</option>
                             </select> 
+
+                            <div class="mt-1 isEinCustomLand2">
+                                <label class="col-form-label" for="l0">Custom Land</label>
+                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                            </div>
+                            <div class="custom-ein-land-area-2" style="display:none;">
+                                <input class="form-control" type="text" name="einCustomLand2">
+                            </div>
                         </div> 
                     </div>
                     
@@ -393,6 +426,14 @@
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isAusCustomLand3">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                        </div>
+                        <div class="custom-aus-land-area-3" style="display:none;">
+                            <input class="form-control" type="text" name="ausCustomLand3">
+                        </div>
                     </div> 
                 </div>
                 
@@ -476,6 +517,14 @@
                                 <option value="Italien">Italien</option>
                                 <option value="Frankreich">Frankreich</option>
                             </select> 
+
+                            <div class="mt-1 isEinCustomLand3">
+                                <label class="col-form-label" for="l0">Custom Land</label>
+                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                            </div>
+                            <div class="custom-ein-land-area-3" style="display:none;">
+                                <input class="form-control" type="text" name="einCustomLand3">
+                            </div>
                         </div> 
                     </div>
                     
@@ -540,6 +589,72 @@
 @section('offerFooter')
 
 <script>
+    var isAusCustomLand1 = $("div.isAusCustomLand1");
+    isAusCustomLand1.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-1").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-1").hide(200);
+        }
+    })
+
+    var isAusCustomLand2 = $("div.isAusCustomLand2");
+    isAusCustomLand2.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-2").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-2").hide(200);
+        }
+    })
+
+    var isAusCustomLand3 = $("div.isAusCustomLand3");
+    isAusCustomLand3.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-3").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-3").hide(200);
+        }
+    })
+
+    var isEinCustomLand1 = $("div.isEinCustomLand1");
+    isEinCustomLand1.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-1").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-1").hide(200);
+        }
+    })
+
+    var isEinCustomLand2 = $("div.isEinCustomLand2");
+    isEinCustomLand2.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-2").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-2").hide(200);
+        }
+    })
+
+    var isEinCustomLand3 = $("div.isEinCustomLand3");
+    isEinCustomLand3.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-3").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-3").hide(200);
+        }
+    })
+
     var morebutton = $("div.offer-auszug-2");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))
