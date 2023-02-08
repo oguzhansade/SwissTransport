@@ -466,6 +466,11 @@
                     value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice') }}"
                     @else value="{{ 0 }}"
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
@@ -497,10 +502,14 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".umzug--area").show(700);
+            $("input[name=isExtra]").prop('checked',true);
+            $("input[name=masraf]").prop('checked',true);
             isRequiredUmzug()
         }
         else{
             $(".umzug--area").hide(500);
+            $("input[name=isExtra]").prop('checked',false);
+            $("input[name=masraf]").prop('checked',false);
             isNotRequiredUmzug()
         }
     })
@@ -508,7 +517,13 @@
 
 <script>      
     $(document).ready(function(){
-        let ma = $("select[name=umzugTariff]").find(":selected").data("ma");
+        let ma = $("input[name=umzug1ma]").val();
+        let spesen = $("input[name=extra1]").val();
+        spesen = ma * 20;
+        $("input[name=extra1]").val(spesen);
+    })
+    $("input[name=umzug1ma]").on('change', function() {
+        let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();
         spesen = ma * 20;
         $("input[name=extra1]").val(spesen);
@@ -746,8 +761,14 @@
             }
             
 
-            umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
-            $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
+            if($('input[name=isUmzugFxPrice]').is(":checked"))
+            {
+                $('input[name=umzugDefaultPrice]').val();
+            }
+            else{
+                umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
+                $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
+            }
         })  
         
     })

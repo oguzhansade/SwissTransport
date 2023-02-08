@@ -19,8 +19,8 @@
             </select>
 
             <div class="row lagerung-tariffs--area" 
-            @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'chf') == NULL) 
-                style="display: none;"
+            @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'chf')) 
+                style="display: block;" @else style="display: none;"
             @endif>
                 <div class="col">
                     <label class=" col-form-label" for="l0">CHF-Ansatz</label>
@@ -124,6 +124,11 @@
                 @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') != NULL) 
                     value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') }}"
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isLagerungFxPrice" id="isLagerungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
@@ -254,9 +259,17 @@
                     lagerungCost = parseFloat($('input[name=lagerungCost]').val())
                 }
 
-                lagerungFixedPrice = lagerungCost + parseFloat(chf)
-                $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
-                $('input[name=lagerungFixedPrice]').val();
+                if($('input[name=isLagerungFxPrice]').is(":checked"))
+                {
+                    $('input[name=lagerungFixedPrice]').val();
+                }
+                else{
+                    lagerungFixedPrice = lagerungCost + parseFloat(chf)
+                    $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
+                }
+
+                
+               
         })
     })
 </script>

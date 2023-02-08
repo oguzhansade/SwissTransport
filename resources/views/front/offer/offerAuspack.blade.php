@@ -35,17 +35,17 @@
         
         <div class="extra-cost-auspack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
         </div>  
 
-        <div class="auspack--extra--cost--area" style="display: none;">
+        <div class="auspack--extra--cost--area" style="display: block;">
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="auspackmasraf"> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
+                                <input type="checkbox" name="auspackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
                             </label>                   
                         </div>
                     </div>
@@ -137,6 +137,11 @@
 
         <div class="auspack-pauschal-area " style="display:none;">
             <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+            <div class="mt-2">
+                <small class=" text-primary">manuell gesetzt</small>
+                <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
         </div>
     </div>
 </div>
@@ -145,6 +150,13 @@
 
 {{-- Tarife Fiyatları --}}
 <script>
+    $("input[name=auspack1ma]").on('change', function() {
+        let ma = $("input[name=auspack1ma]").val();
+        let spesen = $("input[name=auspackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=auspackextra1]").val(spesen);
+    })
+
     $("select[name=auspackTariff]").on("change",function () {
 
     let chf = $(this).find(":selected").data("chf");
@@ -316,8 +328,16 @@
                 auspackTopPrice = auspackTotalPrice + parseFloat(chf);
                 $('input[name=auspackTopPrice]').val(auspackTopPrice);
             }
-            auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
-            $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+
+            if($('input[name=isAuspackFxPrice]').is(":checked"))
+            {
+                $('input[name=auspackDefaultPrice]').val();
+            }
+            else{
+                auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
+                $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+            }
+            
         })  
     })
 </script>

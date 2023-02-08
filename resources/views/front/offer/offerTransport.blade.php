@@ -73,10 +73,10 @@
         <div class="col-md-6">
             <div class="extra-cost-transport mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
             </div>  
 
-            <div class="transport--extra--cost--area mt-3" style="display: none;">
+            <div class="transport--extra--cost--area mt-3" style="display: block;">
 
                 <div class="form-group">
                     <div class="row ">
@@ -202,6 +202,11 @@
 
             <div class="transport-pauschal-area " style="display:none;">
                 <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
@@ -304,9 +309,7 @@
         transportCost = 0;
         var transportTopPrice = 0;
         var transportDefaultPrice = 0;
-
-       
-        $('body').on('change','.transport--area',function(){      
+        $('input[name=transportCost]').on('click',function () {         
             
             var roadchf = parseFloat($('input[name=transportRoadChf]').val());
             var chf = parseFloat($('input[name=transportchf]').val());
@@ -348,7 +351,7 @@
             }
            console.log(leftHour,rightHour,roadchf,chf,extra1,extra2,extra3,extra4,extra5,extra6,extra7)
         })  
-        $('body').on('change','.transport--area',function(){
+        $('input[name=transportDefaultPrice]').on('click',function () {
             var transportFixedTariff = $('input[name=transportFixedTariff]').val();
             var discount = $('input[name=transportDiscount]').val();
             var discountPercent = $('input[name=transportDiscountPercent]').val();
@@ -384,7 +387,7 @@
             }
             
         })
-        $('body').on('change','.transport--area',function(){
+        $('input[name=transportTopPrice]').on('click',function(){
             var chf = $('input[name=transportchf]').val();
             var Hours = $('input[name=transporthour]').val();
 
@@ -414,8 +417,17 @@
                 $('input[name=transportTopPrice]').val(transportTopPrice);
             }
 
-            transportFixedPrice = transportTotalPrice + parseFloat(chf);
-            $('input[name=transportFixedPrice]').val(transportFixedPrice);
+            if($('input[name=isTransportFxPrice]').is(":checked"))
+            {
+                $('input[name=transportFixedPrice]').val();
+            }
+            else{
+                transportFixedPrice = transportTotalPrice + parseFloat(chf);
+                $('input[name=transportFixedPrice]').val(transportFixedPrice);
+            }
+
+            
+            
         })  
     })
 </script>

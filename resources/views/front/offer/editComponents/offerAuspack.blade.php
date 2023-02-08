@@ -244,6 +244,11 @@
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice') }}" 
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
@@ -254,10 +259,17 @@
 <script>
 
     $(document).ready(function(){
-        let ma = $("select[name=einpackTariff]").find(":selected").data("ma");
-        let spesen = $("input[name=einpackextra1]").val();
+        let ma = $("input[name=auspack1ma]").val();
+        let spesen = $("input[name=auspackextra1]").val();
         spesen = ma * 20;
-        $("input[name=einpackextra1]").val(spesen);
+        $("input[name=auspackextra1]").val(spesen);
+    })
+
+    $("input[name=auspack1ma]").on('change', function() {
+        let ma = $("input[name=auspack1ma]").val();
+        let spesen = $("input[name=auspackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=auspackextra1]").val(spesen);
     })
 
     function isRequiredAuspack()
@@ -280,10 +292,14 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".auspack--area").show(700);
+            $("input[name=auspackisExtra]").prop('checked',true);
+            $("input[name=auspackmasraf]").prop('checked',true);
             isRequiredAuspack();
         }
         else{
             $(".auspack--area").hide(500);
+            $("input[name=auspackisExtra]").prop('checked',false);
+            $("input[name=auspackmasraf]").prop('checked',false);
             isNotRequiredAuspack()
         }
     })
@@ -460,8 +476,14 @@
                 auspackTopPrice = auspackTotalPrice + parseFloat(chf);
                 $('input[name=auspackTopPrice]').val(auspackTopPrice);
             }
-            auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
-            $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+            if($('input[name=isAuspackFxPrice]').is(":checked"))
+            {
+                $('input[name=auspackDefaultPrice]').val();
+            }
+            else{
+                auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
+                $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+            }
         })  
     })
 </script>

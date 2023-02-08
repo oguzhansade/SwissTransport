@@ -130,7 +130,7 @@
                         <td class="pt-3">
                             {{-- Müşteri Bilgileri --}}
                             <br>
-                            {{ $offer['contactPerson'] }} <br>
+                            @if($offer['contactPerson'] == "Bitte wählen") - @else {{ $offer['contactPerson'] }} @endif<br>
                         </td>
                     </tr>
                     @endif

@@ -18,10 +18,10 @@
             </select>
 
             <div class="row entsorgung-chfVolume--area p-2 mt-1 rounded" style="background-color:#8778aa;
-            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'volumeCHF') == NULL) 
-                display:none;"
-            @endif>
-                <label class="col-form-label text-danger" for="l0"><span class="text-da">CHF-Ansatz</span></label>
+            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'volumeCHF')) 
+                display:none; @else display:none;
+            @endif">
+                <label class="col-form-label " for="l0"><span class="text-da">CHF-Ansatz</span></label>
                 <input class="form-control" class="entsorgungVolumeChf"  name="entsorgungVolumeChf"  type="text" 
                 @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'volumeCHF') != NULL) 
                     value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'volumeCHF') }}"
@@ -57,7 +57,7 @@
             </select>
             
             <div class="row entsorgung-tariffs--area" 
-            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'tariff') == NULL)  style="display: none;" @endif>
+            @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'tariff') )  style="display: block;" @else style="display: none;" @endif>
                 <div class="col">
                     <label class=" col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="entsorgungma" placeholder="0"  type="number" 
@@ -284,6 +284,11 @@
                     value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'fixedPrice') }}"
                     @else value="{{ 0 }}"
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEntsorgungFxPrice" id="isEntsorgungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div> 
             </div>
         </div>
     </div>
@@ -293,7 +298,14 @@
 <script>        
 
     $(document).ready(function(){
-        let ma = $("select[name=entsorgungTariff]").find(":selected").data("ma");
+        let ma = $("input[name=entsorgungma]").val();
+        let spesen = $("input[name=entsorgungextra1]").val();
+        spesen = ma * 20;
+        $("input[name=entsorgungextra1]").val(spesen);
+    })
+
+    $("input[name=entsorgungma]").on('change', function() {
+        let ma = $("input[name=entsorgungma]").val();
         let spesen = $("input[name=entsorgungextra1]").val();
         spesen = ma * 20;
         $("input[name=entsorgungextra1]").val(spesen);
@@ -304,7 +316,9 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".entsorgung--area").show(700);
-            $("select[name=entsorgungVolume]").prop('required',true);      
+            $("select[name=entsorgungVolume]").prop('required',true);     
+            $("input[name=entsorgungisExtra]").prop('checked',true); 
+            $("input[name=entsorgungmasraf]").prop('checked',true);
             $("select[name=entsorgungTariff]").prop('required',true);  
             $("input[name=entsorgungTotalPrice]").prop('required',true); 
         }
@@ -312,6 +326,8 @@
             $(".entsorgung--area").hide(500);
             $("select[name=entsorgungVolume]").prop('required',false);      
             $("select[name=entsorgungTariff]").prop('required',false);  
+            $("input[name=entsorgungisExtra]").prop('checked',false); 
+            $("input[name=entsorgungmasraf]").prop('checked',false);
             $("input[name=entsorgungTotalPrice]").prop('required',false); 
         }
     })
@@ -907,14 +923,20 @@
                 }
             }
 
-            if(tariffChf2)
+            if($('input[name=isEntsorgungFxPrice]').is(":checked"))
             {
-                entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
-                $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                $('input[name=entsorgungDefaultPrice]').val();
             }
             else{
-                entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
-                $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                if(tariffChf2)
+                {
+                    entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
+                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                }
+                else{
+                    entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
+                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                }
             }
             
         })  

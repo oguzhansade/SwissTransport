@@ -52,17 +52,17 @@
         
         <div class="extra-cost mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+            <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
         </div>  
 
-        <div class="extra--cost--area" style="display: none;">
+        <div class="extra--cost--area" style="display: block;">
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="masraf"> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
+                                <input type="checkbox" name="masraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
                             </label>                   
                         </div>
                     </div>
@@ -268,6 +268,11 @@
 
         <div class="pauschal-area " style="display:none;">
             <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+            <div class="mt-2">
+                <small class=" text-primary">manuell gesetzt</small>
+                <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
         </div>
     </div>
 </div>
@@ -275,6 +280,7 @@
 @section('offerFooter1')
 {{-- Tarife Fiyatları --}}
 <script>        
+
     $("select[name=umzugTariff]").on("change",function () {
         let chf = $(this).find(":selected").data("chf");
         let ma = $(this).find(":selected").data("ma");
@@ -300,6 +306,13 @@
         $('input[name=umzug1ma]').val(ma);
         $('input[name=umzug1lkw]').val(lkw);
         $('input[name=umzug1anhanger]').val(anhanger);
+        spesen = ma * 20;
+        $("input[name=extra1]").val(spesen);
+    })
+
+    $("input[name=umzug1ma]").on('change', function() {
+        let ma = $("input[name=umzug1ma]").val();
+        let spesen = $("input[name=extra1]").val();
         spesen = ma * 20;
         $("input[name=extra1]").val(spesen);
     })
@@ -346,7 +359,6 @@
         umzugCost = 0;
         var umzugTotalPrice = 0;
         var umzugTopPrice = 0;
-        var umzugDefaultPrice = 0;
         
         $('body').on('change','.umzug--area', function () {
             if ($('input[name=masraf]').is(":checked")){
@@ -480,6 +492,7 @@
             var Hours = $('input[name=umzugHours]').val();
             let umzugTotalPrices = $('input[name=umzugTotalPrice]').val();
             umzugTotalPricesARR = umzugTotalPrices.split("-");
+            umzugDefaultPrice = $('input[name=umzugDefaultPrice]').val();
             let umzugTotalPrice = 0;
 
             leftTotal = parseFloat(umzugTotalPricesARR[0]);
@@ -506,17 +519,16 @@
                 $('input[name=umzugTopPrice]').val(umzugTopPrice);
             }
             
-            if($('input[name=isKostendach]').is(":checked"))
+            if($('input[name=isUmzugFxPrice]').is(":checked"))
             {
-                $('input[name=umzugTopPrice]').val();
+                $('input[name=umzugDefaultPrice]').val();
             }
             else{
-                umzugTopPrice = umzugTotalPrice + parseFloat(chf);
-                $('input[name=umzugTopPrice]').val(umzugTopPrice);
+                umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
+                $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
             }
 
-            umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
-            $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
+            
         })
       
         

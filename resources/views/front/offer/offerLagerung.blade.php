@@ -77,6 +77,11 @@
 
             <div class="lagerung-fixed-area" style="display: none;">
                 <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isLagerungFxPrice" id="isLagerungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
             
         </div>
@@ -195,9 +200,14 @@ morebutton9.click(function(){
                     lagerungCost = parseFloat($('input[name=lagerungCost]').val())
                 }
 
-                lagerungFixedPrice = lagerungCost + parseFloat(chf)
-                $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
-                $('input[name=lagerungFixedPrice]').val();
+                if($('input[name=isLagerungFxPrice]').is(":checked"))
+                {
+                    $('input[name=lagerungFixedPrice]').val();
+                }
+                else{
+                    lagerungFixedPrice = lagerungCost + parseFloat(chf)
+                    $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
+                }
         })  
         
     })

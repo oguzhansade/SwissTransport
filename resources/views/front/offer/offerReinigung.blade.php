@@ -117,10 +117,10 @@
 
             <div class="extra-cost-reinigung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked >  
             </div>  
 
-            <div class="reinigung--extra--cost--area" style="display: none;">
+            <div class="reinigung--extra--cost--area" style="display: block;">
 
                 <div class="form-group">
                     <div class="row">
@@ -209,6 +209,7 @@
 
     {{-- Tarife Ücretleri --}}
     <script>
+       
         var morebutton5 = $("div.reinigung-control");
         morebutton5.click(function(){
             if($(this).hasClass("checkbox-checked"))

@@ -43,7 +43,7 @@
             </select>
             
 
-            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;" @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff')) display: block; @else display: none;  @endif" >
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">Tarifpreis</label>
                     <input class="form-control"   name="reinigungFixedPriceValue" placeholder="0"  type="number"
@@ -64,8 +64,8 @@
             </select>
             
 
-            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#8778aa;"
-            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'standartTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#8778aa;
+            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'standartTariff')) display: block; @else display: none;  @endif">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="reinigungmaValue"   type="number" 

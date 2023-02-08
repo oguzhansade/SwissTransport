@@ -29,6 +29,42 @@
                         <option value="Italien" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Italien') selected @endif>Italien</option>
                         <option value="Frankreich" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
                     </select> 
+
+                    <div class="mt-1 isAusCustomLand1">
+                        <label class="col-form-label" for="l0">Custom Land</label>
+                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                        @if (
+                            $auszug1 &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Fürstentum Liechtenstein' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich' 
+                        )
+                        checked
+                        @else
+                        unchecked
+                        @endif
+                        >
+                    </div>
+                    <div class="custom-aus-land-area-1" 
+                    @if (
+                         $auszug1 &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Fürstentum Liechtenstein' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich' 
+                        )
+                        style="display:block;"
+                        @else
+                        style="display:none;"
+                        @endif
+                    >
+                        <input class="form-control" type="text" name="ausCustomLand1" @if($auszug1 && \App\Models\offerteAddress::InfoAdress($auszug1,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug1,'country') }}" @endif>
+                    </div>
                 </div> 
             </div>
             
@@ -117,6 +153,40 @@
                             <option value="Italien" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isEinCustomLand1">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                            @if (
+                                $einzug1 &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Fürstentum Liechtenstein' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' 
+                            )
+                            checked
+                            @else
+                            unchecked
+                            @endif
+                            >
+                        </div>
+                        <div class="custom-ein-land-area-1" @if (
+                        $einzug1 &&
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Fürstentum Liechtenstein' &&
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' 
+                        )
+                        style="display:block;"
+                        @else
+                        style="display:none;"
+                        @endif >
+                            <input class="form-control" type="text" name="einCustomLand1" @if($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug1,'country') }}" @endif>
+                        </div>
                     </div> 
                 </div>
                 
@@ -211,6 +281,40 @@
                             <option value="Italien" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isAusCustomLand2">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isAusCustomLand2" id="isAusCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false"
+                            @if (
+                                $auszug2 &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Fürstentum Liechtenstein' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' 
+                            )
+                            checked
+                            @else
+                            unchecked
+                            @endif >
+                        </div>
+                        <div class="custom-aus-land-area-2" 
+                        @if (
+                        $auszug2 &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Fürstentum Liechtenstein' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' 
+                        )
+                        style="display:block;"
+                        @else
+                        style="display:none;"
+                        @endif >
+                            <input class="form-control" type="text" name="ausCustomLand2" @if($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug2,'country') }}" @endif>
+                        </div>
                     </div> 
                 </div>
                 
@@ -301,6 +405,41 @@
                                 <option value="Italien" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
                             </select> 
+
+                            <div class="mt-1 isEinCustomLand2">
+                                <label class="col-form-label" for="l0">Custom Land</label>
+                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                                @if (
+                                $einzug2 &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Fürstentum Liechtenstein' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' 
+                            )
+                            checked
+                            @else
+                            unchecked
+                            @endif>
+                            </div>
+                            <div class="custom-ein-land-area-2" 
+                            @if (
+                                $einzug2 &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Fürstentum Liechtenstein' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' 
+                                )
+                                style="display:block;"
+                                @else
+                                style="display:none;"
+                                @endif 
+                            >
+                                <input class="form-control" type="text" name="einCustomLand2" @if($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug2,'country') }}" @endif>
+                            </div>
                         </div> 
                     </div>
                     
@@ -393,6 +532,41 @@
                             <option value="Italien" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
                         </select> 
+
+                        <div class="mt-1 isAusCustomLand3">
+                            <label class="col-form-label" for="l0">Custom Land</label>
+                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                            @if (
+                                $auszug3 &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Fürstentum Liechtenstein' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' 
+                            )
+                            checked
+                            @else
+                            unchecked
+                            @endif>
+                        </div>
+                        <div class="custom-aus-land-area-3" 
+                        @if (
+                                $auszug3 &&
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Fürstentum Liechtenstein' &&
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' 
+                                )
+                                style="display:block;"
+                                @else
+                                style="display:none;"
+                                @endif 
+                        >
+                            <input class="form-control" type="text" name="ausCustomLand3" @if($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug3,'country') }}" @endif>
+                        </div>
                     </div> 
                 </div>
                 
@@ -476,6 +650,40 @@
                                 <option value="Italien" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
                             </select> 
+
+                            <div class="mt-1 isEinCustomLand3">
+                                <label class="col-form-label" for="l0">Custom Land</label>
+                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                                @if (
+                                $einzug3 &&
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Fürstentum Liechtenstein' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' 
+                            )
+                            checked
+                            @else
+                            unchecked
+                            @endif>
+                            </div>
+                            <div class="custom-ein-land-area-3" 
+                            @if (
+                                $einzug3 &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Fürstentum Liechtenstein' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' 
+                                )
+                                style="display:block;"
+                                @else
+                                style="display:none;"
+                                @endif>
+                                <input class="form-control" type="text" name="einCustomLand3" @if($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug3,'country') }}" @endif>
+                            </div>
                         </div> 
                     </div>
                     
@@ -536,6 +744,72 @@
 @section('offerFooter')
 
 <script>
+    var isAusCustomLand1 = $("div.isAusCustomLand1");
+    isAusCustomLand1.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-1").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-1").hide(200);
+        }
+    })
+
+    var isAusCustomLand2 = $("div.isAusCustomLand2");
+    isAusCustomLand2.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-2").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-2").hide(200);
+        }
+    })
+
+    var isAusCustomLand3 = $("div.isAusCustomLand3");
+    isAusCustomLand3.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-aus-land-area-3").show(300);
+        }
+        else{
+            $(".custom-aus-land-area-3").hide(200);
+        }
+    })
+
+    var isEinCustomLand1 = $("div.isEinCustomLand1");
+    isEinCustomLand1.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-1").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-1").hide(200);
+        }
+    })
+
+    var isEinCustomLand2 = $("div.isEinCustomLand2");
+    isEinCustomLand2.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-2").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-2").hide(200);
+        }
+    })
+
+    var isEinCustomLand3 = $("div.isEinCustomLand3");
+    isEinCustomLand3.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-ein-land-area-3").show(300);
+        }
+        else{
+            $(".custom-ein-land-area-3").hide(200);
+        }
+    })
+    
     var morebutton = $("div.offer-auszug-2");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

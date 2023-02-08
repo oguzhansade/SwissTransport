@@ -324,15 +324,21 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".auspack--area").show(700);
+            $("input[name=auspackisExtra]").prop('checked',true);
+            $("input[name=auspackmasraf]").prop('checked',true);
             $("select[name=auspackTariff]").prop('required',true);      
             $("input[name=auspackHours]").prop('required',true);  
             $("input[name=auspackCost]").prop('required',true);  
+            
         }
         else{
             $(".auspack--area").hide(500);
+            $("input[name=auspackisExtra]").prop('checked',false);
+            $("input[name=auspackmasraf]").prop('checked',false);
             $("select[name=auspackTariff]").prop('required',false);      
             $("input[name=auspackHours]").prop('required',false);  
             $("input[name=auspackCost]").prop('required',false);  
+            
         }
     })
 

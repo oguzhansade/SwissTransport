@@ -113,17 +113,17 @@
 
             <div class="extra-cost-reinigung2 mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra2" id="reinigungisExtra2" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="reinigungisExtra2" id="reinigungisExtra2" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
             </div>  
 
-            <div class="reinigung2--extra--cost--area" style="display: none;">
+            <div class="reinigung2--extra--cost--area" style="display: block;">
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-7">
                             <div class="checkbox checkbox-rounded checkbox-color-scheme">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="reinigungmasraf2"> <span class="label-text text-dark"><strong>Hochdruckreiniger</strong></span>                       
+                                    <input type="checkbox" name="reinigungmasraf2" checked> <span class="label-text text-dark"><strong>Hochdruckreiniger</strong></span>                       
                                 </label>                   
                             </div>
                         </div>
@@ -296,8 +296,7 @@
             var extra13Cost = 0;
             var reinigungDiscount = 0;
             var reinigungDiscountPercent = 0;
-
-            $('body').on('change','.reinigung2--area',function(){      
+            $('input[name=reinigungTotalPrice2]').on('click',function () {   
                 var SabitFiyat = $('select[name=reinigungFixedPrice2]').val();
                 
                 if($('input[name=reinigungmasraf2]').is(":checked")){

@@ -35,17 +35,17 @@
         
         <div class="extra-cost-einpack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
         </div>  
 
-        <div class="einpack--extra--cost--area" style="display: none;">
+        <div class="einpack--extra--cost--area" style="display: block;">
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="einpackmasraf"> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
+                                <input type="checkbox" name="einpackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
                             </label>                   
                         </div>
                     </div>
@@ -137,6 +137,11 @@
 
         <div class="einpack-pauschal-area " style="display:none;">
             <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+            <div class="mt-2">
+                <small class=" text-primary">manuell gesetzt</small>
+                <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
         </div>
        
     </div>
@@ -146,6 +151,13 @@
 
 {{-- Tarife Fiyatları --}}
 <script>
+    $("input[name=einpack1ma]").on('change', function() {
+        let ma = $("input[name=einpack1ma]").val();
+        let spesen = $("input[name=einpackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=einpackextra1]").val(spesen);
+    })
+
     $("select[name=einpackTariff]").on("change",function () {
 
     let chf = $(this).find(":selected").data("chf");
@@ -318,8 +330,15 @@
                 $('input[name=einpackTopPrice]').val(einpackTopPrice);
             }
 
-            einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
+            if($('input[name=isEinpackFxPrice]').is(":checked"))
+            {
+                $('input[name=einpackDefaultPrice]').val();
+            }
+            else{
+                einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
             $('input[name=einpackDefaultPrice]').val(einpackDefaultPrice);
+            }
+           
         })  
     })
 </script>

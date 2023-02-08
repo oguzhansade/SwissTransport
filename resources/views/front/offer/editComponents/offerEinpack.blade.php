@@ -242,6 +242,11 @@
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice') }}" 
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
@@ -252,7 +257,14 @@
 <script>
 
     $(document).ready(function(){
-        let ma = $("select[name=einpackTariff]").find(":selected").data("ma");
+        let ma = $("input[name=einpack1ma]").val();
+        let spesen = $("input[name=einpackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=einpackextra1]").val(spesen);
+    })
+
+    $("input[name=einpack1ma]").on('change', function() {
+        let ma = $("input[name=einpack1ma]").val();
         let spesen = $("input[name=einpackextra1]").val();
         spesen = ma * 20;
         $("input[name=einpackextra1]").val(spesen);
@@ -277,10 +289,14 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".einpack--area").show(700);
+            $("input[name=einpackisExtra]").prop('checked',true);
+            $("input[name=einpackmasraf]").prop('checked',true);
             isRequiredEinpack();
         }
         else{
             $(".einpack--area").hide(500);
+            $("input[name=einpackisExtra]").prop('checked',false);
+            $("input[name=einpackmasraf]").prop('checked',false);
             isNotRequiredEinpack();
         }
     })
@@ -459,8 +475,14 @@
                 $('input[name=einpackTopPrice]').val(einpackTopPrice);
             }
 
-            einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
+            if($('input[name=isEinpackFxPrice]').is(":checked"))
+            {
+                $('input[name=einpackDefaultPrice]').val();
+            }
+            else{
+                einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
             $('input[name=einpackDefaultPrice]').val(einpackDefaultPrice);
+            }
         })  
     })
 </script>

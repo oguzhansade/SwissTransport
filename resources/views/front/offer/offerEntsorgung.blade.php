@@ -94,16 +94,16 @@
         <div class="col-md-6">
             <div class="extra-cost-entsorgung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="entsorgungisExtra" id="entsorgungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="entsorgungisExtra" id="entsorgungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
             </div>  
 
-            <div class="entsorgung--extra--cost--area" style="display: none;">
+            <div class="entsorgung--extra--cost--area" style="display: block;">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-7">
                             <div class="checkbox checkbox-rounded checkbox-color-scheme">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="entsorgungmasraf"> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
+                                    <input type="checkbox" name="entsorgungmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
                                 </label>                   
                             </div>
                         </div>
@@ -179,6 +179,11 @@
 
             <div class="entsorgung-pauschal-area " style="display:none;">
                 <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEntsorgungFxPrice" id="isEntsorgungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div> 
             </div>
         </div>
     </div>
@@ -187,6 +192,13 @@
 @section('offerEntsorgung')
 
 <script>        
+    $("input[name=entsorgungma]").on('change', function() {
+        let ma = $("input[name=entsorgungma]").val();
+        let spesen = $("input[name=entsorgungextra1]").val();
+        spesen = ma * 20;
+        $("input[name=entsorgungextra1]").val(spesen);
+    })
+
     var morebutton7 = $("div.entsorgung-control");
     morebutton7.click(function(){
         if($(this).hasClass("checkbox-checked"))
@@ -714,15 +726,23 @@
                 }
             }
 
-            if(tariffChf2)
+            if($('input[name=isEntsorgungFxPrice]').is(":checked"))
             {
-                entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
-                $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                $('input[name=entsorgungDefaultPrice]').val();
             }
             else{
-                entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
-                $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                if(tariffChf2)
+                {
+                    entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
+                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                }
+                else{
+                    entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
+                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                }
             }
+
+            
             
         })  
     })

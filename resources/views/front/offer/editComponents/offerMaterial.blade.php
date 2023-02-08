@@ -133,7 +133,7 @@
         </div>
     </div>
 </div>
-@section('offerMaterial')
+@section('offerMaterialEdit')
 <script>
     $(document).ready(function(){
         var say = {{ App\Models\OfferteBasket::getBasket($material)->count()}}
