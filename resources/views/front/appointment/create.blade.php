@@ -131,6 +131,24 @@
                                         <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" >                                
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" required>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="10" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="umzug1calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
                                 
                                 {{-- 2.Umzug Alanı Kontrolü --}}

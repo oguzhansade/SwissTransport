@@ -99,7 +99,10 @@ class indexController extends Controller
                         'workHours' => $request->umzug1hours,
                         'ma' => $request->umzug1ma,
                         'lkw' => $request->umzug1lkw,
-                        'anhanger' => $request->umzug1anhanger,               
+                        'anhanger' => $request->umzug1anhanger, 
+                        'calendarTitle' => $request->umzug1calendarTitle,
+                        'calendarComment' => $request->umzug1calendarComment,
+                        'calendarLocation' => $request->umzug1calendarLocation,              
                     ];
                     
                     $umzug1Olustur = UmzugService::create($umzug1);
@@ -108,6 +111,9 @@ class indexController extends Controller
                     $umzugId = $umzugIdBul->id;
                     $appDateArray[$ADC]['date'] = $umzugIdBul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $umzugIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $umzugIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $umzugIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Umzug';
                     $ADC++;
                     
@@ -131,8 +137,9 @@ class indexController extends Controller
                     $umzugId2Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
                     $umzug2Id = $umzugId2Bul->id;
                     $appDateArray[$ADC]['date'] = $umzugId2Bul->umzugDate;
-                    $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['time'] = $umzugId2Bul->umzugTime;
                     $appDateArray[$ADC]['serviceName'] = 'Umzug 2';
+                    
                     $ADC++;
                 }
 
@@ -154,7 +161,10 @@ class indexController extends Controller
                     $umzugId3Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
                     $umzug3Id = $umzugId3Bul->id;
                     $appDateArray[$ADC]['date'] = $umzugId3Bul->umzugDate;
-                    $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['time'] = $umzugId3Bul->umzugTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $umzugId3Bul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $umzugId3Bul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $umzugId3Bul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Umzug 3';
                     $ADC++;
                 }           
@@ -223,6 +233,7 @@ class indexController extends Controller
                     $reinigungIdBul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
                     $reinigungId = $reinigungIdBul->id;
                     $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
+                    $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
                     $appDateArray[$ADC]['serviceName'] = 'Reinigung';
                     $ADC++;
                 }
@@ -243,6 +254,7 @@ class indexController extends Controller
                     $reinigungId2Bul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
                     $reinigung2Id = $reinigungId2Bul->id;
                     $appDateArray[$ADC]['date'] = $reinigungId2Bul->reinigungStartDate;
+                    $appDateArray[$ADC]['time'] = $reinigungId2Bul->reinigungStartTime;
                     $appDateArray[$ADC]['serviceName'] = 'Reinigung 2';
                     $ADC++;
                 }
@@ -265,6 +277,7 @@ class indexController extends Controller
                     $entsorgungIdBul = DB::table('entsorgung_services')->orderBy('id','DESC')->first(); // Son Eklenen Entsorgung un id'si
                     $entsorgungId = $entsorgungIdBul->id;
                     $appDateArray[$ADC]['date'] = $entsorgungIdBul->entsorgungDate;
+                    $appDateArray[$ADC]['time'] = $entsorgungIdBul->entsorgungTime;
                     $appDateArray[$ADC]['serviceName'] = 'Entsorgung';
                     $ADC++;
                 }
@@ -289,6 +302,7 @@ class indexController extends Controller
                     $transportIdBul = DB::table('transport_services')->orderBy('id','DESC')->first(); // Son Eklenen Transport un id'si
                     $transportId = $transportIdBul->id;
                     $appDateArray[$ADC]['date'] = $transportIdBul->transportDate;
+                    $appDateArray[$ADC]['time'] = $transportIdBul->transportTime;
                     $appDateArray[$ADC]['serviceName'] = 'Transport';
                     $ADC++;
                 }
@@ -307,6 +321,7 @@ class indexController extends Controller
                     $lagerungIdBul = DB::table('lagerung_services')->orderBy('id','DESC')->first(); // Son Eklenen Lagerung un id'si
                     $lagerungId = $lagerungIdBul->id;
                     $appDateArray[$ADC]['date'] = $lagerungIdBul->lagerungDate;
+                    $appDateArray[$ADC]['time'] = $lagerungIdBul->lagerungTime;
                     $appDateArray[$ADC]['serviceName'] = 'Lagerung';
                     $ADC++;
                 }
@@ -431,7 +446,7 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                Mail::to($from)->send(new CompanyMail($emailData));
+                Mail::to('oguzhansade1@gmail.com')->send(new CompanyMail($emailData));
                 $mailSuccess = ', Mail Başarıyla Gönderildi';
             }                  
             return redirect()->back()->with('status',$randevuTipi.' '.'Randevusu Başarıyla Eklendi'.' '.$mailSuccess );

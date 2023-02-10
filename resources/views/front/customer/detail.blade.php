@@ -550,7 +550,7 @@
                     "createdCell": function (td, cellData, rowData, row, col) {
                         if ( cellData == 'Onaylandı' ) {
                             $(td).css('vertical-align','middle');
-                            $(td).html('<span class="bg-custom-success px-3 py-1 text-center shadow" >Zugelassen <i class="text-center feather feather-check-circle pl-1"></i></span>')
+                            $(td).html('<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>')
                         }
                         else if(cellData == 'Beklemede'){
                             $(td).css('vertical-align','middle');

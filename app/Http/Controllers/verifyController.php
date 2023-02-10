@@ -36,12 +36,12 @@ class verifyController extends Controller
                 $data["kunde"] = $customer['name']." ".$customer['surname'];
                 $data["telefon"] = $customer['phone'];
                 $data["phone"] = $customer['mobile'];
-                $data["email"] = $customer['email'];
+                $data["customerEmail"] = $customer['email'];
                 $data["cnote"] = "Der folgende Kunde hat die Offerte bestätigt";
                 $data["customerNote"] = $request->offerteVerifyNote;
 
                 Mail::send('front.verify.offerMailVerification',$data,function($message)use($data){
-                    $message->to($data['email'], $data['email'])
+                    $message->to($data['email'])
                         ->subject($data['title']);
                 });
 
@@ -78,12 +78,12 @@ class verifyController extends Controller
                 $data["kunde"] = $customer['name']." ".$customer['surname'];
                 $data["telefon"] = $customer['phone'];
                 $data["phone"] = $customer['mobile'];
-                $data["email"] = $customer['email'];
+                $data["customerEmail"] = $customer['email'];
                 $data["cnote"] = "Der folgende Kunde hat die Offerte abgelehnt";
                 $data["customerNote"] = $request->offerteVerifyNote;
 
                 Mail::send('front.verify.offerMailVerification',$data,function($message)use($data){
-                    $message->to($data['email'], $data['email'])
+                    $message->to($data['email'])
                         ->subject($data['title']);
                 });
 

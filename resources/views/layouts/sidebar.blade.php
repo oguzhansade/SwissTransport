@@ -1,7 +1,7 @@
 <nav class="sidebar-nav">
     <ul class="nav in side-menu">
         @if (App\Models\UserPermission::getMyControl(0))
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children" >
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Firma</span>
             </a>
@@ -15,7 +15,7 @@
         @endif
 
         @if (App\Models\UserPermission::getMyControl(1))
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-user"></i> <span class="hide-menu">Benutzer</span>
             </a>

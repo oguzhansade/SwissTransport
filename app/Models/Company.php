@@ -16,6 +16,7 @@ class Company extends Model
         'mobile',
         'contact_person' ,
         'email' ,
+        'google-email',
         'website',
     ];
     use HasFactory;

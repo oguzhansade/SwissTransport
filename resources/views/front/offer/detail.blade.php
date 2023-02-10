@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-md-12">
                                 <span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span> <span class="h5 ml-3 font-weight-bold text-primary">
-                                    @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Zugelassen 
+                                    @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Bestätigt 
                                     @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt  
                                     @else in Wartestellung
                                     @endif</span>

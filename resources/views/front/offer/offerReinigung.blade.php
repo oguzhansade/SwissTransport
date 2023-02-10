@@ -117,10 +117,10 @@
 
             <div class="extra-cost-reinigung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked >  
+                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false"  >  
             </div>  
 
-            <div class="reinigung--extra--cost--area" style="display: block;">
+            <div class="reinigung--extra--cost--area" style="display: none;">
 
                 <div class="form-group">
                     <div class="row">
@@ -300,8 +300,6 @@
             var extra13Cost = 0;
             var reinigungDiscount = 0;
             var reinigungDiscountPercent = 0;
-           
-
             
             $('body').on('change','.reinigung--area',function(){
                 var SabitFiyat = $('select[name=reinigungFixedPrice]').val();
@@ -313,7 +311,7 @@
                     extra1 = 0;
                 }
                 if ($('input[name=reinigungmasraf2]').is(":checked")){
-                extra2 = parseFloat($('input[name=reinigungextra2]').val());               
+                    extra2 = parseFloat($('input[name=reinigungextra2]').val());               
                 }
                 else {
                     extra2 = 0;

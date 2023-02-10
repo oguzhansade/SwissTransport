@@ -47,7 +47,7 @@ class InformationMail extends Mailable
         if($this->data['isCustomEmailSend'])
         {
              
-            $calendar =  Calendar::create('Camdalio Company')
+            $calendar =  Calendar::create($this->data['companyName'])
             ->event(Event::create($this->data['sub'])                   
                 ->organizer($this->data['from'],$this->data['companyName'])
                 ->attendee($this->data['email'])  
@@ -56,12 +56,6 @@ class InformationMail extends Mailable
                 
             );
 
-            $fullDate = $this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'];
-            $companyCalendar = calendarHelper::companyMail(
-                $this->data['sub'],
-                $fullDate,
-                $fullDate
-            );
 
             return $this->view('cemail')
                     ->subject($this->data['sub'])
@@ -74,30 +68,52 @@ class InformationMail extends Mailable
         }
         else 
         {
-   
-            $calendar =  Calendar::create('Camdalio Company')
-            ->event(Event::create($this->data['sub'])                   
-                ->organizer($this->data['from'],$this->data['companyName'])
-                ->attendee($this->data['email'])  
-                ->startsAt(new DateTime($this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'], new DateTimeZone('Europe/Istanbul')))
-                ->endsAt(new DateTime($this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'], new DateTimeZone('Europe/Istanbul')))
+            
+            // $eventArray = [];
+            // $eventArray = 
+            //     Event::create($p['serviceName'])                   
+            //     ->startsAt(new DateTime($p['date'].' '.$p['time'], new DateTimeZone('Europe/Istanbul')))
+            //     ->endsAt(new DateTime($p['date']));
+            // }
+            // $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
+              
+            //     $eventArray[$ADC]['event'] = Event::create($p['serviceName']);
+            // }
+            // $calendar = Calendar::create('Laracon Online')
+            // ->event(
+            //     [
+            //         Event::create($this->data['appDate']['date'])
+            //     ]
+            // );
+            //     $event = Event::create($p['serviceName']);
+            // Calendar::create('Laracon Online')
+            // ->event([
+            //     foreach ($this->data['appDate'] as $p) {
+            //         Event::create('Creating contact lists')
+            //     }
+            // ])
                 
-            );
-
-            $fullDate = $this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'];
-            $companyCalendar = calendarHelper::companyMail(
-                $this->data['sub'],
-                $fullDate,
-                $fullDate
-            );
+                    // $calendar =  Calendar::create($this->data['companyName'])
+                    // ->event(
+                    //    [
+                    //     Event::create($p['serviceName'])                   
+                    //     ->startsAt(new DateTime($p['date'].' '.$p['time'], new DateTimeZone('Europe/Istanbul')))
+                    //     ->endsAt(new DateTime($p['date']))
+                    //    ]
+                    // );
+               
+                
+                
+            
+            
 
         return $this->view('email')
                 ->subject($this->data['sub'])
                 ->from($this->data['from'],$this->data['companyName'])                   
-                ->with('data',$this->data)
-                ->attachData($calendar->get(), 'invite.ics', [
-                    'mime' => 'text/calendar; charset=UTF-8; method=oguzhansade1@gmail.com',
-                ]);
+                ->with('data',$this->data);
+                // ->attachData($calendar->get(), 'invite.ics', [
+                //     'mime' => 'text/calendar; charset=UTF-8; ',
+                // ]);
         }
     }
 }

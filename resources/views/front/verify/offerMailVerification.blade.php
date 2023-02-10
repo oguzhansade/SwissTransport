@@ -11,7 +11,7 @@
     <p>Kunde : {{ $kunde }}</p>
     <p>Telefon : {{ $telefon }}</p>
     <p>Mobile : {{ $phone }}</p>
-    <p>Email : {{ $email }}</p>
+    <p>Email : {{ $customerEmail }}</p>
     <br>
     <strong>Kunden Kommentar:</strong> <br>
     <p>{{ $customerNote }}</p>

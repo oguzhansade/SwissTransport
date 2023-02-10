@@ -18,9 +18,12 @@ return new class extends Migration
             $table->date('umzugDate')->nullable();
             $table->time('umzugTime')->nullable();
             $table->string('workHours')->nullable();
-            $table->integer('ma')->nullable(); // Kamyon Sayısı
-            $table->integer('lkw')->nullable(); // İşçi Sayısı
+            $table->integer('ma')->nullable(); // İşçi Sayısı
+            $table->integer('lkw')->nullable(); // Kamyon Sayısı
             $table->integer('anhanger')->nullable(); // Römork Sayısı
+            $table->string('calendarTitle')->nullable();
+            $table->longText('calendarComment')->nullable();
+            $table->string('calendarLocation')->nullable();
             $table->timestamps();
         });
     }

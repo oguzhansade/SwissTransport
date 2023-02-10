@@ -41,46 +41,17 @@ class CompanyMail extends Mailable
      */
     public function build()
     {
-       
-        if($this->data['isCustomEmailSend'])
-        {
-        $calendar = Calendar::create()
-        ->productIdentifier('CAMDALIO COMPANY')
-        ->event(function (Event $event) {
-            $event->name("Email with iCal 101")
-                ->attendee("attendee@gmail.com")
-                ->startsAt(Carbon::parse("2022-12-15 08:00:00"))
-                ->endsAt(Carbon::parse("2022-12-19 17:00:00"))
-                ->fullDay()
-                ->address('Online - Google Meet');
-        });
-        $calendar->appendProperty(TextProperty::create('METHOD', 'REQUEST'));
-
-            return $this->view('cemail')
-                    ->subject($this->data['sub'])
-                    ->from($this->data['from'],$this->data['companyName'])
-                    ->html($this->data['customEmailContent'])
-                    ->with('data',$this->data)
-                    ->attachData($calendar->get(), 'invite.ics', [
-                        'mime' => 'text/calendar; charset=UTF-8; method=REQUEST',
-                    ]);
+        foreach ($this->data['appDate'] as $item) {
+            $fullDate = $item['date'].' '.$item['time'];
+            $location = $item['calendarLocation'];
+            $title = $item['calendarTitle'];
+            $comment = $item['calendarComment'];
+            calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment);
         }
-        else 
-        {
             
-            $fullDate = $this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'];
-            $companyCalendar = calendarHelper::companyMail(
-                $this->data['sub'],
-                $fullDate,
-                $fullDate
-            );
-
         return $this->view('tempEmail')
-                ->subject($this->data['email'].' '.'Sistem Randevu Bildirimi')
+                ->subject($this->data['email'].' '.'System Termine Notice')
                 ->from($this->data['from'],$this->data['companyName'])                   
                 ->with('data',$this->data);
-                
-                   
-        }
     }
 }

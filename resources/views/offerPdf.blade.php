@@ -1074,8 +1074,7 @@
                         @if ($entsorgung['tariff'])
                         <tr style="width:100%;" >
                             <td colspan="3"><b style="">Tarif: </b></td>
-                            <td colspan="1"> {{ \App\Models\Tariff::InfoTariff($entsorgung['tariff']) }}</td>
-                            {{ $entsorgung['ma'] }} Mitarbeiter mit {{ $entsorgung['lkw'] }} Lieferwagen @if($entsorgung['anhanger']) und {{ $entsorgung['anhanger'] }} Anhänger @endif à CHF {{ $entsorgung['chf'] }}.- / Stunde
+                            <td colspan="1"> {{ $entsorgung['ma'] }} Mitarbeiter mit {{ $entsorgung['lkw'] }} Lieferwagen @if($entsorgung['anhanger']) und {{ $entsorgung['anhanger'] }} Anhänger @endif à CHF {{ $entsorgung['chf'] }}.- / Stunde</td>
                         </tr>
                         @endif
 
@@ -1231,8 +1230,8 @@
                     @else 
                     <tr style="width:100%;">
                         <td colspan="2"><b style="">Tarif: </b></td>
-                        <td colspan="2"> {{ \App\Models\Tariff::InfoTariff($transport['tariff']) }}</td>
-                        {{ $transport['ma'] }} Mitarbeiter mit {{ $transport['lkw'] }} Lieferwagen @if($transport['anhanger']) und {{ $transport['anhanger'] }} Anhänger @endif à CHF {{ $transport['chf'] }}.- / Stunde
+                        <td colspan="2">{{ $transport['ma'] }} Mitarbeiter mit {{ $transport['lkw'] }} Lieferwagen @if($transport['anhanger']) und {{ $transport['anhanger'] }} Anhänger @endif à CHF {{ $transport['chf'] }}.- / Stunde </td>
+                        
                     </tr>
                     @endif
                         
@@ -1482,17 +1481,17 @@
                 @if($isMaterial)
                     <table border="0" style="width: 100%;margin-top:20px;">
                         <tr style="width:100%;">
-                            <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
+                            <td colspan="5" class="p-1 " style="background-color:#E5E5E5;">
                                 <b style="font-size:13px;line-height:13px;">Verpackungsmaterial</b>
                             </td>
                         </tr>
             
                         <tr>
-                            <td  style="padding-left: 10px;font-weight: bold;">Art</td>
-                            <td  style="padding-left: 10px;font-weight: bold;">zur Miete/Kauf</td>
-                            <td  style="padding-left: 10px;font-weight: bold;">Preis pro Stk</td>
-                            <td  style="padding-left: 10px;font-weight: bold;">Anzahl</td>
-                            <td  style="padding-left: 10px;font-weight: bold;">Total</td>
+                            <td  style="font-weight: bold;">Art</td>
+                            <td  style="font-weight: bold;">zur Miete/Kauf</td>
+                            <td  style="font-weight: bold;">Preis pro Stk</td>
+                            <td  style="font-weight: bold;">Anzahl</td>
+                            <td  style="font-weight: bold;">Total</td>
                         </tr>
             
                         {{-- Boşluk Bırakma --}}
@@ -1502,9 +1501,9 @@
             
                         @foreach ($basket as $k => $v)
                         <tr>
-                            <td style="padding-left: 10px;">{{ \App\Models\Product::productName($v['productId'])}} </td>
-                            <td style="padding-left: 10px;">@if ($v['buyType'] == 1) Kauf @elseif ($v['buyType'] == 2) Miete @else - @endif</td>
-                            <td style="padding-left: 10px;">
+                            <td >{{ \App\Models\Product::productName($v['productId'])}} </td>
+                            <td >@if ($v['buyType'] == 1) Kauf @elseif ($v['buyType'] == 2) Miete @else - @endif</td>
+                            <td >
                                 @if ($v['buyType'] == 1) {{ \App\Models\Product::buyPrice($v['productId'])}} 
                                     @elseif ($v['buyType'] == 2) {{ \App\Models\Product::rentPrice($v['productId'])}}
                                     @else - 
@@ -1522,22 +1521,22 @@
                         </tr>
             
                         <tr>
-                            <td style="padding-left: 10px;">Reduktion:</td>
+                            <td >Reduktion:</td>
                             <td align="left" colspan="4">{{ $material['discount'] }} CHF</td>
                         </tr>
             
                         <tr>
-                            <td style="padding-left: 10px;">Lieferung:</td>
+                            <td >Lieferung:</td>
                             <td align="left" colspan="4">{{ $material['deliverPrice'] }} CHF</td>
                         </tr>
             
                         <tr>
-                            <td style="padding-left: 10px;">Abholung:</td>
+                            <td >Abholung:</td>
                             <td align="left" colspan="4">{{ $material['recievePrice'] }} CHF</td>
                         </tr>
             
                         <tr>
-                            <td style="padding-left: 10px;font-weight: bold;">Total:</td>
+                            <td style="font-weight: bold;">Total:</td>
                             <td align="left" colspan="4"><span  style="color:#835AB1;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span></td>
                         </tr>
     
