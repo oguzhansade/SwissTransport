@@ -14,6 +14,9 @@ class EinpackService extends Model
         'ma',
         'lkw',
         'anhanger',
+        'calendarTitle',
+        'calendarComment',
+        'calendarLocation',
     ];
     use HasFactory;
 }

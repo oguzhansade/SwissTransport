@@ -10,6 +10,9 @@ class LagerungService extends Model
     protected $fillable = [
         'lagerungDate',
         'lagerungTime',
+        'calendarTitle',
+        'calendarComment',
+        'calendarLocation',
     ];
     use HasFactory;
 

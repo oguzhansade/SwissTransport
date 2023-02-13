@@ -7,21 +7,13 @@ use DateTimeZone;
 
 class calendarHelper
 {
-    static function companyMail ($serviceName,$date,$name,$surname,$gender,$location,$title,$comment)
+    static function companyMail ($serviceName,$date,$name,$surname,$gender,$location,$title,$comment,$endDate)
     {
-        // foreach ($appDates as $items) {
-        //     $event = new Event;
-        //     $event->name = $items['serviceName'];
-        //     $event->startDateTime = $items['date'].$items['time'];
-        //     $event->endDateTime = $items['date'].$items['time'];
-        //     $event->save();
-        // }
-        
         $event = new Event;
         // $event->name = ($gender === "male" ? "Herr" : "Frau").' '.$name.' '.$surname.' '.'-'.$serviceName;
-        $event->name = $title.' '.'-'.$serviceName;
+        $event->name = $serviceName.'-'.' '.$title;
         $event->startDateTime = Carbon::parse($date)->timezone("Europe/Berlin");
-        $event->endDateTime = Carbon::parse($date)->addHour()->timezone("Europe/Berlin");
+        $event->endDateTime = Carbon::parse($endDate)->timezone("Europe/Berlin");
         $event->location = $location;
         $event->description = $comment;
         $event->save();

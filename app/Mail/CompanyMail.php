@@ -43,10 +43,11 @@ class CompanyMail extends Mailable
     {
         foreach ($this->data['appDate'] as $item) {
             $fullDate = $item['date'].' '.$item['time'];
+            $endDate = $item['endDate'].' '.$item['endTime'];
             $location = $item['calendarLocation'];
             $title = $item['calendarTitle'];
-            $comment = $item['calendarComment'];
-            calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment);
+            $comment =  $item['calendarComment'];
+            calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
         }
             
         return $this->view('tempEmail')

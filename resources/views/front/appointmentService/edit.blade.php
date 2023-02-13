@@ -99,6 +99,8 @@
                                         <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" @if ($dataUmzug) value="{{ $dataUmzug['anhanger'] }}" @endif>                                
                                     </div>
                                 </div>
+
+                                
                             
                                 {{-- 1.Umzug Alanı Bitiş --}}
                                 

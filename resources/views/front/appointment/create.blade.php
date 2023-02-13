@@ -135,12 +135,12 @@
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" required>
+                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" >
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="10" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
                                     </div>
 
                                     <div class="col-md-4">
@@ -187,7 +187,25 @@
                                             <label class=" col-form-label" for="l0">Anhänger</label>
                                             <input class="form-control"  name="umzug2anhanger" placeholder="0"  type="number" >                                
                                         </div>
-                                    </div>                                                                   
+                                    </div>                  
+                                    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control"  name="umzug2calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control"  name="umzug2calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                            value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        </div>
+                                    </div>
                                 </div>
                                 {{-- 2.Umzug Alanı Bitiş --}}
 
@@ -220,7 +238,25 @@
                                             <label class=" col-form-label" for="l0">Anhänger</label>
                                             <input class="form-control"  name="umzug3anhanger" placeholder="0"  type="number" >                                
                                         </div>
-                                    </div>                                                                   
+                                    </div>        
+                                    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control"  name="umzug3calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control"  name="umzug3calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                            value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        </div>
+                                    </div>
                                 </div>
                                 {{-- 3.Umzug Alanı Bitiş --}}                                 
                             </div>
@@ -268,6 +304,24 @@
                                         <input class="form-control"  name="einpackanhanger" placeholder="0"  type="number" >                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="einpackcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="einpackcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>
                             {{-- Einpackservice Alanı Bitiş --}}
 
@@ -312,6 +366,24 @@
                                         <input class="form-control"  name="auspackanhanger" placeholder="0"  type="number" >                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="auspackcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="auspackcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>
                             {{-- Auspackservice Alanı Bitiş --}}
 
@@ -346,6 +418,24 @@
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
                                     <input class="form-control"  name="reinigung1Endtime"  type="time" >                                
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="reinigungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="reinigungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>                           
                             {{-- Reinigung Alanı Bitiş --}}
 
@@ -379,6 +469,24 @@
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
                                     <input class="form-control"  name="reinigung2Endtime"  type="time" >                                
+                                </div>
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="reinigung2calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="reinigung2calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
                                 </div>
                             </div>                           
                             {{-- 2.Reinigung Alanı Bitiş --}}
@@ -423,6 +531,24 @@
                                         <input class="form-control"  name="entsorgunganhanger" placeholder="0"  type="number" >                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="entsorgungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="entsorgungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Entsorgung Alanı Bitiş --}}
 
@@ -476,6 +602,24 @@
                                         <input class="form-control"  name="arrival" placeholder="Arrival"  type="text" >                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="transportcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="transportcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Transport Alanı Bitiş --}}
 
@@ -500,13 +644,28 @@
                                     <input class="form-control"  name="lagerungtime"  type="time" >                                
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls gleiches Datum wie Umzug, dann leer lassen.</div>
-                                                               
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="lagerungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="lagerungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Transport Alanı Bitiş --}}
                         </div>
                         {{-- Onay Alanı Bitiş --}}
-
-
 
                         <div class="deliverable--area" style="display: none;">
                             <div class="form-group row " >
@@ -689,14 +848,16 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
         if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
         {
             $(".umzug--area").show(300);
-            $("input[name=umzug1date]").prop('required',true);      
-            $("input[name=umzug1time]").prop('required',true);   
+            $("input[name=umzug1date]").prop('required',true);     
+            $("input[name=umzug1date]").prop('required',true);    
+            $("input[name=umzug1calendarTitle]").prop('required',true);   
         }
         else
         {           
             $(".umzug--area").hide(300);
             $("input[name=umzug1date]").prop('required',false);      
             $("input[name=umzug1time]").prop('required',false);   
+            $("input[name=umzug1calendarTitle]").prop('required',false);   
         }
     })
 
@@ -706,12 +867,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".umzug--area2").show(300);
             $("input[name=umzug2date]").prop('required',true);      
             $("input[name=umzug2time]").prop('required',true);   
+            $("input[name=umzug2calendarTitle]").prop('required',true);   
         }
         else
         {
             $(".umzug--area2").hide(300);
             $("input[name=umzug2date]").prop('required',false);      
-            $("input[name=umzug2time]").prop('required',false);   
+            $("input[name=umzug2time]").prop('required',false); 
+            $("input[name=umzug2calendarTitle]").prop('required',false);     
         }
     })
 
@@ -721,12 +884,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".einpackservice--area").show(300);
             $("input[name=einpackdate]").prop('required',true);      
             $("input[name=einpacktime]").prop('required',true); 
+            $("input[name=einpackcalendarTitle]").prop('required',true); 
         }
         else
         {
             $(".einpackservice--area").hide(300);
             $("input[name=einpackdate]").prop('required',false);      
             $("input[name=einpacktime]").prop('required',false); 
+            $("input[name=einpackcalendarTitle]").prop('required',false); 
         }
     })
 
@@ -736,12 +901,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".auspackservice--area").show(300);
             $("input[name=auspackdate]").prop('required',true);      
             $("input[name=auspacktime]").prop('required',true);
+            $("input[name=auspackcalendarTitle]").prop('required',true);
         }
         else
         {
             $(".auspackservice--area").hide(300);
             $("input[name=auspackdate]").prop('required',false);      
             $("input[name=auspacktime]").prop('required',false);
+            $("input[name=auspackcalendarTitle]").prop('required',false);
         }
     })
 
@@ -753,6 +920,7 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $("input[name=reinigung1Starttime]").prop('required',true);   
             $("input[name=reinigung1Enddate]").prop('required',true);  
             $("input[name=reinigung1Endtime]").prop('required',true); 
+            $("input[name=reinigungcalendarTitle]").prop('required',true);
         }
         else
         {
@@ -761,6 +929,7 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $("input[name=reinigung1Starttime]").prop('required',false);   
             $("input[name=reinigung1Enddate]").prop('required',false);  
             $("input[name=reinigung1Endtime]").prop('required',false); 
+            $("input[name=reinigungcalendarTitle]").prop('required',false);
         }
     })
 
@@ -772,6 +941,7 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $("input[name=reinigung2Starttime]").prop('required',true);   
             $("input[name=reinigung2Enddate]").prop('required',true);  
             $("input[name=reinigung2Endtime]").prop('required',true); 
+            $("input[name=reinigung2calendarTitle]").prop('required',true);
         }
         else
         {
@@ -780,6 +950,7 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $("input[name=reinigung2Starttime]").prop('required',false);   
             $("input[name=reinigung2Enddate]").prop('required',false);  
             $("input[name=reinigung2Endtime]").prop('required',false); 
+            $("input[name=reinigung2calendarTitle]").prop('required',false);
         }
     })
 
@@ -789,12 +960,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".entsorgung--area").show(300);
             $("input[name=entsorgungdate]").prop('required',true);      
             $("input[name=entsorgungtime]").prop('required',true); 
+            $("input[name=entsorgungcalendarTitle]").prop('required',true);
         }
         else
         {
             $(".entsorgung--area").hide(300);
             $("input[name=entsorgungdate]").prop('required',false);      
-            $("input[name=entsorgungtime]").prop('required',false); 
+            $("input[name=entsorgungtime]").prop('required',false);
+            $("input[name=entsorgungcalendarTitle]").prop('required',false); 
         }
     })
 
@@ -804,12 +977,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".transport--area").show(300);
             $("input[name=transportdate]").prop('required',true);      
             $("input[name=transporttime]").prop('required',true); 
+            $("input[name=transportcalendarTitle]").prop('required',true);
         }
         else
         {
             $(".transport--area").hide(300);
             $("input[name=transportdate]").prop('required',false);      
             $("input[name=transporttime]").prop('required',false); 
+            $("input[name=transportcalendarTitle]").prop('required',false);
         }
     })
 
@@ -819,12 +994,14 @@ console.log($("input[name=isCustomEmail]").val(),'EMAİL CUSTOM')
             $(".lagerung--area").show(300);
             $("input[name=lagerungdate]").prop('required',true);      
             $("input[name=lagerungtime]").prop('required',true);
+            $("input[name=lagerungcalendarTitle]").prop('required',true);
         }
         else
         {
             $(".lagerung--area").hide(300);
             $("input[name=lagerungdate]").prop('required',false);      
             $("input[name=lagerungtime]").prop('required',false);
+            $("input[name=lagerungcalendarTitle]").prop('required',false);
         }
     })
 </script>

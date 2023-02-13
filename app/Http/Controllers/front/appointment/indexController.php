@@ -29,11 +29,7 @@ class indexController extends Controller
 {
     public function index()
     {
-        
-
         return view('front.appointment.index');
-        
-        
     }
     public function create($id)
     { 
@@ -102,7 +98,7 @@ class indexController extends Controller
                         'anhanger' => $request->umzug1anhanger, 
                         'calendarTitle' => $request->umzug1calendarTitle,
                         'calendarComment' => $request->umzug1calendarComment,
-                        'calendarLocation' => $request->umzug1calendarLocation,              
+                        'calendarLocation' => $request->umzug1calendarLocation,             
                     ];
                     
                     $umzug1Olustur = UmzugService::create($umzug1);
@@ -111,6 +107,8 @@ class indexController extends Controller
                     $umzugId = $umzugIdBul->id;
                     $appDateArray[$ADC]['date'] = $umzugIdBul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                    $appDateArray[$ADC]['endDate'] = $umzugIdBul->umzugDate;
+                    $appDateArray[$ADC]['endTime'] = $umzugIdBul->umzugTime;
                     $appDateArray[$ADC]['calendarTitle'] = $umzugIdBul->calendarTitle;
                     $appDateArray[$ADC]['calendarComment'] = $umzugIdBul->calendarComment;
                     $appDateArray[$ADC]['calendarLocation'] = $umzugIdBul->calendarLocation;
@@ -129,6 +127,9 @@ class indexController extends Controller
                         'ma' => $request->umzug2ma,
                         'lkw' => $request->umzug2lkw,
                         'anhanger' => $request->umzug2anhanger,
+                        'calendarTitle' => $request->umzug2calendarTitle,
+                        'calendarComment' => $request->umzug2calendarComment,
+                        'calendarLocation' => $request->umzug2calendarLocation,
                         
                     ];
 
@@ -138,6 +139,11 @@ class indexController extends Controller
                     $umzug2Id = $umzugId2Bul->id;
                     $appDateArray[$ADC]['date'] = $umzugId2Bul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugId2Bul->umzugTime;
+                    $appDateArray[$ADC]['endDate'] = $umzugId2Bul->umzugDate;
+                    $appDateArray[$ADC]['endTime'] = $umzugId2Bul->umzugTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $umzugId2Bul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $umzugId2Bul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $umzugId2Bul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Umzug 2';
                     
                     $ADC++;
@@ -153,6 +159,9 @@ class indexController extends Controller
                         'ma' => $request->umzug3ma,
                         'lkw' => $request->umzug3lkw,
                         'anhanger' => $request->umzug3anhanger,
+                        'calendarTitle' => $request->umzug3calendarTitle,
+                        'calendarComment' => $request->umzug3calendarComment,
+                        'calendarLocation' => $request->umzug3calendarLocation,
                         
                     ];
 
@@ -162,6 +171,8 @@ class indexController extends Controller
                     $umzug3Id = $umzugId3Bul->id;
                     $appDateArray[$ADC]['date'] = $umzugId3Bul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugId3Bul->umzugTime;
+                    $appDateArray[$ADC]['endDate'] = $umzugId3Bul->umzugDate;
+                    $appDateArray[$ADC]['endTime'] = $umzugId3Bul->umzugTime;
                     $appDateArray[$ADC]['calendarTitle'] = $umzugId3Bul->calendarTitle;
                     $appDateArray[$ADC]['calendarComment'] = $umzugId3Bul->calendarComment;
                     $appDateArray[$ADC]['calendarLocation'] = $umzugId3Bul->calendarLocation;
@@ -180,7 +191,10 @@ class indexController extends Controller
                         'workHours' => $request->einpackhours,
                         'ma' => $request->einpackma,
                         'lkw' => $request->einpacklkw,
-                        'anhanger' => $request->einpackanhanger,               
+                        'anhanger' => $request->einpackanhanger,    
+                        'calendarTitle' => $request->einpackcalendarTitle,
+                        'calendarComment' => $request->einpackcalendarComment,
+                        'calendarLocation' => $request->einpackcalendarLocation,           
                     ];
 
                     $einpackOlustur = EinpackService::create($einpack);
@@ -188,6 +202,11 @@ class indexController extends Controller
                     $einpackId = $einpackIdBul->id;
                     $appDateArray[$ADC]['date'] = $einpackIdBul->einpackDate;
                     $appDateArray[$ADC]['time'] = $einpackIdBul->einpackTime;
+                    $appDateArray[$ADC]['endDate'] = $einpackIdBul->einpackDate;
+                    $appDateArray[$ADC]['endTime'] = $einpackIdBul->einpackTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $einpackIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $einpackIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $einpackIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Einpack';
                     $ADC++;
                 }
@@ -203,7 +222,10 @@ class indexController extends Controller
                         'workHours' => $request->auspackhours,
                         'ma' => $request->auspackma,
                         'lkw' => $request->auspacklkw,
-                        'anhanger' => $request->auspackanhanger,               
+                        'anhanger' => $request->auspackanhanger,    
+                        'calendarTitle' => $request->auspackcalendarTitle,
+                        'calendarComment' => $request->auspackcalendarComment,
+                        'calendarLocation' => $request->auspackcalendarLocation,             
                     ];
         
                     $auspackOlustur = AuspackService::create($auspack);
@@ -212,6 +234,11 @@ class indexController extends Controller
                     $auspackId = $auspackIdBul->id;
                     $appDateArray[$ADC]['date'] = $auspackIdBul->auspackDate;
                     $appDateArray[$ADC]['time'] = $auspackIdBul->auspackTime;
+                    $appDateArray[$ADC]['endDate'] = $auspackIdBul->auspackDate;
+                    $appDateArray[$ADC]['endTime'] = $auspackIdBul->auspackTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $auspackIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $auspackIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $auspackIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Auspack';
                     $ADC++;
                 }
@@ -225,7 +252,10 @@ class indexController extends Controller
                         'reinigungStartDate' => $request->reinigung1Startdate,
                         'reinigungStartTime' => $request->reinigung1Starttime,
                         'reinigungEndDate' => $request->reinigung1Enddate,
-                        'reinigungEndTime' => $request->reinigung1Endtime,               
+                        'reinigungEndTime' => $request->reinigung1Endtime,    
+                        'calendarTitle' => $request->reinigungcalendarTitle,
+                        'calendarComment' => $request->reinigungcalendarComment,
+                        'calendarLocation' => $request->reinigungcalendarLocation,            
                     ];
         
                     $reinigungOlustur = ReinigungService::create($reinigung);
@@ -234,6 +264,11 @@ class indexController extends Controller
                     $reinigungId = $reinigungIdBul->id;
                     $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
+                    $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate;
+                    $appDateArray[$ADC]['endTime'] = $reinigungIdBul->reinigungEndTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $reinigungIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $reinigungIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $reinigungIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Reinigung';
                     $ADC++;
                 }
@@ -247,7 +282,10 @@ class indexController extends Controller
                         'reinigungStartDate' => $request->reinigung2Startdate,
                         'reinigungStartTime' => $request->reinigung2Starttime,
                         'reinigungEndDate' => $request->reinigung2Enddate,
-                        'reinigungEndTime' => $request->reinigung2Endtime,               
+                        'reinigungEndTime' => $request->reinigung2Endtime,      
+                        'calendarTitle' => $request->reinigung2calendarTitle,
+                        'calendarComment' => $request->reinigung2calendarComment,
+                        'calendarLocation' => $request->reinigung2calendarLocation,            
                     ];
 
                     $reinigung2Olustur = ReinigungService::create($reinigung2);
@@ -255,6 +293,11 @@ class indexController extends Controller
                     $reinigung2Id = $reinigungId2Bul->id;
                     $appDateArray[$ADC]['date'] = $reinigungId2Bul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungId2Bul->reinigungStartTime;
+                    $appDateArray[$ADC]['endDate'] = $reinigungId2Bul->reinigungEndDate;
+                    $appDateArray[$ADC]['endTime'] = $reinigungId2Bul->reinigungEndTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $reinigungId2Bul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $reinigungId2Bul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $reinigungId2Bul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Reinigung 2';
                     $ADC++;
                 }
@@ -270,7 +313,10 @@ class indexController extends Controller
                         'workHours' => $request->entsorgunghours,
                         'ma' => $request->entsorgungma,   
                         'lkw' => $request->entsorgunglkw,     
-                        'anhanger' => $request->entsorgunganhanger,                 
+                        'anhanger' => $request->entsorgunganhanger,     
+                        'calendarTitle' => $request->entsorgungcalendarTitle,
+                        'calendarComment' => $request->entsorgungcalendarComment,
+                        'calendarLocation' => $request->entsorgungcalendarLocation,             
                     ];
 
                     $entsorgungOlustur = EntsorgungService::create($entsorgung);
@@ -278,6 +324,11 @@ class indexController extends Controller
                     $entsorgungId = $entsorgungIdBul->id;
                     $appDateArray[$ADC]['date'] = $entsorgungIdBul->entsorgungDate;
                     $appDateArray[$ADC]['time'] = $entsorgungIdBul->entsorgungTime;
+                    $appDateArray[$ADC]['endDate'] = $entsorgungIdBul->entsorgungDate;
+                    $appDateArray[$ADC]['endTime'] = $entsorgungIdBul->entsorgungTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $entsorgungIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $entsorgungIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $entsorgungIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Entsorgung';
                     $ADC++;
                 }
@@ -295,7 +346,10 @@ class indexController extends Controller
                         'workHours' => $request->transporthours,
                         'ma' => $request->transportma,   
                         'lkw' => $request->transportlkw,     
-                        'anhanger' => $request->transportanhanger,                 
+                        'anhanger' => $request->transportanhanger, 
+                        'calendarTitle' => $request->transportcalendarTitle,
+                        'calendarComment' => $request->transportcalendarComment,
+                        'calendarLocation' => $request->transportcalendarLocation,                 
                     ];
 
                     $transportOlustur = TransportService::create($transport);
@@ -303,6 +357,11 @@ class indexController extends Controller
                     $transportId = $transportIdBul->id;
                     $appDateArray[$ADC]['date'] = $transportIdBul->transportDate;
                     $appDateArray[$ADC]['time'] = $transportIdBul->transportTime;
+                    $appDateArray[$ADC]['endDate'] = $transportIdBul->transportDate;
+                    $appDateArray[$ADC]['endTime'] = $transportIdBul->transportTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $transportIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $transportIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $transportIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Transport';
                     $ADC++;
                 }
@@ -314,7 +373,10 @@ class indexController extends Controller
                 {
                     $lagerung = [
                         'lagerungDate' => $request->lagerungdate,
-                        'lagerungTime' => $request->lagerungtime,                
+                        'lagerungTime' => $request->lagerungtime, 
+                        'calendarTitle' => $request->lagerungcalendarTitle,
+                        'calendarComment' => $request->lagerungcalendarComment,
+                        'calendarLocation' => $request->lagerungcalendarLocation,                 
                     ];
 
                     $lagerungOlustur = LagerungService::create($lagerung);
@@ -322,6 +384,11 @@ class indexController extends Controller
                     $lagerungId = $lagerungIdBul->id;
                     $appDateArray[$ADC]['date'] = $lagerungIdBul->lagerungDate;
                     $appDateArray[$ADC]['time'] = $lagerungIdBul->lagerungTime;
+                    $appDateArray[$ADC]['endDate'] = $lagerungIdBul->lagerungDate;
+                    $appDateArray[$ADC]['endTime'] = $lagerungIdBul->lagerungTime;
+                    $appDateArray[$ADC]['calendarTitle'] = $lagerungIdBul->calendarTitle;
+                    $appDateArray[$ADC]['calendarComment'] = $lagerungIdBul->calendarComment;
+                    $appDateArray[$ADC]['calendarLocation'] = $lagerungIdBul->calendarLocation;
                     $appDateArray[$ADC]['serviceName'] = 'Lagerung';
                     $ADC++;
                 }
@@ -389,6 +456,11 @@ class indexController extends Controller
                 $appDateArray = [];
                 $appDateArray[$ADC]['date'] = $appointment['date'];
                 $appDateArray[$ADC]['time'] = $appointment['time'];
+                $appDateArray[$ADC]['endDate'] =  $appointment['date'];
+                $appDateArray[$ADC]['endTime'] = $appointment['time'];
+                $appDateArray[$ADC]['calendarTitle'] =$request->calendarTitle;
+                $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+                $appDateArray[$ADC]['calendarLocation'] = $request->address;
                 $appDateArray[$ADC]['serviceName'] = 'Besichtigung';
                 $ADC++;
                 $appointmentDate =  $appDateArray;
@@ -408,6 +480,11 @@ class indexController extends Controller
                 $appDateArray = [];
                 $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
                 $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
+                $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
+                $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+                $appDateArray[$ADC]['calendarTitle'] =$request->calendarTitle;
+                $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+                $appDateArray[$ADC]['calendarLocation'] = $request->address;
                 $appDateArray[$ADC]['serviceName'] = 'Lieferung';
                 $ADC++;
                 $all = AppointmentMaterial::create($appointmentMaterial);

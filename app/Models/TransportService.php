@@ -17,6 +17,9 @@ class TransportService extends Model
         'ma',
         'lkw',
         'anhanger',
+        'calendarTitle',
+        'calendarComment',
+        'calendarLocation',
     ];
     use HasFactory;
 }

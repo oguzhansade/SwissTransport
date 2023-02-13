@@ -12,6 +12,9 @@ class ReinigungService extends Model
         'reinigungStartTime',
         'reinigungEndDate',
         'reinigungEndTime',
+        'calendarTitle',
+        'calendarComment',
+        'calendarLocation',
     ];
     use HasFactory;
 }
