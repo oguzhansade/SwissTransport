@@ -25,8 +25,26 @@ class indexController extends Controller
     {
         
         $all = $request->except('_token');
-        $create = Customer::create($all);
-        
+        $customer = [
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'mobile' => $request->mobile,
+            'street' => $request->street,
+            'postCode' => $request->postCode,
+            'Ort' => $request->Ort,
+            'country' => $request->isCustomLand ? $request->customCountry : $request->country,
+            'source1' => $request->source1,
+            'soruce2' => $request->source2,
+            'note' => $request->note,
+            'companyName' => $request->companyName,
+            'contactPerson' => $request->contactPerson,
+
+        ];
+
+        $create = Customer::create($customer);
         if($create)
         {   
             $data = Customer::where('id',$create->id)->get();
@@ -93,9 +111,26 @@ class indexController extends Controller
         $c = Customer::where('id',$id)->count();
         if($c !=0)
         {
-            $all = $request->except('_token');
+            $customer = [
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'gender' => $request->gender,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'mobile' => $request->mobile,
+                'street' => $request->street,
+                'postCode' => $request->postCode,
+                'Ort' => $request->Ort,
+                'country' => $request->isCustomLand ? $request->customCountry : $request->country,
+                'source1' => $request->source1,
+                'soruce2' => $request->source2,
+                'note' => $request->note,
+                'companyName' => $request->companyName,
+                'contactPerson' => $request->contactPerson,
+    
+            ];
 
-            $update = Customer::where('id',$id)->update($all);
+            $update = Customer::where('id',$id)->update($customer);
             if($update) 
             {
                 return redirect()->back()->with('status','Müşteri Düzenlendi');

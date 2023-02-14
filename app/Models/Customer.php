@@ -10,7 +10,24 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'customerType',
+        'gender',
+        'name',
+        'surname',
+        'companyName',
+        'contactPerson',
+        'street',
+        'postCode',
+        'Ort',
+        'country',
+        'source1',
+        'source2',
+        'email',
+        'phone',
+        'mobile',
+        'note'
+    ];
 
     static function getPublicName($id)
     {

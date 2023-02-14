@@ -107,7 +107,7 @@
             <ul class="list-unstyled sub-menu">
                 <li><a href="{{ route('contactPerson.index') }}">Liste</a>
                 </li>
-                <li><a href="{{ route('contactPerson.create') }}">Ekle</a>
+                <li><a href="{{ route('contactPerson.create') }}">Hinzufügen </a>
                 </li>
             </ul>
         </li>

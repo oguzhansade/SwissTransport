@@ -50,7 +50,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <span class="h5 font-weight-bolder"> <strong>Kunde:</strong>  </span> <span class="h5 ml-3 text-primary">{{ $customer['name'] }} {{ $customer['surname'] }}</span>
+                                <span class="h5 font-weight-bolder"> <strong>Kunde:</strong>  </span> <span class="h5 ml-3 text-primary"><a href="{{ route('customer.detail',['id' => $data['customerId']]) }}"> <u>{{ $customer['name'] }} {{ $customer['surname'] }}</u></a></span>
                             </div>
                             <div class="col-md-12">
                                 <span class="h5 font-weight-bolder"> <strong>Offertennr:</strong> </span> <span class="h5 ml-3 text-primary">{{ $data['id'] }}</span>

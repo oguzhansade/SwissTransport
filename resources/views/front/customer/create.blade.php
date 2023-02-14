@@ -136,8 +136,23 @@
     
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label class=" col-form-label" for="l0">Land</label>
-                                    <input class="form-control"  name="country"  type="text" required>                                
+                                    <label for="" class="col-form-label">Land</label><br>
+                                    <select class="form-control" name="country" id="country" required>
+                                        <option value="Schweiz">Schweiz</option>
+                                        <option value="Fürstentum Liechtenstein">Fürstentum Liechtenstein</option>
+                                        <option value="Deutschland">Deutschland</option>
+                                        <option value="Österreich">Österreich</option>
+                                        <option value="Italien">Italien</option>
+                                        <option value="Frankreich">Frankreich</option>
+                                    </select>
+
+                                    <div class="mt-1 isCustomCountry">
+                                        <label class="col-form-label" for="l0">Custom Land</label>
+                                        <input type="checkbox"  name="isCustomCountry" id="isCustomCountry" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                                    </div>
+                                    <div class="custom-land-area" style="display:none;">
+                                        <input class="form-control" type="text" name="customCountry">
+                                    </div>
                                 </div>
     
                                 <div class="col-md-4">
@@ -205,6 +220,19 @@
 </script>
 
 <script>
+    var isCustomCountry = $("div.isCustomCountry");
+    isCustomCountry.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-land-area").show(300);
+            $('input[name=country]').prop('required',false)
+        }
+        else{
+            $(".custom-land-area").hide(200);
+            $('input[name=customCountry]').prop('required',true)
+        }
+    })
+
     $(".change-customerType").click(function() {
         var value = $(this).val();
         if(value == 1)

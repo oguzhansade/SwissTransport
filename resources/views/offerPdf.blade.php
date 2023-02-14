@@ -132,6 +132,9 @@
                             <br>
                             @if($offer['contactPerson'] == "Bitte wählen") - @else {{ $offer['contactPerson'] }} @endif<br>
                         </td>
+                        <td class="pt-3" >
+                            <span style="color:#835AB1;font-size:9px;">Ihre Angaben:</span><br>
+                        </td>
                     </tr>
                     @endif
     
@@ -143,6 +146,16 @@
                         <td class="pt-3">
                             {{ App\Models\Company::InfoCompany('email') }} <br>
                             {{ App\Models\Company::InfoCompany('phone') }} 
+                        </td>
+
+                        <td class="pt-3" >
+                            
+                            Mobile Phone :<br>
+                            E-Mail:
+                        </td>
+                        <td class="pt-3">
+                            {{ $customer['mobile'] }} <br>
+                            {{ $customer['email'] }}
                         </td>
                     </tr>
     
