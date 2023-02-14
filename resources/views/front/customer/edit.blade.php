@@ -136,8 +136,51 @@
     
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label class=" col-form-label" for="l0">Land</label>
-                                    <input class="form-control"  name="country"  type="text" value="{{ $data[0]['country'] }}" required>                                
+                                    <label for="" class="col-form-label">Land</label><br>
+                                    <select class="form-control" name="country" id="country" required>
+                                        <option value="Schweiz" @if ($data[0]['country'] == 'Schweiz') selected @endif>Schweiz</option>
+                                        <option value="Fürstentum Liechtenstein" @if ($data[0]['country'] == 'Fürstentum Liechtenstein') selected @endif>Fürstentum Liechtenstein</option>
+                                        <option value="Deutschland" @if ($data[0]['country'] == 'Deutschland') selected @endif>Deutschland</option>
+                                        <option value="Österreich" @if ($data[0]['country'] == 'Österreich') selected @endif>Österreich</option>
+                                        <option value="Italien" @if ($data[0]['country'] == 'Italien') selected @endif>Italien</option>
+                                        <option value="Frankreich" @if ($data[0]['country'] == 'Frankreich') selected @endif>Frankreich</option>
+                                    </select>
+
+                                    <div class="mt-1 isCustomCountry">
+                                        <label class="col-form-label" for="l0">Custom Land</label>
+                                        <input type="checkbox"  name="isCustomCountry" id="isCustomCountry" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                                    @if (
+                                        $data[0] &&
+                                        $data[0]['country'] != 'Schweiz' && 
+                                        $data[0]['country'] != 'Fürstentum Liechtenstein' &&
+                                        $data[0]['country'] != 'Deutschland' &&
+                                        $data[0]['country'] != 'Österreich' &&
+                                        $data[0]['country'] != 'Italien' &&
+                                        $data[0]['country'] != 'Frankreich' 
+                                    )
+                                    checked
+                                    @else
+                                    unchecked
+                                    @endif
+                                    >
+                                    </div>
+                                    <div class="custom-land-area" 
+                                    @if (
+                                        $data[0] &&
+                                        $data[0]['country'] != 'Schweiz' && 
+                                        $data[0]['country'] != 'Fürstentum Liechtenstein' &&
+                                        $data[0]['country'] != 'Deutschland' &&
+                                        $data[0]['country'] != 'Österreich' &&
+                                        $data[0]['country'] != 'Italien' &&
+                                        $data[0]['country'] != 'Frankreich' 
+                                    )
+                                    style="display:block;"
+                                    @else
+                                    style="display:none;"
+                                    @endif
+                                     >
+                                        <input class="form-control" type="text" name="customCountry" @if($data[0] && $data[0]['country']) value="{{  $data[0]['country'] }}" @endif>
+                                    </div>
                                 </div>
     
                                 <div class="col-md-4">
@@ -196,6 +239,19 @@
 </script>
 
     <script>
+        var isCustomCountry = $("div.isCustomCountry");
+    isCustomCountry.click(function() {
+        if ($(this).hasClass("checkbox-checked"))
+        { 
+            $(".custom-land-area").show(300);
+            $('input[name=country]').prop('required',false)
+        }
+        else{
+            $(".custom-land-area").hide(200);
+            $('input[name=customCountry]').prop('required',true)
+        }
+    })
+
         $(".change-customerType").click(function() {
             var value = $(this).val();
             if(value == 1)
