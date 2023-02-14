@@ -219,6 +219,11 @@
                 $("select[name=reinigungFixedPrice]").prop("required",true);
                 $("select[name=reinigungPriceTariff]").prop("required",true);
                 $("input[name=reinigungTotalPrice]").prop('required',true); 
+                $("input[name=reinigungFixedPriceValue]").prop('required',true); 
+                $("input[name=reinigungmaValue]").prop('required',true);
+                $("input[name=reinigungchfValue]").prop('required',true);
+                $("input[name=reinigunghourValue]").prop('required',true);
+                
                 
             }
             else{
@@ -227,6 +232,10 @@
                 $("input[name=reinigungTotalPrice]").prop('required',false); 
                 $("select[name=reinigungPriceTariff]").prop("required",false);
                 $("select[name=reinigungFixedPrice]").prop("required",false);
+                $("input[name=reinigungFixedPriceValue]").prop('required',false); 
+                $("input[name=reinigungmaValue]").prop('required',false);
+                $("input[name=reinigungchfValue]").prop('required',false);
+                $("input[name=reinigunghourValue]").prop('required',false);
             }
         })
         
@@ -241,6 +250,9 @@
             {
                 $('.reinigung-fixed--area').show(300)
                 $("select[name=reinigungPriceTariff]").prop("required",false);
+                $("input[name=reinigungmaValue]").prop('required',false);
+                $("input[name=reinigungchfValue]").prop('required',false);
+                $("input[name=reinigunghourValue]").prop('required',false);
             }
             else
             {
@@ -263,6 +275,7 @@
             {
                 $('.reinigung-price--area').show(300)
                 $("select[name=reinigungFixedPrice]").prop("required",false);
+                $("input[name=reinigungFixedPriceValue]").prop('required',false);
             }
             else
             {
@@ -275,8 +288,6 @@
             $('input[name=reinigungchfValue]').val(chf);
             })
     </script>
-
-
 
     {{-- İlave ücret Aç/kapa --}}
     <script>

@@ -482,20 +482,20 @@
     {
         $("select[name=umzugTariff]").prop('required',true);      
         $("input[name=umzugHours]").prop('required',true);  
-        $("input[name=umzugCost]").prop('required',true); 
-        $("input[name=umzugTotalPrice]").prop('required',true); 
-        $("input[name=umzugTopPrice]").prop('required',true); 
-        $("input[name=umzugDefaultPrice]").prop('required',true);
+        $("input[name=umzug1ma]").prop('required',true);
+        $("input[name=umzug1lkw]").prop('required',true);
+        $("input[name=umzug1anhanger]").prop('required',true);
+        $("input[name=umzug1chf]").prop('required',true);
     }
 
     function isNotRequiredUmzug()
     {
         $("select[name=umzugTariff]").prop('required',false);      
         $("input[name=umzugHours]").prop('required',false);  
-        $("input[name=umzugCost]").prop('required',false); 
-        $("input[name=umzugTotalPrice]").prop('required',false); 
-        $("input[name=umzugTopPrice]").prop('required',false); 
-        $("input[name=umzugDefaultPrice]").prop('required',false); 
+        $("input[name=umzug1ma]").prop('required',false);
+        $("input[name=umzug1lkw]").prop('required',false);
+        $("input[name=umzug1anhanger]").prop('required',false);
+        $("input[name=umzug1chf]").prop('required',false);
     }
     var morebutton2 = $("div.umzug-control");
     morebutton2.click(function(){

@@ -328,8 +328,8 @@
             $("input[name=auspackmasraf]").prop('checked',true);
             $("select[name=auspackTariff]").prop('required',true);      
             $("input[name=auspackHours]").prop('required',true);  
-            $("input[name=auspackCost]").prop('required',true);  
-            
+            $("input[name=auspack1ma]").prop('required',true);  
+            $("input[name=auspack1chf]").prop('required',true);
         }
         else{
             $(".auspack--area").hide(500);
@@ -337,7 +337,8 @@
             $("input[name=auspackmasraf]").prop('checked',false);
             $("select[name=auspackTariff]").prop('required',false);      
             $("input[name=auspackHours]").prop('required',false);  
-            $("input[name=auspackCost]").prop('required',false);  
+            $("input[name=auspack1ma]").prop('required',false); 
+            $("input[name=auspack1chf]").prop('required',false); 
             
         }
     })
@@ -348,13 +349,16 @@
             $(".einpack--area").show(700);
             $("select[name=einpackTariff]").prop('required',true);    
             $("input[name=einpackHours]").prop('required',true);  
-            $("input[name=einpackCost]").prop('required',true);
+            $("input[name=einpack1ma]").prop('required',true); 
+            $("input[name=einpack1chf]").prop('required',true);
+            
         }
         else{
             $(".einpack--area").hide(500);
             $("select[name=einpackTariff]").prop('required',false);    
             $("input[name=einpackHours]").prop('required',false);  
-            $("input[name=einpackCost]").prop('required',false);
+            $("input[name=einpack1ma]").prop('required',false); 
+            $("input[name=einpack1chf]").prop('required',false);
         }
     })
 
@@ -364,13 +368,19 @@
             $(".umzug--area").show(700);
             $("select[name=umzugTariff]").prop('required',true);    
             $("input[name=umzugHours]").prop('required',true);
-            $("input[name=umzugCost]").prop('required',true);
+            $("input[name=umzug1ma]").prop('required',true);
+            $("input[name=umzug1lkw]").prop('required',true);
+            $("input[name=umzug1anhanger]").prop('required',true);
+            $("input[name=umzug1chf]").prop('required',true);
         }
         else{
             $(".umzug--area").hide(500);
             $("select[name=umzugTariff]").prop('required',false);    
             $("input[name=umzugHours]").prop('required',false);
-            $("input[name=umzugCost]").prop('required',false);
+            $("input[name=umzug1ma]").prop('required',false);
+            $("input[name=umzug1lkw]").prop('required',false);
+            $("input[name=umzug1anhanger]").prop('required',false);
+            $("input[name=umzug1chf]").prop('required',false);
         }
     })
     morebutton.click(function() {

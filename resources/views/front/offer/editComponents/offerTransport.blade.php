@@ -376,18 +376,24 @@
      morebutton8.click(function(){
          if($(this).hasClass("checkbox-checked"))
          {
-             $(".transport--area").show(700);
-             $("input[name=transportFixedTariff]").prop('required',true);      
-             $("select[name=transportTariff]").prop('required',true); 
-             $("input[name=transporthour]").prop('required',true); 
-             $("input[name=transportCost]").prop('required',true); 
+            $(".transport--area").show(700);
+            $("input[name=transportFixedTariff]").prop('required',true);      
+            $("select[name=transportTariff]").prop('required',true); 
+            $("input[name=transporthour]").prop('required',true); 
+            $("input[name=transportma]").prop('required',true); 
+            $("input[name=transportlkw]").prop('required',true); 
+            $("input[name=transportanhanger]").prop('required',true); 
+            $("input[name=transportchf]").prop('required',true);  
          }
          else{
-             $(".transport--area").hide(500);
-             $("input[name=transportFixedTariff]").prop('required',false);      
-             $("select[name=transportTariff]").prop('required',false); 
-             $("input[name=transporthour]").prop('required',false); 
-             $("input[name=transportCost]").prop('required',false); 
+            $(".transport--area").hide(500);
+            $("input[name=transportFixedTariff]").prop('required',false);      
+            $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transporthour]").prop('required',false); 
+            $("input[name=transportma]").prop('required',false); 
+            $("input[name=transportlkw]").prop('required',false); 
+            $("input[name=transportanhanger]").prop('required',false); 
+            $("input[name=transportchf]").prop('required',false); 
          }
      })
 
@@ -441,7 +447,11 @@
      $("input[name=transportFixedTariff]").on("change",function (){
          if($("input[name=transportFixedTariff]").val())
          {
-             $("select[name=transportTariff]").prop('required',false); 
+            $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transportma]").prop('required',false); 
+            $("input[name=transportlkw]").prop('required',false); 
+            $("input[name=transportanhanger]").prop('required',false); 
+            $("input[name=transportchf]").prop('required',false);  
          }
      })
  

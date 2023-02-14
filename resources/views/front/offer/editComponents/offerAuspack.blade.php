@@ -277,6 +277,8 @@
         $("select[name=auspackTariff]").prop('required',true);      
         $("input[name=auspackHours]").prop('required',true);  
         $("input[name=auspackCost]").prop('required',true);  
+        $("input[name=auspack1ma]").prop('required',true);  
+        $("input[name=auspack1chf]").prop('required',true);
     }
 
     function isNotRequiredAuspack()
@@ -284,6 +286,8 @@
         $("select[name=auspackTariff]").prop('required',false);      
         $("input[name=auspackHours]").prop('required',false);  
         $("input[name=auspackCost]").prop('required',false);  
+        $("input[name=auspack1ma]").prop('required',false);  
+        $("input[name=auspack1chf]").prop('required',false);
     }
 
     var morebutton4 = $("div.auspack-control");

@@ -279,7 +279,7 @@
                                 <!-- /.widget-heading -->
                                 <div class="widget-body clearfix">
                                     
-                                    <table id="example2" class="table table-striped table-responsive">
+                                    <table id="appointmentTable" class="table table-striped table-responsive">
                                         <thead>
                                             <tr class="text-dark">
                                                 <th>Dienstleistung</th>
@@ -629,7 +629,7 @@
 @if (App\Models\UserPermission::getMyControl(6))
 <script>
     $(document).ready(function() {
-        let table =  $('#example2').DataTable( {
+        let table =  $('#appointmentTable').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',                                 
             buttons: [

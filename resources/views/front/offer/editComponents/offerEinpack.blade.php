@@ -274,7 +274,9 @@
     {
         $("select[name=einpackTariff]").prop('required',true);      
         $("input[name=einpackHours]").prop('required',true);  
-        $("input[name=einpackCost]").prop('required',true);  
+        $("input[name=einpackCost]").prop('required',true); 
+        $("input[name=einpack1ma]").prop('required',true); 
+        $("input[name=einpack1chf]").prop('required',true); 
     }
 
     function isNotRequiredEinpack()
@@ -282,6 +284,8 @@
         $("select[name=einpackTariff]").prop('required',false);      
         $("input[name=einpackHours]").prop('required',false);  
         $("input[name=einpackCost]").prop('required',false);  
+        $("input[name=einpack1ma]").prop('required',false); 
+        $("input[name=einpack1chf]").prop('required',false); 
     }
 
     var morebutton3 = $("div.einpack-control");

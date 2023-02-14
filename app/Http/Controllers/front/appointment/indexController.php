@@ -551,7 +551,7 @@ class indexController extends Controller
                 $array[$i]["id"] = $v->id;
                 $array[$i]["appType"] = 1 ? 'Besichtigung' : '*';
                 $array[$i]["adres"] = $v->address;
-                $array[$i]["tarih"] = date('d-m-Y', strtotime($v->date)).' '.$v->time;
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at)); 
                 
                 $i++;
 
@@ -567,7 +567,7 @@ class indexController extends Controller
                 $array[$i]["id"] = $v->id;
                 $array[$i]["appType"] = 3 ? 'Lieferung': '*';
                 $array[$i]["adres"] = $v->address;
-                $array[$i]["tarih"] = date('d-m-Y', strtotime($v->meetingDate)).' '.$v->meetingHour1;
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at)); 
                 $i++;
 
             }
@@ -587,7 +587,7 @@ class indexController extends Controller
                 $array[$i]["id"] = $v->id;
                 $array[$i]["appType"] = 3 ? 'Auftragsbestätigung': '*';
                 $array[$i]["adres"] = $v->address;
-                $array[$i]["tarih"] = date('d-m-Y', strtotime(UmzugService::where('id',$tableService[$j]['umzugId'])->first()['umzugDate'])).' '.UmzugService::where('id',$tableService[$j]['umzugId'])->first()['umzugTime'];                
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));                
                 $i++;   
                 $j++;             
 

@@ -43,7 +43,7 @@
                 @endforeach
             </select>
             
-            <div class="row entsorgung-tariffs--area" style="display: none;">
+            <div class="row entsorgung-tariffs--area p-2 mt-1 rounded" style="display: none;background-color: rgb(135, 120, 170);">
                 <div class="col">
                     <label class=" col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="entsorgungma" placeholder="0"  type="number" >                                
@@ -207,12 +207,23 @@
             $("select[name=entsorgungVolume]").prop('required',true);      
             $("select[name=entsorgungTariff]").prop('required',true);  
             $("input[name=entsorgungTotalPrice]").prop('required',true); 
+            $("input[name=entsorgungVolumeChf]").prop('required',true); 
+            $("input[name=entsorgungma]").prop('required',true); 
+            $("input[name=entsorgunglkw]").prop('required',true);
+            $("input[name=entsorgunganhanger]").prop('required',true);
+            $("input[name=entsorgungchf]").prop('required',true);
+            
         }
         else{
             $(".entsorgung--area").hide(500);
             $("select[name=entsorgungVolume]").prop('required',false);      
             $("select[name=entsorgungTariff]").prop('required',false);  
             $("input[name=entsorgungTotalPrice]").prop('required',false); 
+            $("input[name=entsorgungVolumeChf]").prop('required',false); 
+            $("input[name=entsorgungma]").prop('required',false); 
+            $("input[name=entsorgunglkw]").prop('required',false);
+            $("input[name=entsorgunganhanger]").prop('required',false);
+            $("input[name=entsorgungchf]").prop('required',false);
         }
     })
 
@@ -223,6 +234,10 @@
      {
         $('.entsorgung-chfVolume--area').show(300)  
         $("select[name=entsorgungTariff]").prop('required',false);  
+        $("input[name=entsorgungma]").prop('required',false); 
+        $("input[name=entsorgunglkw]").prop('required',false);
+        $("input[name=entsorgunganhanger]").prop('required',false);
+        $("input[name=entsorgungchf]").prop('required',false);
      }
      else
      {
@@ -245,7 +260,8 @@
        if (control != 'bos')
        {
           $('.entsorgung-tariffs--area').show(300)
-          $("select[name=entsorgungVolume]").prop('required',false);      
+          $("select[name=entsorgungVolume]").prop('required',false);   
+          $("input[name=entsorgungVolumeChf]").prop('required',false);    
        }
        else
        {

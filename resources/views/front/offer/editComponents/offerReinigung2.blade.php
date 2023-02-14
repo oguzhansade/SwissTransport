@@ -323,14 +323,20 @@
             $("select[name=reinigungType2]").prop('required',true);      
             $("select[name=reinigungFixedPrice2]").prop("required",true);
             $("select[name=reinigungPriceTariff2]").prop("required",true);
-            $("input[name=reinigungTotalPrice2]").prop('required',true); 
+            $("input[name=reinigungFixedPriceValue2]").prop('required',true); 
+            $("input[name=reinigungmaValue2]").prop('required',true);
+            $("input[name=reinigungchfValue2]").prop('required',true);
+            $("input[name=reinigunghourValue2]").prop('required',true);
         }
         else{
             $(".reinigung2--area").hide(500);
             $("select[name=reinigungType2]").prop('required',false);      
             $("select[name=reinigungFixedPrice2]").prop("required",false);
             $("select[name=reinigungPriceTariff2]").prop("required",false);
-            $("input[name=reinigungTotalPrice2]").prop('required',false);  
+            $("input[name=reinigungFixedPriceValue2]").prop('required',false); 
+            $("input[name=reinigungmaValue2]").prop('required',false);
+            $("input[name=reinigungchfValue2]").prop('required',false);
+            $("input[name=reinigunghourValue2]").prop('required',false);
         }
     })
 
@@ -346,6 +352,9 @@
         {
             $('.reinigung2-fixed--area').show(300)
             $("select[name=reinigungPriceTariff2]").prop("required",false);
+            $("input[name=reinigungmaValue2]").prop('required',false);
+            $("input[name=reinigungchfValue2]").prop('required',false);
+            $("input[name=reinigunghourValue2]").prop('required',false);
 
         }
         else
@@ -369,6 +378,7 @@
         {
             $('.reinigung2-price--area').show(300)
             $("select[name=reinigungFixedPrice2]").prop("required",false);
+            $("input[name=reinigungFixedPriceValue2]").prop('required',false);
 
         }
         else
