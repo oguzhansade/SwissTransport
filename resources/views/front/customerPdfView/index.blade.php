@@ -93,11 +93,11 @@
                         
                     </span><br><br>
                     <span class="text-dark">
-                        <strong>Sehr geehrter 
+                        <strong>Sehr 
                         @if (App\Models\Customer::getCustomer($offer['customerId'],'gender') === "male")
-                            Herr
+                        geehrter Herr
                         @else
-                            Frau
+                        geehrte Frau
                         @endif 
                         {{ App\Models\Customer::getCustomer($offer['customerId'],'name') }} {{ App\Models\Customer::getCustomer($offer['customerId'],'surname') }}</strong> <br>
                         Wir danken Ihnen herzlich für Ihre Anfrage und freuen uns, Ihnen folgendes Angebot vorlegen zu können:
@@ -116,7 +116,7 @@
                         <div class="umzug--area bg-container" style="display: block;">
                             <div class="row">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Umzug: </strong> {{ \App\Models\Tariff::infoTariff($umzug['tariff'],'description') }} </h4>
+                                    <h4> <strong>Umzug: </strong> </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -126,13 +126,13 @@
                                     Umzugstermin
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $umzug['moveDate'] }}
+                                    @if($umzug['moveDate']){{ date("d/m/Y", strtotime($umzug['moveDate'])); }} @else - @endif
                                 </div>
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $umzug['moveTime'] }} Uhr
+                                    @if($umzug['moveTime']){{ $umzug['moveTime'] }} @else - @endif Uhr
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -142,7 +142,7 @@
                                     Tarif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ \App\Models\Tariff::infoTariff($umzug['tariff'],'description') }}
+                                    {{ $umzug['ma'] }} Umzugsmitarbeiter mit {{ $umzug['lkw'] }} Lieferwagen @if($umzug['anhanger']) und {{ $umzug['anhanger'] }} Anhänger  @endif  à CHF {{ $umzug['chf'] }}.-/Stunde 
                                 </div>
                                 <div class="col-md-6">
                                     Anfahrt/Rückfahrt
@@ -154,7 +154,7 @@
                                     Möbel Ab-/Aufbau
                                 </div>
                                 <div class="col-md-6">
-                                    @if ($umzug['montage'] == 0) Müşteri @else Firma @endif
+                                    @if ($umzug['montage'] == 0) Kunde @else Swiss Transport @endif
                                 </div>
     
                                 <div class="col-md-6">
@@ -168,19 +168,19 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $umzug['extra'] ) masraflar  {{ $umzug['extra'] }} CHF <br>@endif
-                                        @if ( $umzug['extra1'] ) piyano  {{ $umzug['extra1'] }} CHF <br>@endif
-                                        @if ( $umzug['extra2'] ) piyano  {{ $umzug['extra2'] }} CHF <br>@endif
-                                        @if ( $umzug['extra3'] ) Mobilya asansörü  {{ $umzug['extra3'] }} CHF <br>@endif
-                                        @if ( $umzug['extra4'] ) mobilya asansörü  {{ $umzug['extra4'] }} CHF <br>@endif
-                                        @if ( $umzug['extra5'] ) mobilya asansörü  {{ $umzug['extra5'] }} CHF <br>@endif
-                                        @if ( $umzug['extra6'] ) Ağır mal ek ücreti  {{ $umzug['extra6'] }} CHF <br>@endif
-                                        @if ( $umzug['extra7'] ) Ağır mal ek ücreti  {{ $umzug['extra7'] }} CHF <br>@endif
-                                        @if ( $umzug['extra8'] ) Güvenli  {{ $umzug['extra8'] }} CHF <br>@endif
-                                        @if ( $umzug['extra9'] ) Güvenli  {{ $umzug['extra9'] }} CHF <br>@endif
-                                        @if ( $umzug['extra10'] ) Su Yatağı  {{ $umzug['extra10'] }} CHF <br>@endif
-                                        @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Ek Masraf 1 @endif @if ( $umzug['customCostPrice1'] ) {{ $umzug['customCostPrice1'] }} CHF <br> @endif
-                                        @if ( $umzug['customCostName2'] ) {{ $umzug['customCostName2'] }} @else Ek Masraf 2 @endif @if ( $umzug['customCostPrice2'] ) {{ $umzug['customCostPrice2'] }} CHF <br> @endif
+                                    @if ( $umzug['extra'] ) Spesen  {{ $umzug['extra'] }} CHF <br>@endif
+                                        @if ( $umzug['extra1'] ) Klavier  {{ $umzug['extra1'] }} CHF <br>@endif
+                                        @if ( $umzug['extra2'] ) Klavier  {{ $umzug['extra2'] }} CHF <br>@endif
+                                        @if ( $umzug['extra3'] ) Möbellift  {{ $umzug['extra3'] }} CHF <br>@endif
+                                        @if ( $umzug['extra4'] ) Möbellift  {{ $umzug['extra4'] }} CHF <br>@endif
+                                        @if ( $umzug['extra5'] ) Möbellift  {{ $umzug['extra5'] }} CHF <br>@endif
+                                        @if ( $umzug['extra6'] ) Schwergutzuschlag  {{ $umzug['extra6'] }} CHF <br>@endif
+                                        @if ( $umzug['extra7'] ) Schwergutzuschlag  {{ $umzug['extra7'] }} CHF <br>@endif
+                                        @if ( $umzug['extra8'] ) Tresor  {{ $umzug['extra8'] }} CHF <br>@endif
+                                        @if ( $umzug['extra9'] ) Tresor  {{ $umzug['extra9'] }} CHF <br>@endif
+                                        @if ( $umzug['extra10'] ) Wasserbett  {{ $umzug['extra10'] }} CHF <br>@endif
+                                        @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Freier Text 1 @endif @if ( $umzug['customCostPrice1'] ) {{ $umzug['customCostPrice1'] }} CHF <br> @endif
+                                        @if ( $umzug['customCostName2'] ) {{ $umzug['customCostName2'] }} @else Freier Text 2 @endif @if ( $umzug['customCostPrice2'] ) {{ $umzug['customCostPrice2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -242,7 +242,7 @@
                         <div class="einpack--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Einpack: </strong> {{ \App\Models\Tariff::infoTariff($einpack['tariff'],'description') }} </h4>
+                                    <h4> <strong>Einpack: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -252,13 +252,13 @@
                                     Packtermin:
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $einpack['einpackDate'] }}
+                                    @if($einpack['einpackDate']){{ date("d/m/Y", strtotime($einpack['einpackDate'])); }} @else - @endif
                                 </div>
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $einpack['einpackTime'] }} Uhr
+                                    @if($einpack['einpackTime']){{ $einpack['einpackTime'] }} @else - @endif Uhr
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -268,7 +268,7 @@
                                     Tarif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ \App\Models\Tariff::infoTariff($einpack['tariff'],'description') }}
+                                    {{ $einpack['ma'] }} Packmitarbeiter à CHF {{ $einpack['chf'] }}.-/Stunde 
                                 </div>
 
                                 <div class="col-md-6">
@@ -289,10 +289,10 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $einpack['extra'] ) masraflar  {{ $einpack['extra'] }} CHF <br>@endif
-                                    @if ( $einpack['extra1'] ) piyano  {{ $einpack['extra1'] }} CHF <br>@endif
-                                    @if ( $einpack['customCostName1'] ) {{ $einpack['customCostName1'] }} @else Ek Masraf 1 @endif @if ( $einpack['customCostPrice1'] ) {{ $einpack['customCostPrice1'] }} CHF <br> @endif
-                                    @if ( $einpack['customCostName2'] ) {{ $einpack['customCostName2'] }} @else Ek Masraf 2 @endif @if ( $einpack['customCostPrice2'] ) {{ $einpack['customCostPrice2'] }} CHF <br> @endif
+                                    @if ( $einpack['extra'] ) Spesen  {{ $einpack['extra'] }} CHF <br>@endif
+                                    @if ( $einpack['extra1'] ) Verpackungsmaterial  {{ $einpack['extra1'] }} CHF <br>@endif
+                                    @if ( $einpack['customCostName1'] ) {{ $einpack['customCostName1'] }} @else Freier Text 1 @endif @if ( $einpack['customCostPrice1'] ) {{ $einpack['customCostPrice1'] }} CHF <br> @endif
+                                    @if ( $einpack['customCostName2'] ) {{ $einpack['customCostName2'] }} @else Freier Text 2 @endif @if ( $einpack['customCostPrice2'] ) {{ $einpack['customCostPrice2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -353,7 +353,7 @@
                         <div class="auspack--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Auspack: </strong> {{ \App\Models\Tariff::infoTariff($auspack['tariff'],'description') }} </h4>
+                                    <h4> <strong>Auspack: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -363,13 +363,13 @@
                                     Packtermin:
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $auspack['auspackDate'] }}
+                                    @if($auspack['auspackDate']){{ date("d/m/Y", strtotime($auspack['auspackDate'])); }} @else - @endif
                                 </div>
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $auspack['auspackTime'] }} Uhr
+                                    @if($auspack['auspackTime']){{ $auspack['auspackTime'] }} @else - @endif Uhr
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -379,7 +379,7 @@
                                     Tarif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ \App\Models\Tariff::infoTariff($auspack['tariff'],'description') }}
+                                    {{ $auspack['ma'] }} Packmitarbeiter à CHF {{ $auspack ['chf'] }}.-/Stunde
                                 </div>
 
                                 <div class="col-md-6">
@@ -400,10 +400,10 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $auspack['extra'] ) masraflar  {{ $auspack['extra'] }} CHF <br>@endif
-                                    @if ( $auspack['extra1'] ) piyano  {{ $auspack['extra1'] }} CHF <br>@endif
-                                    @if ( $auspack['customCostName1'] ) {{ $auspack['customCostName1'] }} @else Ek Masraf 1 @endif @if ( $auspack['customCostPrice1'] ) {{ $auspack['customCostPrice1'] }} CHF <br> @endif
-                                    @if ( $auspack['customCostName2'] ) {{ $auspack['customCostName2'] }} @else Ek Masraf 2 @endif @if ( $auspack['customCostPrice2'] ) {{ $auspack['customCostPrice2'] }} CHF <br> @endif
+                                    @if ( $auspack['extra'] ) Spesen  {{ $auspack['extra'] }} CHF <br>@endif
+                                    @if ( $auspack['extra1'] ) Verpackungsmaterial  {{ $auspack['extra1'] }} CHF <br>@endif
+                                    @if ( $auspack['customCostName1'] ) {{ $auspack['customCostName1'] }} @else Freier Text 1 @endif @if ( $auspack['customCostPrice1'] ) {{ $auspack['customCostPrice1'] }} CHF <br> @endif
+                                    @if ( $auspack['customCostName2'] ) {{ $auspack['customCostName2'] }} @else Freier Text 2 @endif @if ( $auspack['customCostPrice2'] ) {{ $auspack['customCostPrice2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -475,28 +475,28 @@
                                     Reinigungstermin
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung['startDate'] }}
+                                    @if($reinigung['startDate']){{ date("d/m/Y", strtotime($reinigung['startDate'])); }} @else - @endif
                                 </div>
 
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung['startTime'] }} Uhr
+                                    @if($reinigung['startTime']){{ $reinigung['startTime'] }} @else - @endif Uhr
                                 </div>
 
                                 <div class="col-md-6">
                                     Abgabetermin
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung['endDate'] }} 
+                                    @if($reinigung['endDate']){{ date("d/m/Y", strtotime($reinigung['endDate'])); }} @else - @endif
                                 </div>
 
                                 <div class="col-md-6">
                                     Abgabezeit
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung['endTime'] }} Uhr
+                                    @if($reinigung['endTime']){{ $reinigung['endTime'] }} @else - @endif Uhr
                                 </div>
 
                                 <div class="col-md-6">
@@ -521,8 +521,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($reinigung['fixedTariff'])
-                                    {{ \App\Models\Tariff::infoTariff($reinigung['fixedTariff'],'description') }} @else  {{ \App\Models\Tariff::infoTariff($reinigung['standartTariff'],'description') }}
-                                @endif
+                                    {{ Str::substr(\App\Models\Tariff::infoTariff($reinigung['fixedTariff'],'description'), 0, 12); }} à CHF {{ $reinigung['fixedTariffPrice'] }} 
+                                    @else  
+                                    {{ $reinigung['ma'] }} Mitarbeiter à CHF {{ $reinigung['chf'] }}.- / Stunde
+                                    @endif
                                 </div>
 
                                 @if($reinigung['fixedTariff'])
@@ -545,11 +547,11 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $reinigung['extra1'] ) Yüksek basınçlı temizleyici  {{ $reinigung['extra1'] }} CHF <br>@endif
-                                    @if ( $reinigung['extra2'] ) Taş ve parke zeminler  {{ $reinigung['extra2'] }} CHF <br>@endif
-                                    @if ( $reinigung['extra3'] ) Halı şampuanlama  {{ $reinigung['extra3'] }} CHF <br>@endif
-                                    @if ( $reinigung['extraCostText1'] ) {{ $reinigung['extraCostText1'] }} @else Ek Masraf 1 @endif @if ( $reinigung['extraCostValue1'] ) {{ $reinigung['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $reinigung['extraCostText2'] ) {{ $reinigung['extraCostText2'] }} @else Ek Masraf 2 @endif @if ( $reinigung['extraCostValue2'] ) {{ $reinigung['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $reinigung['extra1'] ) Hochdruckreiniger  {{ $reinigung['extra1'] }} CHF <br>@endif
+                                    @if ( $reinigung['extra2'] ) Stein- und Parkettböden  {{ $reinigung['extra2'] }} CHF <br>@endif
+                                    @if ( $reinigung['extra3'] ) Teppichschamponieren  {{ $reinigung['extra3'] }} CHF <br>@endif
+                                    @if ( $reinigung['extraCostText1'] ) {{ $reinigung['extraCostText1'] }} @else Zusatzkosten 1 @endif @if ( $reinigung['extraCostValue1'] ) {{ $reinigung['extraCostValue1'] }} CHF <br> @endif
+                                    @if ( $reinigung['extraCostText2'] ) {{ $reinigung['extraCostText2'] }} @else Zusatzkosten 2 @endif @if ( $reinigung['extraCostValue2'] ) {{ $reinigung['extraCostValue2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -598,28 +600,28 @@
                                     Reinigungstermin
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung2['startDate'] }}
+                                    @if($reinigung2['startDate']){{ date("d/m/Y", strtotime($reinigung2['startDate'])); }} @else - @endif
                                 </div>
 
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung2['startTime'] }} Uhr
+                                    @if($reinigung2['startTime']){{ $reinigung2['startTime'] }} @else - @endif Uhr
                                 </div>
 
                                 <div class="col-md-6">
                                     Abgabetermin
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung2['endDate'] }} 
+                                    @if($reinigung2['endDate']){{ date("d/m/Y", strtotime($reinigung2['endDate'])); }} @else - @endif
                                 </div>
 
                                 <div class="col-md-6">
                                     Abgabezeit
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $reinigung2['endTime'] }} Uhr
+                                    @if($reinigung2['endTime']){{ $reinigung2['endTime'] }} @else - @endif Uhr
                                 </div>
 
                                 <div class="col-md-6">
@@ -644,8 +646,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($reinigung2['fixedTariff'])
-                                    {{ \App\Models\Tariff::infoTariff($reinigung2['fixedTariff'],'description') }} @else  {{ \App\Models\Tariff::infoTariff($reinigung2['standartTariff'],'description') }}
-                                @endif
+                                    {{ Str::substr(\App\Models\Tariff::infoTariff($reinigung2['fixedTariff'],'description'), 0, 12); }} à CHF {{ $reinigung2['fixedTariffPrice'] }}  
+                                    @else  
+                                    {{ $reinigung2['ma'] }} Mitarbeiter à CHF {{ $reinigung2['chf'] }}.- / Stunde
+                                    @endif
                                 </div>
 
                                 @if($reinigung2['fixedTariff'])
@@ -668,11 +672,11 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $reinigung2['extra1'] ) Yüksek basınçlı temizleyici  {{ $reinigung2['extra1'] }} CHF <br>@endif
-                                    @if ( $reinigung2['extra2'] ) Taş ve parke zeminler  {{ $reinigung2['extra2'] }} CHF <br>@endif
-                                    @if ( $reinigung2['extra3'] ) Halı şampuanlama  {{ $reinigung2['extra3'] }} CHF <br>@endif
-                                    @if ( $reinigung2['extraCostText1'] ) {{ $reinigung2['extraCostText1'] }} @else Ek Masraf 1 @endif @if ( $reinigung2['extraCostValue1'] ) {{ $reinigung2['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $reinigung2['extraCostText2'] ) {{ $reinigung2['extraCostText2'] }} @else Ek Masraf 2 @endif @if ( $reinigung2['extraCostValue2'] ) {{ $reinigung2['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $reinigung2['extra1'] ) Hochdruckreiniger  {{ $reinigung2['extra1'] }} CHF <br>@endif
+                                    @if ( $reinigung2['extra2'] ) Stein- und Parkettböden  {{ $reinigung2['extra2'] }} CHF <br>@endif
+                                    @if ( $reinigung2['extra3'] ) Teppichschamponieren  {{ $reinigung2['extra3'] }} CHF <br>@endif
+                                    @if ( $reinigung2['extraCostText1'] ) {{ $reinigung2['extraCostText1'] }} @else Zusatzkosten 1 @endif @if ( $reinigung2['extraCostValue1'] ) {{ $reinigung2['extraCostValue1'] }} CHF <br> @endif
+                                    @if ( $reinigung2['extraCostText2'] ) {{ $reinigung2['extraCostText2'] }} @else Zusatzkosten 2 @endif @if ( $reinigung2['extraCostValue2'] ) {{ $reinigung2['extraCostValue2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -711,7 +715,7 @@
                         <div class="entsorgung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Entsorgung: </strong> {{ \App\Models\Tariff::infoTariff($entsorgung['tariff'],'description') }} </h4>
+                                    <h4> <strong>Entsorgung: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -721,14 +725,14 @@
                                     Entsorgungstermin:
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['entsorgungDate'] }}
+                                    @if($entsorgung['entsorgungDate']){{ date("d/m/Y", strtotime($entsorgung['entsorgungDate'])); }} @else - @endif
                                 </div>
 
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['entsorgungTime'] }} Uhr
+                                    @if($entsorgung['entsorgungTime']){{ $entsorgung['entsorgungTime'] }} @else - @endif Uhr
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -738,7 +742,7 @@
                                     Tarif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ \App\Models\Tariff::infoTariff($entsorgung['tariff'],'description') }}
+                                    {{ $entsorgung['ma'] }} Mitarbeiter mit {{ $entsorgung['lkw'] }} Lieferwagen @if($entsorgung['anhanger']) und {{ $entsorgung['anhanger'] }} Anhänger @endif à CHF {{ $entsorgung['chf'] }}.- / Stunde
                                 </div>
 
                                 <div class="col-md-6">
@@ -818,7 +822,7 @@
                         <div class="transport--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Transport: </strong> {{ \App\Models\Tariff::infoTariff($transport['tariff'],'description') }} </h4>
+                                    <h4> <strong>Transport: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -828,13 +832,13 @@
                                     Transporttermin:
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $transport['transportDate'] }}
+                                    @if($transport['transportDate']){{ date("d/m/Y", strtotime($transport['transportDate'])); }} @else - @endif
                                 </div>
                                 <div class="col-md-6">
                                     Arbeitsbeginn
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $transport['transportTime'] }} Uhr
+                                    @if($transport['transportTime']){{ $transport['transportTime'] }} @else - @endif Uhr
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -854,7 +858,7 @@
                                         Tarif
                                     </div>
                                     <div class="col-md-6">
-                                        {{ \App\Models\Tariff::infoTariff($transport['tariff'],'description') }}
+                                        {{ $transport['ma'] }} Mitarbeiter mit {{ $transport['lkw'] }} Lieferwagen @if($transport['anhanger']) und {{ $transport['anhanger'] }} Anhänger @endif à CHF {{ $transport['chf'] }}.- / Stunde
                                     </div>
                                 @endif
                                 <div class="col-md-6">
@@ -954,7 +958,7 @@
                         <div class="lagerung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Lagerung: </strong> {{ \App\Models\Tariff::infoTariff($lagerung['tariff'],'description') }} </h4>
+                                    <h4> <strong>Lagerung: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -974,7 +978,7 @@
                                     Tarif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ \App\Models\Tariff::infoTariff($lagerung['tariff'],'description') }}
+                                    CHF {{ $lagerung['chf'] }}.- pro m3 im Monat
                                 </div>
 
                                 <div class="col-md-6">
@@ -1037,7 +1041,7 @@
                             @foreach ($basket as $k => $v)
                             <div class="row mt-2">
                                 <div class="col">{{ \App\Models\Product::productName($v['productId'])}}</div>
-                                <div class="col">@if ($v['buyType'] == 1) Satın Alma @elseif ($v['buyType'] == 2) Kiralama @else - @endif</div>
+                                <div class="col">@if ($v['buyType'] == 1) Kauf @elseif ($v['buyType'] == 2) Miete @else - @endif</div>
                                 <div class="col">@if ($v['buyType'] == 1) {{ \App\Models\Product::buyPrice($v['productId'])}} 
                                     @elseif ($v['buyType'] == 2) {{ \App\Models\Product::rentPrice($v['productId'])}}
                                     @else - 
@@ -1065,7 +1069,7 @@
                                         Lieferung:
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $material['deliverPrice'] }} CHF
+                                        {{ $material['deliverPrice'] }} CHF
                                     </div>
                                 </div>
                             @endif
@@ -1076,7 +1080,7 @@
                                         Abholung:
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $material['recievePrice'] }} CHF
+                                        {{ $material['recievePrice'] }} CHF
                                     </div>
                                 </div>
                             @endif

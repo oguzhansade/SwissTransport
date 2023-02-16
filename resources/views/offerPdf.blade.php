@@ -115,6 +115,7 @@
                         <td class="pt-4" colspan="2">
                             {{-- Müşteri Bilgileri --}}
                             <span style="color:#835AB1;font-size:9px;">Auftraggeber:</span><br>
+                            @if( $customer['companyName'] ) {{ $customer['companyName'] }} <br> @endif
                             {{ $customer['name'] }} {{ $customer['surname'] }}<br>
                             {{ $customer['street'] }} <br>
                             CH-{{ $customer['postCode'] }} {{ $customer['Ort'] }} @if( $customer['country'] == 'Schweiz' ) @else {{ $customer['country'] }} @endif<br>
