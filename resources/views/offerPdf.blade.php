@@ -117,7 +117,7 @@
                             <span style="color:#835AB1;font-size:9px;">Auftraggeber:</span><br>
                             {{ $customer['name'] }} {{ $customer['surname'] }}<br>
                             {{ $customer['street'] }} <br>
-                            {{ $customer['postCode'] }} {{ $customer['Ort'] }} {{ $customer['country'] }} <br>
+                            CH-{{ $customer['postCode'] }} {{ $customer['Ort'] }} @if( $customer['country'] == 'Schweiz' ) @else {{ $customer['country'] }} @endif<br>
                         </td>
                     </tr>
             

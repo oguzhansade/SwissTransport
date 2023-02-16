@@ -99,9 +99,23 @@
                                         <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" @if ($dataUmzug) value="{{ $dataUmzug['anhanger'] }}" @endif>                                
                                     </div>
                                 </div>
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug) value="{{ $dataUmzug['calendarTitle'] }}"  @endif>
+                                    </div>
 
-                                
-                            
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"> @if ($dataUmzug) {{ $dataUmzug['calendarComment'] }}  @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="umzug1calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataUmzug) value="{{   $dataUmzug['calendarLocation'] }}"  @endif>
+                                    </div>
+                                </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
                                 
                                 {{-- 2.Umzug Alanı Kontrolü --}}
@@ -142,7 +156,25 @@
                                             <label class=" col-form-label" for="l0">Anhänger</label>
                                             <input class="form-control"  name="umzug2anhanger" placeholder="0"  type="number" @if ($dataUmzug2) value="{{ $dataUmzug2['anhanger'] }}" @endif>                                
                                         </div>
-                                    </div>                                                                   
+                                    </div>      
+                                    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control"  name="umzug2calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug2) value="{{ $dataUmzug2['calendarTitle'] }}"@endif>
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataUmzug2) {{ $dataUmzug2['calendarComment'] }}@endif</textarea> 
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control"  name="umzug2calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                            @if ($dataUmzug2) value="{{   $dataUmzug2['calendarLocation'] }}" @endif>
+                                        </div>
+                                    </div>
                                 </div>
                                 {{-- 2.Umzug Alanı Bitiş --}}
 
@@ -175,7 +207,25 @@
                                             <label class=" col-form-label" for="l0">Anhänger</label>
                                             <input class="form-control"  name="umzug3anhanger" placeholder="0"  type="number" @if ($dataUmzug3) value="{{ $dataUmzug3['anhanger'] }}" @endif>                                
                                         </div>
-                                    </div>                                                                   
+                                    </div>     
+                                    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control"  name="umzug3calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug3) value="{{ $dataUmzug3['calendarTitle'] }}"@endif>
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataUmzug3) {{ $dataUmzug3['calendarComment'] }}@endif</textarea> 
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control"  name="umzug3calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                            @if ($dataUmzug3) value="{{   $dataUmzug3['calendarLocation'] }}" @endif>
+                                        </div>
+                                    </div>
                                 </div>
                                 {{-- 3.Umzug Alanı Bitiş --}}
                                 </div>                                 
@@ -224,6 +274,24 @@
                                         <input class="form-control"  name="einpackanhanger" placeholder="0"  type="number" @if ($dataEinpack) value="{{ $dataEinpack['anhanger'] }}" @endif>                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="einpackcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataEinpack) value="{{ $dataEinpack['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataEinpack) {{ $dataEinpack['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="einpackcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataEinpack) value="{{ $dataEinpack['calendarLocation'] }}" @endif>
+                                    </div>
+                                </div>
                             </div>
                             {{-- Einpackservice Alanı Bitiş --}}
 
@@ -268,6 +336,24 @@
                                         <input class="form-control"  name="auspackanhanger" placeholder="0"  type="number" @if ($dataAuspack) value="{{ $dataAuspack['anhanger'] }}" @endif>                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="auspackcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataAuspack) value="{{ $dataAuspack['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataAuspack) {{ $dataAuspack['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="auspackcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataAuspack) value="{{ $dataAuspack['calendarLocation'] }}" @endif>
+                                    </div>
+                                </div>
                             </div>
                             {{-- Auspackservice Alanı Bitiş --}}
 
@@ -302,7 +388,27 @@
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
                                     <input class="form-control"  name="reinigung1Endtime"  type="time" @if ($dataReinigung) value="{{ $dataReinigung['reinigungEndTime'] }}" @endif>                                
                                 </div>
-                            </div>                           
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="reinigungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataReinigung) value="{{ $dataReinigung['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataReinigung) {{ $dataReinigung['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="reinigungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataReinigung) value="{{ $dataReinigung['calendarLocation'] }}" @endif>
+                                    </div>
+                                </div>
+                            </div>          
+                            
+                            
                             {{-- Reinigung Alanı Bitiş --}}
 
                             {{-- 2.Reinigung Alanı Kontrolü --}}
@@ -335,6 +441,24 @@
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
                                     <input class="form-control"  name="reinigung2Endtime"  type="time" @if ($dataReinigung2) value="{{ $dataReinigung2['reinigungEndTime'] }}" @endif>                                
+                                </div>
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="reinigung2calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataReinigung2) value="{{ $dataReinigung2['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataReinigung2) {{ $dataReinigung2['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="reinigung2calendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataReinigung2) value="{{ $dataReinigung2['calendarLocation'] }}" @endif>
+                                    </div>
                                 </div>
                             </div>                           
                             {{-- 2.Reinigung Alanı Bitiş --}}
@@ -379,6 +503,24 @@
                                         <input class="form-control"  name="entsorgunganhanger" placeholder="0"  type="number" @if ($dataEntsorgung) value="{{ $dataEntsorgung['anhanger'] }}" @endif>                                
                                     </div>
                                 </div> 
+
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="entsorgungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataEntsorgung) value="{{ $dataEntsorgung['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataEntsorgung) {{ $dataEntsorgung['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="entsorgungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataEntsorgung) value="{{ $dataEntsorgung['calendarLocation'] }}" @endif>
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Entsorgung Alanı Bitiş --}}
 
@@ -432,6 +574,23 @@
                                         <input class="form-control"  name="arrival" placeholder="Arrival"  type="text" @if ($dataTransport) value="{{ $dataTransport['arrival'] }}" @endif>                                
                                     </div>
                                 </div> 
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="transportcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataTransport) value="{{ $dataTransport['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataTransport) {{ $dataTransport['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="transportcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataTransport) {{ $dataTransport['calendarLocation'] }} @endif>
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Transport Alanı Bitiş --}}
 
@@ -456,7 +615,24 @@
                                     <input class="form-control"  name="lagerungtime"  type="time" @if ($dataLagerung) value="{{ $dataLagerung['lagerungTime'] }}" @endif>                                
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
-                                                               
+                                      
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                        <input class="form-control"  name="lagerungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataLagerung) value="{{ $dataLagerung['calendarTitle'] }}" @endif>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarComment</label>
+                                        <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment">@if ($dataLagerung) {{ $dataLagerung['calendarComment'] }} @endif</textarea> 
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                        <input class="form-control"  name="lagerungcalendarLocation" placeholder="CalendarLocation"  type="text" 
+                                        @if ($dataLagerung) value="{{ $dataLagerung['calendarLocation'] }}" @endif>
+                                    </div>
+                                </div>
                             </div>                        
                             {{-- Transport Alanı Bitiş --}}
                         </div>
@@ -550,147 +726,165 @@
 
     $(document).ready(function(){
         umzugbutton.click(function(){
-            if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
-            {
-                $(".umzug--area").show(300);
-                $("input[name=umzug1date]").prop('required',true);      
-                $("input[name=umzug1time]").prop('required',true);   
-            }
-            else
-            {           
-                $(".umzug--area").hide(300);
-                $("input[name=umzug1date]").prop('required',false);      
-                $("input[name=umzug1time]").prop('required',false);   
-            }
-        })
+        if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
+        {
+            $(".umzug--area").show(300);
+            $("input[name=umzug1date]").prop('required',true);     
+            $("input[name=umzug1date]").prop('required',true);    
+            $("input[name=umzug1calendarTitle]").prop('required',true);   
+        }
+        else
+        {           
+            $(".umzug--area").hide(300);
+            $("input[name=umzug1date]").prop('required',false);      
+            $("input[name=umzug1time]").prop('required',false);   
+            $("input[name=umzug1calendarTitle]").prop('required',false);   
+        }
+    })
 
-        umzugbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".umzug--area2").show(300);
-                $("input[name=umzug2date]").prop('required',true);      
-                $("input[name=umzug2time]").prop('required',true);   
-            }
-            else
-            {
-                $(".umzug--area2").hide(300);
-                $("input[name=umzug2date]").prop('required',false);      
-                $("input[name=umzug2time]").prop('required',false);   
-            }
-        })
+    umzugbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".umzug--area2").show(300);
+            $("input[name=umzug2date]").prop('required',true);      
+            $("input[name=umzug2time]").prop('required',true);   
+            $("input[name=umzug2calendarTitle]").prop('required',true);   
+        }
+        else
+        {
+            $(".umzug--area2").hide(300);
+            $("input[name=umzug2date]").prop('required',false);      
+            $("input[name=umzug2time]").prop('required',false); 
+            $("input[name=umzug2calendarTitle]").prop('required',false);     
+        }
+    })
 
-        einpackservicebutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".einpackservice--area").show(300);
-                $("input[name=einpackdate]").prop('required',true);      
-                $("input[name=einpacktime]").prop('required',true); 
-            }
-            else
-            {
-                $(".einpackservice--area").hide(300);
-                $("input[name=einpackdate]").prop('required',false);      
-                $("input[name=einpacktime]").prop('required',false); 
-            }
-        })
+    einpackservicebutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpackservice--area").show(300);
+            $("input[name=einpackdate]").prop('required',true);      
+            $("input[name=einpacktime]").prop('required',true); 
+            $("input[name=einpackcalendarTitle]").prop('required',true); 
+        }
+        else
+        {
+            $(".einpackservice--area").hide(300);
+            $("input[name=einpackdate]").prop('required',false);      
+            $("input[name=einpacktime]").prop('required',false); 
+            $("input[name=einpackcalendarTitle]").prop('required',false); 
+        }
+    })
 
-        auspackservicebutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".auspackservice--area").show(300);
-                $("input[name=auspackdate]").prop('required',true);      
-                $("input[name=auspacktime]").prop('required',true);
-            }
-            else
-            {
-                $(".auspackservice--area").hide(300);
-                $("input[name=auspackdate]").prop('required',false);      
-                $("input[name=auspacktime]").prop('required',false);
-            }
-        })
+    auspackservicebutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspackservice--area").show(300);
+            $("input[name=auspackdate]").prop('required',true);      
+            $("input[name=auspacktime]").prop('required',true);
+            $("input[name=auspackcalendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".auspackservice--area").hide(300);
+            $("input[name=auspackdate]").prop('required',false);      
+            $("input[name=auspacktime]").prop('required',false);
+            $("input[name=auspackcalendarTitle]").prop('required',false);
+        }
+    })
 
-        reinigungbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".reinigung--area").show(300);
-                $("input[name=reinigung1Startdate]").prop('required',true);      
-                $("input[name=reinigung1Starttime]").prop('required',true);   
-                $("input[name=reinigung1Enddate]").prop('required',true);  
-                $("input[name=reinigung1Endtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".reinigung--area").hide(300);
-                $("input[name=reinigung1Startdate]").prop('required',false);      
-                $("input[name=reinigung1Starttime]").prop('required',false);   
-                $("input[name=reinigung1Enddate]").prop('required',false);  
-                $("input[name=reinigung1Endtime]").prop('required',false); 
-            }
-        })
+    reinigungbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".reinigung--area").show(300);
+            $("input[name=reinigung1Startdate]").prop('required',true);      
+            $("input[name=reinigung1Starttime]").prop('required',true);   
+            $("input[name=reinigung1Enddate]").prop('required',true);  
+            $("input[name=reinigung1Endtime]").prop('required',true); 
+            $("input[name=reinigungcalendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".reinigung--area").hide(300);
+            $("input[name=reinigung1Startdate]").prop('required',false);      
+            $("input[name=reinigung1Starttime]").prop('required',false);   
+            $("input[name=reinigung1Enddate]").prop('required',false);  
+            $("input[name=reinigung1Endtime]").prop('required',false); 
+            $("input[name=reinigungcalendarTitle]").prop('required',false);
+        }
+    })
 
-        reinigungbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".reinigung2--area").show(300);
-                $("input[name=reinigung2Startdate]").prop('required',true);      
-                $("input[name=reinigung2Starttime]").prop('required',true);   
-                $("input[name=reinigung2Enddate]").prop('required',true);  
-                $("input[name=reinigung2Endtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".reinigung2--area").hide(300);
-                $("input[name=reinigung2Startdate]").prop('required',false);      
-                $("input[name=reinigung2Starttime]").prop('required',false);   
-                $("input[name=reinigung2Enddate]").prop('required',false);  
-                $("input[name=reinigung2Endtime]").prop('required',false); 
-            }
-        })
+    reinigungbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".reinigung2--area").show(300);
+            $("input[name=reinigung2Startdate]").prop('required',true);      
+            $("input[name=reinigung2Starttime]").prop('required',true);   
+            $("input[name=reinigung2Enddate]").prop('required',true);  
+            $("input[name=reinigung2Endtime]").prop('required',true); 
+            $("input[name=reinigung2calendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".reinigung2--area").hide(300);
+            $("input[name=reinigung2Startdate]").prop('required',false);      
+            $("input[name=reinigung2Starttime]").prop('required',false);   
+            $("input[name=reinigung2Enddate]").prop('required',false);  
+            $("input[name=reinigung2Endtime]").prop('required',false); 
+            $("input[name=reinigung2calendarTitle]").prop('required',false);
+        }
+    })
 
-        entsorgungbutton2.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".entsorgung--area").show(300);
-                $("input[name=entsorgungdate]").prop('required',true);      
-                $("input[name=entsorgungtime]").prop('required',true); 
-            }
-            else
-            {
-                $(".entsorgung--area").hide(300);
-                $("input[name=entsorgungdate]").prop('required',false);      
-                $("input[name=entsorgungtime]").prop('required',false); 
-            }
-        })
+    entsorgungbutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".entsorgung--area").show(300);
+            $("input[name=entsorgungdate]").prop('required',true);      
+            $("input[name=entsorgungtime]").prop('required',true); 
+            $("input[name=entsorgungcalendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".entsorgung--area").hide(300);
+            $("input[name=entsorgungdate]").prop('required',false);      
+            $("input[name=entsorgungtime]").prop('required',false);
+            $("input[name=entsorgungcalendarTitle]").prop('required',false); 
+        }
+    })
 
-        transportbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".transport--area").show(300);
-                $("input[name=transportdate]").prop('required',true);      
-                $("input[name=transporttime]").prop('required',true); 
-            }
-            else
-            {
-                $(".transport--area").hide(300);
-                $("input[name=transportdate]").prop('required',false);      
-                $("input[name=transporttime]").prop('required',false); 
-            }
-        })
+    transportbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport--area").show(300);
+            $("input[name=transportdate]").prop('required',true);      
+            $("input[name=transporttime]").prop('required',true); 
+            $("input[name=transportcalendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".transport--area").hide(300);
+            $("input[name=transportdate]").prop('required',false);      
+            $("input[name=transporttime]").prop('required',false); 
+            $("input[name=transportcalendarTitle]").prop('required',false);
+        }
+    })
 
-        lagerungbutton.click(function(){
-            if($(this).hasClass("checkbox-checked"))
-            {
-                $(".lagerung--area").show(300);
-                $("input[name=lagerungdate]").prop('required',true);      
-                $("input[name=lagerungtime]").prop('required',true);
-            }
-            else
-            {
-                $(".lagerung--area").hide(300);
-                $("input[name=lagerungdate]").prop('required',false);      
-                $("input[name=lagerungtime]").prop('required',false);
-            }
-        })
+    lagerungbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".lagerung--area").show(300);
+            $("input[name=lagerungdate]").prop('required',true);      
+            $("input[name=lagerungtime]").prop('required',true);
+            $("input[name=lagerungcalendarTitle]").prop('required',true);
+        }
+        else
+        {
+            $(".lagerung--area").hide(300);
+            $("input[name=lagerungdate]").prop('required',false);      
+            $("input[name=lagerungtime]").prop('required',false);
+            $("input[name=lagerungcalendarTitle]").prop('required',false);
+        }
+    })
     })
 
 
