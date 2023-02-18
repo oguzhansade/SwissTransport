@@ -115,7 +115,7 @@
 
         @if ($data['token2'])
         <a href="{{ route('customerOfferView', $data['token2']) }}"
-        style="background-color: #02017A;
+        style="background-color: #835AB2;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;
@@ -124,12 +124,12 @@
         display: inline-block;
         font-size: 12px;
         margin: 4px 2px;
-        cursor: pointer;">Ansicht Offerte </a> <br>
+        cursor: pointer;">Offerten Ansicht </a> <br>
         @endif 
 
         @if ($data['token'])
-        <a href="{{ route('acceptOfferView', $data['token']) }}"
-        style="background-color: #8253EB;
+        <a class="text-info" href="{{ route('acceptOffer', $data['token']) }}"
+        style="background-color: #007BFF;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;
@@ -138,7 +138,21 @@
         display: inline-block;
         font-size: 12px;
         margin: 4px 2px;
-        cursor: pointer;">Angebot Bestätigen/Absagen </a>
+        cursor: pointer;">Offerte Annehmen</a>  <br>
+        @endif
+
+        @if ($data['token'])
+        <a href="{{ route('rejectOffer', $data['token']) }}"
+        style="background-color: #DC3545;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;">Offerte Ablehnen </a>
         @endif
     </div>
     <div class="footer">

@@ -179,7 +179,7 @@
                                         @if ( $umzug['extra8'] ) Tresor  {{ $umzug['extra8'] }} CHF <br>@endif
                                         @if ( $umzug['extra9'] ) Tresor  {{ $umzug['extra9'] }} CHF <br>@endif
                                         @if ( $umzug['extra10'] ) Wasserbett  {{ $umzug['extra10'] }} CHF <br>@endif
-                                        @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Freier Text 1 @endif @if ( $umzug['customCostPrice1'] ) {{ $umzug['customCostPrice1'] }} CHF <br> @endif
+                                        @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Freier Text 1 @endif @if ( $umzug['customCostPrice1'] ) {{ $umzug['customCostPrice1'] }} CHF  @endif <br>
                                         @if ( $umzug['customCostName2'] ) {{ $umzug['customCostName2'] }} @else Freier Text 2 @endif @if ( $umzug['customCostPrice2'] ) {{ $umzug['customCostPrice2'] }} CHF <br> @endif
                                 </div>
                             </div>
@@ -1184,7 +1184,30 @@
                         </div>
 
                         <div class="col-md-12 mt-3 d-flex justify-content-center align-items-center p-2">
-                            <a href="{{ route('acceptOfferView', App\Models\OfferVerify::getToken($offer['id'])) }}" target="_blank" class="btn btn-primary w-100 d-flex justify-content-center align-items-center rounded-custom"><strong>Genehmigen oder ablehnen</strong></a>
+                            @if ($offer['offerteStatus'] == 'Onaylandı')
+                                    <span class="btn h6 text-white  p-3" style="background-color: #28A745"><b>Dieses Angebot wurde bereits genehmigt</b></span>
+                                @elseif($offer['offerteStatus'] == 'Onaylanmadı')
+                                    <span class="btn h6 text-white  p-3" style="background-color: #DC3545"><b>Dieses Angebot wurde bereits abgelehnt</b></span>
+                                @elseif($offer['offerteStatus'] == 'Beklemede')
+                                <form action="" method="POST">
+                                    @csrf
+                                    <div class="row form-group mt-0">
+                                        <div class="col-md-12">
+                                            <label for="" class="col-form-label">Mitteilung an den Kundenberater</label><br>
+                                            <textarea class="form-control" name="offerteVerifyNote" id="" cols="15" rows="5" ></textarea>    
+                                        </div>                            
+                                    </div>
+                                    <div class="form-actions d-flex justify-content-center">
+                                        <div class="form-group row d-flex justify-content-center">
+                                            <div class="col-md-12 ml-md-auto btn-list">
+                                                <input class="btn btn-primary btn-rounded" type="submit" value="Bestätigen" formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
+                                                <input class="btn btn-danger btn-rounded" type="submit" value="Absagen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endif
+                            {{-- <a href="{{ route('acceptOfferView', App\Models\OfferVerify::getToken($offer['id'])) }}" target="_blank" class="btn btn-primary w-100 d-flex justify-content-center align-items-center rounded-custom"><strong>Genehmigen oder ablehnen</strong></a> --}}
                         </div>
                     </div>
                 </div>

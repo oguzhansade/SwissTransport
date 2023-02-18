@@ -733,10 +733,9 @@ class indexController extends Controller
         $pdf->setPaper('A4');
     //     // Offerte {{ route('customerOfferView', $data['token2']) }}"
     //    >Ansicht </a>
-
     
         $customLinks = "<a href=".route('customerOfferView', $zToken).'
-        style="background-color: #02017A;
+        style="background-color: #8359B7;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;
@@ -746,8 +745,8 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'Ansicht Offerte'.'</a>'.'<br>'."<a href=".route('acceptOfferView', $oToken).'
-        style="background-color: #8253EB;
+        '.'>'.'Offerten Ansicht'.'</a>'.'<br>'."<a href=".route('acceptOffer', $oToken).'
+        style="background-color: #007BFF;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;
@@ -757,7 +756,18 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'Angebot Bestätigen/Absagen'.'</a>';
+        '.'>'.'Offerte Annehmen '.'</a>'.'<br>'."<a href=".route('rejectOffer', $oToken).'
+        style="background-color: #DC3545;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'Offerte Ablehnen'.'</a>';
         $offerMailFooter = view('offerMailFooter');
   
         $emailData = [
@@ -1543,6 +1553,7 @@ class indexController extends Controller
             $lagerungPdf = OfferteLagerung::where('id',$offer['offerteLagerungId'])->first();
             $materialPdf = OfferteMaterial::where('id',$offer['offerteMaterialId'])->first();
             $basketPdf = OfferteBasket::where('materialId',$offer['offerteMaterialId'])->get()->toArray();
+            
 
             $pdfData = [
                 'offer' => $offer,

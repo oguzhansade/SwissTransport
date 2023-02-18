@@ -20,6 +20,8 @@ Route::get('/', function () {
 // Route::middleware(['guest'])->group(function () {
         Route::get('/verify/{token}', [App\Http\Controllers\verifyController::class, 'acceptOfferView'])->name('acceptOfferView');
         Route::post('/verifyoffer/{token}', [App\Http\Controllers\verifyController::class, 'acceptOffer'])->name('acceptOffer');
+        Route::get('/verifyoffer/{token}', [App\Http\Controllers\verifyController::class, 'acceptOffer'])->name('acceptOffer');
+        Route::get('/rejectoffer/{token}', [App\Http\Controllers\verifyController::class, 'rejectOffer'])->name('rejectOffer');
         Route::post('/rejectoffer/{token}', [App\Http\Controllers\verifyController::class, 'rejectOffer'])->name('rejectOffer');
         Route::get('/viewPdf/{token}', [App\Http\Controllers\customerViewController::class, 'customerOfferView'])->name('customerOfferView');
         Route::get('/showPdf/{token}', [App\Http\Controllers\customerViewController::class, 'showPdf'])->name('showPdf');

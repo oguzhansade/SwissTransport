@@ -15,6 +15,7 @@ use App\Models\OfferteMaterial;
 use App\Models\OfferteReinigung;
 use App\Models\OfferteTransport;
 use App\Models\OfferteUmzug;
+use App\Models\OfferVerify;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -47,11 +48,13 @@ class customerViewController extends Controller
                 $lagerungPdf = OfferteLagerung::where('id',$offer['offerteLagerungId'])->first();
                 $materialPdf = OfferteMaterial::where('id',$offer['offerteMaterialId'])->first();
                 $basketPdf = OfferteBasket::where('materialId',$offer['offerteMaterialId'])->get()->toArray();
+                $oToken = OfferVerify::where('offerId',$offer['id'])->first();
 
                 return view('front.customerPdfView.index',
                 [
                     'offer' => $offer,
                     'token' =>$token,
+                    'oToken' => $oToken['oToken'],
                     'customer' => $customerData,
                     'isUmzug' => $offer['offerteUmzugId'],
                     'isEinpack' => $offer['offerteEinpackId'],

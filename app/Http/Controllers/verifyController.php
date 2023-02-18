@@ -22,7 +22,7 @@ class verifyController extends Controller
         if($verifyOffer){
             $offer = offerte::where('id',$verifyOffer['offerId'])->first();
             $customer = Customer::where('id',$offer['customerId'])->first();
-            if($offer->offerteStatus == 'Onaylanmadı' || 'Beklemede'){
+            if($offer->offerteStatus == 'Beklemede'){
                 
                 $verify = [
                     'offerteStatus' => 'Onaylandı',
@@ -49,7 +49,7 @@ class verifyController extends Controller
             }
             else
             {
-                return view('front.verify.errorOffer',['offer' => $offer]);
+                return view('front.verify.verifiedOffer',['offer' => $offer]);
             }
         }
         
@@ -64,7 +64,7 @@ class verifyController extends Controller
         if($verifyOffer){
             $offer = offerte::where('id',$verifyOffer['offerId'])->first();
             $customer = Customer::where('id',$offer['customerId'])->first();
-            if($offer->offerteStatus == 'Onaylandı' || 'Beklemede'){
+            if($offer->offerteStatus == 'Beklemede'){
                 
                 $verify = [
                     'offerteStatus' => 'Onaylanmadı',
@@ -91,7 +91,7 @@ class verifyController extends Controller
             }
             else
             {
-                return view('front.verify.errorOffer',['offer' => $offer]);
+                return view('front.verify.verifiedOffer',['offer' => $offer]);
             }
         }
         
