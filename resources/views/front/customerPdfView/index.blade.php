@@ -1185,23 +1185,25 @@
 
                         <div class="col-md-12 mt-3 d-flex justify-content-center align-items-center p-2">
                             @if ($offer['offerteStatus'] == 'Onaylandı')
-                                    <span class="btn h6 text-white  p-3" style="background-color: #28A745"><b>Dieses Angebot wurde bereits genehmigt</b></span>
+                                    <span class="btn h6 text-white  p-3" style="background-color: #28A745"><b>Dieses Angebot wurde bereits bestätigt.</b></span>
                                 @elseif($offer['offerteStatus'] == 'Onaylanmadı')
-                                    <span class="btn h6 text-white  p-3" style="background-color: #DC3545"><b>Dieses Angebot wurde bereits abgelehnt</b></span>
+                                    <span class="btn h6 text-white  p-3" style="background-color: #DC3545"><b>Dieses Angebot wurde bereits ablehnen.</b></span>
                                 @elseif($offer['offerteStatus'] == 'Beklemede')
                                 <form action="" method="POST">
                                     @csrf
                                     <div class="row form-group mt-0">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 p-3">
                                             <label for="" class="col-form-label">Mitteilung an den Kundenberater</label><br>
                                             <textarea class="form-control" name="offerteVerifyNote" id="" cols="15" rows="5" ></textarea>    
                                         </div>                            
                                     </div>
-                                    <div class="form-actions d-flex justify-content-center">
-                                        <div class="form-group row d-flex justify-content-center">
-                                            <div class="col-md-12 ml-md-auto btn-list">
-                                                <input class="btn btn-primary btn-rounded" type="submit" value="Bestätigen" formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
-                                                <input class="btn btn-danger btn-rounded" type="submit" value="Absagen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
+                                    <div class="row ">
+                                        <div class="form-actions d-flex justify-content-center">
+                                            <div class="form-group row d-flex justify-content-center">
+                                                <div class="col-md-12 d-flex pl-3  ml-md-auto btn-list">
+                                                    <input class="btn btn-primary btn-rounded" type="submit" value="Angebot annehmen " formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
+                                                    <input class="btn btn-danger btn-rounded" type="submit" value="Angebot ablehnen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

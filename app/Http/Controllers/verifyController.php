@@ -87,7 +87,7 @@ class verifyController extends Controller
                         ->subject($data['title']);
                 });
 
-                return view('front.verify.notifyOffer',['offer' => $offer]);
+                return view('front.verify.notifyOfferReject',['offer' => $offer]);
             }
             else
             {
