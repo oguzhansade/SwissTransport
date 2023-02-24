@@ -2968,23 +2968,28 @@ class indexController extends Controller
             'recievePrice' => $request->materialRecievePrice,
             'totalPrice' => $request->materialTotalPrice
             ];
+
             $all = $request->except('_token');
-            $islem = $all['islem'];
-            unset($all['islem']);
+            if (isset($all['islem'])) {
+                $islem = $all['islem'];
+                unset($all['islem']);
 
-            $baskets = collect();
-            foreach ($islem as $v) {
-                $basket = [
-                    'productId' => $v['urunId'],
-                    'buyType' => $v['buyType'],
-                    'productPrice' => $v['tutar'],
-                    'quantity' => $v['adet'],
-                    'totalPrice' => $v['toplam'],
-                ];
-                $baskets->push($basket);
+                $baskets = collect();
+                foreach ($islem as $v) {
+                    $basket = [
+                        'productId' => $v['urunId'],
+                        'buyType' => $v['buyType'],
+                        'productPrice' => $v['tutar'],
+                        'quantity' => $v['adet'],
+                        'totalPrice' => $v['toplam'],
+                    ];
+                    $baskets->push($basket);
+                }
+
+                $basketPdf = $baskets->toArray();
+            } else {
+                $basketPdf = [];
             }
-
-            $basketPdf = $baskets->toArray();
 
         if ($request->customContactPerson)
         {   
