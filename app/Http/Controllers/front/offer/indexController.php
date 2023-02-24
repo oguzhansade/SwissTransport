@@ -31,6 +31,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class indexController extends Controller
 {
@@ -805,8 +807,11 @@ class indexController extends Controller
                     $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
                 }          
                 //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
-                $data = Customer::where('id',$create->customerId)->get();
-                return view ('front.customer.detail', ['id' => $create->customerId , 'data' => $data]);
+                return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Teklif Başarıyla Eklendi ' . $mailSuccess)
+                ->withInput()
+                ->with('keep_status', true);
             }
             else {
                 return redirect()->back()->with('status-err','Hata:Teklif Eklenemedi, Mail Gönderilemedi');
