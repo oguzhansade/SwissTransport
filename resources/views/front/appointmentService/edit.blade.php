@@ -952,9 +952,6 @@ $(document).ready( function(){
             tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
         tinymce.execCommand("mceRepaint");
         }, 500);
-        
-         
-             
     });
 </script>
 

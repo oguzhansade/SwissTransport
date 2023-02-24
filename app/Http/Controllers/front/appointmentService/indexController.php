@@ -157,7 +157,10 @@ class indexController extends Controller
                                 'workHours' => $request->umzug1hours,
                                 'ma' => $request->umzug1ma,
                                 'lkw' => $request->umzug1lkw,
-                                'anhanger' => $request->umzug1anhanger,               
+                                'anhanger' => $request->umzug1anhanger,     
+                                'calendarTitle' => $request->umzug1calendarTitle,
+                                'calendarComment' => $request->umzug1calendarComment,
+                                'calendarLocation' => $request->umzug1calendarLocation,            
                             ];
                             
                             
@@ -169,6 +172,11 @@ class indexController extends Controller
                                 $umzug1Date = UmzugService::where('id',$d['umzugId'])->first();
                                 $appDateArray[$ADC]['date'] = $umzug1Date['umzugDate'];
                                 $appDateArray[$ADC]['time'] = $umzug1Date['umzugTime'];
+                                $appDateArray[$ADC]['endDate'] = $umzug1Date['umzugDate'];
+                                $appDateArray[$ADC]['endTime'] = $umzug1Date['umzugTime'];
+                                $appDateArray[$ADC]['calendarTitle'] = $umzug1Date['calendarTitle'];
+                                $appDateArray[$ADC]['calendarComment'] = $umzug1Date['calendarComment'];
+                                $appDateArray[$ADC]['calendarLocation'] = $umzug1Date['calendarLocation'];
                                 $appDateArray[$ADC]['serviceName'] = 'Umzug';
                                 $ADC++; 
                             }
@@ -179,6 +187,11 @@ class indexController extends Controller
                                 $umzugId = $umzugIdBul->id;
                                 $appDateArray[$ADC]['date'] = $umzugIdBul->umzugDate;
                                 $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
+                                $appDateArray[$ADC]['endDate'] = $umzugIdBul->umzugDate;
+                                $appDateArray[$ADC]['endTime'] = $umzugIdBul->umzugTime;
+                                $appDateArray[$ADC]['calendarTitle'] = $umzugIdBul->calendarTitle;
+                                $appDateArray[$ADC]['calendarComment'] = $umzugIdBul->calendarComment;
+                                $appDateArray[$ADC]['calendarLocation'] = $umzugIdBul->calendarLocation;
                                 $appDateArray[$ADC]['serviceName'] = 'Umzug';
                                 $ADC++; 
                             }
@@ -198,7 +211,10 @@ class indexController extends Controller
                             'workHours' => $request->umzug1hours,
                             'ma' => $request->umzug1ma,
                             'lkw' => $request->umzug1lkw,
-                            'anhanger' => $request->umzug1anhanger,               
+                            'anhanger' => $request->umzug1anhanger,   
+                            'calendarTitle' => $request->umzug2calendarTitle,
+                            'calendarComment' => $request->umzug2calendarComment,
+                            'calendarLocation' => $request->umzug2calendarLocation,            
                         ];
                         
                         $umzug2Date = UmzugService::where('id',$d['umzug2Id'])->first();
@@ -207,11 +223,15 @@ class indexController extends Controller
                             
                             $umzug2Guncelle = UmzugService::where('id',$d['umzug2Id'])->update($umzug2);
                             $umzug2Id = $d['umzug2Id'];
-                            
                             $appDateArray[$ADC]['date'] = $umzug2Date['umzugDate'];
                             $appDateArray[$ADC]['time'] = $umzug2Date['umzugTime'];
-
+                            $appDateArray[$ADC]['endDate'] = $umzug2Date['umzugDate'];
+                            $appDateArray[$ADC]['endTime'] = $umzug2Date['umzugTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $umzug2Date['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $umzug2Date['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $umzug2Date['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Umzug 2';
+
                             $ADC++; 
                         }
                         
@@ -222,6 +242,11 @@ class indexController extends Controller
                             $umzug2Id = $umzug2IdBul->id;
                             $appDateArray[$ADC]['date'] = $umzug2IdBul->umzugDate;
                             $appDateArray[$ADC]['time'] = $umzug2IdBul->umzugTime;
+                            $appDateArray[$ADC]['endDate'] = $umzug2IdBul->umzugDate;
+                            $appDateArray[$ADC]['endTime'] = $umzug2IdBul->umzugTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $umzug2IdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $umzug2IdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $umzug2IdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Umzug 2';
                             $ADC++; 
                         }
@@ -244,7 +269,10 @@ class indexController extends Controller
                             'workHours' => $request->umzug1hours,
                             'ma' => $request->umzug1ma,
                             'lkw' => $request->umzug1lkw,
-                            'anhanger' => $request->umzug1anhanger,               
+                            'anhanger' => $request->umzug1anhanger,  
+                            'calendarTitle' => $request->umzug3calendarTitle,
+                            'calendarComment' => $request->umzug3calendarComment,
+                            'calendarLocation' => $request->umzug3calendarLocation,             
                         ];
                         
                         $umzug3Date = UmzugService::where('id',$d['umzug3Id'])->first();
@@ -253,8 +281,13 @@ class indexController extends Controller
                         {
                             $umzug3Guncelle = UmzugService::where('id',$d['umzug3Id'])->update($umzug3);                            
                             $umzug3Id = $d['umzug3Id'];
-                            $appDateArray[$ADC]['date'] = $umzug3Date['umzugDate'];    
-                            $appDateArray[$ADC]['time'] = $umzug3Date['umzugTime'];                         
+                            $appDateArray[$ADC]['date'] = $umzug3Date['umzugDate'];
+                            $appDateArray[$ADC]['time'] = $umzug3Date['umzugTime'];
+                            $appDateArray[$ADC]['endDate'] = $umzug3Date['umzugDate'];
+                            $appDateArray[$ADC]['endTime'] = $umzug3Date['umzugTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $umzug3Date['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $umzug3Date['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $umzug3Date['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Umzug 3';
                             $ADC++; 
                         }
@@ -265,6 +298,11 @@ class indexController extends Controller
                             $umzug3Id = $umzug3IdBul->id;
                             $appDateArray[$ADC]['date'] = $umzug3IdBul->umzugDate;
                             $appDateArray[$ADC]['time'] = $umzug3IdBul->umzugTime;
+                            $appDateArray[$ADC]['endDate'] = $umzug3IdBul->umzugDate;
+                            $appDateArray[$ADC]['endTime'] = $umzug3IdBul->umzugTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $umzug3IdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $umzug3IdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $umzug3IdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Umzug 3';
                             $ADC++; 
                         }
@@ -286,7 +324,10 @@ class indexController extends Controller
                             'workHours' => $request->einpackhours,
                             'ma' => $request->einpackma,
                             'lkw' => $request->einpacklkw,
-                            'anhanger' => $request->einpackanhanger,               
+                            'anhanger' => $request->einpackanhanger,      
+                            'calendarTitle' => $request->einpackcalendarTitle,
+                            'calendarComment' => $request->einpackcalendarComment,
+                            'calendarLocation' => $request->einpackcalendarLocation,              
                         ];
                         
                         $einpackDate = EinpackService::where('id',$d['einpackId'])->first();
@@ -297,6 +338,11 @@ class indexController extends Controller
                             $einpackId = $d['einpackId'];                            
                             $appDateArray[$ADC]['date'] = $einpackDate['einpackDate'];
                             $appDateArray[$ADC]['time'] = $einpackDate['einpackTime'];
+                            $appDateArray[$ADC]['endDate'] = $einpackDate['einpackDate'];
+                            $appDateArray[$ADC]['endTime'] = $einpackDate['einpackTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $einpackDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $einpackDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $einpackDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Einpack';
                             $ADC++; 
                         }
@@ -308,6 +354,11 @@ class indexController extends Controller
                             $einpackId = $einpackIdBul->id;
                             $appDateArray[$ADC]['date'] = $einpackIdBul->einpackDate;
                             $appDateArray[$ADC]['time'] = $einpackIdBul->einpackTime;
+                            $appDateArray[$ADC]['endDate'] = $einpackIdBul->einpackDate;
+                            $appDateArray[$ADC]['endTime'] = $einpackIdBul->einpackTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $einpackIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $einpackIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $einpackIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Einpack';
                             $ADC++; 
                         }
@@ -328,7 +379,10 @@ class indexController extends Controller
                             'workHours' => $request->auspackhours,
                             'ma' => $request->auspackma,
                             'lkw' => $request->auspacklkw,
-                            'anhanger' => $request->auspackanhanger,               
+                            'anhanger' => $request->auspackanhanger,    
+                            'calendarTitle' => $request->auspackcalendarTitle,
+                            'calendarComment' => $request->auspackcalendarComment,
+                            'calendarLocation' => $request->auspackcalendarLocation,                
                         ];
                         
                         $auspackDate = AuspackService::where('id',$d['auspackId'])->first();
@@ -336,9 +390,13 @@ class indexController extends Controller
                         {
                             $auspackGuncelle = AuspackService::where('id',$d['auspackId'])->update($auspack);
                             $auspackId = $d['auspackId'];
-                            
                             $appDateArray[$ADC]['date'] = $auspackDate['auspackDate'];
                             $appDateArray[$ADC]['time'] = $auspackDate['auspackTime'];
+                            $appDateArray[$ADC]['endDate'] = $auspackDate['auspackDate'];
+                            $appDateArray[$ADC]['endTime'] = $auspackDate['auspackTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $auspackDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $auspackDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $auspackDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Auspack';
                             $ADC++; 
                         }
@@ -349,6 +407,11 @@ class indexController extends Controller
                             $auspackId = $auspackIdBul->id;
                             $appDateArray[$ADC]['date'] = $auspackIdBul->auspackDate;
                             $appDateArray[$ADC]['time'] = $auspackIdBul->auspackTime;
+                            $appDateArray[$ADC]['endDate'] = $auspackIdBul->auspackDate;
+                            $appDateArray[$ADC]['endTime'] = $auspackIdBul->auspackTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $auspackIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $auspackIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $auspackIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Auspack';
                             $ADC++; 
                         }
@@ -368,7 +431,10 @@ class indexController extends Controller
                             'reinigungStartDate' => $request->reinigung1Startdate,
                             'reinigungStartTime' => $request->reinigung1Starttime,
                             'reinigungEndDate' => $request->reinigung1Enddate,
-                            'reinigungEndTime' => $request->reinigung1Endtime,               
+                            'reinigungEndTime' => $request->reinigung1Endtime,  
+                            'calendarTitle' => $request->reinigungcalendarTitle,
+                            'calendarComment' => $request->reinigungcalendarComment,
+                            'calendarLocation' => $request->reinigungcalendarLocation,                
                         ];
                         $reinigungDate = ReinigungService::where('id',$d['reinigungId'])->first();
                         if ($reinigungDate)
@@ -377,7 +443,13 @@ class indexController extends Controller
                             $reinigungId = $d['reinigungId'];                           
                             $appDateArray[$ADC]['date'] = $reinigungDate['reinigungStartDate'];
                             $appDateArray[$ADC]['time'] = $reinigungDate['reinigungStartTime'];
+                            $appDateArray[$ADC]['endDate'] = $reinigungDate['reinigungEndDate'];
+                            $appDateArray[$ADC]['endTime'] = $reinigungDate['reinigungEndTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $reinigungDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $reinigungDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $reinigungDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Reinigung';
+                            
                             $ADC++; 
                         }
                         else
@@ -387,6 +459,11 @@ class indexController extends Controller
                             $reinigungId = $reinigungIdBul->id;
                             $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
                             $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
+                            $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate;
+                            $appDateArray[$ADC]['endTime'] = $reinigungIdBul->reinigungEndTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $reinigungIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $reinigungIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $reinigungIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Reinigung';
                             $ADC++;
                         }
@@ -405,7 +482,10 @@ class indexController extends Controller
                             'reinigungStartDate' => $request->reinigung2Startdate,
                             'reinigungStartTime' => $request->reinigung2Starttime,
                             'reinigungEndDate' => $request->reinigung2Enddate,
-                            'reinigungEndTime' => $request->reinigung2Endtime,               
+                            'reinigungEndTime' => $request->reinigung2Endtime,    
+                            'calendarTitle' => $request->reinigung2calendarTitle,
+                            'calendarComment' => $request->reinigung2calendarComment,
+                            'calendarLocation' => $request->reinigung2calendarLocation,            
                         ];
                         $reinigung2Date = ReinigungService::where('id',$d['reinigung2Id'])->first();
                         if ($reinigung2Date)
@@ -414,7 +494,13 @@ class indexController extends Controller
                             $reinigung2Id = $d['reinigung2Id'];                           
                             $appDateArray[$ADC]['date'] = $reinigung2Date['reinigungStartDate'];
                             $appDateArray[$ADC]['time'] = $reinigung2Date['reinigungStartTime'];
+                            $appDateArray[$ADC]['endDate'] = $reinigung2Date['reinigungEndDate'];
+                            $appDateArray[$ADC]['endTime'] = $reinigung2Date['reinigungEndTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $reinigung2Date['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $reinigung2Date['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $reinigung2Date['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Reinigung 2';
+                            
                             $ADC++; 
                         }
                         else
@@ -424,6 +510,11 @@ class indexController extends Controller
                             $reinigung2Id = $reinigung2IdBul->id;
                             $appDateArray[$ADC]['date'] = $reinigung2IdBul->reinigungStartDate;
                             $appDateArray[$ADC]['time'] = $reinigung2IdBul->reinigungStartTime;
+                            $appDateArray[$ADC]['endDate'] = $reinigung2IdBul->reinigungEndDate;
+                            $appDateArray[$ADC]['endTime'] = $reinigung2IdBul->reinigungEndTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $reinigung2IdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $reinigung2IdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $reinigung2IdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Reinigung 2';
                             $ADC++;
                         }
@@ -445,7 +536,10 @@ class indexController extends Controller
                             'workHours' => $request->entsorgunghours,
                             'ma' => $request->entsorgungma,   
                             'lkw' => $request->entsorgunglkw,     
-                            'anhanger' => $request->entsorgunganhanger,                 
+                            'anhanger' => $request->entsorgunganhanger,     
+                            'calendarTitle' => $request->entsorgungcalendarTitle,
+                            'calendarComment' => $request->entsorgungcalendarComment,
+                            'calendarLocation' => $request->entsorgungcalendarLocation,               
                         ];
                         $entsorgungDate = EntsorgungService::where('id',$d['entsorgungId'])->first();
                         if ($entsorgungDate)
@@ -454,6 +548,11 @@ class indexController extends Controller
                             $entsorgung = $d['entsorgungId'];                           
                             $appDateArray[$ADC]['date'] = $entsorgungDate['entsorgungDate'];
                             $appDateArray[$ADC]['time'] = $entsorgungDate['entsorgungTime'];
+                            $appDateArray[$ADC]['endDate'] = $entsorgungDate['entsorgungDate'];
+                            $appDateArray[$ADC]['endTime'] = $entsorgungDate['entsorgungTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $entsorgungDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $entsorgungDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $entsorgungDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Entsorgung';
                             $ADC++; 
                         }
@@ -464,6 +563,11 @@ class indexController extends Controller
                             $entsorgungId = $entsorgungIdBul->id;
                             $appDateArray[$ADC]['date'] = $entsorgungIdBul->entsorgungDate;
                             $appDateArray[$ADC]['time'] = $entsorgungIdBul->entsorgungTime;
+                            $appDateArray[$ADC]['endDate'] = $entsorgungIdBul->entsorgungDate;
+                            $appDateArray[$ADC]['endTime'] = $entsorgungIdBul->entsorgungTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $entsorgungIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $entsorgungIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $entsorgungIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Entsorgung';
                             $ADC++;
                         }
@@ -486,6 +590,9 @@ class indexController extends Controller
                             'ma' => $request->transportma,   
                             'lkw' => $request->transportlkw,     
                             'anhanger' => $request->transportanhanger,
+                            'calendarTitle' => $request->transportcalendarTitle,
+                            'calendarComment' => $request->transportcalendarComment,
+                            'calendarLocation' => $request->transportcalendarLocation,    
                                         
                         ];
                         $transportDate = TransportService::where('id',$d['transportId'])->first();
@@ -495,6 +602,11 @@ class indexController extends Controller
                             $transportId = $d['transportId'];                               
                             $appDateArray[$ADC]['date'] = $transportDate['transportDate'];
                             $appDateArray[$ADC]['time'] = $transportDate['transportTime'];
+                            $appDateArray[$ADC]['endDate'] = $transportDate['transportDate'];
+                            $appDateArray[$ADC]['endTime'] = $transportDate['transportTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $transportDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $transportDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $transportDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Transport';
                             $ADC++;  
                                                     
@@ -507,6 +619,11 @@ class indexController extends Controller
                             $transportId = $transportIdBul->id;                       
                             $appDateArray[$ADC]['date'] = $transportIdBul->transportDate;
                             $appDateArray[$ADC]['time'] = $transportIdBul->transportTime;
+                            $appDateArray[$ADC]['endDate'] = $transportIdBul->transportDate;
+                            $appDateArray[$ADC]['endTime'] = $transportIdBul->transportTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $transportIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $transportIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $transportIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Transport';
                             $ADC++;
                         }
@@ -522,7 +639,10 @@ class indexController extends Controller
                     {
                         $lagerung = [
                             'lagerungDate' => $request->lagerungdate,
-                            'lagerungTime' => $request->lagerungtime,                
+                            'lagerungTime' => $request->lagerungtime,  
+                            'calendarTitle' => $request->lagerungcalendarTitle,
+                            'calendarComment' => $request->lagerungcalendarComment,
+                            'calendarLocation' => $request->lagerungcalendarLocation,                   
                         ];
                         $lagerungDate = LagerungService::where('id',$d['lagerungId'])->first();
                         if($lagerungDate)
@@ -531,6 +651,11 @@ class indexController extends Controller
                             $lagerungId = $d['lagerungId'];                            
                             $appDateArray[$ADC]['date'] = $lagerungDate['lagerungDate'];
                             $appDateArray[$ADC]['time'] = $lagerungDate['lagerungTime'];
+                            $appDateArray[$ADC]['endDate'] = $lagerungDate['lagerungDate'];
+                            $appDateArray[$ADC]['endTime'] = $lagerungDate['lagerungTime'];
+                            $appDateArray[$ADC]['calendarTitle'] = $lagerungDate['calendarTitle'];
+                            $appDateArray[$ADC]['calendarComment'] = $lagerungDate['calendarComment'];
+                            $appDateArray[$ADC]['calendarLocation'] = $lagerungDate['calendarLocation'];
                             $appDateArray[$ADC]['serviceName'] = 'Lagerung';
                             $ADC++;                            
                         }
@@ -541,6 +666,11 @@ class indexController extends Controller
                             $lagerungId = $lagerungIdBul->id;
                             $appDateArray[$ADC]['date'] = $lagerungIdBul->lagerungDate;
                             $appDateArray[$ADC]['time'] = $lagerungIdBul->lagerungTime;
+                            $appDateArray[$ADC]['endDate'] = $lagerungIdBul->lagerungDate;
+                            $appDateArray[$ADC]['endTime'] = $lagerungIdBul->lagerungTime;
+                            $appDateArray[$ADC]['calendarTitle'] = $lagerungIdBul->calendarTitle;
+                            $appDateArray[$ADC]['calendarComment'] = $lagerungIdBul->calendarComment;
+                            $appDateArray[$ADC]['calendarLocation'] = $lagerungIdBul->calendarLocation;
                             $appDateArray[$ADC]['serviceName'] = 'Lagerung';
                             $ADC++;
                         }

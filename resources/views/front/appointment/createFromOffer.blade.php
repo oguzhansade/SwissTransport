@@ -155,7 +155,8 @@
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="gender/name/surname/telefon"  type="text" 
+                                        value="">
                                     </div>
 
                                     <div class="col-md-4">

@@ -11,7 +11,7 @@ class calendarHelper
     {
         $event = new Event;
         // $event->name = ($gender === "male" ? "Herr" : "Frau").' '.$name.' '.$surname.' '.'-'.$serviceName;
-        $event->name = $serviceName.'-'.' '.$title;
+        $event->name = $serviceName.'/'.' '.$title;
         $event->startDateTime = Carbon::parse($date)->timezone("Europe/Berlin");
         $event->endDateTime = Carbon::parse($endDate)->timezone("Europe/Berlin");
         $event->location = $location;

@@ -259,6 +259,10 @@
                             <div class="form-group row mt-3">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    {{-- <a id="createTask" target="_blank"  href="{{ route('offer.offerPdfPreview') }}" 
+                                        class="btn btn-rounded text-white" style="background-color:#ff0000"> <strong>Preview PDF</strong> 
+                                    </a> --}}
+                                    {{-- <input class="btn btn-danger btn-rounded" type="submit" value="Absagen" formaction="{{ URL::to('/offerPdfPreview',['token' =>$token]) }}"> --}}
                                 </div>
                             </div>
                         </div>
