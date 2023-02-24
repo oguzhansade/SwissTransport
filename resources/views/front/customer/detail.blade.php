@@ -89,10 +89,10 @@
 <div class="col-12 col-md-12 mr-b-30 mt-5">
     <ul class="nav nav-tabs contact-details-tab">
 
-        <li class="nav-item" style=""><a href="#profile-tab-bordered-1" class="nav-link active" data-toggle="tab" aria-expanded="true">Profil</a>
+        <li class="nav-item" style=""><a href="#profile-tab-bordered-1" class="nav-link @if(session("cat") != 'Offerte') active @endif" data-toggle="tab" aria-expanded="true">Profil</a>
         </li>
         @if (App\Models\UserPermission::getMyControl(9))  
-        <li class="nav-item" style=""><a href="#offer-tab-bordered-1" class="nav-link" data-toggle="tab" aria-expanded="false">Offerte</a>
+        <li class="nav-item" style=""><a href="#offer-tab-bordered-1" class="nav-link @if(session("cat") == 'Offerte') active @endif" data-toggle="tab" aria-expanded="false">Offerte</a>
         </li> 
         @endif
 
@@ -115,7 +115,7 @@
     <div class="tab-content">
 
         <!-- /.tab-pane Müşteri Profili -->
-        <div role="tabpanel" class="tab-pane active " id="profile-tab-bordered-1" aria-expanded="true" >
+        <div role="tabpanel" class="tab-pane @if(session("cat") != 'Offerte') active @endif " id="profile-tab-bordered-1" aria-expanded="false" >
             
             <div class="contact-details-profile ">
                 <div class="row">
@@ -204,7 +204,7 @@
             
         </div>
         <!-- /.tab-pane Teklifler -->
-        <div role="tabpanel" class="tab-pane" id="offer-tab-bordered-1" aria-expanded="false">
+        <div role="tabpanel" class="tab-pane @if(session("cat") == 'Offerte') active @endif" id="offer-tab-bordered-1" @if(session("cat") == 'Offerte') aria-expanded="true" @else aria-expanded="false" @endif  >
             <div class="contact-details-profile ">
                 <div class="row">
                     <div class="col-md-9">

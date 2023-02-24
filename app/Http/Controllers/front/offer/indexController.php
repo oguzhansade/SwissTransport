@@ -28,6 +28,7 @@ use App\Models\OfferVerify;
 use App\Models\Task;
 use App\Models\WorkerBasket;
 use Carbon\Carbon;
+use Google\Service\Monitoring\Custom;
 use Illuminate\Support\Facades\App;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
@@ -810,6 +811,7 @@ class indexController extends Controller
                 return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status', 'Teklif Başarıyla Eklendi ' . $mailSuccess)
+                ->with('cat','Offerte')
                 ->withInput()
                 ->with('keep_status', true);
             }
@@ -2548,7 +2550,8 @@ class indexController extends Controller
     public function delete ($id)
     {
         $c = offerte::where('id',$id)->count();
-        
+        $offer = offerte::where('id',$id)->first();
+        $customerId = $offer['customerId'];
         if($c !=0)
         {
             $data = offerte::where('id',$id)->first();
@@ -2601,7 +2604,12 @@ class indexController extends Controller
             offerte::where('mainOfferteId',$data2['id'])->delete();
             offerte::where('id',$id)->delete();
 
-            return redirect()->back()->with('status','Teklif Başarıyla Silindi');
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Teklif Başarıyla Silindi')
+                ->with('cat','Offerte')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect('/');
