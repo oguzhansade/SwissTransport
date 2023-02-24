@@ -168,7 +168,8 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/detail/{id}', [App\Http\Controllers\front\offer\indexController::class, 'detail'])->name('detail');
         Route::get('/pdf', [App\Http\Controllers\front\offer\indexController::class, 'pdf'])->name('pdf');
         Route::get('/showPdf/{id}', [App\Http\Controllers\front\offer\indexController::class, 'showPdf'])->name('showPdf');
-        Route::get('/offerPdfPreview', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreview'])->name('offerPdfPreview');
+        // Route::get('/offerPdfPreview/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreview'])->name('offerPdfPreview');
+        Route::post('/offerPdfPreview/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreview'])->name('offerPdfPreview');
         Route::post('/send-mail', [App\Http\Controllers\front\offer\indexController::class, 'sendEmail'])->name('send.mail');
     });
 

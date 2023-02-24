@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Offerte</title>
     <meta charset="UTF-8">
     <style>
@@ -72,12 +73,12 @@
                                 Offertennr: 
                             </td>
                             <td  align="left">
-                                {{ $offerteNumber }}
+                                1
                             </td>
                         </tr>
                         <tr  style="width: 100%;">
                             <td >Datum:</td>
-                            <td >{{ date('d.m.Y', strtotime(\Carbon::now())); }}</td>
+                            <td >{{ date('d.m.Y', strtotime(Carbon\Carbon::now())); }}</td>
                         </tr>
                         <tr>
                             <td>Seiten</td>
@@ -101,7 +102,7 @@
                 <table border="0" style="width:100%;">
                     <tr style="width:100%;">
                         <td colspan="4" class="py-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;">Offerte {{ $offerteNumber }} vom {{ date('d.m.Y', strtotime($offer['created_at'])); }} für {{ $customer['gender'] === "male" ? "Herr" : "Frau" }} {{ $customer['name'] }} {{ $customer['surname'] }}</b>
+                            <b style="font-size:13px;">Offerte 1 vom  für {{ $customer['gender'] === "male" ? "Herr" : "Frau" }} {{ $customer['name'] }} {{ $customer['surname'] }}</b>
                         </td>
                     </tr>
                     <tr  style="width:100%;">
@@ -931,7 +932,7 @@
                 @endif
     
                 {{-- Reinigung 2 Alanı --}}
-                @if ($reinigung2)
+                @if ($isReinigung2)
                 <table border="0" style="width: 100%;margin-top:20px;">
                         <tr style="width:100%;">
                             <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">

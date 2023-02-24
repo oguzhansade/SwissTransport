@@ -47,7 +47,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form action="{{ route('offer.store',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group row">
                                 <div class="col-md-12">
@@ -258,11 +258,8 @@
                         <div class="form-actions">
                             <div class="form-group row mt-3">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
-                                    {{-- <a id="createTask" target="_blank"  href="{{ route('offer.offerPdfPreview') }}" 
-                                        class="btn btn-rounded text-white" style="background-color:#ff0000"> <strong>Preview PDF</strong> 
-                                    </a> --}}
-                                    {{-- <input class="btn btn-danger btn-rounded" type="submit" value="Absagen" formaction="{{ URL::to('/offerPdfPreview',['token' =>$token]) }}"> --}}
+                                    <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.store',['id' => $data['id']]) }}">
+                                    <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview" formtarget="_blank" formaction="{{ route('offer.offerPdfPreview',['id' => $data['id']]) }}">
                                 </div>
                             </div>
                         </div>

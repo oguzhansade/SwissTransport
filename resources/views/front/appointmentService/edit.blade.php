@@ -936,17 +936,25 @@ $(document).ready( function(){
         {
             var transport ='<br>'+ 'Transport: ' + $('input[name=transportdate]').val();
         }
+
+        if($('input[name=lagerungdate]').val())
+        {
+            var lagerung ='<br>'+ 'Lagerung: ' + $('input[name=lagerungdate]').val();
+        }
        
         dateArray[dateArray.length] =  umzug1;
         dateArray[dateArray.length] =  umzug2;
         dateArray[dateArray.length] =  umzug3;
         
         dateArray[dateArray.length] = auspack;
+        dateArray[dateArray.length] = einpack;
         dateArray[dateArray.length] = reinigung;
         dateArray[dateArray.length] = reinigung2;
         dateArray[dateArray.length] = entsorgung;
         dateArray[dateArray.length] = transport;
+        dateArray[dateArray.length] = lagerung;
 
+        dateArray = dateArray.join("\n")
         console.log(dateArray,'Arr')
         setTimeout(() => {
             tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);

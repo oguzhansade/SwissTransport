@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+   
     <title>Offerte - {{ $offerteNumber }}</title>
     <meta charset="UTF-8">
     <style>

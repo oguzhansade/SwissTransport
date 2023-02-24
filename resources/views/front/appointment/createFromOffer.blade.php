@@ -1,11 +1,14 @@
 @extends('layouts.app')
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 @endsection
 @section('content')
-@section('sidebarType') sidebar-collapse @endsection
+@section('sidebarType')
+    sidebar-collapse
+@endsection
 
 <div class="row page-title clearfix">
     <div class="page-title-left">
@@ -22,23 +25,23 @@
         </div> --}}
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
-@if (session("status"))
+@if (session('status'))
     <div class="row mt-3">
         <div class="col-md-12">
             <div class="alert alert-success">
-                {{ session("status") }}
+                {{ session('status') }}
             </div>
         </div>
     </div>
 @endif
 
-@if (session("status-err"))
+@if (session('status-err'))
     <div class="row mt-3">
         <div class="col-md-12">
             <div class="alert alert-danger">
-                {{ session("status-err") }}
+                {{ session('status-err') }}
             </div>
         </div>
     </div>
@@ -53,35 +56,42 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <p><form id="myform" name="myForm" action="{{ route('appointment.store',['id' => $data['id']]) }}"  method="POST" enctype="multipart/form-data"></p>
-                       @csrf
-                        
+                    <p>
+                    <form id="myform" name="myForm" action="{{ route('appointment.store', ['id' => $data['id']]) }}"
+                        method="POST" enctype="multipart/form-data">
+                        </p>
+                        @csrf
+
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <div >
+                                <div>
                                     <label for="" class="col-form-label">Offerten Nr.</label>
-                                     <a href="{{ route('offer.detail',['id'=>$offer['id']]) }}" class="col-form-label text-underline">{{ $offer['id'] }}</a>
+                                    <a href="{{ route('offer.detail', ['id' => $offer['id']]) }}"
+                                        class="col-form-label text-underline">{{ $offer['id'] }}</a>
                                 </div>
 
                                 <label for="" class="col-form-label">Art</label>
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio" class="appointment-type"  name="appType" value="1" > <span class="label-text">Besichtigung</span>
+                                        <input type="radio" class="appointment-type" name="appType" value="1">
+                                        <span class="label-text">Besichtigung</span>
                                     </label>
                                 </div>
 
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio"  class="appointment-type"  name="appType" value="2" checked> <span class="label-text">Auftragsbestätigung</span>
+                                        <input type="radio" class="appointment-type" name="appType" value="2"
+                                            checked> <span class="label-text">Auftragsbestätigung</span>
                                     </label>
                                 </div>
 
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio" class="appointment-type"  name="appType" value="3" > <span class="label-text">Lieferung</span>
+                                        <input type="radio" class="appointment-type" name="appType" value="3">
+                                        <span class="label-text">Lieferung</span>
                                     </label>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
 
                         {{-- Onay Alanı Başlangıç --}}
@@ -92,335 +102,358 @@
                                     <select class="form-control" name="paymentType" id="paymentType">
                                         <option value="0">Bar</option>
                                         <option value="1">Invoice</option>
-                                    </select> 
-                                </div>                            
+                                    </select>
+                                </div>
                             </div>
 
                             {{-- Umzug Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 umzug-control">
                                     <label for="" class="col-form-label">Umzug</label><br>
-                                    <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" 
-                                    @if($offer['offerteUmzugId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteUmzugId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Umzug Alanı Kontrolü Bitiş --}}
 
                             {{-- Umzug Alanı --}}
-                            <div class="form-group row umzug--area"  @if($offer['offerteUmzugId'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row umzug--area"
+                                @if ($offer['offerteUmzugId'] == null) style="display: none;" @endif>
                                 {{-- 1.Umzug Alanı Başlangıç --}}
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Umzugstermin Am</label>
-                                    <input class="form-control" class="date" id="umzug1date" name="umzug1date"  type="date" 
-                                    @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveDate'))
-                                    value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveDate') }}" @endif>                                
+                                    <input class="form-control" class="date" id="umzug1date" name="umzug1date"
+                                        type="date"
+                                        @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveDate')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
-                                    <input class="form-control"  name="umzug1time"  type="time" 
-                                    @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveTime'))
-                                    value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveTime') }}" @endif>                                
+                                    <input class="form-control" name="umzug1time" type="time"
+                                        @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveTime')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveTime') }}" @endif>
                                 </div>
 
                                 <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control"  name="umzug1hours" placeholder="4-5"  type="text" 
-                                        @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveHours'))
-                                        value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveHours') }}" @endif>                                
+                                        <input class="form-control" name="umzug1hours" placeholder="4-5" type="text"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveHours')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'moveHours') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control"  name="umzug1ma" placeholder="0"  type="number" 
-                                        @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'ma'))
-                                        value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'ma') }}" @endif>                                
+                                        <input class="form-control" name="umzug1ma" placeholder="0" type="number"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'ma')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'ma') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control"  name="umzug1lkw" placeholder="0"  type="number" 
-                                        @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'lkw'))
-                                        value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'lkw') }}" @else value="0" @endif>                                
+                                        <input class="form-control" name="umzug1lkw" placeholder="0" type="number"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'lkw')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'lkw') }}" @else value="0" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" 
-                                        @if($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'anhanger'))
-                                        value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'anhanger') }}" 
-                                         @else value="{{ 0 }}"
-                                        @endif>
+                                        <input class="form-control" name="umzug1anhanger" placeholder="0"
+                                            type="number"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'anhanger')) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'], 'anhanger') }}" 
+                                         @else value="{{ 0 }}" @endif>
                                     </div>
                                 </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="umzug1calendarTitle" placeholder="gender/name/surname/telefon"  type="text" 
-                                        value="">
+                                        <input class="form-control" name="umzug1calendarTitle"
+                                            placeholder="gender/name/surname/telefon" type="text" value="">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="umzug1calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="umzug1calendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
-                                
+
                                 {{-- 2.Umzug Alanı Kontrolü --}}
                                 <div class="col-md-12 umzug-control2">
                                     <label for="" class="col-form-label">Weitere Umzugstermine</label><br>
-                                    <input type="checkbox" name="isUmzug2" id="isUmzug2" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isUmzug2" id="isUmzug2" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false">
                                 </div>
                                 {{-- 2.Umzug Alanı Kontrolü --}}
 
                                 {{-- 2.Umzug Alanı Başlangıç --}}
-                                <div class="form-group row w-100 umzug--area2" style="display: none;">                                    
+                                <div class="form-group row w-100 umzug--area2" style="display: none;">
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">Umzugstermin 2 Am</label>
-                                        <input class="form-control" class="date" id="umzug2date"  name="umzug2date"  type="date" >                                
+                                        <input class="form-control" class="date" id="umzug2date" name="umzug2date"
+                                            type="date">
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">Umzugstermin 2 Stunde</label>
-                                        <input class="form-control"  name="umzug2time"  type="time" >                                
+                                        <input class="form-control" name="umzug2time" type="time">
                                     </div>
-    
+
                                     <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control"  name="umzug2hours" placeholder="4-5"  type="text" >                                
+                                            <input class="form-control" name="umzug2hours" placeholder="4-5"
+                                                type="text">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control"  name="umzug2ma" placeholder="0"  type="number" >                                
+                                            <input class="form-control" name="umzug2ma" placeholder="0"
+                                                type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control"  name="umzug2lkw" placeholder="0"  type="number" value="0">                                
+                                            <input class="form-control" name="umzug2lkw" placeholder="0"
+                                                type="number" value="0">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Anhänger</label>
-                                            <input class="form-control"  name="umzug2anhanger" placeholder="0"  type="number" >                                
+                                            <input class="form-control" name="umzug2anhanger" placeholder="0"
+                                                type="number">
                                         </div>
-                                    </div>  
-                                    
+                                    </div>
+
                                     <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                            <input class="form-control"  name="umzug2calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                            <input class="form-control" name="umzug2calendarTitle"
+                                                placeholder="CalendarTitle" type="text">
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarComment</label>
-                                            <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                            <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                            <input class="form-control"  name="umzug2calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                            value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                            <input class="form-control" name="umzug2calendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
                                 </div>
                                 {{-- 2.Umzug Alanı Bitiş --}}
 
                                 {{-- 3.Umzug Alanı Başlangıç --}}
-                                <div class="form-group row w-100 umzug--area2" style="display: none;">                                    
+                                <div class="form-group row w-100 umzug--area2" style="display: none;">
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
-                                        <input class="form-control" class="date"  name="umzug3date"  type="date" >                                
+                                        <input class="form-control" class="date" name="umzug3date" type="date">
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">Umzugstermin 3 Stunde</label>
-                                        <input class="form-control"  name="umzug3time"  type="time" >                                
+                                        <input class="form-control" name="umzug3time" type="time">
                                     </div>
-    
+
                                     <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control"  name="umzug3hours" placeholder="4-5"  type="text" >                                
+                                            <input class="form-control" name="umzug3hours" placeholder="4-5"
+                                                type="text">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control"  name="umzug3ma" placeholder="0"  type="number" >                                
+                                            <input class="form-control" name="umzug3ma" placeholder="0"
+                                                type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control"  name="umzug3lkw" placeholder="0"  type="number" value="0">                                
+                                            <input class="form-control" name="umzug3lkw" placeholder="0"
+                                                type="number" value="0">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Anhänger</label>
-                                            <input class="form-control"  name="umzug3anhanger" placeholder="0"  type="number" >                                
+                                            <input class="form-control" name="umzug3anhanger" placeholder="0"
+                                                type="number">
                                         </div>
-                                    </div>      
-                                    
+                                    </div>
+
                                     <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                            <input class="form-control"  name="umzug3calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                            <input class="form-control" name="umzug3calendarTitle"
+                                                placeholder="CalendarTitle" type="text">
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarComment</label>
-                                            <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                            <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                            <input class="form-control"  name="umzug3calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                            value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                            <input class="form-control" name="umzug3calendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
                                 </div>
-                                {{-- 3.Umzug Alanı Bitiş --}}                                 
+                                {{-- 3.Umzug Alanı Bitiş --}}
                             </div>
-                            {{-- Umzug Alanı Bitiş --}} 
+                            {{-- Umzug Alanı Bitiş --}}
 
-                            
+
 
                             {{-- Einpackservice Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 einpackservice-control">
                                     <label for="" class="col-form-label">Einpackservice</label><br>
-                                    <input type="checkbox" name="isEinpackservice" id="isEinpackservice" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" 
-                                    @if($offer['offerteEinpackId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isEinpackservice" id="isEinpackservice"
+                                        class="js-switch" data-size="small" data-color="#9c27b0"
+                                        data-switchery="false" @if ($offer['offerteEinpackId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Einpackservice Alanı Kontrolü Bitiş --}}
 
                             {{-- Einpackservice Alanı Başlangıç --}}
-                            <div class="form-group row einpackservice--area" 
-                            @if($offer['offerteEinpackId'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row einpackservice--area"
+                                @if ($offer['offerteEinpackId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Packtermin Am</label>
-                                    <input class="form-control" class="date"  name="einpackdate"  type="date" 
-                                    @if($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'einpackDate'))
-                                    value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'einpackDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="einpackdate" type="date"
+                                        @if ($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'einpackDate')) value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'einpackDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Packtermin Stunde</label>
-                                    <input class="form-control"  name="einpacktime"  type="time" 
-                                    @if($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'einpackTime'))
-                                    value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'einpackTime') }}" @endif>                                
+                                    <input class="form-control" name="einpacktime" type="time"
+                                        @if ($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'einpackTime')) value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'einpackTime') }}" @endif>
                                 </div>
-                                                                
+
                                 <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="einpacksuresi" id="einpacksuresi" aria-required=""  name="einpackhours" placeholder="4-5"  type="text" 
-                                        @if($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'moveHours'))
-                                        value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'moveHours') }}" @endif>                                
+                                        <input class="form-control" class="einpacksuresi" id="einpacksuresi"
+                                            aria-required="" name="einpackhours" placeholder="4-5" type="text"
+                                            @if ($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'moveHours')) value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'moveHours') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control"  name="einpackma" placeholder="0"  type="number" 
-                                        @if($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'ma'))
-                                        value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'],'ma') }}" @endif>                                
+                                        <input class="form-control" name="einpackma" placeholder="0" type="number"
+                                            @if ($offer['offerteEinpackId'] && \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'ma')) value="{{ \App\Models\OfferteEinpack::InfoEinpack($offer['offerteEinpackId'], 'ma') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control"  name="einpacklkw" placeholder="0"  type="number" value="0">                                
+                                        <input class="form-control" name="einpacklkw" placeholder="0" type="number"
+                                            value="0">
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control"  name="einpackanhanger" placeholder="0"  type="number" value="0">                                
+                                        <input class="form-control" name="einpackanhanger" placeholder="0"
+                                            type="number" value="0">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="einpackcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="einpackcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="einpackcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="einpackcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
                             {{-- Einpackservice Alanı Bitiş --}}
 
 
-                             {{-- Auspackservice Alanı Kontrolü --}}
-                             <div class="form-group row">
+                            {{-- Auspackservice Alanı Kontrolü --}}
+                            <div class="form-group row">
                                 <div class="col-md-12 auspackservice-control">
                                     <label for="" class="col-form-label">Auspackservice</label><br>
-                                    <input type="checkbox" name="isAuspackservice" id="isAuspackservice" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" @if($offer['offerteAuspackId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isAuspackservice" id="isAuspackservice"
+                                        class="js-switch" data-size="small" data-color="#9c27b0"
+                                        data-switchery="false" @if ($offer['offerteAuspackId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Auspackservice Alanı Kontrolü Bitiş --}}
 
                             {{-- Auspackservice Alanı Başlangıç --}}
                             <div class="form-group row auspackservice--area"
-                                @if($offer['offerteAuspackId'] == NULL) style="display: none;" @endif>
+                                @if ($offer['offerteAuspackId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Packtermin Am</label>
-                                    <input class="form-control" class="date"  name="auspackdate"  type="date" 
-                                    @if($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'auspackDate'))
-                                    value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'auspackDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="auspackdate" type="date"
+                                        @if ($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'auspackDate')) value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'auspackDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Packtermin Stunde</label>
-                                    <input class="form-control"  name="auspacktime"  type="time" 
-                                    @if($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'auspackTime'))
-                                    value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'auspackTime') }}" @endif>                                
+                                    <input class="form-control" name="auspacktime" type="time"
+                                        @if ($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'auspackTime')) value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'auspackTime') }}" @endif>
                                 </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls gleiches Datum wie Umzug, dann leer lassen.</div>
-                                
+                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                    gleiches Datum wie Umzug, dann leer lassen.</div>
+
                                 <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="auspacksuresi" id="auspacksuresi" aria-required=""  name="auspackhours" placeholder="4-5"  type="text" 
-                                        @if($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'moveHours'))
-                                        value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'moveHours') }}" @endif>                                
+                                        <input class="form-control" class="auspacksuresi" id="auspacksuresi"
+                                            aria-required="" name="auspackhours" placeholder="4-5" type="text"
+                                            @if ($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'moveHours')) value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'moveHours') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control"  name="auspackma" placeholder="0"  type="number" 
-                                        @if($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'ma'))
-                                        value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'],'ma') }}" @endif>                                
+                                        <input class="form-control" name="auspackma" placeholder="0" type="number"
+                                            @if ($offer['offerteAuspackId'] && \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'ma')) value="{{ \App\Models\OfferteAuspack::InfoAuspack($offer['offerteAuspackId'], 'ma') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control"  name="auspacklkw" placeholder="0"  type="number" value="0">                                
+                                        <input class="form-control" name="auspacklkw" placeholder="0" type="number"
+                                            value="0">
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control"  name="auspackanhanger" placeholder="0"  type="number" value="0">                                
+                                        <input class="form-control" name="auspackanhanger" placeholder="0"
+                                            type="number" value="0">
                                     </div>
                                 </div>
-                                
+
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="auspackcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="auspackcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="auspackcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="auspackcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -430,325 +463,375 @@
                             <div class="form-group row">
                                 <div class="col-md-12 reinigung-control">
                                     <label for="" class="col-form-label">Reinigung</label><br>
-                                    <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" 
-                                    @if($offer['offerteReinigungId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteReinigungId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Reinigung Alanı Kontrolü Bitiş --}}
 
                             {{-- Reinigung Alanı Başlangıç --}}
-                            <div class="form-group row reinigung--area" 
-                            @if($offer['offerteReinigungId'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row reinigung--area"
+                                @if ($offer['offerteReinigungId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Reinigungstermin Am</label>
-                                    <input class="form-control" class="date"  name="reinigung1Startdate"  type="date" 
-                                    @if($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startDate'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="reinigung1Startdate"
+                                        type="date"
+                                        @if (
+                                            $offer['offerteReinigungId'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'startDate')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'startDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Reinigungstermin Stunde</label>
-                                    <input class="form-control"  name="reinigung1Starttime"  type="time" 
-                                    @if($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startTime'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startTime') }}" @endif>                                
+                                    <input class="form-control" name="reinigung1Starttime" type="time"
+                                        @if (
+                                            $offer['offerteReinigungId'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'startTime')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'startTime') }}" @endif>
                                 </div>
-                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls gleiches Datum wie Umzug, dann leer lassen.</div>  
-                                
+                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                    gleiches Datum wie Umzug, dann leer lassen.</div>
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin</label>
-                                    <input class="form-control" class="date"  name="reinigung1Enddate"  type="date" 
-                                    @if($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endDate'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="reinigung1Enddate"
+                                        type="date"
+                                        @if (
+                                            $offer['offerteReinigungId'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'endDate')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'endDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
-                                    <input class="form-control"  name="reinigung1Endtime"  type="time" 
-                                    @if($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endTime'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endTime') }}" @endif>                                
+                                    <input class="form-control" name="reinigung1Endtime" type="time"
+                                        @if (
+                                            $offer['offerteReinigungId'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'endTime')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'], 'endTime') }}" @endif>
                                 </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="reinigungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="reinigungcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="reinigungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="reinigungcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
-                            </div>                           
+                            </div>
                             {{-- Reinigung Alanı Bitiş --}}
 
                             {{-- 2.Reinigung Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 reinigung2-control">
                                     <label for="" class="col-form-label">Reinigung 2</label><br>
-                                    <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false"
-                                    @if($offer['offerteReinigung2Id']) checked @endif >  
-                                </div>                            
+                                    <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteReinigung2Id']) checked @endif>
+                                </div>
                             </div>
                             {{-- 2.Reinigung Alanı Kontrolü Bitiş --}}
 
                             {{-- 2.Reinigung Alanı Başlangıç --}}
-                            <div class="form-group row reinigung2--area"  @if($offer['offerteReinigung2Id'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row reinigung2--area"
+                                @if ($offer['offerteReinigung2Id'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Reinigungstermin 2 Am</label>
-                                    <input class="form-control" class="date"  name="reinigung2Startdate"  type="date" 
-                                    @if($offer['offerteReinigung2Id'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'startDate'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'startDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="reinigung2Startdate"
+                                        type="date"
+                                        @if (
+                                            $offer['offerteReinigung2Id'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'startDate')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'startDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Reinigungstermin 2 Stunde</label>
-                                    <input class="form-control"  name="reinigung2Starttime"  type="time" 
-                                    @if($offer['offerteReinigung2Id'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'startTime'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'startTime') }}" @endif>                                
+                                    <input class="form-control" name="reinigung2Starttime" type="time"
+                                        @if (
+                                            $offer['offerteReinigung2Id'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'startTime')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'startTime') }}" @endif>
                                 </div>
-                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls gleiches Datum wie Umzug, dann leer lassen.</div>  
-                                
+                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                    gleiches Datum wie Umzug, dann leer lassen.</div>
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin</label>
-                                    <input class="form-control" class="date"  name="reinigung2Enddate"  type="date" 
-                                    @if($offer['offerteReinigung2Id'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'endDate'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'endDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="reinigung2Enddate"
+                                        type="date"
+                                        @if (
+                                            $offer['offerteReinigung2Id'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'endDate')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'endDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
-                                    <input class="form-control"  name="reinigung2Endtime"  type="time" 
-                                    @if($offer['offerteReinigung2Id'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'endTime'))
-                                    value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'],'endTime') }}" @endif>                                
+                                    <input class="form-control" name="reinigung2Endtime" type="time"
+                                        @if (
+                                            $offer['offerteReinigung2Id'] &&
+                                                \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'endTime')) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigung2Id'], 'endTime') }}" @endif>
                                 </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="reinigung2calendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="reinigung2calendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="reinigung2calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="reinigung2calendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
-                            </div>                           
+                            </div>
                             {{-- 2.Reinigung Alanı Bitiş --}}
 
                             {{-- Entsorgung Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 entsorgung-control">
                                     <label for="" class="col-form-label">Entsorgung</label><br>
-                                    <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" 
-                                    @if($offer['offerteEntsorgungId']) checked @endif >  
-                                </div>                            
+                                    <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteEntsorgungId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Entsorgung Alanı Kontrolü Bitiş --}}
 
                             {{-- Entsorgung Alanı Başlangıç --}}
-                            <div class="form-group row entsorgung--area" 
-                            @if($offer['offerteEntsorgungId'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row entsorgung--area"
+                                @if ($offer['offerteEntsorgungId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Entsorgungstermin Am</label>
-                                    <input class="form-control" class="date"  name="entsorgungdate"  type="date" 
-                                    @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'entsorgungDate'))
-                                    value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'entsorgungDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="entsorgungdate" type="date"
+                                        @if (
+                                            $offer['offerteEntsorgungId'] &&
+                                                \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'entsorgungDate')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'entsorgungDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Entsorgungstermin Stunde</label>
-                                    <input class="form-control"  name="entsorgungtime"  type="time" 
-                                    @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'entsorgungTime'))
-                                    value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'entsorgungTime') }}" @endif>                                
+                                    <input class="form-control" name="entsorgungtime" type="time"
+                                        @if (
+                                            $offer['offerteEntsorgungId'] &&
+                                                \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'entsorgungTime')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'entsorgungTime') }}" @endif>
                                 </div>
-                                                               
+
                                 <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi" aria-required=""  name="entsorgunghours" placeholder="4-5"  type="text" 
-                                        @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'hour'))
-                                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'hour') }}" @endif>                                
+                                        <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi"
+                                            aria-required="" name="entsorgunghours" placeholder="4-5" type="text"
+                                            @if (
+                                                $offer['offerteEntsorgungId'] &&
+                                                    \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'hour')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'hour') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control"  name="entsorgungma" placeholder="0"  type="number" 
-                                        @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'ma'))
-                                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'ma') }}" @endif>                                
+                                        <input class="form-control" name="entsorgungma" placeholder="0"
+                                            type="number"
+                                            @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'ma')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'ma') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control"  name="entsorgunglkw" placeholder="0"  type="number" 
-                                        @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'lkw'))
-                                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'lkw') }}" @else value="0" @endif>                                
+                                        <input class="form-control" name="entsorgunglkw" placeholder="0"
+                                            type="number"
+                                            @if (
+                                                $offer['offerteEntsorgungId'] &&
+                                                    \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'lkw')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'lkw') }}" @else value="0" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control"  name="entsorgunganhanger" placeholder="0"  type="number" 
-                                        @if($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'anhanger'))
-                                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'anhanger') }}" @endif>                                
+                                        <input class="form-control" name="entsorgunganhanger" placeholder="0"
+                                            type="number"
+                                            @if (
+                                                $offer['offerteEntsorgungId'] &&
+                                                    \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'anhanger')) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'], 'anhanger') }}" @endif>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="entsorgungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="entsorgungcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="entsorgungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="entsorgungcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
-                            </div>                        
+                            </div>
                             {{-- Entsorgung Alanı Bitiş --}}
 
                             {{-- Transport Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 transport-control">
                                     <label for="" class="col-form-label">Transport</label><br>
-                                    <input type="checkbox" name="isTransport" id="isTransport" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" 
-                                    @if($offer['offerteTransportId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isTransport" id="isTransport" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteTransportId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Transport Alanı Kontrolü Bitiş --}}
 
                             {{-- Transport Alanı Başlangıç --}}
                             <div class="form-group row transport--area"
-                            @if($offer['offerteTransportId'] == NULL)  style="display: none;" @endif>
+                                @if ($offer['offerteTransportId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Transport Am</label>
-                                    <input class="form-control" class="date"  name="transportdate"  type="date" 
-                                    @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'transportDate'))
-                                    value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'transportDate') }}" @endif>                                
+                                    <input class="form-control" class="date" name="transportdate" type="date"
+                                        @if (
+                                            $offer['offerteTransportId'] &&
+                                                \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'transportDate')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'transportDate') }}" @endif>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Transport Stunde</label>
-                                    <input class="form-control"  name="transporttime"  type="time" 
-                                    @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'transportTime'))
-                                    value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'transportTime') }}" @endif>                                
+                                    <input class="form-control" name="transporttime" type="time"
+                                        @if (
+                                            $offer['offerteTransportId'] &&
+                                                \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'transportTime')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'transportTime') }}" @endif>
                                 </div>
-                                
+
                                 <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="transportsuresi" id="transportsuresi" aria-required=""  name="transporthours" placeholder="4-5"  type="text" 
-                                        @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'hour'))
-                                        value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'hour') }}" @endif>                                
+                                        <input class="form-control" class="transportsuresi" id="transportsuresi"
+                                            aria-required="" name="transporthours" placeholder="4-5" type="text"
+                                            @if ($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'hour')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'hour') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control"  name="transportma" placeholder="0"  type="number" 
-                                        @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'ma'))
-                                        value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'ma') }}" @endif>                                
+                                        <input class="form-control" name="transportma" placeholder="0"
+                                            type="number"
+                                            @if ($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'ma')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'ma') }}" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control"  name="transportlkw" placeholder="0"  type="number" 
-                                        @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'lkw'))
-                                        value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'lkw') }}" @else value="0" @endif>                                
+                                        <input class="form-control" name="transportlkw" placeholder="0"
+                                            type="number"
+                                            @if ($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'lkw')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'lkw') }}" @else value="0" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control"  name="transportanhanger" placeholder="0"  type="number" 
-                                        @if($offer['offerteTransportId'] && \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'anhanger'))
-                                        value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'],'anhanger') }}" @endif>                                
+                                        <input class="form-control" name="transportanhanger" placeholder="0"
+                                            type="number"
+                                            @if (
+                                                $offer['offerteTransportId'] &&
+                                                    \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'anhanger')) value="{{ \App\Models\OfferteTransport::InfoTransport($offer['offerteTransportId'], 'anhanger') }}" @endif>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">von</label>
-                                        <input class="form-control"  name="destination" placeholder="Destination"  type="text" >                                
+                                        <input class="form-control" name="destination" placeholder="Destination"
+                                            type="text">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">nach</label>
-                                        <input class="form-control"  name="arrival" placeholder="Arrival"  type="text" >                                
+                                        <input class="form-control" name="arrival" placeholder="Arrival"
+                                            type="text">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="transportcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="transportcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="transportcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="transportcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
-                            </div>                        
+                            </div>
                             {{-- Transport Alanı Bitiş --}}
 
                             {{-- Lagerung Alanı Kontrolü --}}
                             <div class="form-group row">
                                 <div class="col-md-12 lagerung-control">
                                     <label for="" class="col-form-label">Lagerung</label><br>
-                                    <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false"
-                                    @if($offer['offerteLagerungId']) checked @endif>  
-                                </div>                            
+                                    <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch"
+                                        data-size="small" data-color="#9c27b0" data-switchery="false"
+                                        @if ($offer['offerteLagerungId']) checked @endif>
+                                </div>
                             </div>
                             {{-- Lagerung Alanı Kontrolü Bitiş --}}
 
                             {{-- Lagerung Alanı Başlangıç --}}
-                            <div class="form-group row lagerung--area" 
-                            @if($offer['offerteLagerungId'] == NULL) style="display: none;" @endif>
+                            <div class="form-group row lagerung--area"
+                                @if ($offer['offerteLagerungId'] == null) style="display: none;" @endif>
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Lagerung Am</label>
-                                    <input class="form-control" class="date"  name="lagerungdate"  type="date" >                                
+                                    <input class="form-control" class="date" name="lagerungdate" type="date">
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Lagerung Stunde</label>
-                                    <input class="form-control"  name="lagerungtime"  type="time" >                                
+                                    <input class="form-control" name="lagerungtime" type="time">
                                 </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls gleiches Datum wie Umzug, dann leer lassen.</div>
-                                         
+                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                    gleiches Datum wie Umzug, dann leer lassen.</div>
+
                                 <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control"  name="lagerungcalendarTitle" placeholder="CalendarTitle"  type="text" >
+                                        <input class="form-control" name="lagerungcalendarTitle"
+                                            placeholder="CalendarTitle" type="text">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1" placeholder="CalendarComment"></textarea> 
+                                        <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1"
+                                            placeholder="CalendarComment"></textarea>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control"  name="lagerungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}">
+                                        <input class="form-control" name="lagerungcalendarLocation"
+                                            placeholder="CalendarLocation" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
-                            </div>                        
+                            </div>
                             {{-- Transport Alanı Bitiş --}}
                         </div>
                         {{-- Onay Alanı Bitiş --}}
@@ -756,150 +839,165 @@
 
 
                         <div class="deliverable--area" style="display: none;">
-                            <div class="form-group row " >
+                            <div class="form-group row ">
                                 <div class="col-md-12">
                                     <label for="" class="col-form-label">Lieferobjekt</label>
                                     <div class="radiobox">
                                         <label>
-                                            <input type="radio" class="deliverable"  name="deliverable" value="0" checked> <span class="label-text">Verpackungsmaterial</span>
+                                            <input type="radio" class="deliverable" name="deliverable"
+                                                value="0" checked> <span
+                                                class="label-text">Verpackungsmaterial</span>
                                         </label>
                                     </div>
-    
+
                                     <div class="radiobox">
                                         <label>
-                                            <input type="radio" class="deliverable"  name="deliverable" value="1" > <span class="label-text">Schlossatelier</span>
+                                            <input type="radio" class="deliverable" name="deliverable"
+                                                value="1"> <span class="label-text">Schlossatelier</span>
                                         </label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
-                            <div class="form-group row deliveryType--area" >
+                            <div class="form-group row deliveryType--area">
                                 <div class="col-md-12">
                                     <label for="" class="col-form-label">Lieferungsart</label>
                                     <div class="radiobox">
                                         <label>
-                                            <input type="radio" class="deliveryType"  name="deliveryType" value="0" checked> <span class="label-text">Lieferung</span>
+                                            <input type="radio" class="deliveryType" name="deliveryType"
+                                                value="0" checked> <span class="label-text">Lieferung</span>
                                         </label>
                                     </div>
-    
+
                                     <div class="radiobox">
                                         <label>
-                                            <input type="radio" class="deliveryType"  name="deliveryType" value="1" > <span class="label-text">Abholung</span>
+                                            <input type="radio" class="deliveryType" name="deliveryType"
+                                                value="1"> <span class="label-text">Abholung</span>
                                         </label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Termin</label>
-                                    <input class="form-control" id="teslimatDate" name="meetingDate"  type="date" value="" >                                
+                                    <input class="form-control" id="teslimatDate" name="meetingDate" type="date"
+                                        value="">
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Zwischen</label>
-                                    <input class="form-control"  name="meetingHour1"  type="time" >                                
+                                    <input class="form-control" name="meetingHour1" type="time">
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">bis</label>
-                                    <input class="form-control"  name="meetingHour2"  type="time" >                                
+                                    <input class="form-control" name="meetingHour2" type="time">
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row contactType--area" style="display:none;">
                             <div class="col-md-12">
                                 <label for="" class="col-form-label">Besichtigungsort</label>
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio"   name="contactType" value="0" checked> <span class="label-text">Beim Kunden</span>
+                                        <input type="radio" name="contactType" value="0" checked> <span
+                                            class="label-text">Beim Kunden</span>
                                     </label>
                                 </div>
 
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio"   name="contactType" value="1" > <span class="label-text">Per Telefon</span>
+                                        <input type="radio" name="contactType" value="1"> <span
+                                            class="label-text">Per Telefon</span>
                                     </label>
                                 </div>
 
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio"   name="contactType" value="2" > <span class="label-text">Andere</span>
+                                        <input type="radio" name="contactType" value="2"> <span
+                                            class="label-text">Andere</span>
                                     </label>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
 
-                        
+
 
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">Wo</label>
-                                <input class="form-control" name="address"  type="text" value="{{   $data['street']  }} , {{ $data['postCode']}} , {{ $data['country']  }}" required>                                
-                            </div>                           
+                                <input class="form-control" name="address" type="text"
+                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}"
+                                    required>
+                            </div>
                         </div>
 
                         <div class="form-group row dateHour--area" style="display:none;">
                             <div class="col-md-6">
                                 <label class=" col-form-label" for="l0">Datum</label>
-                                <input class="form-control" class="date" id="datepicker"  name="date"  type="date" >                                
+                                <input class="form-control" class="date" id="datepicker" name="date"
+                                    type="date">
                             </div>
 
                             <div class="col-md-6">
                                 <label class=" col-form-label" for="l0">Stunde</label>
-                                <input class="form-control"  name="time"  type="time" >                                
+                                <input class="form-control" name="time" type="time">
                             </div>
                         </div>
-                            
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle"  type="text" required>                                
-                                </div>
-    
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" required></textarea>                                
-                                </div>
-                            </div>
-                           
-                            <div class="form-group row">
-                                <div class="col-md-12 email-send">
-                                    <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch" data-color="#9c27b0" data-switchery="true" >  
-                                </div>                            
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
+                                <input class="form-control" name="calendarTitle" type="text" required>
                             </div>
 
-                            <div class="row form-group email--area" style="display: none;">
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                    <input class="form-control" name="email"  type="text" value="{{ $data['email'] }}" >                                
-                                </div>
-    
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Email Kommentar</label>
-                                    
-                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>                                
-                                </div>
+                            <div class="col-md-12">
+                                <label class=" col-form-label" for="l0">Kalender Kommentar</label>
+                                <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" required></textarea>
+                            </div>
+                        </div>
 
-                                
-                                <div class="col-md-12 email-format">
-                                    <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >   
-                                </div>                                                           
+                        <div class="form-group row">
+                            <div class="col-md-12 email-send">
+                                <label for="" class="col-form-label">E-Mail an Kunden</label><br>
+                                <input type="checkbox" name="isEmail" id="isEmail" class="js-switch"
+                                    data-color="#9c27b0" data-switchery="true">
+                            </div>
+                        </div>
+
+                        <div class="row form-group email--area" style="display: none;">
+                            <div class="col-md-12">
+                                <label class=" col-form-label" for="l0">E-Mail Adresse</label>
+                                <input class="form-control" name="email" type="text"
+                                    value="{{ $data['email'] }}">
                             </div>
 
-                            <div class="row form-group email--format" style="display: none;">
-                                <div class="col-md-12 mt-3">
-                                   
-                                    <textarea class="editor" id="customEmail"  name="customEmail"  cols="30" rows="10">
+                            <div class="col-md-12">
+                                <label class=" col-form-label" for="l0">Email Kommentar</label>
+
+                                <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>
+                            </div>
+
+
+                            <div class="col-md-12 email-format">
+                                <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
+                                <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
+                                    class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false">
+                            </div>
+                        </div>
+
+                        <div class="row form-group email--format" style="display: none;">
+                            <div class="col-md-12 mt-3">
+
+                                <textarea class="editor" id="customEmail" name="customEmail" cols="30" rows="10">
                                         
                                              {{-- @include('../../email',['date' => '']) --}}
                                     </textarea>
-                                </div>
                             </div>
-                        
+                        </div>
+
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
@@ -909,7 +1007,7 @@
                         </div>
                     </form>
                 </div>
-            </div>           
+            </div>
         </div>
     </div>
 </div>
@@ -917,191 +1015,160 @@
 @endsection
 
 @section('footer')
-
 {{-- Onay Alanı Ayarları --}}
 <script>
+    var umzugbutton = $("div.umzug-control");
+    var umzugbutton2 = $("div.umzug-control2");
+    var einpackservicebutton = $("div.einpackservice-control");
+    var auspackservicebutton = $("div.auspackservice-control");
+    var reinigungbutton = $("div.reinigung-control");
+    var reinigungbutton2 = $("div.reinigung2-control");
+    var entsorgungbutton2 = $("div.entsorgung-control");
+    var transportbutton = $("div.transport-control");
+    var lagerungbutton = $("div.lagerung-control");
 
-        var umzugbutton = $("div.umzug-control");
-        var umzugbutton2 = $("div.umzug-control2");
-        var einpackservicebutton = $("div.einpackservice-control");
-        var auspackservicebutton = $("div.auspackservice-control");
-        var reinigungbutton = $("div.reinigung-control");
-        var reinigungbutton2 = $("div.reinigung2-control");
-        var entsorgungbutton2 = $("div.entsorgung-control");
-        var transportbutton = $("div.transport-control");
-        var lagerungbutton = $("div.lagerung-control");
-
-        umzugbutton.click(function(){
-        if($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked'))
-        {
+    umzugbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked") && $("#isUmzug").is(':checked')) {
             $(".umzug--area").show(300);
-            $("input[name=umzug1date]").prop('required',true);     
-            $("input[name=umzug1date]").prop('required',true);    
-            $("input[name=umzug1calendarTitle]").prop('required',true);   
-        }
-        else
-        {           
+            $("input[name=umzug1date]").prop('required', true);
+            $("input[name=umzug1date]").prop('required', true);
+            $("input[name=umzug1calendarTitle]").prop('required', true);
+        } else {
             $(".umzug--area").hide(300);
-            $("input[name=umzug1date]").prop('required',false);      
-            $("input[name=umzug1time]").prop('required',false);   
-            $("input[name=umzug1calendarTitle]").prop('required',false);   
+            $("input[name=umzug1date]").prop('required', false);
+            $("input[name=umzug1time]").prop('required', false);
+            $("input[name=umzug1calendarTitle]").prop('required', false);
         }
     })
 
-    umzugbutton2.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    umzugbutton2.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".umzug--area2").show(300);
-            $("input[name=umzug2date]").prop('required',true);      
-            $("input[name=umzug2time]").prop('required',true);   
-            $("input[name=umzug2calendarTitle]").prop('required',true);   
-        }
-        else
-        {
+            $("input[name=umzug2date]").prop('required', true);
+            $("input[name=umzug2time]").prop('required', true);
+            $("input[name=umzug2calendarTitle]").prop('required', true);
+        } else {
             $(".umzug--area2").hide(300);
-            $("input[name=umzug2date]").prop('required',false);      
-            $("input[name=umzug2time]").prop('required',false); 
-            $("input[name=umzug2calendarTitle]").prop('required',false);     
+            $("input[name=umzug2date]").prop('required', false);
+            $("input[name=umzug2time]").prop('required', false);
+            $("input[name=umzug2calendarTitle]").prop('required', false);
         }
     })
 
-    einpackservicebutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    einpackservicebutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".einpackservice--area").show(300);
-            $("input[name=einpackdate]").prop('required',true);      
-            $("input[name=einpacktime]").prop('required',true); 
-            $("input[name=einpackcalendarTitle]").prop('required',true); 
-        }
-        else
-        {
+            $("input[name=einpackdate]").prop('required', true);
+            $("input[name=einpacktime]").prop('required', true);
+            $("input[name=einpackcalendarTitle]").prop('required', true);
+        } else {
             $(".einpackservice--area").hide(300);
-            $("input[name=einpackdate]").prop('required',false);      
-            $("input[name=einpacktime]").prop('required',false); 
-            $("input[name=einpackcalendarTitle]").prop('required',false); 
+            $("input[name=einpackdate]").prop('required', false);
+            $("input[name=einpacktime]").prop('required', false);
+            $("input[name=einpackcalendarTitle]").prop('required', false);
         }
     })
 
-    auspackservicebutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    auspackservicebutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".auspackservice--area").show(300);
-            $("input[name=auspackdate]").prop('required',true);      
-            $("input[name=auspacktime]").prop('required',true);
-            $("input[name=auspackcalendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=auspackdate]").prop('required', true);
+            $("input[name=auspacktime]").prop('required', true);
+            $("input[name=auspackcalendarTitle]").prop('required', true);
+        } else {
             $(".auspackservice--area").hide(300);
-            $("input[name=auspackdate]").prop('required',false);      
-            $("input[name=auspacktime]").prop('required',false);
-            $("input[name=auspackcalendarTitle]").prop('required',false);
+            $("input[name=auspackdate]").prop('required', false);
+            $("input[name=auspacktime]").prop('required', false);
+            $("input[name=auspackcalendarTitle]").prop('required', false);
         }
     })
 
-    reinigungbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    reinigungbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".reinigung--area").show(300);
-            $("input[name=reinigung1Startdate]").prop('required',true);      
-            $("input[name=reinigung1Starttime]").prop('required',true);   
-            $("input[name=reinigung1Enddate]").prop('required',true);  
-            $("input[name=reinigung1Endtime]").prop('required',true); 
-            $("input[name=reinigungcalendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=reinigung1Startdate]").prop('required', true);
+            $("input[name=reinigung1Starttime]").prop('required', true);
+            $("input[name=reinigung1Enddate]").prop('required', true);
+            $("input[name=reinigung1Endtime]").prop('required', true);
+            $("input[name=reinigungcalendarTitle]").prop('required', true);
+        } else {
             $(".reinigung--area").hide(300);
-            $("input[name=reinigung1Startdate]").prop('required',false);      
-            $("input[name=reinigung1Starttime]").prop('required',false);   
-            $("input[name=reinigung1Enddate]").prop('required',false);  
-            $("input[name=reinigung1Endtime]").prop('required',false); 
-            $("input[name=reinigungcalendarTitle]").prop('required',false);
+            $("input[name=reinigung1Startdate]").prop('required', false);
+            $("input[name=reinigung1Starttime]").prop('required', false);
+            $("input[name=reinigung1Enddate]").prop('required', false);
+            $("input[name=reinigung1Endtime]").prop('required', false);
+            $("input[name=reinigungcalendarTitle]").prop('required', false);
         }
     })
 
-    reinigungbutton2.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    reinigungbutton2.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".reinigung2--area").show(300);
-            $("input[name=reinigung2Startdate]").prop('required',true);      
-            $("input[name=reinigung2Starttime]").prop('required',true);   
-            $("input[name=reinigung2Enddate]").prop('required',true);  
-            $("input[name=reinigung2Endtime]").prop('required',true); 
-            $("input[name=reinigung2calendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=reinigung2Startdate]").prop('required', true);
+            $("input[name=reinigung2Starttime]").prop('required', true);
+            $("input[name=reinigung2Enddate]").prop('required', true);
+            $("input[name=reinigung2Endtime]").prop('required', true);
+            $("input[name=reinigung2calendarTitle]").prop('required', true);
+        } else {
             $(".reinigung2--area").hide(300);
-            $("input[name=reinigung2Startdate]").prop('required',false);      
-            $("input[name=reinigung2Starttime]").prop('required',false);   
-            $("input[name=reinigung2Enddate]").prop('required',false);  
-            $("input[name=reinigung2Endtime]").prop('required',false); 
-            $("input[name=reinigung2calendarTitle]").prop('required',false);
+            $("input[name=reinigung2Startdate]").prop('required', false);
+            $("input[name=reinigung2Starttime]").prop('required', false);
+            $("input[name=reinigung2Enddate]").prop('required', false);
+            $("input[name=reinigung2Endtime]").prop('required', false);
+            $("input[name=reinigung2calendarTitle]").prop('required', false);
         }
     })
 
-    entsorgungbutton2.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    entsorgungbutton2.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".entsorgung--area").show(300);
-            $("input[name=entsorgungdate]").prop('required',true);      
-            $("input[name=entsorgungtime]").prop('required',true); 
-            $("input[name=entsorgungcalendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=entsorgungdate]").prop('required', true);
+            $("input[name=entsorgungtime]").prop('required', true);
+            $("input[name=entsorgungcalendarTitle]").prop('required', true);
+        } else {
             $(".entsorgung--area").hide(300);
-            $("input[name=entsorgungdate]").prop('required',false);      
-            $("input[name=entsorgungtime]").prop('required',false);
-            $("input[name=entsorgungcalendarTitle]").prop('required',false); 
+            $("input[name=entsorgungdate]").prop('required', false);
+            $("input[name=entsorgungtime]").prop('required', false);
+            $("input[name=entsorgungcalendarTitle]").prop('required', false);
         }
     })
 
-    transportbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    transportbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".transport--area").show(300);
-            $("input[name=transportdate]").prop('required',true);      
-            $("input[name=transporttime]").prop('required',true); 
-            $("input[name=transportcalendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=transportdate]").prop('required', true);
+            $("input[name=transporttime]").prop('required', true);
+            $("input[name=transportcalendarTitle]").prop('required', true);
+        } else {
             $(".transport--area").hide(300);
-            $("input[name=transportdate]").prop('required',false);      
-            $("input[name=transporttime]").prop('required',false); 
-            $("input[name=transportcalendarTitle]").prop('required',false);
+            $("input[name=transportdate]").prop('required', false);
+            $("input[name=transporttime]").prop('required', false);
+            $("input[name=transportcalendarTitle]").prop('required', false);
         }
     })
 
-    lagerungbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    lagerungbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".lagerung--area").show(300);
-            $("input[name=lagerungdate]").prop('required',true);      
-            $("input[name=lagerungtime]").prop('required',true);
-            $("input[name=lagerungcalendarTitle]").prop('required',true);
-        }
-        else
-        {
+            $("input[name=lagerungdate]").prop('required', true);
+            $("input[name=lagerungtime]").prop('required', true);
+            $("input[name=lagerungcalendarTitle]").prop('required', true);
+        } else {
             $(".lagerung--area").hide(300);
-            $("input[name=lagerungdate]").prop('required',false);      
-            $("input[name=lagerungtime]").prop('required',false);
-            $("input[name=lagerungcalendarTitle]").prop('required',false);
+            $("input[name=lagerungdate]").prop('required', false);
+            $("input[name=lagerungtime]").prop('required', false);
+            $("input[name=lagerungcalendarTitle]").prop('required', false);
         }
     })
 </script>
 
 {{-- Email Ayarları --}}
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
-        if ($(this).hasClass("checkbox-checked"))
-        {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".email--area").show(700);
-        }
-        else {
+        } else {
             $(".email--area").hide(500);
         }
     })
@@ -1109,13 +1176,11 @@
 
 {{-- Custom Email Format Ayarlamaları --}}
 <script>
-            var emailFormatbutton = $("div.email-format");
+    var emailFormatbutton = $("div.email-format");
     emailFormatbutton.click(function() {
-        if ($(this).hasClass("checkbox-checked"))
-        {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".email--format").show(700);
-        }
-        else {
+        } else {
             $(".email--format").hide(500);
         }
     })
@@ -1123,14 +1188,10 @@
 
 {{-- Randevu Tipi Ayarları --}}
 <script>
-    $(document).ready(function () {
-        var valueA = 2;
-        console.log(valueA,'Value A')
-    })
     $(".appointment-type").click(function() {
         valueA = $(this).val();
-        switch(valueA) {
-            case '1':                
+        switch (valueA) {
+            case '1':
                 $(".deliverable--area").hide(300);
                 $(".confirmation--area").hide(300);
                 $(".contactType--area").show(500);
@@ -1149,7 +1210,7 @@
                 $(".dateHour--area").hide(300);
                 break;
         }
-        
+
     });
 </script>
 
@@ -1157,166 +1218,129 @@
 <script>
     $(".deliverable").click(function() {
         var value = $(this).val();
-        if(value == 0)
-        {
+        if (value == 0) {
             $(".deliveryType--area").show(500);
-        }
-        else {
+        } else {
             $(".deliveryType--area").hide(300);
         }
     });
 </script>
 
-{{-- TinyMce Ayarları--}}
-<script>
-    tinymce.init({
-      selector: 'textarea.editor',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
-</script>
 
 {{-- TinyMce Email Format Ayarları --}}
-<script> 
-
-var valueZ = 2;
-
-$(document).ready(function(){
-    $(".appointment-type").on("input",function() {
-        valueZ = $(this).val();
+<script>
+    //TinyMce Ayarları 
+    tinymce.init({
+        selector: 'textarea.editor',
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+        toolbar_mode: 'floating',
+        apply_source_formatting: true,
+        plugins: 'code',
+    });
+    var valueZ = $("input[name=appType]:checked").val();
+    let dateArray2 = [];
+    var tarih1 = $('input[name=umzug1date]').val();
+    var tarih2 = $('input[name=umzug2date]').val();
+    if (tarih1 != null || tarih1 != undefined) {
+        dateArray2.push({
+            name: 'Umzug ',
+            date: tarih1
+        })
+    }
+    if (tarih2 != null || tarih2 != undefined) {
+        dateArray2.push({
+            name: 'Umzug 2 ',
+            date: tarih2
+        })
+    }
+    eventChanges();
+    $("body").on("change", ".widget-body", function() {
+        eventChanges();
+    });
+    function momentConvertValue(value){
+        return moment(value, "YYYY-MM-DD").format("DD.MM.YYYY");
+    }
+    function eventChanges() {
+        valueZ = $("input[name=appType]:checked").val();
         tinymce.execCommand("mceRepaint");
 
-        if (valueZ == 1)
-        {
-            $("#datepicker").on("input", function(){           
-            let dateArray = [];
-            var tarih1 = $(this).val();
-            dateArray[dateArray.length] = tarih1;
-            console.log(dateArray,'Tarihler');
-            // TODO: bu bölüm blade import değil api olarak kullanılacak
-            tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-            tinymce.execCommand("mceRepaint");      
+        if (valueZ == 1) {
+            $("#datepicker").on("input", function() {
+                let dateArray = [];
+                var tarih1 = $(this).val();
+                dateArray[dateArray.length] = tarih1;
+                console.log(dateArray, 'Tarihler');
+                // TODO: bu bölüm blade import değil api olarak kullanılacak
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${dateArray}'])`);
+                tinymce.execCommand("mceRepaint");
             });
         }
 
-        if (valueZ == 2)
-        {
-            console.log(valueZ,'AppType')
-            let dateArray = [];
-            
-                let umzug1ke = $("input[name=umzug1date]").on("input", function(){   
-                var tarih1 = $('input[name=umzug1date]').val();                      
-                // dateArray[dateArray.length] = 'Umzug 1' + ' ' + 'Tarihi:' +' '+ tarih1 + '<br>'
-                dateArray[dateArray.length] = '<tr>' + '<td>Umzug</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>' + '<br>'
-                // console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-           
-            $("input[name=umzug2date]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Umzug 2</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>' + '<br>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
+        if (valueZ == 2) {
+            $("body").on("change", ".widget-body", function() {
+                var tarih1 = $('input[name=umzug1date]').val();
+                var tarih2 = $('input[name=umzug2date]').val();
+                var tarih3 = $('input[name=umzug3date]').val();
+                var found;
+                dateArray2.some(function(entry) {
+                    if (entry.name == "Umzug ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "Umzug 2 ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "Umzug 3 ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                });
+                if ($("input[name=isUmzug]:checked").val()) {
+                    dateArray2.push({
+                        name: 'Umzug ',
+                        date: momentConvertValue(tarih1)
+                    })
+                }
+                if ($("input[name=isUmzug2]:checked").val()) {
+                    if(tarih2!=""){
+                        dateArray2.push({
+                        name: 'Umzug 2 ',
+                        date: momentConvertValue(tarih2)
+                    })
+                    }
+                    if(tarih3!=""){
+                        dateArray2.push({
+                        name: 'Umzug 3 ',
+                        date: momentConvertValue(tarih3)
+                    })
+                    }
+                 
+                }
 
-            $("input[name=umzug3date]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Umzug 3</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=einpackdate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Einpack Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=auspackdate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Auspack Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=reinigungStartDate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Reinigung Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=reinigung2StartDate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Reinigung Service 2</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=entsorgungdate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Entsorgung Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=transportdate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Transport Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
-
-            $("input[name=lagerungdate]").on("input", function(){                      
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = '<tr>' + '<td>Lagerung Service</td>' + '<td> ' + tarih1 +'</td>'+ '</tr>'
-                console.log(dateArray,'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-                tinymce.execCommand("mceRepaint");      
-            });
+                var requestDate = "";
+                for (var i = 0; i <= dateArray2.length - 1; i++) {
+                    requestDate += dateArray2[i].name + " " + dateArray2[i].date + "<br>";
+                }
+                
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.execCommand("mceRepaint");
+            })
 
         }
 
-        if (valueZ == 3)
-        {
+        if (valueZ == 3) {
             console.log(value)
-            $("#teslimatDate").on("input", function(){           
-            let dateArray = [];
-            var tarih1 = $(this).val();
-            dateArray[dateArray.length] = tarih1;
-            console.log(dateArray,'Tarihler');
-            // TODO: bu bölüm blade import değil api olarak kullanılacak
-            tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-            tinymce.execCommand("mceRepaint");      
-        });
+            $("#teslimatDate").on("input", function() {
+                let dateArray = [];
+                var tarih1 = $(this).val();
+                dateArray[dateArray.length] = tarih1;
+                console.log(dateArray, 'Tarihler');
+                // TODO: bu bölüm blade import değil api olarak kullanılacak
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${dateArray}'])`);
+                tinymce.execCommand("mceRepaint");
+            });
         }
-
-    });
-});
-
+    }
 </script>
-
 @endsection
-
