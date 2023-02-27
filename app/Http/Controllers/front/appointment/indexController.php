@@ -449,10 +449,11 @@ class indexController extends Controller
             $appointmentMaterial['deliveryType'] = NULL;
         }
         
+        
         $all = NULL;
         switch($cekboks){
             case(1);
-                $sub = 'Ihr Besichtigungstermin wurde erstellt.';
+                $sub = 'Terminbestätigung Swiss Transport';
                 $appDateArray = [];
                 $appDateArray[$ADC]['date'] = $appointment['date'];
                 $appDateArray[$ADC]['time'] = $appointment['time'];
@@ -469,14 +470,14 @@ class indexController extends Controller
                 $randevuTipi = 'Besichtigung';
             break;
             case(2);
-                $sub = 'Ihr Auftragsbestätigungstermin wurde erstellt.';
+                $sub = 'Terminbestätigung Swiss Transport';
                 $randevuTipi = 'Auftragsbestätigung';
                 $appointmentDate = $appDateArray;
                 $all = AppoinmentService::create($appointmentService);
 
             break;
             case(3);
-                $sub = 'Ihr Lieferungstermin wurde erstellt.';
+                $sub = 'Terminbestätigung Swiss Transport';
                 $appDateArray = [];
                 $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
                 $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
@@ -507,7 +508,8 @@ class indexController extends Controller
             'appDate' =>$appDateArray,
             'emailContent'=> $request->emailContent,
             'isCustomEmailSend' => $isCustomEmailSend,
-            'customEmailContent' => $customEmail
+            'customEmailContent' => $customEmail,
+            'randevuTipi' => $randevuTipi,
         ];
 
         if ($isCustomEmailSend)
@@ -523,7 +525,7 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                Mail::to($from)->send(new CompanyMail($emailData));
+                // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
                 $mailSuccess = ', Mail Başarıyla Gönderildi';
             }                  
             return redirect()
@@ -690,9 +692,10 @@ class indexController extends Controller
         $ADC++;
        
 
-        $sub = 'Ihr Besichtigungstermin wurde aktualisiert';
+        $sub = 'Terminbestätigung Swiss Transport';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        $randevuTipi = 'Besichtigung';
         
         $emailData = [
             'name' => $customer['name'],
@@ -706,7 +709,8 @@ class indexController extends Controller
             'appDate' =>$appDateArray,
             'emailContent'=> $request->emailContent,
             'isCustomEmailSend' => $isCustomEmailSend,
-            'customEmailContent' => $customEmail
+            'customEmailContent' => $customEmail,
+            'randevuTipi' => $randevuTipi,
         ];
 
         if ($isCustomEmailSend)
@@ -730,7 +734,7 @@ class indexController extends Controller
                 {
                     
                     Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                    Mail::to($from)->send(new CompanyMail($emailData));
+                    // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
                     $mailSuccess = 'Mail Başarıyla Gönderildi';
                 }          
                 return redirect()

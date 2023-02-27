@@ -701,7 +701,7 @@ class indexController extends Controller
                 
                     
                     $update = AppoinmentService::where('id',$id)->update($appointmentService);
-                
+                    $randevuTipi = 'Auftragsbestätigung';
                     $emailData = [
                         'name' => $customer,
                         'gender' => $customerData['gender'],
@@ -714,7 +714,8 @@ class indexController extends Controller
                         'email' => $request->email,
                         'emailContent'=> $request->emailContent,
                         'isCustomEmailSend' => $isCustomEmailSend,
-                        'customEmailContent' => $customEmail
+                        'customEmailContent' => $customEmail,
+                        'randevuTipi' => $randevuTipi,
                     ];
                 
                 
@@ -725,7 +726,7 @@ class indexController extends Controller
                     if($isEmailSend)
                     {
                         Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                        Mail::to($from)->send(new CompanyMail($emailData));
+                        // Mail::to($from)->send(new CompanyMail($emailData)); //Firmaya Takvime Eklendi Bildirimi
                         $mailSuccess = 'Mail Başarıyla Gönderildi';
                     }  
                     return redirect()->back()->with('status','Auftragsbestätigung Randevusu Düzenlendi'.' '.$mailSuccess);

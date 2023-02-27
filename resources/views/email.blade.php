@@ -26,31 +26,88 @@
     </style>
 </head>
 <body>
-<div>
-<div>
-    <strong>@if($data['gender'] == 'male') Herr, @else Frau, @endif</strong>
-    {{ $data['name'] }} {{ $data['surname'] }}
-</div>
 
-<div id="degisken">
+<div>
+    <div>
+        <strong>Sehr geehrte @if($data['gender'] == 'male') Herr, @else Frau, @endif</strong>
+        {{ $data['name'] }} {{ $data['surname'] }}
+    </div>
+
     
-    {{ $data['emailContent'] }}
-</div>
-<br />
-<div>Vielen herzlichen Dank für Ihr Vertrauen und Ihre AuftragserteilungWir freuen uns, Sie bei Ihrem Umzug </div>
-<br />
-<div>unterstützen zu dürfen. Sollten Sie das definitive Startdatum und Uhrzeit noch nicht erhalten haben,werden diese in Kürze folgen. </div>
-<br />
-<br />
-@if ($data['appDate'])
-@foreach ($data['appDate'] as $item)
-<strong>  {{ $item['serviceName'] }} - {{ $item['date'] }} </strong><br>
-@endforeach
+        <div id="degisken">
+            {{ $data['emailContent'] }}
+        </div>
+        <br />
+    @if ($data['randevuTipi'] == 'Besichtigung')
+        <div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
+        <br />
+        <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
+        <br />
+        <br />
+        @if ($data['appDate'])
+        @foreach ($data['appDate'] as $item)
+        <?php
+        setlocale(LC_TIME, 'German');
+        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
+        ?>
+        <strong>{{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @endforeach
+        @endif
+        
+        
+        Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+        Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+        </div>
+        <br /> <br />
+
+    @elseif ($data['randevuTipi'] == 'Auftragsbestätigung')
+        <div>
+            Wir bedanken uns herzlichst für die Auftragserteilung und Ihr entgegengebrachtes Vertrauen. <br>
+            Hiermit bestätigen wir Ihren Auftrag wie folgt:
+        </div>
+        <br />
+        <br />
+        @if ($data['appDate'])
+        @foreach ($data['appDate'] as $item)
+        <?php
+        setlocale(LC_TIME, 'German');
+        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
+        ?>
+        <strong>  {{ $item['serviceName'] }}: {{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @endforeach
+        @endif
+        
+        
+        <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+        </div>
+        </div>
+        <br /> <br />
+    @else
+        <div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
+        <br />
+        <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
+        <br />
+        <br />
+        @if ($data['appDate'])
+        @foreach ($data['appDate'] as $item)
+        <?php
+        setlocale(LC_TIME, 'German');
+        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
+        ?>
+        <strong>{{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @endforeach
+        @endif
+        
+        
+        Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+        Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+        </div>
+        <br /> <br />
+
 @endif
-
-
-Falls Sie in der Zwischenzeit noch Fragen haben, freuen wir uns auf Ihre Kontaktaufnahme.</div>
-<br /> <br />
 <div class="footer">
     <div>Freundliche Grüsse</div>
     <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>

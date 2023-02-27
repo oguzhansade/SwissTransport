@@ -87,7 +87,7 @@ class indexController extends Controller
         $customer=DB::table('customers')->where('id','=', $customerId['id'])->value('name');
         $customerSurname=DB::table('customers')->where('id','=', $customerId['id'])->value('surname');
         $customerData = Customer::where('id',$customerId['id'])->first();
-
+        $randevuTipi = 'Lieferung';
         $emailData = [
             'name' => $customer,
             'gender' => $customerData['gender'],
@@ -100,7 +100,8 @@ class indexController extends Controller
             'appDate' =>$appDateArray,
             'emailContent'=> $request->emailContent,
             'isCustomEmailSend' => $isCustomEmailSend,
-            'customEmailContent' => $customEmail
+            'customEmailContent' => $customEmail,
+            'randevuTipi' => $randevuTipi
         ];
 
         if ($isCustomEmailSend)
@@ -132,7 +133,7 @@ class indexController extends Controller
                     if($isEmailSend)
                     {
                         Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                        Mail::to($from)->send(new CompanyMail($emailData));
+                        // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
                         $mailSuccess = 'Mail Başarıyla Gönderildi';
                     }  
                     return redirect()->back()->with('status','Teslimat Randevusu Düzenlendi'.' '.$mailSuccess);

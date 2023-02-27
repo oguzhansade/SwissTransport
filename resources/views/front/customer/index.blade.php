@@ -50,7 +50,8 @@
                     <table id="example" class="table table-striped table-responsive">
                         <thead>
                             <tr class="text-dark">
-                                <th>Name</th>
+                                <th>Nachname</th>
+                                <th>Vorname</th>
                                 <th>Email</th>
                                 <th>Mobil</th>
                                 <th>Datum</th>
@@ -90,6 +91,8 @@
 <script>
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
+            "order" : [[3,'desc']], 
+            
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',
             buttons: [
@@ -108,10 +111,11 @@
                 }
             },
             columns: [
-                { data: 'publicname', name: 'publicname'},
-                { data:'email', name:'email' },
-                { data:'mobile', name:'mobile' },
-                {data:'created_at',name:'created_at'},
+                { data: 'name', name: 'name' , searchable:true},
+                { data: 'surname', name: 'surname' , searchable:true},
+                { data:'email', name:'email' , searchable:true},
+                { data:'mobile', name:'mobile' , searchable:true},
+                { data:'created_at',name:'created_at', searchable:true},
                 { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
             ]
         });

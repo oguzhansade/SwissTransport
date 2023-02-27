@@ -46,7 +46,15 @@ class InformationMail extends Mailable
        
         if($this->data['isCustomEmailSend'])
         {
-             
+            foreach ($this->data['appDate'] as $item) {
+                $fullDate = $item['date'].' '.$item['time'];
+                $endDate = $item['endDate'].' '.$item['endTime'];
+                $location = $item['calendarLocation'];
+                $title = $item['calendarTitle'];
+                $comment =  $item['calendarComment'];
+                calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
+            }
+
             $calendar =  Calendar::create($this->data['companyName'])
             ->event(Event::create($this->data['sub'])                   
                 ->organizer($this->data['from'],$this->data['companyName'])
@@ -68,43 +76,14 @@ class InformationMail extends Mailable
         }
         else 
         {
-            
-            // $eventArray = [];
-            // $eventArray = 
-            //     Event::create($p['serviceName'])                   
-            //     ->startsAt(new DateTime($p['date'].' '.$p['time'], new DateTimeZone('Europe/Istanbul')))
-            //     ->endsAt(new DateTime($p['date']));
-            // }
-            // $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
-              
-            //     $eventArray[$ADC]['event'] = Event::create($p['serviceName']);
-            // }
-            // $calendar = Calendar::create('Laracon Online')
-            // ->event(
-            //     [
-            //         Event::create($this->data['appDate']['date'])
-            //     ]
-            // );
-            //     $event = Event::create($p['serviceName']);
-            // Calendar::create('Laracon Online')
-            // ->event([
-            //     foreach ($this->data['appDate'] as $p) {
-            //         Event::create('Creating contact lists')
-            //     }
-            // ])
-                
-                    // $calendar =  Calendar::create($this->data['companyName'])
-                    // ->event(
-                    //    [
-                    //     Event::create($p['serviceName'])                   
-                    //     ->startsAt(new DateTime($p['date'].' '.$p['time'], new DateTimeZone('Europe/Istanbul')))
-                    //     ->endsAt(new DateTime($p['date']))
-                    //    ]
-                    // );
-               
-                
-                
-            
+            foreach ($this->data['appDate'] as $item) {
+            $fullDate = $item['date'].' '.$item['time'];
+            $endDate = $item['endDate'].' '.$item['endTime'];
+            $location = $item['calendarLocation'];
+            $title = $item['calendarTitle'];
+            $comment =  $item['calendarComment'];
+            calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
+        }
             
 
         return $this->view('email')

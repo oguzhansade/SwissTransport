@@ -538,7 +538,6 @@
                 .draw();
         });
 
-
     });
 </script>
 @endif

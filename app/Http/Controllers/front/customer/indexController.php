@@ -61,17 +61,24 @@ class indexController extends Controller
         $table=Customer::query();
         $data=DataTables::of($table)
         ->addColumn('publicname',function ($table) {
-            return Customer::getPublicName($table->id);
+            if($table->customerType == 0)
+            {
+                $fullname = $table->name.' '.$table->surname;
+                return $fullname;
+            }
+            else {
+                return $table->companyName;
+            }
         })
         ->editColumn('customerType',function ($table) {
             if($table->customerType == 0) {
-                return "Bireysel";
+                return "Kunde";
             }
             else {
-                return "Kurumsal";
+                return "Company";
             }
         })
-        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('Y-m-d'); return $formatedDate; })
+        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
         ->addColumn('option',function($table) 
         {
             return '
@@ -79,7 +86,7 @@ class indexController extends Controller
             <a class="btn btn-sm  btn-edit" href="'.route('customer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
             <a class="btn btn-sm  btn-danger"  href="'.route('customer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
-        ->rawColumns(['option'])
+        ->rawColumns(['publicname','option'])
         ->make(true);
 
         return $data;

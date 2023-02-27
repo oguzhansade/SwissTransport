@@ -87,8 +87,6 @@
 
 <script>
     $(document).ready(function() {
-
-
         let table =  $('#example').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             processing: true,
@@ -126,8 +124,6 @@
                 )
                 .draw();
         });
-
-
     });
 </script>
 

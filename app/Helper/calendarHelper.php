@@ -11,8 +11,8 @@ class calendarHelper
     {
         $event = new Event;
         $event->name = $serviceName.'/'.' '.$title;
-        $event->startDateTime = Carbon::parse($date)->timezone("Europe/Berlin");
-        $event->endDateTime = Carbon::parse($endDate)->timezone("Europe/Berlin");
+        $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
+        $event->endDateTime = Carbon::parse($endDate)->timezone("Europe/Zurich");
         $event->location = $location;
         $event->description = $comment;
         $event->save();
