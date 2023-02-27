@@ -163,7 +163,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="umzug1calendarTitle"
-                                            placeholder="gender/name/surname/telefon" type="text" value="">
+                                            placeholder="gender/name/surname/telefon" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -176,7 +176,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="umzug1calendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
@@ -229,7 +229,7 @@
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="umzug2calendarTitle"
-                                                placeholder="CalendarTitle" type="text">
+                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -242,7 +242,7 @@
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
                                             <input class="form-control" name="umzug2calendarLocation"
                                                 placeholder="CalendarLocation" type="text"
-                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +287,7 @@
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="umzug3calendarTitle"
-                                                placeholder="CalendarTitle" type="text">
+                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -300,7 +300,7 @@
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
                                             <input class="form-control" name="umzug3calendarLocation"
                                                 placeholder="CalendarLocation" type="text"
-                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +364,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="einpackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -377,7 +377,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="einpackcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -440,7 +440,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="auspackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -453,7 +453,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="auspackcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -513,7 +513,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -526,7 +526,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="reinigungcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -586,7 +586,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigung2calendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -599,7 +599,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="reinigung2calendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -672,7 +672,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="entsorgungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -685,7 +685,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="entsorgungcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -766,7 +766,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="transportcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -779,7 +779,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="transportcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -815,7 +815,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="lagerungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text">
+                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -828,7 +828,7 @@
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control" name="lagerungcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}">
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} ,  {{ $data['country'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -929,7 +929,7 @@
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">Wo</label>
                                 <input class="form-control" name="address" type="text"
-                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['country'] }}"
+                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}"
                                     required>
                             </div>
                         </div>
@@ -950,12 +950,12 @@
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                <input class="form-control" name="calendarTitle" type="text" required>
+                                <input class="form-control" name="calendarTitle" type="text" required value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                             </div>
 
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" required></textarea>
+                                <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" ></textarea>
                             </div>
                         </div>
 
@@ -1241,16 +1241,73 @@
     let dateArray2 = [];
     var tarih1 = $('input[name=umzug1date]').val();
     var tarih2 = $('input[name=umzug2date]').val();
+    var tarih3 = $('input[name=umzug3date]').val();
+    var tarih4 = $('input[name=einpackdate]').val();
+    var tarih5 = $('input[name=auspackdate]').val();
+    var tarih6 = $('input[name=reinigung1Startdate]').val();
+    var tarih7 = $('input[name=reinigung2Startdate]').val();
+    var tarih8 = $('input[name=entsorgungdate]').val();
+    var tarih9 = $('input[name=transportdate]').val();
+    var tarih10 = $('input[name=lagerungdate]').val();
+    
     if (tarih1 != null || tarih1 != undefined) {
         dateArray2.push({
-            name: 'Umzug ',
+            name: '<b>Umzug:</b> ',
             date: tarih1
         })
     }
     if (tarih2 != null || tarih2 != undefined) {
         dateArray2.push({
-            name: 'Umzug 2 ',
+            name: '<b>Umzug 2:</b>> ',
             date: tarih2
+        })
+    }
+    if (tarih3 != null || tarih3 != undefined) {
+        dateArray2.push({
+            name: '<b>Umzug 3:</b> ',
+            date: tarih3
+        })
+    }
+    if (tarih4 != null || tarih4 != undefined) {
+        dateArray2.push({
+            name: '<b>Einpack:</b> ',
+            date: tarih4
+        })
+    }
+    if (tarih5 != null || tarih5 != undefined) {
+        dateArray2.push({
+            name: '<b>Auspack:</b> ',
+            date: tarih5
+        })
+    }
+    if (tarih6 != null || tarih6 != undefined) {
+        dateArray2.push({
+            name: '<b>Reinigung:</b> ',
+            date: tarih6
+        })
+    }
+    if (tarih7 != null || tarih7 != undefined) {
+        dateArray2.push({
+            name: '<b>Reinigung 2:</b> ',
+            date: tarih7
+        })
+    }
+    if (tarih8 != null || tarih8 != undefined) {
+        dateArray2.push({
+            name: '<b>Entsorgung:</b> ',
+            date: tarih8
+        })
+    }
+    if (tarih9 != null || tarih9 != undefined) {
+        dateArray2.push({
+            name: '<b>Transport:</b> ',
+            date: tarih9
+        })
+    }
+    if (tarih10 != null || tarih10 != undefined) {
+        dateArray2.push({
+            name: '<b>Lagerung:</b> ',
+            date: tarih10
         })
     }
     eventChanges();
@@ -1265,13 +1322,26 @@
         tinymce.execCommand("mceRepaint");
 
         if (valueZ == 1) {
-            $("#datepicker").on("input", function() {
+            $("body").on("change", ".widget-body", function() {
                 let dateArray = [];
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = tarih1;
-                console.log(dateArray, 'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${dateArray}'])`);
+                var tarih1 = $('input[name=date]').val();
+                dateArray.some(function(entry) {
+                    if (entry.name == "<b>Besichtigung:</b> ") {
+                        found = entry;
+                        dateArray.splice(found);
+                    }
+                });
+                if(tarih1!=""){
+                    dateArray.push({
+                    name: '<b>Besichtigung:</b> ',
+                    date: momentConvertValue(tarih1)
+                    })
+                }
+                var requestDate = "";
+                for (var i = 0; i <= dateArray.length - 1; i++) {
+                    requestDate += dateArray[i].name + " " + dateArray[i].date + "<br>";
+                }
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }
@@ -1281,42 +1351,119 @@
                 var tarih1 = $('input[name=umzug1date]').val();
                 var tarih2 = $('input[name=umzug2date]').val();
                 var tarih3 = $('input[name=umzug3date]').val();
+                var tarih4 = $('input[name=einpackdate]').val();
+                var tarih5 = $('input[name=auspackdate]').val();
+                var tarih6 = $('input[name=reinigung1Startdate]').val();
+                var tarih7 = $('input[name=reinigung2Startdate]').val();
+                var tarih8 = $('input[name=entsorgungdate]').val();
+                var tarih9 = $('input[name=transportdate]').val();
+                var tarih10 = $('input[name=lagerungdate]').val();
                 var found;
                 dateArray2.some(function(entry) {
-                    if (entry.name == "Umzug ") {
+                    if (entry.name == "<b>Umzug:</b> ") {
                         found = entry;
                         dateArray2.splice(found);
                     }
-                    if (entry.name == "Umzug 2 ") {
+                    if (entry.name == "<b>Umzug 2:</b> ") {
                         found = entry;
                         dateArray2.splice(found);
                     }
-                    if (entry.name == "Umzug 3 ") {
+                    if (entry.name == "<b>Umzug 3:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Einpack:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Auspack:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Reinigung:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Reinigung 2:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Entsorgung:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Transport:</b> ") {
+                        found = entry;
+                        dateArray2.splice(found);
+                    }
+                    if (entry.name == "<b>Lagerung:</b> ") {
                         found = entry;
                         dateArray2.splice(found);
                     }
                 });
                 if ($("input[name=isUmzug]:checked").val()) {
                     dateArray2.push({
-                        name: 'Umzug ',
+                        name: '<b>Umzug:</b> ',
                         date: momentConvertValue(tarih1)
                     })
                 }
                 if ($("input[name=isUmzug2]:checked").val()) {
                     if(tarih2!=""){
                         dateArray2.push({
-                        name: 'Umzug 2 ',
+                        name: '<b>Umzug 2:</b> ',
                         date: momentConvertValue(tarih2)
                     })
                     }
                     if(tarih3!=""){
                         dateArray2.push({
-                        name: 'Umzug 3 ',
+                        name: '<b>Umzug 3:</b> ',
                         date: momentConvertValue(tarih3)
                     })
                     }
-                 
                 }
+                if ($("input[name=isEinpackservice]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Einpack:</b> ',
+                        date: momentConvertValue(tarih4)
+                    })
+                }
+                if ($("input[name=isAuspackservice]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Auspack:</b> ',
+                        date: momentConvertValue(tarih5)
+                    })
+                }
+                if ($("input[name=isReinigung]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Reinigung:</b> ',
+                        date: momentConvertValue(tarih6)
+                    })
+                }
+                if ($("input[name=isReinigung2]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Reinigung 2:</b> ',
+                        date: momentConvertValue(tarih7)
+                    })
+                }
+                if ($("input[name=isEntsorgung]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Entsorgung:</b> ',
+                        date: momentConvertValue(tarih8)
+                    })
+                }
+                if ($("input[name=isTransport]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Transport:</b> ',
+                        date: momentConvertValue(tarih9)
+                    })
+                }
+                if ($("input[name=isLagerung]:checked").val()) {
+                    dateArray2.push({
+                        name: '<b>Lagerung:</b> ',
+                        date: momentConvertValue(tarih10)
+                    })
+                }
+                
 
                 var requestDate = "";
                 for (var i = 0; i <= dateArray2.length - 1; i++) {
@@ -1330,14 +1477,26 @@
         }
 
         if (valueZ == 3) {
-            console.log(value)
-            $("#teslimatDate").on("input", function() {
+            $("body").on("change", ".widget-body", function() {
                 let dateArray = [];
-                var tarih1 = $(this).val();
-                dateArray[dateArray.length] = tarih1;
-                console.log(dateArray, 'Tarihler');
-                // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${dateArray}'])`);
+                var tarih1 = $('input[name=meetingDate]').val();
+                dateArray3.some(function(entry) {
+                    if (entry.name == "<b>Lieferung:</b> ") {
+                        found = entry;
+                        dateArray.splice(found);
+                    }
+                });
+                if(tarih1!=""){
+                    dateArray3.push({
+                    name: '<b>Lieferung:</b> ',
+                    date: momentConvertValue(tarih1)
+                    })
+                }
+                var requestDate = "";
+                for (var i = 0; i <= dateArray3.length - 1; i++) {
+                    requestDate += dateArray3[i].name + " " + dateArray3[i].date + "<br>";
+                }
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }

@@ -743,20 +743,26 @@ class indexController extends Controller
         
         if($c != 0)
         {   
-            $data = AppoinmentService::where('id',$id)->get();
-            UmzugService::where('id',$data[0]['umzugId'])->delete();
-            UmzugService::where('id',$data[0]['umzug2Id'])->delete();
-            UmzugService::where('id',$data[0]['umzug3Id'])->delete();
-            EinpackService::where('id',$data[0]['einpackId'])->delete();
-            AuspackService::where('id',$data[0]['auspackId'])->delete();
-            ReinigungService::where('id',$data[0]['reinigungId'])->delete();
-            ReinigungService::where('id',$data[0]['reinigung2Id'])->delete();
-            EntsorgungService::where('id',$data[0]['entsorgungId'])->delete();
-            TransportService::where('id',$data[0]['transportId'])->delete();
-            LagerungService::where('id',$data[0]['lagerungId'])->delete();
+            $data = AppoinmentService::where('id',$id)->first();
+            $customerId = $data['customerId'];
+            UmzugService::where('id',$data['umzugId'])->delete();
+            UmzugService::where('id',$data['umzug2Id'])->delete();
+            UmzugService::where('id',$data['umzug3Id'])->delete();
+            EinpackService::where('id',$data['einpackId'])->delete();
+            AuspackService::where('id',$data['auspackId'])->delete();
+            ReinigungService::where('id',$data['reinigungId'])->delete();
+            ReinigungService::where('id',$data['reinigung2Id'])->delete();
+            EntsorgungService::where('id',$data['entsorgungId'])->delete();
+            TransportService::where('id',$data['transportId'])->delete();
+            LagerungService::where('id',$data['lagerungId'])->delete();
 
             AppoinmentService::where('id',$id)->delete();
-            return redirect()->back()->with('status','Keşif Randevusu Başarıyla Silindi');
+            return redirect()
+            ->route('customer.detail', ['id' => $customerId])
+            ->with('status', 'Onay Randevusu Başarıyla Silindi')
+            ->with('cat','Termine')
+            ->withInput()
+            ->with('keep_status', true);
         }
         else {
             return redirect('/');

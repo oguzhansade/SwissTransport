@@ -2,7 +2,7 @@
 
 @section('header')
 <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
+
 @endsection
 
 @section('content')
@@ -159,40 +159,59 @@
 @endsection
 
 @section('footer')
-<script> 
-console.log($("input[name=isEmail]").val(),'EMAİL')
-
-
-$(document).ready( function(){
+{{-- TinyMce Email Format Ayarları --}}
+<script>
+    //TinyMce Ayarları 
+    tinymce.init({
+        selector: 'textarea.editor',
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+        toolbar_mode: 'floating',
+        apply_source_formatting: true,
+        plugins: 'code',
+    });
     
-   
     let dateArray = [];
-    var tarih1 = $('#datepicker').val();
-    dateArray[dateArray.length] = tarih1;
-    console.log(dateArray,'Tarihler');
-    // TODO: bu bölüm blade import değil api olarak kullanılacak
-    setTimeout(() => {
-        tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-    tinymce.execCommand("mceRepaint");
-    }, 500);
+    var tarih1 = $('input[name=date]').val();
     
-    $("#datepicker").on("input", function(){
+    if (tarih1 != null || tarih1 != undefined) {
+        dateArray.push({
+            name: '<b>Besichtigung:</b> ',
+            date: tarih1
+        })
+    }
     
-    let dateArray = []; // Güncelleme sayfası olduğu için array in tekrardan sıfırlanması gerekiyor yoksa yanına ekler
-    var tarih1 = $(this).val();
-    dateArray[dateArray.length] = tarih1;
-    console.log(dateArray,'Tarihler');
-    // TODO: bu bölüm blade import değil api olarak kullanılacak
-    tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-    tinymce.execCommand("mceRepaint");
-         
-    }); 
-    
-         
-});
-
-
-
+    eventChanges();
+    $("body").on("change", ".widget-body", function() {
+        eventChanges();
+    });
+    function momentConvertValue(value){
+        return moment(value, "YYYY-MM-DD").format("DD.MM.YYYY");
+    }
+    function eventChanges() {
+        tinymce.execCommand("mceRepaint");
+            $("body").on("change", ".widget-body", function() {
+                let dateArray = [];
+                var tarih1 = $('input[name=date]').val();
+                dateArray.some(function(entry) {
+                    if (entry.name == "<b>Besichtigung:</b> ") {
+                        found = entry;
+                        dateArray.splice(found);
+                    }
+                });
+                if(tarih1!=""){
+                    dateArray.push({
+                    name: '<b>Besichtigung:</b> ',
+                    date: momentConvertValue(tarih1)
+                    })
+                }
+                var requestDate = "";
+                for (var i = 0; i <= dateArray.length - 1; i++) {
+                    requestDate += dateArray[i].name + " " + dateArray[i].date + "<br>";
+                }
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.execCommand("mceRepaint");
+            });
+    }
 </script>
 
 <script>       
@@ -219,16 +238,6 @@ $(document).ready( function(){
         $(".email--format").hide(500);
     }
     })
-</script>
-
-<script>
-    tinymce.init({
-      selector: 'textarea.editor',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
 </script>
 @endsection
 

@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('appType')->default(1);
-            $table->integer('contactType');
-            $table->string('address');
-            $table->date('date');
-            $table->time('time');
-            $table->string('calendarTitle');
-            $table->string('calendarContent');
-            $table->integer('customerId');
+            $table->integer('contactType')->nullable();
+            $table->string('address')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+            $table->string('calendarTitle')->nullable();
+            $table->longText('calendarContent')->nullable();
+            $table->integer('customerId')->nullable();
             $table->timestamps();
         });
     }

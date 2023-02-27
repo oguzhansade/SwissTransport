@@ -89,7 +89,10 @@
 <div class="col-12 col-md-12 mr-b-30 mt-5">
     <ul class="nav nav-tabs contact-details-tab">
 
-        <li class="nav-item" style=""><a href="#profile-tab-bordered-1" class="nav-link @if(session("cat") != 'Offerte') active @endif" data-toggle="tab" aria-expanded="true">Profil</a>
+        <li class="nav-item" style=""><a href="#profile-tab-bordered-1" class="nav-link 
+        @if(session("cat") != 'Offerte' 
+        && session("cat") != 'Termine'
+            ) active @endif" data-toggle="tab" aria-expanded="true">Profil</a>
         </li>
         @if (App\Models\UserPermission::getMyControl(9))  
         <li class="nav-item" style=""><a href="#offer-tab-bordered-1" class="nav-link @if(session("cat") == 'Offerte') active @endif" data-toggle="tab" aria-expanded="false">Offerte</a>
@@ -97,7 +100,7 @@
         @endif
 
         @if (App\Models\UserPermission::getMyControl(6)) 
-        <li class="nav-item" style=""><a href="#appointment-tab-bordered-1" class="nav-link" data-toggle="tab" aria-expanded="false">Termine</a>
+        <li class="nav-item" style=""><a href="#appointment-tab-bordered-1" class="nav-link @if(session("cat") == 'Termine') active @endif" data-toggle="tab" aria-expanded="false">Termine</a>
         </li>
         @endif
 
@@ -115,7 +118,9 @@
     <div class="tab-content">
 
         <!-- /.tab-pane Müşteri Profili -->
-        <div role="tabpanel" class="tab-pane @if(session("cat") != 'Offerte') active @endif " id="profile-tab-bordered-1" aria-expanded="false" >
+        <div role="tabpanel" class="tab-pane @if(session("cat") != 'Offerte' 
+        && session("cat") != 'Termine'
+            ) active @endif " id="profile-tab-bordered-1" aria-expanded="false" >
             
             <div class="contact-details-profile ">
                 <div class="row">
@@ -253,7 +258,7 @@
         </div>
 
         <!-- /.tab-pane Randevular -->
-        <div role="tabpanel" class="tab-pane" id="appointment-tab-bordered-1" aria-expanded="false">
+        <div role="tabpanel" class="tab-pane  @if(session("cat") == 'Termine') active @endif" id="appointment-tab-bordered-1" aria-expanded="false">
             
             <div class="contact-details-profile ">
                 <div class="row">
@@ -632,6 +637,7 @@
 <script>
     $(document).ready(function() {
         let table =  $('#appointmentTable').DataTable( {
+            "order" : [[2,'desc']], 
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',                                 
             buttons: [

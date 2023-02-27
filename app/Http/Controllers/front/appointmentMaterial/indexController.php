@@ -71,6 +71,11 @@ class indexController extends Controller
         $appDateArray = [];
         $appDateArray[$ADC]['date'] = $request->meetingDate;
         $appDateArray[$ADC]['time'] = $request->meetingHour1;
+        $appDateArray[$ADC]['endDate'] = $request->meetingDate;
+        $appDateArray[$ADC]['endTime'] = $request->meetingHour1;
+        $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
+        $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+        $appDateArray[$ADC]['calendarLocation'] = $request->address;
         $appDateArray[$ADC]['serviceName'] = 'Lieferung';
         $ADC++;
 

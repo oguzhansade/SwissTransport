@@ -523,10 +523,15 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new InformationMail($emailData));
-                Mail::to('oguzhansade1@gmail.com')->send(new CompanyMail($emailData));
+                Mail::to($from)->send(new CompanyMail($emailData));
                 $mailSuccess = ', Mail Başarıyla Gönderildi';
             }                  
-            return redirect()->back()->with('status',$randevuTipi.' '.'Randevusu Başarıyla Eklendi'.' '.$mailSuccess );
+            return redirect()
+            ->route('customer.detail', ['id' => $customerId])
+            ->with('status', $randevuTipi.' '.'Randevusu Başarıyla Eklendi'.' '.$mailSuccess)
+            ->with('cat','Termine')
+            ->withInput()
+            ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status-err','Hata:Randevu Eklenemedi, Mail Gönderilemedi');
@@ -675,8 +680,13 @@ class indexController extends Controller
 
         $appDateArray = [];
         $appDateArray[$ADC]['date'] = $request->date;
+        $appDateArray[$ADC]['endDate'] = $request->date;
         $appDateArray[$ADC]['time'] = $request->time;
-        $appDateArray[$ADC]['serviceName'] = 'Keşif';
+        $appDateArray[$ADC]['endTime'] = $request->time;
+        $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
+        $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+        $appDateArray[$ADC]['calendarLocation'] = $request->address;
+        $appDateArray[$ADC]['serviceName'] = 'Besichtigung';
         $ADC++;
        
 
@@ -723,6 +733,12 @@ class indexController extends Controller
                     Mail::to($from)->send(new CompanyMail($emailData));
                     $mailSuccess = 'Mail Başarıyla Gönderildi';
                 }          
+                return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Keşif Randevusu Başarıyla Düzenlendi'.' '.$mailSuccess)
+                ->with('cat','Termine')
+                ->withInput()
+                ->with('keep_status', true);
                 return redirect()->back()->with('status','Keşif Randevusu Başarıyla Düzenlendi'.' '.$mailSuccess );
             }
             else {
@@ -735,12 +751,18 @@ class indexController extends Controller
     {
 
         $c = Appointment::where('id',$id)->count();
-        
+        $appointment = Appointment::where('id',$id)->first();
+        $customerId = $appointment['customerId'];
         if($c !=0)
         {
             $data = Appointment::where('id',$id)->get();
             Appointment::where('id',$id)->delete();
-            return redirect()->back()->with('status','Keşif Randevusu Başarıyla Silindi');
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Keşif Randevusu Başarıyla Silindi')
+                ->with('cat','Termine')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect('/');
