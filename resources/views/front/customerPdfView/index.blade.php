@@ -195,6 +195,17 @@
                                     </div>
                                 </div>
                             @endif
+
+                            @if($umzug['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $umzug['discountPercent'] }}
+                                    </div>
+                                </div>
+                            @endif
                             
                             @if($umzug['compromiser'] !=0) 
                                 <div class="row mt-3">
@@ -307,6 +318,17 @@
                                     </div>
                                 </div>
                             @endif
+
+                            @if($einpack['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $einpack['discountPercent'] }}
+                                    </div>
+                                </div>
+                            @endif
                             
                             @if($einpack['compromiser'] !=0) 
                                 <div class="row mt-3">
@@ -415,6 +437,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         - {{ $auspack['discount'] }} CHF
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if($auspack['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $auspack['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -567,6 +600,17 @@
                                 </div>
                             @endif
                             
+                            @if($reinigung['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $reinigung['discountPercent'] }}
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="row mt-3">
                                 <div class="col-md-6">
                                     @if($reinigung['fixedTariff'])Pauschal:  @else Geschätzte Kosten:  @endif
@@ -691,6 +735,17 @@
                                     </div>
                                 </div>
                             @endif
+
+                            @if($reinigung2['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $reinigung2['discountPercent'] }}
+                                    </div>
+                                </div>
+                            @endif
                             
                             <div class="row mt-3">
                                 <div class="col-md-6">
@@ -777,13 +832,24 @@
                             </div>
                             <div class="c-border mt-3"></div>
 
-                            @if($auspack['discount'] !=0) 
+                            @if($entsorgung['discount'] !=0) 
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         @if( $entsorgung['discountText'] ) {{ $entsorgung['discountText'] }}: @else Rabatt: @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $auspack['discount'] }} CHF
+                                        - {{ $entsorgung['discount'] }} CHF
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if($entsorgung['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $entsorgung['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -900,6 +966,17 @@
                                     </div>
                                 </div>
                             @endif
+
+                            @if($transport['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $transport['discountPercent'] }}
+                                    </div>
+                                </div>
+                            @endif
                             
                             @if($transport['compromiser'] !=0) 
                                 <div class="row mt-3">
@@ -998,6 +1075,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         - {{ $lagerung['discountValue'] }} CHF
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if($lagerung['discountPercent'] !=0) 
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt[%]
+                                    </div>
+                                    <div class="col-md-6">
+                                        - [%]{{ $lagerung['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif

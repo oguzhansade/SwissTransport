@@ -12,7 +12,6 @@
             @page {
                 margin: 100px 25px;
             }
-
             header {
                 position: fixed;
                 top: -90px;
@@ -472,6 +471,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($umzug['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $umzug['discountText'] ) {{ $umzug['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $umzug['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     @if($umzug['compromiser'] !=0)
                                     <tr>
                                         <td align="left" valign="top">Entgegenkommen:</td>
@@ -607,6 +613,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($einpack['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $einpack['discountText'] ) {{ $einpack['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $einpack['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     @if($einpack['compromiser'] !=0)
                                     <tr>
                                         <td align="left" valign="top">Entgegenkommen:</td>
@@ -735,6 +748,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($auspack['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $auspack['discountText'] ) {{ $auspack['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $auspack['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     @if($auspack['compromiser'] !=0)
                                     <tr>
                                         <td align="left" valign="top">Entgegenkommen:</td>
@@ -896,6 +916,13 @@
                                         <td><span >-{{ $reinigung['discount'] }} CHF</span></td>
                                     </tr>
                                     @endif
+
+                                    @if($reinigung['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $reinigung['discountText'] ) {{ $reinigung['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $reinigung['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
             
                                     <tr>
                                         <td align="left" valign="top">@if($reinigung['fixedTariff'])Pauschal:  @else Geschätzte Kosten:  @endif</td>
@@ -1038,6 +1065,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($reinigung2['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $reinigung2['discountText'] ) {{ $reinigung2['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $reinigung2['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     <tr>
                                         <td align="left" valign="top">@if($reinigung2['fixedTariff'])Pauschal:  @else Geschätzte Kosten:  @endif</td>
                                         <td><span style="color:#835AB1;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
@@ -1329,6 +1363,13 @@
                                 </tr>
                                 @endif
         
+                                @if($transport['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">@if( $transport['discountText'] ) {{ $transport['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                        <td><span >- [%]{{ $transport['discountPercent'] }}</span></td>
+                                    </tr>
+                                @endif
+
                                 @if($transport['compromiser'] !=0)
                                 <tr>
                                     <td align="left" valign="top"> Entgegenkommen: </td>
@@ -1453,6 +1494,14 @@
                                             <td><span >-{{ $lagerung['discountValue'] }} CHF</span></td>
                                         </tr>
                                         @endif
+
+                                        @if($lagerung['discountPercent'] !=0)
+                                            <tr>
+                                                <td align="left" valign="top">@if( $lagerung['discountText'] ) {{ $lagerung['discountText'] }}: @else Rabatt[%]: @endif</td>
+                                                <td><span >- [%]{{ $lagerung['discountPercent'] }}</span></td>
+                                            </tr>
+                                        @endif
+
                                         <tr>
                                             <td align="left" valign="top"> Kosten: </td>
                                             <td><span style="color:#835AB1;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>

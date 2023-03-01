@@ -46,11 +46,11 @@
         <br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        <?php
-        setlocale(LC_TIME, 'German');
-        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
-        ?>
-        <strong>{{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @php 
+        Carbon\Carbon::setLocale('de');
+        @endphp
+        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
+        <br><br>
         @endforeach
         @endif
         
@@ -70,11 +70,11 @@
         <br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        <?php
-        setlocale(LC_TIME, 'German');
-        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
-        ?>
-        <strong>  {{ $item['serviceName'] }}: {{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @php 
+        Carbon\Carbon::setLocale('de');
+        @endphp
+
+        <strong>  {{ $item['serviceName'] }}: {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong><br><br>
         @endforeach
         @endif
         
@@ -92,14 +92,13 @@
         <br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        <?php
-        setlocale(LC_TIME, 'German');
-        $dt = Carbon\Carbon::parse($item['date'].' '.$item['time'])
-        ?>
-        <strong>{{ $dt->formatLocalized('%A %d %B %Y %H:%M'); }} Uhr </strong><br><br>
+        @php 
+        Carbon\Carbon::setLocale('de');
+        @endphp
+        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
+        <br><br>
         @endforeach
         @endif
-        
         
         Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
         Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
