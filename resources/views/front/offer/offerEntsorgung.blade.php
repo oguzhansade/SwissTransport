@@ -164,7 +164,7 @@
             </div>
 
             <div class="entsorgung-kostendach-area" style="display: none;">
-                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
@@ -178,7 +178,7 @@
             </div>
 
             <div class="entsorgung-pauschal-area " style="display:none;">
-                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
@@ -206,7 +206,7 @@
             $(".entsorgung--area").show(700);
             $("select[name=entsorgungVolume]").prop('required',true);      
             $("select[name=entsorgungTariff]").prop('required',true);  
-            $("input[name=entsorgungTotalPrice]").prop('required',true); 
+            
             $("input[name=entsorgungVolumeChf]").prop('required',true); 
             $("input[name=entsorgungma]").prop('required',true); 
             $("input[name=entsorgunglkw]").prop('required',true);

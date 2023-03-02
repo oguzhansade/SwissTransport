@@ -41,7 +41,7 @@
 <div id="faturaData">
     <div class="row p-3">
         <div class="col-md-6">
-            <label class="col-form-label" for="l0">Reduktion22222 </label>
+            <label class="col-form-label" for="l0">Reduktion </label>
             <input class="form-control indirim" name="materialDiscount" type="number" value="0" min="0">
         </div>
         <div class="col-md-6">

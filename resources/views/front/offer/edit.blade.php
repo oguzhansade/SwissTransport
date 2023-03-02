@@ -45,7 +45,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form action="{{ route('offer.update',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
 
                             <div class="form-group row">
@@ -227,7 +227,8 @@
                         <div class="form-actions">
                             <div class="form-group row mt-3">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.update',['id' => $data['id']]) }}">
+                                    <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview" formtarget="_blank" formaction="{{ route('offer.offerPdfPreviewEdit',['id' => $data['id']]) }}">
                                 </div>
                             </div>
                         </div>

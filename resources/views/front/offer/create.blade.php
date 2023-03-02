@@ -64,17 +64,10 @@
                                 @include('front.offer.offerUmzug')
                             {{-- Offerte Umzug Alanı --}}
 
-                            <div class="form-group row">
-                                <div class="col-md-12 umzug-control">
-                                    <label for="" class="col-form-label">Umzug</label><br>
-                                    <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
-                                </div>                            
-                            </div>
+                            
 
                             {{-- Offerte Umzug 2 Alanı --}}
-                            <div class="rounded umzug--area" style="background-color: #CBB4FF; display:none;">
                                 @include('front.offer.offerUmzug2')
-                            </div>
                             {{-- Offerte Umzug 2 Alanı --}}
 
                             <div class="form-group row">
@@ -304,7 +297,7 @@
 </script>
 <script>       
     var morebutton = $("div.email-send");
-    var morebutton2 = $("div.umzug-control");
+    
     var morebutton3 = $("div.einpack-control");
     var morebutton4 = $("div.auspack-control");
  
@@ -363,27 +356,7 @@
         }
     })
 
-    morebutton2.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".umzug--area").show(700);
-            $("select[name=umzugTariff]").prop('required',true);    
-            $("input[name=umzugHours]").prop('required',true);
-            $("input[name=umzug1ma]").prop('required',true);
-            $("input[name=umzug1lkw]").prop('required',true);
-            $("input[name=umzug1anhanger]").prop('required',true);
-            $("input[name=umzug1chf]").prop('required',true);
-        }
-        else{
-            $(".umzug--area").hide(500);
-            $("select[name=umzugTariff]").prop('required',false);    
-            $("input[name=umzugHours]").prop('required',false);
-            $("input[name=umzug1ma]").prop('required',false);
-            $("input[name=umzug1lkw]").prop('required',false);
-            $("input[name=umzug1anhanger]").prop('required',false);
-            $("input[name=umzug1chf]").prop('required',false);
-        }
-    })
+    
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))
         {

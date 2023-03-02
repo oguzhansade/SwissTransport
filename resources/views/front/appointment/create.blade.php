@@ -1081,6 +1081,40 @@
     })
 </script>
 
+{{-- Title Oto Doldurma --}}
+<script>
+    
+    let umzugTitle = $('input[name=umzug1calendarTitle]').val();
+    // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
+    $('body').on('change','.umzug--area',function(){
+        let serviceName = 'Umzug';
+        let gender = '';
+        let genderType = '{{ $data['gender'] }}';
+        let hours,ma,lkw,time;
+        if(genderType == 'male')
+        {
+            gender = 'Herr'
+        }
+        else{
+            gender = 'Frau'
+        }
+        let name = '{{ $data['name'] }}';
+        let surname = '{{ $data['surname'] }}';
+        let mobile = '{{ $data['mobile'] }}';
+        if($('input[name=umzug1hours]').val()){ hours = $('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
+        if($('input[name=umzug1ma]').val()){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
+        if($('input[name=umzug1lkw]').val()){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW ca.';}else{ lkw = ''}
+        if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
+      
+        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+hours+' '+'/'+' '+time;
+
+        if(newTitle !== umzugTitle) { // only update if the new title is different
+            $('input[name=umzug1calendarTitle]').val(newTitle);
+            umzugTitle = newTitle; // save the new title
+        }
+    })
+    
+</script>
 {{-- Email Ayarları --}}
 <script>
     var morebutton = $("div.email-send");

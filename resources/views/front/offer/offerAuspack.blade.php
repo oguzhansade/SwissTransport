@@ -122,7 +122,7 @@
         </div>
 
         <div class="auspack-kostendach-area" style="display: none;">
-            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
@@ -136,7 +136,7 @@
         </div>
 
         <div class="auspack-pauschal-area " style="display:none;">
-            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>

@@ -1,282 +1,291 @@
-<div class="row p-3">
-    <div class="col-md-6">
-        <label class=" col-form-label" for="l0">Tarif</label>
-        <select class="form-control" class="umzugTariff2" name="umzugTariff" id="umzugTariff" >
-            <option data-selection="bos" value>Bitte wählen</option>
-            @foreach (\App\Models\Tariff::getList(1) as $key=>$value )
-                <option data-selection="0" data-ma="{{ $value['ma'] }}" data-lkw="{{ $value['lkw'] }}" data-an="{{ $value['anhanger'] }}" data-chf ="{{ $value['chf'] }}" value="{{ $value['id'] }}">{{ $value['description'] }}</option>
-            @endforeach
-        </select>   
 
-        <div class="row umzug--tariffs--area umzug-tarif-area" style="display: none;">
-            <div class="col">
-                <label class=" col-form-label" for="l0">MA</label>
-                <input class="form-control"  name="umzug1ma" placeholder="0"  type="number" >                                
-            </div>
-            <div class="col">
-                <label class=" col-form-label" for="l0">LKW</label>
-                <input class="form-control"  name="umzug1lkw" placeholder="0"  type="number" >                                
-            </div>
-            <div class="col">
-                <label class=" col-form-label" for="l0">Anhänger</label>
-                <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" >                                
-            </div>
-            <div class="col">
-                <label class=" col-form-label" for="l0">CHF-Ansatz</label>
-                <input class="form-control" id="umzug1chf"  name="umzug1chf" placeholder="0"  type="number" value="0">                                
-            </div>
-        </div>
-        
-        <label class=" col-form-label" for="l0">Umzugstermin</label>
-        <input class="form-control" class="date"  name="umzugausdate"  type="date" > 
+<div class="form-group row">
+    <div class="col-md-12 umzug-control">
+        <label for="" class="col-form-label">Umzug</label><br>
+        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+    </div>                            
+</div>
 
-        <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
-        <input class="form-control" class="time"  name="umzug1time"  type="time" > 
+<div class="rounded umzug--area" style="background-color: #CBB4FF; display:none;">
+    <div class="row p-3">
+        <div class="col-md-6">
+            <label class=" col-form-label" for="l0">Tarif</label>
+            <select class="form-control" class="umzugTariff2" name="umzugTariff" id="umzugTariff" >
+                <option data-selection="bos" value>Bitte wählen</option>
+                @foreach (\App\Models\Tariff::getList(1) as $key=>$value )
+                    <option data-selection="0" data-ma="{{ $value['ma'] }}" data-lkw="{{ $value['lkw'] }}" data-an="{{ $value['anhanger'] }}" data-chf ="{{ $value['chf'] }}" value="{{ $value['id'] }}">{{ $value['description'] }}</option>
+                @endforeach
+            </select>   
 
-        <label class=" col-form-label" for="l0">Einzugstermin</label>
-        <input class="form-control" class="date"  name="umzugeindate"  type="date" > 
-
-        <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-        <input class="form-control" class="date"  name="umzugroadChf"  type="number" value="0"> 
-
-        <label class=" col-form-label" for="l0">Ab- und Aufbau</label>
-        <select class="form-control" class="umzugMontaj" name="umzugMontaj" id="umzugMontaj" >
-            <option value="1">Bitte wählen</option>
-            <option value="2">Kunde</option>
-            <option value="3">Firma</option>
-        </select>
-    </div>
-    <div class="col-md-6">
-        <label class="col-form-label" for="l0">Dauer [h]</label>
-        <input class="form-control"  name="umzugHours" placeholder="4-5"  type="text" >  
-        
-        <div class="extra-cost mt-1">
-            <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
-        </div>  
-
-        <div class="extra--cost--area" style="display: block;">
-
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra1" type="number" value="20">
-                    </div>
-                </div> 
-                
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf1"> <span class="label-text text-dark"><strong>Klavier 250.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra2" type="number" value="250">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf2"> <span class="label-text text-dark"><strong>Klavier 350.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra3" type="number" value="350">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf3"> <span class="label-text text-dark"><strong>Möbellift 0.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra4" type="number" value="0">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf4"> <span class="label-text text-dark"><strong>Möbellift 250.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra5" type="number" value="250">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf5"> <span class="label-text text-dark"><strong>Möbellift 350.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra6" type="number" value="350">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf6"> <span class="label-text text-dark"><strong>Schwergutzuschlag 150.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra7" type="number" value="150">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf7"> <span class="label-text text-dark"><strong>Schwergutzuschlag 250.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra8" type="number" value="250">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf8"> <span class="label-text text-dark"><strong>Tresor 350.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra9" type="number" value="350">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf9"> <span class="label-text text-dark"><strong>Tresor 450.-</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra10" type="number" value="450">
-                    </div>
-                </div>  
-
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                            <label class="checkbox">
-                                <input type="checkbox" name="masraf10"> <span class="label-text text-dark"><strong>Wasserbett</strong></span>                       
-                            </label>                   
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" name="extra11" type="number" value="500">
-                    </div>
+            <div class="row umzug--tariffs--area umzug-tarif-area" style="display: none;">
+                <div class="col">
+                    <label class=" col-form-label" for="l0">MA</label>
+                    <input class="form-control"  name="umzug1ma" placeholder="0"  type="number" >                                
                 </div>
-                
-                <div class="row ">
-                    <div class="col-md-7">
-                        <input class="form-control"  name="extra12CostText" placeholder="Freier Text"  type="text" >
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control"  name="extra12Cost" placeholder="0"  type="number" value="0">
-                    </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">LKW</label>
+                    <input class="form-control"  name="umzug1lkw" placeholder="0"  type="number" >                                
                 </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-7">
-                        <input class="form-control"  name="extra13CostText" placeholder="Freier Text"  type="text" >
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control"  name="extra13Cost" placeholder="0"  type="number" value="0">
-                    </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Anhänger</label>
+                    <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" >                                
+                </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">CHF-Ansatz</label>
+                    <input class="form-control" id="umzug1chf"  name="umzug1chf" placeholder="0"  type="number" value="0">                                
                 </div>
             </div>
-        </div>
-        
-        <label class="col-form-label mt-1 " for="l0">Kosten</label>
-        <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
-
-        <label class="col-form-label" for="l0">Rabatt</label>
-        <input class="form-control"  name="umzugDiscount" placeholder="0"  type="number" > 
-
-        <label class="col-form-label" for="l0">Rabatt[%]</label>
-        <input class="form-control"  name="umzugDiscountPercent" placeholder="0"  type="number" > 
-
-        <label class="col-form-label" for="l0">Entgegenkommen</label>
-        <input class="form-control"  name="umzugCompromiser" placeholder="0"  type="number" >
-
-        <div class="row ">
-            <div class="col-md-7">
-                <label class="col-form-label" for="l0">Weitere Abzüge</label>
-                <input class="form-control"  name="umzugExtraDiscountText" placeholder="Freier Text"  type="text" >
-            </div>
-            <div class="col-md-5">
-                <label class="col-form-label" for="l0">Weitere Abzüge</label>
-                <input class="form-control"  name="umzugExtraDiscount" placeholder="0"  type="number" >
-            </div>
-        </div>
-
-        <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-        <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
-
-        <div class="mt-2 isKostendach">
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-        </div>
-
-        <div class="kostendach-area" style="display: none;">
-            <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
             
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div>
-        </div>  
+            <label class=" col-form-label" for="l0">Umzugstermin</label>
+            <input class="form-control" class="date"  name="umzugausdate"  type="date" > 
 
-        <div class="mt-3 isPauschal">
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
+            <input class="form-control" class="time"  name="umzug1time"  type="time" > 
+
+            <label class=" col-form-label" for="l0">Einzugstermin</label>
+            <input class="form-control" class="date"  name="umzugeindate"  type="date" > 
+
+            <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
+            <input class="form-control" class="date"  name="umzugroadChf"  type="number" value="0"> 
+
+            <label class=" col-form-label" for="l0">Ab- und Aufbau</label>
+            <select class="form-control" class="umzugMontaj" name="umzugMontaj" id="umzugMontaj" >
+                <option value="1">Bitte wählen</option>
+                <option value="2">Kunde</option>
+                <option value="3">Firma</option>
+            </select>
         </div>
+        <div class="col-md-6">
+            <label class="col-form-label" for="l0">Dauer [h]</label>
+            <input class="form-control"  name="umzugHours" placeholder="4-5"  type="text" >  
+            
+            <div class="extra-cost mt-1">
+                <label for="" class="col-form-label">Zusatzkosten</label><br>
+                <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+            </div>  
 
-        <div class="pauschal-area " style="display:none;">
-            <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+            <div class="extra--cost--area" style="display: block;">
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra1" type="number" value="20">
+                        </div>
+                    </div> 
+                    
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf1"> <span class="label-text text-dark"><strong>Klavier 250.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra2" type="number" value="250">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf2"> <span class="label-text text-dark"><strong>Klavier 350.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra3" type="number" value="350">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf3"> <span class="label-text text-dark"><strong>Möbellift 0.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra4" type="number" value="0">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf4"> <span class="label-text text-dark"><strong>Möbellift 250.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra5" type="number" value="250">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf5"> <span class="label-text text-dark"><strong>Möbellift 350.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra6" type="number" value="350">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf6"> <span class="label-text text-dark"><strong>Schwergutzuschlag 150.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra7" type="number" value="150">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf7"> <span class="label-text text-dark"><strong>Schwergutzuschlag 250.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra8" type="number" value="250">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf8"> <span class="label-text text-dark"><strong>Tresor 350.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra9" type="number" value="350">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf9"> <span class="label-text text-dark"><strong>Tresor 450.-</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra10" type="number" value="450">
+                        </div>
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="masraf10"> <span class="label-text text-dark"><strong>Wasserbett</strong></span>                       
+                                </label>                   
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="extra11" type="number" value="500">
+                        </div>
+                    </div>
+                    
+                    <div class="row ">
+                        <div class="col-md-7">
+                            <input class="form-control"  name="extra12CostText" placeholder="Freier Text"  type="text" >
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control"  name="extra12Cost" placeholder="0"  type="number" value="0">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-7">
+                            <input class="form-control"  name="extra13CostText" placeholder="Freier Text"  type="text" >
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control"  name="extra13Cost" placeholder="0"  type="number" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <label class="col-form-label mt-1 " for="l0">Kosten</label>
+            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+
+            <label class="col-form-label" for="l0">Rabatt</label>
+            <input class="form-control"  name="umzugDiscount" placeholder="0"  type="number" > 
+
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="umzugDiscountPercent" placeholder="0"  type="number" > 
+
+            <label class="col-form-label" for="l0">Entgegenkommen</label>
+            <input class="form-control"  name="umzugCompromiser" placeholder="0"  type="number" >
+
+            <div class="row ">
+                <div class="col-md-7">
+                    <label class="col-form-label" for="l0">Weitere Abzüge</label>
+                    <input class="form-control"  name="umzugExtraDiscountText" placeholder="Freier Text"  type="text" >
+                </div>
+                <div class="col-md-5">
+                    <label class="col-form-label" for="l0">Weitere Abzüge</label>
+                    <input class="form-control"  name="umzugExtraDiscount" placeholder="0"  type="number" >
+                </div>
+            </div>
+
+            <label class="col-form-label" for="l0">Geschätzte Kosten</label>
+            <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+
+            <div class="mt-2 isKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+
+            <div class="kostendach-area" style="display: none;">
+                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>  
+
+            <div class="mt-3 isPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            </div>
+
+            <div class="pauschal-area " style="display:none;">
+                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 @section('offerFooter1')
 {{-- Tarife Fiyatları --}}
 <script>        
@@ -351,6 +360,30 @@
         }
         else{
             $(".extra--cost--area").hide(500);
+        }
+    })
+</script>
+<script>
+    var morebutton2 = $("div.umzug-control");
+    morebutton2.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".umzug--area").show(700);
+            $("select[name=umzugTariff]").prop('required',true);    
+            $("input[name=umzugHours]").prop('required',true);
+            $("input[name=umzug1ma]").prop('required',true);
+            $("input[name=umzug1lkw]").prop('required',true);
+            $("input[name=umzug1anhanger]").prop('required',true);
+            $("input[name=umzug1chf]").prop('required',true);
+        }
+        else{
+            $(".umzug--area").hide(500);
+            $("select[name=umzugTariff]").prop('required',false);    
+            $("input[name=umzugHours]").prop('required',false);
+            $("input[name=umzug1ma]").prop('required',false);
+            $("input[name=umzug1lkw]").prop('required',false);
+            $("input[name=umzug1anhanger]").prop('required',false);
+            $("input[name=umzug1chf]").prop('required',false);
         }
     })
 </script>

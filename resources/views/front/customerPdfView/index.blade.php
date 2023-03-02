@@ -202,7 +202,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $umzug['discountPercent'] }}
+                                        - %{{ $umzug['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -325,7 +325,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $einpack['discountPercent'] }}
+                                        - %{{ $einpack['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -447,7 +447,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $auspack['discountPercent'] }}
+                                        - %{{ $auspack['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -606,7 +606,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $reinigung['discountPercent'] }}
+                                        - %{{ $reinigung['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -742,7 +742,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $reinigung2['discountPercent'] }}
+                                        - %{{ $reinigung2['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -849,7 +849,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $entsorgung['discountPercent'] }}
+                                        - %{{ $entsorgung['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -973,7 +973,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $transport['discountPercent'] }}
+                                        - %{{ $transport['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1085,7 +1085,7 @@
                                         Rabatt[%]
                                     </div>
                                     <div class="col-md-6">
-                                        - [%]{{ $lagerung['discountPercent'] }}
+                                        - %{{ $lagerung['discountPercent'] }}
                                     </div>
                                 </div>
                             @endif

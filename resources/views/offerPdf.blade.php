@@ -179,9 +179,11 @@
                             <td colspan="2" class="p-1 " style="background-color:#E5E5E5; border-right:5px solid white;">
                                 <b style="font-size:13px;line-height:13px;">Auszug</b>
                             </td>
+                            @if ($einzug1)
                             <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
                                 <b style="font-size:13px;line-height:13px;">Einzug</b>
                             </td>
+                            @endif
                         </tr>
                         
                         <tr>
@@ -473,8 +475,8 @@
             
                                     @if($umzug['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $umzug['discountText'] ) {{ $umzug['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $umzug['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top"> Rabatt[%]: </td>
+                                        <td><span >- %{{ $umzug['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -615,8 +617,8 @@
             
                                     @if($einpack['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $einpack['discountText'] ) {{ $einpack['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $einpack['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]:</td>
+                                        <td><span >- %{{ $einpack['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -750,8 +752,8 @@
             
                                     @if($auspack['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $auspack['discountText'] ) {{ $auspack['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $auspack['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]:</td>
+                                        <td><span >- %{{ $auspack['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -919,8 +921,8 @@
 
                                     @if($reinigung['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $reinigung['discountText'] ) {{ $reinigung['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $reinigung['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $reinigung['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
             
@@ -1067,8 +1069,8 @@
             
                                     @if($reinigung2['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $reinigung2['discountText'] ) {{ $reinigung2['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $reinigung2['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $reinigung2['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -1188,20 +1190,17 @@
                                         </td>
                                     </tr>
                 
-                
                                     @if($entsorgung['discount'] !=0)
                                     <tr>
                                         <td align="left" valign="top">@if( $entsorgung['discountText'] ) {{ $entsorgung['discountText'] }}: @else Rabatt: @endif</td>
                                         <td><span >-{{ $entsorgung['discount'] }} CHF</span></td>
                                     </tr>
                                     @endif
-
                                     
-
                                     @if($entsorgung['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $entsorgung['discountText'] ) {{ $entsorgung['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $entsorgung['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $entsorgung['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -1211,6 +1210,7 @@
                                         <td><span >-{{ $entsorgung['extraDiscountPrice'] }} CHF</span></td>
                                     </tr>
                                     @endif
+
                                     <tr>
                                         <td align="left" valign="top"> Kosten: </td>
                                         <td><span style="color:#835AB1;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
@@ -1365,8 +1365,8 @@
         
                                 @if($transport['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $transport['discountText'] ) {{ $transport['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $transport['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $transport['discountPercent'] }}</span></td>
                                     </tr>
                                 @endif
 
@@ -1497,8 +1497,8 @@
 
                                         @if($lagerung['discountPercent'] !=0)
                                             <tr>
-                                                <td align="left" valign="top">@if( $lagerung['discountText'] ) {{ $lagerung['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                                <td><span >- [%]{{ $lagerung['discountPercent'] }}</span></td>
+                                                <td align="left" valign="top">Rabatt[%]:</td>
+                                                <td><span >- %{{ $lagerung['discountPercent'] }}</span></td>
                                             </tr>
                                         @endif
 

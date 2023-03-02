@@ -180,9 +180,11 @@
                             <td colspan="2" class="p-1 " style="background-color:#E5E5E5; border-right:5px solid white;">
                                 <b style="font-size:13px;line-height:13px;">Auszug</b>
                             </td>
+                            @if ($isEinzug1)
                             <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
                                 <b style="font-size:13px;line-height:13px;">Einzug</b>
                             </td>
+                            @endif
                         </tr>
                         
                         <tr>
@@ -203,7 +205,7 @@
                                 </td>
                             @endif
     
-                            @if($einzug1)
+                            @if($isEinzug1)
                                 <td>
                                     Strasse: <br>
                                     PLZ / Ort: <br>
@@ -229,12 +231,12 @@
             
                         {{-- 2.Adresler --}}
                         <tr style="width:100%;">
-                            @if($auszug2) 
+                            @if($isAuszug2) 
                                 <td colspan="2" class="p-1 " style="background-color:#E5E5E5; border-right:5px solid white;">
                                     <b style="font-size:13px;line-height:13px;">Auszug 2</b>
                                 </td>
                             @endif
-                            @if($einzug2)
+                            @if($isEinzug2)
                                 <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
                                     <b style="font-size:13px;line-height:13px;">Einzug 2</b>
                                 </td>
@@ -242,7 +244,7 @@
                         </tr>
                         
                         <tr>
-                            @if($auszug2)
+                            @if($isAuszug2)
                                 <td>
                                     Strasse: <br>
                                     PLZ / Ort: <br>
@@ -259,7 +261,7 @@
                                 </td>
                             @endif
                             
-                            @if($einzug2)
+                            @if($isEinzug2)
                                 <td>
                                     Strasse: <br>
                                     PLZ / Ort: <br>
@@ -284,12 +286,12 @@
     
                         {{-- 3.Adresler --}}
                         <tr style="width:100%;">
-                            @if($auszug3) 
+                            @if($isAuszug3) 
                                 <td colspan="2" class="p-1 " style="background-color:#E5E5E5; border-right:5px solid white;">
                                     <b style="font-size:13px;line-height:13px;">Auszug 3</b>
                                 </td>
                             @endif
-                            @if($einzug3)
+                            @if($isEinzug3)
                                 <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
                                     <b style="font-size:13px;line-height:13px;">Einzug 3</b>
                                 </td>
@@ -297,7 +299,7 @@
                         </tr>
                         
                         <tr>
-                            @if($auszug3)
+                            @if($isAuszug3)
                                 <td>
                                     Strasse: <br>
                                     PLZ / Ort: <br>
@@ -314,7 +316,7 @@
                                 </td>
                             @endif
                             
-                            @if($einzug3)
+                            @if($isEinzug3)
                                 <td>
                                     Strasse: <br>
                                     PLZ / Ort: <br>
@@ -471,6 +473,13 @@
                                         <td><span >-{{ $umzug['discount'] }} CHF</span></td>
                                     </tr>
                                     @endif
+
+                                    @if($umzug['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">Rabatt[%]:</td>
+                                        <td><span >- %{{ $umzug['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
             
                                     @if($umzug['compromiser'] !=0)
                                     <tr>
@@ -606,6 +615,13 @@
                                         <td><span >-{{ $einpack['discount'] }} CHF</span></td>
                                     </tr>
                                     @endif
+
+                                    @if($einpack['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $einpack['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
             
                                     @if($einpack['compromiser'] !=0)
                                     <tr>
@@ -735,6 +751,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($auspack['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">Rabatt[%]:</td>
+                                        <td><span >- %{{ $auspack['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     @if($auspack['compromiser'] !=0)
                                     <tr>
                                         <td align="left" valign="top">Entgegenkommen:</td>
@@ -897,6 +920,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($reinigung['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top"> Rabatt[%]: </td>
+                                        <td><span >- %{{ $reinigung['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     <tr>
                                         <td align="left" valign="top">@if($reinigung['fixedTariff'])Pauschal:  @else Geschätzte Kosten:  @endif</td>
                                         <td><span style="color:#835AB1;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
@@ -1038,6 +1068,13 @@
                                     </tr>
                                     @endif
             
+                                    @if($reinigung2['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top">Rabatt[%]: </td>
+                                        <td><span >- %{{ $reinigung2['discountPercent'] }}</span></td>
+                                    </tr>
+                                    @endif
+
                                     <tr>
                                         <td align="left" valign="top">@if($reinigung2['fixedTariff'])Pauschal:  @else Geschätzte Kosten:  @endif</td>
                                         <td><span style="color:#835AB1;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
@@ -1161,13 +1198,11 @@
                                         <td><span >-{{ $entsorgung['discount'] }} CHF</span></td>
                                     </tr>
                                     @endif
-
                                     
-
                                     @if($entsorgung['discountPercent'] !=0)
                                     <tr>
-                                        <td align="left" valign="top">@if( $entsorgung['discountText'] ) {{ $entsorgung['discountText'] }}: @else Rabatt[%]: @endif</td>
-                                        <td><span >- [%]{{ $entsorgung['discountPercent'] }}</span></td>
+                                        <td align="left" valign="top"> Rabatt[%]:</td>
+                                        <td><span >- %{{ $entsorgung['discountPercent'] }}</span></td>
                                     </tr>
                                     @endif
 
@@ -1329,6 +1364,13 @@
                                 </tr>
                                 @endif
         
+                                @if($transport['discountPercent'] !=0)
+                                    <tr>
+                                        <td align="left" valign="top"> Rabatt[%]: </td>
+                                        <td><span >- %{{ $transport['discountPercent'] }}</span></td>
+                                    </tr>
+                                @endif
+
                                 @if($transport['compromiser'] !=0)
                                 <tr>
                                     <td align="left" valign="top"> Entgegenkommen: </td>
@@ -1453,6 +1495,14 @@
                                             <td><span >-{{ $lagerung['discountValue'] }} CHF</span></td>
                                         </tr>
                                         @endif
+
+                                        @if($lagerung['discountPercent'] !=0)
+                                        <tr>
+                                            <td align="left" valign="top">Rabatt[%]: </td>
+                                            <td><span >- %{{ $lagerung['discountPercent'] }}</span></td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td align="left" valign="top"> Kosten: </td>
                                             <td><span style="color:#835AB1;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>

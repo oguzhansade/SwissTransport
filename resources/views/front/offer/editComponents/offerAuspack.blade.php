@@ -222,7 +222,7 @@
             </div>
 
             <div class="auspack-kostendach-area" @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) 
                     value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost') }}" 
                 @endif>
@@ -240,7 +240,7 @@
             </div>
 
             <div class="auspack-pauschal-area " @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
-                <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice') }}" 
                 @endif>

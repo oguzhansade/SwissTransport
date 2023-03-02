@@ -548,7 +548,7 @@
     $(document).ready(function() {
         let table =  $('#example3').DataTable( {
             // En Yenisi en başta olacak şekilde sıralama
-            "order" : [[1,'desc']], 
+            "order" : [0,'desc'], 
             "columnDefs": [ 
                 {
                     "className": "dt-center",

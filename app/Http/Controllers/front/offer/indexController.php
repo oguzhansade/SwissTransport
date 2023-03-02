@@ -1499,7 +1499,7 @@ class indexController extends Controller
                  'street' => $request->ausStreet1,
                  'postCode' => $request->ausPostcode1,
                  'city' => $request->ausCity1,
-                 'country' => $request->ausCountry1,
+                 'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
                  'buildType' => $request->ausBuildType1,
                  'floor' => $request->ausFloorType1,
                  'lift' => $request->isAusLift1,
@@ -1521,7 +1521,7 @@ class indexController extends Controller
                     'street' => $request->ausStreet2,
                     'postCode' => $request->ausPostcode2,
                     'city' => $request->ausCity2,
-                    'country' => $request->ausCountry2,
+                    'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
                     'buildType' => $request->ausBuildType2,
                     'floor' => $request->ausFloorType2,
                     'lift' => $request->isAusLift2,
@@ -1538,7 +1538,7 @@ class indexController extends Controller
                 'street' => $request->ausStreet2,
                 'postCode' => $request->ausPostcode2,
                 'city' => $request->ausCity2,
-                'country' => $request->ausCountry2,
+                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
                 'buildType' => $request->ausBuildType2,
                 'floor' => $request->ausFloorType2,
                 'lift' => $request->isAusLift2,
@@ -1565,7 +1565,7 @@ class indexController extends Controller
                     'street' => $request->ausStreet3,
                     'postCode' => $request->ausPostcode3,
                     'city' => $request->ausCity3,
-                    'country' => $request->ausCountry3,
+                    'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
                     'buildType' => $request->ausBuildType3,
                     'floor' => $request->ausFloorType3,
                     'lift' => $request->isAusLift3,
@@ -1583,7 +1583,7 @@ class indexController extends Controller
                 'street' => $request->ausStreet3,
                 'postCode' => $request->ausPostcode3,
                 'city' => $request->ausCity3,
-                'country' => $request->ausCountry3,
+                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
                 'buildType' => $request->ausBuildType3,
                 'floor' => $request->ausFloorType3,
                 'lift' => $request->isAusLift3,
@@ -1602,7 +1602,7 @@ class indexController extends Controller
                 'street' => $request->einStreet1,
                 'postCode' => $request->einPostcode1,
                 'city' => $request->einCity1,
-                'country' => $request->einCountry1,
+                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
                 'lift' => $request->isEinLift1,
@@ -1617,7 +1617,7 @@ class indexController extends Controller
                 'street' => $request->einStreet1,
                 'postCode' => $request->einPostcode1,
                 'city' => $request->einCity1,
-                'country' => $request->einCountry1,
+                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
                 'lift' => $request->isEinLift1,
@@ -1643,7 +1643,7 @@ class indexController extends Controller
                     'street' => $request->einStreet2,
                     'postCode' => $request->einPostcode2,
                     'city' => $request->einCity2,
-                    'country' => $request->einCountry2,
+                    'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
                     'buildType' => $request->einBuildType2,
                     'floor' => $request->einFloorType2,
                     'lift' => $request->isEinLift2, 
@@ -1660,7 +1660,7 @@ class indexController extends Controller
                 'street' => $request->einStreet2,
                 'postCode' => $request->einPostcode2,
                 'city' => $request->einCity2,
-                'country' => $request->einCountry2,
+                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
                 'buildType' => $request->einBuildType2,
                 'floor' => $request->einFloorType2,
                 'lift' => $request->isEinLift2, 
@@ -1684,7 +1684,7 @@ class indexController extends Controller
                 'street' => $request->einStreet3,
                 'postCode' => $request->einPostcode3,
                 'city' => $request->einCity3,
-                'country' => $request->einCountry3,
+                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
                 'lift' => $request->isEinLift3, 
@@ -1700,7 +1700,7 @@ class indexController extends Controller
                 'street' => $request->einStreet3,
                 'postCode' => $request->einPostcode3,
                 'city' => $request->einCity3,
-                'country' => $request->einCountry3,
+                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
                 'lift' => $request->isEinLift3, 
@@ -1751,6 +1751,7 @@ class indexController extends Controller
                     'customCostPrice2' => $request->extra13Cost,
                     'costPrice' => $request->umzugCost,
                     'discount' => $request->umzugDiscount,
+                    'discountPercent' => $request->umzugDiscountPercent,
                     'compromiser' => $request->umzugCompromiser,
                     'extraCostName' => $request->umzugExtraDiscountText,
                     'extraCostPrice' => $request->umzugExtraDiscount,
@@ -1795,6 +1796,7 @@ class indexController extends Controller
                 'customCostPrice2' => $request->extra13Cost,
                 'costPrice' => $request->umzugCost,
                 'discount' => $request->umzugDiscount,
+                'discountPercent' => $request->umzugDiscountPercent,
                 'compromiser' => $request->umzugCompromiser,
                 'extraCostName' => $request->umzugExtraDiscountText,
                 'extraCostPrice' => $request->umzugExtraDiscount,
@@ -1835,6 +1837,7 @@ class indexController extends Controller
                     'customCostPrice2' => $request->einpackCost2,
                     'costPrice' => $request->einpackCost,
                     'discount' => $request->einpackDiscount,
+                    'discountPercent' => $request->einpackDiscountPercent,
                     'compromiser' => $request->einpackCompromiser,
                     'extraCostName' => $request->einpackExtraDiscountText,
                     'extraCostPrice' => $request->einpackExtraDiscount,
@@ -1866,6 +1869,7 @@ class indexController extends Controller
                 'customCostPrice2' => $request->einpackCost2,
                 'costPrice' => $request->einpackCost,
                 'discount' => $request->einpackDiscount,
+                'discountPercent' => $request->einpackDiscountPercent,
                 'compromiser' => $request->einpackCompromiser,
                 'extraCostName' => $request->einpackExtraDiscountText,
                 'extraCostPrice' => $request->einpackExtraDiscount,
@@ -1906,6 +1910,7 @@ class indexController extends Controller
                     'customCostPrice2' => $request->auspackCost2,
                     'costPrice' => $request->auspackCost,
                     'discount' => $request->auspackDiscount,
+                    'discountPercent' => $request->auspackDiscountPercent,
                     'compromiser' => $request->auspackCompromiser,
                     'extraCostName' => $request->auspackExtraDiscountText,
                     'extraCostPrice' => $request->auspackExtraDiscount,
@@ -1937,6 +1942,7 @@ class indexController extends Controller
                 'customCostPrice2' => $request->auspackCost2,
                 'costPrice' => $request->auspackCost,
                 'discount' => $request->auspackDiscount,
+                'discountPercent' => $request->auspackDiscountPercent,
                 'compromiser' => $request->auspackCompromiser,
                 'extraCostName' => $request->auspackExtraDiscountText,
                 'extraCostPrice' => $request->auspackExtraDiscount,
@@ -1984,6 +1990,7 @@ class indexController extends Controller
                     'extraCostValue2' => $request->reinigungCost2,
                     'discountText' => $request->reinigungExtraDiscountText,
                     'discount' => $request->reinigungExtraDiscount,
+                    'discountPercent' => $request->reinigungDiscountPercent,
                     'totalPrice' => $request->reinigungTotalPrice,
                 ];
 
@@ -2018,6 +2025,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->reinigungCost2,
                 'discountText' => $request->reinigungExtraDiscountText,
                 'discount' => $request->reinigungExtraDiscount,
+                'discountPercent' => $request->reinigungDiscountPercent,
                 'totalPrice' => $request->reinigungTotalPrice,
             ];
 
@@ -2060,6 +2068,7 @@ class indexController extends Controller
                     'extraCostValue2' => $request->reinigungCost22,
                     'discountText' => $request->reinigungExtraDiscountText2,
                     'discount' => $request->reinigungExtraDiscount2,
+                    'discountPercent' => $request->reinigungDiscountPercent2,
                     'totalPrice' => $request->reinigungTotalPrice2,
                 ];
 
@@ -2094,6 +2103,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->reinigungCost22,
                 'discountText' => $request->reinigungExtraDiscountText2,
                 'discount' => $request->reinigungExtraDiscount2,
+                'discountPercent' => $request->reinigungDiscountPercent2,
                 'totalPrice' => $request->reinigungTotalPrice2,
             ];
 
@@ -2133,6 +2143,7 @@ class indexController extends Controller
                     'extraCostText2' => $request->entsorgungCostText2,
                     'extraCostValue2' => $request->entsorgungCost2,
                     'discount' => $request->entsorgungDiscount,
+                    'discountPercent' => $request->entsorgungDiscountPercent,
                     'extraDiscountText' => $request->entsorgungExtraDiscountText,
                     'extraDiscountPrice' => $request->entsorgungExtraDiscount,
                     'defaultPrice' => $request->entsorgungTotalPrice,
@@ -2167,6 +2178,7 @@ class indexController extends Controller
                 'extraCostText2' => $request->entsorgungCostText2,
                 'extraCostValue2' => $request->entsorgungCost2,
                 'discount' => $request->entsorgungDiscount,
+                'discountPercent' => $request->entsorgungDiscountPercent,
                 'extraDiscountText' => $request->entsorgungExtraDiscountText,
                 'extraDiscountPrice' => $request->entsorgungExtraDiscount,
                 'defaultPrice' => $request->entsorgungTotalPrice,
@@ -2216,6 +2228,7 @@ class indexController extends Controller
                     'extraCostValue7' => $request->transportCost7,
                     'totalPrice' => $request->transportCost,
                     'discount' => $request->transportDiscount,
+                    'discountPercent' => $request->transportDiscountPercent,
                     'compromiser' => $request->transportCompromiser,
                     'extraDiscountText' => $request->transportExtraDiscountText,
                     'extraDiscountValue' => $request->transportExtraDiscount,
@@ -2260,6 +2273,7 @@ class indexController extends Controller
                 'extraCostValue7' => $request->transportCost7,
                 'totalPrice' => $request->transportCost,
                 'discount' => $request->transportDiscount,
+                'discountPercent' => $request->transportDiscountPercent,
                 'compromiser' => $request->transportCompromiser,
                 'extraDiscountText' => $request->transportExtraDiscountText,
                 'extraDiscountValue' => $request->transportExtraDiscount,
@@ -2294,6 +2308,7 @@ class indexController extends Controller
                     'extraCostValue2' => $request->lagerungCost2, 
                     'discountText' => $request->lagerungExtraDiscountText, 
                     'discountValue' => $request->lagerungExtraDiscount, 
+                    'discountPercent' => $request->lagerungDiscountPercent,
                     'totalPrice' => $request->lagerungCost, 
                     'fixedPrice' => $request->lagerungFixedPrice, 
                 ];
@@ -2314,6 +2329,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->lagerungCost2, 
                 'discountText' => $request->lagerungExtraDiscountText, 
                 'discountValue' => $request->lagerungExtraDiscount, 
+                'discountPercent' => $request->lagerungDiscountPercent,
                 'totalPrice' => $request->lagerungCost, 
                 'fixedPrice' => $request->lagerungFixedPrice, 
             ];
@@ -2337,6 +2353,7 @@ class indexController extends Controller
 
                 $offerMaterial = [
                     'discount' => $request->materialDiscount,
+                    'discountPercent' => $request->materialDiscountPercent,
                     'deliverPrice' => $request->materialShipPrice,
                     'recievePrice' => $request->materialRecievePrice,
                     'totalPrice' => $request->materialTotalPrice
@@ -2376,6 +2393,7 @@ class indexController extends Controller
         {
             $offerMaterial = [
                 'discount' => $request->materialDiscount,
+                'discountPercent' => $request->materialDiscountPercent,
                 'deliverPrice' => $request->materialShipPrice,
                 'recievePrice' => $request->materialRecievePrice,
                 'totalPrice' => $request->materialTotalPrice
@@ -2779,6 +2797,7 @@ class indexController extends Controller
                 'customCostPrice2' => $request->extra13Cost,
                 'costPrice' => $request->umzugCost,
                 'discount' => $request->umzugDiscount,
+                'discountPercent' => $request->umzugDiscountPercent,
                 'compromiser' => $request->umzugCompromiser,
                 'extraCostName' => $request->umzugExtraDiscountText,
                 'extraCostPrice' => $request->umzugExtraDiscount,
@@ -2804,6 +2823,7 @@ class indexController extends Controller
                 'customCostPrice2' => $request->einpackCost2,
                 'costPrice' => $request->einpackCost,
                 'discount' => $request->einpackDiscount,
+                'discountPercent' => $request->einpackDiscountPercent,
                 'compromiser' => $request->einpackCompromiser,
                 'extraCostName' => $request->einpackExtraDiscountText,
                 'extraCostPrice' => $request->einpackExtraDiscount,
@@ -2863,6 +2883,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->reinigungCost2,
                 'discountText' => $request->reinigungExtraDiscountText,
                 'discount' => $request->reinigungExtraDiscount,
+                'discountPercent' => $request->reinigungDiscountPercent,
                 'totalPrice' => $request->reinigungTotalPrice,
             ];
 
@@ -2891,6 +2912,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->reinigungCost22,
                 'discountText' => $request->reinigungExtraDiscountText2,
                 'discount' => $request->reinigungExtraDiscount2,
+                'discountPercent' => $request->reinigungDiscountPercent2,
                 'totalPrice' => $request->reinigungTotalPrice2,
             ];
 
@@ -2915,6 +2937,7 @@ class indexController extends Controller
                 'extraCostText2' => $request->entsorgungCostText2,
                 'extraCostValue2' => $request->entsorgungCost2,
                 'discount' => $request->entsorgungDiscount,
+                'discountPercent' => $request->entsorgungDiscountPercent,
                 'extraDiscountText' => $request->entsorgungExtraDiscountText,
                 'extraDiscountPrice' => $request->entsorgungExtraDiscount,
                 'defaultPrice' => $request->entsorgungTotalPrice,
@@ -2950,6 +2973,7 @@ class indexController extends Controller
                 'extraCostValue7' => $request->transportCost7,
                 'totalPrice' => $request->transportCost,
                 'discount' => $request->transportDiscount,
+                'discountPercent' => $request->transportDiscountPercent,
                 'compromiser' => $request->transportCompromiser,
                 'extraDiscountText' => $request->transportExtraDiscountText,
                 'extraDiscountValue' => $request->transportExtraDiscount,
@@ -2971,6 +2995,7 @@ class indexController extends Controller
                 'extraCostValue2' => $request->lagerungCost2, 
                 'discountText' => $request->lagerungExtraDiscountText, 
                 'discountValue' => $request->lagerungExtraDiscount, 
+                'discountPercent' => $request->lagerungDiscountPercent,
                 'totalPrice' => $request->lagerungCost, 
                 'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
             ];
@@ -2979,6 +3004,7 @@ class indexController extends Controller
             'discount' => $request->materialDiscount,
             'deliverPrice' => $request->materialShipPrice,
             'recievePrice' => $request->materialRecievePrice,
+            'discountPercent' => $request->materialDiscountPercent,
             'totalPrice' => $request->materialTotalPrice
             ];
 
@@ -3038,6 +3064,11 @@ class indexController extends Controller
             'isTransport' => $request->isTransport,
             'isLagerung' => $request->isLagerung,
             'isMaterial' => $request->isVerpackungsmaterial,
+            'isAuszug2' => $request->isofferAuszug2,
+            'isAuszug3' => $request->isofferAuszug3,
+            'isEinzug2' => $request->isofferEinzug2,
+            'isEinzug3' => $request->isofferEinzug3,
+            'isEinzug1' => $request->einStreet1,
             'auszug1' => $auszug1,
             'auszug2' => $auszug2,
             'auszug3' => $auszug3,
@@ -3061,5 +3092,406 @@ class indexController extends Controller
         return $pdf->stream();
     }
        
+    public function offerPdfPreviewEdit(Request $request)
+    {
+        $id = $request->route('id');
+        $offer = offerte::where('id',$id)->first();
+        $customerId = $offer['customerId'];
+        $customerData = Customer::where('id',$customerId)->first();
+
+        // Auszug Adresses
+            $auszug1 = [
+                'street' => $request->ausStreet1,
+                'postCode' => $request->ausPostcode1,
+                'city' => $request->ausCity1,
+                'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
+                'buildType' => $request->ausBuildType1,
+                'floor' => $request->ausFloorType1,
+                'lift' => $request->isAusLift1,
+                'addressType' => 0   
+            ];
+
+            $auszug2 = [
+                'street' => $request->ausStreet2,
+                'postCode' => $request->ausPostcode2,
+                'city' => $request->ausCity2,
+                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+                'buildType' => $request->ausBuildType2,
+                'floor' => $request->ausFloorType2,
+                'lift' => $request->isAusLift2,
+                'addressType' => 0    
+            ];
+
+            $auszug3 = [
+                'street' => $request->ausStreet3,
+                'postCode' => $request->ausPostcode3,
+                'city' => $request->ausCity3,
+                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+                'buildType' => $request->ausBuildType3,
+                'floor' => $request->ausFloorType3,
+                'lift' => $request->isAusLift3,
+                'addressType' => 0   
+            ];
+
+
+        // Einzug Adresses
+            $einzug1 = [
+                'street' => $request->einStreet1,
+                'postCode' => $request->einPostcode1,
+                'city' => $request->einCity1,
+                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+                'buildType' => $request->einBuildType1,
+                'floor' => $request->einFloorType1,
+                'lift' => $request->isEinLift1, 
+                'addressType' => 1 
+            ];
+
+            $einzug2 = [
+                'street' => $request->einStreet2,
+                'postCode' => $request->einPostcode2,
+                'city' => $request->einCity2,
+                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+                'buildType' => $request->einBuildType2,
+                'floor' => $request->einFloorType2,
+                'lift' => $request->isEinLift2, 
+                'addressType' => 1  
+            ];
+
+            $einzug3 = [
+                'street' => $request->einStreet3,
+                'postCode' => $request->einPostcode3,
+                'city' => $request->einCity3,
+                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+                'buildType' => $request->einBuildType3,
+                'floor' => $request->einFloorType3,
+                'lift' => $request->isEinLift3, 
+                'addressType' => 1  
+            ];
+
+        
+        // Umzug Dizi
+            $umzugPdf = [
+                'tariff' => $request->umzugTariff,
+                'ma' => $request->umzug1ma,
+                'lkw' => $request->umzug1lkw,
+                'anhanger' => $request->umzug1anhanger,
+                'chf' => $request->umzug1chf,
+                'moveDate' => $request->umzugausdate,
+                'moveTime' => $request->umzug1time,
+                'moveDate2' => $request->umzugeindate,
+                'arrivalReturn' => $request->umzugroadChf,
+                'montage' => $request->umzugMontaj,
+                'moveHours' => $request->umzugHours,
+                'extra' => $request->masraf ? $request->extra1 : Null,
+                'extra1' => $request->masraf1 ? $request->extra2 : Null,
+                'extra2' => $request->masraf2 ? $request->extra3 : Null,
+                'extra3' => $request->masraf3 ? $request->extra4 : Null,
+                'extra4' => $request->masraf4 ? $request->extra5 : Null,
+                'extra5' => $request->masraf5 ? $request->extra6 : Null,
+                'extra6' => $request->masraf6 ? $request->extra7 : Null,
+                'extra7' => $request->masraf7 ? $request->extra8 : Null,
+                'extra8' => $request->masraf8 ? $request->extra9 : Null,
+                'extra9' => $request->masraf9 ? $request->extra10 : Null,
+                'extra10' => $request->masraf10 ? $request->extra11 : Null,
+                'customCostName1' => $request->extra12CostText,
+                'customCostPrice1' => $request->extra12Cost,
+                'customCostName2' => $request->extra13CostText,
+                'customCostPrice2' => $request->extra13Cost,
+                'costPrice' => $request->umzugCost,
+                'discount' => $request->umzugDiscount,
+                'discountPercent' => $request->umzugDiscountPercent,
+                'compromiser' => $request->umzugCompromiser,
+                'extraCostName' => $request->umzugExtraDiscountText,
+                'extraCostPrice' => $request->umzugExtraDiscount,
+                'defaultPrice' => $request->umzugTotalPrice, 
+                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+            ];
+        
+        // Einpack Dizi
+            $einpackPdf = [
+                'tariff' => $request->einpackTariff,
+                'ma' => $request->einpack1ma,
+                'chf' => $request->einpack1chf,
+                'einpackDate' => $request->einpackdate,
+                'einpackTime' => $request->einpacktime,
+                'arrivalReturn' => $request->einpackroadChf,
+                'moveHours' => $request->einpackHours,
+                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+                'customCostName1' => $request->einpackCostText1,
+                'customCostPrice1' => $request->einpackCost1,
+                'customCostName2' => $request->einpackCostText2,
+                'customCostPrice2' => $request->einpackCost2,
+                'costPrice' => $request->einpackCost,
+                'discount' => $request->einpackDiscount,
+                'discountPercent' => $request->einpackDiscountPercent,
+                'compromiser' => $request->einpackCompromiser,
+                'extraCostName' => $request->einpackExtraDiscountText,
+                'extraCostPrice' => $request->einpackExtraDiscount,
+                'defaultPrice' => $request->einpackTotalPrice,
+                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+            ];
+
+        // Auspack Dizi
+            $auspackPdf = [
+                'tariff' => $request->auspackTariff,
+                'ma' => $request->auspack1ma,
+                'chf' => $request->auspack1chf,
+                'auspackDate' => $request->auspackdate,
+                'auspackTime' => $request->auspacktime,
+                'arrivalReturn' => $request->auspackroadChf,
+                'moveHours' => $request->auspackHours,
+                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+                'customCostName1' => $request->auspackCostText1,
+                'customCostPrice1' => $request->auspackCost1,
+                'customCostName2' => $request->auspackCostText2,
+                'customCostPrice2' => $request->auspackCost2,
+                'costPrice' => $request->auspackCost,
+                'discount' => $request->auspackDiscount,
+                'discountPercent' => $request->auspackDiscountPercent,
+                'compromiser' => $request->auspackCompromiser,
+                'extraCostName' => $request->auspackExtraDiscountText,
+                'extraCostPrice' => $request->auspackExtraDiscount,
+                'defaultPrice' => $request->auspackTotalPrice,
+                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+            ];
+
+        // Reinigung Dizi
+            $reinigungPdf = [
+                'reinigungType' => $request->reinigungType,
+                'extraReinigung' => $request->extraReinigung,
+                'fixedTariff' => $request->reinigungFixedPrice,
+                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+                'standartTariff' => $request->reinigungPriceTariff,
+                'ma' => $request->reinigungmaValue,
+                'chf' => $request->reinigungchfValue,
+                'hours' => $request->reinigunghourValue,
+                'extraService1' => $request->extraReinigungService1,
+                'extraService2' => $request->extraReinigungService2,
+                'startDate' => $request->reinigungdate,
+                'startTime' => $request->reinigungtime,
+                'endDate' => $request->reinigungEnddate,
+                'endTime' => $request->reinigungEndtime,
+                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+                'extraCostText1' => $request->reinigungCostText1,
+                'extraCostValue1' => $request->reinigungCost1,
+                'extraCostText2' => $request->reinigungCostText2,
+                'extraCostValue2' => $request->reinigungCost2,
+                'discountText' => $request->reinigungExtraDiscountText,
+                'discount' => $request->reinigungExtraDiscount,
+                'discountPercent' => $request->reinigungDiscountPercent,
+                'totalPrice' => $request->reinigungTotalPrice,
+            ];
+
+        // Reinigung 2 Dizi
+            $reinigungPdf2 = [
+                'reinigungType' => $request->reinigungType2,
+                'extraReinigung' => $request->extraReinigung2,
+                'fixedTariff' => $request->reinigungFixedPrice2,
+                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+                'standartTariff' => $request->reinigungPriceTariff2,
+                'ma' => $request->reinigungmaValue2,
+                'chf' => $request->reinigungchfValue2,
+                'hours' => $request->reinigunghourValue2,
+                'extraService1' => $request->extraReinigungService12,
+                'extraService2' => $request->extraReinigungService22,
+                'startDate' => $request->reinigungdate2,
+                'startTime' => $request->reinigungtime2,
+                'endDate' => $request->reinigungEnddate2,
+                'endTime' => $request->reinigungEndtime2,
+                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
+                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+                'extraCostText1' => $request->reinigungCostText12,
+                'extraCostValue1' => $request->reinigungCost12,
+                'extraCostText2' => $request->reinigungCostText22,
+                'extraCostValue2' => $request->reinigungCost22,
+                'discountText' => $request->reinigungExtraDiscountText2,
+                'discount' => $request->reinigungExtraDiscount2,
+                'discountPercent' => $request->reinigungDiscountPercent2,
+                'totalPrice' => $request->reinigungTotalPrice2,
+            ];
+
+        // Entsorgung Dizi
+            $entsorgungPdf = [
+                'volume' => $request->entsorgungVolume,
+                'volumeCHF' => $request->entsorgungVolumeChf,
+                'fixedCost' => $request->entsorgungFixedChf,
+                'm3' => $request->estimatedVolume,
+                'tariff' => $request->entsorgungTariff,
+                'ma' => $request->entsorgungma,
+                'lkw' => $request->entsorgunglkw,
+                'anhanger' => $request->entsorgunganhanger,
+                'chf' => $request->entsorgungchf,
+                'hour' => $request->entsorgungHours,
+                'entsorgungDate' => $request->entsorgungDate,
+                'entsorgungTime' => $request->entsorgungTime,
+                'arrivalReturn' => $request->entsorgungroadChf,
+                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+                'extraCostText1' => $request->entsorgungCostText1,
+                'extraCostValue1' => $request->entsorgungCost1,
+                'extraCostText2' => $request->entsorgungCostText2,
+                'extraCostValue2' => $request->entsorgungCost2,
+                'discount' => $request->entsorgungDiscount,
+                'discountPercent' => $request->entsorgungDiscountPercent,
+                'extraDiscountText' => $request->entsorgungExtraDiscountText,
+                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+                'defaultPrice' => $request->entsorgungTotalPrice,
+                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+            ];
+        // Transport Dizi
+            $transportPdf = [
+                'pdfText' => $request->pdfText,
+                'fixedChf' => $request->transportFixedTariff,
+                'tariff' => $request->transportTariff,
+                'ma' => $request->transportma,
+                'lkw' => $request->transportlkw,
+                'anhanger' => $request->transportanhanger,
+                'chf' => $request->transportchf,
+                'hour' => $request->transporthour,
+                'transportDate' => $request->transportDate,
+                'transportTime' => $request->transportTime,
+                'arrivalReturn' => $request->transportRoadChf,
+                'extraCostText1' => $request->transportCostText1,
+                'extraCostValue1' => $request->transportCost1,
+                'extraCostText2' => $request->transportCostText2,
+                'extraCostValue2' => $request->transportCost2,
+                'extraCostText3' => $request->transportCostText3,
+                'extraCostValue3' => $request->transportCost3,
+                'extraCostText4' => $request->transportCostText4,
+                'extraCostValue4' => $request->transportCost4,
+                'extraCostText5' => $request->transportCostText5,
+                'extraCostValue5' => $request->transportCost5,
+                'extraCostText6' => $request->transportCostText6,
+                'extraCostValue6' => $request->transportCost6,
+                'extraCostText7' => $request->transportCostText7,
+                'extraCostValue7' => $request->transportCost7,
+                'totalPrice' => $request->transportCost,
+                'discount' => $request->transportDiscount,
+                'discountPercent' => $request->transportDiscountPercent,
+                'compromiser' => $request->transportCompromiser,
+                'extraDiscountText' => $request->transportExtraDiscountText,
+                'extraDiscountValue' => $request->transportExtraDiscount,
+                'extraDiscountText2' => $request->transportExtraDiscountText2,
+                'extraDiscountValue2' => $request->transportExtraDiscount2,
+                'defaultPrice' => $request->transportDefaultPrice,
+                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+            ];
+
+        // Lagerung Dizi
+            $lagerungPdf = [
+                'tariff' => $request->lagerungTariff,
+                'chf' => $request->lagerungChf,
+                'volume' => $request->lagerungVolume,
+                'extraCostText1' => $request->lagerungCostText1,
+                'extraCostValue1' => $request->lagerungCost1,
+                'extraCostText2' => $request->lagerungCostText2,
+                'extraCostValue2' => $request->lagerungCost2, 
+                'discountText' => $request->lagerungExtraDiscountText, 
+                'discountValue' => $request->lagerungExtraDiscount, 
+                'discountPercent' => $request->lagerungDiscountPercent,
+                'totalPrice' => $request->lagerungCost, 
+                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+            ];
+        // Material Dizi
+            $materialPdf = [
+            'discount' => $request->materialDiscount,
+            'deliverPrice' => $request->materialShipPrice,
+            'recievePrice' => $request->materialRecievePrice,
+            'discountPercent' => $request->materialDiscountPercent,
+            'totalPrice' => $request->materialTotalPrice
+            ];
+
+            $all = $request->except('_token');
+            if (isset($all['islem'])) {
+                $islem = $all['islem'];
+                unset($all['islem']);
+
+                $baskets = collect();
+                foreach ($islem as $v) {
+                    $basket = [
+                        'productId' => $v['urunId'],
+                        'buyType' => $v['buyType'],
+                        'productPrice' => $v['tutar'],
+                        'quantity' => $v['adet'],
+                        'totalPrice' => $v['toplam'],
+                    ];
+                    $baskets->push($basket);
+                }
+
+                $basketPdf = $baskets->toArray();
+            } else {
+                $basketPdf = [];
+            }
+
+        if ($request->customContactPerson)
+        {   
+            $contactPerson = $request->customContactPerson;
+        }
+        else
+        {
+            $contactPerson = $request->contactPerson;
+        }
+        
+        // Offer Dizi
+            $offer = [
+                'customerId' =>$customerId,
+                'appType' => $request->appOfferType,
+                'offerteNote' => $request->offertePdfNote,
+                'panelNote' => $request->offerteNote,
+                'kostenInkl' => $request->kdvType,
+                'kostenExkl' => $request->kdvType1,
+                'kostenFrei' => $request->kdvType3,
+                'contactPerson' => $contactPerson,
+                'offerteStatus' => 'Beklemede'
+            ];
+            // PDF Dizi
+            $pdfData = [
+            'offer' => $offer,
+            'customer' => $customerData,
+            'isUmzug' => $request->isUmzug,
+            'isEinpack' => $request->isEinpack,
+            'isAuspack' => $request->isAuspack,
+            'isReinigung' => $request->isReinigung,
+            'isReinigung2' => $request->isReinigung2,
+            'isEntsorgung' => $request->isEntsorgung,
+            'isTransport' => $request->isTransport,
+            'isLagerung' => $request->isLagerung,
+            'isMaterial' => $request->isVerpackungsmaterial,
+            'isAuszug2' => $request->isofferAuszug2,
+            'isAuszug3' => $request->isofferAuszug3,
+            'isEinzug2' => $request->isofferEinzug2,
+            'isEinzug3' => $request->isofferEinzug3,
+            'isEinzug1' => $request->einStreet1,
+            'auszug1' => $auszug1,
+            'auszug2' => $auszug2,
+            'auszug3' => $auszug3,
+            'einzug1' => $einzug1,
+            'einzug2' => $einzug2,
+            'einzug3' => $einzug3,
+            'umzug' => $umzugPdf,
+            'einpack' => $einpackPdf,
+            'auspack' => $auspackPdf,
+            'reinigung' => $reinigungPdf,
+            'reinigung2' => $reinigungPdf2,
+            'entsorgung' => $entsorgungPdf,
+            'transport' => $transportPdf,
+            'lagerung' => $lagerungPdf,
+            'material' => $materialPdf,
+            'basket' => $basketPdf,
+        ];
+        
+        $pdf = Pdf::loadView('offerPdfPreview', $pdfData);
+        $pdf->setPaper('A4');
+        return $pdf->stream();
+    }
    
 }

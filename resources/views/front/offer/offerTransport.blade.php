@@ -187,7 +187,7 @@
             </div>
 
             <div class="transport-kostendach-area" style="display: none;">
-                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
@@ -201,7 +201,7 @@
             </div>
 
             <div class="transport-pauschal-area " style="display:none;">
-                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
@@ -269,6 +269,7 @@
         if($("input[name=transportFixedTariff]").val())
         {
             $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transporthour]").prop('required',false); 
             $("input[name=transportma]").prop('required',false); 
             $("input[name=transportlkw]").prop('required',false); 
             $("input[name=transportanhanger]").prop('required',false); 

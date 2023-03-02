@@ -219,7 +219,7 @@
             </div>
 
             <div class="einpack-kostendach-area" @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) 
                     value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost') }}" 
                     @else value="{{ 0 }}" 
@@ -238,7 +238,7 @@
             </div>
 
             <div class="einpack-pauschal-area " @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
-                <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice') }}" 
                 @endif>

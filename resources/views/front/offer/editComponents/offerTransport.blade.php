@@ -448,6 +448,7 @@
          if($("input[name=transportFixedTariff]").val())
          {
             $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transporthour]").prop('required',false); 
             $("input[name=transportma]").prop('required',false); 
             $("input[name=transportlkw]").prop('required',false); 
             $("input[name=transportanhanger]").prop('required',false); 
