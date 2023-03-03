@@ -95,7 +95,7 @@
                                     <label for="" class="col-form-label">Payment Type</label><br>
                                     <select class="form-control" name="paymentType" id="paymentType">
                                         <option value="0">Bar</option>
-                                        <option value="1">Invoice</option>
+                                        <option value="1">Rechnung</option>
                                     </select>
                                 </div>
                             </div>
@@ -113,55 +113,57 @@
                             {{-- Umzug Alanı --}}
                             <div class="form-group row umzug--area" style="display: none;">
                                 {{-- 1.Umzug Alanı Başlangıç --}}
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Umzugstermin Am</label>
-                                    <input class="form-control" class="date" id="umzug1date" name="umzug1date"
-                                        type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
-                                    <input class="form-control" name="umzug1time" type="time">
-                                </div>
-
-                                <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" name="umzug1hours" placeholder="4-5" type="text">
+                                <div class="form-group row umzug-area">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Umzugstermin Am</label>
+                                        <input class="form-control" class="date" id="umzug1date" name="umzug1date"
+                                            type="date">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control" name="umzug1ma" placeholder="0" type="number">
+    
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
+                                        <input class="form-control" name="umzug1time" type="time">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control" name="umzug1lkw" placeholder="0" type="number">
+    
+                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                            <input class="form-control" name="umzug1hours" placeholder="4-5" type="text">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">MA</label>
+                                            <input class="form-control" name="umzug1ma" placeholder="0" type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">LKW</label>
+                                            <input class="form-control" name="umzug1lkw" placeholder="0" type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Anhänger</label>
+                                            <input class="form-control" name="umzug1anhanger" placeholder="0"
+                                                type="number">
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control" name="umzug1anhanger" placeholder="0"
-                                            type="number">
-                                    </div>
-                                </div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="umzug1calendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="umzug1calendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="umzug1calendarTitle"
+                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
+                                        </div>
+    
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="umzug1calendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
@@ -235,57 +237,59 @@
 
                                 {{-- 3.Umzug Alanı Başlangıç --}}
                                 <div class="form-group row w-100 umzug--area2" style="display: none;">
-                                    <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
-                                        <input class="form-control" class="date" name="umzug3date" type="date">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin 3 Stunde</label>
-                                        <input class="form-control" name="umzug3time" type="time">
-                                    </div>
-
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
-                                        <div class="col-md-3">
-                                            <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control" name="umzug3hours" placeholder="4-5"
-                                                type="text">
+                                    <div class="form-group row umzug--area3 w-100">
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
+                                            <input class="form-control" class="date" name="umzug3date" type="date">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control" name="umzug3ma" placeholder="0"
-                                                type="number">
+    
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin 3 Stunde</label>
+                                            <input class="form-control" name="umzug3time" type="time">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control" name="umzug3lkw" placeholder="0"
-                                                type="number">
+    
+                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                                <input class="form-control" name="umzug3hours" placeholder="4-5"
+                                                    type="text">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">MA</label>
+                                                <input class="form-control" name="umzug3ma" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">LKW</label>
+                                                <input class="form-control" name="umzug3lkw" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Anhänger</label>
+                                                <input class="form-control" name="umzug3anhanger" placeholder="0"
+                                                    type="number">
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label class=" col-form-label" for="l0">Anhänger</label>
-                                            <input class="form-control" name="umzug3anhanger" placeholder="0"
-                                                type="number">
-                                        </div>
-                                    </div>
-
-                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
-                                        <div class="col-md-4">
-                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                            <input class="form-control" name="umzug3calendarTitle"
-                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label class=" col-form-label" for="l0">CalendarComment</label>
-                                            <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
-                                                placeholder="CalendarComment"></textarea>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                            <input class="form-control" name="umzug3calendarLocation"
-                                                placeholder="CalendarLocation" type="text"
-                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+    
+                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                                <input class="form-control" name="umzug3calendarTitle"
+                                                    placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            </div>
+    
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarComment</label>
+                                                <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
+                                                    placeholder="CalendarComment"></textarea>
+                                            </div>
+    
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                                <input class="form-control" name="umzug3calendarLocation"
+                                                    placeholder="CalendarLocation" type="text"
+                                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -843,12 +847,14 @@
 
 
 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">Wo</label>
-                                <input class="form-control" name="address" type="text"
-                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }}, {{ $data['country'] }}"
-                                    required>
+                        <div class="wo--area">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label class=" col-form-label" for="l0">Wo</label>
+                                    <input class="form-control" name="address" type="text"
+                                        value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }}, {{ $data['country'] }}"
+                                        required>
+                                </div>
                             </div>
                         </div>
 
@@ -865,15 +871,17 @@
                             </div>
                         </div>
 
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                <input class="form-control" name="calendarTitle" type="text" required value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" ></textarea>
+                        <div class="calendar--area" >
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
+                                    <input class="form-control" name="calendarTitle" type="text" required value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                </div>
+    
+                                <div class="col-md-12">
+                                    <label class=" col-form-label" for="l0">Kalender Kommentar</label>
+                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" ></textarea>
+                                </div>
                             </div>
                         </div>
 
@@ -934,8 +942,6 @@
 @section('footer')
 {{-- Onay Alanı Ayarları --}}
 <script>
-    console.log($("input[name=isCustomEmail]").val(), 'EMAİL CUSTOM')
-
     var umzugbutton = $("div.umzug-control");
     var umzugbutton2 = $("div.umzug-control2");
     var einpackservicebutton = $("div.einpackservice-control");
@@ -1083,14 +1089,62 @@
 
 {{-- Title Oto Doldurma --}}
 <script>
-    
+    function momentConverter(value){
+        moment.locale('de');
+        return moment(value, "YYYY-MM-DD").format("DD. MMMM YYYY");
+    }
     let umzugTitle = $('input[name=umzug1calendarTitle]').val();
+    let umzug2Title = $('input[name=umzug2calendarTitle]').val();
+    let umzug3Title = $('input[name=umzug3calendarTitle]').val();
+    let einpackTitle = $('input[name=einpackcalendarTitle]').val();
+    let auspackTitle = $('input[name=auspackcalendarTitle]').val();
+    let entsorgungTitle = $('input[name=entsorgungcalendarTitle]').val();
+    let transportTitle = $('input[name=transportcalendarTitle]').val();
+    let reinigungTitle = $('input[name=reinigungcalendarTitle]').val();
+    let reinigung2Title = $('input[name=reinigung2calendarTitle]').val();
+    let bescTitle = $('input[name=calendarTitle]').val();
+    
+
+    $(".appointment-type").click(function() {
+        var valueQq = $("input[name=appType]:checked").val();
+        let AppserviceName = '';
+        if (valueQq == 1)
+        {
+            AppserviceName = 'Bes.';
+        }
+        if(valueQq == 3)
+        {
+            AppserviceName = 'Liefe.';
+        }
+        
+        let Appgender = '';
+        let AppgenderType = '{{ $data['gender'] }}';
+        if(AppgenderType == 'male')
+        {
+            Appgender = 'Herr'
+        }
+        else{
+            Appgender = 'Frau'
+        }
+        let Appname = '{{ $data['name'] }}';
+        let Appsurname = '{{ $data['surname'] }}';
+        let Appmobile = '{{ $data['mobile'] }}';
+        let ApppostCode = '{{ $data['postCode'] }}';
+        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
+
+        if(bescnewTitle !== bescTitle) { // only update if the new title is different
+            $('input[name=calendarTitle]').val(bescnewTitle);
+            bescTitle = bescnewTitle; // save the new title
+        }
+        console.log(valueQq,'VBALL')
+    })
+
     // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
-    $('body').on('change','.umzug--area',function(){
+    $('body').on('change','.umzug-area',function(){
         let serviceName = 'Umzug';
         let gender = '';
         let genderType = '{{ $data['gender'] }}';
-        let hours,ma,lkw,time;
+        let hours,ma,lkw,time,anhanger;
         if(genderType == 'male')
         {
             gender = 'Herr'
@@ -1101,20 +1155,253 @@
         let name = '{{ $data['name'] }}';
         let surname = '{{ $data['surname'] }}';
         let mobile = '{{ $data['mobile'] }}';
-        if($('input[name=umzug1hours]').val()){ hours = $('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
-        if($('input[name=umzug1ma]').val()){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
-        if($('input[name=umzug1lkw]').val()){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW ca.';}else{ lkw = ''}
+        if($('input[name=umzug1hours]').val()){ hours = 'ca.'+' '+$('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
+        if($('input[name=umzug1ma]').val()>0){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
+        if($('input[name=umzug1lkw]').val()>0){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW';}else{ lkw = ''}
+        if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1lkw]').val()+' '+'Anh';}else{ anhanger = ''}
         if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
-      
-        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+hours+' '+'/'+' '+time;
+    
+        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
 
         if(newTitle !== umzugTitle) { // only update if the new title is different
             $('input[name=umzug1calendarTitle]').val(newTitle);
             umzugTitle = newTitle; // save the new title
         }
     })
+
+    $('body').on('change','.umzug--area2',function(){
+        let umzug2serviceName = 'Umzug 2';
+        let umzug2gender = '';
+        let umzug2genderType = '{{ $data['gender'] }}';
+        let umzug2hours,umzug2ma,umzug2lkw,umzug2time,umzug2anhanger;
+        if(umzug2genderType == 'male')
+        {
+            umzug2gender = 'Herr'
+        }
+        else{
+            umzug2gender = 'Frau'
+        }
+        let umzug2name = '{{ $data['name'] }}';
+        let umzug2surname = '{{ $data['surname'] }}';
+        let umzug2mobile = '{{ $data['mobile'] }}';
+        if($('input[name=umzug2hours]').val()){ umzug2hours = 'ca.'+' '+$('input[name=umzug2hours]').val()+' '+'Std'}else{ umzug2hours = ''}
+        if($('input[name=umzug2ma]').val()>0){  umzug2ma = $('input[name=umzug2ma]').val()+' '+'MA';} else { umzug2ma = ''}
+        if($('input[name=umzug2lkw]').val()>0){  umzug2lkw = $('input[name=umzug2lkw]').val()+' '+'LW';}else{ umzug2lkw = ''}
+        if($('input[name=umzug2anhanger]').val()>0){  umzug2anhanger = $('input[name=umzug2anhanger]').val()+' '+'ANH';}else{ umzug2anhanger = ''}
+        if($('input[name=umzug2time]').val()){  umzug2time = $('input[name=umzug2time]').val()+' '+'Uhr';}else{ umzug2time = ''}
     
+        let umzug2newTitle = umzug2serviceName+' '+'/'+' '+umzug2gender+' '+umzug2name+' '+umzug2surname+' '+umzug2mobile+' '+'/'+' '+umzug2ma+' '+umzug2lkw+' '+umzug2anhanger+' '+umzug2hours+' '+'/'+' '+umzug2time;
+
+        if(umzug2newTitle !== umzug2Title) { // only update if the new title is different
+            $('input[name=umzug2calendarTitle]').val(umzug2newTitle);
+            umzug2Title = umzug2newTitle; // save the new title
+        }
+    })
+    
+    $('body').on('change','.umzug--area3',function(){
+        let umzug3serviceName = 'Umzug 3';
+        let umzug3gender = '';
+        let umzug3genderType = '{{ $data['gender'] }}';
+        let umzug3hours,umzug3ma,umzug3lkw,umzug3time,umzug3anhanger;
+        if(umzug3genderType == 'male')
+        {
+            umzug3gender = 'Herr'
+        }
+        else{
+            umzug3gender = 'Frau'
+        }
+        let umzug3name = '{{ $data['name'] }}';
+        let umzug3surname = '{{ $data['surname'] }}';
+        let umzug3mobile = '{{ $data['mobile'] }}';
+        if($('input[name=umzug3hours]').val()){ umzug3hours = 'ca.'+' '+$('input[name=umzug3hours]').val()+' '+'Std'}else{ umzug3hours = ''}
+        if($('input[name=umzug3ma]').val()>0){  umzug3ma = $('input[name=umzug3ma]').val()+' '+'MA';} else { umzug3ma = ''}
+        if($('input[name=umzug3lkw]').val()>0){  umzug3lkw = $('input[name=umzug3lkw]').val()+' '+'LW ';}else{ umzug3lkw = ''}
+        if($('input[name=umzug3anhanger]').val()>0){  umzug3anhanger = $('input[name=umzug3anhanger]').val()+' '+'ANH';}else{ umzug3anhanger = ''}
+        if($('input[name=umzug3time]').val()){  umzug3time = $('input[name=umzug3time]').val()+' '+'Uhr';}else{ umzug3time = ''}
+    
+        let umzug3newTitle = umzug3serviceName+' '+'/'+' '+umzug3gender+' '+umzug3name+' '+umzug3surname+' '+umzug3mobile+' '+'/'+' '+umzug3ma+' '+umzug3lkw+' '+umzug3anhanger+' '+umzug3hours+' '+'/'+' '+umzug3time;
+
+        if(umzug3newTitle !== umzug3Title) { // only update if the new title is different
+            $('input[name=umzug3calendarTitle]').val(umzug3newTitle);
+            umzug3Title = umzug3newTitle; // save the new title
+        }
+    })
+    // Einpack
+    $('body').on('change','.einpackservice--area',function(){
+            let einpackserviceName = 'Einpack';
+            let einpackgender = '';
+            let einpackgenderType = '{{ $data['gender'] }}';
+            let einpackhours,einpackma,einpacklkw,einpacktime,einpackanhanger;
+            if(einpackgenderType == 'male')
+            {
+                einpackgender = 'Herr'
+            }
+            else{
+                einpackgender = 'Frau'
+            }
+            let einpackname = '{{ $data['name'] }}';
+            let einpacksurname = '{{ $data['surname'] }}';
+            let einpackmobile = '{{ $data['mobile'] }}';
+            if($('input[name=einpackhours]').val()){ einpackhours = 'ca.'+' '+$('input[name=einpackhours]').val()+' '+'Std'}else{ einpackhours = ''}
+            if($('input[name=einpackma]').val()>0){  einpackma = $('input[name=einpackma]').val()+' '+'MA';} else { einpackma = ''}
+            if($('input[name=einpacklkw]').val()>0){  einpacklkw = $('input[name=einpacklkw]').val()+' '+'LW';}else{ einpacklkw = ''}
+            if($('input[name=einpackanhanger]').val()>0){  einpackanhanger = $('input[name=einpackanhanger]').val()+' '+'ANH';}else{ einpackanhanger = ''}
+            if($('input[name=einpacktime]').val()){  einpacktime = $('input[name=einpacktime]').val()+' '+'Uhr';}else{ einpacktime = ''}
+        
+            let einpacknewTitle = einpackserviceName+' '+'/'+' '+einpackgender+' '+einpackname+' '+einpacksurname+' '+einpackmobile+' '+'/'+' '+einpackma+' '+einpacklkw+' '+einpackanhanger+' '+einpackhours+' '+'/'+' '+einpacktime;
+
+            if(einpacknewTitle !== einpackTitle) { // only update if the new title is different
+                $('input[name=einpackcalendarTitle]').val(einpacknewTitle);
+                einpackTitle = einpacknewTitle; // save the new title
+            }
+    })
+    // Auspack
+    $('body').on('change','.auspackservice--area',function(){
+            let auspackserviceName = 'Auspack';
+            let auspackgender = '';
+            let auspackgenderType = '{{ $data['gender'] }}';
+            let auspackhours,auspackma,auspacklkw,auspacktime,auspackanhanger;
+            if(auspackgenderType == 'male')
+            {
+                auspackgender = 'Herr'
+            }
+            else{
+                auspackgender = 'Frau'
+            }
+            let auspackname = '{{ $data['name'] }}';
+            let auspacksurname = '{{ $data['surname'] }}';
+            let auspackmobile = '{{ $data['mobile'] }}';
+            if($('input[name=auspackhours]').val()){ auspackhours = 'ca.'+' '+$('input[name=auspackhours]').val()+' '+'Std'}else{ auspackhours = ''}
+            if($('input[name=auspackma]').val()>0){  auspackma = $('input[name=auspackma]').val()+' '+'MA';} else { auspackma = ''}
+            if($('input[name=auspacklkw]').val()>0){  auspacklkw = $('input[name=auspacklkw]').val()+' '+'LW';}else{ auspacklkw = ''}
+            if($('input[name=auspackanhanger]').val()>0){  auspackanhanger = $('input[name=auspackanhanger]').val()+' '+'ANH';}else{ auspackanhanger = ''}
+            if($('input[name=auspacktime]').val()){  auspacktime = $('input[name=auspacktime]').val()+' '+'Uhr';}else{ auspacktime = ''}
+        
+            let auspacknewTitle = auspackserviceName+' '+'/'+' '+auspackgender+' '+auspackname+' '+auspacksurname+' '+auspackmobile+' '+'/'+' '+auspackma+' '+auspacklkw+' '+auspackanhanger+' '+auspackhours+' '+'/'+' '+auspacktime;
+
+            if(auspacknewTitle !== auspackTitle) { // only update if the new title is different
+                $('input[name=auspackcalendarTitle]').val(auspacknewTitle);
+                auspackTitle = auspacknewTitle; // save the new title
+            }
+    })
+
+    // Entsorgung
+    $('body').on('change','.entsorgung--area',function(){
+            let entsorgungserviceName = 'Entsorgung';
+            let entsorgunggender = '';
+            let entsorgunggenderType = '{{ $data['gender'] }}';
+            let entsorgunghours,entsorgungma,entsorgunglkw,entsorgungtime;
+            if(entsorgunggenderType == 'male')
+            {
+                entsorgunggender = 'Herr'
+            }
+            else{
+                entsorgunggender = 'Frau'
+            }
+            let entsorgungname = '{{ $data['name'] }}';
+            let entsorgungsurname = '{{ $data['surname'] }}';
+            let entsorgungmobile = '{{ $data['mobile'] }}';
+            if($('input[name=entsorgunghours]').val()){ entsorgunghours = 'ca.'+' '+$('input[name=entsorgunghours]').val()+' '+'Std'}else{ entsorgunghours = ''}
+            if($('input[name=entsorgungma]').val()>0){  entsorgungma = $('input[name=entsorgungma]').val()+' '+'MA';} else { entsorgungma = ''}
+            if($('input[name=entsorgunglkw]').val()>0){  entsorgunglkw = $('input[name=entsorgunglkw]').val()+' '+'LW';}else{ entsorgunglkw = ''}
+            if($('input[name=entsorgunganhanger]').val()>0){  entsorgunganhanger = $('input[name=entsorgunganhanger]').val()+' '+'ANH';}else{ entsorgunganhanger = ''}
+            if($('input[name=entsorgungtime]').val()){  entsorgungtime = $('input[name=entsorgungtime]').val()+' '+'Uhr';}else{ entsorgungtime = ''}
+        
+            let entsorgungnewTitle = entsorgungserviceName+' '+'/'+' '+entsorgunggender+' '+entsorgungname+' '+entsorgungsurname+' '+entsorgungmobile+' '+'/'+' '+entsorgungma+' '+entsorgunglkw+' '+entsorgunganhanger+' '+entsorgunghours+' '+'/'+' '+entsorgungtime;
+
+            if(entsorgungnewTitle !== entsorgungTitle) { // only update if the new title is different
+                $('input[name=entsorgungcalendarTitle]').val(entsorgungnewTitle);
+                entsorgungTitle = entsorgungnewTitle; // save the new title
+            }
+    })
+
+    // Transport
+    $('body').on('change','.transport--area',function(){
+            let transportserviceName = 'Transport';
+            let transportgender = '';
+            let transportgenderType = '{{ $data['gender'] }}';
+            let transporthours,transportma,transportlkw,transporttime,transportanhanger;
+            if(transportgenderType == 'male')
+            {
+                transportgender = 'Herr'
+            }
+            else{
+                transportgender = 'Frau'
+            }
+            let transportname = '{{ $data['name'] }}';
+            let transportsurname = '{{ $data['surname'] }}';
+            let transportmobile = '{{ $data['mobile'] }}';
+            if($('input[name=transporthours]').val()){ transporthours = 'ca.'+' '+$('input[name=transporthours]').val()+' '+'Std'}else{ transporthours = ''}
+            if($('input[name=transportma]').val()>0){  transportma = $('input[name=transportma]').val()+' '+'MA';} else { transportma = ''}
+            if($('input[name=transportlkw]').val()>0){  transportlkw = $('input[name=transportlkw]').val()+' '+'LW';}else{ transportlkw = ''}
+            if($('input[name=transportanhanger]').val()>0){  transportanhanger = $('input[name=transportanhanger]').val()+' '+'ANH';}else{ transportanhanger = ''}
+            if($('input[name=transporttime]').val()){  transporttime = $('input[name=transporttime]').val()+' '+'Uhr';}else{ transporttime = ''}
+        
+            let transportnewTitle = transportserviceName+' '+'/'+' '+transportgender+' '+transportname+' '+transportsurname+' '+transportmobile+' '+'/'+' '+transportma+' '+transportlkw+' '+transportanhanger+' '+transporthours+' '+'/'+' '+transporttime;
+
+            if(transportnewTitle !== transportTitle) { // only update if the new title is different
+                $('input[name=transportcalendarTitle]').val(transportnewTitle);
+                transportTitle = transportnewTitle; // save the new title
+            }
+    })
+
+    // Reinigung
+    $('body').on('change','.reinigung--area',function(){
+            // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+            let reinigungserviceName = 'Reinigung';
+            let reinigunggender = '';
+            let reinigunggenderType = '{{ $data['gender'] }}';
+            let reinigungEndDate,reinigungEndTime;
+            if(reinigunggenderType == 'male')
+            {
+                reinigunggender = 'Herr'
+            }
+            else{
+                reinigunggender = 'Frau'
+            }
+            let reinigungname = '{{ $data['name'] }}';
+            let reinigungsurname = '{{ $data['surname'] }}';
+            let reinigungmobile = '{{ $data['mobile'] }}';
+            if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung1Enddate]').val())+' '+'um'}else{ reinigungEndDate = ''}
+            if($('input[name=reinigung1Endtime]').val()){  reinigungEndTime = $('input[name=reinigung1Endtime]').val()+' '+'Uhr';}else{ reinigungEndTime = ''}
+        
+            let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
+
+            if(reinigungnewTitle !== reinigungTitle) { // only update if the new title is different
+                $('input[name=reinigungcalendarTitle]').val(reinigungnewTitle);
+                reinigungTitle = reinigungnewTitle; // save the new title
+            }
+    })
+
+    // Reinigung 2
+    $('body').on('change','.reinigung2--area',function(){
+            // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+            let reinigung2serviceName = 'Reinigung 2';
+            let reinigung2gender = '';
+            let reinigung2genderType = '{{ $data['gender'] }}';
+            let reinigung2EndDate,reinigung2EndTime;
+            if(reinigung2genderType == 'male')
+            {
+                reinigung2gender = 'Herr'
+            }
+            else{
+                reinigung2gender = 'Frau'
+            }
+            let reinigung2name = '{{ $data['name'] }}';
+            let reinigung2surname = '{{ $data['surname'] }}';
+            let reinigung2mobile = '{{ $data['mobile'] }}';
+            if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung2Enddate]').val())+' '+'um'}else{ reinigung2EndDate = ''}
+            if($('input[name=reinigung2Endtime]').val()){  reinigung2EndTime = $('input[name=reinigung2Endtime]').val()+' '+'Uhr';}else{ reinigung2EndTime = ''}
+        
+            let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
+
+            if(reinigung2newTitle !== reinigung2Title) { // only update if the new title is different
+                $('input[name=reinigung2calendarTitle]').val(reinigung2newTitle);
+                reinigung2Title = reinigung2newTitle; // save the new title
+            }
+    })
 </script>
+
 {{-- Email Ayarları --}}
 <script>
     var morebutton = $("div.email-send");
@@ -1149,18 +1436,24 @@
                 $(".confirmation--area").hide(300);
                 $(".contactType--area").show(500);
                 $(".dateHour--area").show(300);
+                $(".calendar--area").show(300);
+                $(".wo--area").show(300);
                 break;
             case '2':
                 $(".confirmation--area").show(300);
                 $(".deliverable--area").hide(300);
                 $(".contactType--area").hide(500);
                 $(".dateHour--area").hide(300);
+                $(".calendar--area").hide(300);
+                $(".wo--area").hide(300);
                 break;
             case '3':
                 $(".confirmation--area").hide(300);
                 $(".deliverable--area").show(500);
                 $(".contactType--area").hide(300);
                 $(".dateHour--area").hide(300);
+                $(".calendar--area").show(300);
+                $(".wo--area").show(300);
                 break;
         }
 
@@ -1276,6 +1569,7 @@
 
         if (valueZ == 1) {
             $("body").on("change", ".widget-body", function() {
+
                 let dateArray = [];
                 var tarih1 = $('input[name=date]').val();
                 dateArray.some(function(entry) {
@@ -1431,7 +1725,7 @@
 
         if (valueZ == 3) {
             $("body").on("change", ".widget-body", function() {
-                let dateArray = [];
+                let dateArray3 = [];
                 var tarih1 = $('input[name=meetingDate]').val();
                 dateArray3.some(function(entry) {
                     if (entry.name == "<b>Lieferung:</b> ") {
