@@ -46,44 +46,44 @@ class InformationMail extends Mailable
        
         if($this->data['isCustomEmailSend'])
         {
-            foreach ($this->data['appDate'] as $item) {
-                $fullDate = $item['date'].' '.$item['time'];
-                $endDate = $item['endDate'].' '.$item['endTime'];
-                $location = $item['calendarLocation'];
-                $title = $item['calendarTitle'];
-                $comment =  $item['calendarComment'];
-                calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
-            }
+            // foreach ($this->data['appDate'] as $item) {
+            //     $fullDate = $item['date'].' '.$item['time'];
+            //     $endDate = $item['endDate'].' '.$item['endTime'];
+            //     $location = $item['calendarLocation'];
+            //     $title = $item['calendarTitle'];
+            //     $comment =  $item['calendarComment'];
+            //     calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
+            // }
 
-            $calendar =  Calendar::create($this->data['companyName'])
-            ->event(Event::create($this->data['sub'])                   
-                ->organizer($this->data['from'],$this->data['companyName'])
-                ->attendee($this->data['email'])  
-                ->startsAt(new DateTime($this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'], new DateTimeZone('Europe/Istanbul')))
-                ->endsAt(new DateTime($this->data['appDate'][0]['date']))
+            // $calendar =  Calendar::create($this->data['companyName'])
+            // ->event(Event::create($this->data['sub'])                   
+            //     ->organizer($this->data['from'],$this->data['companyName'])
+            //     ->attendee($this->data['email'])  
+            //     ->startsAt(new DateTime($this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'], new DateTimeZone('Europe/Istanbul')))
+            //     ->endsAt(new DateTime($this->data['appDate'][0]['date']))
                 
-            );
+            // );
 
 
             return $this->view('cemail')
                     ->subject($this->data['sub'])
                     ->from($this->data['from'],$this->data['companyName'])
                     ->html($this->data['customEmailContent'])
-                    ->with('data',$this->data)
-                    ->attachData($calendar->get(), 'invite.ics', [
-                        'mime' => 'text/calendar; charset=UTF-8; method=REQUEST',
-                    ]);
+                    ->with('data',$this->data);
+                    // ->attachData($calendar->get(), 'invite.ics', [
+                    //     'mime' => 'text/calendar; charset=UTF-8; method=REQUEST',
+                    // ]);
         }
         else 
         {
-            foreach ($this->data['appDate'] as $item) {
-            $fullDate = $item['date'].' '.$item['time'];
-            $endDate = $item['endDate'].' '.$item['endTime'];
-            $location = $item['calendarLocation'];
-            $title = $item['calendarTitle'];
-            $comment =  $item['calendarComment'];
-            calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
-        }
+            // foreach ($this->data['appDate'] as $item) {
+            // $fullDate = $item['date'].' '.$item['time'];
+            // $endDate = $item['endDate'].' '.$item['endTime'];
+            // $location = $item['calendarLocation'];
+            // $title = $item['calendarTitle'];
+            // $comment =  $item['calendarComment'];
+            // calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
+            // }
             
 
         return $this->view('email')

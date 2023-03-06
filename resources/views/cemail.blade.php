@@ -33,49 +33,71 @@
             <strong>
                 @if ($data2)
                     @if ($data2['gender'] == 'male')
-                        Herr,
+                        Sehr geehrte Herr
                     @else
-                        Frau,
+                        Sehr geehrte Frau
                     @endif
             </strong>
-            {{ $data2['name'] }} {{ $data2['surname'] }}
+             {{ $data2['surname'] }}
         @elseif($data)
             {
             @if ($data['gender'] == 'male')
-                Herr,
+                Sehr geehrte Herr 
             @else
-                Frau,
+                Sehr geehrte Frau
             @endif
             </strong>
-            {{ $data['name'] }} {{ $data['surname'] }}
+            {{ $data['surname'] }} 
             }
             @endif
 
         </div>
 
         <div id="degisken">
-            {{ $data['emailContent'] }}
+            <br>{{ $data['emailContent'] }}
         </div>
-        <br />
-        <div>Vielen herzlichen Dank für Ihr Interesse an unseren Dienstleistungen.</div>
-        <br />
-        <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen Besichtigungstermin wie folgt:</div>
-        <br />
-        <br />
-        <div>
-            Termin: <br>
-            Von:<br>
-            <div id="date"></div>
-            {{ $date }}<br>
-            {{ $data['appDate'] }}<br>
-            Wo: {{ $data['address'] }}<br>
-        </div>
-        <br /> <br />
+        @if ($AppTypeC == 'Besichtigung')
+            <br><div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
+            <br />
+            <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
+            <br />
+            <br />
+            <b>{{ $date }}</b><br><br>
+
+            Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+            Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
+            Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+            </div>
+            @elseif ($AppTypeC == 'Auftragsbestätigung')
+                <div>
+                    Wir bedanken uns herzlichst für die Auftragserteilung und Ihr entgegengebrachtes Vertrauen. <br>
+                    Hiermit bestätigen wir Ihren Auftrag wie folgt:
+                </div>
+                <br />
+                <br />
+                <b>{{ $date }}</b><br>
+                <br /> <br />
+                <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
+                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+                </div>
+                </div>
+                <br /> <br />
+            @elseif($AppTypeC == 'Lieferung')
+            <div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
+                <br />
+                <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
+                <br />
+                <br />
+                <b>{{ $date }}</b><br><br>
+
+
+                Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+                Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
+                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+                </div>
+        @endif
         <div class="footer">
-            <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
-            Wir hoffen, dass wir Ihr Interesse wecken konnten und würden uns freuen, Sie schon bald als einen unserer zufriedenen Kunden begrüssen zu können. <br><br>
-        
-            Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.  <br> <br>
+            <br><br>
             <div>Freundliche Grüsse</div>
             <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>
             <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="200" /></div><br>

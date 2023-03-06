@@ -67,7 +67,7 @@
     }
 </style>
 </head>
-<body>
+<body onload="resizeDiv()">
     <div class="container">
         <div class="row">
             <div class="col-md-12 p-3 mt-3 d-flex justify-content-center">
@@ -179,8 +179,8 @@
                                         @if ( $umzug['extra8'] ) Tresor  {{ $umzug['extra8'] }} CHF <br>@endif
                                         @if ( $umzug['extra9'] ) Tresor  {{ $umzug['extra9'] }} CHF <br>@endif
                                         @if ( $umzug['extra10'] ) Wasserbett  {{ $umzug['extra10'] }} CHF <br>@endif
-                                        @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Freier Text 1 @endif @if ( $umzug['customCostPrice1'] ) {{ $umzug['customCostPrice1'] }} CHF  @endif <br>
-                                        @if ( $umzug['customCostName2'] ) {{ $umzug['customCostName2'] }} @else Freier Text 2 @endif @if ( $umzug['customCostPrice2'] ) {{ $umzug['customCostPrice2'] }} CHF <br> @endif
+                                        @if ( $umzug['customCostPrice1'] ) @if ( $umzug['customCostName1'] ) {{ $umzug['customCostName1'] }} @else Freier Text 1 @endif  {{ $umzug['customCostPrice1'] }} CHF  @endif
+                                        @if ( $umzug['customCostPrice2'] ) @if ( $umzug['customCostName2'] ) {{ $umzug['customCostName2'] }} @else Freier Text 2 @endif  {{ $umzug['customCostPrice2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -302,8 +302,8 @@
                                 <div class="col-md-6">
                                     @if ( $einpack['extra'] ) Spesen  {{ $einpack['extra'] }} CHF <br>@endif
                                     @if ( $einpack['extra1'] ) Verpackungsmaterial  {{ $einpack['extra1'] }} CHF <br>@endif
-                                    @if ( $einpack['customCostName1'] ) {{ $einpack['customCostName1'] }} @else Freier Text 1 @endif @if ( $einpack['customCostPrice1'] ) {{ $einpack['customCostPrice1'] }} CHF <br> @endif
-                                    @if ( $einpack['customCostName2'] ) {{ $einpack['customCostName2'] }} @else Freier Text 2 @endif @if ( $einpack['customCostPrice2'] ) {{ $einpack['customCostPrice2'] }} CHF <br> @endif
+                                    @if ( $einpack['customCostPrice1'] ) @if ( $einpack['customCostName1'] ) {{ $einpack['customCostName1'] }} @else Freier Text 1 @endif  {{ $einpack['customCostPrice1'] }} CHF  @endif
+                                    @if ( $einpack['customCostPrice2'] ) @if ( $einpack['customCostName2'] ) {{ $einpack['customCostName2'] }} @else Freier Text 2 @endif  {{ $einpack['customCostPrice2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -424,8 +424,8 @@
                                 <div class="col-md-6">
                                     @if ( $auspack['extra'] ) Spesen  {{ $auspack['extra'] }} CHF <br>@endif
                                     @if ( $auspack['extra1'] ) Verpackungsmaterial  {{ $auspack['extra1'] }} CHF <br>@endif
-                                    @if ( $auspack['customCostName1'] ) {{ $auspack['customCostName1'] }} @else Freier Text 1 @endif @if ( $auspack['customCostPrice1'] ) {{ $auspack['customCostPrice1'] }} CHF <br> @endif
-                                    @if ( $auspack['customCostName2'] ) {{ $auspack['customCostName2'] }} @else Freier Text 2 @endif @if ( $auspack['customCostPrice2'] ) {{ $auspack['customCostPrice2'] }} CHF <br> @endif
+                                    @if ( $auspack['customCostPrice1'] ) @if ( $auspack['customCostName1'] ) {{ $auspack['customCostName1'] }} @else Freier Text 1 @endif  {{ $auspack['customCostPrice1'] }} CHF  @endif
+                                    @if ( $auspack['customCostPrice2'] ) @if ( $auspack['customCostName2'] ) {{ $auspack['customCostName2'] }} @else Freier Text 2 @endif  {{ $auspack['customCostPrice2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -583,8 +583,8 @@
                                     @if ( $reinigung['extra1'] ) Hochdruckreiniger  {{ $reinigung['extra1'] }} CHF <br>@endif
                                     @if ( $reinigung['extra2'] ) Stein- und Parkettböden  {{ $reinigung['extra2'] }} CHF <br>@endif
                                     @if ( $reinigung['extra3'] ) Teppichschamponieren  {{ $reinigung['extra3'] }} CHF <br>@endif
-                                    @if ( $reinigung['extraCostText1'] ) {{ $reinigung['extraCostText1'] }} @else Zusatzkosten 1 @endif @if ( $reinigung['extraCostValue1'] ) {{ $reinigung['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $reinigung['extraCostText2'] ) {{ $reinigung['extraCostText2'] }} @else Zusatzkosten 2 @endif @if ( $reinigung['extraCostValue2'] ) {{ $reinigung['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $reinigung['extraCostValue1'] ) @if ( $reinigung['extraCostText1'] ) {{ $reinigung['extraCostText1'] }} @else Zusatzkosten 1 @endif  {{ $reinigung['extraCostValue1'] }} CHF  @endif
+                                    @if ( $reinigung['extraCostValue2'] ) @if ( $reinigung['extraCostText2'] ) {{ $reinigung['extraCostText2'] }} @else Zusatzkosten 2 @endif  {{ $reinigung['extraCostValue2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -719,8 +719,8 @@
                                     @if ( $reinigung2['extra1'] ) Hochdruckreiniger  {{ $reinigung2['extra1'] }} CHF <br>@endif
                                     @if ( $reinigung2['extra2'] ) Stein- und Parkettböden  {{ $reinigung2['extra2'] }} CHF <br>@endif
                                     @if ( $reinigung2['extra3'] ) Teppichschamponieren  {{ $reinigung2['extra3'] }} CHF <br>@endif
-                                    @if ( $reinigung2['extraCostText1'] ) {{ $reinigung2['extraCostText1'] }} @else Zusatzkosten 1 @endif @if ( $reinigung2['extraCostValue1'] ) {{ $reinigung2['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $reinigung2['extraCostText2'] ) {{ $reinigung2['extraCostText2'] }} @else Zusatzkosten 2 @endif @if ( $reinigung2['extraCostValue2'] ) {{ $reinigung2['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $reinigung2['extraCostValue1'] ) @if ( $reinigung2['extraCostText1'] ) {{ $reinigung2['extraCostText1'] }} @else Zusatzkosten 1 @endif  {{ $reinigung2['extraCostValue1'] }} CHF  @endif
+                                    @if ( $reinigung2['extraCostValue2'] ) @if ( $reinigung2['extraCostText2'] ) {{ $reinigung2['extraCostText2'] }} @else Zusatzkosten 2 @endif  {{ $reinigung2['extraCostValue2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -826,8 +826,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ( $entsorgung['entsorgungExtra1'] ) Spesen  {{ $entsorgung['entsorgungExtra1'] }} CHF <br>@endif
-                                    @if ( $entsorgung['extraCostValue1'] ) {{ $entsorgung['extraCostText1'] }}  {{ $entsorgung['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $entsorgung['extraCostValue2'] ) {{ $entsorgung['extraCostText2'] }}  {{ $entsorgung['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $entsorgung['extraCostValue1'] ) @if ( $entsorgung['extraCostText1'] ) {{ $entsorgung['extraCostText1'] }} @else Freier Text 1 @endif  {{ $entsorgung['extraCostValue1'] }} CHF  @endif
+                                    @if ( $entsorgung['extraCostValue2'] ) @if ( $entsorgung['extraCostText2'] ) {{ $entsorgung['extraCostText2'] }} @else Freier Text 2 @endif  {{ $entsorgung['extraCostValue2'] }} CHF  @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -945,13 +945,13 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $transport['extraCostValue1'] !=0) {{ $transport['extraCostText1'] }}   {{ $transport['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue2'] !=0) {{ $transport['extraCostText2'] }}   {{ $transport['extraCostValue2'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue3'] !=0) {{ $transport['extraCostText3'] }}   {{ $transport['extraCostValue3'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue4'] !=0) {{ $transport['extraCostText4'] }}   {{ $transport['extraCostValue4'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue5'] !=0) {{ $transport['extraCostText5'] }}   {{ $transport['extraCostValue5'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue6'] !=0) {{ $transport['extraCostText6'] }}   {{ $transport['extraCostValue6'] }} CHF <br> @endif
-                                    @if ( $transport['extraCostValue7'] !=0) {{ $transport['extraCostText7'] }}   {{ $transport['extraCostValue7'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue1'] !=0) @if( $transport['extraCostText1'] ) {{ $transport['extraCostText1'] }} @else Zusatzkosten 1 @endif  {{ $transport['extraCostValue1'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue2'] !=0) @if( $transport['extraCostText2'] ) {{ $transport['extraCostText2'] }} @else Zusatzkosten 2 @endif  {{ $transport['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue3'] !=0) @if( $transport['extraCostText3'] ) {{ $transport['extraCostText3'] }} @else Zusatzkosten 3 @endif  {{ $transport['extraCostValue3'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue4'] !=0) @if( $transport['extraCostText4'] ) {{ $transport['extraCostText4'] }} @else Zusatzkosten 4 @endif  {{ $transport['extraCostValue4'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue5'] !=0) @if( $transport['extraCostText5'] ) {{ $transport['extraCostText5'] }} @else Zusatzkosten 5 @endif  {{ $transport['extraCostValue5'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue6'] !=0) @if( $transport['extraCostText6'] ) {{ $transport['extraCostText6'] }} @else Zusatzkosten 6 @endif  {{ $transport['extraCostValue6'] }} CHF <br> @endif
+                                    @if ( $transport['extraCostValue7'] !=0) @if( $transport['extraCostText7'] ) {{ $transport['extraCostText7'] }} @else Zusatzkosten 7 @endif  {{ $transport['extraCostValue7'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -1062,8 +1062,8 @@
                                     Zusatzkosten
                                 </div>
                                 <div class="col-md-6">
-                                    @if ( $lagerung['extraCostValue1'] !=0) {{ $lagerung['extraCostText1'] }}   {{ $lagerung['extraCostValue1'] }} CHF <br> @endif
-                                    @if ( $lagerung['extraCostValue2'] !=0) {{ $lagerung['extraCostText2'] }}   {{ $lagerung['extraCostValue2'] }} CHF <br> @endif
+                                    @if ( $lagerung['extraCostValue1'] !=0) @if( $lagerung['extraCostText1'] ) {{ $lagerung['extraCostText1'] }} @else Zusatzkosten 1 @endif  {{ $lagerung['extraCostValue1'] }} CHF <br> @endif
+                                    @if ( $lagerung['extraCostValue2'] !=0) @if( $lagerung['extraCostText2'] ) {{ $lagerung['extraCostText2'] }} @else Zusatzkosten 2 @endif  {{ $lagerung['extraCostValue2'] }} CHF <br> @endif
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
@@ -1186,12 +1186,15 @@
                 </div>
 
                 {{-- Sağ Kısım --}}
-                <div class="col-md-4 bg-white  mt-2  b-shadow rounded-custom sticky-top" style="max-height: 510px; top:20px;" >
+                <div id="rightDiv" class="col-md-4 bg-white  mt-2  b-shadow rounded-custom sticky-top" style="top:20px;" >
                     <div class="row">
+
                         <div class="col-md-12 bg-primary text-white p-1 rounded-custom-2 m-0 d-flex justify-content-center align-items-center">
                             <b class=" text-white custom-font" style="font-size:20px;">Auftragserteilung</b><br><br>
                         </div>
+
                         <div class="col-md-12 px-3 py-3">
+                            
                             @if($isUmzug)
                                 <div class="row d-flex justify-content-center align-items-center" >
                                     <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Umzug:</b></div>
@@ -1252,45 +1255,52 @@
                                 <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span id="toplamUcret">0</span> CHF</b></div>
                             </div> --}}
                         </div>
-                        <div class="col-md-6 mt-3 px-3">
+
+                        <div class="col-md-12 mt-3  d-flex justify-content-center">
                            <table>
                             <tr>
                                 <td align="center">
                                     <a href="{{ route('showPdf',['token' => $token]) }}" target="_blank" class="text-primary text-center">
                                     <img src="{{ asset('assets/img/PDF_icon.png') }}" alt="" width="50"></a>
                                 </td>
-                                <td align="center" class="pl-2">
+                                <td align="center" class="pl-3">
                                     <a href="{{ asset('assets/demo/AGB.pdf') }}" class="text-primary text-center" target="_blank">
                                     <img src="{{ asset('assets/img/PDF_icon.png') }}" alt="" width="50"></a>
                                 </td>
                             </tr>
                             <tr >
                                <td align="center" >Offerte</td>
-                               <td align="center" class="pl-2">AGB</td>
+                               <td align="center" class="pl-3">AGB</td>
                             </tr>
                            </table>
                         </div>
 
-                        <div class="col-md-12 mt-3 d-flex justify-content-center align-items-center p-2">
+                        <div class="col-md-12 mt-1 d-flex justify-content-center align-items-center p-2">
                             @if ($offer['offerteStatus'] == 'Onaylandı')
                                     <span class="btn h6 text-white  p-3" style="background-color: #28A745"><b>Dieses Angebot wurde bereits bestätigt.</b></span>
                                 @elseif($offer['offerteStatus'] == 'Onaylanmadı')
                                     <span class="btn h6 text-white  p-3" style="background-color: #DC3545"><b>Dieses Angebot wurde bereits ablehnen.</b></span>
                                 @elseif($offer['offerteStatus'] == 'Beklemede')
+                                
                                 <form action="" method="POST">
                                     @csrf
-                                    <div class="row form-group mt-0">
-                                        <div class="col-md-12 p-3">
-                                            <label for="" class="col-form-label">Mitteilung an den Kundenberater</label><br>
-                                            <textarea class="form-control" name="offerteVerifyNote" id="" cols="15" rows="5" ></textarea>    
-                                        </div>                            
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center p-0">
+                                        <div class="row form-group m-0">
+                                            <div class="col-md-12 ">
+                                                <label for="" class="col-form-label">Mitteilung an den Kundenberater</label><br>
+                                                <textarea class="form-control" name="offerteVerifyNote" id="" cols="5" rows="5" ></textarea>    
+                                            </div>                            
+                                        </div>
                                     </div>
-                                    <div class="row ">
-                                        <div class="form-actions d-flex justify-content-center">
-                                            <div class="form-group row d-flex justify-content-center">
-                                                <div class="col-md-12 d-flex pl-3  ml-md-auto btn-list">
-                                                    <input class="btn btn-primary btn-rounded" type="submit" value="Angebot annehmen " formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
-                                                    <input class="btn btn-danger btn-rounded" type="submit" value="Angebot ablehnen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center p-1">
+                                        <div class="row d-flex">
+                                            <div class="form-actions d-flex justify-content-center">
+                                                <div class="form-group row d-flex justify-content-center">
+                                                    <span class="text-primary mt-3 h5"><strong>Angebot:</strong></span>
+                                                    <div class="col-md-12 d-flex justify-content-center  ml-md-auto mt-1 btn-list">
+                                                        <input class="btn btn-primary btn-rounded" type="submit" value=" Aannehmen " formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
+                                                        <input class="btn btn-danger btn-rounded" type="submit" value=" Ablehnen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1299,6 +1309,9 @@
                             @endif
                             {{-- <a href="{{ route('acceptOfferView', App\Models\OfferVerify::getToken($offer['id'])) }}" target="_blank" class="btn btn-primary w-100 d-flex justify-content-center align-items-center rounded-custom"><strong>Genehmigen oder ablehnen</strong></a> --}}
                         </div>
+                    </div>
+                    <div class="row">
+                        
                     </div>
                 </div>
             </div>
@@ -1355,6 +1368,19 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+    <script>
+        function resizeDiv() {
+        var div = document.getElementById("rightDiv");
+        var content = div.innerHTML;
+        var lines = content.split(/\r\n|\r|\n/);
+        var numLines = lines.length;
+        var lineHeight = 7.5; // varsayılan satır yüksekliği
+        var maxHeight = numLines * lineHeight;
+        div.style.maxHeight = maxHeight + "px";
+        console.log(numLines,'satır Sayısı')
+        console.log(maxHeight,'Max Yükseklik')
+        }
+    </script>
     <script>
         var morebutton2 = $("div.umzug-control");
         morebutton2.click(function(){

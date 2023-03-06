@@ -144,6 +144,7 @@
         table.draw();
         });
     });
+    
 </script>
 
 @endsection

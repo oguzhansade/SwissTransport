@@ -714,6 +714,11 @@ class indexController extends Controller
             'isTransport' => $request->isTransport,
             'isLagerung' => $request->isLagerung,
             'isMaterial' => $request->isVerpackungsmaterial,
+            'isAuszug2' => $request->isofferAuszug2,
+            'isAuszug3' => $request->isofferAuszug3,
+            'isEinzug2' => $request->isofferEinzug2,
+            'isEinzug3' => $request->isofferEinzug3,
+            'isEinzug1' => $request->einStreet1,
             'auszug1' => $auszug1,
             'auszug2' => $auszug2,
             'auszug3' => $auszug3,
@@ -838,7 +843,7 @@ class indexController extends Controller
         }
     }
 
-    public function update (Request $request)
+    public function update2 (Request $request)
     {
         $id = $request->route('id');
         $customer = offerte::where('id',$id)->first();
@@ -1460,7 +1465,7 @@ class indexController extends Controller
     }
 
     // Düzenlenecek
-    public function update2 (Request $request)
+    public function update (Request $request)
     {
         $id = $request->route('id');
         $c = offerte::where('id',$id)->count();
@@ -2423,6 +2428,15 @@ class indexController extends Controller
             }
         }
 
+        if ($request->customContactPerson)
+        {   
+            $contactPerson = $request->customContactPerson;
+        }
+        else
+        {
+            $contactPerson = $request->contactPerson;
+        }
+
         $offerteUpdate = [
             'customerId' =>$d['customerId'],
             'appType' => $request->appOfferType,
@@ -2447,17 +2461,62 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
+            'offerteStatus' => 'Beklemede'
         ];
 
         $update = offerte::where('id',$id)->update($offerteUpdate);
 
-        $sub = 'Teklif Dosyası';
+        // Teklif Onayı
+        $oToken = Str::random(64);
+
+        OfferVerify::create([
+            'offerId' => $id,
+            'oToken' => $oToken,
+        ]);
+
+        // Teklif Göster
+        $zToken = Str::random(64);
+        OfferCustomerView::create([
+            'offerId' => $id,
+            'zToken' => $zToken,
+        ]);
+
+        // SMS
+            if($request->isSMS)
+            {
+                $customerId = $request->route('id');
+                $customer = Customer::where('id',$customerId)->first();
+            
+                $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+                $client = new \Vonage\Client($basic);
+
+                $number = $customer['mobile'];
+                $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
+                $content ='Ihr Angebot wurde erstellt From Swiss';
+                $staticContent2 = ' '.Company::InfoCompany('name');
+                if($request->isCustomSMS)
+                {
+                    $content = $request->customSMS;
+                    $response = $client->sms()->send(
+                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
+                    );
+                }
+                else{
+                    $response = $client->sms()->send(
+                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
+                    );
+                }
+            }
+        // SMS
+
+        $sub = 'Ihr Angebot';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $d['customerId'])->value('name'); // Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $d['customerId'])->value('surname');
-
         $customerData =  Customer::where('id',$d['customerId'])->first();
+        
+        $offer = offerte::where('id',$id)->first();
         $auszug1 = offerteAddress::where('id',$AusId)->first();
         $auszug2 = offerteAddress::where('id',$AusId2)->first();
         $auszug3 = offerteAddress::where('id',$AusId3)->first();
@@ -2477,6 +2536,7 @@ class indexController extends Controller
 
 
         $pdfData = [
+            'offer' => $offer,
             'offerteNumber' => $offerteId ,
             'customer' => $customerData,
             'isUmzug' => $request->isUmzug,
@@ -2488,6 +2548,11 @@ class indexController extends Controller
             'isTransport' => $request->isTransport,
             'isLagerung' => $request->isLagerung,
             'isMaterial' => $request->isVerpackungsmaterial,
+            'isAuszug2' => $request->isofferAuszug2,
+            'isAuszug3' => $request->isofferAuszug3,
+            'isEinzug2' => $request->isofferEinzug2,
+            'isEinzug3' => $request->isofferEinzug3,
+            'isEinzug1' => $request->einStreet1,
             'auszug1' => $auszug1,
             'auszug2' => $auszug2,
             'auszug3' => $auszug3,
@@ -2509,12 +2574,49 @@ class indexController extends Controller
         $pdf = Pdf::loadView('offerPdf', $pdfData);
         $pdf->setPaper('A4');
 
+        $customLinks = "<a href=".route('customerOfferView', $zToken).'
+        style="background-color: #8359B7;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'Offerten Ansicht'.'</a>'.'<br>'."<a href=".route('acceptOffer', $oToken).'
+        style="background-color: #007BFF;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'Offerte Annehmen '.'</a>'.'<br>'."<a href=".route('rejectOffer', $oToken).'
+        style="background-color: #DC3545;
+        border-radius: 30px;
+        color: white!important;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;"
+        '.'>'.'Offerte Ablehnen'.'</a>';
+        $offerMailFooter = view('offerMailFooter');
 
         $emailData = [
+            'appType' => $offer['appType'],
             'offerteNumber' => $offerteId,
             'contactPerson' => $contactPerson,
             'name' => $customer,
             'surname' => $customerSurname,
+            'gender' => $customerData['gender'],
             'sub' => $sub,
             'from' => $from,
             'companyName' => $companyName,
@@ -2523,6 +2625,10 @@ class indexController extends Controller
             'isCustomEmailSend' => $isCustomEmailSend,
             'customEmailContent' => $customEmail,
             'pdf' => $pdf,
+            'token' => $oToken,
+            'token2' => $zToken,
+            'customLinks' => $customLinks,
+            'offerMailFooter' => $offerMailFooter
         ];
 
         if ($isCustomEmailSend)
@@ -2538,7 +2644,13 @@ class indexController extends Controller
                     Mail::to($emailData['email'])->send(new OfferMail($emailData));
                     $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
                 }
-                return redirect()->back()->with('status',$id.' - '.'Numaralı Teklif Düzenlendi'.$mailSuccess);
+
+                 return redirect()
+                ->route('customer.detail', ['id' => $d['customerId']])
+                ->with('status',$id.' - '.'Numaralı Teklif Düzenlendi'.$mailSuccess)
+                ->with('cat','Offerte')
+                ->withInput()
+                ->with('keep_status', true);
             }
 
             else {

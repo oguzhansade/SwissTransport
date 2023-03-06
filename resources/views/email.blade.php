@@ -29,11 +29,9 @@
 
 <div>
     <div>
-        <strong>Sehr geehrte @if($data['gender'] == 'male') Herr, @else Frau, @endif</strong>
-        {{ $data['name'] }} {{ $data['surname'] }}
+        <strong>Sehr geehrte @if($data['gender'] == 'male') Herr @else Frau @endif</strong>
+        {{ $data['surname'] }}
     </div>
-
-    
         <div id="degisken">
             {{ $data['emailContent'] }}
         </div>
@@ -50,12 +48,12 @@
         Carbon\Carbon::setLocale('de');
         @endphp
         <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
-        <br><br>
+        <br>
         @endforeach
         @endif
         
         
-        Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+        <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
         Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
         Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
         </div>
@@ -74,11 +72,11 @@
         Carbon\Carbon::setLocale('de');
         @endphp
 
-        <strong>  {{ $item['serviceName'] }}: {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong><br><br>
+        <strong>  {{ $item['serviceName'] }}: {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong><br>
         @endforeach
         @endif
         
-        
+        <br><br>
         <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
         Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
         </div>
@@ -96,11 +94,11 @@
         Carbon\Carbon::setLocale('de');
         @endphp
         <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
-        <br><br>
+        <br>
         @endforeach
         @endif
         
-        Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
+        <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
         Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
         Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
         </div>

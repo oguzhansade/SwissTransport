@@ -97,7 +97,7 @@
                         {{-- Onay Alanı Başlangıç --}}
                         <div class="confirmation--area" style="display: block;">
                             <div class="form-group row">
-                                <div class="col-md-12 umzug-control">
+                                <div class="col-md-12">
                                     <label for="" class="col-form-label">Payment Type</label><br>
                                     <select class="form-control" name="paymentType" id="paymentType">
                                         <option value="0">Bar</option>
@@ -928,7 +928,7 @@
 
 
 
-                        <div class="wo--are">
+                        <div class="wo--area" style="display: none;">
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Wo</label>
@@ -952,7 +952,7 @@
                             </div>
                         </div>
 
-                        <div class="calendar--are">
+                        <div class="calendar--area" style="display: none;">
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
@@ -1168,11 +1168,12 @@
         }
     })
 </script>
+
 {{-- Title Oto Doldurma --}}
 <script>
     function momentConverter(value){
         moment.locale('de');
-        return moment(value, "YYYY-MM-DD").format("DD. MMMM YYYY");
+        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
     }
     let umzugTitle = $('input[name=umzug1calendarTitle]').val();
     let umzug2Title = $('input[name=umzug2calendarTitle]').val();
@@ -1181,6 +1182,7 @@
     let auspackTitle = $('input[name=auspackcalendarTitle]').val();
     let entsorgungTitle = $('input[name=entsorgungcalendarTitle]').val();
     let transportTitle = $('input[name=transportcalendarTitle]').val();
+    let lagerungTitle = $('input[name=lagerungcalendarTitle]').val();
     let reinigungTitle = $('input[name=reinigungcalendarTitle]').val();
     let reinigung2Title = $('input[name=reinigung2calendarTitle]').val();
     let bescTitle = $('input[name=calendarTitle]').val();
@@ -1205,7 +1207,7 @@
         if($('input[name=umzug1hours]').val()){ hours = 'ca.'+' '+$('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
         if($('input[name=umzug1ma]').val()>0){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
         if($('input[name=umzug1lkw]').val()>0){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW';}else{ lkw = ''}
-        if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1lkw]').val()+' '+'Anh';}else{ anhanger = ''}
+        if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1anhanger]').val()+' '+'Anh';}else{ anhanger = ''}
         if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
     
         let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
@@ -1452,6 +1454,36 @@
         }
     }
 
+    function lagerungFunc()
+    {
+        let lagerungserviceName = 'Transport';
+        let lagerunggender = '';
+        let lagerunggenderType = '{{ $data['gender'] }}';
+        let lagerunghours,lagerungma,lagerunglkw,lagerungtime,lagerunganhanger;
+        if(lagerunggenderType == 'male')
+        {
+            lagerunggender = 'Herr'
+        }
+        else{
+            lagerunggender = 'Frau'
+        }
+        let lagerungname = '{{ $data['name'] }}';
+        let lagerungsurname = '{{ $data['surname'] }}';
+        let lagerungmobile = '{{ $data['mobile'] }}';
+        if($('input[name=lagerunghours]').val()){ lagerunghours = 'ca.'+' '+$('input[name=lagerunghours]').val()+' '+'Std'}else{ lagerunghours = ''}
+        if($('input[name=lagerungma]').val()>0){  lagerungma = $('input[name=lagerungma]').val()+' '+'MA';} else { lagerungma = ''}
+        if($('input[name=lagerunglkw]').val()>0){  lagerunglkw = $('input[name=lagerunglkw]').val()+' '+'LW';}else{ lagerunglkw = ''}
+        if($('input[name=lagerunganhanger]').val()>0){  lagerunganhanger = $('input[name=lagerunganhanger]').val()+' '+'ANH';}else{ lagerunganhanger = ''}
+        if($('input[name=lagerungtime]').val()){  lagerungtime = $('input[name=lagerungtime]').val()+' '+'Uhr';}else{ lagerungtime = ''}
+    
+        let lagerungnewTitle = lagerungserviceName+' '+'/'+' '+lagerunggender+' '+lagerungname+' '+lagerungsurname+' '+lagerungmobile+' '+'/'+' '+lagerungtime;
+
+        if(lagerungnewTitle !== lagerungTitle) { // only update if the new title is different
+            $('input[name=lagerungcalendarTitle]').val(lagerungnewTitle);
+            lagerungTitle = lagerungnewTitle; // save the new title
+        }
+    }
+
     $(document).ready(function(){
         umzugFunc();
         umzug2Func();
@@ -1462,6 +1494,7 @@
         transportFunc()
         reinigungFunc()
         reinigung2Func()
+        lagerungFunc()
     })
 
     $(".appointment-type").click(function() {
@@ -1538,8 +1571,11 @@
     $('body').on('change','.reinigung2--area',function(){
         reinigung2Func()
     })
+    $('body').on('change','.reinigung2--area',function(){
+        lagerungFunc()
+    })
 </script>
-{{--  --}}
+
 {{-- Email Ayarları --}}
 <script>
     var morebutton = $("div.email-send");
@@ -1574,18 +1610,24 @@
                 $(".confirmation--area").hide(300);
                 $(".contactType--area").show(500);
                 $(".dateHour--area").show(300);
+                $(".calendar--area").show(300);
+                $(".wo--area").show(300);
                 break;
             case '2':
                 $(".confirmation--area").show(300);
                 $(".deliverable--area").hide(300);
                 $(".contactType--area").hide(500);
                 $(".dateHour--area").hide(300);
+                $(".calendar--area").hide(300);
+                $(".wo--area").hide(300);
                 break;
             case '3':
                 $(".confirmation--area").hide(300);
                 $(".deliverable--area").show(500);
                 $(".contactType--area").hide(300);
                 $(".dateHour--area").hide(300);
+                $(".calendar--area").show(300);
+                $(".wo--area").show(300);
                 break;
         }
 
@@ -1618,74 +1660,94 @@
     var valueZ = $("input[name=appType]:checked").val();
     let dateArray2 = [];
     var tarih1 = $('input[name=umzug1date]').val();
+    var saat1 = $('input[name=umzug1time]').val();
     var tarih2 = $('input[name=umzug2date]').val();
+    var saat2 = $('input[name=umzug2time]').val();
     var tarih3 = $('input[name=umzug3date]').val();
+    var saat3 = $('input[name=umzug3time]').val();
     var tarih4 = $('input[name=einpackdate]').val();
+    var saat4 = $('input[name=einpacktime]').val();
     var tarih5 = $('input[name=auspackdate]').val();
+    var saat5 = $('input[name=auspacktime]').val();
     var tarih6 = $('input[name=reinigung1Startdate]').val();
+    var saat6 = $('input[name=reinigung1Starttime]').val();
     var tarih7 = $('input[name=reinigung2Startdate]').val();
+    var saat7 = $('input[name=reinigung2Starttime]').val();
     var tarih8 = $('input[name=entsorgungdate]').val();
+    var saat8 = $('input[name=entsorgungtime]').val();
     var tarih9 = $('input[name=transportdate]').val();
+    var saat9 = $('input[name=transporttime]').val();
     var tarih10 = $('input[name=lagerungdate]').val();
-    
+    var saat10 = $('input[name=lagerungtime]').val();
+
     if (tarih1 != null || tarih1 != undefined) {
         dateArray2.push({
             name: '<b>Umzug:</b> ',
-            date: tarih1
+            date: tarih1,
+            time: saat1
         })
     }
     if (tarih2 != null || tarih2 != undefined) {
         dateArray2.push({
             name: '<b>Umzug 2:</b>> ',
-            date: tarih2
+            date: tarih2,
+            time: saat2
         })
     }
     if (tarih3 != null || tarih3 != undefined) {
         dateArray2.push({
             name: '<b>Umzug 3:</b> ',
-            date: tarih3
+            date: tarih3,
+            time: saat3
         })
     }
     if (tarih4 != null || tarih4 != undefined) {
         dateArray2.push({
             name: '<b>Einpack:</b> ',
-            date: tarih4
+            date: tarih4,
+            time: saat4
         })
     }
     if (tarih5 != null || tarih5 != undefined) {
         dateArray2.push({
             name: '<b>Auspack:</b> ',
-            date: tarih5
+            date: tarih5,
+            time: saat5
         })
     }
     if (tarih6 != null || tarih6 != undefined) {
         dateArray2.push({
             name: '<b>Reinigung:</b> ',
-            date: tarih6
+            date: tarih6,
+            time: saat6
         })
     }
     if (tarih7 != null || tarih7 != undefined) {
         dateArray2.push({
             name: '<b>Reinigung 2:</b> ',
-            date: tarih7
+            date: tarih7,
+            time: saat7
         })
     }
     if (tarih8 != null || tarih8 != undefined) {
         dateArray2.push({
             name: '<b>Entsorgung:</b> ',
-            date: tarih8
+            date: tarih8,
+            time: saat8
         })
     }
     if (tarih9 != null || tarih9 != undefined) {
         dateArray2.push({
             name: '<b>Transport:</b> ',
-            date: tarih9
+            date: tarih9,
+            time: saat9
         })
     }
     if (tarih10 != null || tarih10 != undefined) {
         dateArray2.push({
             name: '<b>Lagerung:</b> ',
-            date: tarih10
+            date: tarih10,
+            time: saat10
         })
     }
     eventChanges();
@@ -1693,7 +1755,8 @@
         eventChanges();
     });
     function momentConvertValue(value){
-        return moment(value, "YYYY-MM-DD").format("DD.MM.YYYY");
+        moment.locale('de');
+        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
     }
     function eventChanges() {
         valueZ = $("input[name=appType]:checked").val();
@@ -1703,6 +1766,7 @@
             $("body").on("change", ".widget-body", function() {
                 let dateArray = [];
                 var tarih1 = $('input[name=date]').val();
+                var saat1 = $('input[name=time]').val();
                 dateArray.some(function(entry) {
                     if (entry.name == "<b>Besichtigung:</b> ") {
                         found = entry;
@@ -1711,15 +1775,23 @@
                 });
                 if(tarih1!=""){
                     dateArray.push({
-                    name: '<b>Besichtigung:</b> ',
-                    date: momentConvertValue(tarih1)
+                    name: '<b>Besichtigung:</b>',
+                    date: momentConvertValue(tarih1),
+                    time: saat1
                     })
                 }
                 var requestDate = "";
                 for (var i = 0; i <= dateArray.length - 1; i++) {
-                    requestDate += dateArray[i].name + " " + dateArray[i].date + "<br>";
+                    if(dateArray[i].time)
+                    {
+                        requestDate +=  dateArray[i].date +' '+dateArray[i].time+' '+'Uhr'+"<br>";
+                    }
+                    else{
+                        requestDate +=  dateArray[i].date +"<br>";
+                    }
+                    
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Besichtigung'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }
@@ -1727,15 +1799,25 @@
         if (valueZ == 2) {
             $("body").on("change", ".widget-body", function() {
                 var tarih1 = $('input[name=umzug1date]').val();
+                var saat1 = $('input[name=umzug1time]').val();
                 var tarih2 = $('input[name=umzug2date]').val();
+                var saat2 = $('input[name=umzug2time]').val();
                 var tarih3 = $('input[name=umzug3date]').val();
+                var saat3 = $('input[name=umzug3time]').val();
                 var tarih4 = $('input[name=einpackdate]').val();
+                var saat4 = $('input[name=einpacktime]').val();
                 var tarih5 = $('input[name=auspackdate]').val();
+                var saat5 = $('input[name=auspacktime]').val();
                 var tarih6 = $('input[name=reinigung1Startdate]').val();
+                var saat6 = $('input[name=reinigung1Starttime]').val();
                 var tarih7 = $('input[name=reinigung2Startdate]').val();
+                var saat7 = $('input[name=reinigung2Starttime]').val();
                 var tarih8 = $('input[name=entsorgungdate]').val();
+                var saat8 = $('input[name=entsorgungtime]').val();
                 var tarih9 = $('input[name=transportdate]').val();
+                var saat9 = $('input[name=transporttime]').val();
                 var tarih10 = $('input[name=lagerungdate]').val();
+                var saat10 = $('input[name=lagerungtime]').val();
                 var found;
                 dateArray2.some(function(entry) {
                     if (entry.name == "<b>Umzug:</b> ") {
@@ -1780,83 +1862,114 @@
                     }
                 });
                 if ($("input[name=isUmzug]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Umzug:</b> ',
-                        date: momentConvertValue(tarih1)
-                    })
+                    if(tarih1!=""){
+                        dateArray2.push({
+                            name: '<b>Umzug:</b> ',
+                            date: momentConvertValue(tarih1),
+                            time: saat1
+                        })
+                    }
                 }
                 if ($("input[name=isUmzug2]:checked").val()) {
                     if(tarih2!=""){
                         dateArray2.push({
                         name: '<b>Umzug 2:</b> ',
-                        date: momentConvertValue(tarih2)
+                        date: momentConvertValue(tarih2),
+                        time: saat2
                     })
                     }
                     if(tarih3!=""){
                         dateArray2.push({
                         name: '<b>Umzug 3:</b> ',
-                        date: momentConvertValue(tarih3)
+                        date: momentConvertValue(tarih3),
+                        time: saat3
                     })
                     }
                 }
                 if ($("input[name=isEinpackservice]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Einpack:</b> ',
-                        date: momentConvertValue(tarih4)
-                    })
+                    if(tarih4!=""){
+                        dateArray2.push({
+                            name: '<b>Einpack:</b> ',
+                            date: momentConvertValue(tarih4),
+                            time: saat4
+                        })
+                    }
                 }
                 if ($("input[name=isAuspackservice]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Auspack:</b> ',
-                        date: momentConvertValue(tarih5)
-                    })
+                    if(tarih5!=""){
+                        dateArray2.push({
+                            name: '<b>Auspack:</b> ',
+                            date: momentConvertValue(tarih5),
+                            time: saat5
+                        })
+                    }
                 }
                 if ($("input[name=isReinigung]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Reinigung:</b> ',
-                        date: momentConvertValue(tarih6)
-                    })
+                    if(tarih6!=""){
+                        dateArray2.push({
+                            name: '<b>Reinigung:</b> ',
+                            date: momentConvertValue(tarih6),
+                            time: saat6
+                        })
+                    }
                 }
                 if ($("input[name=isReinigung2]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Reinigung 2:</b> ',
-                        date: momentConvertValue(tarih7)
-                    })
+                    if(tarih7!=""){
+                        dateArray2.push({
+                            name: '<b>Reinigung 2:</b> ',
+                            date: momentConvertValue(tarih7),
+                            time: saat7
+                        })
+                    }
                 }
                 if ($("input[name=isEntsorgung]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Entsorgung:</b> ',
-                        date: momentConvertValue(tarih8)
-                    })
+                    if(tarih8!=""){
+                        dateArray2.push({
+                            name: '<b>Entsorgung:</b> ',
+                            date: momentConvertValue(tarih8),
+                            time: saat8
+                        })
+                    }
                 }
                 if ($("input[name=isTransport]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Transport:</b> ',
-                        date: momentConvertValue(tarih9)
-                    })
+                    if(tarih9!=""){
+                        dateArray2.push({
+                            name: '<b>Transport:</b> ',
+                            date: momentConvertValue(tarih9),
+                            time: saat9
+                        })
+                    }
                 }
                 if ($("input[name=isLagerung]:checked").val()) {
-                    dateArray2.push({
-                        name: '<b>Lagerung:</b> ',
-                        date: momentConvertValue(tarih10)
-                    })
+                    if(tarih10!=""){
+                        dateArray2.push({
+                            name: '<b>Lagerung:</b> ',
+                            date: momentConvertValue(tarih10),
+                            time: saat10
+                        })
+                    }
                 }
                 
-
                 var requestDate = "";
                 for (var i = 0; i <= dateArray2.length - 1; i++) {
-                    requestDate += dateArray2[i].name + " " + dateArray2[i].date + "<br>";
+                    if(dateArray2[i].time)
+                    {
+                        requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' +dateArray2[i].time + ' '+'Uhr'+"<br>";
+                    }
+                    else {
+                        requestDate += dateArray2[i].name + " " + dateArray2[i].date +"<br>";
+                    }
+                    
                 }
                 
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Auftragsbestätigung'])`);
                 tinymce.execCommand("mceRepaint");
             })
-
         }
 
         if (valueZ == 3) {
             $("body").on("change", ".widget-body", function() {
-                let dateArray = [];
+                let dateArray3 = [];
                 var tarih1 = $('input[name=meetingDate]').val();
                 dateArray3.some(function(entry) {
                     if (entry.name == "<b>Lieferung:</b> ") {
@@ -1872,9 +1985,9 @@
                 }
                 var requestDate = "";
                 for (var i = 0; i <= dateArray3.length - 1; i++) {
-                    requestDate += dateArray3[i].name + " " + dateArray3[i].date + "<br>";
+                    requestDate += '<span style="display:none;">'+ dateArray3[i].name +  '</span>'+" " + dateArray3[i].date + "<br>";
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }

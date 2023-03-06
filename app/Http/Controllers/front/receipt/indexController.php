@@ -739,7 +739,8 @@ class indexController extends Controller
         $sub = 'Ihre Quittung wurde erstellt';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
-        $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
+        $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); 
+        $gender=DB::table('customers')->where('id','=', $customerId)->value('gender');// Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname');
 
         $customerData =  Customer::where('id',$customerId)->first();
@@ -774,6 +775,7 @@ class indexController extends Controller
             'receiptNumber' => $receiptStandartId,
             'name' => $customer,
             'surname' => $customerSurname,
+            'gender' => $gender,
             'sub' => $sub,
             'from' => $from,
             'companyName' => $companyName,

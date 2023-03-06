@@ -19,13 +19,18 @@ class indexController extends Controller
     {
         $table=Product::query();
         $data=DataTables::of($table)
+        
+        ->editColumn('productName', function($table){
+            return '<a class="clickableCell" href="'.route('product.edit',['id'=>$table->id]).'">'.$table->productName.'</a>';
+        }, 'td')
+
         ->addColumn('option',function($table) 
         {
             return '
             <a class="btn btn-sm  btn-edit" href="'.route('product.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
             <a class="btn btn-sm  btn-danger"  href="'.route('product.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
-        ->rawColumns(['option'])
+        ->rawColumns(['option','productName'])
         ->make(true);
 
         return $data;

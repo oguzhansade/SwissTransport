@@ -176,7 +176,46 @@
 @endsection
 
 @section('footer')
+<script>
+    function bescFunc(){
+        let bescTitle = $('input[name=calendarTitle]').val();
+        var valueQq = 3;
+        let AppserviceName = '';
+        if (valueQq == 1)
+        {
+            AppserviceName = 'Bes.';
+        }
+        if(valueQq == 3)
+        {
+            AppserviceName = 'Liefe.';
+        }
+        
+        let Appgender = '';
+        let AppgenderType = '{{ $data2['gender'] }}';
+        if(AppgenderType == 'male')
+        {
+            Appgender = 'Herr'
+        }
+        else{
+            Appgender = 'Frau'
+        }
+        let Appname = '{{ $data2['name'] }}';
+        let Appsurname = '{{ $data2['surname'] }}';
+        let Appmobile = '{{ $data2['mobile'] }}';
+        let ApppostCode = '{{ $data2['postCode'] }}';
+        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
 
+        if(bescnewTitle !== bescTitle) { // only update if the new title is different
+            $('input[name=calendarTitle]').val(bescnewTitle);
+            bescTitle = bescnewTitle; // save the new title
+        }
+        console.log(valueQq,'VBALL')
+    }
+
+    $(document).ready(function(){
+        bescFunc()
+    })
+</script>
 {{-- TinyMce Email Format Ayarları --}}
 <script>
     //TinyMce Ayarları 
@@ -203,30 +242,49 @@
         eventChanges();
     });
     function momentConvertValue(value){
-        return moment(value, "YYYY-MM-DD").format("DD.MM.YYYY");
+        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
+    }
+    function momentConvertTimeValue(value){
+        moment.locale('de');
+        return moment(value, "HH:mm:ss").format("HH:mm");
     }
     function eventChanges() {
         tinymce.execCommand("mceRepaint");
-            $("body").on("change", ".widget-body", function() {
-                let dateArray3 = [];
+        $("body").on("change", ".widget-body", function() {
+            let dateArray3 = [];
                 var tarih1 = $('input[name=meetingDate]').val();
+                var saat1 = $('input[name=meetingHour1]').val();
+                var saat2 = $('input[name=meetingHour2]').val();
                 dateArray3.some(function(entry) {
                     if (entry.name == "<b>Lieferung:</b> ") {
                         found = entry;
-                        dateArray3.splice(found);
+                        dateArray.splice(found);
                     }
                 });
                 if(tarih1!=""){
                     dateArray3.push({
                     name: '<b>Lieferung:</b> ',
-                    date: momentConvertValue(tarih1)
+                    date: momentConvertValue(tarih1),
+                    time1: saat1,
+                    time2: saat2,
                     })
                 }
                 var requestDate = "";
                 for (var i = 0; i <= dateArray3.length - 1; i++) {
-                    requestDate += dateArray3[i].name + " " + dateArray3[i].date + "<br>";
+                    if(dateArray3[i].time1 && !dateArray3[i].time2)
+                    {
+                        requestDate +=  dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'Uhr'+ "<br>";
+                    }
+                    else if(dateArray3[i].time1 && dateArray3[i].time2)
+                    {
+                        requestDate += dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'-'+' '+dateArray3[i].time2+' '+'Uhr'+ "<br>";
+                    }
+                    else{
+                        requestDate += dateArray3[i].date + "<br>";
+                    }
+                    
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
                 tinymce.execCommand("mceRepaint");
             });
     }

@@ -89,6 +89,7 @@ class indexController extends Controller
         ->rawColumns(['publicname','option'])
         ->make(true);
 
+        
         return $data;
     }
 

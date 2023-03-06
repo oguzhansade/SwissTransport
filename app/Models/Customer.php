@@ -50,7 +50,6 @@ class Customer extends Model
 
     static function getData($id)
     {
-       
         $data = Customer::where('id',$id)->get();
         return $data;
     }

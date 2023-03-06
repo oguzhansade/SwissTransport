@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\front\appointment;
 
+use App\Helper\calendarHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\InformationMail;
 use App\Mail\CompanyMail;
@@ -264,7 +265,7 @@ class indexController extends Controller
                     $reinigungId = $reinigungIdBul->id;
                     $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
-                    $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate;
+                    $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate ? $reinigungIdBul->reinigungEndDate : $reinigungIdBul->reinigungStartDate;
                     $appDateArray[$ADC]['endTime'] = $reinigungIdBul->reinigungEndTime;
                     $appDateArray[$ADC]['calendarTitle'] = $reinigungIdBul->calendarTitle;
                     $appDateArray[$ADC]['calendarComment'] = $reinigungIdBul->calendarComment;
@@ -293,7 +294,7 @@ class indexController extends Controller
                     $reinigung2Id = $reinigungId2Bul->id;
                     $appDateArray[$ADC]['date'] = $reinigungId2Bul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungId2Bul->reinigungStartTime;
-                    $appDateArray[$ADC]['endDate'] = $reinigungId2Bul->reinigungEndDate;
+                    $appDateArray[$ADC]['endDate'] = $reinigungId2Bul->reinigungEndDate ? $reinigungId2Bul->reinigungEndDate : $reinigungId2Bul->reinigungStartDate;
                     $appDateArray[$ADC]['endTime'] = $reinigungId2Bul->reinigungEndTime;
                     $appDateArray[$ADC]['calendarTitle'] = $reinigungId2Bul->calendarTitle;
                     $appDateArray[$ADC]['calendarComment'] = $reinigungId2Bul->calendarComment;
@@ -512,6 +513,8 @@ class indexController extends Controller
             'randevuTipi' => $randevuTipi,
         ];
 
+      
+
         if ($isCustomEmailSend)
         {
             Arr::set($emailData, 'customEmailContent', $customEmail);
@@ -527,7 +530,15 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new InformationMail($emailData));
                 // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
                 $mailSuccess = ', Mail Başarıyla Gönderildi';
-            }                  
+            }             
+            foreach ($appDateArray as $item) {
+                $fullDate = $item['date'].' '.$item['time'];
+                $endDate = $item['endDate'].' '.$item['endTime'];
+                $location = $item['calendarLocation'];
+                $title = $item['calendarTitle'];
+                $comment =  $item['calendarComment'];
+                calendarHelper::companyMail($item['serviceName'],$fullDate,$customer,$customerSurname,$customerData['gender'],$location,$title,$comment,$endDate);
+            }     
             return redirect()
             ->route('customer.detail', ['id' => $customerId])
             ->with('status', $randevuTipi.' '.'Randevusu Başarıyla Eklendi'.' '.$mailSuccess)

@@ -49,7 +49,7 @@
                          {{-- Onay Alanı Başlangıç --}}
                          <div class="confirmation--area" >
                             <div class="form-group row">
-                                <div class="col-md-12 umzug-control">
+                                <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Payment Type</label><br>
                                     <select class="form-control" name="paymentType" id="paymentType">
                                         <option value="0" @if ($data['paymentType'] == 0) selected @endif>Bar</option>
@@ -112,7 +112,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="umzug1calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataUmzug) value="{{   $dataUmzug['calendarLocation'] }}"  @endif>
+                                        @if ($dataUmzug) value="{{   $dataUmzug['calendarLocation'] }}"  @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} " @endif>
                                     </div>
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
@@ -171,7 +171,7 @@
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
                                             <input class="form-control"  name="umzug2calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                            @if ($dataUmzug2) value="{{   $dataUmzug2['calendarLocation'] }}" @endif>
+                                            @if ($dataUmzug2) value="{{   $dataUmzug2['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
                                             <input class="form-control"  name="umzug3calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                            @if ($dataUmzug3) value="{{   $dataUmzug3['calendarLocation'] }}" @endif>
+                                            @if ($dataUmzug3) value="{{   $dataUmzug3['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                         </div>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="einpackcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataEinpack) value="{{ $dataEinpack['calendarLocation'] }}" @endif>
+                                        @if ($dataEinpack) value="{{ $dataEinpack['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} " @endif>
                                     </div>
                                 </div>
                             </div>
@@ -350,7 +350,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="auspackcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataAuspack) value="{{ $dataAuspack['calendarLocation'] }}" @endif>
+                                        @if ($dataAuspack) value="{{ $dataAuspack['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                     </div>
                                 </div>
                             </div>
@@ -402,7 +402,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="reinigungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataReinigung) value="{{ $dataReinigung['calendarLocation'] }}" @endif>
+                                        @if ($dataReinigung) value="{{ $dataReinigung['calendarLocation'] }}"  @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} " @endif>
                                     </div>
                                 </div>
                             </div>          
@@ -456,7 +456,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="reinigung2calendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataReinigung2) value="{{ $dataReinigung2['calendarLocation'] }}" @endif>
+                                        @if ($dataReinigung2) value="{{ $dataReinigung2['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                     </div>
                                 </div>
                             </div>                           
@@ -517,7 +517,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="entsorgungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataEntsorgung) value="{{ $dataEntsorgung['calendarLocation'] }}" @endif>
+                                        @if ($dataEntsorgung) value="{{ $dataEntsorgung['calendarLocation'] }}"  @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} " @endif>
                                     </div>
                                 </div>
                             </div>                        
@@ -587,7 +587,7 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="transportcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataTransport) {{ $dataTransport['calendarLocation'] }} @endif>
+                                        @if ($dataTransport) {{ $dataTransport['calendarLocation'] }} @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                     </div>
                                 </div>
                             </div>                        
@@ -629,35 +629,13 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarLocation</label>
                                         <input class="form-control"  name="lagerungcalendarLocation" placeholder="CalendarLocation"  type="text" 
-                                        @if ($dataLagerung) value="{{ $dataLagerung['calendarLocation'] }}" @endif>
+                                        @if ($dataLagerung) value="{{ $dataLagerung['calendarLocation'] }}" @else value=" {{ $data2['street'] }} , {{ $data2['postCode'] }} , {{ $data2['Ort'] }} , {{ $data2['country'] }} "  @endif>
                                     </div>
                                 </div>
                             </div>                        
                             {{-- Transport Alanı Bitiş --}}
                         </div>
                         {{-- Onay Alanı Bitiş --}}
-
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">Wo</label>
-                                <input class="form-control" name="address"  type="text" value="{{   $data['address']  }} " required>                                
-                            </div>                           
-                        </div>
-
-                      
-                            
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle"  type="text" required value="{{ $data['calendarTitle'] }}">                                
-                                </div>
-    
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" required>{{ $data['calendarContent'] }}</textarea>                                
-                                </div>
-                            </div>
-                           
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
@@ -888,8 +866,414 @@
 
 </script>
 
+{{-- Title Oto Doldurma --}}
+<script>
+    
+    let umzugTitle = $('input[name=umzug1calendarTitle]').val();
+    let umzug2Title = $('input[name=umzug2calendarTitle]').val();
+    let umzug3Title = $('input[name=umzug3calendarTitle]').val();
+    let einpackTitle = $('input[name=einpackcalendarTitle]').val();
+    let auspackTitle = $('input[name=auspackcalendarTitle]').val();
+    let entsorgungTitle = $('input[name=entsorgungcalendarTitle]').val();
+    let transportTitle = $('input[name=transportcalendarTitle]').val();
+    let lagerungTitle = $('input[name=lagerungcalendarTitle]').val();
+    let reinigungTitle = $('input[name=reinigungcalendarTitle]').val();
+    let reinigung2Title = $('input[name=reinigung2calendarTitle]').val();
+    let bescTitle = $('input[name=calendarTitle]').val();
+    
+    // Edit gibi çalışıyor bu yüzden fonksiyonlaştırdık
+    function umzugFunc ()
+    {
+        let serviceName = 'Umzug';
+        let gender = '';
+        let genderType = '{{ $data2['gender'] }}';
+        let hours,ma,lkw,time,anhanger;
+        if(genderType == 'male')
+        {
+            gender = 'Herr'
+        }
+        else{
+            gender = 'Frau'
+        }
+        let name = '{{ $data2['name'] }}';
+        let surname = '{{ $data2['surname'] }}';
+        let mobile = '{{ $data2['mobile'] }}';
+        if($('input[name=umzug1hours]').val()){ hours = 'ca.'+' '+$('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
+        if($('input[name=umzug1ma]').val()>0){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
+        if($('input[name=umzug1lkw]').val()>0){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW';}else{ lkw = ''}
+        if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1anhanger]').val()+' '+'Anh';}else{ anhanger = ''}
+        if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
+    
+        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
+
+        if(newTitle !== umzugTitle) { // only update if the new title is different
+            $('input[name=umzug1calendarTitle]').val(newTitle);
+            umzugTitle = newTitle; // save the new title
+        }
+    }
+    
+    function umzug2Func ()
+    {
+        let umzug2serviceName = 'Umzug 2';
+        let umzug2gender = '';
+        let umzug2genderType = '{{ $data2['gender'] }}';
+        let umzug2hours,umzug2ma,umzug2lkw,umzug2time,umzug2anhanger;
+        if(umzug2genderType == 'male')
+        {
+            umzug2gender = 'Herr'
+        }
+        else{
+            umzug2gender = 'Frau'
+        }
+        let umzug2name = '{{ $data2['name'] }}';
+        let umzug2surname = '{{ $data2['surname'] }}';
+        let umzug2mobile = '{{ $data2['mobile'] }}';
+        if($('input[name=umzug2hours]').val()){ umzug2hours = 'ca.'+' '+$('input[name=umzug2hours]').val()+' '+'Std'}else{ umzug2hours = ''}
+        if($('input[name=umzug2ma]').val()>0){  umzug2ma = $('input[name=umzug2ma]').val()+' '+'MA';} else { umzug2ma = ''}
+        if($('input[name=umzug2lkw]').val()>0){  umzug2lkw = $('input[name=umzug2lkw]').val()+' '+'LW';}else{ umzug2lkw = ''}
+        if($('input[name=umzug2anhanger]').val()>0){  umzug2anhanger = $('input[name=umzug2anhanger]').val()+' '+'ANH';}else{ umzug2anhanger = ''}
+        if($('input[name=umzug2time]').val()){  umzug2time = $('input[name=umzug2time]').val()+' '+'Uhr';}else{ umzug2time = ''}
+    
+        let umzug2newTitle = umzug2serviceName+' '+'/'+' '+umzug2gender+' '+umzug2name+' '+umzug2surname+' '+umzug2mobile+' '+'/'+' '+umzug2ma+' '+umzug2lkw+' '+umzug2anhanger+' '+umzug2hours+' '+'/'+' '+umzug2time;
+
+        if(umzug2newTitle !== umzug2Title) { // only update if the new title is different
+            $('input[name=umzug2calendarTitle]').val(umzug2newTitle);
+            umzug2Title = umzug2newTitle; // save the new title
+        }
+    }
+
+    function umzug3Func()
+    {
+        let umzug3serviceName = 'Umzug 3';
+        let umzug3gender = '';
+        let umzug3genderType = '{{ $data2['gender'] }}';
+        let umzug3hours,umzug3ma,umzug3lkw,umzug3time,umzug3anhanger;
+        if(umzug3genderType == 'male')
+        {
+            umzug3gender = 'Herr'
+        }
+        else{
+            umzug3gender = 'Frau'
+        }
+        let umzug3name = '{{ $data2['name'] }}';
+        let umzug3surname = '{{ $data2['surname'] }}';
+        let umzug3mobile = '{{ $data2['mobile'] }}';
+        if($('input[name=umzug3hours]').val()){ umzug3hours = 'ca.'+' '+$('input[name=umzug3hours]').val()+' '+'Std'}else{ umzug3hours = ''}
+        if($('input[name=umzug3ma]').val()>0){  umzug3ma = $('input[name=umzug3ma]').val()+' '+'MA';} else { umzug3ma = ''}
+        if($('input[name=umzug3lkw]').val()>0){  umzug3lkw = $('input[name=umzug3lkw]').val()+' '+'LW ';}else{ umzug3lkw = ''}
+        if($('input[name=umzug3anhanger]').val()>0){  umzug3anhanger = $('input[name=umzug3anhanger]').val()+' '+'ANH';}else{ umzug3anhanger = ''}
+        if($('input[name=umzug3time]').val()){  umzug3time = $('input[name=umzug3time]').val()+' '+'Uhr';}else{ umzug3time = ''}
+    
+        let umzug3newTitle = umzug3serviceName+' '+'/'+' '+umzug3gender+' '+umzug3name+' '+umzug3surname+' '+umzug3mobile+' '+'/'+' '+umzug3ma+' '+umzug3lkw+' '+umzug3anhanger+' '+umzug3hours+' '+'/'+' '+umzug3time;
+
+        if(umzug3newTitle !== umzug3Title) { // only update if the new title is different
+            $('input[name=umzug3calendarTitle]').val(umzug3newTitle);
+            umzug3Title = umzug3newTitle; // save the new title
+        }
+    }
+
+    function einpackFunc()
+    {
+        let einpackserviceName = 'Einpack';
+            let einpackgender = '';
+            let einpackgenderType = '{{ $data2['gender'] }}';
+            let einpackhours,einpackma,einpacklkw,einpacktime,einpackanhanger;
+            if(einpackgenderType == 'male')
+            {
+                einpackgender = 'Herr'
+            }
+            else{
+                einpackgender = 'Frau'
+            }
+            let einpackname = '{{ $data2['name'] }}';
+            let einpacksurname = '{{ $data2['surname'] }}';
+            let einpackmobile = '{{ $data2['mobile'] }}';
+            if($('input[name=einpackhours]').val()){ einpackhours = 'ca.'+' '+$('input[name=einpackhours]').val()+' '+'Std'}else{ einpackhours = ''}
+            if($('input[name=einpackma]').val()>0){  einpackma = $('input[name=einpackma]').val()+' '+'MA';} else { einpackma = ''}
+            if($('input[name=einpacklkw]').val()>0){  einpacklkw = $('input[name=einpacklkw]').val()+' '+'LW';}else{ einpacklkw = ''}
+            if($('input[name=einpackanhanger]').val()>0){  einpackanhanger = $('input[name=einpackanhanger]').val()+' '+'ANH';}else{ einpackanhanger = ''}
+            if($('input[name=einpacktime]').val()){  einpacktime = $('input[name=einpacktime]').val()+' '+'Uhr';}else{ einpacktime = ''}
+        
+            let einpacknewTitle = einpackserviceName+' '+'/'+' '+einpackgender+' '+einpackname+' '+einpacksurname+' '+einpackmobile+' '+'/'+' '+einpackma+' '+einpacklkw+' '+einpackanhanger+' '+einpackhours+' '+'/'+' '+einpacktime;
+
+            if(einpacknewTitle !== einpackTitle) { // only update if the new title is different
+                $('input[name=einpackcalendarTitle]').val(einpacknewTitle);
+                einpackTitle = einpacknewTitle; // save the new title
+            }
+    }
+
+    function auspackFunc()
+    {
+        let auspackserviceName = 'Auspack';
+        let auspackgender = '';
+        let auspackgenderType = '{{ $data2['gender'] }}';
+        let auspackhours,auspackma,auspacklkw,auspacktime,auspackanhanger;
+        if(auspackgenderType == 'male')
+        {
+            auspackgender = 'Herr'
+        }
+        else{
+            auspackgender = 'Frau'
+        }
+        let auspackname = '{{ $data2['name'] }}';
+        let auspacksurname = '{{ $data2['surname'] }}';
+        let auspackmobile = '{{ $data2['mobile'] }}';
+        if($('input[name=auspackhours]').val()){ auspackhours = 'ca.'+' '+$('input[name=auspackhours]').val()+' '+'Std'}else{ auspackhours = ''}
+        if($('input[name=auspackma]').val()>0){  auspackma = $('input[name=auspackma]').val()+' '+'MA';} else { auspackma = ''}
+        if($('input[name=auspacklkw]').val()>0){  auspacklkw = $('input[name=auspacklkw]').val()+' '+'LW';}else{ auspacklkw = ''}
+        if($('input[name=auspackanhanger]').val()>0){  auspackanhanger = $('input[name=auspackanhanger]').val()+' '+'ANH';}else{ auspackanhanger = ''}
+        if($('input[name=auspacktime]').val()){  auspacktime = $('input[name=auspacktime]').val()+' '+'Uhr';}else{ auspacktime = ''}
+    
+        let auspacknewTitle = auspackserviceName+' '+'/'+' '+auspackgender+' '+auspackname+' '+auspacksurname+' '+auspackmobile+' '+'/'+' '+auspackma+' '+auspacklkw+' '+auspackanhanger+' '+auspackhours+' '+'/'+' '+auspacktime;
+
+        if(auspacknewTitle !== auspackTitle) { // only update if the new title is different
+            $('input[name=auspackcalendarTitle]').val(auspacknewTitle);
+            auspackTitle = auspacknewTitle; // save the new title
+        }
+    }
+
+    function entsorgungFunc()
+    {
+        let entsorgungserviceName = 'Entsorgung';
+            let entsorgunggender = '';
+            let entsorgunggenderType = '{{ $data2['gender'] }}';
+            let entsorgunghours,entsorgungma,entsorgunglkw,entsorgungtime;
+            if(entsorgunggenderType == 'male')
+            {
+                entsorgunggender = 'Herr'
+            }
+            else{
+                entsorgunggender = 'Frau'
+            }
+            let entsorgungname = '{{ $data2['name'] }}';
+            let entsorgungsurname = '{{ $data2['surname'] }}';
+            let entsorgungmobile = '{{ $data2['mobile'] }}';
+            if($('input[name=entsorgunghours]').val()){ entsorgunghours = 'ca.'+' '+$('input[name=entsorgunghours]').val()+' '+'Std'}else{ entsorgunghours = ''}
+            if($('input[name=entsorgungma]').val()>0){  entsorgungma = $('input[name=entsorgungma]').val()+' '+'MA';} else { entsorgungma = ''}
+            if($('input[name=entsorgunglkw]').val()>0){  entsorgunglkw = $('input[name=entsorgunglkw]').val()+' '+'LW';}else{ entsorgunglkw = ''}
+            if($('input[name=entsorgunganhanger]').val()>0){  entsorgunganhanger = $('input[name=entsorgunganhanger]').val()+' '+'ANH';}else{ entsorgunganhanger = ''}
+            if($('input[name=entsorgungtime]').val()){  entsorgungtime = $('input[name=entsorgungtime]').val()+' '+'Uhr';}else{ entsorgungtime = ''}
+        
+            let entsorgungnewTitle = entsorgungserviceName+' '+'/'+' '+entsorgunggender+' '+entsorgungname+' '+entsorgungsurname+' '+entsorgungmobile+' '+'/'+' '+entsorgungma+' '+entsorgunglkw+' '+entsorgunganhanger+' '+entsorgunghours+' '+'/'+' '+entsorgungtime;
+
+            if(entsorgungnewTitle !== entsorgungTitle) { // only update if the new title is different
+                $('input[name=entsorgungcalendarTitle]').val(entsorgungnewTitle);
+                entsorgungTitle = entsorgungnewTitle; // save the new title
+            }
+    }
+
+    function transportFunc()
+    {
+        let transportserviceName = 'Transport';
+        let transportgender = '';
+        let transportgenderType = '{{ $data2['gender'] }}';
+        let transporthours,transportma,transportlkw,transporttime,transportanhanger;
+        if(transportgenderType == 'male')
+        {
+            transportgender = 'Herr'
+        }
+        else{
+            transportgender = 'Frau'
+        }
+        let transportname = '{{ $data2['name'] }}';
+        let transportsurname = '{{ $data2['surname'] }}';
+        let transportmobile = '{{ $data2['mobile'] }}';
+        if($('input[name=transporthours]').val()){ transporthours = 'ca.'+' '+$('input[name=transporthours]').val()+' '+'Std'}else{ transporthours = ''}
+        if($('input[name=transportma]').val()>0){  transportma = $('input[name=transportma]').val()+' '+'MA';} else { transportma = ''}
+        if($('input[name=transportlkw]').val()>0){  transportlkw = $('input[name=transportlkw]').val()+' '+'LW';}else{ transportlkw = ''}
+        if($('input[name=transportanhanger]').val()>0){  transportanhanger = $('input[name=transportanhanger]').val()+' '+'ANH';}else{ transportanhanger = ''}
+        if($('input[name=transporttime]').val()){  transporttime = $('input[name=transporttime]').val()+' '+'Uhr';}else{ transporttime = ''}
+    
+        let transportnewTitle = transportserviceName+' '+'/'+' '+transportgender+' '+transportname+' '+transportsurname+' '+transportmobile+' '+'/'+' '+transportma+' '+transportlkw+' '+transportanhanger+' '+transporthours+' '+'/'+' '+transporttime;
+
+        if(transportnewTitle !== transportTitle) { // only update if the new title is different
+            $('input[name=transportcalendarTitle]').val(transportnewTitle);
+            transportTitle = transportnewTitle; // save the new title
+        }
+    }
+
+    function reinigungFunc()
+    {
+        // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+        let reinigungserviceName = 'Reinigung';
+        let reinigunggender = '';
+        let reinigunggenderType = '{{ $data2['gender'] }}';
+        let reinigungEndDate,reinigungEndTime;
+        if(reinigunggenderType == 'male')
+        {
+            reinigunggender = 'Herr'
+        }
+        else{
+            reinigunggender = 'Frau'
+        }
+        let reinigungname = '{{ $data2['name'] }}';
+        let reinigungsurname = '{{ $data2['surname'] }}';
+        let reinigungmobile = '{{ $data2['mobile'] }}';
+        if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung1Enddate]').val())+' '+'um'}else{ reinigungEndDate = ''}
+        if($('input[name=reinigung1Endtime]').val()){  reinigungEndTime = $('input[name=reinigung1Endtime]').val()+' '+'Uhr';}else{ reinigungEndTime = ''}
+    
+        let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
+
+        if(reinigungnewTitle !== reinigungTitle) { // only update if the new title is different
+            $('input[name=reinigungcalendarTitle]').val(reinigungnewTitle);
+            reinigungTitle = reinigungnewTitle; // save the new title
+        }
+    }
+
+    function reinigung2Func()
+    {
+        // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+        let reinigung2serviceName = 'Reinigung 2';
+        let reinigung2gender = '';
+        let reinigung2genderType = '{{ $data2['gender'] }}';
+        let reinigung2EndDate,reinigung2EndTime;
+        if(reinigung2genderType == 'male')
+        {
+            reinigung2gender = 'Herr'
+        }
+        else{
+            reinigung2gender = 'Frau'
+        }
+        let reinigung2name = '{{ $data2['name'] }}';
+        let reinigung2surname = '{{ $data2['surname'] }}';
+        let reinigung2mobile = '{{ $data2['mobile'] }}';
+        if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung2Enddate]').val())+' '+'um'}else{ reinigung2EndDate = ''}
+        if($('input[name=reinigung2Endtime]').val()){  reinigung2EndTime = $('input[name=reinigung2Endtime]').val()+' '+'Uhr';}else{ reinigung2EndTime = ''}
+    
+        let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
+
+        if(reinigung2newTitle !== reinigung2Title) { // only update if the new title is different
+            $('input[name=reinigung2calendarTitle]').val(reinigung2newTitle);
+            reinigung2Title = reinigung2newTitle; // save the new title
+        }
+    }
+
+    function lagerungFunc()
+    {
+        let lagerungserviceName = 'Transport';
+        let lagerunggender = '';
+        let lagerunggenderType = '{{ $data2['gender'] }}';
+        let lagerunghours,lagerungma,lagerunglkw,lagerungtime,lagerunganhanger;
+        if(lagerunggenderType == 'male')
+        {
+            lagerunggender = 'Herr'
+        }
+        else{
+            lagerunggender = 'Frau'
+        }
+        let lagerungname = '{{ $data2['name'] }}';
+        let lagerungsurname = '{{ $data2['surname'] }}';
+        let lagerungmobile = '{{ $data2['mobile'] }}';
+        if($('input[name=lagerunghours]').val()){ lagerunghours = 'ca.'+' '+$('input[name=lagerunghours]').val()+' '+'Std'}else{ lagerunghours = ''}
+        if($('input[name=lagerungma]').val()>0){  lagerungma = $('input[name=lagerungma]').val()+' '+'MA';} else { lagerungma = ''}
+        if($('input[name=lagerunglkw]').val()>0){  lagerunglkw = $('input[name=lagerunglkw]').val()+' '+'LW';}else{ lagerunglkw = ''}
+        if($('input[name=lagerunganhanger]').val()>0){  lagerunganhanger = $('input[name=lagerunganhanger]').val()+' '+'ANH';}else{ lagerunganhanger = ''}
+        if($('input[name=lagerungtime]').val()){  lagerungtime = $('input[name=lagerungtime]').val()+' '+'Uhr';}else{ lagerungtime = ''}
+    
+        let lagerungnewTitle = lagerungserviceName+' '+'/'+' '+lagerunggender+' '+lagerungname+' '+lagerungsurname+' '+lagerungmobile+' '+'/'+' '+lagerungtime;
+
+        if(lagerungnewTitle !== lagerungTitle) { // only update if the new title is different
+            $('input[name=lagerungcalendarTitle]').val(lagerungnewTitle);
+            lagerungTitle = lagerungnewTitle; // save the new title
+        }
+    }
+
+    $(document).ready(function(){
+        umzugFunc();
+        umzug2Func();
+        umzug3Func()
+        einpackFunc()
+        auspackFunc()
+        entsorgungFunc()
+        transportFunc()
+        reinigungFunc()
+        reinigung2Func()
+        lagerungFunc()
+    })
+
+    $(".appointment-type").click(function() {
+        var valueQq = $("input[name=appType]:checked").val();
+        let AppserviceName = '';
+        if (valueQq == 1)
+        {
+            AppserviceName = 'Bes.';
+        }
+        if(valueQq == 3)
+        {
+            AppserviceName = 'Liefe.';
+        }
+        
+        let Appgender = '';
+        let AppgenderType = '{{ $data2['gender'] }}';
+        if(AppgenderType == 'male')
+        {
+            Appgender = 'Herr'
+        }
+        else{
+            Appgender = 'Frau'
+        }
+        let Appname = '{{ $data2['name'] }}';
+        let Appsurname = '{{ $data2['surname'] }}';
+        let Appmobile = '{{ $data2['mobile'] }}';
+        let ApppostCode = '{{ $data2['postCode'] }}';
+        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
+
+        if(bescnewTitle !== bescTitle) { // only update if the new title is different
+            $('input[name=calendarTitle]').val(bescnewTitle);
+            bescTitle = bescnewTitle; // save the new title
+        }
+        console.log(valueQq,'VBALL')
+    })
+
+    // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
+    $('body').on('change','.umzug-area',function(){
+        umzugFunc();
+    })
+
+    $('body').on('change','.umzug--area2',function(){
+        umzug2Func();
+    })
+    
+    $('body').on('change','.umzug--area3',function(){
+        umzug3Func()
+    })
+    // Einpack
+    $('body').on('change','.einpackservice--area',function(){
+        einpackFunc()
+    })
+    // Auspack
+    $('body').on('change','.auspackservice--area',function(){
+        auspackFunc()
+    })
+
+    // Entsorgung
+    $('body').on('change','.entsorgung--area',function(){
+        entsorgungFunc()
+    })
+
+    // Transport
+    $('body').on('change','.transport--area',function(){
+        transportFunc()
+    })
+
+    // Reinigung
+    $('body').on('change','.reinigung--area',function(){
+        reinigungFunc()
+    })
+
+    // Reinigung 2
+    $('body').on('change','.reinigung2--area',function(){
+        reinigung2Func()
+    })
+    $('body').on('change','.reinigung2--area',function(){
+        lagerungFunc()
+    })
+</script>
+
 {{-- TinyMce Email Format Ayarları --}}
 <script>
+   
+   
     //TinyMce Ayarları 
     tinymce.init({
         selector: 'textarea.editor',
@@ -898,77 +1282,97 @@
         apply_source_formatting: true,
         plugins: 'code',
     });
-    
+
     let dateArray2 = [];
     var tarih1 = $('input[name=umzug1date]').val();
+    var saat1 = $('input[name=umzug1time]').val();
     var tarih2 = $('input[name=umzug2date]').val();
+    var saat2 = $('input[name=umzug2time]').val();
     var tarih3 = $('input[name=umzug3date]').val();
+    var saat3 = $('input[name=umzug3time]').val();
     var tarih4 = $('input[name=einpackdate]').val();
+    var saat4 = $('input[name=einpacktime]').val();
     var tarih5 = $('input[name=auspackdate]').val();
+    var saat5 = $('input[name=auspacktime]').val();
     var tarih6 = $('input[name=reinigung1Startdate]').val();
+    var saat6 = $('input[name=reinigung1Starttime]').val();
     var tarih7 = $('input[name=reinigung2Startdate]').val();
+    var saat7 = $('input[name=reinigung2Starttime]').val();
     var tarih8 = $('input[name=entsorgungdate]').val();
+    var saat8 = $('input[name=entsorgungtime]').val();
     var tarih9 = $('input[name=transportdate]').val();
+    var saat9 = $('input[name=transporttime]').val();
     var tarih10 = $('input[name=lagerungdate]').val();
-    
+    var saat10 = $('input[name=lagerungtime]').val();
+
     if (tarih1 != null || tarih1 != undefined) {
         dateArray2.push({
             name: '<b>Umzug:</b> ',
-            date: tarih1
+            date: tarih1,
+            time: saat1
         })
     }
     if (tarih2 != null || tarih2 != undefined) {
         dateArray2.push({
             name: '<b>Umzug 2:</b>> ',
-            date: tarih2
+            date: tarih2,
+            time: saat2
         })
     }
     if (tarih3 != null || tarih3 != undefined) {
         dateArray2.push({
             name: '<b>Umzug 3:</b> ',
-            date: tarih3
+            date: tarih3,
+            time: saat3
         })
     }
     if (tarih4 != null || tarih4 != undefined) {
         dateArray2.push({
             name: '<b>Einpack:</b> ',
-            date: tarih4
+            date: tarih4,
+            time: saat4
         })
     }
     if (tarih5 != null || tarih5 != undefined) {
         dateArray2.push({
             name: '<b>Auspack:</b> ',
-            date: tarih5
+            date: tarih5,
+            time: saat5
         })
     }
     if (tarih6 != null || tarih6 != undefined) {
         dateArray2.push({
             name: '<b>Reinigung:</b> ',
-            date: tarih6
+            date: tarih6,
+            time: saat6
         })
     }
     if (tarih7 != null || tarih7 != undefined) {
         dateArray2.push({
             name: '<b>Reinigung 2:</b> ',
-            date: tarih7
+            date: tarih7,
+            time: saat7
         })
     }
     if (tarih8 != null || tarih8 != undefined) {
         dateArray2.push({
             name: '<b>Entsorgung:</b> ',
-            date: tarih8
+            date: tarih8,
+            time: saat8
         })
     }
     if (tarih9 != null || tarih9 != undefined) {
         dateArray2.push({
             name: '<b>Transport:</b> ',
-            date: tarih9
+            date: tarih9,
+            time: saat9
         })
     }
     if (tarih10 != null || tarih10 != undefined) {
         dateArray2.push({
             name: '<b>Lagerung:</b> ',
-            date: tarih10
+            date: tarih10,
+            time: saat10
         })
     }
     eventChanges();
@@ -976,138 +1380,183 @@
         eventChanges();
     });
     function momentConvertValue(value){
-        return moment(value, "YYYY-MM-DD").format("DD.MM.YYYY");
+        moment.locale('de');
+        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
+    }
+    function momentConvertTimeValue(value){
+        moment.locale('de');
+        return moment(value, "HH:mm:ss").format("HH:mm");
     }
     function eventChanges() {
-        valueZ = $("input[name=appType]:checked").val();
         tinymce.execCommand("mceRepaint");
-      
-            $("body").on("change", ".widget-body", function() {
-                var tarih1 = $('input[name=umzug1date]').val();
-                var tarih2 = $('input[name=umzug2date]').val();
-                var tarih3 = $('input[name=umzug3date]').val();
-                var tarih4 = $('input[name=einpackdate]').val();
-                var tarih5 = $('input[name=auspackdate]').val();
-                var tarih6 = $('input[name=reinigung1Startdate]').val();
-                var tarih7 = $('input[name=reinigung2Startdate]').val();
-                var tarih8 = $('input[name=entsorgungdate]').val();
-                var tarih9 = $('input[name=transportdate]').val();
-                var tarih10 = $('input[name=lagerungdate]').val();
-                var found;
-                dateArray2.some(function(entry) {
-                    if (entry.name == "<b>Umzug:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Umzug 2:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Umzug 3:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Einpack:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Auspack:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Reinigung:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Reinigung 2:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Entsorgung:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Transport:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                    if (entry.name == "<b>Lagerung:</b> ") {
-                        found = entry;
-                        dateArray2.splice(found);
-                    }
-                });
-                if ($("input[name=isUmzug]:checked").val()) {
+        $("body").on("change", ".widget-body", function() {
+            var tarih1 = $('input[name=umzug1date]').val();
+            var saat1 = $('input[name=umzug1time]').val();
+            var tarih2 = $('input[name=umzug2date]').val();
+            var saat2 = $('input[name=umzug2time]').val();
+            var tarih3 = $('input[name=umzug3date]').val();
+            var saat3 = $('input[name=umzug3time]').val();
+            var tarih4 = $('input[name=einpackdate]').val();
+            var saat4 = $('input[name=einpacktime]').val();
+            var tarih5 = $('input[name=auspackdate]').val();
+            var saat5 = $('input[name=auspacktime]').val();
+            var tarih6 = $('input[name=reinigung1Startdate]').val();
+            var saat6 = $('input[name=reinigung1Starttime]').val();
+            var tarih7 = $('input[name=reinigung2Startdate]').val();
+            var saat7 = $('input[name=reinigung2Starttime]').val();
+            var tarih8 = $('input[name=entsorgungdate]').val();
+            var saat8 = $('input[name=entsorgungtime]').val();
+            var tarih9 = $('input[name=transportdate]').val();
+            var saat9 = $('input[name=transporttime]').val();
+            var tarih10 = $('input[name=lagerungdate]').val();
+            var saat10 = $('input[name=lagerungtime]').val();
+            var found;
+            dateArray2.some(function(entry) {
+                if (entry.name == "<b>Umzug:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Umzug 2:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Umzug 3:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Einpack:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Auspack:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Reinigung:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Reinigung 2:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Entsorgung:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Transport:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+                if (entry.name == "<b>Lagerung:</b> ") {
+                    found = entry;
+                    dateArray2.splice(found);
+                }
+            });
+            if ($("input[name=isUmzug]:checked").val()) {
+                if(tarih1!=""){
                     dateArray2.push({
                         name: '<b>Umzug:</b> ',
-                        date: momentConvertValue(tarih1)
+                        date: momentConvertValue(tarih1),
+                        time: momentConvertTimeValue(saat1)
                     })
                 }
-                if ($("input[name=isUmzug2]:checked").val()) {
-                    if(tarih2!=""){
-                        dateArray2.push({
-                        name: '<b>Umzug 2:</b> ',
-                        date: momentConvertValue(tarih2)
-                    })
-                    }
-                    if(tarih3!=""){
-                        dateArray2.push({
-                        name: '<b>Umzug 3:</b> ',
-                        date: momentConvertValue(tarih3)
-                    })
-                    }
+            }
+            if ($("input[name=isUmzug2]:checked").val()) {
+                if(tarih2!=""){
+                    dateArray2.push({
+                    name: '<b>Umzug 2:</b> ',
+                    date: momentConvertValue(tarih2),
+                    time: momentConvertTimeValue(saat2)
+                })
                 }
-                if ($("input[name=isEinpackservice]:checked").val()) {
+                if(tarih3!=""){
+                    dateArray2.push({
+                    name: '<b>Umzug 3:</b> ',
+                    date: momentConvertValue(tarih3),
+                    time: momentConvertTimeValue(saat3)
+                })
+                }
+            }
+            if ($("input[name=isEinpackservice]:checked").val()) {
+                if(tarih4!=""){
                     dateArray2.push({
                         name: '<b>Einpack:</b> ',
-                        date: momentConvertValue(tarih4)
+                        date: momentConvertValue(tarih4),
+                        time: momentConvertTimeValue(saat4)
                     })
                 }
-                if ($("input[name=isAuspackservice]:checked").val()) {
+            }
+            if ($("input[name=isAuspackservice]:checked").val()) {
+                if(tarih5!=""){
                     dateArray2.push({
                         name: '<b>Auspack:</b> ',
-                        date: momentConvertValue(tarih5)
+                        date: momentConvertValue(tarih5),
+                        time: momentConvertTimeValue(saat5)
                     })
                 }
-                if ($("input[name=isReinigung]:checked").val()) {
+            }
+            if ($("input[name=isReinigung]:checked").val()) {
+                if(tarih6!=""){
                     dateArray2.push({
                         name: '<b>Reinigung:</b> ',
-                        date: momentConvertValue(tarih6)
+                        date: momentConvertValue(tarih6),
+                        time: momentConvertTimeValue(saat6)
                     })
                 }
-                if ($("input[name=isReinigung2]:checked").val()) {
+            }
+            if ($("input[name=isReinigung2]:checked").val()) {
+                if(tarih7!=""){
                     dateArray2.push({
                         name: '<b>Reinigung 2:</b> ',
-                        date: momentConvertValue(tarih7)
+                        date: momentConvertValue(tarih7),
+                        time: momentConvertTimeValue(saat7)
                     })
                 }
-                if ($("input[name=isEntsorgung]:checked").val()) {
+            }
+            if ($("input[name=isEntsorgung]:checked").val()) {
+                if(tarih8!=""){
                     dateArray2.push({
                         name: '<b>Entsorgung:</b> ',
-                        date: momentConvertValue(tarih8)
+                        date: momentConvertValue(tarih8),
+                        time: momentConvertTimeValue(saat8)
                     })
                 }
-                if ($("input[name=isTransport]:checked").val()) {
+            }
+            if ($("input[name=isTransport]:checked").val()) {
+                if(tarih9!=""){
                     dateArray2.push({
                         name: '<b>Transport:</b> ',
-                        date: momentConvertValue(tarih9)
+                        date: momentConvertValue(tarih9),
+                        time: momentConvertTimeValue(saat9)
                     })
                 }
-                if ($("input[name=isLagerung]:checked").val()) {
+            }
+            if ($("input[name=isLagerung]:checked").val()) {
+                if(tarih10!=""){
                     dateArray2.push({
                         name: '<b>Lagerung:</b> ',
-                        date: momentConvertValue(tarih10)
+                        date: momentConvertValue(tarih10),
+                        time: momentConvertTimeValue(saat10)
                     })
                 }
-                
-
-                var requestDate = "";
-                for (var i = 0; i <= dateArray2.length - 1; i++) {
-                    requestDate += dateArray2[i].name + " " + dateArray2[i].date + "<br>";
+            }
+            
+            var requestDate = "";
+            for (var i = 0; i <= dateArray2.length - 1; i++) {
+                if(dateArray2[i].time)
+                {
+                    requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' +dateArray2[i].time + ' '+'Uhr'+"<br>";
+                }
+                else {
+                    requestDate += dateArray2[i].name + " " + dateArray2[i].date +"<br>";
                 }
                 
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}'])`);
-                tinymce.execCommand("mceRepaint");
-            })
+            }
+            
+            tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Auftragsbestätigung'])`);
+            tinymce.execCommand("mceRepaint");
+        })
     }
 </script>
 

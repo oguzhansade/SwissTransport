@@ -1,6 +1,22 @@
 @extends('layouts.app')
 @section('header')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <style>
+        /* .clickableCell {
+            position: relative;
+            display: flex;
+            width: 200%;
+            height: 200%!important;
+            color:#999999;
+            background-color: rgb(243, 191, 191);
+        }
+        .clickableCell:hover{
+            color:#999999;
+            display: block;
+            width: 100%;
+            height: 100%;
+        } */
+    </style>
 @endsection
 @section('content')
  <!-- Page Title Area -->

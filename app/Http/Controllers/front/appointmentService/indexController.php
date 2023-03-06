@@ -443,7 +443,7 @@ class indexController extends Controller
                             $reinigungId = $d['reinigungId'];                           
                             $appDateArray[$ADC]['date'] = $reinigungDate['reinigungStartDate'];
                             $appDateArray[$ADC]['time'] = $reinigungDate['reinigungStartTime'];
-                            $appDateArray[$ADC]['endDate'] = $reinigungDate['reinigungEndDate'];
+                            $appDateArray[$ADC]['endDate'] = $reinigungDate['reinigungEndDate'] ? $reinigungDate['reinigungEndDate'] : $reinigungDate['reinigungStartDate'];
                             $appDateArray[$ADC]['endTime'] = $reinigungDate['reinigungEndTime'];
                             $appDateArray[$ADC]['calendarTitle'] = $reinigungDate['calendarTitle'];
                             $appDateArray[$ADC]['calendarComment'] = $reinigungDate['calendarComment'];
@@ -459,7 +459,7 @@ class indexController extends Controller
                             $reinigungId = $reinigungIdBul->id;
                             $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
                             $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
-                            $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate;
+                            $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate ? $reinigungIdBul->reinigungEndDate : $reinigungIdBul->reinigungStartDate;
                             $appDateArray[$ADC]['endTime'] = $reinigungIdBul->reinigungEndTime;
                             $appDateArray[$ADC]['calendarTitle'] = $reinigungIdBul->calendarTitle;
                             $appDateArray[$ADC]['calendarComment'] = $reinigungIdBul->calendarComment;
@@ -494,7 +494,7 @@ class indexController extends Controller
                             $reinigung2Id = $d['reinigung2Id'];                           
                             $appDateArray[$ADC]['date'] = $reinigung2Date['reinigungStartDate'];
                             $appDateArray[$ADC]['time'] = $reinigung2Date['reinigungStartTime'];
-                            $appDateArray[$ADC]['endDate'] = $reinigung2Date['reinigungEndDate'];
+                            $appDateArray[$ADC]['endDate'] = $reinigung2Date['reinigungEndDate'] ? $reinigung2Date['reinigungEndDate'] : $reinigung2Date['reinigungStartDate'];
                             $appDateArray[$ADC]['endTime'] = $reinigung2Date['reinigungEndTime'];
                             $appDateArray[$ADC]['calendarTitle'] = $reinigung2Date['calendarTitle'];
                             $appDateArray[$ADC]['calendarComment'] = $reinigung2Date['calendarComment'];
@@ -510,7 +510,7 @@ class indexController extends Controller
                             $reinigung2Id = $reinigung2IdBul->id;
                             $appDateArray[$ADC]['date'] = $reinigung2IdBul->reinigungStartDate;
                             $appDateArray[$ADC]['time'] = $reinigung2IdBul->reinigungStartTime;
-                            $appDateArray[$ADC]['endDate'] = $reinigung2IdBul->reinigungEndDate;
+                            $appDateArray[$ADC]['endDate'] = $reinigung2IdBul->reinigungEndDate ? $reinigung2IdBul->reinigungEndDate : $reinigung2IdBul->reinigungStartDate;
                             $appDateArray[$ADC]['endTime'] = $reinigung2IdBul->reinigungEndTime;
                             $appDateArray[$ADC]['calendarTitle'] = $reinigung2IdBul->calendarTitle;
                             $appDateArray[$ADC]['calendarComment'] = $reinigung2IdBul->calendarComment;
