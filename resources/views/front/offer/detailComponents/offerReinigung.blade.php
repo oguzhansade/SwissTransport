@@ -43,7 +43,7 @@
             </select>
             
 
-            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;" @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff')) display: block; @else display: none;  @endif" >
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">Tarifpreis</label>
                     <input class="form-control"   name="reinigungFixedPriceValue" placeholder="0"  type="number"
@@ -64,8 +64,8 @@
             </select>
             
 
-            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#8778aa;"
-            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'standartTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#8778aa;
+            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'standartTariff')) display: block; @else display: none;  @endif">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="reinigungmaValue"   type="number" 
@@ -307,47 +307,39 @@
         </div>
     </div>
 </div>
-@section('offerFooterReinigung')
+@section('offerFooterReinigungDetail')
+
     {{-- Tarife Ücretleri --}}
     <script>
-        function isRequired()
-        {
-            $("select[name=reinigungType]").prop('required',true);      
-            $("input[name=reinigungdate]").prop('required',true);   
-            $("input[name=reinigungtime]").prop('required',true);  
-            $("input[name=reinigungEnddate]").prop('required',true);  
-            $("input[name=reinigungEndtime]").prop('required',true);  
-            $("input[name=reinigungTotalPrice]").prop('required',true); 
-        }
-
-        function isNotRequired()
-        {
-            $("select[name=reinigungType]").prop('required',false);      
-            $("input[name=reinigungdate]").prop('required',false);   
-            $("input[name=reinigungtime]").prop('required',false);  
-            $("input[name=reinigungEnddate]").prop('required',false);  
-            $("input[name=reinigungEndtime]").prop('required',false);  
-            $("input[name=reinigungTotalPrice]").prop('required',false); 
-        }
-
-        $("body").on("change",".reinigung--area",function(){
-            isRequired()
-        })
-
         var morebutton5 = $("div.reinigung-control");
         morebutton5.click(function(){
             if($(this).hasClass("checkbox-checked"))
             {
                 $(".reinigung--area").show(700);
-                isRequired();
+                $("select[name=reinigungType]").prop('required',true);      
+                $("select[name=reinigungFixedPrice]").prop("required",true);
+                $("select[name=reinigungPriceTariff]").prop("required",true);
+                $("input[name=reinigungTotalPrice]").prop('required',true); 
+                $("input[name=reinigungFixedPriceValue]").prop('required',true); 
+                $("input[name=reinigungmaValue]").prop('required',true);
+                $("input[name=reinigungchfValue]").prop('required',true);
+                $("input[name=reinigunghourValue]").prop('required',true);
+                
             }
             else{
                 $(".reinigung--area").hide(500);
-                isNotRequired()
+                $("select[name=reinigungType]").prop('required',false);      
+                $("select[name=reinigungFixedPrice]").prop("required",false);
+                $("select[name=reinigungPriceTariff]").prop("required",false);
+                $("input[name=reinigungTotalPrice]").prop('required',false); 
+                $("input[name=reinigungFixedPriceValue]").prop('required',false); 
+                $("input[name=reinigungmaValue]").prop('required',false);
+                $("input[name=reinigungchfValue]").prop('required',false);
+                $("input[name=reinigunghourValue]").prop('required',false);
             }
         })
+        
         $("select[name=reinigungFixedPrice]").on("change",function () {
-
             let chf = $(this).find(":selected").data("chf");
             let ma = $(this).find(":selected").data("ma");
             let lkw = $(this).find(":selected").data("lkw");
@@ -358,13 +350,16 @@
             {
                 $('.reinigung-fixed--area').show(300)
                 $("select[name=reinigungPriceTariff]").prop("required",false);
+                $("input[name=reinigungmaValue]").prop('required',false);
+                $("input[name=reinigungchfValue]").prop('required',false);
+                $("input[name=reinigunghourValue]").prop('required',false);
             }
             else
             {
                 $('input[name=reinigungFixedPriceValue]').val(0);
                 $('.reinigung-fixed--area').hide(300)
-                $("select[name=reinigungPriceTariff]").prop("required",true);
             }
+
             $('input[name=reinigungFixedPriceValue]').val(chf);
         })
 
@@ -375,23 +370,26 @@
             let lkw = $(this).find(":selected").data("lkw");
             let anhanger = $(this).find(":selected").data("an");
             let control = $(this).find(":selected").data('selection');
-            
+
             if (control != 'bos')
             {
                 $('.reinigung-price--area').show(300)
                 $("select[name=reinigungFixedPrice]").prop("required",false);
+                $("input[name=reinigungFixedPriceValue]").prop('required',false);
             }
             else
             {
-                $("select[name=reinigungFixedPrice]").prop("required",true);
                 $('input[name=reinigungmaValue]').val(0);
                 $('input[name=reinigungchfValue]').val(0);
                 $('.reinigung-price--area').hide(300)
             }
+
             $('input[name=reinigungmaValue]').val(ma);
             $('input[name=reinigungchfValue]').val(chf);
             })
     </script>
+
+
 
     {{-- İlave ücret Aç/kapa --}}
     <script>
@@ -401,8 +399,7 @@
             {
                 $(".reinigung--extra--cost--area").show(700);
             }
-            else
-            {
+            else{
                 $(".reinigung--extra--cost--area").hide(500);
             }
         })
@@ -416,8 +413,7 @@
             var extra13Cost = 0;
             var reinigungDiscount = 0;
             var reinigungDiscountPercent = 0;
-
-            $("body").on("change",".reinigung--area",function(){
+            $('body').on('change','.reinigung--area',function(){
                 var SabitFiyat = $('select[name=reinigungFixedPrice]').val();
                 
                 if($('input[name=reinigungmasraf]').is(":checked")){
@@ -444,10 +440,8 @@
                 reinigungDiscount = parseFloat($('input[name=reinigungExtraDiscount]').val());
                 reinigungDiscountPercent = parseFloat($('input[name=reinigungDiscountPercent]').val());
 
-
                 if (SabitFiyat == 0)
                 {
-                    
                     let reinigungHour = $('input[name=reinigunghourValue]').val()
                     let reinigungChf = $('input[name=reinigungchfValue]').val()
                     let reinigungHours = reinigungHour.split("-");
@@ -481,10 +475,6 @@
                     }
                     if(leftHour == null && rightHour == null)
                     {
-                        if(reinigungDiscountPercent)
-                    {
-                        sabitHesapla = sabitHesapla-(sabitHesapla*reinigungDiscountPercent/100)
-                    }
                         $('input[name=reinigungTotalPrice]').val('')
                     }
                 }
@@ -492,9 +482,13 @@
                 {
                     var SabitFiyatDegeri = parseFloat($('input[name=reinigungFixedPriceValue]').val());
                     var sabitHesapla = SabitFiyatDegeri + extra1+extra2+extra3+extra12Cost+extra13Cost-reinigungDiscount;
+                    if(reinigungDiscountPercent)
+                    {
+                        sabitHesapla = sabitHesapla-(sabitHesapla*reinigungDiscountPercent/100)
+                    }
                     $('input[name=reinigungTotalPrice]').val(sabitHesapla);
                 }
-            })
+            })  
         })
     </script>
 @endsection

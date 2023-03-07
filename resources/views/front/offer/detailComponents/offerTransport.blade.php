@@ -41,7 +41,7 @@
             </select>
 
             <div class="row transport-tariffs--area"  
-            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'tariff') == NULL) style="display: none;" @endif>
+            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'tariff')) style="display: block;" @else style="display: none;" @endif>
                 <div class="col">
                     <label class=" col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="transportma" placeholder="0"  type="number" 
@@ -328,229 +328,273 @@
                 @else value="{{ 0 }}"
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost') != NULL) 
-                value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'topCost') }}"
-                @else value="{{ 0 }}"
-            @endif>
+            <div class="mt-2 isTransportKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            <div class="transport-kostendach-area" @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost') != NULL) 
+                    value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'topCost') }}"
+                    @else value="{{ 0 }}"
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') != NULL) 
-                value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') }}"
-                @else value="{{ 0 }}"
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+
+            <div class="mt-3 isTransportPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="transport-pauschal-area " @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') != NULL) 
+                    value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') }}"
+                    @else value="{{ 0 }}"
+                @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@section('offerFooterTransport')
+@section('offerFooterTransportDetail')
 
 {{-- Tarife Fiyatları --}}
 <script>        
-
-    function isRequiredTransport()
-    {
-        $("input[name=transporthour]").prop('required',true);      
-        $("input[name=transportDate]").prop('required',true);   
-        $("input[name=transportTime]").prop('required',true);  
-        $("input[name=transportCost]").prop('required',true);  
-        $("input[name=transportDefaultPrice]").prop('required',true);  
-    }
-    function isNotRequiredTransport()
-    {
-        $("input[name=transporthour]").prop('required',false);      
-        $("input[name=transportDate]").prop('required',false);   
-        $("input[name=transportTime]").prop('required',false);  
-        $("input[name=transportCost]").prop('required',false);  
-        $("input[name=transportDefaultPrice]").prop('required',false);  
-    }
-
-    $("body").on("change",".transport--area",function(){
-        isRequiredTransport()
-    })
-
     var morebutton8 = $("div.transport-control");
-    morebutton8.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+     morebutton8.click(function(){
+         if($(this).hasClass("checkbox-checked"))
+         {
             $(".transport--area").show(700);
-            isRequiredTransport()
-        }
-        else{
+            $("input[name=transportFixedTariff]").prop('required',true);      
+            $("select[name=transportTariff]").prop('required',true); 
+            $("input[name=transporthour]").prop('required',true); 
+            $("input[name=transportma]").prop('required',true); 
+            $("input[name=transportlkw]").prop('required',true); 
+            $("input[name=transportanhanger]").prop('required',true); 
+            $("input[name=transportchf]").prop('required',true);  
+         }
+         else{
             $(".transport--area").hide(500);
-            isNotRequiredTransport()
-        }
-    })
+            $("input[name=transportFixedTariff]").prop('required',false);      
+            $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transporthour]").prop('required',false); 
+            $("input[name=transportma]").prop('required',false); 
+            $("input[name=transportlkw]").prop('required',false); 
+            $("input[name=transportanhanger]").prop('required',false); 
+            $("input[name=transportchf]").prop('required',false); 
+         }
+     })
 
-    $("select[name=transportTariff]").on("change",function () {
-       
-     let chf = $(this).find(":selected").data("chf");
-     let ma = $(this).find(":selected").data("ma");
-     let lkw = $(this).find(":selected").data("lkw");
-     let anhanger = $(this).find(":selected").data("an");
-     let control = $(this).find(":selected").data('selection');
-
-     if (control != 'bos')
-     {
-        $('.transport-tariffs--area').show(300)
-        $("input[name=transportFixedTariff]").prop("required",false);
-     }
-     else
-     {
-        $('input[name=transportchf]').val(0);
-        $('input[name=transportma]').val(0);
-        $('input[name=transportlkw]').val(0);
-        $('input[name=transportanhanger]').val(0);
-        $('.transport-tariffs--area').hide(300);
-        $("input[name=transportFixedTariff]").prop("required",true);
-     }
-
-     $('input[name=transportchf]').val(chf);
-     $('input[name=transportma]').val(ma);
-     $('input[name=transportlkw]').val(lkw);
-     $('input[name=transportanhanger]').val(anhanger);
-    })
-
-</script>
-
-{{-- İlave ücret Aç/kapa --}}
-<script>
-    var extracostbutton = $("div.extra-cost-transport");
-    extracostbutton.click(function(){
+    var isTransportKostendachButton = $("div.isTransportKostendach");
+    var isTransportPauschalbutton = $("div.isTransportPauschal");
+    isTransportKostendachButton.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
-            $(".transport--extra--cost--area").show(700);
+            $(".transport-kostendach-area").show(700);
         }
         else{
-            $(".transport--extra--cost--area").hide(500);
+            $(".transport-kostendach-area").hide(500);
         }
     })
-</script>
-<script>
-    $(document).ready(function(){
-        transportCost = 0;
-        var transportTopPrice = 0;
-        var transportDefaultPrice = 0;
 
-        $("body").on("change",".transport--area",function(){
-            var extra12Cost = parseFloat($('input[name=auspackCost1]').val());               
-            var extra13Cost = parseFloat($('input[name=auspackCost2]').val()); 
-            var auspackTotalChf = parseFloat($('input[name=auspackroadChf]').val());              
-            var roadchf = $('input[name=transportRoadChf]').val();
-            var chf = $('input[name=transportchf]').val();
-            var Hours = $('input[name=transporthour]').val();
-            let allHours = Hours.split("-");
-            let leftHour = parseFloat(allHours[0]);
-            let rightHour = parseFloat(allHours[1]);
-
-            var transportFixedTariff = $('input[name=transportFixedTariff]').val();
-            var extra1 = parseFloat($('input[name=transportCost1]').val())
-            var extra2 = parseFloat($('input[name=transportCost2]').val())
-            var extra3 = parseFloat($('input[name=transportCost3]').val())
-            var extra4 = parseFloat($('input[name=transportCost4]').val())
-            var extra5 = parseFloat($('input[name=transportCost5]').val())
-            var extra6 = parseFloat($('input[name=transportCost6]').val())
-            var extra7 = parseFloat($('input[name=transportCost7]').val())
-
-            transportCostLeft = chf * leftHour + roadchf + extra1 + extra2 + extra3 + extra4 + extra5 + extra6 + extra7;
-            transportCostRight = chf * rightHour + roadchf + extra1 + extra2 + extra3 + extra4 + extra5 + extra6 + extra7;
-
-            if(transportFixedTariff == 0)
-            {
-                if(rightHour){
-                $('input[name=transportCost]').val(transportCostRight)
-                }
-                if(leftHour){
-                    $('input[name=transportCost]').val(transportCostLeft)
-                }
-                if(leftHour && rightHour ){
-                    $('input[name=transportCost]').val(transportCostLeft+'-'+transportCostRight) 
-                }
-                if(leftHour == null && rightHour == null)
-                {
-                    $('input[name=transportCost]').val('')
-                }
-            }
-            else {
-                $('input[name=transportCost]').val(transportFixedTariff)
-            }
-        })
-       
-        $("body").on("change",".transport--area",function(){
-            var discount = $('input[name=transportDiscount]').val();
-            var discountPercent = $('input[name=transportDiscountPercent]').val();
-            var compromiser = $('input[name=transportCompromiser]').val();
-            var extraDiscount = $('input[name=transportExtraDiscount]').val();
-            var extraDiscount2 = $('input[name=transportExtraDiscount2]').val();
-            var Hours = $('input[name=transporthour]').val();
-            let allHours = Hours.split("-");
-            let leftHour = parseFloat(allHours[0]);
-            let rightHour = parseFloat(allHours[1]);
-
-            transportDefaultPriceLeft = transportCostLeft - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
-            transportDefaultPriceRight = transportCostRight - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
-
-            if(transportFixedTariff == 0)
-            {
-                if(rightHour){
-                $('input[name=transportDefaultPrice]').val(transportDefaultPriceRight)
-                }
-                if(leftHour){
-                    $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft)
-                }
-                if(leftHour && rightHour ){
-                    $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft+'-'+transportDefaultPriceRight) 
-                }
-                if(leftHour == null && rightHour == null)
-                {
-                    $('input[name=transportDefaultPrice]').val('')
-                }
-            }
-            else{
-                $('input[name=transportDefaultPrice]').val(transportFixedTariff);
-            }
-        })
-        
-        $("body").on("change",".transport--area",function(){
-            var chf = $('input[name=transportchf]').val();
-
-            let transportTotalPrices = $('input[name=transportDefaultPrice]').val();
-            transportTotalPricesARR = transportTotalPrices.split("-");
-            let transportTotalPrice = 0;
-            
-            leftTotal = parseFloat(transportTotalPricesARR[0]);
-            rightTotal = parseFloat(transportTotalPricesARR[1]);
-            if(leftTotal >= rightTotal)
-            {
-                transportTotalPrice = leftTotal;
-            }
-            else if(rightTotal >= leftTotal)
-            {
-                transportTotalPrice = rightTotal;
-            }
-            else{
-                transportTotalPrice = parseFloat($('input[name=transportDefaultPrice]').val());
-            }
-            if($('input[name=isTransportMTPrice]').is(":checked"))
-            {
-                $('input[name=transportTopPrice]').val();
-            }
-            else{
-                transportTopPrice = transportTotalPrice + parseFloat(chf);
-                $('input[name=transportTopPrice]').val(transportTopPrice);
-            }
-
-            transportFixedPrice = transportTotalPrice + parseFloat(chf);
-            $('input[name=transportFixedPrice]').val(transportFixedPrice);
-        })  
+    isTransportPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".transport-pauschal-area").show(700);
+        }
+        else{
+            $(".transport-pauschal-area").hide(500);
+        }
     })
-</script>
+ 
+     $("select[name=transportTariff]").on("change",function () {
+         let chf = $(this).find(":selected").data("chf");
+         let ma = $(this).find(":selected").data("ma");
+         let lkw = $(this).find(":selected").data("lkw");
+         let anhanger = $(this).find(":selected").data("an");
+         let control = $(this).find(":selected").data('selection');
+ 
+         if (control != 'bos')
+         {
+         $('.transport-tariffs--area').show(300)
+         $("input[name=transportFixedTariff]").prop("required",false);
+         }
+         else{
+             $('input[name=transportchf]').val(0);
+             $('input[name=transportma]').val(0);
+             $('input[name=transportlkw]').val(0);
+             $('input[name=transportanhanger]').val(0);
+             $('.transport-tariffs--area').hide(300)
+         }
+ 
+         $('input[name=transportchf]').val(chf);
+         $('input[name=transportma]').val(ma);
+         $('input[name=transportlkw]').val(lkw);
+         $('input[name=transportanhanger]').val(anhanger);
+     })
+     $("input[name=transportFixedTariff]").on("change",function (){
+         if($("input[name=transportFixedTariff]").val())
+         {
+            $("select[name=transportTariff]").prop('required',false); 
+            $("input[name=transporthour]").prop('required',false); 
+            $("input[name=transportma]").prop('required',false); 
+            $("input[name=transportlkw]").prop('required',false); 
+            $("input[name=transportanhanger]").prop('required',false); 
+            $("input[name=transportchf]").prop('required',false);  
+         }
+     })
+ 
+ </script>
+ 
+ {{-- İlave ücret Aç/kapa --}}
+ <script>
+     var extracostbutton = $("div.extra-cost-transport");
+     extracostbutton.click(function(){
+         if($(this).hasClass("checkbox-checked"))
+         {
+             $(".transport--extra--cost--area").show(700);
+         }
+         else{
+             $(".transport--extra--cost--area").hide(500);
+         }
+     })
 
     
+ </script>
+ 
+ <script>
+     $(document).ready(function(){
+         transportCost = 0;
+         var transportTopPrice = 0;
+         var transportDefaultPrice = 0;
+         $("body").on("change",".transport--area",function(){      
+             var roadchf = parseFloat($('input[name=transportRoadChf]').val());
+             var chf = parseFloat($('input[name=transportchf]').val());
+             var Hours = $('input[name=transporthour]').val();
+             let allHours = Hours.split("-");
+             let leftHour = parseFloat(allHours[0]);
+             let rightHour = parseFloat(allHours[1]);
+ 
+             var transportFixedTariff = $('input[name=transportFixedTariff]').val();
+             var extra1 = parseFloat($('input[name=transportCost1]').val())
+             var extra2 = parseFloat($('input[name=transportCost2]').val())
+             var extra3 = parseFloat($('input[name=transportCost3]').val())
+             var extra4 = parseFloat($('input[name=transportCost4]').val())
+             var extra5 = parseFloat($('input[name=transportCost5]').val())
+             var extra6 = parseFloat($('input[name=transportCost6]').val())
+             var extra7 = parseFloat($('input[name=transportCost7]').val())
+ 
+             transportCostLeft = chf * leftHour + roadchf + extra1 + extra2 + extra3 + extra4 + extra5 + extra6 + extra7;
+             transportCostRight = chf * rightHour + roadchf + extra1 + extra2 + extra3 + extra4 + extra5 + extra6 + extra7;
+ 
+             if(transportFixedTariff == 0)
+             {
+                 if(rightHour){
+                 $('input[name=transportCost]').val(transportCostRight)
+                 }
+                 if(leftHour){
+                     $('input[name=transportCost]').val(transportCostLeft)
+                 }
+                 if(leftHour && rightHour ){
+                     $('input[name=transportCost]').val(transportCostLeft+'-'+transportCostRight) 
+                 }
+                 if(leftHour == null && rightHour == null)
+                 {
+                     $('input[name=transportCost]').val('')
+                 }
+             }
+             else {
+                 $('input[name=transportCost]').val(transportFixedTariff)
+             }
+            console.log(leftHour,rightHour,roadchf,chf,extra1,extra2,extra3,extra4,extra5,extra6,extra7)
+         })  
+         $("body").on("change",".transport--area",function(){
+             var transportFixedTariff = $('input[name=transportFixedTariff]').val();
+             var discount = $('input[name=transportDiscount]').val();
+             var discountPercent = $('input[name=transportDiscountPercent]').val();
+             var compromiser = $('input[name=transportCompromiser]').val();
+             var extraDiscount = $('input[name=transportExtraDiscount]').val();
+             var extraDiscount2 = $('input[name=transportExtraDiscount2]').val();
+             var Hours = $('input[name=transporthour]').val();
+             let allHours = Hours.split("-");
+             let leftHour = parseFloat(allHours[0]);
+             let rightHour = parseFloat(allHours[1]);
+ 
+             transportDefaultPriceLeft = transportCostLeft - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
+             transportDefaultPriceRight = transportCostRight - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
+ 
+             if(transportFixedTariff == 0)
+             {
+                 if(rightHour){
+                 $('input[name=transportDefaultPrice]').val(transportDefaultPriceRight)
+                 }
+                 if(leftHour){
+                     $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft)
+                 }
+                 if(leftHour && rightHour ){
+                     $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft+'-'+transportDefaultPriceRight) 
+                 }
+                 if(leftHour == null && rightHour == null)
+                 {
+                     $('input[name=transportDefaultPrice]').val('')
+                 }
+             }
+             else{
+                 $('input[name=transportDefaultPrice]').val(transportFixedTariff);
+             }
+             
+         })
+         $("body").on("change",".transport--area",function(){
+             var chf = $('input[name=transportchf]').val();
+             var Hours = $('input[name=transporthour]').val();
+ 
+             let transportTotalPrices = $('input[name=transportDefaultPrice]').val();
+             transportTotalPricesARR = transportTotalPrices.split("-");
+             let transportTotalPrice = 0;
+             
+             leftTotal = parseFloat(transportTotalPricesARR[0]);
+             rightTotal = parseFloat(transportTotalPricesARR[1]);
+             if(leftTotal >= rightTotal)
+             {
+                 transportTotalPrice = leftTotal;
+             }
+             else if(rightTotal >= leftTotal)
+             {
+                 transportTotalPrice = rightTotal;
+             }
+             else{
+                 transportTotalPrice = parseFloat($('input[name=transportDefaultPrice]').val());
+             }
+             if($('input[name=isTransportMTPrice]').is(":checked"))
+             {
+                 $('input[name=transportTopPrice]').val();
+             }
+             else{
+                 transportTopPrice = transportTotalPrice + parseFloat(chf);
+                 $('input[name=transportTopPrice]').val(transportTopPrice);
+             }
+ 
+             if($('input[name=isTransportFxPrice]').is(":checked"))
+            {
+                $('input[name=transportFixedPrice]').val();
+            }
+            else{
+                transportFixedPrice = transportTotalPrice + parseFloat(chf);
+                $('input[name=transportFixedPrice]').val(transportFixedPrice);
+            }
+         })  
+     })
+ </script>
 @endsection

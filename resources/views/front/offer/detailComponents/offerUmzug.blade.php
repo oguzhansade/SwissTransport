@@ -741,7 +741,7 @@
 
 
 
-@section('offerFooter')
+@section('offerFooterUmzugDetail')
 
 <script>
     var isAusCustomLand1 = $("div.isAusCustomLand1");

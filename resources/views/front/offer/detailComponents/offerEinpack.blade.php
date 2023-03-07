@@ -102,7 +102,7 @@
                             <input class="form-control" name="einpackextra1" type="number" 
                             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra')) 
                                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra') }}" 
-                                @else value="{{ 10 }}" 
+                                @else value="{{ 20 }}" 
                             @endif>
                         </div>
                     </div> 
@@ -212,39 +212,71 @@
                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'defaultPrice') }}" 
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) 
-                value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost') }}" 
-                @else value="{{ 0 }}" 
-            @endif>
+            <div class="mt-2 isEinpackKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br>  
+            <div class="einpack-kostendach-area" @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) 
+                    value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost') }}" 
+                    @else value="{{ 0 }}" 
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) 
-                value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice') }}" 
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+
+            <div class="mt-3 isEinpackPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="einpack-pauschal-area " @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
+                <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) 
+                    value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice') }}" 
+                @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@section('offerFooter2')
+@section('offerFooterEinDetail')
 
 {{-- Tarife Fiyatları --}}
 <script>
+
+    $(document).ready(function(){
+        let ma = $("input[name=einpack1ma]").val();
+        let spesen = $("input[name=einpackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=einpackextra1]").val(spesen);
+    })
+
+    $("input[name=einpack1ma]").on('change', function() {
+        let ma = $("input[name=einpack1ma]").val();
+        let spesen = $("input[name=einpackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=einpackextra1]").val(spesen);
+    })
 
     function isRequiredEinpack()
     {
         $("select[name=einpackTariff]").prop('required',true);      
         $("input[name=einpackHours]").prop('required',true);  
-        $("input[name=einpackCost]").prop('required',true);  
-        $("input[name=einpackTotalPrice]").prop('required',true); 
-        $("input[name=einpackTopPrice]").prop('required',true); 
-        $("input[name=einpackDefaultPrice]").prop('required',true);
+        $("input[name=einpackCost]").prop('required',true); 
+        $("input[name=einpack1ma]").prop('required',true); 
+        $("input[name=einpack1chf]").prop('required',true); 
     }
 
     function isNotRequiredEinpack()
@@ -252,9 +284,8 @@
         $("select[name=einpackTariff]").prop('required',false);      
         $("input[name=einpackHours]").prop('required',false);  
         $("input[name=einpackCost]").prop('required',false);  
-        $("input[name=einpackTotalPrice]").prop('required',false); 
-        $("input[name=einpackTopPrice]").prop('required',false); 
-        $("input[name=einpackDefaultPrice]").prop('required',false);
+        $("input[name=einpack1ma]").prop('required',false); 
+        $("input[name=einpack1chf]").prop('required',false); 
     }
 
     var morebutton3 = $("div.einpack-control");
@@ -262,22 +293,25 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".einpack--area").show(700);
+            $("input[name=einpackisExtra]").prop('checked',true);
+            $("input[name=einpackmasraf]").prop('checked',true);
             isRequiredEinpack();
         }
         else{
             $(".einpack--area").hide(500);
+            $("input[name=einpackisExtra]").prop('checked',false);
+            $("input[name=einpackmasraf]").prop('checked',false);
             isNotRequiredEinpack();
         }
     })
 
-
     $("select[name=einpackTariff]").on("change",function () {
-
     let chf = $(this).find(":selected").data("chf");
     let ma = $(this).find(":selected").data("ma");
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
+    let spesen = $("input[name=einpackextra1]").val();
 
     if (control != 'bos')
     {
@@ -292,6 +326,30 @@
 
     $('input[name=einpack1chf]').val(chf);
     $('input[name=einpack1ma]').val(ma);
+    spesen = ma * 20;
+    $("input[name=einpackextra1]").val(spesen);
+    })
+
+    var isEinpackKostendachButton = $("div.isEinpackKostendach");
+    var isEinpackPauschalbutton = $("div.isEinpackPauschal");
+    isEinpackKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpack-kostendach-area").show(700);
+        }
+        else{
+            $(".einpack-kostendach-area").hide(500);
+        }
+    })
+
+    isEinpackPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".einpack-pauschal-area").show(700);
+        }
+        else{
+            $(".einpack-pauschal-area").hide(500);
+        }
     })
 </script>
 
@@ -421,8 +479,14 @@
                 $('input[name=einpackTopPrice]').val(einpackTopPrice);
             }
 
-            einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
+            if($('input[name=isEinpackFxPrice]').is(":checked"))
+            {
+                $('input[name=einpackDefaultPrice]').val();
+            }
+            else{
+                einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
             $('input[name=einpackDefaultPrice]').val(einpackDefaultPrice);
+            }
         })  
     })
 </script>

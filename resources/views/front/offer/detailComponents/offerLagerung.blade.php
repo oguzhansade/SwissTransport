@@ -19,8 +19,8 @@
             </select>
 
             <div class="row lagerung-tariffs--area" 
-            @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'chf') == NULL) 
-                style="display: none;"
+            @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'chf')) 
+                style="display: block;" @else style="display: none;"
             @endif>
                 <div class="col">
                     <label class=" col-form-label" for="l0">CHF-Ansatz</label>
@@ -113,22 +113,27 @@
             @endif> 
 
             <div class="mt-2 lagerung-fixed-control">
-                <small class=" text-primary">Pauschal</small>
-                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice')) checked @endif>
+            </div>
 
 
             <div class="lagerung-fixed-area" style="display: none;">
-                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') != NULL) 
                     value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') }}"
-                    @else value="{{ 0 }}"
                 @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isLagerungFxPrice" id="isLagerungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
             </div>
         </div>
     </div>
 </div>
-@section('offerFooterLagerung')
+@section('offerFooterLagerungDetail')
 <script>
     var lagerungFixed = $("div.lagerung-fixed-control");
     lagerungFixed.click(function(){
@@ -148,15 +153,11 @@
     function isRequiredLagerung()
     {
         $("select[name=lagerungTariff]").prop('required',true);      
-        $("input[name=lagerungVolume]").prop('required',true);   
-        $("input[name=lagerungCost]").prop('required',true);  
     }
 
     function isNotRequiredLagerung()
     {
         $("select[name=lagerungTariff]").prop('required',false);      
-        $("input[name=lagerungVolume]").prop('required',false);   
-        $("input[name=lagerungCost]").prop('required',false);  
     }
 
     var morebutton9 = $("div.lagerung-control");
@@ -258,9 +259,17 @@
                     lagerungCost = parseFloat($('input[name=lagerungCost]').val())
                 }
 
-                lagerungFixedPrice = lagerungCost + parseFloat(chf)
-                $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
-                $('input[name=lagerungFixedPrice]').val();
+                if($('input[name=isLagerungFxPrice]').is(":checked"))
+                {
+                    $('input[name=lagerungFixedPrice]').val();
+                }
+                else{
+                    lagerungFixedPrice = lagerungCost + parseFloat(chf)
+                    $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
+                }
+
+                
+               
         })
     })
 </script>

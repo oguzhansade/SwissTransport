@@ -434,14 +434,14 @@ $(function() {
     });
 </script>
 
-@yield('offerFooter')
-@yield('offerFooter1')
-@yield('offerFooter2')
-@yield('offerFooterAus')
-@yield('offerFooterReinigung')
-@yield('offerFooterReinigung2')
-@yield('offerEntsorgung')
-@yield('offerFooterTransport')
-@yield('offerFooterLagerung')
-@yield('offerMaterial')
+@yield('offerFooterAusDetail')
+@yield('offerFooterEinDetail')
+@yield('offerFooterEntsorgungDetail')
+@yield('offerFooterLagerungDetail')
+@yield('offerMaterialDetail')
+@yield('offerFooterReinigungDetail')
+@yield('offerFooterReinigung2Detail')
+@yield('offerFooterTransportDetail')
+@yield('offerFooterUmzugDetail')
+@yield('offerFooterUmzug2Detail')
 @endsection

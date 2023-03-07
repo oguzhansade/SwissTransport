@@ -76,6 +76,7 @@
             <input class="form-control" class="date"  name="umzugroadChf"  type="number" 
                 @if($umzug) 
                         value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'arrivalReturn') }}"
+                        @else value="0"
                 @endif
             > 
 
@@ -151,7 +152,7 @@
                             <input class="form-control" name="extra1" type="number"  
                             @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra')) 
                                 value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra') }}" 
-                                @else value="{{ 10 }}" 
+                                @else value="20" 
                             @endif> 
                         </div>
                     </div> 
@@ -434,99 +435,150 @@
                 @else value="{{ 0 }}"
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) 
-                value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost') }}"
-                @else value="{{ 0 }}"
-            @endif>
+            <div class="mt-2 isKostendach">
+                <label class="col-form-label" for="l0">Kostendach </label>
+                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br>  
+            <div class="kostendach-area" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) 
+                    value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost') }}"
+                    @else value="{{ 0 }}"
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) 
-                value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice') }}"
-                @else value="{{ 0 }}"
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+             
+            <div class="mt-3 isPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="pauschal-area "  @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) style="display: block;" @else style="display:none;" @endif>
+                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) 
+                    value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice') }}"
+                    @else value="{{ 0 }}"
+                @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@section('offerFooter1')
+@section('offerFooterUmzug2Detail')
 {{-- Tarife Fiyatları --}}
 <script>        
-function isRequiredUmzug()
-{
-    $("select[name=umzugTariff]").prop('required',true);      
-    $("input[name=umzugausdate]").prop('required',true);   
-    $("input[name=umzug1time]").prop('required',true);  
-    $("input[name=umzugeindate]").prop('required',true);  
-    $("input[name=umzugHours]").prop('required',true);  
-    $("input[name=umzugCost]").prop('required',true); 
-    $("input[name=umzugTotalPrice]").prop('required',true); 
-    $("input[name=umzugTopPrice]").prop('required',true); 
-    $("input[name=umzugDefaultPrice]").prop('required',true);
-}
+    function isRequiredUmzug()
+    {
+        $("select[name=umzugTariff]").prop('required',true);      
+        $("input[name=umzugHours]").prop('required',true);  
+        $("input[name=umzug1ma]").prop('required',true);
+        $("input[name=umzug1lkw]").prop('required',true);
+        $("input[name=umzug1anhanger]").prop('required',true);
+        $("input[name=umzug1chf]").prop('required',true);
+    }
 
-function isNotRequiredUmzug()
-{
-    $("input[name=umzugTariff]").prop('required',false);      
-    $("input[name=umzugausdate]").prop('required',false);   
-    $("input[name=umzug1time]").prop('required',false);  
-    $("input[name=umzugeindate]").prop('required',false);  
-    $("input[name=umzugHours]").prop('required',false);  
-    $("input[name=umzugCost]").prop('required',false); 
-    $("input[name=umzugTotalPrice]").prop('required',false); 
-    $("input[name=umzugTopPrice]").prop('required',false); 
-    $("input[name=umzugDefaultPrice]").prop('required',false); 
-}
-
-
+    function isNotRequiredUmzug()
+    {
+        $("select[name=umzugTariff]").prop('required',false);      
+        $("input[name=umzugHours]").prop('required',false);  
+        $("input[name=umzug1ma]").prop('required',false);
+        $("input[name=umzug1lkw]").prop('required',false);
+        $("input[name=umzug1anhanger]").prop('required',false);
+        $("input[name=umzug1chf]").prop('required',false);
+    }
     var morebutton2 = $("div.umzug-control");
     morebutton2.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
             $(".umzug--area").show(700);
+            $("input[name=isExtra]").prop('checked',true);
+            $("input[name=masraf]").prop('checked',true);
             isRequiredUmzug()
         }
         else{
             $(".umzug--area").hide(500);
+            $("input[name=isExtra]").prop('checked',false);
+            $("input[name=masraf]").prop('checked',false);
             isNotRequiredUmzug()
         }
     })
+</script>
 
+<script>      
+    $(document).ready(function(){
+        let ma = $("input[name=umzug1ma]").val();
+        let spesen = $("input[name=extra1]").val();
+        spesen = ma * 20;
+        $("input[name=extra1]").val(spesen);
+    })
+    $("input[name=umzug1ma]").on('change', function() {
+        let ma = $("input[name=umzug1ma]").val();
+        let spesen = $("input[name=extra1]").val();
+        spesen = ma * 20;
+        $("input[name=extra1]").val(spesen);
+    })
     $("select[name=umzugTariff]").on("change",function () {
-       
+        let chf = $(this).find(":selected").data("chf");
+        let ma = $(this).find(":selected").data("ma");
+        let lkw = $(this).find(":selected").data("lkw");
+        let anhanger = $(this).find(":selected").data("an");
+        let control = $(this).find(":selected").data('selection');
+        let spesen = $("input[name=extra1]").val();
 
-     let chf = $(this).find(":selected").data("chf");
-     let ma = $(this).find(":selected").data("ma");
-     let lkw = $(this).find(":selected").data("lkw");
-     let anhanger = $(this).find(":selected").data("an");
-     let control = $(this).find(":selected").data('selection');
-
-     if (control != 'bos')
-     {
+        if (control != 'bos')
+        {
         $('.umzug-tarif-area').show(300)
-        
-     }
-     else
-     {
+
+        }
+        else
+        {
         $('input[name=umzug1chf]').val(0);
         $('input[name=umzug1ma]').val(0);
         $('input[name=umzug1lkw]').val(0);
         $('input[name=umzug1anhanger]').val(0);
         $('.umzug-tarif-area').hide(300)
-     }
+        }
 
-     $('input[name=umzug1chf]').val(chf);
-     $('input[name=umzug1ma]').val(ma);
-     $('input[name=umzug1lkw]').val(lkw);
-     $('input[name=umzug1anhanger]').val(anhanger);
+        $('input[name=umzug1chf]').val(chf);
+        $('input[name=umzug1ma]').val(ma);
+        $('input[name=umzug1lkw]').val(lkw);
+        $('input[name=umzug1anhanger]').val(anhanger);
+        spesen = ma * 20;
+        $("input[name=extra1]").val(spesen);
     })
 
+    var isKostendachbutton = $("div.isKostendach");
+    var isPauschalbutton = $("div.isPauschal");
+    isKostendachbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".kostendach-area").show(700);
+        }
+        else{
+            $(".kostendach-area").hide(500);
+        }
+    })
+
+    isPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".pauschal-area").show(700);
+        }
+        else{
+            $(".pauschal-area").hide(500);
+        }
+    })
 </script>
 {{-- İlave ücret Aç/kapa --}}
 <script>
@@ -543,11 +595,11 @@ function isNotRequiredUmzug()
 </script>
 <script>
     $(document).ready(function(){
-        umzugCost = 0;
+        var umzugCost = 0;
         var umzugTotalPrice = 0;
         var umzugTopPrice = 0;
         var umzugDefaultPrice = 0;
-        $('input[name=umzugCost]').on('click',function () {         
+        $("body").on("change",".umzug--area",function(){         
             if ($('input[name=masraf]').is(":checked")){
                var extra1 = parseFloat($('input[name=extra1]').val());               
             }
@@ -622,8 +674,10 @@ function isNotRequiredUmzug()
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
             let allHours = Hours.split("-");
+
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
+
             umzugCostLeft = chf * leftHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugTotalChf;
             umzugCostRight = chf * rightHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugTotalChf;
             
@@ -639,14 +693,16 @@ function isNotRequiredUmzug()
             if(leftHour == null && rightHour == null)
             {
                 $('input[name=umzugCost]').val('')
-            } 
-            
+            }
+           
+            console.log(umzugCostLeft)
             
         })  
-        $('input[name=umzugTotalPrice]').on('click',function () {
+        $("body").on("change",".umzug--area",function(){
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
             let allHours = Hours.split("-");
+
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
             var discount = $('input[name=umzugDiscount]').val();
@@ -656,7 +712,7 @@ function isNotRequiredUmzug()
             
             umzugTotalPriceLeft = umzugCostLeft - discount - (umzugCostLeft*discountPercent/100) - compromiser - extraDiscount;
             umzugTotalPriceRight = umzugCostRight - discount - (umzugCostLeft*discountPercent/100) - compromiser - extraDiscount;
-            
+
             if(rightHour){
                 $('input[name=umzugTotalPrice]').val(umzugTotalPriceRight)
             }
@@ -670,19 +726,19 @@ function isNotRequiredUmzug()
             {
                 $('input[name=umzugTotalPrice]').val('')
             }
-            
         }) 
         
-        $('input[name=umzugTopPrice]').on('click',function(){
+        $("body").on("change",".umzug--area",function(){
+            
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
-
             let umzugTotalPrices = $('input[name=umzugTotalPrice]').val();
             umzugTotalPricesARR = umzugTotalPrices.split("-");
             let umzugTotalPrice = 0;
 
             leftTotal = parseFloat(umzugTotalPricesARR[0]);
             rightTotal = parseFloat(umzugTotalPricesARR[1]);
+
             if(leftTotal >= rightTotal)
             {
                 umzugTotalPrice = leftTotal;
@@ -694,6 +750,7 @@ function isNotRequiredUmzug()
             else{
                 umzugTotalPrice = parseFloat($('input[name=umzugTotalPrice]').val());
             }
+
             if($('input[name=isUmzugMTPrice]').is(":checked"))
             {
                 $('input[name=umzugTopPrice]').val();
@@ -703,8 +760,15 @@ function isNotRequiredUmzug()
                 $('input[name=umzugTopPrice]').val(umzugTopPrice);
             }
             
-            umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
-            $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
+
+            if($('input[name=isUmzugFxPrice]').is(":checked"))
+            {
+                $('input[name=umzugDefaultPrice]').val();
+            }
+            else{
+                umzugDefaultPrice = umzugTotalPrice + parseFloat(chf);
+                $('input[name=umzugDefaultPrice]').val(umzugDefaultPrice);
+            }
         })  
         
     })

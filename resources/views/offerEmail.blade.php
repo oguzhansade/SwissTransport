@@ -33,7 +33,7 @@
             @else geehrte Frau 
             @endif
         
-        {{ $data['name'] }} {{ $data['surname'] }}</strong>
+        {{ $data['surname'] }}</strong>
         <br><br>
     
         @elseif ($customer['name'])
@@ -43,7 +43,7 @@
                 @else geehrte Frau 
                 @endif
             
-         {{ $customer['name'] }} {{ $customer['surname'] }}</strong>
+         {{ $customer['surname'] }}</strong>
          <br><br>
         @endif 
     </div>
@@ -129,7 +129,7 @@
 
         @if ($data['token'])
         <a class="text-info" href="{{ route('acceptOffer', $data['token']) }}"
-        style="background-color: #007BFF;
+        style="background-color: #28A745;
         border-radius: 30px;
         color: white!important;
         padding: 7px 16px;

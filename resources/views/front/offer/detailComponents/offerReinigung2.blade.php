@@ -43,7 +43,7 @@
             </select>
             
 
-            <div class="row reinigung2-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;" @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung2-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariff')) display: block; @else display:none; @endif" >
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">Tarifpreis</label>
                     <input class="form-control"  name="reinigungFixedPriceValue2" placeholder="0"  type="number" 
@@ -64,8 +64,7 @@
             </select>
             
 
-            <div class="row reinigung2-price--area p-2 mt-1 rounded" style="background-color:#8778aa;"
-            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'standartTariff') == NULL) style="display: none;" @endif>
+            <div class="row reinigung2-price--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'standartTariff')) display: block; @else display:none; @endif">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="reinigungmaValue2" placeholder="0"  type="number" 
@@ -312,46 +311,32 @@
         </div>
     </div>
 </div>
-@section('offerFooterReinigung2')
+@section('offerFooterReinigung2Detail')
 
-{{-- Tarife Ücretleri --}}
-<script>
-
-    function isRequiredReinigung2()
-    {
-        $("select[name=reinigungType2]").prop('required',true);      
-        $("input[name=reinigungdate2]").prop('required',true);   
-        $("input[name=reinigungtime2]").prop('required',true);  
-        $("input[name=reinigungEnddate2]").prop('required',true);  
-        $("input[name=reinigungEndtime2]").prop('required',true);  
-        $("input[name=reinigungTotalPrice2]").prop('required',true); 
-    }
-
-    function isNotRequiredReinigung2()
-    {
-        $("select[name=reinigungType2]").prop('required',false);      
-        $("input[name=reinigungdate2]").prop('required',false);   
-        $("input[name=reinigungtime2]").prop('required',false);  
-        $("input[name=reinigungEnddate2]").prop('required',false);  
-        $("input[name=reinigungEndtime2]").prop('required',false);  
-        $("input[name=reinigungTotalPrice2]").prop('required',false); 
-    }
-
-    $("body").on("change",".reinigung2--area",function(){
-        isRequiredReinigung2()
-    })
-
-    var morebutton6 = $("div.reinigung2-control");
-
-    morebutton6.click(function(){
+    {{-- Tarife Ücretleri --}}
+    <script>
+        var morebutton6 = $("div.reinigung2-control");
+        morebutton6.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
             $(".reinigung2--area").show(700);
-            isRequiredReinigung2()
+            $("select[name=reinigungType2]").prop('required',true);      
+            $("select[name=reinigungFixedPrice2]").prop("required",true);
+            $("select[name=reinigungPriceTariff2]").prop("required",true);
+            $("input[name=reinigungFixedPriceValue2]").prop('required',true); 
+            $("input[name=reinigungmaValue2]").prop('required',true);
+            $("input[name=reinigungchfValue2]").prop('required',true);
+            $("input[name=reinigunghourValue2]").prop('required',true);
         }
         else{
             $(".reinigung2--area").hide(500);
-            isNotRequiredReinigung2()
+            $("select[name=reinigungType2]").prop('required',false);      
+            $("select[name=reinigungFixedPrice2]").prop("required",false);
+            $("select[name=reinigungPriceTariff2]").prop("required",false);
+            $("input[name=reinigungFixedPriceValue2]").prop('required',false); 
+            $("input[name=reinigungmaValue2]").prop('required',false);
+            $("input[name=reinigungchfValue2]").prop('required',false);
+            $("input[name=reinigunghourValue2]").prop('required',false);
         }
     })
 
@@ -367,13 +352,15 @@
         {
             $('.reinigung2-fixed--area').show(300)
             $("select[name=reinigungPriceTariff2]").prop("required",false);
+            $("input[name=reinigungmaValue2]").prop('required',false);
+            $("input[name=reinigungchfValue2]").prop('required',false);
+            $("input[name=reinigunghourValue2]").prop('required',false);
 
         }
         else
         {
             $('input[name=reinigungFixedPriceValue2]').val(0);
             $('.reinigung2-fixed--area').hide(300)
-            $("select[name=reinigungPriceTariff2]").prop("required",true);
         }
 
         $('input[name=reinigungFixedPriceValue2]').val(chf);
@@ -391,10 +378,11 @@
         {
             $('.reinigung2-price--area').show(300)
             $("select[name=reinigungFixedPrice2]").prop("required",false);
+            $("input[name=reinigungFixedPriceValue2]").prop('required',false);
+
         }
         else
         {
-            $("select[name=reinigungFixedPrice2]").prop("required",true);
             $('input[name=reinigungmaValue2]').val(0);
             $('input[name=reinigungchfValue2]').val(0);
             $('.reinigung2-price--area').hide(300)
@@ -418,6 +406,7 @@
         }
     })
 </script>
+
 <script>
     $(document).ready(function(){
         var extra1 = 0;
@@ -427,8 +416,7 @@
         var extra13Cost = 0;
         var reinigungDiscount = 0;
         var reinigungDiscountPercent = 0;
-        $("body").on("change",".reinigung2--area",function(){
-
+        $('body').on('change','.reinigung2--area',function(){   
             var SabitFiyat = $('select[name=reinigungFixedPrice2]').val();
             
             if($('input[name=reinigungmasraf2]').is(":checked")){
@@ -438,22 +426,22 @@
                 extra1 = 0;
             }
             if ($('input[name=reinigungmasraf22]').is(":checked")){
-               extra2 = parseFloat($('input[name=reinigungextra22]').val());               
+            extra2 = parseFloat($('input[name=reinigungextra22]').val());               
             }
             else {
                 extra2 = 0;
             }
             if ($('input[name=reinigungmasraf32]').is(":checked")){
-               extra3 = parseFloat($('input[name=reinigungextra32]').val());               
+            extra3 = parseFloat($('input[name=reinigungextra32]').val());               
             }
             else {
                 extra3 = 0;
             }
 
-             extra12Cost = parseFloat($('input[name=reinigungCost12]').val());               
-             extra13Cost = parseFloat($('input[name=reinigungCost22]').val());
-             reinigungDiscount = parseFloat($('input[name=reinigungExtraDiscount2]').val());
-             reinigungDiscountPercent = parseFloat($('input[name=reinigungDiscountPercent2]').val());
+            extra12Cost = parseFloat($('input[name=reinigungCost12]').val());               
+            extra13Cost = parseFloat($('input[name=reinigungCost22]').val());
+            reinigungDiscount = parseFloat($('input[name=reinigungExtraDiscount2]').val());
+            reinigungDiscountPercent = parseFloat($('input[name=reinigungDiscountPercent2]').val());
 
             if (SabitFiyat == 0)
             {
@@ -492,7 +480,6 @@
                 {
                     $('input[name=reinigungTotalPrice2]').val('')
                 }
-
             }
             else
             {
@@ -504,9 +491,7 @@
                 }
                 $('input[name=reinigungTotalPrice2]').val(sabitHesapla);
             }
-        })
-        
-        
+        })  
     })
 </script>
 @endsection

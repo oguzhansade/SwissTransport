@@ -75,8 +75,8 @@
                 </div>
                 <br />
                 <br />
-                <b>{{ $date }}</b><br>
-                <br /> <br />
+                {{ $date }}<br>
+                <br /> <br /><br />
                 <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
                 Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
                 </div>

@@ -102,7 +102,7 @@
                             <input class="form-control" name="auspackextra1" type="number" 
                             @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'extra')) 
                                 value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'extra') }}" 
-                                @else value="{{ 10 }}" 
+                                @else value="{{ 20 }}" 
                             @endif>
                         </div>
                     </div> 
@@ -215,57 +215,80 @@
                 value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'defaultPrice') }}" 
             @endif>
 
-            <label class="col-form-label" for="l0">Kostendach</label>
-            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) 
-                value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost') }}" 
-            @endif>
+            <div class="mt-2 isAuspackKostendach">
+                <label class="col-form-label" for="l0">Kostendach</label>
+                <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) checked @endif>
+            </div>
 
-            <div class="mt-2">
-                <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
-            </div> <br> 
+            <div class="auspack-kostendach-area" @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) style="display: block;" @else style="display: none;" @endif >
+                <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) 
+                    value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost') }}" 
+                @endif>
 
-            <label class="col-form-label" for="l0">Pauschal</label>
-            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
-            @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) 
-                value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice') }}" 
-            @endif>
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
+            
+            <div class="mt-3 isAuspackPauschal">
+                <label class="col-form-label" for="l0">Pauschal</label>
+                <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) checked @endif>
+            </div>
+
+            <div class="auspack-pauschal-area " @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
+                <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) 
+                    value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice') }}" 
+                @endif>
+
+                <div class="mt-2">
+                    <small class=" text-primary">manuell gesetzt</small>
+                    <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@section('offerFooterAus')
+@section('offerFooterAusDetail')
 
 {{-- Tarife Fiyatları --}}
 <script>
 
+    $(document).ready(function(){
+        let ma = $("input[name=auspack1ma]").val();
+        let spesen = $("input[name=auspackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=auspackextra1]").val(spesen);
+    })
+
+    $("input[name=auspack1ma]").on('change', function() {
+        let ma = $("input[name=auspack1ma]").val();
+        let spesen = $("input[name=auspackextra1]").val();
+        spesen = ma * 20;
+        $("input[name=auspackextra1]").val(spesen);
+    })
+
     function isRequiredAuspack()
     {
         $("select[name=auspackTariff]").prop('required',true);      
-        $("input[name=auspackdate]").prop('required',true);   
-        $("input[name=auspacktime]").prop('required',true);  
         $("input[name=auspackHours]").prop('required',true);  
         $("input[name=auspackCost]").prop('required',true);  
-        $("input[name=auspackTotalPrice]").prop('required',true); 
-        $("input[name=auspackTopPrice]").prop('required',true); 
-        $("input[name=auspackDefaultPrice]").prop('required',true);
+        $("input[name=auspack1ma]").prop('required',true);  
+        $("input[name=auspack1chf]").prop('required',true);
     }
 
     function isNotRequiredAuspack()
     {
         $("select[name=auspackTariff]").prop('required',false);      
-        $("input[name=auspackdate]").prop('required',false);   
-        $("input[name=auspacktime]").prop('required',false);  
         $("input[name=auspackHours]").prop('required',false);  
         $("input[name=auspackCost]").prop('required',false);  
-        $("input[name=auspackTotalPrice]").prop('required',false); 
-        $("input[name=auspackTopPrice]").prop('required',false); 
-        $("input[name=auspackDefaultPrice]").prop('required',false);
+        $("input[name=auspack1ma]").prop('required',false);  
+        $("input[name=auspack1chf]").prop('required',false);
     }
-
-    $("body").on("change",".auspack--area",function(){
-        isRequiredAuspack();
-    })
 
     var morebutton4 = $("div.auspack-control");
 
@@ -273,10 +296,14 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".auspack--area").show(700);
+            $("input[name=auspackisExtra]").prop('checked',true);
+            $("input[name=auspackmasraf]").prop('checked',true);
             isRequiredAuspack();
         }
         else{
             $(".auspack--area").hide(500);
+            $("input[name=auspackisExtra]").prop('checked',false);
+            $("input[name=auspackmasraf]").prop('checked',false);
             isNotRequiredAuspack()
         }
     })
@@ -288,6 +315,7 @@
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
+    let spesen = $("input[name=auspackextra1]").val();
 
     if (control != 'bos')
     {
@@ -302,6 +330,30 @@
 
     $('input[name=auspack1chf]').val(chf);
     $('input[name=auspack1ma]').val(ma);
+    spesen = ma * 20;
+    $("input[name=auspackextra1]").val(spesen);
+    })
+
+    var isAuspackKostendachButton = $("div.isAuspackKostendach");
+    var isAuspackPauschalbutton = $("div.isAuspackPauschal");
+    isAuspackKostendachButton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-kostendach-area").show(700);
+        }
+        else{
+            $(".auspack-kostendach-area").hide(500);
+        }
+    })
+
+    isAuspackPauschalbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-pauschal-area").show(700);
+        }
+        else{
+            $(".auspack-pauschal-area").hide(500);
+        }
     })
 </script>
 
@@ -428,8 +480,14 @@
                 auspackTopPrice = auspackTotalPrice + parseFloat(chf);
                 $('input[name=auspackTopPrice]').val(auspackTopPrice);
             }
-            auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
-            $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+            if($('input[name=isAuspackFxPrice]').is(":checked"))
+            {
+                $('input[name=auspackDefaultPrice]').val();
+            }
+            else{
+                auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
+                $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
+            }
         })  
     })
 </script>

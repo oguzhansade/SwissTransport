@@ -729,7 +729,13 @@ class indexController extends Controller
                         // Mail::to($from)->send(new CompanyMail($emailData)); //Firmaya Takvime Eklendi Bildirimi
                         $mailSuccess = 'Mail Başarıyla Gönderildi';
                     }  
-                    return redirect()->back()->with('status','Auftragsbestätigung Randevusu Düzenlendi'.' '.$mailSuccess);
+                    return redirect()
+                    ->route('customer.detail', ['id' => $customerId])
+                    ->with('status', $randevuTipi.' '.'Auftragsbestätigung Randevusu Düzenlendi'.' '.$mailSuccess)
+                    ->with('cat','Termine')
+                    ->withInput()
+                    ->with('keep_status', true);
+                    // return redirect()->back()->with('status','Auftragsbestätigung Randevusu Düzenlendi'.' '.$mailSuccess);
                 }
                 else {
                     return redirect()->back()->with('status-danger','HATA:Auftragsbestätigung Randevusu Düzenlenemedi');

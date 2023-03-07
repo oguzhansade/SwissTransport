@@ -28,6 +28,7 @@ class calendarHelper
         }
         $event->location = $location;
         $event->description = $comment;
+        $event->setColorId(10);
         $event->save();
     }
 }

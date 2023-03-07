@@ -72,11 +72,11 @@
         Carbon\Carbon::setLocale('de');
         @endphp
 
-        <strong>  {{ $item['serviceName'] }}: {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong><br>
+        <strong>  {{ $item['serviceName'] }}:</strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr<br>
         @endforeach
         @endif
         
-        <br><br>
+        <br><br><br>
         <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
         Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
         </div>
