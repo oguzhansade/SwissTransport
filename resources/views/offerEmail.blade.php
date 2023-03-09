@@ -25,7 +25,7 @@
 </head>
 <body>
     <div>
-        <strong>Sehr
+        Sehr
         @if ($data['name'])
         
             @if($data['gender'] == 'male') 
@@ -33,82 +33,116 @@
             @else geehrte Frau 
             @endif
         
-        {{ $data['surname'] }}</strong>
+        {{ $data['surname'] }}
         <br><br>
     
         @elseif ($customer['name'])
-            
                 @if($customer['gender'] == 'male') 
                 geehrter Herr 
                 @else geehrte Frau 
                 @endif
             
-         {{ $customer['surname'] }}</strong>
+         {{ $customer['surname'] }}
          <br><br>
         @endif 
     </div>
     <div>
         @if($data['appType'] == 0)
-            Besten Dank für Ihr Interesse an unseren Dienstleistungen. <br>
-            Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
+            Vielen Dank für Ihre Anfrage. <br><br>
+                
+            Ein Umzug ist Vertrauenssache. Durch unsere sorgfältige Planung, Koordination <br>
+            und professionelle Durchführung ist Ihr bevorstehender Umzug bei uns in besten Händen. <br><br>
 
-            Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
-            handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
+            Mit uns haben Sie einen kompetenten Partner, der Ihr Auftrag sorgfältig plant und <br> 
+            pünktlich ausführt. Wir verfügen über erfahrene Mitarbeiter und zeichnen uns durch <br>
+            Gründlichkeit, Umsichtigkeit und Fachkompetenz aus.<br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
-            <ul>
-                <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
-                <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
-                <li>Bodenvlies zum Schutz heikler Bodenbeläge</li>
-                <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
-                <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
-                <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
-                <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
-                <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br>
+            <strong>Unkompliziert und preiswert umziehen:</strong> <br> <br>
 
-            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail): <br> <br> <br>
+            Unsere erfahrenen Mitarbeiter gehen bei Ihrem Auftrag gründlich und qualitativ vor. <br>
+            Die Möbel werden für den Transport fachgerecht gesichert, um Schäden zu <br>
+            vermeiden. <br><br>
+
+            Ein Umzug bringt teilweise grosse Herausforderungen mit sich. Dies ist unseren <br>
+            geschulten Mitarbeitern bewusst, deshalb arbeiten wir bei Ihrem Umzug mit extra viel <br>
+            Fingerspitzengefühl. Der erweiterte Umzugsservice basiert auf langjährigen <br>
+            Erfahrungswerten und bieten Ihnen genau die richtige Hilfe, die Sie brauchen.  <br><br>
+
+            <strong style="font-size: 18px;">Ihre Vorteile</strong><br><br>
+            <i style="color:red"><b>✓</b></i> Kompetente Beratung <br>
+            <i style="color:red"><b>✓</b></i> Reibungslose Umzugsplanung <br>
+            <i style="color:red"><b>✓</b></i> Leistungen aus einer Hand <br>
+            <i style="color:red"><b>✓</b></i> Full-Service-Umzüge <br>
+            <i style="color:red"><b>✓</b></i> Jahrelange Erfahrung <br>
+            <i style="color:red"><b>✓</b></i> Geschultes Personal <br>
+            <br>
+
+            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz <br>
+            einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
             
         @elseif($data['appType'] == 1)
-            Vielen Dank, dass wir Sie heute besuchen durften. <br>
-            Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
+            Vielen Dank für die Zeit die Sie sich heute für uns genommen haben.  <br><br>
+            Ein Umzug ist Vertrauenssache. Durch unsere sorgfältige Planung, Koordination <br>
+            und professionelle Durchführung ist Ihr bevorstehender Umzug bei uns in besten Händen. <br><br>
 
-            Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
-            handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
+            Mit uns haben Sie einen kompetenten Partner, der Ihr Auftrag sorgfältig plant und <br> 
+            pünktlich ausführt. Wir verfügen über erfahrene Mitarbeiter und zeichnen uns durch <br>
+            Gründlichkeit, Umsichtigkeit und Fachkompetenz aus.<br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
-            <ul>
-                <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
-                <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
-                <li>Bodenvlies zum Schutz heikler Bodenbeläge</li>
-                <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
-                <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
-                <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
-                <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
-                <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br>
+            <strong>Unkompliziert und preiswert umziehen:</strong> <br> <br>
 
-            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
+            Unsere erfahrenen Mitarbeiter gehen bei Ihrem Auftrag gründlich und qualitativ vor. <br>
+            Die Möbel werden für den Transport fachgerecht gesichert, um Schäden zu <br>
+            vermeiden. <br><br>
+
+            Ein Umzug bringt teilweise grosse Herausforderungen mit sich. Dies ist unseren <br>
+            geschulten Mitarbeitern bewusst, deshalb arbeiten wir bei Ihrem Umzug mit extra viel <br>
+            Fingerspitzengefühl. Der erweiterte Umzugsservice basiert auf langjährigen <br>
+            Erfahrungswerten und bieten Ihnen genau die richtige Hilfe, die Sie brauchen.  <br><br>
+
+            <strong style="font-size: 18px;">Ihre Vorteile</strong><br><br>
+            <i style="color:red"><b>✓</b></i> Kompetente Beratung <br>
+            <i style="color:red"><b>✓</b></i> Reibungslose Umzugsplanung <br>
+            <i style="color:red"><b>✓</b></i> Leistungen aus einer Hand <br>
+            <i style="color:red"><b>✓</b></i> Full-Service-Umzüge <br>
+            <i style="color:red"><b>✓</b></i> Jahrelange Erfahrung <br>
+            <i style="color:red"><b>✓</b></i> Geschultes Personal <br>
+            <br>
+
+            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz <br>
+            einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
         @else
-            Besten Dank für Ihr Interesse an unseren Dienstleistungen. <br>
-            Resultierend aus der Besichtigung, finden Sie anbei unser Angebot für Ihren Umzug.<br><br>
+            Vielen Dank für Ihre Anfrage. <br><br>
+                    
+            Ein Umzug ist Vertrauenssache. Durch unsere sorgfältige Planung, Koordination <br>
+            und professionelle Durchführung ist Ihr bevorstehender Umzug bei uns in besten Händen. <br><br>
 
-            Ein Umzug erfordert eine detaillierte Planung und qualifiziertes Umzugspersonal. Wir verfügen über ein Team von professionell geschulten Umzugsexperten. Ihre Habseligkeiten sind bei uns in guten Händen. Darüber hinaus <br>
-            handeln wir, dank unserer mehrjährigen Erfahrung, bei unerwartet auftretenden Problemen, schnell und lösungsorientiert. <br> <br>
+            Mit uns haben Sie einen kompetenten Partner, der Ihr Auftrag sorgfältig plant und <br> 
+            pünktlich ausführt. Wir verfügen über erfahrene Mitarbeiter und zeichnen uns durch <br>
+            Gründlichkeit, Umsichtigkeit und Fachkompetenz aus.<br> <br>
 
-            <strong>Ihre Nutzen, unsere Stärken:</strong> <br>
-            <ul>
-                <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
-                <li>De- und Remontage des gesamten Mobiliars durch einen qualifizierten Monteur</li>
-                <li>Bodenvlies zum Schutz heikler Bodenbeläge</li>
-                <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
-                <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
-                <li>Selbstverständlich führen wir Traggurte, Werkzeuge und genügend Wolldecken mit</li>
-                <li>Die Transportversicherung beträgt CHF 100.000.– pro Lieferwagen (im Preis inbegriffen)</li>
-                <li>Die Haftpflichtversicherung beträgt CHF 10.000.000.– (im Preis inbegriffen)</li>
-            </ul> <br>
+            <strong>Unkompliziert und preiswert umziehen:</strong> <br> <br>
 
-            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz einfach über unser Webformular bestätigen (optional auch per E-Mail): <br> <br> <br>
+            Unsere erfahrenen Mitarbeiter gehen bei Ihrem Auftrag gründlich und qualitativ vor. <br>
+            Die Möbel werden für den Transport fachgerecht gesichert, um Schäden zu <br>
+            vermeiden. <br><br>
+
+            Ein Umzug bringt teilweise grosse Herausforderungen mit sich. Dies ist unseren <br>
+            geschulten Mitarbeitern bewusst, deshalb arbeiten wir bei Ihrem Umzug mit extra viel <br>
+            Fingerspitzengefühl. Der erweiterte Umzugsservice basiert auf langjährigen <br>
+            Erfahrungswerten und bieten Ihnen genau die richtige Hilfe, die Sie brauchen.  <br><br>
+
+            <strong style="font-size: 18px;">Ihre Vorteile</strong><br><br>
+            <i style="color:red"><b>✓</b></i> Kompetente Beratung <br>
+            <i style="color:red"><b>✓</b></i> Reibungslose Umzugsplanung <br>
+            <i style="color:red"><b>✓</b></i> Leistungen aus einer Hand <br>
+            <i style="color:red"><b>✓</b></i> Full-Service-Umzüge <br>
+            <i style="color:red"><b>✓</b></i> Jahrelange Erfahrung <br>
+            <i style="color:red"><b>✓</b></i> Geschultes Personal <br>
+            <br>
+
+            Wenn unser Angebot Ihren Vorstellungen entspricht, können Sie unsere Offerte ganz <br>
+            einfach über unser Webformular bestätigen (optional auch per E-Mail):  <br> <br> <br>
         @endif
     </div>
 
@@ -156,10 +190,10 @@
         @endif
     </div>
     <div class="footer">
-        <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
-        Wir hoffen, dass wir Ihr Interesse wecken konnten und würden uns freuen, Sie schon bald als einen unserer zufriedenen Kunden begrüssen zu können. <br><br>
+        <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen,  <br>
+        können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen.  <br><br>
     
-        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.  <br> <br>
+        
         <div>Freundliche Grüsse</div>
         <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>
         <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="200" /></div><br>

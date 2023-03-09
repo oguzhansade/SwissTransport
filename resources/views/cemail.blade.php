@@ -30,23 +30,21 @@
 <body>
     <div>
         <div>
-            <strong>
                 @if ($data2)
                     @if ($data2['gender'] == 'male')
-                        Sehr geehrte Herr
+                        Sehr geehrter Herr
                     @else
                         Sehr geehrte Frau
                     @endif
-            </strong>
              {{ $data2['surname'] }}
         @elseif($data)
             {
             @if ($data['gender'] == 'male')
-                Sehr geehrte Herr 
+                Sehr geehrter Herr 
             @else
                 Sehr geehrte Frau
             @endif
-            </strong>
+            
             {{ $data['surname'] }} 
             }
             @endif

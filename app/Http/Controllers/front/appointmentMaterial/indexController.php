@@ -150,11 +150,20 @@ class indexController extends Controller
     {
 
         $c = AppointmentMaterial::where('id',$id)->count();
-        
+        $appointment = AppointmentMaterial::where('id',$id)->first();
+
+        $customer = Customer::where('id',$appointment['customerId'])->first();
+       
         if($c !=0)
         {
             $data = AppointmentMaterial::where('id',$id)->get();
             AppointmentMaterial::where('id',$id)->delete();
+            return redirect()
+            ->route('customer.detail', ['id' => $customer['id']])
+            ->with('status', 'Onay Randevusu Başarıyla Silindi')
+            ->with('cat','Termine')
+            ->withInput()
+            ->with('keep_status', true);
             return redirect()->back()->with('status','Teslimat Randevusu Başarıyla Silindi');
         }
         else {

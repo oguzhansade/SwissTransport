@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offerte_materials', function (Blueprint $table) {
+        Schema::create('calendars', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount')->nullable();
-            $table->integer('discountPercent')->nullable();
-            $table->integer('deliverPrice')->nullable();
-            $table->integer('recievePrice')->nullable();
-            $table->float('totalPrice')->nullable();
+            $table->integer('appType');
+            $table->string('serviceType')->nullable();
+            $table->integer('serviceId')->nullable();
+            $table->string('eventId');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offerte_materials');
+        Schema::dropIfExists('calendars');
     }
 };

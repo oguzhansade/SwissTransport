@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
+use Spatie\GoogleCalendar\Event;
+
 
 class indexController extends Controller
 {
@@ -106,6 +108,7 @@ class indexController extends Controller
                     
                     $umzugIdBul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
                     $umzugId = $umzugIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $umzugId;
                     $appDateArray[$ADC]['date'] = $umzugIdBul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugIdBul->umzugTime;
                     $appDateArray[$ADC]['endDate'] = $umzugIdBul->umzugDate;
@@ -138,6 +141,7 @@ class indexController extends Controller
 
                     $umzugId2Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
                     $umzug2Id = $umzugId2Bul->id;
+                    $appDateArray[$ADC]['serviceId'] = $umzug2Id;
                     $appDateArray[$ADC]['date'] = $umzugId2Bul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugId2Bul->umzugTime;
                     $appDateArray[$ADC]['endDate'] = $umzugId2Bul->umzugDate;
@@ -170,6 +174,7 @@ class indexController extends Controller
                     
                     $umzugId3Bul = DB::table('umzug_services')->orderBy('id','DESC')->first(); // Son Eklenen Umzug un id'si
                     $umzug3Id = $umzugId3Bul->id;
+                    $appDateArray[$ADC]['serviceId'] = $umzug3Id;
                     $appDateArray[$ADC]['date'] = $umzugId3Bul->umzugDate;
                     $appDateArray[$ADC]['time'] = $umzugId3Bul->umzugTime;
                     $appDateArray[$ADC]['endDate'] = $umzugId3Bul->umzugDate;
@@ -201,6 +206,7 @@ class indexController extends Controller
                     $einpackOlustur = EinpackService::create($einpack);
                     $einpackIdBul = DB::table('einpack_services')->orderBy('id','DESC')->first(); // Son Eklenen Einpack un id'si
                     $einpackId = $einpackIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $einpackId;
                     $appDateArray[$ADC]['date'] = $einpackIdBul->einpackDate;
                     $appDateArray[$ADC]['time'] = $einpackIdBul->einpackTime;
                     $appDateArray[$ADC]['endDate'] = $einpackIdBul->einpackDate;
@@ -233,6 +239,7 @@ class indexController extends Controller
 
                     $auspackIdBul = DB::table('auspack_services')->orderBy('id','DESC')->first(); // Son Eklenen Auspackservice un id'si
                     $auspackId = $auspackIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $auspackId;
                     $appDateArray[$ADC]['date'] = $auspackIdBul->auspackDate;
                     $appDateArray[$ADC]['time'] = $auspackIdBul->auspackTime;
                     $appDateArray[$ADC]['endDate'] = $auspackIdBul->auspackDate;
@@ -263,6 +270,7 @@ class indexController extends Controller
 
                     $reinigungIdBul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
                     $reinigungId = $reinigungIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $reinigungId;
                     $appDateArray[$ADC]['date'] = $reinigungIdBul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungIdBul->reinigungStartTime;
                     $appDateArray[$ADC]['endDate'] = $reinigungIdBul->reinigungEndDate ? $reinigungIdBul->reinigungEndDate : $reinigungIdBul->reinigungStartDate;
@@ -292,6 +300,7 @@ class indexController extends Controller
                     $reinigung2Olustur = ReinigungService::create($reinigung2);
                     $reinigungId2Bul = DB::table('reinigung_services')->orderBy('id','DESC')->first(); // Son Eklenen Reinigung un id'si
                     $reinigung2Id = $reinigungId2Bul->id;
+                    $appDateArray[$ADC]['serviceId'] = $reinigung2Id;
                     $appDateArray[$ADC]['date'] = $reinigungId2Bul->reinigungStartDate;
                     $appDateArray[$ADC]['time'] = $reinigungId2Bul->reinigungStartTime;
                     $appDateArray[$ADC]['endDate'] = $reinigungId2Bul->reinigungEndDate ? $reinigungId2Bul->reinigungEndDate : $reinigungId2Bul->reinigungStartDate;
@@ -323,6 +332,7 @@ class indexController extends Controller
                     $entsorgungOlustur = EntsorgungService::create($entsorgung);
                     $entsorgungIdBul = DB::table('entsorgung_services')->orderBy('id','DESC')->first(); // Son Eklenen Entsorgung un id'si
                     $entsorgungId = $entsorgungIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $entsorgungId;
                     $appDateArray[$ADC]['date'] = $entsorgungIdBul->entsorgungDate;
                     $appDateArray[$ADC]['time'] = $entsorgungIdBul->entsorgungTime;
                     $appDateArray[$ADC]['endDate'] = $entsorgungIdBul->entsorgungDate;
@@ -356,6 +366,7 @@ class indexController extends Controller
                     $transportOlustur = TransportService::create($transport);
                     $transportIdBul = DB::table('transport_services')->orderBy('id','DESC')->first(); // Son Eklenen Transport un id'si
                     $transportId = $transportIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $transportId;
                     $appDateArray[$ADC]['date'] = $transportIdBul->transportDate;
                     $appDateArray[$ADC]['time'] = $transportIdBul->transportTime;
                     $appDateArray[$ADC]['endDate'] = $transportIdBul->transportDate;
@@ -383,6 +394,7 @@ class indexController extends Controller
                     $lagerungOlustur = LagerungService::create($lagerung);
                     $lagerungIdBul = DB::table('lagerung_services')->orderBy('id','DESC')->first(); // Son Eklenen Lagerung un id'si
                     $lagerungId = $lagerungIdBul->id;
+                    $appDateArray[$ADC]['serviceId'] = $lagerungId;
                     $appDateArray[$ADC]['date'] = $lagerungIdBul->lagerungDate;
                     $appDateArray[$ADC]['time'] = $lagerungIdBul->lagerungTime;
                     $appDateArray[$ADC]['endDate'] = $lagerungIdBul->lagerungDate;
@@ -456,6 +468,7 @@ class indexController extends Controller
             case(1);
                 $sub = 'Terminbestätigung Swiss Transport';
                 $appDateArray = [];
+                $appDateArray[$ADC]['serviceId'] = NULL;
                 $appDateArray[$ADC]['date'] = $appointment['date'];
                 $appDateArray[$ADC]['time'] = $appointment['time'];
                 $appDateArray[$ADC]['endDate'] =  $appointment['date'];
@@ -480,6 +493,7 @@ class indexController extends Controller
             case(3);
                 $sub = 'Terminbestätigung Swiss Transport';
                 $appDateArray = [];
+                $appDateArray[$ADC]['serviceId'] = NULL;
                 $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
                 $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
                 $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
@@ -537,7 +551,8 @@ class indexController extends Controller
                 $location = $item['calendarLocation'];
                 $title = $item['calendarTitle'];
                 $comment =  $item['calendarComment'];
-                calendarHelper::companyMail($item['serviceName'],$fullDate,$customer,$customerSurname,$customerData['gender'],$location,$title,$comment,$endDate);
+                $serviceId = $item['serviceId'];
+                calendarHelper::companyMail($item['serviceName'],$fullDate,$customer,$customerSurname,$customerData['gender'],$location,$title,$comment,$endDate,$serviceId);
             }     
             return redirect()
             ->route('customer.detail', ['id' => $customerId])

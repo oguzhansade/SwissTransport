@@ -29,7 +29,7 @@
 
 <div>
     <div>
-        <strong>Sehr geehrte @if($data['gender'] == 'male') Herr @else Frau @endif</strong>
+         @if($data['gender'] == 'male') Sehr geehrter Herr @else Sehr geehrte Frau @endif
         {{ $data['surname'] }}
     </div>
         <div id="degisken">

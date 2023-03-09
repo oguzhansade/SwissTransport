@@ -125,9 +125,8 @@ class indexController extends Controller
         ->addColumn('option',function($table) 
         {
             return '
-            <a title="Detail" class="btn btn-sm  btn-primary" href="'.route('offer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
-            <a title="Edit" class="btn btn-sm  btn-edit" href="'.route('offer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
-            <a title="Update List" class="btn btn-sm  btn-info" href="'.route('offer.updatedOffer',['customerId'=>$table->customerId,'id'=>$table->id]).'"><i class="feather feather-file" ></i></a> <span class="text-primary">|</span>
+            <a title="Detail" class="btn btn-sm    btn-primary" href="'.route('offer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+            <a title="Bearbeiten" class="btn btn-sm   btn-edit" href="'.route('offer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
             <a title="Delete" class="btn btn-sm  btn-danger"  href="'.route('offer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
         ->rawColumns(['option'])

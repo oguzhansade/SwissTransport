@@ -7,10 +7,11 @@ use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 
-class calendarHelper
+class calendarEditHelper
 {
-    static function companyMail ($serviceName,$date,$name,$surname,$gender,$location,$title,$comment,$endDate,$serviceId)
+    static function companyMailEdit ($serviceName,$date,$location,$title,$comment,$endDate,$serviceId)
     {
+        
         $event = new Event;
         $event->name = $title;
         $appType = NULL;

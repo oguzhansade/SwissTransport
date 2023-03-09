@@ -1298,7 +1298,7 @@
                                                 <div class="form-group row d-flex justify-content-center">
                                                     <span class="text-primary mt-3 h5"><strong>Angebot:</strong></span>
                                                     <div class="col-md-12 d-flex justify-content-center  ml-md-auto mt-1 btn-list">
-                                                        <input class="btn btn-primary btn-rounded" type="submit" value=" Aannehmen " formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
+                                                        <input class="btn btn-success btn-rounded" type="submit" value=" Annehmen " formaction="{{ URL::to('/verifyoffer',['token' =>$oToken]) }}">
                                                         <input class="btn btn-danger btn-rounded" type="submit" value=" Ablehnen" formaction="{{ URL::to('/rejectoffer',['token' =>$oToken]) }}">
                                                     </div>
                                                 </div>

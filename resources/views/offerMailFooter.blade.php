@@ -1,8 +1,8 @@
 <div class="footer">
-    <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
-    Wir hoffen, dass wir Ihr Interesse wecken konnten und würden uns freuen, Sie schon bald als einen unserer zufriedenen Kunden begrüssen zu können. <br><br>
+    <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen,  <br>
+    können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen.  <br><br>
 
-    Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.  <br> <br>
+    
     <div>Freundliche Grüsse</div>
     <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>
     <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="200" /></div><br>

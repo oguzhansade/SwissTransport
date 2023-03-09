@@ -167,7 +167,7 @@
                                     <select class="form-control" name="contactPerson" id="contactPerson">
                                         <option value="0" selected>Bitte wählen </option>
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
-                                        <option value=" {{ $value['name'] }} {{ $value['surname'] }}">{{ $value['name']  }} {{ $value['surname'] }}</option>
+                                        <option value=" {{ $value['name'] }} {{ $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
                                     </select> 
                                 </div>
@@ -260,6 +260,18 @@
 </script>
 
 <script>
+    $(document).ready(function(){
+        contactPerson()
+    })
+    function contactPerson() {
+        if($('select[name=contactPerson]').val() != 0)
+        {
+        $(".customContactPerson").hide(300)
+        }
+        else {
+        $(".customContactPerson").show(300)
+        }
+    }
     console.log($('select[name=contactPerson]').val(),'contact')
     $('select[name=contactPerson]').on('change', function() {
         if($('select[name=contactPerson]').val() != 0)
