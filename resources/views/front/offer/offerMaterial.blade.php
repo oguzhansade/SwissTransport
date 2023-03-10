@@ -10,6 +10,9 @@
 @endsection
 
 <div class="row p-3">
+    <div id="alert-container" class="col-md-12">
+       
+    </div>
     <div class="col-md-12">
         <div class="table-reponsive">
             <table id="faturaData" class="table">
@@ -34,7 +37,7 @@
 </div>
 <div class="row p-3">
     <div class="col-md-12 d-flex justify-content-center">
-        <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i>Hinzufügen</button>
+        <button type="button"  id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i>Hinzufügen</button>
         <button type="button" id="removeAllButton" class="btn-rounded btn btn-danger ml-1" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">Alles löschen</button>
     </div>
 </div>
@@ -75,6 +78,7 @@
 
 @section('offerMaterialCreate')
 <script>
+   
     let say= 0;
     var i = $(".islem_field").lenght || 0;
     $("#addRowBtn").click(function () {
@@ -86,12 +90,14 @@
         let adet = say+1;
         $(".urun_adet").html(adet+' '+'Stück Produkte');
         console.log(topitop+1,'ADET')
+
+        
         var newRow = 
         '<tr class="islem_field">' +
         '<td><select class="form-control urun"  name="islem['+i+'][urunId]">'+
         '<option class="form-control" value="0"> Bitte wählen </option>';
         @foreach (\App\Models\Product::all() as $key => $value)
-            newRow+= '<option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
+            newRow+= '<option class="form-control" data-id="{{ $value['id'] }}" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
         @endforeach
         newRow+='</select></td>'+
         '<td><select class="form-control buyType"  name="islem['+i+'][buyType]">'+
@@ -106,7 +112,7 @@
         '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
         '</tr>'
         
-        $("#faturaData").append(newRow);
+        $(newRow).appendTo("#faturaData").find(".urun, .buyType").prop("required", true);
         
         i++;
         say++; 
@@ -117,12 +123,13 @@
 
         let fiyat = $(this).find('.urun').find(":selected").data("fiyat")
         let kirala = $(this).find('.urun').find(":selected").data("kirala")
+        let urunIsmi = $(this).find('.urun').find(":selected").data("urunadi")
         let   adet = $(this).closest(".islem_field").find("#adet").val();
         const buyType = $(this).find('.buyType').find(":selected").data("buy")
         let tutar = $(this).closest(".islem_field").find("#tutar").val() || 0;
         let customTutar = $(this).closest(".islem_field").find("#tutar").val();
 
-        console.log(fiyat, kirala, buyType, 'fkb')
+        console.log(urunIsmi,fiyat, kirala, buyType, 'fkb')
 
         // Kiralama Satınalma Validasyon
         // $(".urun").on("change", function(){

@@ -571,22 +571,27 @@ class indexController extends Controller
 
             if($material)
             {
+               
                 $islem = $all['islem'];
-                unset($all['islem']);
-                if(count($islem) !=0) {
-                    foreach($islem as $k => $v)
-                    {
-                        $offerBasket = [
-                            'productId' => $v['urunId'],
-                            'buyType' => $v['buyType'],
-                            'productPrice' => $v['tutar'],
-                            'quantity' => $v['adet'],
-                            'totalPrice' => $v['toplam'],
-                            'materialId' => $offerMaterialId
-                        ];
-                        OfferteBasket::create($offerBasket);
+                if($islem)
+                {
+                    unset($all['islem']);
+                    if(count($islem) !=0) {
+                        foreach($islem as $k => $v)
+                        {
+                            $offerBasket = [
+                                'productId' => $v['urunId'],
+                                'buyType' => $v['buyType'],
+                                'productPrice' => $v['tutar'],
+                                'quantity' => $v['adet'],
+                                'totalPrice' => $v['toplam'],
+                                'materialId' => $offerMaterialId
+                            ];
+                            OfferteBasket::create($offerBasket);
+                        }
                     }
                 }
+                
             }
         }
 
@@ -3162,9 +3167,12 @@ class indexController extends Controller
                 'contactPerson' => $contactPerson,
                 'offerteStatus' => 'Beklemede'
             ];
+
+            $company = Company::first();
             // PDF Dizi
             $pdfData = [
             'offer' => $offer,
+            'company' => $company,
             'customer' => $customerData,
             'isUmzug' => $request->isUmzug,
             'isEinpack' => $request->isEinpack,
@@ -3564,9 +3572,13 @@ class indexController extends Controller
                 'contactPerson' => $contactPerson,
                 'offerteStatus' => 'Beklemede'
             ];
+
+            $company = Company::first();
+
             // PDF Dizi
             $pdfData = [
             'offer' => $offer,
+            'company' => $company,
             'customer' => $customerData,
             'isUmzug' => $request->isUmzug,
             'isEinpack' => $request->isEinpack,

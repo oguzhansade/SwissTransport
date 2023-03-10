@@ -26,4 +26,9 @@ class Company extends Model
         $data = Company::first();
         return $data[$param];
     }
+    static function getCompany()
+    {
+        $data = Company::first();
+        return $data;
+    }
 }

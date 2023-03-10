@@ -1654,430 +1654,74 @@
                 @endif
             </div>
     
-            <div class="bemerkungen" >
-                <span ><b style="font-size:18px!important;line-height:18px;">Bemerkungen</b></span>
-                <p class="mt-3"> <b>Relevante Bestimmungen:</b> </p>
-                
+            <div class="bemerkungen">
+                <span ><b style="font-size:18px!important;line-height:18px;color:red;">Erstklassiger Full-Service aus einer Hand</b></span>
+                <p class="mt-3"> 
+                    Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu sparen. <br>
+                    Wir planen, organisieren und führen Ihren Umzug durch. Ihre Zufriedenheit steht dabei an erster <br>
+                    Stelle. Unsere erfahrenen und langjährigen Mitarbeiter übernehmen die organisatorische sowie <br>
+                    praktische Umsetzung Ihres Umzugs.    
+                </p>
+                <span >
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Qualität beim Umziehen garantiert mit Swiss Transport:</strong>
+                </span>
                 <ul>
-                    <li><b>Arbeitsaufwand:</b> es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand abgerechnet.</li>
-                    <li><b>Pausen:</b> betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt i.d.R. eine Stunde und gilt
-                        nicht als Arbeitszeit.</li>
-                    <li><b>Preise:</b> sämtliche Preise unserer Offerten verstehen sich zzgl. 7.7% MwSt.
-                    </li>
-                    <li><b>Entstehung des Vertrag:</b> für einen rechtsgültigen Vertrag bedarf es beidseitiger elektronischer Bestätigung des Angebots.
-                    </li>
-                    <li><b>Gültigkeit des Angebots</b> 21 Tage
-                    </li>
-                    <li><b>Versicherung:</b> Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100'000.- (ohne Selbstbehalt für den
-                        Kunden)
-                    </li>
-                    <li><b>All-Risk Versicherung</b> (auf Wunsch separat). Deckt z. Bsp. Kunst, Hightech-Geräte, Luxus und Wertgegenstände etc.
-                    </li>
-                    <li><b>Abschliessende Bemerkung:</b> sofern keine anderweitigen Vereinbarungen im Angebotsfenster vorhanden sind, gelten obige
-                        Bestimmungen.
-                    </li>
+                    <li>Persönliche Betreuung vor, während und nach dem Umzug</li>
+                    <li>Breite Palette an Verpackungsmaterial, zum Kauf oder zur Miete</li>
+                    <li>Qualifizierte und motivierte Fachleute mit langjähriger Berufserfahrung</li>
+                    <li>Professionell ausgerüstete Möbelwagen und Zügellifte</li>
+                    <li>Fachmännisches Ein- und Auspacken Ihres Hausrates</li>
+                    <li>De- und Montage der Möbel von versierten Möbelmonteuren</li>
+                    <li>Umweltgerechte Entsorgung / Räumung alter Möbel und Hausrat</li>
+                    <li>Lagerungsmöglichkeiten in unserem Möbellagerhaus</li>
                 </ul>
     
-                <p>Endreinigungen beinhalten eine 100% Abgabegarantie mit folgenden Leistungen:
-                </p>
+                <span>
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Folgende Kosten sind im Preis inbegriffen:</strong>
+                </span>
+
                 <ul>
-                    <li>Grundreinigung der Küche (Backofen, Dampfabzug, Kühlschrank, Küchenschränke)</li>
-                    <li>Reinigung der Badezimmer und Sanitäranlagen</li>
-                    <li>Innen- und Aussenreinigung von Fensterrahmen, Storen, Vorhangleisten, Fenstersimsen und Fenstergläsern
-                    </li>
-                    <li>Reinigung von Türen, Türgriffen, Einbauschränken, Leisten, Schaltern, Steckdosen, Radiatoren und Böden
-                    </li>
-                    <li>Reinigung von Waschmaschine und Tumbler, Sonnenstoren
-                    </li>
-                    <li>Terrassen, Sitzplätze und Balkone besenrein putzen
-                    </li>
-                    <li>Reinigung von Nebenräumen (Keller, Estrich, Briefkasten und Garage)
-                    </li>
-                    <li>Einfache Kaminreinigung (besenrein)
-                    </li>
+                    <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
+                    <li>Bodenvlies zum Schutz heikler Bodenbeläge, falls erforderlich</li>
+                    <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
+                    <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
+                    <li>Selbstverständlich führen wir Traggurten, Werkzeuge und genügend Wolldecken mit</li>
                 </ul>
-                <p>Spezielle Dienstleistungen werden, falls nötig, separat verrechnet:
-                </p>
-                <ul>
-                    <li>Spezialreinigungen (z. Bsp. eingefressener Schmutz)
-                    </li>
-                    <li>Schimmel Entfernung
-                    </li>
-                    <li>schamponieren</li>
-                    <li>Dübellöcher (ohne Gewähr)
-                    </li>
-                    <li>Dampfreinigung</li>
-                    <li>Kleber, Kleberreste, Selbstklebefolien und selbstklebende Haken
-                    </li>
-                    <li>Hochdruckreinigung (bis zu 20m2 CHF 150.-)
-                    </li>
-                    <li>intensive Kaminreinigung, Kaminfegerarbeiten
-                    </li>
-                    <li>schwer erreichbare Flächen, welche mit spezieller Fördertechnik gereinigt werden müssen (z.Bsp Aussenfenster / Fassaden etc.)</li>
-                </ul>
+
+                <span >
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Versicherung:</strong> <br>
+                </span>
+                <span>
+                    Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100&#39;000.- (ohne Selbstbehalt)
+                </span> <br>
+
+                <span >
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Arbeitsaufwand:</strong> <br>
+                </span>
+                <span>
+                    Es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand abgerechnet.
+                </span> <br>
+
+                <span >
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Pausen:</strong> <br>
+                </span>
+                <span>
+                    Betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt i.d.R. <br>
+                    eine Stunde und gilt nicht als Arbeitszeit.
+                </span> <br>
+
+                <span >
+                    <strong style="font-size:12px!important;line-height:18px;color:red;">Gewichtszuschläge:</strong> <br>
+                </span>
+                <span>
+                    Gewichtszuschlag von CHF 150.– für Gegenstände mit einem Eigengewicht von über 100kg. <br>
+                    Klavierzuschlag ab CHF 250.–
+                </span>
 
                 <div class="certificate" style="align:right;">
                     <a href="https://www.provenexpert.com/swiss-transport-ag/?utm_source=Widget&utm_medium=Widget&utm_campaign=Widget" target="_blank"><img style="padding:0px!important;align:right;" src="{{ asset('assets/demo/certificate.png') }}" width="300" /></a>
                 </div>
             </div>
-
-
-            {{-- <div class="a" style="page-break-after: always;">
-                <table style="line-height:7px;">
-                    <tr>
-                        <td valign="top" style="width: 50%">
-                            <b>Allgemeine Umzugsbedingungen der Swiss Transport AG</b><br><br>
-                            <b >Art. 1 Geltungsbereich</b><br>
-                            <span>
-                            Die Ausführung eines Auftrages erfolgt zu den nachstehenden
-                            Bedingungen der Swiss Transport AG soweit ihnen nicht
-                            zwingende gesetzliche Vorschriften entgegenstehen.<br><br>
-    
-                            Grundlage der Bedingungen bilden die Bestimmungen des
-                            Schweizerischen Obligationenrechts (OR) sowie das Abkommen
-                            zwischen der Schweizerischen Eidgenossenschaft und der Europäischen Gemeinschaft über den Güter- und Personenverkehr auf
-                            Schiene und Strasse (AS 2002, 1649)<br><br>
-    
-                            Die Allgemeinen Bedingungen dienen dazu, die gesetzlichen
-                            Bestimmungen zu ergänzen. Von den Bedingungen abweichende
-                            Vereinbarungen sind schriftlich zu treffen<br><br>
-                            </span>
-    
-                            <b>Art. 2 Allgemeines</b><br>
-                            <span>
-                            Der Auftrag hat alle für eine ordentliche Ausführung notwendigen
-                            Angaben, wie Hinweise auf reglementierte Güter (z.B. Gefahrengut) sowiesolche, dieeinerbesonderen Behandlung bedürfen, zu
-                            enthalten.<br><br>
-    
-                            Der Frachtführer überprüft den ihm erteilten Auftrag sorgfältig; er
-                            ist jedoch nicht verpflichtet, den Inhalt von Transportgefässen oder
-                            Sendungen zu überprüfen, noch Gewichts- oder Masskontrollen
-                            vorzunehmen. Stellt derFrachtführer Unklarheiten fest, soklärt er
-                            sie raschmöglichst mit demAuftraggeber ab<br><br>
-    
-                            Der über das mit dem Auftraggeber vereinbarte Volumen
-                            hinausgehende Laderaum bleibt zur Verfügung des Frachtführers.
-                            Dieser ist berechtigt, die Ausführung des übernommenen
-                            Auftrages einem anderen Frachtführer zu übertragen<br><br>
-                            </span>
-    
-                            <b>Art. 3 Transportübernahme im Allgemeinen</b><br>
-                            <span>
-                            Jeder Auftrag setzt voraus, dass er unter normalen Verhältnissen
-                            durchgeführt werden kann; die Hauptverkehrsstrassen sowie die
-                            Strassen und Wege zu den Häusern, wo Belad und Entlad
-                            stattfinden, müssen fürdieTransportfahrzeugebefahrbar sein.<br><br>
-    
-                            Bei Vorgärten und dergleichen gelten als normale Zufahrtsverhältnisse höchstens 15 Meter Distanz zwischen Fahrzeug und
-                            Hauseingang. Korridore, Treppen usw. sollen einen reibungslosen
-                            Transport ermöglichen. Ferner wird vorausgesetzt, dass die
-                            behördlichen Bestimmungen die Ausführung in der vorgesehenen
-                            Weise zulassen<br><br>
-    
-                            In allen anderen Fällen erhöht sich der Umzugspreis nach
-                            Massgabe der Mehraufwendungen.<br><br>
-                            </span>
-    
-                            <b>Art. 4 Pflichten des Frachtführers</b><br>
-                            <span>
-                            Der Frachtführer ist dazu verpflichtet, die für die Ausführung des
-                            Auftrages notwendigen Transportmittel auf den vereinbarten
-                            Zeitpunkt bereitzustellen. Der Frachtführer führt den Auftrag
-                            vertragsgemäss und mit der notwendigen Sorgfalt aus. Die
-                            Ablieferung des Frachtgutes am Bestimmungsort hat sofort nach
-                            Ankunft desTransportes oder nach Vereinbarung zuerfolgen.<br><br>
-                            </span>
-    
-                            <b>Art. 5 Pflichten des Auftraggebers</b><br>
-                            <span >
-                            Der Auftraggeber hat für geeignete Verpackung zu sorgen. Er hat
-                            dem Frachtführer rechtzeitig die Adresse des Empfängers, den Ort
-                            der Ablieferung und die örtlichen Verhältnisse genau zu bezeichnen.<br>
-    
-                            Der Auftraggeber ist verpflichtet, den Frachtführer auf die besondere Beschaffenheit des Transportgutes und dessen
-                            Schadenanfälligkeit aufmerksam zu machen<br>
-    
-                            Der Auftraggeber hat dafür zu sorgen, dass die Transportarbeiten,
-                            dieVer-undEntladung imvereinbarten Zeitpunkt bzw. sofortnach
-                            Eintreffen der Transportfahrzeuge begonnen werden können.<br>
-    
-                            Vorbehältlich anderer Vereinbarung obliegt die Besorgung aller für
-                            die Durchführung des Transportes erforderlichen Dokumente,
-                            Bewilligungen und Absperrungen dem Auftraggeber <br>
-    
-    
-                            Der Auftraggeber ist zur wahrheitsgetreuen Deklaration des
-                            Transportgutes verpflichtet und übernimmt gegenüber dem
-                            Frachtführer sowie den Bahn- und Zollorganen oder weiteren Behörden dievolleVerantwortung.Ohne diesbezüglicheWeisung<br><br>
-                            </span>
-                        </td>
-    
-                        <td valign="top">
-                            durch den Auftraggeber ist der Frachtführer berechtigt, das Transportgut als Übersiedlungsgut zu behandeln. <br><br>
-    
-                            Der Auftraggeber hat für die Beschaffung der erforderlichen
-                            Zolldokumente besorgt zu sein und ist für deren Richtigkeit
-                            verantwortlich. Für alle Folgen, die durch das Fehlen, die
-                            verspätete Zustellung und die Unvollständigkeit oder Unrichtigkeit
-                            dieser Dokumente entstehen, hat der Auftraggeber aufzukommen.
-                            Er haftet dem Frachtführer für alle sich aus der Zollbehandlung
-                            des Transportgutes ergebenden Auslagen. Der Preis für die
-                            Zollabfertigungskosten setzt eine normale Abwicklung voraus.
-                            Verlängerte Zollaufenthalte und besondere Verhandlungen mit den
-                            zuständigen Behörden sind dem Frachtführer entsprechend zu
-                            vergüten. Der Frachtführer ist nicht verpflichtet, Frachten, Zölle
-                            und Abgaben zu bevorschussen. Er kann vom Auftraggeber
-                            Vorschüsse inderjeweiligen Währungverlangen. TrittderFrachtführerinVorlage, so sind ihm Vorlageprovision und Zins sowie ein
-                            angemessener Kursverlust zu ersetzen.<br><br>
-    
-                            Für alle Umtriebe und Mehrkosten, die infolge verspäteter
-                            Abnahme des Transportgutes durch den Auftraggeber entstehen,
-                            hat dieser aufzukommen. Kann innerhalb einer Wartezeit von vier
-                            Stunden die Entladung nicht begonnen werden, ist der Frachtführer berechtigt, auf Rechnung und Gefahr des Auftraggebers das
-                            Transportgut einzulagern. Dabei beschränkt sich seine Haftung auf
-                            die sorgfältige Auswahl des Einlagerungsortes. <br><br>
-    
-                            Ausdrücklich vom Transport ausgeschlossen sind Bargeld, Inhaberpapiere, inklusive Effekten im Sinne des Börsengesetzes, die
-                            Inhabereigenschaften haben, oder Edelmetalle<br><br>
-                            <b >Art. 6 Preise</b><br>
-                            Der Preis berechnet sich nach Aufwand oder pauschal. Im Preis
-                            nicht eingeschlossen sind dagegen, besondere Vereinbarungen
-                            vorbehalten, folgende Aufwendungen: <br>
-    
-                            a) dasEin- und Auspacken des Umzugsgutes, insbesondere für
-                            Verpackungsarbeiten, die am Umzugstag durch den Frachtführer vorgenommen werden müssen;<br>
-                            b) spezieller Hin- oder Rücktransport von Packmaterial sowie
-                            dessen Miete oder Kauf; <br>
-                            c) das Demontieren und Montieren von komplizierten oder neuen
-                            Möbeln, die besonderen Zeitaufwand oder den Beizug eines
-                            Spezialisten benötigen;<br>
-                            d) der Transport vonKühlschränken/Truhen von über 200 I,KIavieren, Flügeln, Kassenschränken und anderen Gegenständen
-                            vom mehr als 100 kg Eigengewicht;<br>
-                            e) das Abnehmen und Anbringen von Bildern, Spiegeln, Uhren,
-                            Lampen, Vorhängen, Einbauten usw.;<br>
-                            f) der Mehraufwand für Gegenstände, deren Transport durch
-                            Fenster oder über Balkone zu erfolgenhat;<br>
-                            g) die Prämien von Transportversicherungen;<br>
-                            h) Zollabfertigung, Zoll undZollspesen;<br>
-                            i) Strassensteuern und Fährkosten sowie amtliche Gebühren
-                            aller Art;<br>
-                            j) Mehraufwendungen bzw. Mehrleistungen im Interesse des
-                            Umzuges auch ohne besonderen Auftrag;<br>
-                            k) Mehraufwendungen durch Witterungsverhältnisse oder falls in
-                            gesperrten oder aufgerissenen Strassen das Transportfahrzeug nicht vor das Haus gefahren werden kann, desgleichen
-                            für Wartezeiten des Transportfahrzeuges und des Personals,
-                            die der Frachtführer nicht verschuldet hat;<br>
-                            l) ferner angemessene Zuschläge für das Tragen der Güter auf
-                            weiten oder ungewöhnlichen Wegen, soweit nicht bei der
-                            Preisvereinbarung eine ausdrückliche Berücksichtigung dieser
-                            Umstände stattgefunden hat sowie Mehrkosten, die durch Umwege entstehen, falls die direkten Wege gesperrt oder nicht
-                            benutzbar sind;     <br><br>
-                            
-                            Das Abnehmen und Anbringen von Beleuchtungskörpern und
-                            anderen an das Stromnetz angeschlossenen Apparaten darf zufolge gesetzlicher Bestimmungen nicht durch das Transportpersonal
-                            vorgenommen werden<br><br>
-    
-                            <b >Art. 7 Bezahlung</b><br>
-                            Umzüge sind grundsätzlich bar zu bezahlen. Der Transportpreis ist
-                            vor dem Auslad fällig. Bei Transporten ins Ausland ist Vorauszahlung zu leisten. <br>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-    
-            <div class="b" style="line-height:7px;width:100%;height:100%;">
-                <table >
-                    <tr >
-                        <td valign="top" style="width: 50%;">
-                            <b >Art. 8 Umdisponierung / Rücktritt des Auftraggebers</b><br>
-                            <span >
-                            Der Auftraggeber hat das Recht, einen in Ausführung begriffenen
-                            Transport umzudisponieren, gegen vollständige Abgeltung des
-                            dadurch dem Frachtführer entstehenden Schadens<br>
-    
-                            Die erste Umdisponierung ist kostenlos und muss mindestens 3
-                            Wochen vor dem vereinbarten Umzugstermin erfolgen. Bei jeder
-                            weiteren Umdisponierung fällt eine Bearbeitungsgebühr von CHF
-                            65.- an<br><br>
-    
-                            Bei einer Umdisponierung innerhalb von 3 Wochen vor dem
-                            Umzugstermin ist eine Bearbeitungsgebühr von 30% des in der
-                            Offerte gestellten Betrages fällig<br><br>
-    
-                            Ein allfälliger Rücktritt des Auftraggebers hat schriftlich zu erfolgen<br><br>
-    
-                            Bei Rücktritt innerhalb von 14 Kalendertagen vor dem geplanten
-                            Umzug sind 30 % des in der Offerte gestellten Betrages im Sinne
-                            einer pauschalierten Abgeltung für Aufwendungen, Bemühungen
-                            und Umtriebe geschuldet<br><br>
-    
-                            Bei Rücktritt desAuftraggebers innerhalb von 48Stunden vor dem
-                            geplanten Umzug sind 80 % des in der Offerte gestellten Betrages
-                            geschuldet. Beweist der Frachtführer einen grösseren Schaden, ist
-                            auch dieser zu entschädigen<br><br>
-                            </span>
-    
-                            <b>Art. 9 Retentionsrecht</b><br>
-                            <span >
-                            Wenn das Frachtgut nicht angenommen oder die Zahlung der auf
-                            denselben haftenden Forderungen nicht geleistet wird, kann der
-                            Frachtführer das Frachtgut bis zum Wert des geschuldeten
-                            Betrages retinieren oder auf Kosten des Auftraggebers hinterlegen. Es gelten insbesondere die Bestimmungen von Art. 444,
-                            445 und 451 OR<br><br>
-    
-                            <b>IndiesemFall kannderFrachtführer denAuftraggeber schriftlich auffordern, die Forderung innerhalb von 30 Tagen zu
-                            begleichen. Diese Aufforderung hat die Androhung zu enthalten, dass der Frachtführer das Recht hat, bei Unterlassung
-                            der Zahlung, die betreffenden Güter ohne weitere Formalitäten
-                            freihändig bestens zu verwerten (nach eigenem Ermessen
-                            freihändiger Verkauf oder, falls die Güter keinen materiellen
-                            Wert aufweisen, Entsorgung).</b>  <br><br>
-                            </span>
-    
-                            <b>Art. 10 Haftung</b><br>
-                            <span >
-                            Der Frachtführer haftet nicht für Schäden, welche durch ihn oder
-                            sein Personal durch leichte Fahrlässigkeit entstanden sind. Er
-                            haftet nur bei vorsätzlicher Beschädigung oder bei Schäden,
-                            welche durch grobe Fahrlässigkeit entstanden sind. Dann jedoch
-                            nur, wenn er nicht nachweist, dass er alle nach den Umständen
-                            gebotene Sorgfalt angewendet hat, um einen Schaden dieser Art
-                            zu verhüten oder dass der Schaden auch bei Anwendung dieser
-                            Sorgfalt eingetreten wäre. Bei Schäden zufolge Vorsatz oder
-                            grober Fahrlässigkeit ist die Haftung auf den jeweiligen Zeitwert
-                            der Güter beschränkt<br><br>
-    
-                            Seine Haftung reicht in keinem Falle weiter als diejenige der am
-                            Transport beteiligten Transportanstalten (Eisenbahn, Schifffahrtsoder Luftverkehrsgesellschaft, Post usw.)<br><br>
-    
-                            Der Frachtführer haftet nur für Transportgut, dessen Verpackung
-                            den normalen Transportanforderungen entspricht. So bedürfen
-                            zerbrechliche Gegenstände, Lampen, Lampenschirme, Pflanzen,
-                            technische Geräte (Fernseher, Computer usw.) einer geeigneten
-                            Verpackung (Art. 442 OR). Bei Beschädigungen des Inhalts von
-                            Kisten undanderenBehältnissen haftet derFrachtführer nur, wenn
-                            deren Ein- und Auspacken durch seine eigenen oder von ihm beauftragten Hilfspersonen besorgt worden sind. Die Haftung des
-                            Frachtführers beschränkt sich in jedem Fall auf die Kosten einer
-                            allfälligen möglichen Reparatur oder einer Entschädigung für Wertminderung, unter Ausschluss jeglicher Ersatzleistung<br><br>
-    
-                            Die Haftung des Frachtführers beginnt mit der Übernahme des
-                            Transportgutes und endigt in der Regel mit dessenAblieferung am
-                            Bestimmungsort des Auftraggebers, der Einlagerung in einem
-                            Lagerhaus oder der Übergabe der Ladung an einen anderen
-                            Frachtführer. Soweit der Frachtführer den Auftrag
-                            berechtigterweise einem anderen Frachtführer oder Lagerhalter
-                            übergibt, haftet ernurfürderen gehörigeAuswahl undInstruktion<br><br>
-    
-                            Pro Ereignis ist die Haftung des Frachtführers auf CHF 25'000.—
-                            beschränkt. Vorbehalten bleiben besonders vereinbarte Versicherungsabsprachen (Art. 12 nachfolgend).
-                            </span>
-                        </td>
-    
-                        
-                    </tr>
-                </table>
-            </div>
-
-            <div class="c" style="line-height:7px;width:100%;height:100%;">
-                <table style="height: 100%">
-                    <tr >
-                        <td valign="top">
-                            <b>Art. 11 Haftungsausschluss</b><br>
-                            
-                                Der Frachtführer ist von seiner Haftung befreit, wenn Verlust oder
-                                Beschädigung durch ein Verschulden des Auftraggebers, eine von
-                                ihm ohne Zutun des Frachtführers erteilte Weisung, eigene Mängel
-                                des Umzugsgutes oder durch Umstände verursacht wurde, auf
-                                welche der Unternehmer keinen Einfluss hat.<br>
-    
-                                Bei Bruch oder Beschädigung besonders gefahrdeter Sachen wie
-                                Marmor, Glas- und Porzellanplatten, Stuckrahmen, Leuchter,
-                                Lampenschirme, Radio- und Fernsehgeräte, Computer-Hard- und
-                                Software sowie Datenverlusten und anderen Gegenständen von
-                                grosser Empfindlichkeit (Pflanzen, Tiere etc.), ist der Frachtführer
-                                von der Haftung befreit, vorausgesetzt, dass er die üblichen
-                                Vorsichtsmassnahmen angewandt hat.<br>
-    
-                                Bargeld und Werttitel sind von der Haftung ausgeschlossen (Art. 5
-                                Abs. 7 oben). FürKostbarkeiten wieSchmuck, Dokumente, Kunstgegenstände, Antiquitäten, Sammlerobjekte übernimmt der
-                                Frachtführer keine Haftung.<br>
-    
-                                Wird dem Frachtführer ein Verzeichnis solcher Gegenstände mit
-                                detaillierter Wertangabe übergeben und anhand dieser Unterlagen
-                                eine Transportversicherung abgeschlossen, so geniesst der Auftraggeber diesen Versicherungsschutz.<br>
-    
-                                Der Frachtführer haftet nicht für Beschädigungen der Güter
-                                während des Be- und Entladens oder Ab- und Aufseilens, wenn
-                                ihre Grösse oderSchwere den Raumverhältnissen an derBe- oder
-                                Entladestelle nicht entspricht, der Frachtführer den Auftraggeber
-                                oder Empfänger vorher darauf hingewiesen, der Auftraggeber aber
-                                auf Durchführung der Leistung bestanden hat oder für
-                                Beschädigungen an Wänden, Fenstern, Böden oder Stiegengelander, wenn dieGrösse oderSchwere der zutransportierenden
-                                Güter dem Raumverhältnis nichtentsprechen<br>
-    
-                                Der Frachtführer haftet nicht für Schäden am Frachtgut, die durch
-                                Feuer, Unfälle, Kriege, Streiks, höhere Gewalt oder einen dem
-                                Transportmittel durch Dritte verursachten Schaden entstehen<br>
-    
-    
-                                Wird die Beladung oder Ablieferung wegen Panne, Unfall,
-                                Witterungseinflüssen oder aus anderen Gründen, für welche den
-                                Frachtführer keine Schuld trifft, verzögert, hat der Auftraggeber
-                                keinerlei Anspruch auf irgendwelche Entschädigung.<br>
-    
-    
-                                Ohne gegenseitige Vereinbarung ist der Frachtführer für Verzögerungen, die durch nicht rechtzeitige Bereitstellung von
-                                Transportmitteln oder durch Nichteinhaltung der reglementarischen Fristen durch andere am Transport beteiligte Transportanstalten entstehen, nicht haftbar. Die dadurch entstandenen
-                                Kosten (Standgelder, Zwischenlagerungen usw.) gehen zulasten
-                                des Auftraggebers. Auch haftet der Frachtführer nicht für Schäden
-                                und Verluste, die aus solchen Umständen entstehen können<br>
-                           
-    
-    
-                            <b >Art. 12 Transportversicherung</b><br>
-                            
-                                Zur Deckung der Transportrisiken lässt der Frachtführer den
-                            Auftraggeber auf dessen ausdrückliche Weisung und gegen Bezahlung der Mehrkosten an einer entsprechenden Versicherung
-                            teilhaben<br><br>
-    
-    
-                            Eine Versicherung des Bruchrisikos setzt voraus, dass die
-                            betreffenden Gegenstände vom Frachtführer oder seinen
-                            Beauftragten ein- und ausgepackt werden. Die Versicherungssummen sind durch denAuftraggeber festzusetzen. DieVersicherung gilt in jedem Fall zu den üblichen Klauseln der in der Schweiz
-                            jeweils angewandten „Allgemeinen Bedingungen für dieVersicherung vonGütertransporten“(ABVT)für gebrauchtes Umzugsgut.<br><br>
-                            
-                            Lässt der Auftraggeber keine Versicherung abschliessen, so trägt
-                            er selbst alle Risiken, für die der Frachtführer nach dem Wortlaut
-                            dieser Bedingungen nicht haftet.<br><br>
-                            
-    
-                            <b>Art. 13 Mängelrüge</b><br>
-                            
-                                Der Auftraggeber hat das Frachtgut sofort nach Auslad zu prüfen.
-                            Reklamationen wegen Verlust oder Beschädigung sind sofort bei
-                            Ablieferung des Transportgutes anzubringen und überdies dem
-                            Frachtführer innerhalb von drei Tagen schriftlich zu bestätigen.
-                            Äusserlich nicht sofort erkennbareSchädensind dem Frachtführer
-                            innerhalb von drei Tagen seit Erbringen der Dienstleistung
-                            schriftlich anzuzeigen.<br><br>
-    
-                            Nach Ablauf dieser Fristen können keine Reklamationen mehr
-                            berücksichtigt werden.<br><br>
-    
-                            
-                            <b>Art. 14 Gerichtsstand und anwendbares Recht</b><br>
-                            
-                                Für die Beurteilung von strittigen Ansprüchen für die nicht
-                            dem üblichen Gebrauch bzw. nicht den persönlichen oder
-                            familiären Bedürfnissen dienenden Dienstleistungen sind die
-                            Gerichte am Sitz des Frachtführers zuständig.
-                            Es gilt schweizerisches Recht.<br><br>
-                            
-    
-                        </td>
-                    </tr>
-                    
-                </table>
-            </div> --}}
         </div>
     </main>
 </body>

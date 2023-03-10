@@ -303,10 +303,50 @@
  
     var morebutton10 = $("div.verpackungsmaterial-control");
 
+    
     morebutton10.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
             $(".verpackungsmaterial--area").show(700);
+            
+           
+            $("#toplam").prop("required", true);
+            $('form').submit(function() {
+                
+                var hasEmptyField = false;
+                
+                $('.islem_field').each(function(index) {
+                    let urunIsmi = $(this).closest('.islem_field').find('.urun').find(":selected").data("urunadi")
+                    let buyType = $(this).closest('.islem_field').find('.buyType').find(":selected").data("buy")
+                    if (!urunIsmi) {
+                        hasEmptyField = true;
+                        $(this).closest('.islem_field').find('.urun').focus().css('border-color', 'red').after('<small class="text-danger">Produktname ist leer!</small>');;
+                        return false;
+                    }
+                    else {
+                            $(this).closest('.islem_field').find('.urun').css('border-color', '').after(''); // önceki uyarı mesajını kaldır
+                        }
+                    if (!buyType) {
+                        hasEmptyField = true;
+                        $(this).closest('.islem_field').find('.buyType').focus().css('border-color', 'red').after('<small class="text-danger">Kauf/Mieten ist leer!</small>');
+                        // alert('Die Miet/Kauf Option in Zeile ' + (index+1) + ' ist leer!');
+                        
+                    }
+                    else {
+                        
+                        $(this).closest('.islem_field').find('.buyType').css('border-color', '').after('');
+                    }
+                });
+                if (hasEmptyField) {
+                    return false;
+                }
+            if ($('.urun').length === 0) { // ürün yoksa
+                alert('En az bir ürün ekleyin!'); // hata mesajı
+                return false; // işlemi durdur
+            }
+           
+            
+            });
         }
         else{
             $(".verpackungsmaterial--area").hide(500);
