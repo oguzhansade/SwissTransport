@@ -1,66 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
-    <title>Offerte</title>
-    <meta charset="UTF-8">
-    <style>
-        *{ font-family: DejaVu Sans !important;
-            font-size:10px;
-            line-height: 9.5px;
-            }
-            @page {
+    <head>
+        <title>Offerte</title>
+        <meta charset="UTF-8">
+        <style>
+            *{ font-family: DejaVu Sans !important;
+                font-size:10px;
+                line-height: 9.5px;
+                }
+              
+                @page {
                 margin: 100px 25px;
-            }
-
-            header {
-                position: fixed;
-                top: -90px;
-                left: 0px;
-                right: 0px;
-                bottom: 20px;
-                /** Extra personal styles **/
-                text-align: center;
-                padding: 0px;
-                line-height: 12px;
+                }
                 
-            }
-
-            footer {
-                position: fixed; 
-                bottom: -100px; 
-                left: 0px; 
-                right: 0px;
-                border-top:black 1px solid;
-                padding-bottom:5px;
-                /** Extra personal styles **/
-                text-align: center;
-            }
-            .certificate{
-                position: fixed; 
-                bottom: -70px; 
-                right: 0px;
-                padding-bottom:5px;
-                /** Extra personal styles **/
-                text-align: right;
-            }
-            .pagenum:before {
-            content: counter(page);
-            }
-    </style>
-
-<style>
-    @media print {
-        /* avoid cutting tr's in half */
-        th div, td div {
-            margin-top:-8px;
-            padding-top:8px;
-            page-break-inside:avoid;
-        }
-    }
-</style>
+                @page :first{
+                margin: 0px 0px;
+                }
+                
+                header {
+                    position: fixed;
+                    top: -90px;
+                    left: 0px;
+                    right: 0px;
+                    bottom: 20px;
+                    /** Extra personal styles **/
+                    text-align: center;
+                    padding: 0px;
+                    line-height: 12px;
+                }
     
-</head>
+                footer {
+                    position: fixed; 
+                    bottom: -100px; 
+                    left: 0px; 
+                    right: 0px;
+                    border-top:black 1px solid;
+                    padding-bottom:5px;
+                    /** Extra personal styles **/
+                    text-align: center;
+                }
+                .certificate{
+                    position: fixed; 
+                    bottom: -70px; 
+                    right: 0px;
+                    padding-bottom:5px;
+                    /** Extra personal styles **/
+                    text-align: right;
+                }
+                .pagenum:before {
+                content: counter(page);
+                }
+               
+        </style>
+    
+        <style>
+            @media print {
+                /* avoid cutting tr's in half */
+                th div, td div {
+                    margin-top:-8px;
+                    padding-top:8px;
+                    page-break-inside:avoid;
+                }
+            }
+            
+        </style>
+       
+        {{-- Kapak Stilleri --}}
+        <style>
+            .kapak{
+                margin-top:0px;
+                margin-bottom:0px;
+                height: 100%;
+                width: 100%;
+                padding: 0;
+                position: absolute; 
+                z-index: 5;
+                background: url({{ asset('assets/img/offer-pdf-cover.png') }});
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            
+            .kapak-icerik {
+                margin-top: 830px;
+                margin-left: 18px;
+                z-index: 6;
+                position: relative;
+            }
+            .kapak-icerik-firma {
+                margin-top: 830px;
+                z-index: 6;
+                position: relative;
+            }
+            .icerik-contactperson {
+                z-index: 7;
+                position: relative;
+                top:130px;
+                left:330px;
+            }
+        </style>
+    
+    </head>
 
 <body>  
     <header >
@@ -96,8 +135,21 @@
         <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</span>
     </footer>
 
+    <div class="kapak" style="page-break-after: always;">
+        <div class="kapak-icerik" >
+            <div class="kapak-icerik-firma">
+                <strong style="font-size:14px;">{{ $company['name'] }}</strong><br><br>
+                <span style="font-size:12px;">{{ $company['street'] }}</span><br>
+                <span style="font-size:12px;">{{ $company['post_code'] }} {{ $company['city'] }}</span>
+            </div>
+            <div class="icerik-contactperson">
+                <strong style="font-size:14px;">IHR KUNDENBERATER</strong><br><br>
+                <span style="font-size:12px;">@if($offer['contactPerson'] == 'Bitte wählen') Swiss Transport Team @else {{ $offer['contactPerson'] }} @endif</strong><br>
+            </div>
+        </div>
+    </div>
+
     <main>
-        <div>
             <div class="teklif-boyutu" style="page-break-after: always;">
                 <table border="0" style="width:100%;">
                     <tr style="width:100%;">
@@ -1654,7 +1706,7 @@
                 @endif
             </div>
     
-            <div class="bemerkungen">
+            <div class="bemerkungen" >
                 <span ><b style="font-size:18px!important;line-height:18px;color:red;">Erstklassiger Full-Service aus einer Hand</b></span>
                 <p class="mt-3"> 
                     Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu sparen. <br>
@@ -1722,7 +1774,6 @@
                     <a href="https://www.provenexpert.com/swiss-transport-ag/?utm_source=Widget&utm_medium=Widget&utm_campaign=Widget" target="_blank"><img style="padding:0px!important;align:right;" src="{{ asset('assets/demo/certificate.png') }}" width="300" /></a>
                 </div>
             </div>
-        </div>
     </main>
 </body>
 </html>
