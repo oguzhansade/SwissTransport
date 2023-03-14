@@ -44,7 +44,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form id="#appForm1" action="{{ route('appointment.update',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                    <form id="appForm1" action="{{ route('appointment.update',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-12">
@@ -159,76 +159,11 @@
 
 @section('footer')
 <script> 
-console.log($("input[name=isEmail]").val(),'EMAİL')
 
-
-$(document).ready( function(){
-    
-    $("#appForm1 :input").prop("disabled", true);
-
-    let dateArray = [];
-    var tarih1 = $('#datepicker').val();
-    dateArray[dateArray.length] = tarih1;
-    console.log(dateArray,'Tarihler');
-    // TODO: bu bölüm blade import değil api olarak kullanılacak
-    setTimeout(() => {
-        tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-    tinymce.execCommand("mceRepaint");
-    }, 500);
-    
-    $("#datepicker").on("input", function(){
-    
-    let dateArray = []; // Güncelleme sayfası olduğu için array in tekrardan sıfırlanması gerekiyor yoksa yanına ekler
-    var tarih1 = $(this).val();
-    dateArray[dateArray.length] = tarih1;
-    console.log(dateArray,'Tarihler');
-    // TODO: bu bölüm blade import değil api olarak kullanılacak
-    tinymce.get("customEmail").setContent(`@include('../../cemail',['date' => '${dateArray}'])`);
-    tinymce.execCommand("mceRepaint");
-         
-    }); 
-    
-         
-});
-
-
+$("#appForm1 :input").prop("disabled", true);
 
 </script>
 
-<script>       
-    var morebutton = $("div.email-send");
-    morebutton.click(function() {
-        if ($(this).hasClass("checkbox-checked"))
-        {
-            $(".email--area").show(700);
-        }
-        else {
-            $(".email--area").hide(500);
-        }
-    })
-</script>
 
-<script>
-    var emailFormatbutton = $("div.email-format");
-    emailFormatbutton.click(function() {
-    if ($(this).hasClass("checkbox-checked"))
-    {
-        $(".email--format").show(700);
-    }
-    else {
-        $(".email--format").hide(500);
-    }
-    })
-</script>
-
-<script>
-    tinymce.init({
-      selector: 'textarea.editor',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
-</script>
 @endsection
 

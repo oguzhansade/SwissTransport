@@ -8,6 +8,14 @@
     .checkbox .label-text:after {
         border-color: #999494;
     }
+    .b-shadow {
+            box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+        }
+
+        .back-button {
+            cursor: pointer;
+            border-radius: 35px !important;
+        }
 </style>
 @endsection
 
@@ -39,6 +47,12 @@
         </div>
     </div>
 @endif
+<div class="col-md-3 mb-5">
+    <a href="{{ route('customer.detail',['id' => $data['customerId']])}}"
+        class="h6 px-4 py-2 bg-primary text-white b-shadow  text-center d-flex align-items-center back-button rounded-custom">
+        <i class="feather feather-arrow-left align-self-center pr-1"></i>{{ $customer['name'] }} {{ $customer['surname'] }}s Angebote</b>
+    </a>
+</div>
 
 <div class="widget-list">
     <div class="row">

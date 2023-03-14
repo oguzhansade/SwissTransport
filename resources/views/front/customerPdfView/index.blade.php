@@ -47,13 +47,17 @@
 
     <style>
         .bg-container {
-            background-color: #dbc7f3;
+            background-color: white;
             padding-left: 20px;
             padding-right: 20px;
             padding-bottom: 20px;
             border-radius: 20px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         }
 
+        .text-primary {
+            color:#FF1F1F!important;
+        }
         .bg-offer {
             background-color: #8259B4;
         }
@@ -127,7 +131,7 @@
         </div>
         <div class="row d-flex p-0 justify-content-start mt-5">
             <div class="col-md-12 d-flex justify-content-start">
-                <span class="h4 px-3 py-1 bg-primary  text-white b-shadow rounded">Offerte: <span
+                <span class="h4 px-3 py-1  text-white b-shadow rounded" style="background-color: #FF1F1F">Offerte: <span
                         class="custom-font">{{ $offer['id'] }}</span> </span>
             </div>
         </div>
@@ -162,14 +166,14 @@
                             <div class="col-md-12 umzug-control">
                                 <label for="" class="col-form-label">Umzug</label><br>
                                 <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="umzug--area bg-container" style="display: block;">
                             <div class="row">
-                                <div class="col-md-12 text-dark">
-                                    <h4> <strong>Umzug: </strong> </h4>
+                                <div class="col-md-12 text-primary">
+                                    <h4> <strong class="text-primary">Umzug: </strong> </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -347,19 +351,19 @@
 
                     {{-- Einpack Alanı --}}
                     @if ($isEinpack)
-
+                        
                         <div class="form-group row mt-3">
                             <div class="col-md-12 einpack-control">
                                 <label for="" class="col-form-label">Einpack</label><br>
                                 <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="einpack--area bg-container" style="display: block;">
                             <div class="row mt-3">
-                                <div class="col-md-12 text-dark">
-                                    <h4> <strong>Einpack: </strong></h4>
+                                <div class="col-md-12 text-primary">
+                                    <h4> <strong class="text-primary">Einpack: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -504,14 +508,14 @@
                             <div class="col-md-12 auspack-control">
                                 <label for="" class="col-form-label">Auspack</label><br>
                                 <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="auspack--area bg-container" style="display: block;">
                             <div class="row mt-3">
-                                <div class="col-md-12 text-dark">
-                                    <h4> <strong>Auspack: </strong></h4>
+                                <div class="col-md-12 text-primary">
+                                    <h4> <strong class="text-primary">Auspack: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -657,14 +661,14 @@
                             <div class="col-md-12 reinigung-control">
                                 <label for="" class="col-form-label">Reinigung</label><br>
                                 <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="reinigung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Reinigung: </strong> {{ $reinigung['reinigungType'] }} </h4>
+                                    <h4> <strong class="text-primary">Reinigung: </strong> {{ $reinigung['reinigungType'] }} </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -850,14 +854,14 @@
                             <div class="col-md-12 reinigung2-control">
                                 <label for="" class="col-form-label">Reinigung 2</label><br>
                                 <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="reinigung2--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Reinigung 2: </strong> {{ $reinigung2['reinigungType'] }} </h4>
+                                    <h4> <strong class="text-primary">Reinigung 2: </strong> {{ $reinigung2['reinigungType'] }} </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1044,14 +1048,14 @@
                             <div class="col-md-12 entsorgung-control">
                                 <label for="" class="col-form-label">Entsorgung</label><br>
                                 <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="entsorgung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Entsorgung: </strong></h4>
+                                    <h4> <strong class="text-primary">Entsorgung: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1197,14 +1201,14 @@
                             <div class="col-md-12 transport-control">
                                 <label for="" class="col-form-label">Transport</label><br>
                                 <input type="checkbox" name="isTransport" id="isTransport" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="transport--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Transport: </strong></h4>
+                                    <h4> <strong class="text-primary">Transport: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1410,14 +1414,14 @@
                             <div class="col-md-12 lagerung-control">
                                 <label for="" class="col-form-label">Lagerung</label><br>
                                 <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="lagerung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Lagerung: </strong></h4>
+                                    <h4> <strong class="text-primary">Lagerung: </strong></h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1506,14 +1510,14 @@
                             <div class="col-md-12 material-control">
                                 <label for="" class="col-form-label">Material</label><br>
                                 <input type="checkbox" name="isMaterial" id="isMaterial" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#FF1F1F" data-switchery="false" checked>
                             </div>
                         </div>
 
                         <div class="material--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong>Verpackungsmaterial </strong> </h4>
+                                    <h4> <strong class="text-primary">Verpackungsmaterial </strong> </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1606,7 +1610,7 @@
                     <div class="row">
 
                         <div
-                            class="col-md-12 bg-primary text-white p-1 rounded-custom-2 m-0 d-flex justify-content-center align-items-center">
+                            class="col-md-12  text-white p-1 rounded-custom-2 m-0 d-flex justify-content-center align-items-center" style="background-color: #FF1F1F">
                             <b class=" text-white custom-font" style="font-size:20px;">Auftragserteilung</b><br><br>
                         </div>
 
@@ -1737,7 +1741,7 @@
                                         <div class="row d-flex">
                                             <div class="form-actions d-flex justify-content-center">
                                                 <div class="form-group row d-flex justify-content-center">
-                                                    <span class="text-primary mt-3 h5"><strong>Angebot:</strong></span>
+                                                    <span class=" mt-3 h5" style="color:#FF1F1F"><strong>Angebot:</strong></span>
                                                     <div
                                                         class="col-md-12 d-flex justify-content-center  ml-md-auto mt-1 btn-list">
                                                         <input class="btn btn-success btn-rounded" type="submit"

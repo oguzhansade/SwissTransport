@@ -13,7 +13,7 @@
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Panel</a>
+            <li class="breadcrumb-item"><a href="/">Panel</a>
             </li>
             <li class="breadcrumb-item active">Homepage</li>
         </ol>
