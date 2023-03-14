@@ -4,98 +4,112 @@
         <title>Offerte</title>
         <meta charset="UTF-8">
         <style>
-            *{ font-family: DejaVu Sans !important;
-                font-size:10px;
+            * {
+                font-family: DejaVu Sans !important;
+                font-size: 10px;
                 line-height: 9.5px;
-                }
-              
-                @page {
-                margin: 100px 25px;
-                }
                 
-                @page :first{
-                margin: 0px 0px;
-                }
-                
-                header {
-                    position: fixed;
-                    top: -90px;
-                    left: 0px;
-                    right: 0px;
-                    bottom: 20px;
-                    /** Extra personal styles **/
-                    text-align: center;
-                    padding: 0px;
-                    line-height: 12px;
-                }
+            }
     
-                footer {
-                    position: fixed; 
-                    bottom: -100px; 
-                    left: 0px; 
-                    right: 0px;
-                    border-top:black 1px solid;
-                    padding-bottom:5px;
-                    /** Extra personal styles **/
-                    text-align: center;
-                }
-                .certificate{
-                    position: fixed; 
-                    bottom: -70px; 
-                    right: 0px;
-                    padding-bottom:5px;
-                    /** Extra personal styles **/
-                    text-align: right;
-                }
-                .pagenum:before {
+            @page {
+                margin: 0;
+            }
+            body {
+                margin:100px 25px;
+            }
+    
+            header {
+                position: fixed;
+                margin-left:25px;
+                margin-right: 25px;
+                top: 20px;
+                left: 0px;
+                right: 0px;
+                bottom: 20px;
+                /** Extra personal styles **/
+                text-align: center;
+                padding: 0px;
+                line-height: 12px;
+                z-index: -5;
+    
+            }
+    
+            footer {
+                margin-left:25px;
+                margin-right: 25px;
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                border-top: black 1px solid;
+                padding-bottom: 5px;
+                /** Extra personal styles **/
+                text-align: center;
+                z-index: -5;
+            }
+    
+            .certificate {
+                position: fixed;
+                bottom: 30px;
+                right: 25px;
+                padding-bottom: 5px;
+                /** Extra personal styles **/
+                text-align: right;
+            }
+    
+            .pagenum:before {
                 content: counter(page);
-                }
-               
+            }
         </style>
     
         <style>
             @media print {
+    
                 /* avoid cutting tr's in half */
-                th div, td div {
-                    margin-top:-8px;
-                    padding-top:8px;
-                    page-break-inside:avoid;
+                th div,
+                td div {
+                    margin-top: -8px;
+                    padding-top: 8px;
+                    page-break-inside: avoid;
                 }
             }
-            
         </style>
-       
-        {{-- Kapak Stilleri --}}
         <style>
-            .kapak{
-                margin-top:0px;
-                margin-bottom:0px;
+            .kapak {
+                margin: -100px -25px;
                 height: 100%;
                 width: 100%;
                 padding: 0;
-                position: absolute; 
+                position: fixed;
                 z-index: 5;
                 background: url({{ asset('assets/img/offer-pdf-cover.png') }});
+                background-position: top left;
                 background-repeat: no-repeat;
-                background-size: cover;
+                background-size: 100%;
+                padding-top:130px;
+                width: 100%;
+                height: 100%;
             }
-            
+    
+    
             .kapak-icerik {
-                margin-top: 830px;
+                margin-top: 700px;
                 margin-left: 18px;
                 z-index: 6;
                 position: relative;
             }
+    
             .kapak-icerik-firma {
-                margin-top: 830px;
+                margin-top: 0px;
                 z-index: 6;
                 position: relative;
             }
+    
             .icerik-contactperson {
                 z-index: 7;
                 position: relative;
-                top:130px;
-                left:330px;
+                top: 130px;
+                left: 330px;
             }
         </style>
     
@@ -135,21 +149,22 @@
         <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</span>
     </footer>
 
-    <div class="kapak" style="page-break-after: always;">
-        <div class="kapak-icerik" >
-            <div class="kapak-icerik-firma">
-                <strong style="font-size:14px;">{{ $company['name'] }}</strong><br><br>
-                <span style="font-size:12px;">{{ $company['street'] }}</span><br>
-                <span style="font-size:12px;">{{ $company['post_code'] }} {{ $company['city'] }}</span>
-            </div>
-            <div class="icerik-contactperson">
-                <strong style="font-size:14px;">IHR KUNDENBERATER</strong><br><br>
-                <span style="font-size:12px;">@if($offer['contactPerson'] == 'Bitte wählen') Swiss Transport Team @else {{ $offer['contactPerson'] }} @endif</strong><br>
-            </div>
-        </div>
-    </div>
+    
 
     <main>
+        <div class="kapak" style="page-break-after: always;">
+            <div class="kapak-icerik" >
+                <div class="kapak-icerik-firma">
+                    <strong style="font-size:14px;">{{ $company['name'] }}</strong><br><br>
+                    <span style="font-size:12px;">{{ $company['street'] }}</span><br>
+                    <span style="font-size:12px;">{{ $company['post_code'] }} {{ $company['city'] }}</span>
+                </div>
+                <div class="icerik-contactperson">
+                    <strong style="font-size:14px;">IHR KUNDENBERATER</strong><br><br>
+                    <span style="font-size:12px;">@if($offer['contactPerson'] == 'Bitte wählen') Swiss Transport Team @else {{ $offer['contactPerson'] }} @endif</strong><br>
+                </div>
+            </div>
+        </div>
             <div class="teklif-boyutu" style="page-break-after: always;">
                 <table border="0" style="width:100%;">
                     <tr style="width:100%;">
@@ -184,7 +199,7 @@
                         <td class="pt-3">
                             {{-- Müşteri Bilgileri --}}
                             <br>
-                            @if($offer['contactPerson'] == "Bitte wählen") - @else {{ $offer['contactPerson'] }} @endif<br>
+                            @if($offer['contactPerson'] == "Bitte wählen") Swiss Transport Team @else {{ $offer['contactPerson'] }} @endif<br>
                         </td>
                         <td class="pt-3" >
                             <span style="color:#835AB1;font-size:9px;">Ihre Angaben:</span><br>
@@ -212,7 +227,13 @@
                             {{ $customer['email'] }}
                         </td>
                     </tr>
-    
+
+                    <tr  style="width:100%;">
+                        <td colspan="4" style="padding-top:30px">
+                            <img src="{{ asset('assets/img/prowen-expert.png') }}" width="750" alt="">
+                        </td>
+                    </tr>
+
                     <tr  style="width:100%;">
                         <td colspan="4" style="padding-top:30px">
                             <b>Sehr {{ $customer['gender'] === "male" ? "geehrter Herr" : "geehrte Frau" }} {{ $customer['surname'] }} <br><br>
@@ -867,7 +888,7 @@
             
                 {{-- Reinigung Alanı --}}
                 @if ($isReinigung)
-                <table border="0" style="width: 100%;margin-top:20px;@if($einpack && $auspack && $reinigung) page-break-after: always; @endif">
+                <table border="0" style="width: 100%;margin-top:20px;">
                         <tr style="width:100%;">
                             <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
                                 <b style="font-size:13px;line-height:13px;">Reinigung</b>
@@ -881,11 +902,11 @@
             
                         <tr style="width: 100%">
                         <td colspan="2" ><b>Reinigungsart:</b></td>
-                        <td colspan="2" >{{ $reinigung['reinigungType'] }}</td>
+                        <td colspan="2"  style="padding-left:60px;background-color:red">{{ $reinigung['reinigungType'] }}</td>
                         </tr>
                         <tr style="width:100%;">
                             <td colspan="2"><b style="">@if ($reinigung['fixedTariff'])Zimmer: @else Tarif: @endif</b></td>
-                            <td colspan="2"> @if ($reinigung['fixedTariff'])
+                            <td colspan="2" > @if ($reinigung['fixedTariff'])
                             {{ Str::substr(\App\Models\Tariff::infoTariff($reinigung['fixedTariff'],'description'), 0, 12); }} à CHF {{ $reinigung['fixedTariffPrice'] }}  
                             @else 
                             {{ $reinigung['ma'] }} Mitarbeiter à CHF {{ $reinigung['chf'] }}.- / Stunde
@@ -1234,7 +1255,7 @@
                                                     <td>{{ $entsorgung['extraCostValue1'] }} CHF</td>
                                                 </tr>
                                             @endif
-                                            @if ( $entsorgung['extraCostValue2'] )
+                                            @if ($entsorgung['extraCostValue2'])
                                                 <tr>
                                                     <td style="padding-left:15px;">@if ( $entsorgung['extraCostText2'] ) {{ $entsorgung['extraCostText2'] }} @else Extra Kosten @endif</td>
                                                     <td>{{ $entsorgung['extraCostValue2'] }} CHF</td>
@@ -1706,70 +1727,77 @@
                 @endif
             </div>
     
-            <div class="bemerkungen" >
-                <span ><b style="font-size:18px!important;line-height:18px;color:red;">Erstklassiger Full-Service aus einer Hand</b></span>
-                <p class="mt-3"> 
+            <div class="bemerkungen" style="width:100%;height:100%;">
+                <span ><b style="font-size:26px!important;line-height:26px;color:red;">Erstklassiger Full-Service aus einer Hand</b></span>
+                <p class="mt-3" style="font-size:14px!important;line-height:14px;"> 
                     Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu sparen. <br>
                     Wir planen, organisieren und führen Ihren Umzug durch. Ihre Zufriedenheit steht dabei an erster <br>
                     Stelle. Unsere erfahrenen und langjährigen Mitarbeiter übernehmen die organisatorische sowie <br>
                     praktische Umsetzung Ihres Umzugs.    
                 </p>
                 <span >
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Qualität beim Umziehen garantiert mit Swiss Transport:</strong>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Qualität beim Umziehen garantiert mit Swiss Transport:</strong> 
                 </span>
-                <ul>
-                    <li>Persönliche Betreuung vor, während und nach dem Umzug</li>
-                    <li>Breite Palette an Verpackungsmaterial, zum Kauf oder zur Miete</li>
-                    <li>Qualifizierte und motivierte Fachleute mit langjähriger Berufserfahrung</li>
-                    <li>Professionell ausgerüstete Möbelwagen und Zügellifte</li>
-                    <li>Fachmännisches Ein- und Auspacken Ihres Hausrates</li>
-                    <li>De- und Montage der Möbel von versierten Möbelmonteuren</li>
-                    <li>Umweltgerechte Entsorgung / Räumung alter Möbel und Hausrat</li>
-                    <li>Lagerungsmöglichkeiten in unserem Möbellagerhaus</li>
+                <ul >
+                    <li style="font-size:14px!important;line-height:14px;">Persönliche Betreuung vor, während und nach dem Umzug</li>
+                    <li style="font-size:14px!important;line-height:14px;">Breite Palette an Verpackungsmaterial, zum Kauf oder zur Miete</li>
+                    <li style="font-size:14px!important;line-height:14px;">Qualifizierte und motivierte Fachleute mit langjähriger Berufserfahrung</li>
+                    <li style="font-size:14px!important;line-height:14px;">Professionell ausgerüstete Möbelwagen und Zügellifte</li>
+                    <li style="font-size:14px!important;line-height:14px;">Fachmännisches Ein- und Auspacken Ihres Hausrates</li>
+                    <li style="font-size:14px!important;line-height:14px;">De- und Montage der Möbel von versierten Möbelmonteuren</li>
+                    <li style="font-size:14px!important;line-height:14px;">Umweltgerechte Entsorgung / Räumung alter Möbel und Hausrat</li>
+                    <li style="font-size:14px!important;line-height:14px;">Lagerungsmöglichkeiten in unserem Möbellagerhaus</li>
                 </ul>
     
                 <span>
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Folgende Kosten sind im Preis inbegriffen:</strong>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Folgende Kosten sind im Preis inbegriffen:</strong>
                 </span>
 
                 <ul>
-                    <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
-                    <li>Bodenvlies zum Schutz heikler Bodenbeläge, falls erforderlich</li>
-                    <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
-                    <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
-                    <li>Selbstverständlich führen wir Traggurten, Werkzeuge und genügend Wolldecken mit</li>
+                    <li style="font-size:14px!important;line-height:14px;">Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen</li>
+                    <li style="font-size:14px!important;line-height:14px;">Bodenvlies zum Schutz heikler Bodenbeläge, falls erforderlich</li>
+                    <li style="font-size:14px!important;line-height:14px;">Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
+                    <li style="font-size:14px!important;line-height:14px;">Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
+                    <li style="font-size:14px!important;line-height:14px;">Selbstverständlich führen wir Traggurten, Werkzeuge und genügend Wolldecken mit</li>
                 </ul>
 
                 <span >
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Versicherung:</strong> <br>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Versicherung:</strong> <br>
                 </span>
-                <span>
+                <span style="font-size:14px!important;line-height:14px;">
                     Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100&#39;000.- (ohne Selbstbehalt)
-                </span> <br>
+                </span> <br><br>
 
                 <span >
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Arbeitsaufwand:</strong> <br>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Arbeitsaufwand:</strong> <br>
                 </span>
-                <span>
+                <span style="font-size:14px!important;line-height:14px;">
                     Es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand abgerechnet.
-                </span> <br>
+                </span> <br><br>
 
                 <span >
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Pausen:</strong> <br>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Pausen:</strong> <br>
                 </span>
-                <span>
+                <span style="font-size:14px!important;line-height:14px;">
                     Betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt i.d.R. <br>
                     eine Stunde und gilt nicht als Arbeitszeit.
-                </span> <br>
+                </span> <br><br>
 
                 <span >
-                    <strong style="font-size:12px!important;line-height:18px;color:red;">Gewichtszuschläge:</strong> <br>
+                    <strong style="font-size:16px!important;line-height:18px;color:red;">Gewichtszuschläge:</strong> <br>
                 </span>
-                <span>
+                <span style="font-size:14px!important;line-height:14px;">
                     Gewichtszuschlag von CHF 150.– für Gegenstände mit einem Eigengewicht von über 100kg. <br>
                     Klavierzuschlag ab CHF 250.–
-                </span>
+                </span> <br><br>
 
+                <span style="font-size:14px!important;line-height:14px;"> Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie schon bald als einen <br>
+                unserer zufriedenen Kunden begrüssen zu können. <br>
+
+                Freundliche Grüsse <br> <br>
+
+                Ihr Swiss Transport Team 
+                </span>
                 <div class="certificate" style="align:right;">
                     <a href="https://www.provenexpert.com/swiss-transport-ag/?utm_source=Widget&utm_medium=Widget&utm_campaign=Widget" target="_blank"><img style="padding:0px!important;align:right;" src="{{ asset('assets/demo/certificate.png') }}" width="300" /></a>
                 </div>
