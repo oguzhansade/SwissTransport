@@ -72,7 +72,7 @@
                                 {{-- 1.Umzug Alanı Başlangıç --}}
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Umzugstermin Am</label>
-                                    <input class="form-control" class="date"  name="umzug1date"  type="date" @if ($dataUmzug) value="{{ $dataUmzug['umzugDate'] }}" @endif required>                                
+                                    <input class="form-control" class="date"  name="umzug1date"  type="date" @if ($dataUmzug) value="{{ $dataUmzug['umzugDate'] }}" @endif >                                
                                 </div>
                                 
                                 <div class="col-md-6">
@@ -1109,7 +1109,7 @@
         let reinigungname = '{{ $data2['name'] }}';
         let reinigungsurname = '{{ $data2['surname'] }}';
         let reinigungmobile = '{{ $data2['mobile'] }}';
-        if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung1Enddate]').val())+' '+'um'}else{ reinigungEndDate = ''}
+        if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+$('input[name=reinigung1Enddate]').val()+' '+'um'}else{ reinigungEndDate = ''}
         if($('input[name=reinigung1Endtime]').val()){  reinigungEndTime = $('input[name=reinigung1Endtime]').val()+' '+'Uhr';}else{ reinigungEndTime = ''}
     
         let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
@@ -1137,7 +1137,7 @@
         let reinigung2name = '{{ $data2['name'] }}';
         let reinigung2surname = '{{ $data2['surname'] }}';
         let reinigung2mobile = '{{ $data2['mobile'] }}';
-        if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung2Enddate]').val())+' '+'um'}else{ reinigung2EndDate = ''}
+        if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+$('input[name=reinigung2Enddate]').val()+' '+'um'}else{ reinigung2EndDate = ''}
         if($('input[name=reinigung2Endtime]').val()){  reinigung2EndTime = $('input[name=reinigung2Endtime]').val()+' '+'Uhr';}else{ reinigung2EndTime = ''}
     
         let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
@@ -1150,7 +1150,7 @@
 
     function lagerungFunc()
     {
-        let lagerungserviceName = 'Transport';
+        let lagerungserviceName = 'Lagerung';
         let lagerunggender = '';
         let lagerunggenderType = '{{ $data2['gender'] }}';
         let lagerunghours,lagerungma,lagerunglkw,lagerungtime,lagerunganhanger;
@@ -1178,18 +1178,7 @@
         }
     }
 
-    $(document).ready(function(){
-        umzugFunc();
-        umzug2Func();
-        umzug3Func()
-        einpackFunc()
-        auspackFunc()
-        entsorgungFunc()
-        transportFunc()
-        reinigungFunc()
-        reinigung2Func()
-        lagerungFunc()
-    })
+    
 
     $(".appointment-type").click(function() {
         var valueQq = $("input[name=appType]:checked").val();
@@ -1226,7 +1215,7 @@
     })
 
     // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
-    $('body').on('change','.umzug-area',function(){
+    $('body').on('change','.umzug--area',function(){
         umzugFunc();
     })
 
@@ -1265,7 +1254,7 @@
     $('body').on('change','.reinigung2--area',function(){
         reinigung2Func()
     })
-    $('body').on('change','.reinigung2--area',function(){
+    $('body').on('change','.lagerung--area',function(){
         lagerungFunc()
     })
 </script>

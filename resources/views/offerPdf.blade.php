@@ -113,6 +113,14 @@
             top: 130px;
             left: 330px;
         }
+        .text-primary {
+            color:#CE0000!important;
+        }
+        .custom-heading-bar {
+            background-color:#D10D0C;
+            padding:3px;color:white;
+            border-radius:0px 120px 120px 0px;
+        }
     </style>
 </head>
 
@@ -178,7 +186,7 @@
         <div class="teklif-boyutu" style="page-break-after: always;">
             <table border="0" style="width:100%;">
                 <tr style="width:100%;">
-                    <td colspan="4" class="py-1 " style="background-color:#E5E5E5;">
+                    <td colspan="4" class="py-1 custom-heading-bar" >
                         <b style="font-size:13px;">Offerte {{ $offerteNumber }} vom
                             {{ date('d.m.Y', strtotime($offer['created_at'])) }} für
                             {{ $customer['gender'] === 'male' ? 'Herr' : 'Frau' }} {{ $customer['name'] }}
@@ -196,7 +204,7 @@
                     </td>
                     <td class="pt-4" colspan="2">
                         {{-- Müşteri Bilgileri --}}
-                        <span style="color:#835AB1;font-size:9px;">Auftraggeber:</span><br>
+                        <span style="color:#D10D0C;font-size:9px;">Auftraggeber:</span><br>
                         @if ($customer['companyName'])
                             {{ $customer['companyName'] }} <br>
                         @endif
@@ -213,7 +221,7 @@
                 @if ($offer['contactPerson'])
                     <tr style="width:100%;">
                         <td class="pt-3">
-                            <span style="color:#835AB1;font-size:9px;">Unsere Angaben:</span><br>
+                            <span style="color:#D10D0C;font-size:9px;">Unsere Angaben:</span><br>
                             Ihr direkter Ansprechpartner:
                         </td>
                         <td class="pt-3">
@@ -227,7 +235,7 @@
                             <br>
                         </td>
                         <td class="pt-3">
-                            <span style="color:#835AB1;font-size:9px;">Ihre Angaben:</span><br>
+                            <span style="color:#D10D0C;font-size:9px;">Ihre Angaben:</span><br>
                         </td>
                     </tr>
                 @endif
@@ -276,13 +284,12 @@
 
                     {{-- Aus ve Einler --}}
                     <tr style="width:100%;">
-                        <td colspan="2" class="p-1 "
-                            style="background-color:#E5E5E5; border-right:5px solid white;">
-                            <b style="font-size:13px;line-height:13px;">Auszug</b>
+                        <td colspan="2" class=" custom-heading-bar">
+                            <b style="font-size:13px;">Auszug</b>
                         </td>
                         @if ($einzug1)
-                            <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
-                                <b style="font-size:13px;line-height:13px;">Einzug</b>
+                            <td colspan="2" class=" custom-heading-bar">
+                                <b style="font-size:13px;">Einzug</b>
                             </td>
                         @endif
                     </tr>
@@ -354,14 +361,13 @@
                     {{-- 2.Adresler --}}
                     <tr style="width:100%;">
                         @if ($auszug2)
-                            <td colspan="2" class="p-1 "
-                                style="background-color:#E5E5E5; border-right:5px solid white;">
-                                <b style="font-size:13px;line-height:13px;">Auszug 2</b>
+                            <td colspan="2" class=" custom-heading-bar">
+                                <b style="font-size:13px;">Auszug 2</b>
                             </td>
                         @endif
                         @if ($einzug2)
-                            <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
-                                <b style="font-size:13px;line-height:13px;">Einzug 2</b>
+                            <td colspan="2" class=" custom-heading-bar">
+                                <b style="font-size:13px;">Einzug 2</b>
                             </td>
                         @endif
                     </tr>
@@ -418,14 +424,13 @@
                     {{-- 3.Adresler --}}
                     <tr style="width:100%;">
                         @if ($auszug3)
-                            <td colspan="2" class="p-1 "
-                                style="background-color:#E5E5E5; border-right:5px solid white;">
-                                <b style="font-size:13px;line-height:13px;">Auszug 3</b>
+                            <td colspan="2" class="custom-heading-bar">
+                                <b style="font-size:13px;">Auszug 3</b>
                             </td>
                         @endif
                         @if ($einzug3)
-                            <td colspan="2" class="p-1 " style="background-color:#E5E5E5;">
-                                <b style="font-size:13px;line-height:13px;">Einzug 3</b>
+                            <td colspan="2" class="custom-heading-bar" >
+                                <b style="font-size:13px;">Einzug 3</b>
                             </td>
                         @endif
                     </tr>
@@ -480,8 +485,8 @@
                     </tr>
 
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Umzug</b>
+                        <td colspan="4" class="custom-heading-bar">
+                            <b style="font-size:13px;">Umzug</b>
                         </td>
                     </tr>
 
@@ -675,13 +680,13 @@
 
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#835AB1;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#D10D0C;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
                 </tr>
 
                 @if ($umzug['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#835AB1;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
+                        <td><span style="color:#D10D0C;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -722,8 +727,8 @@
             @if ($isEinpack)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Einpackservice</b>
+                        <td colspan="4" class="custom-heading-bar">
+                            <b style="font-size:13px;">Einpackservice</b>
                         </td>
                     </tr>
 
@@ -846,13 +851,13 @@
 
             <tr>
                 <td align="left" valign="top">Geschätzte Kosten:</td>
-                <td><span style="color:#835AB1;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($einpack['topCost'] != null)
                 <tr>
                     <td align="left" valign="top">Kostendach:</td>
-                    <td><span style="color:#835AB1;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
+                    <td><span style="color:#D10D0C;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -888,8 +893,8 @@
             @if ($isAuspack)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Auspackservice</b>
+                        <td colspan="4" class=" custom-heading-bar" >
+                            <b style="font-size:13px;">Auspackservice</b>
                         </td>
                     </tr>
 
@@ -1010,13 +1015,13 @@
 
             <tr>
                 <td align="left" valign="top">Geschätzte Kosten:</td>
-                <td><span style="color:#835AB1;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($auspack['topCost'] != null)
                 <tr>
                     <td align="left" valign="top">Kostendach:</td>
-                    <td><span style="color:#835AB1;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
+                    <td><span style="color:#D10D0C;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1054,8 +1059,8 @@
                 <table border="0"
                     style="width: 100%;margin-top:20px;@if ($einpack && $auspack && $reinigung) page-break-after: always; @endif">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Reinigung</b>
+                        <td colspan="4" class=" custom-heading-bar" >
+                            <b style="font-size:13px;">Reinigung</b>
                         </td>
                     </tr>
 
@@ -1229,7 +1234,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#835AB1;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1265,8 +1270,8 @@
             @if ($reinigung2)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Reinigung 2</b>
+                        <td colspan="4" class="custom-heading-bar" >
+                            <b style="font-size:13px;">Reinigung 2</b>
                         </td>
                     </tr>
 
@@ -1440,7 +1445,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#835AB1;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1476,8 +1481,8 @@
             @if ($isEntsorgung)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Entsorgung</b>
+                        <td colspan="4" class="custom-heading-bar">
+                            <b style="font-size:13px;">Entsorgung</b>
                         </td>
                     </tr>
 
@@ -1610,12 +1615,12 @@
 
             <tr>
                 <td align="left" valign="top"> Kosten: </td>
-                <td><span style="color:#835AB1;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             <tr>
                 <td align="left" valign="top"> Pauschal: </td>
-                <td><span style="color:#835AB1;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1650,8 +1655,8 @@
             @if ($isTransport)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Transport</b>
+                        <td colspan="4" class="custom-heading-bar" >
+                            <b style="font-size:13px;">Transport</b>
                         </td>
                     </tr>
 
@@ -1821,13 +1826,13 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#835AB1;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($transport['topCost'] != null)
                 <tr>
                     <td align="left" valign="top"> Kostendach: </td>
-                    <td><span style="color:#835AB1;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
+                    <td><span style="color:#D10D0C;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1865,8 +1870,8 @@
             @if ($isLagerung)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Lagerung</b>
+                        <td colspan="4" class="custom-heading-bar" >
+                            <b style="font-size:13px;">Lagerung</b>
                         </td>
                     </tr>
 
@@ -1937,12 +1942,12 @@
 
             <tr>
                 <td align="left" valign="top"> Kosten: </td>
-                <td><span style="color:#835AB1;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             <tr>
                 <td align="left" valign="top"> Pauschal: </td>
-                <td><span style="color:#835AB1;"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
+                <td><span style="color:#D10D0C;"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1978,8 +1983,8 @@
             @if ($isMaterial)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="5" class="p-1 " style="background-color:#E5E5E5;">
-                            <b style="font-size:13px;line-height:13px;">Verpackungsmaterial</b>
+                        <td colspan="5" class="custom-heading-bar" >
+                            <b style="font-size:13px;">Verpackungsmaterial</b>
                         </td>
                     </tr>
 
@@ -2046,7 +2051,7 @@
                     <tr>
                         <td style="font-weight: bold;">Total:</td>
                         <td align="left" colspan="4"><span
-                                style="color:#835AB1;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
+                                style="color:#D10D0C;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
                         </td>
                     </tr>
 
@@ -2186,7 +2191,7 @@
 
             <span style="font-size:14px!important;line-height:14px;"> Wir hoffen, dass wir Ihr Interesse wecken
                 konnten, und würden uns freuen, Sie schon bald als einen <br>
-                unserer zufriedenen Kunden begrüssen zu können. <br>
+                unserer zufriedenen Kunden begrüssen zu können. <br><br>
 
                 Freundliche Grüsse <br> <br>
 

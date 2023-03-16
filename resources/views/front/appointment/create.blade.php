@@ -4,6 +4,90 @@
         referrerpolicy="origin"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        
+        .default:before{
+            border-color: #039be5!important;
+        }
+        .default:after {
+            background: #039be5!important;
+        }
+        .lavender:before{
+            border-color: #7986CB!important;
+        }
+        .lavender:after {
+            background: #7986CB!important;
+        }
+        
+        .sage:before{
+            border-color: #33b679!important;
+        }
+        .sage:after {
+            background: #33b679!important;
+        }
+       
+        .grape:before{
+            border-color: #8e24aa!important;
+        }
+        .grape:after {
+            background: #8e24aa!important;
+        }
+
+        .flamingo:before{
+            border-color: #e67c73!important;
+        }
+        .flamingo:after {
+            background: #e67c73!important;
+        }
+        .banana:before{
+            border-color: #f6c026!important;
+        }
+        .banana:after {
+            background: #f6c026!important;
+        }
+
+        .tangerine:before{
+            border-color: #f5511d!important;
+        }
+        .tangerine:after {
+            background: #f5511d!important;
+        }
+
+        .peacock:before{
+            border-color: #039be5!important;
+        }
+        .peacock:after {
+            background: #039be5!important;
+        }
+
+        .graphite:before{
+            border-color: #616161!important;
+        }
+        .graphite:after {
+            background: #616161!important;
+        }
+
+        .blueberry:before{
+            border-color: #3f51b5!important;
+        }
+        .blueberry:after {
+            background: #3f51b5!important;
+        }
+
+        .basil:before{
+            border-color: #0b8043!important;
+        }
+        .basil:after {
+            background: #0b8043!important;
+        }
+
+        .tomato:before{
+            border-color: #d60000!important;
+        }
+        .tomato:after {
+            background: #d60000!important;
+        }
+    </style>
 @endsection
 @section('content')
 @section('sidebarType')
@@ -87,11 +171,12 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        
                         {{-- Onay Alanı Başlangıç --}}
                         <div class="confirmation--area" style="display:none;">
                             <div class="form-group row">
-                                <div class="col-md-12 umzug-control">
+                                <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Payment Type</label><br>
                                     <select class="form-control" name="paymentType" id="paymentType">
                                         <option value="0">Bar</option>
@@ -119,24 +204,27 @@
                                         <input class="form-control" class="date" id="umzug1date" name="umzug1date"
                                             type="date">
                                     </div>
-    
+
                                     <div class="col-md-6">
                                         <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
                                         <input class="form-control" name="umzug1time" type="time">
                                     </div>
-    
+
                                     <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control" name="umzug1hours" placeholder="4-5" type="text">
+                                            <input class="form-control" name="umzug1hours" placeholder="4-5"
+                                                type="text">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control" name="umzug1ma" placeholder="0" type="number">
+                                            <input class="form-control" name="umzug1ma" placeholder="0"
+                                                type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control" name="umzug1lkw" placeholder="0" type="number">
+                                            <input class="form-control" name="umzug1lkw" placeholder="0"
+                                                type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Anhänger</label>
@@ -144,27 +232,91 @@
                                                 type="number">
                                         </div>
                                     </div>
-    
+
+
+
                                     <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="umzug1calendarTitle"
-                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarComment</label>
                                             <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
                                                 placeholder="CalendarComment"></textarea>
                                         </div>
-    
+
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
                                             <input class="form-control" name="umzug1calendarLocation"
                                                 placeholder="CalendarLocation" type="text"
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
+
                                     </div>
+
+                                    <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                            <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                        </div> 
+                                        
+                                        <div class="radiobox colors">
+                                            <label class="mt-1 ">
+                                                <input type="radio" class=""  name="calendarUmzugColor" value="15"
+                                                    > <span
+                                                    class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="1"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="2"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="3"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="4"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="5"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="6"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="7"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="8"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="9"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="10" checked="checked"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="11"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
 
@@ -216,7 +368,8 @@
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="umzug2calendarTitle"
-                                                placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -232,6 +385,64 @@
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
+
+                                    <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                            <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                        </div> 
+                                        
+                                        <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                            <label class="mt-1 ">
+                                                <input type="radio" class=""  name="calendarUmzug2Color" value="15"
+                                                    > <span
+                                                    class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="1"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="2"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="3"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="4"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="5"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="6"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="7"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="8"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="9"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="10" checked="checked"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="11"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 {{-- 2.Umzug Alanı Bitiş --}}
 
@@ -240,14 +451,16 @@
                                     <div class="form-group row umzug--area3 w-100">
                                         <div class="col-md-6">
                                             <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
-                                            <input class="form-control" class="date" name="umzug3date" type="date">
+                                            <input class="form-control" class="date" name="umzug3date"
+                                                type="date">
                                         </div>
-    
+
                                         <div class="col-md-6">
-                                            <label class=" col-form-label" for="l0">Umzugstermin 3 Stunde</label>
+                                            <label class=" col-form-label" for="l0">Umzugstermin 3
+                                                Stunde</label>
                                             <input class="form-control" name="umzug3time" type="time">
                                         </div>
-    
+
                                         <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                             <div class="col-md-3">
                                                 <label class=" col-form-label" for="l0">Dauer [h]</label>
@@ -270,25 +483,83 @@
                                                     type="number">
                                             </div>
                                         </div>
-    
+
                                         <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
                                             <div class="col-md-4">
                                                 <label class=" col-form-label" for="l0">CalendarTitle</label>
                                                 <input class="form-control" name="umzug3calendarTitle"
-                                                    placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                    placeholder="CalendarTitle" type="text"
+                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                             </div>
-    
+
                                             <div class="col-md-4">
                                                 <label class=" col-form-label" for="l0">CalendarComment</label>
                                                 <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
                                                     placeholder="CalendarComment"></textarea>
                                             </div>
-    
+
                                             <div class="col-md-4">
                                                 <label class=" col-form-label" for="l0">CalendarLocation</label>
                                                 <input class="form-control" name="umzug3calendarLocation"
                                                     placeholder="CalendarLocation" type="text"
                                                     value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                            </div>
+                                        </div>
+                                        <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                            </div> 
+                                            
+                                            <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="calendarUmzug3Color" value="15"
+                                                        > <span
+                                                        class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="1"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="2"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="3"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="4"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="5"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="6"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="7"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="8"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="9"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="10" checked="checked"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="11"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -350,7 +621,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="einpackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -364,6 +636,63 @@
                                         <input class="form-control" name="einpackcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                    </div>
+                                </div>
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarEinpackColor" value="15"
+                                               > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -421,7 +750,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="auspackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -435,6 +765,64 @@
                                         <input class="form-control" name="auspackcalendarLocation"
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                    </div>
+                                </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarAuspackColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="10"  checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -480,7 +868,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -495,6 +884,58 @@
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
+                                </div>
+
+                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                    <label class="mt-1 ">
+                                        <input type="radio" class=""  name="calendarReinigungColor" value="15"
+                                           > <span
+                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigungColor" value="1"> <span
+                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigungColor" value="2"> <span
+                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigungColor" value="3"> <span
+                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigungColor" value="4"> <span
+                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigungColor" value="5"> <span
+                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="6"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="7"> <span
+                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="8"> <span
+                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="9"> <span
+                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="10" checked="checked"> <span
+                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigungColor" value="11"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                    </label>
                                 </div>
                             </div>
                             {{-- Reinigung Alanı Bitiş --}}
@@ -539,7 +980,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigung2calendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -554,6 +996,58 @@
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
+                                </div>
+
+                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                    <label class="mt-1 ">
+                                        <input type="radio" class=""  name="calendarReinigung2Color" value="15"
+                                            > <span
+                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigung2Color" value="1"> <span
+                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigung2Color" value="2"> <span
+                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigung2Color" value="3"> <span
+                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigung2Color" value="4"> <span
+                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarReinigung2Color" value="5"> <span
+                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="6"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="7"> <span
+                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="8"> <span
+                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="9"> <span
+                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="10"  checked="checked"> <span
+                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarReinigung2Color" value="11"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                    </label>
                                 </div>
                             </div>
                             {{-- 2.Reinigung Alanı Bitiş --}}
@@ -610,7 +1104,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="entsorgungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -625,6 +1120,58 @@
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
+                                </div>
+
+                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                    <label class="mt-1 ">
+                                        <input type="radio" class=""  name="calendarEntsorgungColor" value="15"
+                                            > <span
+                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="1"> <span
+                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="2"> <span
+                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="3"> <span
+                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="4"> <span
+                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="5"> <span
+                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="6"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="7"> <span
+                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="8"> <span
+                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="9"> <span
+                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="10" checked="checked"> <span
+                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarEntsorgungColor" value="11"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                    </label>
                                 </div>
                             </div>
                             {{-- Entsorgung Alanı Bitiş --}}
@@ -692,7 +1239,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="transportcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -707,6 +1255,58 @@
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
+                                </div>
+
+                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                    <label class="mt-1 ">
+                                        <input type="radio" class=""  name="calendarTransportColor" value="15"
+                                            > <span
+                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarTransportColor" value="1"> <span
+                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarTransportColor" value="2"> <span
+                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarTransportColor" value="3"> <span
+                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarTransportColor" value="4"> <span
+                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarTransportColor" value="5"> <span
+                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="6"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="7"> <span
+                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="8"> <span
+                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="9"> <span
+                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="10" checked="checked"> <span
+                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarTransportColor" value="11"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                    </label>
                                 </div>
                             </div>
                             {{-- Transport Alanı Bitiş --}}
@@ -739,7 +1339,8 @@
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="lagerungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text" value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            placeholder="CalendarTitle" type="text"
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-4">
@@ -754,6 +1355,58 @@
                                             placeholder="CalendarLocation" type="text"
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
+                                </div>
+
+                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                    <label class="mt-1 ">
+                                        <input type="radio" class=""  name="calendarLagerungColor" value="15"
+                                            > <span
+                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarLagerungColor" value="1"> <span
+                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarLagerungColor" value="2"> <span
+                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarLagerungColor" value="3"> <span
+                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarLagerungColor" value="4"> <span
+                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                    </label>
+                                    <label class="mt-1 ">
+                                        <input type="radio"  name="calendarLagerungColor" value="5"> <span
+                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="6"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="7"> <span
+                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="8"> <span
+                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="9"> <span
+                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="10" checked="checked"> <span
+                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                    </label>
+                                    <label class="mt-1 red">
+                                        <input type="radio"  name="calendarLagerungColor" value="11"> <span
+                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                    </label>
                                 </div>
                             </div>
                             {{-- Transport Alanı Bitiş --}}
@@ -871,18 +1524,82 @@
                             </div>
                         </div>
 
-                        <div class="calendar--area" >
+                        <div class="calendar--area">
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle" type="text" required value="@if($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                    <input class="form-control" name="calendarTitle" type="text" required
+                                        value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                 </div>
-    
+                                
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10" ></textarea>
+                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="besc-color-area">
+                            <div class="row">
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarBescColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarBescColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarBescColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarBescColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarBescColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarBescColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarBescColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                           
                         </div>
 
                         <div class="form-group row">
@@ -908,7 +1625,8 @@
 
 
                             <div class="col-md-12 email-format">
-                                <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
+                                <label for="" class="col-form-label">Standard Emailtext
+                                    bearbeiten</label><br>
                                 <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
                                     class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false">
                             </div>
@@ -1081,44 +1799,41 @@
 
 {{-- Title Oto Doldurma --}}
 <script>
-    function bescFunc() 
-        {
-            var valueQq = $("input[name=appType]:checked").val();
-            let AppserviceName = '';
-            if (valueQq == 1)
-            {
-                AppserviceName = 'Bes.';
-            }
-            if(valueQq == 3)
-            {
-                AppserviceName = 'Liefe.';
-            }
-            
-            let Appgender = '';
-            let AppgenderType = '{{ $data['gender'] }}';
-            if(AppgenderType == 'male')
-            {
-                Appgender = 'Herr'
-            }
-            else{
-                Appgender = 'Frau'
-            }
-            let Appname = '{{ $data['name'] }}';
-            let Appsurname = '{{ $data['surname'] }}';
-            let Appmobile = '{{ $data['mobile'] }}';
-            let ApppostCode = '{{ $data['postCode'] }}';
-            let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
-
-            if(bescnewTitle !== bescTitle) { // only update if the new title is different
-                $('input[name=calendarTitle]').val(bescnewTitle);
-                bescTitle = bescnewTitle; // save the new title
-            }
+    function bescFunc() {
+        var valueQq = $("input[name=appType]:checked").val();
+        let AppserviceName = '';
+        if (valueQq == 1) {
+            AppserviceName = 'Bes.';
+        }
+        if (valueQq == 3) {
+            AppserviceName = 'Liefe.';
         }
 
-    $(document).ready(function(){
-        bescFunc() 
+        let Appgender = '';
+        let AppgenderType = '{{ $data['gender'] }}';
+        if (AppgenderType == 'male') {
+            Appgender = 'Herr'
+        } else {
+            Appgender = 'Frau'
+        }
+        let Appname = '{{ $data['name'] }}';
+        let Appsurname = '{{ $data['surname'] }}';
+        let Appmobile = '{{ $data['mobile'] }}';
+        let ApppostCode = '{{ $data['postCode'] }}';
+        let bescnewTitle = ApppostCode + ' ' + '/' + ' ' + AppserviceName + ' ' + Appgender + ' ' + Appname + ' ' +
+            Appsurname + ' ' + Appmobile;
+
+        if (bescnewTitle !== bescTitle) { // only update if the new title is different
+            $('input[name=calendarTitle]').val(bescnewTitle);
+            bescTitle = bescnewTitle; // save the new title
+        }
+    }
+
+    $(document).ready(function() {
+        bescFunc()
     })
-    function momentConverter(value){
+
+    function momentConverter(value) {
         moment.locale('de');
         return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
     }
@@ -1133,300 +1848,477 @@
     let reinigung2Title = $('input[name=reinigung2calendarTitle]').val();
     let lagerungTitle = $('input[name=lagerungcalendarTitle]').val();
     let bescTitle = $('input[name=calendarTitle]').val();
-    
+
 
     $(".appointment-type").click(function() {
         bescFunc()
-         
+
     })
 
     // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
-    $('body').on('change','.umzug-area',function(){
+    $('body').on('change', '.umzug-area', function() {
         let serviceName = 'Umzug';
         let gender = '';
         let genderType = '{{ $data['gender'] }}';
-        let hours,ma,lkw,time,anhanger;
-        if(genderType == 'male')
-        {
+        let hours, ma, lkw, time, anhanger;
+        if (genderType == 'male') {
             gender = 'Herr'
-        }
-        else{
+        } else {
             gender = 'Frau'
         }
         let name = '{{ $data['name'] }}';
         let surname = '{{ $data['surname'] }}';
         let mobile = '{{ $data['mobile'] }}';
-        if($('input[name=umzug1hours]').val()){ hours = 'ca.'+' '+$('input[name=umzug1hours]').val()+' '+'Std'}else{ hours = ''}
-        if($('input[name=umzug1ma]').val()>0){  ma = $('input[name=umzug1ma]').val()+' '+'MA';} else { ma = ''}
-        if($('input[name=umzug1lkw]').val()>0){  lkw = $('input[name=umzug1lkw]').val()+' '+'LW';}else{ lkw = ''}
-        if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1anhanger]').val()+' '+'Anh';}else{ anhanger = ''}
-        if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
-    
-        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
+        if ($('input[name=umzug1hours]').val()) {
+            hours = 'ca.' + ' ' + $('input[name=umzug1hours]').val() + ' ' + 'Std'
+        } else {
+            hours = ''
+        }
+        if ($('input[name=umzug1ma]').val() > 0) {
+            ma = $('input[name=umzug1ma]').val() + ' ' + 'MA';
+        } else {
+            ma = ''
+        }
+        if ($('input[name=umzug1lkw]').val() > 0) {
+            lkw = $('input[name=umzug1lkw]').val() + ' ' + 'LW';
+        } else {
+            lkw = ''
+        }
+        if ($('input[name=umzug1anhanger]').val() > 0) {
+            anhanger = $('input[name=umzug1anhanger]').val() + ' ' + 'Anh';
+        } else {
+            anhanger = ''
+        }
+        if ($('input[name=umzug1time]').val()) {
+            time = $('input[name=umzug1time]').val() + ' ' + 'Uhr';
+        } else {
+            time = ''
+        }
 
-        if(newTitle !== umzugTitle) { // only update if the new title is different
+        let newTitle = serviceName + ' ' + '/' + ' ' + gender + ' ' + name + ' ' + surname + ' ' + mobile +
+            ' ' + '/' + ' ' + ma + ' ' + lkw + ' ' + anhanger + ' ' + hours + ' ' + '/' + ' ' + time;
+
+        if (newTitle !== umzugTitle) { // only update if the new title is different
             $('input[name=umzug1calendarTitle]').val(newTitle);
             umzugTitle = newTitle; // save the new title
         }
     })
 
-    $('body').on('change','.umzug--area2',function(){
+    $('body').on('change', '.umzug--area2', function() {
         let umzug2serviceName = 'Umzug 2';
         let umzug2gender = '';
         let umzug2genderType = '{{ $data['gender'] }}';
-        let umzug2hours,umzug2ma,umzug2lkw,umzug2time,umzug2anhanger;
-        if(umzug2genderType == 'male')
-        {
+        let umzug2hours, umzug2ma, umzug2lkw, umzug2time, umzug2anhanger;
+        if (umzug2genderType == 'male') {
             umzug2gender = 'Herr'
-        }
-        else{
+        } else {
             umzug2gender = 'Frau'
         }
         let umzug2name = '{{ $data['name'] }}';
         let umzug2surname = '{{ $data['surname'] }}';
         let umzug2mobile = '{{ $data['mobile'] }}';
-        if($('input[name=umzug2hours]').val()){ umzug2hours = 'ca.'+' '+$('input[name=umzug2hours]').val()+' '+'Std'}else{ umzug2hours = ''}
-        if($('input[name=umzug2ma]').val()>0){  umzug2ma = $('input[name=umzug2ma]').val()+' '+'MA';} else { umzug2ma = ''}
-        if($('input[name=umzug2lkw]').val()>0){  umzug2lkw = $('input[name=umzug2lkw]').val()+' '+'LW';}else{ umzug2lkw = ''}
-        if($('input[name=umzug2anhanger]').val()>0){  umzug2anhanger = $('input[name=umzug2anhanger]').val()+' '+'ANH';}else{ umzug2anhanger = ''}
-        if($('input[name=umzug2time]').val()){  umzug2time = $('input[name=umzug2time]').val()+' '+'Uhr';}else{ umzug2time = ''}
-    
-        let umzug2newTitle = umzug2serviceName+' '+'/'+' '+umzug2gender+' '+umzug2name+' '+umzug2surname+' '+umzug2mobile+' '+'/'+' '+umzug2ma+' '+umzug2lkw+' '+umzug2anhanger+' '+umzug2hours+' '+'/'+' '+umzug2time;
+        if ($('input[name=umzug2hours]').val()) {
+            umzug2hours = 'ca.' + ' ' + $('input[name=umzug2hours]').val() + ' ' + 'Std'
+        } else {
+            umzug2hours = ''
+        }
+        if ($('input[name=umzug2ma]').val() > 0) {
+            umzug2ma = $('input[name=umzug2ma]').val() + ' ' + 'MA';
+        } else {
+            umzug2ma = ''
+        }
+        if ($('input[name=umzug2lkw]').val() > 0) {
+            umzug2lkw = $('input[name=umzug2lkw]').val() + ' ' + 'LW';
+        } else {
+            umzug2lkw = ''
+        }
+        if ($('input[name=umzug2anhanger]').val() > 0) {
+            umzug2anhanger = $('input[name=umzug2anhanger]').val() + ' ' + 'ANH';
+        } else {
+            umzug2anhanger = ''
+        }
+        if ($('input[name=umzug2time]').val()) {
+            umzug2time = $('input[name=umzug2time]').val() + ' ' + 'Uhr';
+        } else {
+            umzug2time = ''
+        }
 
-        if(umzug2newTitle !== umzug2Title) { // only update if the new title is different
+        let umzug2newTitle = umzug2serviceName + ' ' + '/' + ' ' + umzug2gender + ' ' + umzug2name + ' ' +
+            umzug2surname + ' ' + umzug2mobile + ' ' + '/' + ' ' + umzug2ma + ' ' + umzug2lkw + ' ' +
+            umzug2anhanger + ' ' + umzug2hours + ' ' + '/' + ' ' + umzug2time;
+
+        if (umzug2newTitle !== umzug2Title) { // only update if the new title is different
             $('input[name=umzug2calendarTitle]').val(umzug2newTitle);
             umzug2Title = umzug2newTitle; // save the new title
         }
     })
-    
-    $('body').on('change','.umzug--area3',function(){
+
+    $('body').on('change', '.umzug--area3', function() {
         let umzug3serviceName = 'Umzug 3';
         let umzug3gender = '';
         let umzug3genderType = '{{ $data['gender'] }}';
-        let umzug3hours,umzug3ma,umzug3lkw,umzug3time,umzug3anhanger;
-        if(umzug3genderType == 'male')
-        {
+        let umzug3hours, umzug3ma, umzug3lkw, umzug3time, umzug3anhanger;
+        if (umzug3genderType == 'male') {
             umzug3gender = 'Herr'
-        }
-        else{
+        } else {
             umzug3gender = 'Frau'
         }
         let umzug3name = '{{ $data['name'] }}';
         let umzug3surname = '{{ $data['surname'] }}';
         let umzug3mobile = '{{ $data['mobile'] }}';
-        if($('input[name=umzug3hours]').val()){ umzug3hours = 'ca.'+' '+$('input[name=umzug3hours]').val()+' '+'Std'}else{ umzug3hours = ''}
-        if($('input[name=umzug3ma]').val()>0){  umzug3ma = $('input[name=umzug3ma]').val()+' '+'MA';} else { umzug3ma = ''}
-        if($('input[name=umzug3lkw]').val()>0){  umzug3lkw = $('input[name=umzug3lkw]').val()+' '+'LW ';}else{ umzug3lkw = ''}
-        if($('input[name=umzug3anhanger]').val()>0){  umzug3anhanger = $('input[name=umzug3anhanger]').val()+' '+'ANH';}else{ umzug3anhanger = ''}
-        if($('input[name=umzug3time]').val()){  umzug3time = $('input[name=umzug3time]').val()+' '+'Uhr';}else{ umzug3time = ''}
-    
-        let umzug3newTitle = umzug3serviceName+' '+'/'+' '+umzug3gender+' '+umzug3name+' '+umzug3surname+' '+umzug3mobile+' '+'/'+' '+umzug3ma+' '+umzug3lkw+' '+umzug3anhanger+' '+umzug3hours+' '+'/'+' '+umzug3time;
+        if ($('input[name=umzug3hours]').val()) {
+            umzug3hours = 'ca.' + ' ' + $('input[name=umzug3hours]').val() + ' ' + 'Std'
+        } else {
+            umzug3hours = ''
+        }
+        if ($('input[name=umzug3ma]').val() > 0) {
+            umzug3ma = $('input[name=umzug3ma]').val() + ' ' + 'MA';
+        } else {
+            umzug3ma = ''
+        }
+        if ($('input[name=umzug3lkw]').val() > 0) {
+            umzug3lkw = $('input[name=umzug3lkw]').val() + ' ' + 'LW ';
+        } else {
+            umzug3lkw = ''
+        }
+        if ($('input[name=umzug3anhanger]').val() > 0) {
+            umzug3anhanger = $('input[name=umzug3anhanger]').val() + ' ' + 'ANH';
+        } else {
+            umzug3anhanger = ''
+        }
+        if ($('input[name=umzug3time]').val()) {
+            umzug3time = $('input[name=umzug3time]').val() + ' ' + 'Uhr';
+        } else {
+            umzug3time = ''
+        }
 
-        if(umzug3newTitle !== umzug3Title) { // only update if the new title is different
+        let umzug3newTitle = umzug3serviceName + ' ' + '/' + ' ' + umzug3gender + ' ' + umzug3name + ' ' +
+            umzug3surname + ' ' + umzug3mobile + ' ' + '/' + ' ' + umzug3ma + ' ' + umzug3lkw + ' ' +
+            umzug3anhanger + ' ' + umzug3hours + ' ' + '/' + ' ' + umzug3time;
+
+        if (umzug3newTitle !== umzug3Title) { // only update if the new title is different
             $('input[name=umzug3calendarTitle]').val(umzug3newTitle);
             umzug3Title = umzug3newTitle; // save the new title
         }
     })
     // Einpack
-    $('body').on('change','.einpackservice--area',function(){
-            let einpackserviceName = 'Einpack';
-            let einpackgender = '';
-            let einpackgenderType = '{{ $data['gender'] }}';
-            let einpackhours,einpackma,einpacklkw,einpacktime,einpackanhanger;
-            if(einpackgenderType == 'male')
-            {
-                einpackgender = 'Herr'
-            }
-            else{
-                einpackgender = 'Frau'
-            }
-            let einpackname = '{{ $data['name'] }}';
-            let einpacksurname = '{{ $data['surname'] }}';
-            let einpackmobile = '{{ $data['mobile'] }}';
-            if($('input[name=einpackhours]').val()){ einpackhours = 'ca.'+' '+$('input[name=einpackhours]').val()+' '+'Std'}else{ einpackhours = ''}
-            if($('input[name=einpackma]').val()>0){  einpackma = $('input[name=einpackma]').val()+' '+'MA';} else { einpackma = ''}
-            if($('input[name=einpacklkw]').val()>0){  einpacklkw = $('input[name=einpacklkw]').val()+' '+'LW';}else{ einpacklkw = ''}
-            if($('input[name=einpackanhanger]').val()>0){  einpackanhanger = $('input[name=einpackanhanger]').val()+' '+'ANH';}else{ einpackanhanger = ''}
-            if($('input[name=einpacktime]').val()){  einpacktime = $('input[name=einpacktime]').val()+' '+'Uhr';}else{ einpacktime = ''}
-        
-            let einpacknewTitle = einpackserviceName+' '+'/'+' '+einpackgender+' '+einpackname+' '+einpacksurname+' '+einpackmobile+' '+'/'+' '+einpackma+' '+einpacklkw+' '+einpackanhanger+' '+einpackhours+' '+'/'+' '+einpacktime;
+    $('body').on('change', '.einpackservice--area', function() {
+        let einpackserviceName = 'Einpack';
+        let einpackgender = '';
+        let einpackgenderType = '{{ $data['gender'] }}';
+        let einpackhours, einpackma, einpacklkw, einpacktime, einpackanhanger;
+        if (einpackgenderType == 'male') {
+            einpackgender = 'Herr'
+        } else {
+            einpackgender = 'Frau'
+        }
+        let einpackname = '{{ $data['name'] }}';
+        let einpacksurname = '{{ $data['surname'] }}';
+        let einpackmobile = '{{ $data['mobile'] }}';
+        if ($('input[name=einpackhours]').val()) {
+            einpackhours = 'ca.' + ' ' + $('input[name=einpackhours]').val() + ' ' + 'Std'
+        } else {
+            einpackhours = ''
+        }
+        if ($('input[name=einpackma]').val() > 0) {
+            einpackma = $('input[name=einpackma]').val() + ' ' + 'MA';
+        } else {
+            einpackma = ''
+        }
+        if ($('input[name=einpacklkw]').val() > 0) {
+            einpacklkw = $('input[name=einpacklkw]').val() + ' ' + 'LW';
+        } else {
+            einpacklkw = ''
+        }
+        if ($('input[name=einpackanhanger]').val() > 0) {
+            einpackanhanger = $('input[name=einpackanhanger]').val() + ' ' + 'ANH';
+        } else {
+            einpackanhanger = ''
+        }
+        if ($('input[name=einpacktime]').val()) {
+            einpacktime = $('input[name=einpacktime]').val() + ' ' + 'Uhr';
+        } else {
+            einpacktime = ''
+        }
 
-            if(einpacknewTitle !== einpackTitle) { // only update if the new title is different
-                $('input[name=einpackcalendarTitle]').val(einpacknewTitle);
-                einpackTitle = einpacknewTitle; // save the new title
-            }
+        let einpacknewTitle = einpackserviceName + ' ' + '/' + ' ' + einpackgender + ' ' + einpackname + ' ' +
+            einpacksurname + ' ' + einpackmobile + ' ' + '/' + ' ' + einpackma + ' ' + einpacklkw + ' ' +
+            einpackanhanger + ' ' + einpackhours + ' ' + '/' + ' ' + einpacktime;
+
+        if (einpacknewTitle !== einpackTitle) { // only update if the new title is different
+            $('input[name=einpackcalendarTitle]').val(einpacknewTitle);
+            einpackTitle = einpacknewTitle; // save the new title
+        }
     })
     // Auspack
-    $('body').on('change','.auspackservice--area',function(){
-            let auspackserviceName = 'Auspack';
-            let auspackgender = '';
-            let auspackgenderType = '{{ $data['gender'] }}';
-            let auspackhours,auspackma,auspacklkw,auspacktime,auspackanhanger;
-            if(auspackgenderType == 'male')
-            {
-                auspackgender = 'Herr'
-            }
-            else{
-                auspackgender = 'Frau'
-            }
-            let auspackname = '{{ $data['name'] }}';
-            let auspacksurname = '{{ $data['surname'] }}';
-            let auspackmobile = '{{ $data['mobile'] }}';
-            if($('input[name=auspackhours]').val()){ auspackhours = 'ca.'+' '+$('input[name=auspackhours]').val()+' '+'Std'}else{ auspackhours = ''}
-            if($('input[name=auspackma]').val()>0){  auspackma = $('input[name=auspackma]').val()+' '+'MA';} else { auspackma = ''}
-            if($('input[name=auspacklkw]').val()>0){  auspacklkw = $('input[name=auspacklkw]').val()+' '+'LW';}else{ auspacklkw = ''}
-            if($('input[name=auspackanhanger]').val()>0){  auspackanhanger = $('input[name=auspackanhanger]').val()+' '+'ANH';}else{ auspackanhanger = ''}
-            if($('input[name=auspacktime]').val()){  auspacktime = $('input[name=auspacktime]').val()+' '+'Uhr';}else{ auspacktime = ''}
-        
-            let auspacknewTitle = auspackserviceName+' '+'/'+' '+auspackgender+' '+auspackname+' '+auspacksurname+' '+auspackmobile+' '+'/'+' '+auspackma+' '+auspacklkw+' '+auspackanhanger+' '+auspackhours+' '+'/'+' '+auspacktime;
+    $('body').on('change', '.auspackservice--area', function() {
+        let auspackserviceName = 'Auspack';
+        let auspackgender = '';
+        let auspackgenderType = '{{ $data['gender'] }}';
+        let auspackhours, auspackma, auspacklkw, auspacktime, auspackanhanger;
+        if (auspackgenderType == 'male') {
+            auspackgender = 'Herr'
+        } else {
+            auspackgender = 'Frau'
+        }
+        let auspackname = '{{ $data['name'] }}';
+        let auspacksurname = '{{ $data['surname'] }}';
+        let auspackmobile = '{{ $data['mobile'] }}';
+        if ($('input[name=auspackhours]').val()) {
+            auspackhours = 'ca.' + ' ' + $('input[name=auspackhours]').val() + ' ' + 'Std'
+        } else {
+            auspackhours = ''
+        }
+        if ($('input[name=auspackma]').val() > 0) {
+            auspackma = $('input[name=auspackma]').val() + ' ' + 'MA';
+        } else {
+            auspackma = ''
+        }
+        if ($('input[name=auspacklkw]').val() > 0) {
+            auspacklkw = $('input[name=auspacklkw]').val() + ' ' + 'LW';
+        } else {
+            auspacklkw = ''
+        }
+        if ($('input[name=auspackanhanger]').val() > 0) {
+            auspackanhanger = $('input[name=auspackanhanger]').val() + ' ' + 'ANH';
+        } else {
+            auspackanhanger = ''
+        }
+        if ($('input[name=auspacktime]').val()) {
+            auspacktime = $('input[name=auspacktime]').val() + ' ' + 'Uhr';
+        } else {
+            auspacktime = ''
+        }
 
-            if(auspacknewTitle !== auspackTitle) { // only update if the new title is different
-                $('input[name=auspackcalendarTitle]').val(auspacknewTitle);
-                auspackTitle = auspacknewTitle; // save the new title
-            }
+        let auspacknewTitle = auspackserviceName + ' ' + '/' + ' ' + auspackgender + ' ' + auspackname + ' ' +
+            auspacksurname + ' ' + auspackmobile + ' ' + '/' + ' ' + auspackma + ' ' + auspacklkw + ' ' +
+            auspackanhanger + ' ' + auspackhours + ' ' + '/' + ' ' + auspacktime;
+
+        if (auspacknewTitle !== auspackTitle) { // only update if the new title is different
+            $('input[name=auspackcalendarTitle]').val(auspacknewTitle);
+            auspackTitle = auspacknewTitle; // save the new title
+        }
     })
 
     // Entsorgung
-    $('body').on('change','.entsorgung--area',function(){
-            let entsorgungserviceName = 'Entsorgung';
-            let entsorgunggender = '';
-            let entsorgunggenderType = '{{ $data['gender'] }}';
-            let entsorgunghours,entsorgungma,entsorgunglkw,entsorgungtime;
-            if(entsorgunggenderType == 'male')
-            {
-                entsorgunggender = 'Herr'
-            }
-            else{
-                entsorgunggender = 'Frau'
-            }
-            let entsorgungname = '{{ $data['name'] }}';
-            let entsorgungsurname = '{{ $data['surname'] }}';
-            let entsorgungmobile = '{{ $data['mobile'] }}';
-            if($('input[name=entsorgunghours]').val()){ entsorgunghours = 'ca.'+' '+$('input[name=entsorgunghours]').val()+' '+'Std'}else{ entsorgunghours = ''}
-            if($('input[name=entsorgungma]').val()>0){  entsorgungma = $('input[name=entsorgungma]').val()+' '+'MA';} else { entsorgungma = ''}
-            if($('input[name=entsorgunglkw]').val()>0){  entsorgunglkw = $('input[name=entsorgunglkw]').val()+' '+'LW';}else{ entsorgunglkw = ''}
-            if($('input[name=entsorgunganhanger]').val()>0){  entsorgunganhanger = $('input[name=entsorgunganhanger]').val()+' '+'ANH';}else{ entsorgunganhanger = ''}
-            if($('input[name=entsorgungtime]').val()){  entsorgungtime = $('input[name=entsorgungtime]').val()+' '+'Uhr';}else{ entsorgungtime = ''}
-        
-            let entsorgungnewTitle = entsorgungserviceName+' '+'/'+' '+entsorgunggender+' '+entsorgungname+' '+entsorgungsurname+' '+entsorgungmobile+' '+'/'+' '+entsorgungma+' '+entsorgunglkw+' '+entsorgunganhanger+' '+entsorgunghours+' '+'/'+' '+entsorgungtime;
+    $('body').on('change', '.entsorgung--area', function() {
+        let entsorgungserviceName = 'Entsorgung';
+        let entsorgunggender = '';
+        let entsorgunggenderType = '{{ $data['gender'] }}';
+        let entsorgunghours, entsorgungma, entsorgunglkw, entsorgungtime;
+        if (entsorgunggenderType == 'male') {
+            entsorgunggender = 'Herr'
+        } else {
+            entsorgunggender = 'Frau'
+        }
+        let entsorgungname = '{{ $data['name'] }}';
+        let entsorgungsurname = '{{ $data['surname'] }}';
+        let entsorgungmobile = '{{ $data['mobile'] }}';
+        if ($('input[name=entsorgunghours]').val()) {
+            entsorgunghours = 'ca.' + ' ' + $('input[name=entsorgunghours]').val() + ' ' + 'Std'
+        } else {
+            entsorgunghours = ''
+        }
+        if ($('input[name=entsorgungma]').val() > 0) {
+            entsorgungma = $('input[name=entsorgungma]').val() + ' ' + 'MA';
+        } else {
+            entsorgungma = ''
+        }
+        if ($('input[name=entsorgunglkw]').val() > 0) {
+            entsorgunglkw = $('input[name=entsorgunglkw]').val() + ' ' + 'LW';
+        } else {
+            entsorgunglkw = ''
+        }
+        if ($('input[name=entsorgunganhanger]').val() > 0) {
+            entsorgunganhanger = $('input[name=entsorgunganhanger]').val() + ' ' + 'ANH';
+        } else {
+            entsorgunganhanger = ''
+        }
+        if ($('input[name=entsorgungtime]').val()) {
+            entsorgungtime = $('input[name=entsorgungtime]').val() + ' ' + 'Uhr';
+        } else {
+            entsorgungtime = ''
+        }
 
-            if(entsorgungnewTitle !== entsorgungTitle) { // only update if the new title is different
-                $('input[name=entsorgungcalendarTitle]').val(entsorgungnewTitle);
-                entsorgungTitle = entsorgungnewTitle; // save the new title
-            }
+        let entsorgungnewTitle = entsorgungserviceName + ' ' + '/' + ' ' + entsorgunggender + ' ' +
+            entsorgungname + ' ' + entsorgungsurname + ' ' + entsorgungmobile + ' ' + '/' + ' ' + entsorgungma +
+            ' ' + entsorgunglkw + ' ' + entsorgunganhanger + ' ' + entsorgunghours + ' ' + '/' + ' ' +
+            entsorgungtime;
+
+        if (entsorgungnewTitle !== entsorgungTitle) { // only update if the new title is different
+            $('input[name=entsorgungcalendarTitle]').val(entsorgungnewTitle);
+            entsorgungTitle = entsorgungnewTitle; // save the new title
+        }
     })
 
     // Transport
-    $('body').on('change','.transport--area',function(){
-            let transportserviceName = 'Transport';
-            let transportgender = '';
-            let transportgenderType = '{{ $data['gender'] }}';
-            let transporthours,transportma,transportlkw,transporttime,transportanhanger;
-            if(transportgenderType == 'male')
-            {
-                transportgender = 'Herr'
-            }
-            else{
-                transportgender = 'Frau'
-            }
-            let transportname = '{{ $data['name'] }}';
-            let transportsurname = '{{ $data['surname'] }}';
-            let transportmobile = '{{ $data['mobile'] }}';
-            if($('input[name=transporthours]').val()){ transporthours = 'ca.'+' '+$('input[name=transporthours]').val()+' '+'Std'}else{ transporthours = ''}
-            if($('input[name=transportma]').val()>0){  transportma = $('input[name=transportma]').val()+' '+'MA';} else { transportma = ''}
-            if($('input[name=transportlkw]').val()>0){  transportlkw = $('input[name=transportlkw]').val()+' '+'LW';}else{ transportlkw = ''}
-            if($('input[name=transportanhanger]').val()>0){  transportanhanger = $('input[name=transportanhanger]').val()+' '+'ANH';}else{ transportanhanger = ''}
-            if($('input[name=transporttime]').val()){  transporttime = $('input[name=transporttime]').val()+' '+'Uhr';}else{ transporttime = ''}
-        
-            let transportnewTitle = transportserviceName+' '+'/'+' '+transportgender+' '+transportname+' '+transportsurname+' '+transportmobile+' '+'/'+' '+transportma+' '+transportlkw+' '+transportanhanger+' '+transporthours+' '+'/'+' '+transporttime;
+    $('body').on('change', '.transport--area', function() {
+        let transportserviceName = 'Transport';
+        let transportgender = '';
+        let transportgenderType = '{{ $data['gender'] }}';
+        let transporthours, transportma, transportlkw, transporttime, transportanhanger;
+        if (transportgenderType == 'male') {
+            transportgender = 'Herr'
+        } else {
+            transportgender = 'Frau'
+        }
+        let transportname = '{{ $data['name'] }}';
+        let transportsurname = '{{ $data['surname'] }}';
+        let transportmobile = '{{ $data['mobile'] }}';
+        if ($('input[name=transporthours]').val()) {
+            transporthours = 'ca.' + ' ' + $('input[name=transporthours]').val() + ' ' + 'Std'
+        } else {
+            transporthours = ''
+        }
+        if ($('input[name=transportma]').val() > 0) {
+            transportma = $('input[name=transportma]').val() + ' ' + 'MA';
+        } else {
+            transportma = ''
+        }
+        if ($('input[name=transportlkw]').val() > 0) {
+            transportlkw = $('input[name=transportlkw]').val() + ' ' + 'LW';
+        } else {
+            transportlkw = ''
+        }
+        if ($('input[name=transportanhanger]').val() > 0) {
+            transportanhanger = $('input[name=transportanhanger]').val() + ' ' + 'ANH';
+        } else {
+            transportanhanger = ''
+        }
+        if ($('input[name=transporttime]').val()) {
+            transporttime = $('input[name=transporttime]').val() + ' ' + 'Uhr';
+        } else {
+            transporttime = ''
+        }
 
-            if(transportnewTitle !== transportTitle) { // only update if the new title is different
-                $('input[name=transportcalendarTitle]').val(transportnewTitle);
-                transportTitle = transportnewTitle; // save the new title
-            }
+        let transportnewTitle = transportserviceName + ' ' + '/' + ' ' + transportgender + ' ' + transportname +
+            ' ' + transportsurname + ' ' + transportmobile + ' ' + '/' + ' ' + transportma + ' ' +
+            transportlkw + ' ' + transportanhanger + ' ' + transporthours + ' ' + '/' + ' ' + transporttime;
+
+        if (transportnewTitle !== transportTitle) { // only update if the new title is different
+            $('input[name=transportcalendarTitle]').val(transportnewTitle);
+            transportTitle = transportnewTitle; // save the new title
+        }
     })
 
     // Reinigung
-    $('body').on('change','.reinigung--area',function(){
-            // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
-            let reinigungserviceName = 'Reinigung';
-            let reinigunggender = '';
-            let reinigunggenderType = '{{ $data['gender'] }}';
-            let reinigungEndDate,reinigungEndTime;
-            if(reinigunggenderType == 'male')
-            {
-                reinigunggender = 'Herr'
-            }
-            else{
-                reinigunggender = 'Frau'
-            }
-            let reinigungname = '{{ $data['name'] }}';
-            let reinigungsurname = '{{ $data['surname'] }}';
-            let reinigungmobile = '{{ $data['mobile'] }}';
-            if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung1Enddate]').val())+' '+'um'}else{ reinigungEndDate = ''}
-            if($('input[name=reinigung1Endtime]').val()){  reinigungEndTime = $('input[name=reinigung1Endtime]').val()+' '+'Uhr';}else{ reinigungEndTime = ''}
-        
-            let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
+    $('body').on('change', '.reinigung--area', function() {
+        // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+        let reinigungserviceName = 'Reinigung';
+        let reinigunggender = '';
+        let reinigunggenderType = '{{ $data['gender'] }}';
+        let reinigungEndDate, reinigungEndTime;
+        if (reinigunggenderType == 'male') {
+            reinigunggender = 'Herr'
+        } else {
+            reinigunggender = 'Frau'
+        }
+        let reinigungname = '{{ $data['name'] }}';
+        let reinigungsurname = '{{ $data['surname'] }}';
+        let reinigungmobile = '{{ $data['mobile'] }}';
+        if ($('input[name=reinigung1Enddate]').val()) {
+            reinigungEndDate = 'Abgabetermin' + ' ' + momentConverter($('input[name=reinigung1Enddate]')
+            .val()) + ' ' + 'um'
+        } else {
+            reinigungEndDate = ''
+        }
+        if ($('input[name=reinigung1Endtime]').val()) {
+            reinigungEndTime = $('input[name=reinigung1Endtime]').val() + ' ' + 'Uhr';
+        } else {
+            reinigungEndTime = ''
+        }
 
-            if(reinigungnewTitle !== reinigungTitle) { // only update if the new title is different
-                $('input[name=reinigungcalendarTitle]').val(reinigungnewTitle);
-                reinigungTitle = reinigungnewTitle; // save the new title
-            }
+        let reinigungnewTitle = reinigungserviceName + ' ' + '/' + ' ' + reinigunggender + ' ' + reinigungname +
+            ' ' + reinigungsurname + ' ' + reinigungmobile + ' ' + '/' + ' ' + reinigungEndDate + ' ' +
+            reinigungEndTime;
+
+        if (reinigungnewTitle !== reinigungTitle) { // only update if the new title is different
+            $('input[name=reinigungcalendarTitle]').val(reinigungnewTitle);
+            reinigungTitle = reinigungnewTitle; // save the new title
+        }
     })
 
     // Reinigung 2
-    $('body').on('change','.reinigung2--area',function(){
-            // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
-            let reinigung2serviceName = 'Reinigung 2';
-            let reinigung2gender = '';
-            let reinigung2genderType = '{{ $data['gender'] }}';
-            let reinigung2EndDate,reinigung2EndTime;
-            if(reinigung2genderType == 'male')
-            {
-                reinigung2gender = 'Herr'
-            }
-            else{
-                reinigung2gender = 'Frau'
-            }
-            let reinigung2name = '{{ $data['name'] }}';
-            let reinigung2surname = '{{ $data['surname'] }}';
-            let reinigung2mobile = '{{ $data['mobile'] }}';
-            if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+momentConverter($('input[name=reinigung2Enddate]').val())+' '+'um'}else{ reinigung2EndDate = ''}
-            if($('input[name=reinigung2Endtime]').val()){  reinigung2EndTime = $('input[name=reinigung2Endtime]').val()+' '+'Uhr';}else{ reinigung2EndTime = ''}
-        
-            let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
+    $('body').on('change', '.reinigung2--area', function() {
+        // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
+        let reinigung2serviceName = 'Reinigung 2';
+        let reinigung2gender = '';
+        let reinigung2genderType = '{{ $data['gender'] }}';
+        let reinigung2EndDate, reinigung2EndTime;
+        if (reinigung2genderType == 'male') {
+            reinigung2gender = 'Herr'
+        } else {
+            reinigung2gender = 'Frau'
+        }
+        let reinigung2name = '{{ $data['name'] }}';
+        let reinigung2surname = '{{ $data['surname'] }}';
+        let reinigung2mobile = '{{ $data['mobile'] }}';
+        if ($('input[name=reinigung2Enddate]').val()) {
+            reinigung2EndDate = 'Abgabetermin' + ' ' + momentConverter($('input[name=reinigung2Enddate]')
+            .val()) + ' ' + 'um'
+        } else {
+            reinigung2EndDate = ''
+        }
+        if ($('input[name=reinigung2Endtime]').val()) {
+            reinigung2EndTime = $('input[name=reinigung2Endtime]').val() + ' ' + 'Uhr';
+        } else {
+            reinigung2EndTime = ''
+        }
 
-            if(reinigung2newTitle !== reinigung2Title) { // only update if the new title is different
-                $('input[name=reinigung2calendarTitle]').val(reinigung2newTitle);
-                reinigung2Title = reinigung2newTitle; // save the new title
-            }
+        let reinigung2newTitle = reinigung2serviceName + ' ' + '/' + ' ' + reinigung2gender + ' ' +
+            reinigung2name + ' ' + reinigung2surname + ' ' + reinigung2mobile + ' ' + '/' + ' ' +
+            reinigung2EndDate + ' ' + reinigung2EndTime;
+
+        if (reinigung2newTitle !== reinigung2Title) { // only update if the new title is different
+            $('input[name=reinigung2calendarTitle]').val(reinigung2newTitle);
+            reinigung2Title = reinigung2newTitle; // save the new title
+        }
     })
 
     // Lagerung
-    $('body').on('change','.lagerung--area',function(){
+    $('body').on('change', '.lagerung--area', function() {
         let lagerungserviceName = 'Lagerung';
         let lagerunggender = '';
         let lagerunggenderType = '{{ $data['gender'] }}';
-        let lagerunghours,lagerungma,lagerunglkw,lagerungtime,lagerunganhanger;
-        if(lagerunggenderType == 'male')
-        {
+        let lagerunghours, lagerungma, lagerunglkw, lagerungtime, lagerunganhanger;
+        if (lagerunggenderType == 'male') {
             lagerunggender = 'Herr'
-        }
-        else{
+        } else {
             lagerunggender = 'Frau'
         }
         let lagerungname = '{{ $data['name'] }}';
         let lagerungsurname = '{{ $data['surname'] }}';
         let lagerungmobile = '{{ $data['mobile'] }}';
-        if($('input[name=lagerunghours]').val()){ lagerunghours = 'ca.'+' '+$('input[name=lagerunghours]').val()+' '+'Std'}else{ lagerunghours = ''}
-        if($('input[name=lagerungma]').val()>0){  lagerungma = $('input[name=lagerungma]').val()+' '+'MA';} else { lagerungma = ''}
-        if($('input[name=lagerunglkw]').val()>0){  lagerunglkw = $('input[name=lagerunglkw]').val()+' '+'LW';}else{ lagerunglkw = ''}
-        if($('input[name=lagerunganhanger]').val()>0){  lagerunganhanger = $('input[name=lagerunganhanger]').val()+' '+'ANH';}else{ lagerunganhanger = ''}
-        if($('input[name=lagerungtime]').val()){  lagerungtime = $('input[name=lagerungtime]').val()+' '+'Uhr';}else{ lagerungtime = ''}
-    
-        let lagerungnewTitle = lagerungserviceName+' '+'/'+' '+lagerunggender+' '+lagerungname+' '+lagerungsurname+' '+lagerungmobile+' '+'/'+' '+lagerungtime;
+        if ($('input[name=lagerunghours]').val()) {
+            lagerunghours = 'ca.' + ' ' + $('input[name=lagerunghours]').val() + ' ' + 'Std'
+        } else {
+            lagerunghours = ''
+        }
+        if ($('input[name=lagerungma]').val() > 0) {
+            lagerungma = $('input[name=lagerungma]').val() + ' ' + 'MA';
+        } else {
+            lagerungma = ''
+        }
+        if ($('input[name=lagerunglkw]').val() > 0) {
+            lagerunglkw = $('input[name=lagerunglkw]').val() + ' ' + 'LW';
+        } else {
+            lagerunglkw = ''
+        }
+        if ($('input[name=lagerunganhanger]').val() > 0) {
+            lagerunganhanger = $('input[name=lagerunganhanger]').val() + ' ' + 'ANH';
+        } else {
+            lagerunganhanger = ''
+        }
+        if ($('input[name=lagerungtime]').val()) {
+            lagerungtime = $('input[name=lagerungtime]').val() + ' ' + 'Uhr';
+        } else {
+            lagerungtime = ''
+        }
 
-        if(lagerungnewTitle !== lagerungTitle) { // only update if the new title is different
+        let lagerungnewTitle = lagerungserviceName + ' ' + '/' + ' ' + lagerunggender + ' ' + lagerungname +
+            ' ' + lagerungsurname + ' ' + lagerungmobile + ' ' + '/' + ' ' + lagerungtime;
+
+        if (lagerungnewTitle !== lagerungTitle) { // only update if the new title is different
             $('input[name=lagerungcalendarTitle]').val(lagerungnewTitle);
             lagerungTitle = lagerungnewTitle; // save the new title
         }
@@ -1469,6 +2361,7 @@
                 $(".dateHour--area").show(300);
                 $(".calendar--area").show(300);
                 $(".wo--area").show(300);
+                $(".besc-color-area").show(300);
                 break;
             case '2':
                 $(".confirmation--area").show(300);
@@ -1477,6 +2370,7 @@
                 $(".dateHour--area").hide(300);
                 $(".calendar--area").hide(300);
                 $(".wo--area").hide(300);
+                $(".besc-color-area").hide(300);
                 break;
             case '3':
                 $(".confirmation--area").hide(300);
@@ -1485,6 +2379,7 @@
                 $(".dateHour--area").hide(300);
                 $(".calendar--area").show(300);
                 $(".wo--area").show(300);
+                $(".besc-color-area").show(300);
                 break;
         }
 
@@ -1611,10 +2506,12 @@
     $("body").on("change", ".widget-body", function() {
         eventChanges();
     });
-    function momentConvertValue(value){
+
+    function momentConvertValue(value) {
         moment.locale('de');
         return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
     }
+
     function eventChanges() {
         valueZ = $("input[name=appType]:checked").val();
         tinymce.execCommand("mceRepaint");
@@ -1630,25 +2527,23 @@
                         dateArray.splice(found);
                     }
                 });
-                if(tarih1!=""){
+                if (tarih1 != "") {
                     dateArray.push({
-                    name: '<b>Besichtigung:</b>',
-                    date: momentConvertValue(tarih1),
-                    time: saat1
+                        name: '<b>Besichtigung:</b>',
+                        date: momentConvertValue(tarih1),
+                        time: saat1
                     })
                 }
                 var requestDate = "";
                 for (var i = 0; i <= dateArray.length - 1; i++) {
-                    if(dateArray[i].time)
-                    {
-                        requestDate +=  dateArray[i].date +' '+dateArray[i].time+' '+'Uhr'+"<br>";
+                    if (dateArray[i].time) {
+                        requestDate += dateArray[i].date + ' ' + dateArray[i].time + ' ' + 'Uhr' + "<br>";
+                    } else {
+                        requestDate += dateArray[i].date + "<br>";
                     }
-                    else{
-                        requestDate +=  dateArray[i].date +"<br>";
-                    }
-                    
+
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Besichtigung'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}', 'AppTypeC' => 'Besichtigung'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }
@@ -1719,7 +2614,7 @@
                     }
                 });
                 if ($("input[name=isUmzug]:checked").val()) {
-                    if(tarih1!=""){
+                    if (tarih1 != "") {
                         dateArray2.push({
                             name: '<b>Umzug:</b> ',
                             date: momentConvertValue(tarih1),
@@ -1728,23 +2623,23 @@
                     }
                 }
                 if ($("input[name=isUmzug2]:checked").val()) {
-                    if(tarih2!=""){
+                    if (tarih2 != "") {
                         dateArray2.push({
-                        name: '<b>Umzug 2:</b> ',
-                        date: momentConvertValue(tarih2),
-                        time: saat2
-                    })
+                            name: '<b>Umzug 2:</b> ',
+                            date: momentConvertValue(tarih2),
+                            time: saat2
+                        })
                     }
-                    if(tarih3!=""){
+                    if (tarih3 != "") {
                         dateArray2.push({
-                        name: '<b>Umzug 3:</b> ',
-                        date: momentConvertValue(tarih3),
-                        time: saat3
-                    })
+                            name: '<b>Umzug 3:</b> ',
+                            date: momentConvertValue(tarih3),
+                            time: saat3
+                        })
                     }
                 }
                 if ($("input[name=isEinpackservice]:checked").val()) {
-                    if(tarih4!=""){
+                    if (tarih4 != "") {
                         dateArray2.push({
                             name: '<b>Einpack:</b> ',
                             date: momentConvertValue(tarih4),
@@ -1753,7 +2648,7 @@
                     }
                 }
                 if ($("input[name=isAuspackservice]:checked").val()) {
-                    if(tarih5!=""){
+                    if (tarih5 != "") {
                         dateArray2.push({
                             name: '<b>Auspack:</b> ',
                             date: momentConvertValue(tarih5),
@@ -1762,7 +2657,7 @@
                     }
                 }
                 if ($("input[name=isReinigung]:checked").val()) {
-                    if(tarih6!=""){
+                    if (tarih6 != "") {
                         dateArray2.push({
                             name: '<b>Reinigung:</b> ',
                             date: momentConvertValue(tarih6),
@@ -1771,7 +2666,7 @@
                     }
                 }
                 if ($("input[name=isReinigung2]:checked").val()) {
-                    if(tarih7!=""){
+                    if (tarih7 != "") {
                         dateArray2.push({
                             name: '<b>Reinigung 2:</b> ',
                             date: momentConvertValue(tarih7),
@@ -1780,7 +2675,7 @@
                     }
                 }
                 if ($("input[name=isEntsorgung]:checked").val()) {
-                    if(tarih8!=""){
+                    if (tarih8 != "") {
                         dateArray2.push({
                             name: '<b>Entsorgung:</b> ',
                             date: momentConvertValue(tarih8),
@@ -1789,7 +2684,7 @@
                     }
                 }
                 if ($("input[name=isTransport]:checked").val()) {
-                    if(tarih9!=""){
+                    if (tarih9 != "") {
                         dateArray2.push({
                             name: '<b>Transport:</b> ',
                             date: momentConvertValue(tarih9),
@@ -1798,7 +2693,7 @@
                     }
                 }
                 if ($("input[name=isLagerung]:checked").val()) {
-                    if(tarih10!=""){
+                    if (tarih10 != "") {
                         dateArray2.push({
                             name: '<b>Lagerung:</b> ',
                             date: momentConvertValue(tarih10),
@@ -1806,20 +2701,19 @@
                         })
                     }
                 }
-                
+
                 var requestDate = "";
                 for (var i = 0; i <= dateArray2.length - 1; i++) {
-                    if(dateArray2[i].time)
-                    {
-                        requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' +dateArray2[i].time + ' '+'Uhr'+"<br>";
+                    if (dateArray2[i].time) {
+                        requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' + dateArray2[i]
+                            .time + ' ' + 'Uhr' + "<br>";
+                    } else {
+                        requestDate += dateArray2[i].name + " " + dateArray2[i].date + "<br>";
                     }
-                    else {
-                        requestDate += dateArray2[i].name + " " + dateArray2[i].date +"<br>";
-                    }
-                    
+
                 }
-                
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Auftragsbestätigung'])`);
+
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}', 'AppTypeC' => 'Auftragsbestätigung'])`);
                 tinymce.execCommand("mceRepaint");
             })
         }
@@ -1836,30 +2730,27 @@
                         dateArray.splice(found);
                     }
                 });
-                if(tarih1!=""){
+                if (tarih1 != "") {
                     dateArray3.push({
-                    name: '<b>Lieferung:</b> ',
-                    date: momentConvertValue(tarih1),
-                    time1: saat1,
-                    time2: saat2,
+                        name: '<b>Lieferung:</b> ',
+                        date: momentConvertValue(tarih1),
+                        time1: saat1,
+                        time2: saat2,
                     })
                 }
                 var requestDate = "";
                 for (var i = 0; i <= dateArray3.length - 1; i++) {
-                    if(dateArray3[i].time1 && !dateArray3[i].time2)
-                    {
-                        requestDate +=  dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'Uhr'+ "<br>";
-                    }
-                    else if(dateArray3[i].time1 && dateArray3[i].time2)
-                    {
-                        requestDate += dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'-'+' '+dateArray3[i].time2+' '+'Uhr'+ "<br>";
-                    }
-                    else{
+                    if (dateArray3[i].time1 && !dateArray3[i].time2) {
+                        requestDate += dateArray3[i].date + ' ' + dateArray3[i].time1 + ' ' + 'Uhr' + "<br>";
+                    } else if (dateArray3[i].time1 && dateArray3[i].time2) {
+                        requestDate += dateArray3[i].date + ' ' + dateArray3[i].time1 + ' ' + '-' + ' ' +
+                            dateArray3[i].time2 + ' ' + 'Uhr' + "<br>";
+                    } else {
                         requestDate += dateArray3[i].date + "<br>";
                     }
-                    
+
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
+                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}', 'AppTypeC' => 'Lieferung'])`);
                 tinymce.execCommand("mceRepaint");
             });
         }

@@ -146,7 +146,7 @@
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</span>
+        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch</span>
     </footer>
 
     
@@ -902,7 +902,7 @@
             
                         <tr style="width: 100%">
                         <td colspan="2" ><b>Reinigungsart:</b></td>
-                        <td colspan="2"  style="padding-left:60px;background-color:red">{{ $reinigung['reinigungType'] }}</td>
+                        <td colspan="2"  >{{ $reinigung['reinigungType'] }}</td>
                         </tr>
                         <tr style="width:100%;">
                             <td colspan="2"><b style="">@if ($reinigung['fixedTariff'])Zimmer: @else Tarif: @endif</b></td>
@@ -1792,7 +1792,7 @@
                 </span> <br><br>
 
                 <span style="font-size:14px!important;line-height:14px;"> Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie schon bald als einen <br>
-                unserer zufriedenen Kunden begrüssen zu können. <br>
+                unserer zufriedenen Kunden begrüssen zu können. <br><br>
 
                 Freundliche Grüsse <br> <br>
 

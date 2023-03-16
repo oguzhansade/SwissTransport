@@ -56,8 +56,9 @@
         }
 
         .text-primary {
-            color:#FF1F1F!important;
+            color: #FF1F1F !important;
         }
+
         .bg-offer {
             background-color: #8259B4;
         }
@@ -101,8 +102,15 @@
             background-color: white !important;
             z-index: -1;
         }
+
+        @media only screen and (max-width: 767px) {
+            .h6 {
+                font-size: 14px;
+                /* veya istediğiniz boyut */
+            }
+        }
     </style>
-    
+
 </head>
 
 <body onload="resizeDiv()">
@@ -305,10 +313,10 @@
                             @if ($umzug['discountPercent'])
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $umzug['discountPercent'] }}
+                                        {{ $umzug['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -351,7 +359,7 @@
 
                     {{-- Einpack Alanı --}}
                     @if ($isEinpack)
-                        
+
                         <div class="form-group row mt-3">
                             <div class="col-md-12 einpack-control">
                                 <label for="" class="col-form-label">Einpack</label><br>
@@ -456,10 +464,10 @@
                             @if ($einpack['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $einpack['discountPercent'] }}
+                                        {{ $einpack['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -608,10 +616,10 @@
                             @if ($auspack['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $auspack['discountPercent'] }}
+                                        {{ $auspack['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -668,7 +676,8 @@
                         <div class="reinigung--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong class="text-primary">Reinigung: </strong> {{ $reinigung['reinigungType'] }} </h4>
+                                    <h4> <strong class="text-primary">Reinigung: </strong>
+                                        {{ $reinigung['reinigungType'] }} </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -824,10 +833,10 @@
                             @if ($reinigung['discountPercent'])
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $reinigung['discountPercent'] }}
+                                        {{ $reinigung['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -861,7 +870,8 @@
                         <div class="reinigung2--area bg-container" style="display: block;">
                             <div class="row mt-3">
                                 <div class="col-md-12 text-dark">
-                                    <h4> <strong class="text-primary">Reinigung 2: </strong> {{ $reinigung2['reinigungType'] }} </h4>
+                                    <h4> <strong class="text-primary">Reinigung 2: </strong>
+                                        {{ $reinigung2['reinigungType'] }} </h4>
                                 </div>
                             </div>
                             <div class="c-border"></div>
@@ -1018,10 +1028,10 @@
                             @if ($reinigung2['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $reinigung2['discountPercent'] }}
+                                        {{ $reinigung2['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -1160,10 +1170,10 @@
                             @if ($entsorgung['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $entsorgung['discountPercent'] }}
+                                        {{ $entsorgung['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -1342,10 +1352,10 @@
                             @if ($transport['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $transport['discountPercent'] }}
+                                        {{ $transport['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -1484,10 +1494,10 @@
                             @if ($lagerung['discountPercent'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        Rabatt[%]
+                                        Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - %{{ $lagerung['discountPercent'] }}
+                                        {{ $lagerung['discountPercent'] }}%
                                     </div>
                                 </div>
                             @endif
@@ -1605,87 +1615,114 @@
                 </div>
 
                 {{-- Sağ Kısım --}}
-                <div id="rightDiv" class="col-md-4 bg-white  mt-2  b-shadow rounded-custom sticky-top"
+                <div id="rightDiv" class="col-md-4 bg-white  mt-5  b-shadow rounded-custom sticky-top"
                     style="top:20px;">
-                    <div class="row">
+                    <div class="row mt-1">
 
-                        <div
-                            class="col-md-12  text-white p-1 rounded-custom-2 m-0 d-flex justify-content-center align-items-center" style="background-color: #FF1F1F">
-                            <b class=" text-white custom-font" style="font-size:20px;">Auftragserteilung</b><br><br>
+                        <div class="col-md-12  text-white py-2 rounded-custom-2 mb-1 d-flex justify-content-center align-items-center"
+                            style="background-color: #FF1F1F;margin-top:-10px!important;">
+                            <b class=" text-white custom-font" style="font-size:20px;">Angebotsübersicht</b><br><br>
                         </div>
 
                         <div class="col-md-12 px-3 py-3">
 
                             @if ($isUmzug)
                                 <div class="row d-flex justify-content-center align-items-center">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Umzug:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $umzug['defaultPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Umzug:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $umzug['defaultPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isEinpack)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Einpack:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $einpack['defaultPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Einpack:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $einpack['defaultPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isAuspack)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Auspack:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $auspack['defaultPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Auspack:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $auspack['defaultPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isReinigung)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Reinigung:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $reinigung['totalPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Reinigung:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $reinigung['totalPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isReinigung2)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Reinigung
-                                            2:</b></div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $reinigung2['totalPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Reinigung 2:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $reinigung2['totalPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isEntsorgung)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b
-                                            class="h6 text-dark custom-font">Entsorgung:</b></div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $entsorgung['defaultPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Entsorgung:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $entsorgung['defaultPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isTransport)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Transport:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $transport['defaultPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Transport:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $transport['defaultPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isLagerung)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Lagerung:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $lagerung['totalPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Lagerung:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $lagerung['totalPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
                             @if ($isMaterial)
                                 <div class="row d-flex justify-content-center align-items-center mt-1">
-                                    <div class="col-md-6 text-left"><b class="h6 text-dark custom-font">Material:</b>
-                                    </div>
-                                    <div class="col-md-6 text-right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $material['totalPrice'] }}</span> CHF</b></div>
+                                    <table class="w-100 ">
+                                        <tr>
+                                            <td><b class="h6 text-dark custom-font">Material:</b></td>
+                                            <td align="right"><b class="h6 text-primary custom-font"><span
+                                                class="ucret">{{ $material['totalPrice'] }}</span> CHF</b></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             @endif
 
@@ -1741,13 +1778,13 @@
                                         <div class="row d-flex">
                                             <div class="form-actions d-flex justify-content-center">
                                                 <div class="form-group row d-flex justify-content-center">
-                                                    <span class=" mt-3 h5" style="color:#FF1F1F"><strong>Angebot:</strong></span>
+                                                    <span class=" mt-3 h5"><strong>Angebot:</strong></span>
                                                     <div
                                                         class="col-md-12 d-flex justify-content-center  ml-md-auto mt-1 btn-list">
-                                                        <input class="btn btn-success btn-rounded" type="submit"
+                                                        <input class="btn btn-success btn-rounded " type="submit"
                                                             value=" Annehmen "
                                                             formaction="{{ URL::to('/verifyoffer', ['token' => $oToken]) }}">
-                                                        <input class="btn btn-danger btn-rounded" type="submit"
+                                                        <input class="btn btn-rounded text-white" style="background-color: #FF1F1F" type="submit"
                                                             value=" Ablehnen"
                                                             formaction="{{ URL::to('/rejectoffer', ['token' => $oToken]) }}">
                                                     </div>
@@ -1768,41 +1805,62 @@
             <div class="sag" style=" ">
 
             </div>
-
+            
             <div class="row border-top mt-3 mb-3">
                 <div class="col-md-12 px-1 pt-1 text-dark justify-content-left">
-                    <h5 class="font-weight-bold text-dark">Im Preis inbegriffen</h5>
-                    <p>Spesen, Versicherung, Fahrkilometer / Treibstoff, De- und Montage der Möbel die für den Umzug
-                        erforderlich sind Baumwolldecken, Strechfolie, Matratzenhüllen, Hilfsmaterialen wie Werkzeuge,
-                        Rollis, Packdecken, Tragegurte etc.</p>
+                    <h3 class="font-weight-bold text-dark">Erstklassiger Full-Service aus einer Hand</h5>
+                        <p>
+                            Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu
+                            sparen.
+                            Wir planen, organisieren und führen Ihren Umzug durch. Ihre Zufriedenheit steht dabei an
+                            erster Stelle.
+                            Unsere erfahrenen und langjährigen Mitarbeiter übernehmen die organisatorische sowie
+                            praktische Umsetzung Ihres Umzugs.
+                        </p>
 
-                    <h5 class="font-weight-bold text-dark">Versicherung (ohne Selbstbehalt)</h5>
-                    <p>Eine Betriebshaftpflichtversicherung von CHF 5 Mio. pro Ereignis ist inbegriffen. Eine
-                        Frachtführerhaftpflichtversicherung von CHF 100’000.00 pro Transport ist inbegriffen.</p>
 
-                    <h5 class="font-weight-bold text-dark">Zeitberechnung (Mindestaufwand 3h)</h5>
-                    <p>Die Arbeitszeit beginnt bei der Ankunft am Aufladeort und endet nach dem Umzug am Abladeort.
-                        Abweichungen der An- Abreise werden im Umzugstarif angegeben. Unsere Umzugspreise basieren auf
-                        dem effektiven Zeitaufwand, der durch Ihre Eigenleistung mitbeeinflusst werden kann. Die
-                        Arbeitszeit wird auf die nächste 1/4 Stunde aufgerundet.</p>
+                        <h5 class="font-weight-bold text-dark">Qualität beim Umziehen garantiert mit Swiss Transport:
+                        </h5>
 
-                    <h5 class="font-weight-bold text-dark">Schaden / Reklamationen</h5>
-                    <p>Der Auftraggeber ist verpflichtet sein Umzugsgut sofort nach dem Ausladen zu prüfen. Schäden
-                        müssen sofort nach dem Umzug den Umzugsmitarbeitern mitgeteilt und schriftlich auf der Quittung
-                        mit Unterschrift des Kunden und des Umzugschefs festgehalten werden. Spätere Schadensmeldungen
-                        können nicht mehr berücksichtigt werden.</p>
+                        <li>Persönliche Betreuung vor, während und nach dem Umzug</li>
+                        <li>Breite Palette an Verpackungsmaterial, zum Kauf oder zur Miete</li>
+                        <li>Qualifizierte und motivierte Fachleute mit langjähriger Berufserfahrung</li>
+                        <li>Professionell ausgerüstete Möbelwagen und Zügellifte</li>
+                        <li>Fachmännisches Ein- und Auspacken Ihres Hausrates</li>
+                        <li>De- und Montage der Möbel von versierten Möbelmonteuren</li>
+                        <li>Umweltgerechte Entsorgung / Räumung alter Möbel und Hausrat</li>
+                        <li>Lagerungsmöglichkeiten in unserem Möbellagerhaus</li>
+                        <li>Umzugsreinigung mit Abnahmegarantie</li>
 
-                    <h5 class="font-weight-bold text-dark">Zuschlag Schwercolli</h5>
-                    <p>Schwergutzuschlag für Gegenstände über 100 kg - CHF 150.00
-                        Klavierzuschlag ab 250 CHF</p>
 
-                    <h5 class="font-weight-bold text-dark">Pausen</h5>
-                    <p>Verpflegungsspesen, wie zum Beispiel für Znüni, Mittag- und Nachtessen sind inbegriffen. Bei mehr
-                        als 3 Std. Arbeitszeit wird eine Pause von 20 Min. verrechnet, hingegegen werden Mittags- und
-                        Nachtessenpausen nicht als Arbeitszeit verrechnet.</p>
+                        <h5 class="font-weight-bold text-dark">Folgende Kosten sind im Preis inbegriffen:</h5>
 
-                    <h5 class="font-weight-bold text-dark">Allgemeine Geschäftsbedingungen</h5>
-                    <p>Wir arbeiten nach den allgemeinen Umzugsbedingungen der Fachgruppe Möbeltransporte der ASTAG.</p>
+                        <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen </li>
+                        <li>Bodenvlies zum Schutz heikler Bodenbeläge, falls erforderlich</li>
+                        <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
+                        <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
+                        <li>Selbstverständlich führen wir Traggurten, Werkzeuge und genügend Wolldecken mit</li>
+
+
+                        <h5 class="font-weight-bold text-dark">Versicherung:</h5>
+                        <p>Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100'000.- (ohne
+                            Selbstbehalt)</p>
+
+                        <h5 class="font-weight-bold text-dark">Arbeitsaufwand:</h5>
+                        <p>Es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand
+                            abgerechnet.</p>
+
+                        <h5 class="font-weight-bold text-dark">Pausen:</h5>
+                        <p>Betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt
+                            i.d.R. eine Stunde und gilt nicht als Arbeitszeit.</p>
+
+                        <h5 class="font-weight-bold text-dark">Gewichtszuschläge:</h5>
+                        <p>Gewichtszuschlag von CHF 150.– für Gegenstände mit einem Eigengewicht von über 100kg.
+                            Klavierzuschlag ab CHF 250.–</p>
+                        <p>Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie schon bald als
+                            einen unserer zufriedenen Kunden begrüssen zu können.</p>
+                        <p>Freundliche Grüsse</p>
+                        <p>Ihr Swiss Transport Team</p>
 
                 </div>
             </div>

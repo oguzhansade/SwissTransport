@@ -9,7 +9,7 @@ use DateTimeZone;
 
 class calendarHelper
 {
-    static function companyMail ($serviceName,$date,$name,$surname,$gender,$location,$title,$comment,$endDate,$serviceId)
+    static function companyMail ($serviceName,$date,$location,$title,$comment,$endDate,$serviceId,$colorId)
     {
         $event = new Event;
         $event->name = $title;
@@ -43,7 +43,7 @@ class calendarHelper
         
         $event->location = $location;
         $event->description = $comment;
-        $event->setColorId(10);
+        $event->setColorId($colorId);
         $etkinlik = $event->save();
         $eventId = $etkinlik->id;
         

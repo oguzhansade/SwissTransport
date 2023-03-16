@@ -74,7 +74,7 @@
 
                         
 
-                            <div class="form-group row">
+                            <div class="form-group row besc-area">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Wo</label>
                                     <input class="form-control" name="address"  type="text" value="{{   $data['address']  }} " required>                                
@@ -197,9 +197,6 @@
         console.log(valueQq,'VBALL')
     }
 
-    $(document).ready(function(){
-        bescFunc()
-    })
 </script>
 <script>
     
@@ -228,7 +225,11 @@
     eventChanges();
     $("body").on("change", ".widget-body", function() {
         eventChanges();
+        
     });
+    $("body").on("change",".besc-area", function(){
+        bescFunc();
+    })
     function momentConvertValue(value){
         moment.locale('de');
         return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
