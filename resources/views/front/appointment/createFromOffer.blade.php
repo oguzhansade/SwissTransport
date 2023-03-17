@@ -1,9 +1,93 @@
 @extends('layouts.app')
 @section('header')
     <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    referrerpolicy="origin"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+
+    .default:before{
+        border-color: #039be5!important;
+    }
+    .default:after {
+        background: #039be5!important;
+    }
+    .lavender:before{
+        border-color: #7986CB!important;
+    }
+    .lavender:after {
+        background: #7986CB!important;
+    }
+
+    .sage:before{
+        border-color: #33b679!important;
+    }
+    .sage:after {
+        background: #33b679!important;
+    }
+
+    .grape:before{
+        border-color: #8e24aa!important;
+    }
+    .grape:after {
+        background: #8e24aa!important;
+    }
+
+    .flamingo:before{
+        border-color: #e67c73!important;
+    }
+    .flamingo:after {
+        background: #e67c73!important;
+    }
+    .banana:before{
+        border-color: #f6c026!important;
+    }
+    .banana:after {
+        background: #f6c026!important;
+    }
+
+    .tangerine:before{
+        border-color: #f5511d!important;
+    }
+    .tangerine:after {
+        background: #f5511d!important;
+    }
+
+    .peacock:before{
+        border-color: #039be5!important;
+    }
+    .peacock:after {
+        background: #039be5!important;
+    }
+
+    .graphite:before{
+        border-color: #616161!important;
+    }
+    .graphite:after {
+        background: #616161!important;
+    }
+
+    .blueberry:before{
+        border-color: #3f51b5!important;
+    }
+    .blueberry:after {
+        background: #3f51b5!important;
+    }
+
+    .basil:before{
+        border-color: #0b8043!important;
+    }
+    .basil:after {
+        background: #0b8043!important;
+    }
+
+    .tomato:before{
+        border-color: #d60000!important;
+    }
+    .tomato:after {
+        background: #d60000!important;
+    }
+    </style>    
 @endsection
 @section('content')
 @section('sidebarType')
@@ -181,6 +265,65 @@
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
+
+
+                                    <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                            <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                        </div> 
+                                        
+                                        <div class="radiobox colors">
+                                            <label class="mt-1 ">
+                                                <input type="radio" class=""  name="calendarUmzugColor" value="15"
+                                                    > <span
+                                                    class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="1"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="2"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="3"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="4"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzugColor" value="5"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="6"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="7"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="8"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="9"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="10" checked="checked"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzugColor" value="11"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                            </label>
+                                        </div>
+                                    </div>    
                                 </div>
                                 {{-- 1.Umzug Alanı Bitiş --}}
 
@@ -248,6 +391,65 @@
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
+
+                                    <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                            <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                        </div> 
+                                        
+                                        <div class="radiobox colors">
+                                            <label class="mt-1 ">
+                                                <input type="radio" class=""  name="calendarUmzug2Color" value="15"
+                                                    > <span
+                                                    class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="1"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="2"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="3"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="4"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarUmzug2Color" value="5"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="6"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="7"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="8"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="9"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="10" checked="checked"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarUmzug2Color" value="11"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 {{-- 2.Umzug Alanı Bitiş --}}
 
@@ -305,6 +507,63 @@
                                                 <input class="form-control" name="umzug3calendarLocation"
                                                     placeholder="CalendarLocation" type="text"
                                                     value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                            </div>
+                                        </div>
+                                        <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                            </div> 
+                                            
+                                            <div class="radiobox colors">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="calendarUmzug3Color" value="15"
+                                                        > <span
+                                                        class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="1"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="2"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="3"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="4"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="5"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="6"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="7"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="8"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="9"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="10" checked="checked"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug3Color" value="11"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -385,6 +644,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarEinpackColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEinpackColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEinpackColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Einpackservice Alanı Bitiş --}}
 
@@ -461,6 +779,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarAuspackColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarAuspackColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarAuspackColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Auspackservice Alanı Bitiş --}}
 
@@ -534,6 +911,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarReinigungColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigungColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigungColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigungColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigungColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigungColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigungColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Reinigung Alanı Bitiş --}}
 
@@ -607,6 +1043,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarReinigung2Color" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigung2Color" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigung2Color" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigung2Color" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigung2Color" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarReinigung2Color" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarReinigung2Color" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- 2.Reinigung Alanı Bitiş --}}
 
@@ -693,6 +1188,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarEntsorgungColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarEntsorgungColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Entsorgung Alanı Bitiş --}}
 
@@ -787,6 +1341,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarTransportColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Transport Alanı Bitiş --}}
 
@@ -836,6 +1449,65 @@
                                             value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} ,  {{ $data['country'] }}">
                                     </div>
                                 </div>
+
+                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                    </div> 
+                                    
+                                    <div class="radiobox colors">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarLagerungColor" value="15" 
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="10" > <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             {{-- Transport Alanı Bitiş --}}
                         </div>

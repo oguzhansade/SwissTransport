@@ -10,19 +10,20 @@
             font-family: DejaVu Sans !important;
             font-size: 10px;
             line-height: 9.5px;
-            
+
         }
 
         @page {
             margin: 0;
         }
+
         body {
-            margin:100px 25px;
+            margin: 100px 25px;
         }
 
         header {
             position: fixed;
-            margin-left:25px;
+            margin-left: 25px;
             margin-right: 25px;
             top: 20px;
             left: 0px;
@@ -37,7 +38,7 @@
         }
 
         footer {
-            margin-left:25px;
+            margin-left: 25px;
             margin-right: 25px;
             position: fixed;
             bottom: 0px;
@@ -88,7 +89,7 @@
             background-position: top left;
             background-repeat: no-repeat;
             background-size: 100%;
-            padding-top:130px;
+            padding-top: 130px;
             width: 100%;
             height: 100%;
         }
@@ -113,13 +114,16 @@
             top: 130px;
             left: 330px;
         }
+
         .text-primary {
-            color:#CE0000!important;
+            color: #CE0000 !important;
         }
+
         .custom-heading-bar {
-            background-color:#D10D0C;
-            padding:3px;color:white;
-            border-radius:0px 120px 120px 0px;
+            background-color: #D10D0C;
+            padding: 3px;
+            color: white;
+            border-radius: 0px 120px 120px 0px;
         }
     </style>
 </head>
@@ -185,24 +189,9 @@
 
         <div class="teklif-boyutu" style="page-break-after: always;">
             <table border="0" style="width:100%;">
-                <tr style="width:100%;">
-                    <td colspan="4" class="py-1 custom-heading-bar" >
-                        <b style="font-size:13px;">Offerte {{ $offerteNumber }} vom
-                            {{ date('d.m.Y', strtotime($offer['created_at'])) }} für
-                            {{ $customer['gender'] === 'male' ? 'Herr' : 'Frau' }} {{ $customer['name'] }}
-                            {{ $customer['surname'] }}</b>
-                    </td>
-                </tr>
+
                 <tr style="width:100%;">
                     <td class="pt-3" colspan="2">
-                        {{-- Şirket Adı --}}
-                        <b>{{ App\Models\Company::InfoCompany('name') }}</b><br>
-                        {{ App\Models\Company::InfoCompany('street') }}<br>
-                        {{ App\Models\Company::InfoCompany('post_code') }}
-                        {{ App\Models\Company::InfoCompany('city') }}<br>
-
-                    </td>
-                    <td class="pt-4" colspan="2">
                         {{-- Müşteri Bilgileri --}}
                         <span style="color:#D10D0C;font-size:9px;">Auftraggeber:</span><br>
                         @if ($customer['companyName'])
@@ -215,55 +204,40 @@
                             {{ $customer['country'] }}
                         @endif
                         <br>
+                        {{ $customer['mobile'] }} <br>
+                        {{ $customer['email'] }}
                     </td>
-                </tr>
-
-                @if ($offer['contactPerson'])
-                    <tr style="width:100%;">
-                        <td class="pt-3">
-                            <span style="color:#D10D0C;font-size:9px;">Unsere Angaben:</span><br>
-                            Ihr direkter Ansprechpartner:
-                        </td>
-                        <td class="pt-3">
-                            {{-- Müşteri Bilgileri --}}
-                            <br>
+                    <td class="pt-3" valign="top" align="right" colspan="2">
+                        @if ($offer['contactPerson'])
+                            <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
                             @if ($offer['contactPerson'] == 'Bitte wählen')
                                 Swiss Transport Team
                             @else
                                 {{ $offer['contactPerson'] }}
-                            @endif
-                            <br>
-                        </td>
-                        <td class="pt-3">
-                            <span style="color:#D10D0C;font-size:9px;">Ihre Angaben:</span><br>
-                        </td>
-                    </tr>
-                @endif
+                            @endif <br>
+                            {{ App\Models\Company::InfoCompany('email') }} <br>
+                            {{ App\Models\Company::InfoCompany('phone') }}
+                        @endif
 
-                <tr style="width:100%;">
-                    <td class="pt-3">
-                        E-Mail:<br>
-                        Hotline:
-                    </td>
-                    <td class="pt-3">
-                        {{ App\Models\Company::InfoCompany('email') }} <br>
-                        {{ App\Models\Company::InfoCompany('phone') }}
-                    </td>
-
-                    <td class="pt-3">
-
-                        Mobile Phone :<br>
-                        E-Mail:
-                    </td>
-                    <td class="pt-3">
-                        {{ $customer['mobile'] }} <br>
-                        {{ $customer['email'] }}
                     </td>
                 </tr>
 
                 <tr style="width:100%;">
                     <td colspan="4" style="padding-top:30px">
-                        <img src="{{ asset('assets/img/prowen-expert.png') }}" width="750" alt="">
+                        <img src="{{ asset('assets/img/proven-expert-updated.png') }}" width="750" alt="">
+                    </td>
+                </tr>
+                {{-- Boşluk Bırakma --}}
+                <tr style="width:100%;">
+                    <td colspan="4" style="padding-top:50px;"></td>
+                </tr>
+                <tr style="width:100%;">
+                    <td colspan="2" class="py-1 ">
+                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: {{ $offerteNumber }}
+                        </b>
+                    </td>
+                    <td colspan="2" align="right">
+                        {{ date('d.m.Y', strtotime($offer['created_at'])) }}
                     </td>
                 </tr>
                 <tr style="width:100%;">
@@ -429,7 +403,7 @@
                             </td>
                         @endif
                         @if ($einzug3)
-                            <td colspan="2" class="custom-heading-bar" >
+                            <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 3</b>
                             </td>
                         @endif
@@ -893,7 +867,7 @@
             @if ($isAuspack)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class=" custom-heading-bar" >
+                        <td colspan="4" class=" custom-heading-bar">
                             <b style="font-size:13px;">Auspackservice</b>
                         </td>
                     </tr>
@@ -1059,7 +1033,7 @@
                 <table border="0"
                     style="width: 100%;margin-top:20px;@if ($einpack && $auspack && $reinigung) page-break-after: always; @endif">
                     <tr style="width:100%;">
-                        <td colspan="4" class=" custom-heading-bar" >
+                        <td colspan="4" class=" custom-heading-bar">
                             <b style="font-size:13px;">Reinigung</b>
                         </td>
                     </tr>
@@ -1270,7 +1244,7 @@
             @if ($reinigung2)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="custom-heading-bar" >
+                        <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Reinigung 2</b>
                         </td>
                     </tr>
@@ -1655,7 +1629,7 @@
             @if ($isTransport)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="custom-heading-bar" >
+                        <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Transport</b>
                         </td>
                     </tr>
@@ -1870,7 +1844,7 @@
             @if ($isLagerung)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="custom-heading-bar" >
+                        <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Lagerung</b>
                         </td>
                     </tr>
@@ -1983,7 +1957,7 @@
             @if ($isMaterial)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
-                        <td colspan="5" class="custom-heading-bar" >
+                        <td colspan="5" class="custom-heading-bar">
                             <b style="font-size:13px;">Verpackungsmaterial</b>
                         </td>
                     </tr>

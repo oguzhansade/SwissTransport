@@ -481,7 +481,7 @@ class indexController extends Controller
                 $ADC++;
                 $appointmentDate =  $appDateArray;
 
-                
+
                 $randevuTipi = 'Besichtigung';
                 break;
             case (2);
@@ -508,7 +508,7 @@ class indexController extends Controller
                 $appDateArray[$ADC]['serviceName'] = 'Lieferung';
                 $appDateArray[$ADC]['colorId'] = $request->calendarBescColor;
                 $ADC++;
-                
+
                 $randevuTipi = 'Lieferung';
                 break;
         }
@@ -553,7 +553,7 @@ class indexController extends Controller
                 $comment =  $item['calendarComment'];
                 $serviceId = $item['serviceId'];
                 $colorId = $item['colorId'];
-                calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId,$colorId);
+                calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
             }
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
@@ -760,7 +760,7 @@ class indexController extends Controller
                         $eventId = $event['eventId'];
                         calendarEditHelper::companyMailEdit($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $eventId);
                     } else {
-                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId,$colorId);
+                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
                     }
                 }
                 return redirect()
@@ -787,8 +787,12 @@ class indexController extends Controller
             $calendarBesc = Calendar::where('serviceId', $id)->first();
             if ($calendarBesc) {
                 $event = Event::find($calendarBesc['eventId']);
-                $event->delete($calendarBesc['eventId']);
-                Calendar::where('serviceId', $id)->delete();
+                if ($event) {
+                    $event->delete($calendarBesc['eventId']);
+                    Calendar::where('serviceId', $id)->delete();
+                } else {
+                    Calendar::where('serviceId', $id)->delete();
+                }
             }
             Appointment::where('id', $id)->delete();
             return redirect()

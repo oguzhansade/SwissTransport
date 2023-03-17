@@ -146,7 +146,7 @@ class indexController extends Controller
                         $eventId = $event['eventId'];
                         calendarEditHelper::companyMailEdit($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $eventId);
                     } else {
-                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId,$colorId);
+                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
                     }
                 }
                 return redirect()->back()->with('status', 'Teslimat Randevusu Düzenlendi' . ' ' . $mailSuccess);
@@ -168,12 +168,16 @@ class indexController extends Controller
 
         if ($c != 0) {
             $data = AppointmentMaterial::where('id', $id)->get();
-            
+
             $calendarLiefe = Calendar::where('serviceId', $id)->first();
             if ($calendarLiefe) {
                 $event = Event::find($calendarLiefe['eventId']);
-                $event->delete($calendarLiefe['eventId']);
-                Calendar::where('serviceId', $id)->delete();
+                if ($event) {
+                    $event->delete($calendarLiefe['eventId']);
+                    Calendar::where('serviceId', $id)->delete();
+                } else {
+                    Calendar::where('serviceId', $id)->delete();
+                }
             }
             AppointmentMaterial::where('id', $id)->delete();
             return redirect()

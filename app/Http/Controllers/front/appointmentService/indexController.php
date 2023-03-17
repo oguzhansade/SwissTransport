@@ -752,7 +752,7 @@ class indexController extends Controller
                         $eventId = $event['eventId'];
                         calendarEditHelper::companyMailEdit($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $eventId);
                     } else {
-                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId,$colorId);
+                        calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
                     }
                 }
 
@@ -791,75 +791,114 @@ class indexController extends Controller
             $calendarUmzug = Calendar::where('serviceId', $data['umzugId'])->first();
             if ($calendarUmzug) {
                 $event = Event::find($calendarUmzug['eventId']);
-                $event->delete($calendarUmzug['eventId']);
-                Calendar::where('serviceId', $data['umzugId'])->delete();
+                if ($event) {
+                    $event->delete($calendarUmzug['eventId']);
+                    Calendar::where('serviceId', $data['umzugId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['umzugId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
+
 
             $calendarUmzug2 = Calendar::where('serviceId', $data['umzug2Id'])->first();
             if ($calendarUmzug2) {
                 $event = Event::find($calendarUmzug2['eventId']);
-                $event->delete($calendarUmzug2['eventId']);
-                Calendar::where('serviceId', $data['umzug2Id'])->delete();
+                if ($event) {
+                    $event->delete($calendarUmzug2['eventId']);
+                    Calendar::where('serviceId', $data['umzug2Id'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['umzug2Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
 
             $calendarUmzug3 = Calendar::where('serviceId', $data['umzug3Id'])->first();
             if ($calendarUmzug3) {
                 $event = Event::find($calendarUmzug3['eventId']);
-                $event->delete($calendarUmzug3['eventId']);
-                Calendar::where('serviceId', $data['umzug3Id'])->delete();
+                if ($event) {
+                    $event->delete($calendarUmzug3['eventId']);
+                    Calendar::where('serviceId', $data['umzug3Id'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['umzug3Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
-            
+
             $calendarEinpack = Calendar::where('serviceId', $data['einpackId'])->first();
             if ($calendarEinpack) {
                 $event = Event::find($calendarEinpack['eventId']);
-                $event->delete($calendarEinpack['eventId']);
-                Calendar::where('serviceId', $data['einpackId'])->delete();
+                if ($event) {
+                    $event->delete($calendarEinpack['eventId']);
+                    Calendar::where('serviceId', $data['einpackId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['einpackId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
 
             $calendarAuspack = Calendar::where('serviceId', $data['auspackId'])->first();
             if ($calendarAuspack) {
                 $event = Event::find($calendarAuspack['eventId']);
-                $event->delete($calendarAuspack['eventId']);
-                Calendar::where('serviceId', $data['auspackId'])->delete();
+                if ($event) {
+                    $event->delete($calendarAuspack['eventId']);
+                    Calendar::where('serviceId', $data['auspackId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['auspackId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
 
             $calendarReinigung = Calendar::where('serviceId', $data['reinigungId'])->first();
             if ($calendarReinigung) {
                 $event = Event::find($calendarReinigung['eventId']);
-                $event->delete($calendarReinigung['eventId']);
-                Calendar::where('serviceId', $data['reinigungId'])->delete();
+                if ($event) {
+                    $event->delete($calendarReinigung['eventId']);
+                    Calendar::where('serviceId', $data['reinigungId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['reinigungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
 
             $calendarReinigung2 = Calendar::where('serviceId', $data['reinigung2Id'])->first();
             if ($calendarReinigung2) {
                 $event = Event::find($calendarReinigung2['eventId']);
-                $event->delete($calendarReinigung2['eventId']);
-                Calendar::where('serviceId', $data['reinigung2Id'])->delete();
+                if ($event) {
+                    $event->delete($calendarReinigung2['eventId']);
+                    Calendar::where('serviceId', $data['reinigung2Id'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['reinigung2Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
 
             $calendarEntsorgung = Calendar::where('serviceId', $data['entsorgungId'])->first();
             if ($calendarEntsorgung) {
                 $event = Event::find($calendarEntsorgung['eventId']);
-                $event->delete($calendarEntsorgung['eventId']);
-                Calendar::where('serviceId', $data['entsorgungId'])->delete();
+                if ($event) {
+                    $event->delete($calendarEntsorgung['eventId']);
+                    Calendar::where('serviceId', $data['entsorgungId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['entsorgungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
-            
+
             $calendarTransport = Calendar::where('serviceId', $data['transportId'])->first();
             if ($calendarTransport) {
                 $event = Event::find($calendarTransport['eventId']);
-                $event->delete($calendarTransport['eventId']);
-                Calendar::where('serviceId', $data['transportId'])->delete();
+                if ($event) {
+                    $event->delete($calendarTransport['eventId']);
+                    Calendar::where('serviceId', $data['transportId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['transportId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
-            
+
             $calendarLagerung = Calendar::where('serviceId', $data['lagerungId'])->first();
             if ($calendarLagerung) {
                 $event = Event::find($calendarLagerung['eventId']);
-                $event->delete($calendarLagerung['eventId']);
-                Calendar::where('serviceId', $data['lagerungId'])->delete();
+                if ($event) {
+                    $event->delete($calendarLagerung['eventId']);
+                    Calendar::where('serviceId', $data['lagerungId'])->delete();
+                } else {
+                    Calendar::where('serviceId', $data['lagerungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+                }
             }
-            
-            
-           
+
 
             AppoinmentService::where('id', $id)->delete();
             return redirect()
