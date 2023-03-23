@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="col-md-6 customContactPerson" style="display:block;">
                                     <label class=" col-form-label" for="l0">Kontaktperson (Freitext)</label>
-                                    <input class="form-control" name="customContactPerson"  type="text" value="{{ $data['contactPerson'] }}">  
+                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="Swiss Transport Team" @else value="{{ $data['contactPerson'] }}" @endif>  
                                 </div>                            
                             </div>
 
@@ -359,14 +359,14 @@
    })
 </script>
 
-@yield('offerFooter')
-@yield('offerFooter1Edit')
-@yield('offerFooter2')
-@yield('offerFooterAus')
-@yield('offerFooterReinigung')
-@yield('offerFooterReinigung2')
-@yield('offerEntsorgung')
-@yield('offerFooterTransport')
-@yield('offerFooterLagerung')
+@yield('offerAuspackEdit')
+@yield('offerEinpackEdit')
+@yield('offerEntsorgungEdit')
+@yield('offerLagerungEdit')
 @yield('offerMaterialEdit')
+@yield('offerReinigungEdit')
+@yield('offerReinigung2Edit')
+@yield('offerTransportEdit')
+@yield('offerUmzugEdit')
+@yield('offerUmzug2Edit')
 @endsection

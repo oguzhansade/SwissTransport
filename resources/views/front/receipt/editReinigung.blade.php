@@ -3,7 +3,6 @@
 
 @section('header')
 <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -366,20 +365,20 @@
                                     <div class="col-md-6">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif> 
+                                                <input type="checkbox" name="payedCash"  value="1" @if($data['inBar']) checked @endif> 
                                                 <span class="label-text text-dark"><strong>In Bar</strong></span>
                                             </label>
                                         </div>
-                                        <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['cashPrice'] }}">
+                                        <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text" @if($data['cashPrice']) value="{{ $data['cashPrice'] }}" @endif>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif> 
+                                                <input type="checkbox" name="payedBill"  value="1" @if($data['inRechnung']) checked @endif> 
                                                 <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                             </label>
                                         </div>
-                                        <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['invoicePrice'] }}">
+                                        <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text" @if($data['invoicePrice']) value="{{ $data['invoicePrice'] }}" @endif>
                                     </div>
                                 </div>
                             </div>
@@ -417,7 +416,7 @@
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                            @include('../../receiptReinigungMail')
+                                            {{-- @include('../../receiptReinigungMail') --}}
                                     </textarea>
                                 </div>
                             </div>

@@ -30,6 +30,7 @@ class OfferteEntsorgung extends Model
         'discountPercent',
         'extraDiscountText',
         'extraDiscountPrice',
+        'costPrice',
         'defaultPrice',
         'topCost',
         'fixedPrice',

@@ -44,6 +44,13 @@
 <div id="faturaData">
     <div class="row p-3">
         <div class="col-md-6">
+            <label class="col-form-label" for="l0">Kosten </label>
+            <input class="form-control indirim" name="materialCostPrice" type="text" value="0" style="background-color: #8778aa;color:white;">
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-md-6">
             <label class="col-form-label" for="l0">Reduktion </label>
             <input class="form-control indirim" name="materialDiscount" type="number" value="0" min="0">
         </div>
@@ -131,24 +138,6 @@
 
         console.log(urunIsmi,fiyat, kirala, buyType, 'fkb')
 
-        // Kiralama Satınalma Validasyon
-        // $(".urun").on("change", function(){
-        //     const $selectedProduct = $(this).find(':selected');
-        //     const $fiyat = $selectedProduct.data("fiyat");
-        //     const $kirala = $selectedProduct.data("kirala");
-
-        //     if($fiyat === 0) {
-        //     $(this).closest('.islem_field').closest('.buyType option:contains("Kaufen")').hide();
-        //     console.log($fiyat,'Kaufen Kapalı');
-        //     }
-
-        //     if($kirala === 0) {
-        //     $(this).closest('.islem_field').closest('.buyType option:contains("Mieten")').hide();
-        //     console.log($kirala,'Mieten Kapalı');
-        //     }
-
-        //     console.log($kirala,$fiyat,'Kiralama,Fiyat');
-        // });
 
         $(".buyType").on("change", function() {
             const $buyType = $(this);
@@ -250,7 +239,7 @@
 
     function calc() {
         var ara_toplam = 0;
-        var indirim = parseFloat($(".indirim").val());
+        var indirim = parseFloat($("input[name=materialDiscount]").val());
         var indirimyuzde = parseFloat($(".indirim_yuzde").val());
         var teslimat_ucreti = parseFloat($(".teslimat_ucreti").val());
         var teslimalma_ucreti = parseFloat($(".toplama_ucreti").val());

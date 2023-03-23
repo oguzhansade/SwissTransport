@@ -499,11 +499,12 @@
             let rightHour = parseFloat(allHours[1]);
             var discount = $('input[name=umzugDiscount]').val();
             var discountPercent = $('input[name=umzugDiscountPercent]').val();
+            let indirim = discountPercent/100;
             var compromiser = $('input[name=umzugCompromiser]').val();
             var extraDiscount = $('input[name=umzugExtraDiscount]').val();
             
             umzugTotalPriceLeft = umzugCostLeft - discount - (umzugCostLeft*discountPercent/100) - compromiser - extraDiscount;
-            umzugTotalPriceRight = umzugCostRight - discount - (umzugCostLeft*discountPercent/100) - compromiser - extraDiscount;
+            umzugTotalPriceRight = umzugCostRight - discount - (umzugCostRight*discountPercent/100) - compromiser - extraDiscount;
 
             if(rightHour){
                 $('input[name=umzugTotalPrice]').val(umzugTotalPriceRight)

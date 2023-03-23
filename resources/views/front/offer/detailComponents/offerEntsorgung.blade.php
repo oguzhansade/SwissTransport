@@ -178,6 +178,12 @@
                 </div>
             </div>
 
+            <label class="col-form-label" for="l0">Kosten</label>
+            <input class="form-control" name="entsorgungCostPrice" placeholder="0" type="text"
+                style="background-color: #8778aa;color:white;"
+                @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'costPrice') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'costPrice') }}"
+                @else value="{{ 0 }}" @endif>
+
             <div class="row">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Rabatt</label>
@@ -235,7 +241,7 @@
         </div>
     </div>
 </div>
-@section('offerFooterEntsorgungDetail')
+@section('offerEntsorgungEdit')
     <script>
         var morebutton7 = $("div.entsorgung-control");
         morebutton7.click(function() {
@@ -375,22 +381,24 @@
         })
     </script>
     <script>
-        $(document).ready(function() {
-
-            $('input[name=entsorgungTotalPrice]').on('click', function() {
-                if ($('input[name=entsorgungmasraf]').is(":checked")) {
-                    var extra1 = parseFloat($('input[name=entsorgungextra1]').val());
-                } else {
+        $(document).ready(function(){
+            
+            $('body').on('change','.entsorgung--area',function(){
+                if ($('input[name=entsorgungmasraf]').is(":checked")){
+                    var extra1 = parseFloat($('input[name=entsorgungextra1]').val());               
+                }
+                else {
                     extra1 = 0;
                 }
-
+    
                 let entsorgungDiscount = $('input[name=entsorgungDiscount]').val();
                 let entsorgungDiscountPercent = $('input[name=entsorgungDiscountPercent]').val();
                 let volumeChf = $('input[name=entsorgungVolumeChf]').val();
                 let fixedChf = parseFloat($('input[name=entsorgungFixedChf]').val());
-                if (fixedChf > 0) {
+                if(fixedChf > 0){
                     fixedChf = fixedChf
-                } else {
+                }
+                else{
                     fixedChf = 0
                 }
                 let tariffChf = $('input[name=entsorgungchf]').val();
@@ -398,477 +406,529 @@
                 let allHours = entsorgungHours.split("-");
                 let leftHour = parseFloat(allHours[0]);
                 let rightHour = parseFloat(allHours[1]);
-
+    
                 let roadChf = $('input[name=entsorgungroadChf]').val();
-
-                let calcEntTariffLeft = (tariffChf * leftHour) + parseFloat(roadChf)
-                let calcEntTariffRight = (tariffChf * rightHour) + parseFloat(roadChf)
-
+                
+                let calcEntTariffLeft = (tariffChf*leftHour)+parseFloat(roadChf)
+                let calcEntTariffRight = (tariffChf*rightHour)+parseFloat(roadChf)
+    
                 let esVolume = $('input[name=estimatedVolume]').val();
                 let allVolume = esVolume.split("-");
                 let leftVolume = parseFloat(allVolume[0]);
                 let rightVolume = parseFloat(allVolume[1]);
-
+    
                 let entsorgungExtraDiscount = $('input[name=entsorgungExtraDiscount]').val();
                 let entsorgungCost1 = parseFloat($('input[name=entsorgungCost1]').val())
                 let entsorgungCost2 = parseFloat($('input[name=entsorgungCost2]').val())
-
+    
                 let entsorgungTotalPriceLeft = 0
                 let entsorgungTotalPriceRight = 0
-
+    
                 let entsorgungTotalPriceLeftH = 0
                 let entsorgungTotalPriceRightH = 0
-
-                if (leftVolume) {
-                    if (leftHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
+    
+                if(leftVolume)
+                {
+                    if(leftHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungLeftCost = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungLeftCost)
                     }
-                    if (rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
+                    if(rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungRightCost = entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungRightCost)
                     }
-                    if (leftHour && rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * leftVolume + fixedChf + calcEntTariffRight +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(leftHour && rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                       
+                        entsorgungLeftCost = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungRightCost = entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight);
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight);
+                        $('input[name=entsorgungCostPrice]').val(entsorgungLeftCost+'-'+entsorgungRightCost);
                     }
-
-                    if (!leftHour && !rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
+                   
+                    if(!leftHour && !rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungLeftCost = volumeChf * leftVolume + fixedChf + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungLeftCost);
+                        
                     }
-
+                    
                 }
-
-                if (rightVolume) {
-                    if (rightHour) {
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+    
+                if(rightVolume)
+                {
+                    if(rightHour)
+                    {
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRight)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRight);
                     }
-                    if (leftHour) {
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(leftHour)
+                    {
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeft = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRight)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft);
                     }
-                    if (leftHour && rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * rightVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(leftHour && rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeft = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight);
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight);
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft+'-'+entsorgungTotalRight);
                     }
-                    if (!leftHour && !rightHour) {
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(!leftHour && !rightHour)
+                    {
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2;
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRight)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRight);
                     }
-
-
+    
+                    
                 }
-
-                if (leftVolume && rightVolume) {
-                    if (leftHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+    
+                if(leftVolume && rightVolume )
+                {
+                    if(leftHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft+'-'+entsorgungTotalRight);
                     }
-                    if (rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft+'-'+entsorgungTotalRight);
                     }
-                    if (leftHour && rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(leftHour && rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeft = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft+'-'+entsorgungTotalRight);
                     }
-                    if (!leftHour && !rightHour) {
-                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (
-                                entsorgungTotalPriceLeft * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (
-                                entsorgungTotalPriceRight * entsorgungDiscountPercent / 100);
+                    if(!leftHour && !rightHour)
+                    {
+                        entsorgungTotalPriceLeft = volumeChf * leftVolume + fixedChf +  extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRight = volumeChf * rightVolume + fixedChf +  extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                       
+                        entsorgungTotalLeft = volumeChf * leftVolume + fixedChf +  extra1 + entsorgungCost1 + entsorgungCost2;
+                        entsorgungTotalRight = volumeChf * rightVolume + fixedChf +  extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeft = entsorgungTotalPriceLeft - (entsorgungTotalPriceLeft*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRight = entsorgungTotalPriceRight - (entsorgungTotalPriceRight*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft + '-' +
-                            entsorgungTotalPriceRight)
+    
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeft+'-'+entsorgungTotalPriceRight)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeft+'-'+entsorgungTotalRight);
                     }
-
+                     
                 }
-
-                if (!leftVolume && !rightVolume) {
-                    if (leftHour) {
-                        entsorgungTotalPriceLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+    
+                if(!leftVolume && !rightVolume)
+                {
+                    if(leftHour)
+                    {
+                        entsorgungTotalPriceLeftH =   calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH);
                     }
-                    if (rightHour) {
-                        entsorgungTotalPriceRightH = calcEntTariffRight + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(rightHour)
+                    {
+                        entsorgungTotalPriceRightH =  calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRightH = calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRightH);
                     }
-                    if (leftHour && rightHour) {
-                        entsorgungTotalPriceLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = calcEntTariffRight + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(leftHour && rightHour)
+                    {
+                        entsorgungTotalPriceLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 ;
+                        entsorgungTotalRightH = calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2;
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalRightH)
                     }
-
+                    
                 }
-
-                if (leftHour) {
-                    if (leftVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+    
+                if(leftHour)
+                {
+                    if(leftVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH = volumeChf * leftVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH)
                     }
-                    if (rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * rightVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+                    if(rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * rightVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH = volumeChf * rightVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH)
                     }
-                    if (leftVolume && rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceLeftH2 = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceLeftH2 = entsorgungTotalPriceLeftH2 - (
-                                entsorgungTotalPriceLeftH2 * entsorgungDiscountPercent / 100);
+                    if(leftVolume && rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceLeftH2 = volumeChf * rightVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalLeftH = volumeChf * leftVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalLeftH2 = volumeChf * rightVolume +  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceLeftH2 = entsorgungTotalPriceLeftH2 - (entsorgungTotalPriceLeftH2*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceLeftH2)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceLeftH2)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalLeftH2)
                     }
-                    if (!leftVolume && !rightVolume) {
-                        entsorgungTotalPriceLeftH = fixedChf + calcEntTariffLeft + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+                    if(!leftVolume && !rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH =  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH =  fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH)
                     }
                 }
-
-                if (rightHour) {
-                    if (leftVolume) {
-                        entsorgungTotalPriceRightH = volumeChf * leftVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+    
+                if(rightHour)
+                {
+                    if(leftVolume)
+                    {
+                        entsorgungTotalPriceRightH = volumeChf * leftVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRightH = volumeChf * leftVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRightH)
                     }
-                    if (rightVolume) {
-                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(rightVolume)
+                    {
+                        entsorgungTotalPriceRightH = volumeChf * rightVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRightH = volumeChf * rightVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRightH)
                     }
-                    if (leftVolume && rightVolume) {
-                        entsorgungTotalPriceRightH = volumeChf * leftVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH2 = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH2 = entsorgungTotalPriceRightH2 - (
-                                entsorgungTotalPriceRightH2 * entsorgungDiscountPercent / 100);
+                    if(leftVolume && rightVolume)
+                    {
+                        entsorgungTotalPriceRightH = volumeChf * leftVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH2 = volumeChf * rightVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        
+                        entsorgungTotalRightH = volumeChf * leftVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 
+                        entsorgungTotalRightH2 = volumeChf * rightVolume +  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+                        
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH2 = entsorgungTotalPriceRightH2 - (entsorgungTotalPriceRightH2*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH + '-' +
-                            entsorgungTotalPriceRightH2);
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH+'-'+entsorgungTotalPriceRightH2);
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRightH+'-'+entsorgungTotalRightH2);
                     }
-                    if (!leftVolume && !rightVolume) {
-                        entsorgungTotalPriceRightH = fixedChf + calcEntTariffRight + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(!leftVolume && !rightVolume)
+                    {
+                        entsorgungTotalPriceRightH =  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalRightH =  fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalRightH)
                     }
                 }
-
-                if (leftHour && rightHour) {
-                    if (leftVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = volumeChf * leftVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+    
+                if(leftHour && rightHour)
+                {
+                    if(leftVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+    
+                        entsorgungTotalLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalRightH = volumeChf * leftVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceRightH) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalRightH) 
                     }
-                    if (rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * rightVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+    
+                        entsorgungTotalLeftH = volumeChf * rightVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalRightH = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceRightH) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalRightH) 
                     }
-                    if (leftVolume && rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft +
-                            extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf +
-                            calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 -
-                            entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                
+                    if(leftVolume && rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+    
+                        entsorgungTotalLeftH = volumeChf * leftVolume + fixedChf + calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalRightH = volumeChf * rightVolume + fixedChf + calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceRightH) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalRightH) 
                     }
-                    if (!leftVolume && !rightVolume) {
-                        entsorgungTotalPriceLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = calcEntTariffRight + extra1 + entsorgungCost1 +
-                            entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(!leftVolume && !rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+    
+                        entsorgungTotalLeftH = calcEntTariffLeft + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalRightH = calcEntTariffRight + extra1 + entsorgungCost1 + entsorgungCost2
+    
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH+'-'+entsorgungTotalPriceRightH) 
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH+'-'+entsorgungTotalRightH) 
                     }
                 }
-
-                if (!leftHour && !rightHour) {
-                    if (leftVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+    
+                if(!leftHour && !rightHour)
+                {
+                    if(leftVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH = volumeChf * leftVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH)
                     }
-                    if (rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * rightVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
+                    if(rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * rightVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalLeftH = volumeChf * rightVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
                         }
                         $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH)
                     }
-                    if (leftVolume && rightVolume) {
-                        entsorgungTotalPriceLeftH = volumeChf * leftVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        entsorgungTotalPriceRightH = volumeChf * rightVolume + fixedChf + extra1 +
-                            entsorgungCost1 + entsorgungCost2 - entsorgungDiscount -
-                            entsorgungExtraDiscount;
-                        if (entsorgungDiscountPercent) {
-                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (
-                                entsorgungTotalPriceLeftH * entsorgungDiscountPercent / 100);
-                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (
-                                entsorgungTotalPriceRightH * entsorgungDiscountPercent / 100);
+                    if(leftVolume && rightVolume)
+                    {
+                        entsorgungTotalPriceLeftH = volumeChf * leftVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+                        entsorgungTotalPriceRightH = volumeChf * rightVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2 - entsorgungDiscount - entsorgungExtraDiscount;
+    
+                        entsorgungTotalLeftH = volumeChf * leftVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2
+                        entsorgungTotalRightH = volumeChf * rightVolume +  fixedChf  + extra1 + entsorgungCost1 + entsorgungCost2
+                        if(entsorgungDiscountPercent)
+                        {
+                            entsorgungTotalPriceLeftH = entsorgungTotalPriceLeftH - (entsorgungTotalPriceLeftH*entsorgungDiscountPercent/100);
+                            entsorgungTotalPriceRightH = entsorgungTotalPriceRightH - (entsorgungTotalPriceRightH*entsorgungDiscountPercent/100);
                         }
-                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' +
-                            entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungTotalPrice]').val(entsorgungTotalPriceLeftH + '-' + entsorgungTotalPriceRightH)
+                        $('input[name=entsorgungCostPrice]').val(entsorgungTotalLeftH + '-' + entsorgungTotalRightH)
                     }
-                    if (!leftVolume && !rightVolume) {
+                    if(!leftVolume && !rightVolume)
+                    {
                         $('input[name=entsorgungTotalPrice]').val('');
+                        $('input[name=entsorgungCostPrice]').val('');
                     }
                 }
             })
-            $('input[name=entsorgungTopPrice]').on('click', function() {
+            $('body').on('change','.entsorgung--area',function(){
                 let tariffChf2 = $('input[name=entsorgungchf]').val();
                 let volumeChf = $('input[name=entsorgungVolumeChf]').val();
                 let entTotalPrices = $('input[name=entsorgungTotalPrice]').val();
                 entTotalPricesARR = entTotalPrices.split("-");
                 let entTotalPrice = 0;
-
+                
                 leftTotal = parseFloat(entTotalPricesARR[0]);
                 rightTotal = parseFloat(entTotalPricesARR[1]);
-
-                if (leftTotal >= rightTotal) {
+    
+                if(leftTotal >= rightTotal)
+                {
                     entTotalPrice = leftTotal;
-                } else if (rightTotal >= leftTotal) {
+                }
+                else if(rightTotal >= leftTotal)
+                {
                     entTotalPrice = rightTotal;
-                } else {
+                }
+                else{
                     entTotalPrice = parseFloat($('input[name=entsorgungTotalPrice]').val());
                 }
-
-                if ($('input[name=isEntsorgungMTPrice]').is(":checked")) {
+    
+                if($('input[name=isEntsorgungMTPrice]').is(":checked"))
+                {
                     $('input[name=entsorgungTopPrice]').val();
-                } else {
-                    if (tariffChf2) {
+                }
+                else{
+                    if(tariffChf2)
+                    {
                         entTopPrice = entTotalPrice + parseFloat(tariffChf2);
                         $('input[name=entsorgungTopPrice]').val(entTopPrice);
-                    } else {
+                    }
+                    else{
                         entTopPrice = entTotalPrice + parseFloat(volumeChf);
                         $('input[name=entsorgungTopPrice]').val(entTopPrice);
                     }
                 }
-
-                if (tariffChf2) {
-                    entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
-                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
-                } else {
-                    entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
-                    $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+    
+                if($('input[name=isEntsorgungFxPrice]').is(":checked"))
+                {
+                    $('input[name=entsorgungDefaultPrice]').val();
                 }
-
-            })
+                else{
+                    if(tariffChf2)
+                    {
+                        entsorgungDefaultPrice = entTotalPrice + parseFloat(tariffChf2);
+                        $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                    }
+                    else{
+                        entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
+                        $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
+                    }
+                }
+    
+                
+                
+            })  
         })
     </script>
     {{-- Tarife Fiyatları --}}

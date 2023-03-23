@@ -36,6 +36,7 @@ return new class extends Migration
             $table->integer('extraCostValue1')->nullable();
             $table->string('extraCostText2')->nullable();
             $table->integer('extraCostValue2')->nullable();
+            $table->string('costPrice')->nullable();
             $table->string('discountText')->nullable();
             $table->integer('discount')->nullable();
             $table->integer('discountPercent')->nullable();

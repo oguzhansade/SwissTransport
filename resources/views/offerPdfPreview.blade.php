@@ -34,7 +34,6 @@
             padding: 0px;
             line-height: 12px;
             z-index: -5;
-
         }
 
         footer {
@@ -51,14 +50,6 @@
             z-index: -5;
         }
 
-        .certificate {
-            position: fixed;
-            bottom: 30px;
-            right: 25px;
-            padding-bottom: 5px;
-            /** Extra personal styles **/
-            text-align: right;
-        }
 
         .pagenum:before {
             content: counter(page);
@@ -130,8 +121,9 @@
 
 <body>
     <header>
-        <table style="width: 100%;">
-            <tr style="padding-top:0px;width: 100%;">
+        <table
+            style="width: 100%;border-bottom:1px solid black;margin-bottom:50px;">
+            <tr style="width: 100%;">
                 <td>
                     <table style="width: 100%;">
                         <tr style="width: 100%;">
@@ -144,7 +136,7 @@
                         </tr>
                         <tr style="width: 100%;">
                             <td>Datum:</td>
-                            <td>{{ date('d.m.Y', strtotime(Carbon\Carbon::now())); }}</td>
+                            <td>{{ date('d.m.Y', strtotime(Carbon\Carbon::now())) }}</td>
                         </tr>
                         <tr>
                             <td>Seiten</td>
@@ -160,8 +152,7 @@
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731
-            96 59 | info@swisstransport.ch | www.swisstransport.ch</span>
+        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
     </footer>
 
     <main>
@@ -224,7 +215,7 @@
 
                 <tr style="width:100%;">
                     <td colspan="4" style="padding-top:30px">
-                        <img src="{{ asset('assets/img/proven-expert-updated.png') }}" width="750" alt="">
+                        <img src="{{ asset('assets/img/proven-expert-updated2.png') }}" width="750" alt="">
                     </td>
                 </tr>
                 {{-- Boşluk Bırakma --}}
@@ -237,7 +228,7 @@
                         </b>
                     </td>
                     <td colspan="2" align="right">
-                        {{ date('d.m.Y', strtotime(Carbon\Carbon::now())); }}
+                        {{ date('d.m.Y', strtotime(Carbon\Carbon::now())) }}
                     </td>
                 </tr>
                 <tr style="width:100%;">
@@ -255,13 +246,12 @@
 
                 {{-- Umzug Alanı --}}
                 @if ($isUmzug)
-
                     {{-- Aus ve Einler --}}
                     <tr style="width:100%;">
                         <td colspan="2" class=" custom-heading-bar">
                             <b style="font-size:13px;">Auszug</b>
                         </td>
-                        @if ($einzug1)
+                        @if ($isEinzug1)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug</b>
                             </td>
@@ -302,7 +292,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug1)
+                        @if ($isEinzug1)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -334,12 +324,12 @@
 
                     {{-- 2.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($auszug2)
+                        @if ($isAuszug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 2</b>
                             </td>
                         @endif
-                        @if ($einzug2)
+                        @if ($isEinzug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 2</b>
                             </td>
@@ -347,7 +337,7 @@
                     </tr>
 
                     <tr>
-                        @if ($auszug2)
+                        @if ($isAuszug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -368,7 +358,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug2)
+                        @if ($isEinzug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -397,12 +387,12 @@
 
                     {{-- 3.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($auszug3)
+                        @if ($isAuszug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 3</b>
                             </td>
                         @endif
-                        @if ($einzug3)
+                        @if ($isEinzug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 3</b>
                             </td>
@@ -410,7 +400,7 @@
                     </tr>
 
                     <tr>
-                        @if ($auszug3)
+                        @if ($isAuszug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -431,7 +421,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug3)
+                        @if ($isEinzug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -692,13 +682,27 @@
             </td>
             </tr>
             @endif
+            </table>
             {{-- Umzug Alanı --}}
 
-
-
-            </table>
+            @if ($isUmzug)
+                <div style="@if (
+                    ($isAuszug2 ||
+                        $isEinzug2 ||
+                        $isEinzug3 ||
+                        $isAuszug3 ||
+                        $isEinzug3) && $isEinpack ||
+                        $isAuspack ||
+                        $isReinigung ||
+                        $isReinigung2 ||
+                        $isEntsorgung ||
+                        $isTransport ||
+                        $isLagerung ||
+                        $isMaterial) page-break-after:always; @endif"></div>
+            @endif
             {{-- Einpack Alanı --}}
             @if ($isEinpack)
+
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
@@ -1030,8 +1034,7 @@
 
             {{-- Reinigung Alanı --}}
             @if ($isReinigung)
-                <table border="0"
-                    style="width: 100%;margin-top:20px;@if ($einpack && $auspack && $reinigung) page-break-after: always; @endif">
+                <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
                         <td colspan="4" class=" custom-heading-bar">
                             <b style="font-size:13px;">Reinigung</b>
@@ -2078,7 +2081,7 @@
             @endif
         </div>
 
-        <div class="bemerkungen">
+        <div class="bemerkungen" style="margin-top:50px;">
             <span><b style="font-size:26px!important;line-height:26px;color:red;">Erstklassiger Full-Service aus
                     einer Hand</b></span>
             <p class="mt-3" style="font-size:14px!important;line-height:14px;">
@@ -2171,11 +2174,6 @@
 
                 Ihr Swiss Transport Team
             </span>
-            <div class="certificate" style="align:right;">
-                <a href="https://www.provenexpert.com/swiss-transport-ag/?utm_source=Widget&utm_medium=Widget&utm_campaign=Widget"
-                    target="_blank"><img style="padding:0px!important;align:right;"
-                        src="{{ asset('assets/demo/certificate.png') }}" width="300" /></a>
-            </div>
         </div>
     </main>
 </body>

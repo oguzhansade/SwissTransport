@@ -45,6 +45,8 @@ class ReceiptUmzug extends Model
         'withTax',
         'withoutTax',
         'freeTax',
+        'inBar',
+        'inRechnung',
         'cashPrice',
         'invoicePrice',
         'signerName'

@@ -298,7 +298,15 @@
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
-
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $umzug['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
                             @if ($umzug['discount'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -449,7 +457,15 @@
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
-
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $einpack['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
                             @if ($einpack['discount'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -601,6 +617,16 @@
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $auspack['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
 
                             @if ($auspack['discount'] != 0)
                                 <div class="row mt-3">
@@ -814,6 +840,15 @@
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $reinigung['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
 
                             @if ($reinigung['discount'] != 0)
                                 <div class="row mt-3">
@@ -944,6 +979,16 @@
                                 </div>
                             </div>
                             <div class="c-border mt-3"></div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $reinigung2['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
 
                             <div class="row mt-3">
                                 <div class="col-md-6">
@@ -1338,6 +1383,25 @@
                             </div>
                             <div class="c-border mt-3"></div>
 
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    @if ($transport['fixedChf'] != 0)
+                                        Pauschal:
+                                    @else
+                                        Kosten:
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>
+                                        @if($transport['fixedChf'] != 0) 
+                                        {{ $transport['fixedChf'] }} CHF
+                                        @else {{ $transport['totalPrice'] }} CHF
+                                        @endif
+                                    </strong>
+                                    </span>
+                                </div>
+                            </div>
+
                             @if ($transport['discount'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -1476,6 +1540,16 @@
                             </div>
                             <div class="c-border mt-3"></div>
 
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    Kosten:
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="text-primary"> <strong>{{ $lagerung['costPrice'] }} CHF</strong>
+                                    </span>
+                                </div>
+                            </div>
+
                             @if ($lagerung['discountValue'] != 0)
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -1568,6 +1642,17 @@
                             @endforeach
                             <div class="c-border"></div>
 
+                            @if ($material['discountPercent'])
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        Rabatt:
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ $material['discountPercent'] }}%
+                                    </div>
+                                </div>
+                            @endif
+
                             @if ($material['discount'])
                                 <div class="row mt-3">
                                     <div class="col-md-6">
@@ -1632,7 +1717,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Umzug:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $umzug['defaultPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $umzug['defaultPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1643,7 +1729,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Einpack:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $einpack['defaultPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $einpack['defaultPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1654,7 +1741,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Auspack:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $auspack['defaultPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $auspack['defaultPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1665,7 +1753,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Reinigung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $reinigung['totalPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $reinigung['totalPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1676,7 +1765,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Reinigung 2:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $reinigung2['totalPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $reinigung2['totalPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1687,7 +1777,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Entsorgung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $entsorgung['defaultPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $entsorgung['defaultPrice'] }}</span>
+                                                    CHF</b></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1698,7 +1789,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Transport:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $transport['defaultPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $transport['defaultPrice'] }}</span>
+                                                    CHF</b></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1709,7 +1801,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Lagerung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $lagerung['totalPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $lagerung['totalPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1720,7 +1813,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Material:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                class="ucret">{{ $material['totalPrice'] }}</span> CHF</b></td>
+                                                        class="ucret">{{ $material['totalPrice'] }}</span> CHF</b>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1784,7 +1878,8 @@
                                                         <input class="btn btn-success btn-rounded " type="submit"
                                                             value=" Annehmen "
                                                             formaction="{{ URL::to('/verifyoffer', ['token' => $oToken]) }}">
-                                                        <input class="btn btn-rounded text-white" style="background-color: #FF1F1F" type="submit"
+                                                        <input class="btn btn-rounded text-white"
+                                                            style="background-color: #FF1F1F" type="submit"
                                                             value=" Ablehnen"
                                                             formaction="{{ URL::to('/rejectoffer', ['token' => $oToken]) }}">
                                                     </div>
@@ -1805,7 +1900,7 @@
             <div class="sag" style=" ">
 
             </div>
-            
+
             <div class="row border-top mt-3 mb-3">
                 <div class="col-md-12 px-1 pt-1 text-dark justify-content-left">
                     <h3 class="font-weight-bold text-dark">Erstklassiger Full-Service aus einer Hand</h5>

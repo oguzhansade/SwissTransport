@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('discountPercent')->nullable();
             $table->string('discountText')->nullable();
             $table->integer('discountValue')->nullable();
+            $table->string('costPrice')->nullable();
             $table->string('totalPrice')->nullable();
             $table->integer('fixedPrice')->nullable();
             $table->timestamps();

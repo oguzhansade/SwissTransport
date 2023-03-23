@@ -76,7 +76,12 @@
                     </div>
                 </div>
             </div>
-            
+            <label class="col-form-label mt-1 " for="l0">Kosten</label>
+            <input class="form-control" id="lagerungCostPrice"  name="lagerungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'costPrice') != NULL) 
+                value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'costPrice') }}"
+                @else value="{{ 0 }}"
+            @endif> 
             <div class="row">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Rabatt[%]</label>
@@ -105,7 +110,7 @@
                 </div>
             </div>
 
-            <label class="col-form-label mt-1 " for="l0">Kosten</label>
+            <label class="col-form-label mt-1 " for="l0">GESCHÄTZTE KOSTEN</label>
             <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
             @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'totalPrice') != NULL) 
                 value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'totalPrice') }}"
@@ -133,7 +138,7 @@
         </div>
     </div>
 </div>
-@section('offerFooterLagerung')
+@section('offerLagerungEdit')
 <script>
     var lagerungFixed = $("div.lagerung-fixed-control");
     lagerungFixed.click(function(){
@@ -198,7 +203,7 @@
         lagerungCost = 0;
         var lagerungFixedPrice = 0;
         var lagerungCost = 0;
-        $("body").on("change",".lagerung--area",function(){
+        $("body").on("change",".lagerung--area",function(){      
             var extraCost1 = parseFloat($('input[name=lagerungCost1]').val());               
             var extraCost2 = parseFloat($('input[name=lagerungCost2]').val()); 
             var discount = parseFloat($('input[name=lagerungExtraDiscount]').val());  
@@ -214,24 +219,30 @@
             lagerungCostLeft = chf * leftVolume + extraCost1 + extraCost2 - discount;
             lagerungCostRight = chf * rightVolume + extraCost1 + extraCost2 - discount;
 
+            lagerungCostLeftPrice = chf * leftVolume + extraCost1 + extraCost2
+            lagerungCostRightPrice = chf * rightVolume + extraCost1 + extraCost2
+
                 if(rightVolume){
                     if(discountPercent)
                     {
-                        lagerungCostRight = lagerungCostRight-(lagerungCostRight*discountPercent/100)
+                        lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
                     }
                     $('input[name=lagerungCost]').val(lagerungCostRight)
+                    $('input[name=lagerungCostPrice]').val(lagerungCostRightPrice)
                 }
                 if(leftVolume){
                     if(discountPercent)
                     {
-                        lagerungCostLeft = lagerungCostLeft-(lagerungCostLeft*discountPercent/100)
+                        lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
                     }
                     $('input[name=lagerungCost]').val(lagerungCostLeft)
+                    $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice)
                 }
                 if(leftVolume && rightVolume ){
-                    lagerungCostRight = lagerungCostRight-(lagerungCostRight*discountPercent/100)
-                    lagerungCostLeft = lagerungCostLeft-(lagerungCostLeft*discountPercent/100)
+                    lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
+                    lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
                     $('input[name=lagerungCost]').val(lagerungCostLeft+'-'+lagerungCostRight) 
+                    $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice+'-'+lagerungCostRightPrice)
                 }
                 if(leftVolume == null && rightVolume == null){
                     $('input[name=lagerungCost]').val('')
@@ -267,10 +278,7 @@
                     lagerungFixedPrice = lagerungCost + parseFloat(chf)
                     $('input[name=lagerungFixedPrice]').val(lagerungFixedPrice);
                 }
-
-                
-               
-        })
+        }) 
     })
 </script>
 {{-- Tarife Fiyatları --}}

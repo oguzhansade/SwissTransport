@@ -51,6 +51,8 @@ return new class extends Migration
             $table->integer('withTax')->nullable();
             $table->integer('withoutTax')->nullable();
             $table->integer('freeTax')->nullable();
+            $table->integer('inBar')->nullable();
+            $table->integer('inRechnung')->nullable();
             $table->float('cashPrice')->nullable();
             $table->float('invoicePrice')->nullable();
             $table->string('signerName')->nullable();

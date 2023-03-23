@@ -181,6 +181,8 @@
                     </div>
                 </div>
             </div>
+            <label class="col-form-label" for="l0">Kosten</label>
+            <input class="form-control"  name="reinigungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
 
             <div class="row">
                 <div class="col-md-12">
@@ -200,7 +202,7 @@
                 </div>
             </div>
 
-            <label class="col-form-label" for="l0">Kosten</label>
+            <label class="col-form-label" for="l0">Geschätzte Kosten:</label>
             <input class="form-control"  name="reinigungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
         </div>
     </div>
@@ -346,46 +348,58 @@
                     let reinigungHours = reinigungHour.split("-");
                     let leftHour = parseFloat(reinigungHours[0]);
                     let rightHour = parseFloat(reinigungHours[1]);
-
+                    
                     calcReinigungPriceLeft = reinigungChf * leftHour +extra1+extra2+extra3+extra12Cost+extra13Cost - reinigungDiscount;
                     calcReinigungPriceRight = reinigungChf * rightHour +extra1+extra2+extra3+extra12Cost+extra13Cost - reinigungDiscount;
+
+                    calcReinigungLeft = reinigungChf * leftHour +extra1+extra2+extra3+extra12Cost+extra13Cost;
+                    calcReinigungRight = reinigungChf * rightHour +extra1+extra2+extra3+extra12Cost+extra13Cost;
                     
                     if(rightHour){
+                        
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceRight = calcReinigungPriceRight-(calcReinigungPriceRight*reinigungDiscountPercent/100)
+                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100))
+                          
                         }
-                        $('input[name=reinigungTotalPrice]').val(calcReinigungPriceRight)
+                        $('input[name=reinigungTotalPrice]').val(parseFloat(calcReinigungPriceRight))
+                        $('input[name=reinigungCostPrice]').val(calcReinigungRight);
                     }
                     if(leftHour){
+                        
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungPriceLeft-(calcReinigungPriceLeft*reinigungDiscountPercent/100)
+                            calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100)
                         }
                         $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft)
+                        $('input[name=reinigungCostPrice]').val(calcReinigungLeft);
                     }
                     if(leftHour && rightHour ){
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungPriceLeft-(calcReinigungPriceLeft*reinigungDiscountPercent/100)
-                            calcReinigungPriceRight = calcReinigungPriceRight-(calcReinigungPriceRight*reinigungDiscountPercent/100)
+                            calcReinigungPriceLeft = calcReinigungLeft- (calcReinigungLeft*(reinigungDiscountPercent/100))
+                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100))
                         }
-                        $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft+'-'+calcReinigungPriceRight) 
+                        $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft + '-' + calcReinigungPriceRight) 
+                        $('input[name=reinigungCostPrice]').val(calcReinigungLeft + '-' + calcReinigungRight);
                     }
                     if(leftHour == null && rightHour == null)
                     {
                         $('input[name=reinigungTotalPrice]').val('')
+                        $('input[name=reinigungCostPrice]').val('');
                     }
                 }
                 else
                 {
                     var SabitFiyatDegeri = parseFloat($('input[name=reinigungFixedPriceValue]').val());
                     var sabitHesapla = SabitFiyatDegeri + extra1+extra2+extra3+extra12Cost+extra13Cost-reinigungDiscount;
+                    var SabitDeger = SabitFiyatDegeri + extra1+extra2+extra3+extra12Cost+extra13Cost;
                     if(reinigungDiscountPercent)
                     {
                         sabitHesapla = sabitHesapla-(sabitHesapla*reinigungDiscountPercent/100)
                     }
                     $('input[name=reinigungTotalPrice]').val(sabitHesapla);
+                    $('input[name=reinigungCostPrice]').val(SabitDeger);
                 }
             })  
         })

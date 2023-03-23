@@ -475,7 +475,7 @@
         </div>
     </div>
 </div>
-@section('offerFooter1Edit')
+@section('offerUmzug2Edit')
 {{-- Tarife Fiyatları --}}
 <script>        
     function isRequiredUmzug()

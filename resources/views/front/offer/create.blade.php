@@ -445,15 +445,27 @@
 </script>
 
 <script>
+    $(document).ready(function(){
+        contactPerson()
+    })
+    function contactPerson() {
+        if($('select[name=contactPerson]').val() != 'Bitte wählen')
+        {
+        $(".customContactPerson").hide(300)
+        }
+        else {
+        $(".customContactPerson").show(300)
+        $("input[name=customContactPerson]").val('Swiss Transport Team')
+        }
+    }
+
     console.log($('select[name=contactPerson]').val(), 'contact')
     $('select[name=contactPerson]').on('change', function() {
-        if ($('select[name=contactPerson]').val() != 0) {
+        if ($('select[name=contactPerson]').val() != 'Bitte wählen') {
             $(".customContactPerson").hide(300)
         } else {
             $(".customContactPerson").show(300)
-            $('form').submit(function() {
-
-            })
+            $("input[name=customContactPerson]").val('Swiss Transport Team')
         }
     })
 </script>

@@ -368,7 +368,7 @@
         </div>
     </div>
 </div>
-@section('offerFooterTransportDetail')
+@section('offerTransportEdit')
 
 {{-- Tarife Fiyatları --}}
 <script>        

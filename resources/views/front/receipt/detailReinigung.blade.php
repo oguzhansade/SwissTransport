@@ -3,7 +3,6 @@
 
 @section('header')
 <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -416,7 +415,7 @@
                         <div class="row form-group email--format" style="display: none;">
                             <div class="col-md-12 mt-3">
                                 <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                        @include('../../receiptReinigungMail')
+                                        {{-- @include('../../receiptReinigungMail') --}}
                                 </textarea>
                             </div>
                         </div>

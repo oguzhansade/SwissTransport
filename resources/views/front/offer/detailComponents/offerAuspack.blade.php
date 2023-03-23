@@ -177,7 +177,7 @@
                 @else value="{{ 0 }}" 
             @endif> 
 
-            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <label class="col-form-label" for="l0">Rabatt[%] </label>
             <input class="form-control"  name="auspackDiscountPercent" placeholder="0"  type="number" 
             @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'discountPercent')) 
                 value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'discountPercent') }}" 
@@ -253,7 +253,7 @@
         </div>
     </div>
 </div>
-@section('offerFooterAusDetail')
+@section('offerAuspackEdit')
 
 {{-- Tarife Fiyatları --}}
 <script>

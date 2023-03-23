@@ -251,7 +251,7 @@
         </div>
     </div>
 </div>
-@section('offerFooter2')
+@section('offerEinpackEdit')
 
 {{-- Tarife Fiyatları --}}
 <script>

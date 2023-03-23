@@ -50,6 +50,9 @@
                 </div>
             </div>
             
+            <label class="col-form-label mt-1 " for="l0">Kosten</label>
+            <input class="form-control" id="lagerungCost"  name="lagerungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+
             <div class="row">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Rabatt[%]</label>
@@ -67,7 +70,7 @@
                 </div>
             </div>
 
-            <label class="col-form-label mt-1 " for="l0">Kosten</label>
+            <label class="col-form-label mt-1 " for="l0">GESCHÄTZTE KOSTEN</label>
             <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
 
             <div class="mt-2 lagerung-fixed-control">
@@ -155,24 +158,30 @@ morebutton9.click(function(){
             lagerungCostLeft = chf * leftVolume + extraCost1 + extraCost2 - discount;
             lagerungCostRight = chf * rightVolume + extraCost1 + extraCost2 - discount;
 
+            lagerungCostLeftPrice = chf * leftVolume + extraCost1 + extraCost2
+            lagerungCostRightPrice = chf * rightVolume + extraCost1 + extraCost2
+
                 if(rightVolume){
                     if(discountPercent)
                     {
-                        lagerungCostRight = lagerungCostRight-(lagerungCostRight*discountPercent/100)
+                        lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
                     }
                     $('input[name=lagerungCost]').val(lagerungCostRight)
+                    $('input[name=lagerungCostPrice]').val(lagerungCostRightPrice)
                 }
                 if(leftVolume){
                     if(discountPercent)
                     {
-                        lagerungCostLeft = lagerungCostLeft-(lagerungCostLeft*discountPercent/100)
+                        lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
                     }
                     $('input[name=lagerungCost]').val(lagerungCostLeft)
+                    $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice)
                 }
                 if(leftVolume && rightVolume ){
-                    lagerungCostRight = lagerungCostRight-(lagerungCostRight*discountPercent/100)
-                    lagerungCostLeft = lagerungCostLeft-(lagerungCostLeft*discountPercent/100)
+                    lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
+                    lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
                     $('input[name=lagerungCost]').val(lagerungCostLeft+'-'+lagerungCostRight) 
+                    $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice+'-'+lagerungCostRightPrice)
                 }
                 if(leftVolume == null && rightVolume == null){
                     $('input[name=lagerungCost]').val('')

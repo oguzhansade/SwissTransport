@@ -18,6 +18,7 @@ class OfferteLagerung extends Model
         'discountText',
         'discountValue',
         'discountPercent',
+        'costPrice',
         'totalPrice',
         'fixedPrice',
     ];

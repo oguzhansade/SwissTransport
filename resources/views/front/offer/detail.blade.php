@@ -185,13 +185,13 @@
                                     <select class="form-control" name="contactPerson" id="contactPerson">
                                         <option value="0" selected>Bitte wählen </option>
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
-                                            <option value="{{ $value['id'] }}" >{{ $value['name'] }}</option>
+                                        <option value=" {{ $value['name'] }} {{ $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
                                     </select> 
                                 </div>
                                 <div class="col-md-6 customContactPerson" style="display:block;">
                                     <label class=" col-form-label" for="l0">Kontaktperson (Freitext)</label>
-                                    <input class="form-control" name="customContactPerson"  type="text" value="{{ $data['contactPerson'] }}">  
+                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="Swiss Transport Team" @else value="{{ $data['contactPerson'] }}" @endif>  
                                 </div>                            
                             </div>
 
@@ -371,7 +371,7 @@ $(function() {
         let status = '{{ $data['offerteStatus'] }}';
         console.log(status,'STATUS')
         e.preventDefault();
-        if(status == "Onaylanmadı")
+        if(status == "Onaylanmadı" || "Beklemede")
         {
             if (window.confirm("Noch NICHT bestätigt durch den Kunden, möchten Sie trotzdem einen Termin erstellen?")) 
             {
@@ -386,7 +386,18 @@ $(function() {
 });
 
     $("#bestForm :input").prop("disabled", true);
-
+    $(document).ready(function(){
+        contactPerson()
+    })
+    function contactPerson() {
+        if($('select[name=contactPerson]').val() != 0)
+        {
+        $(".customContactPerson").hide(300)
+        }
+        else {
+        $(".customContactPerson").show(300)
+        }
+    }
     console.log($('select[name=contactPerson]').val(),'contact')
     $('select[name=contactPerson]').on('change', function() {
         if($('select[name=contactPerson]').val() != 0)

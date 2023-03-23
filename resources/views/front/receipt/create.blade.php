@@ -3,7 +3,6 @@
 
 @section('header')
 <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
     .checkbox .label-text:after {
         border-color: #999494;

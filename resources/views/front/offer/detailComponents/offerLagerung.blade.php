@@ -133,7 +133,7 @@
         </div>
     </div>
 </div>
-@section('offerFooterLagerungDetail')
+@section('offerLagerungEdit')
 <script>
     var lagerungFixed = $("div.lagerung-fixed-control");
     lagerungFixed.click(function(){

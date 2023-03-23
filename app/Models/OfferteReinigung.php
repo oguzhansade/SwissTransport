@@ -29,6 +29,7 @@ class OfferteReinigung extends Model
         'extraCostValue1',
         'extraCostText2',
         'extraCostValue2',
+        'costPrice',
         'discountText',
         'discount',
         'discountPercent',
