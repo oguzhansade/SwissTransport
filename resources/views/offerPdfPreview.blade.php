@@ -85,6 +85,21 @@
             height: 100%;
         }
 
+        .last-page {
+            margin: -100px -25px;
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            position: fixed;
+            z-index: 5;
+            background: url({{ asset('assets/img/swiss-pdf-last-page.png') }});
+            background-position: top left;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            padding-top: 130px;
+            width: 100%;
+            height: 100%;
+        }
 
         .kapak-icerik {
             margin-top: 700px;
@@ -117,12 +132,12 @@
             border-radius: 0px 120px 120px 0px;
         }
     </style>
+
 </head>
 
 <body>
     <header>
-        <table
-            style="width: 100%;border-bottom:1px solid black;margin-bottom:50px;">
+        <table style="width: 100%;border-bottom:1px solid black;padding-bottom:8px;">
             <tr style="width: 100%;">
                 <td>
                     <table style="width: 100%;">
@@ -152,7 +167,8 @@
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
+        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731
+            96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
     </footer>
 
     <main>
@@ -160,9 +176,10 @@
             <div class="kapak-icerik-wrapper">
                 <div class="kapak-icerik">
                     <div class="kapak-icerik-firma">
-                        <strong style="font-size:14px;">Swiss Transport AG</strong><br><br>
-                        <span style="font-size:12px;">Test Street</span><br>
-                        <span style="font-size:12px;">553400 Zurich</span>
+                        <strong style="font-size:14px;">{{ App\Models\Company::InfoCompany('name') }}</strong><br><br>
+                        <span style="font-size:12px;">{{ App\Models\Company::InfoCompany('street') }}</span><br>
+                        <span style="font-size:12px;">{{ App\Models\Company::InfoCompany('post_code') }}
+                            {{ App\Models\Company::InfoCompany('city') }}</span>
                     </div>
                     <div class="icerik-contactperson">
                         <strong style="font-size:14px;">IHR KUNDENBERATER</strong><br><br>
@@ -178,9 +195,68 @@
             </div>
         </div>
 
-        <div class="teklif-boyutu" style="page-break-after: always;">
+        
+                
+           
+        <div class="teklif-boyutu" style="page-break-after: always;padding-top:10px;">
+            {{-- <table style="width:100%;">
+                <tr style="width:100%;">
+                  <td colspan="4" class="custom-heading-bar">
+                    <b style="font-size:13px;">Umzug</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1"><b>Tarif:</b></td>
+                  <td colspan="3">2 Umzugsmitarbeiter mit 1 Lieferwagen à CHF 160.- / Stunde</td>
+                </tr>
+                <tr>
+                  <td>Umzugstermin</td>
+                  <td>offen</td>
+                  <td>Geschätzter Aufwand</td>
+                  <td>4 Stunden</td>
+                </tr>
+                <tr>
+                  <td>Anfahrt/Rückfahrt</td>
+                  <td>CHF 0.-</td>
+                  <td valign="top">Zusatzkosten:</td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>De- und Montage</td>
+                  <td>-</td>
+                  <td><b>Geschätzte Kosten</b></td>
+                  <td><b style="color:red">CHF 640.-</b></td>
+                </tr>
+            </table> --}}
+              
             <table border="0" style="width:100%;">
-
                 <tr style="width:100%;">
                     <td class="pt-3" colspan="2">
                         {{-- Müşteri Bilgileri --}}
@@ -448,12 +524,13 @@
                         <td colspan="4" style="padding-top:15px;"></td>
                     </tr>
 
-                    <tr style="width:100%;">
+                    {{-- <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Umzug</b>
                         </td>
-                    </tr>
+                    </tr> --}}
 
+                    
                     <tr style="width:100%;">
                         <td colspan="2" style="padding-top:5px;"><b style="">Tarif:</b></td>
                         <td colspan="2" style="padding-top:5px;">{{ $umzug['ma'] }} Umzugsmitarbeiter mit
@@ -517,10 +594,11 @@
                                     <td>
                                         @if ($umzug['extra'])
                                 <tr>
-                                    <td style="padding-left:15px;">Spesen</td>
+                                    <td >Spesen</td>
                                     <td>{{ $umzug['extra'] }} CHF</td>
                                 </tr>
                 @endif
+
                 @if ($umzug['extra1'])
                     <tr>
                         <td style="padding-left:15px;">Klavier</td>
@@ -679,6 +757,7 @@
                 @endif
 
             </table>
+            
             </td>
             </tr>
             @endif
@@ -687,11 +766,7 @@
 
             @if ($isUmzug)
                 <div style="@if (
-                    ($isAuszug2 ||
-                        $isEinzug2 ||
-                        $isEinzug3 ||
-                        $isAuszug3 ||
-                        $isEinzug3) && $isEinpack ||
+                    (($isAuszug2 || $isEinzug2 || $isEinzug3 || $isAuszug3 || $isEinzug3) && $isEinpack) ||
                         $isAuspack ||
                         $isReinigung ||
                         $isReinigung2 ||
@@ -2081,99 +2156,8 @@
             @endif
         </div>
 
-        <div class="bemerkungen" style="margin-top:50px;">
-            <span><b style="font-size:26px!important;line-height:26px;color:red;">Erstklassiger Full-Service aus
-                    einer Hand</b></span>
-            <p class="mt-3" style="font-size:14px!important;line-height:14px;">
-                Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu sparen.
-                <br>
-                Wir planen, organisieren und führen Ihren Umzug durch. Ihre Zufriedenheit steht dabei an erster <br>
-                Stelle. Unsere erfahrenen und langjährigen Mitarbeiter übernehmen die organisatorische sowie <br>
-                praktische Umsetzung Ihres Umzugs.
-            </p>
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Qualität beim Umziehen
-                    garantiert mit Swiss Transport:</strong>
-            </span>
-            <ul>
-                <li style="font-size:14px!important;line-height:14px;">Persönliche Betreuung vor, während und nach
-                    dem Umzug</li>
-                <li style="font-size:14px!important;line-height:14px;">Breite Palette an Verpackungsmaterial, zum
-                    Kauf oder zur Miete</li>
-                <li style="font-size:14px!important;line-height:14px;">Qualifizierte und motivierte Fachleute mit
-                    langjähriger Berufserfahrung</li>
-                <li style="font-size:14px!important;line-height:14px;">Professionell ausgerüstete Möbelwagen und
-                    Zügellifte</li>
-                <li style="font-size:14px!important;line-height:14px;">Fachmännisches Ein- und Auspacken Ihres
-                    Hausrates</li>
-                <li style="font-size:14px!important;line-height:14px;">De- und Montage der Möbel von versierten
-                    Möbelmonteuren</li>
-                <li style="font-size:14px!important;line-height:14px;">Umweltgerechte Entsorgung / Räumung alter
-                    Möbel und Hausrat</li>
-                <li style="font-size:14px!important;line-height:14px;">Lagerungsmöglichkeiten in unserem
-                    Möbellagerhaus</li>
-            </ul>
-
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Folgende Kosten sind im Preis
-                    inbegriffen:</strong>
-            </span>
-
-            <ul>
-                <li style="font-size:14px!important;line-height:14px;">Schutzmaterial für Bilder, elektronische
-                    Geräte und Matratzenhüllen</li>
-                <li style="font-size:14px!important;line-height:14px;">Bodenvlies zum Schutz heikler Bodenbeläge,
-                    falls erforderlich</li>
-                <li style="font-size:14px!important;line-height:14px;">Stretchfolie für den optimalen Schutz
-                    heikler Möbel am Umzugstag</li>
-                <li style="font-size:14px!important;line-height:14px;">Glas und Spiegel werden mit Luftpolsterfolie
-                    vor dem Transport geschützt</li>
-                <li style="font-size:14px!important;line-height:14px;">Selbstverständlich führen wir Traggurten,
-                    Werkzeuge und genügend Wolldecken mit</li>
-            </ul>
-
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Versicherung:</strong> <br>
-            </span>
-            <span style="font-size:14px!important;line-height:14px;">
-                Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100&#39;000.- (ohne
-                Selbstbehalt)
-            </span> <br><br>
-
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Arbeitsaufwand:</strong> <br>
-            </span>
-            <span style="font-size:14px!important;line-height:14px;">
-                Es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand
-                abgerechnet.
-            </span> <br><br>
-
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Pausen:</strong> <br>
-            </span>
-            <span style="font-size:14px!important;line-height:14px;">
-                Betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt i.d.R.
-                <br>
-                eine Stunde und gilt nicht als Arbeitszeit.
-            </span> <br><br>
-
-            <span>
-                <strong style="font-size:16px!important;line-height:18px;color:red;">Gewichtszuschläge:</strong>
-                <br>
-            </span>
-            <span style="font-size:14px!important;line-height:14px;">
-                Gewichtszuschlag von CHF 150.– für Gegenstände mit einem Eigengewicht von über 100kg. <br>
-                Klavierzuschlag ab CHF 250.–
-            </span> <br><br>
-
-            <span style="font-size:14px!important;line-height:14px;"> Wir hoffen, dass wir Ihr Interesse wecken
-                konnten, und würden uns freuen, Sie schon bald als einen <br>
-                unserer zufriedenen Kunden begrüssen zu können. <br><br>
-
-                Freundliche Grüsse <br> <br>
-
-                Ihr Swiss Transport Team
-            </span>
+        <div class="last-page" >
+            
         </div>
     </main>
 </body>

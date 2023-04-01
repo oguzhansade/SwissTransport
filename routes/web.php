@@ -51,6 +51,7 @@ Route::get('/view-clear', function() {
         Route::post('/rejectoffer/{token}', [App\Http\Controllers\verifyController::class, 'rejectOffer'])->name('rejectOffer');
         Route::get('/viewPdf/{token}', [App\Http\Controllers\customerViewController::class, 'customerOfferView'])->name('customerOfferView');
         Route::get('/showPdf/{token}', [App\Http\Controllers\customerViewController::class, 'showPdf'])->name('showPdf');
+        
 // });
 
 
@@ -196,6 +197,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/showPdf/{id}', [App\Http\Controllers\front\offer\indexController::class, 'showPdf'])->name('showPdf');
         // Route::get('/offerPdfPreview/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreview'])->name('offerPdfPreview');
         Route::post('/offerPdfPreview/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreview'])->name('offerPdfPreview');
+        Route::post('/offerPdfPreviewTest/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreviewTest'])->name('offerPdfPreviewTest');
         Route::post('/offerPdfPreviewEdit/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreviewEdit'])->name('offerPdfPreviewEdit');
         Route::post('/send-mail', [App\Http\Controllers\front\offer\indexController::class, 'sendEmail'])->name('send.mail');
     });

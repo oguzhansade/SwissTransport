@@ -167,7 +167,7 @@
                                     <select class="form-control" name="contactPerson" id="contactPerson">
                                         <option value="0" selected>Bitte wählen </option>
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
-                                        <option value=" {{ $value['name'] }} {{ $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
+                                        <option value=" {{ $value['name'] .' '. $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].' '.$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
                                     </select> 
                                 </div>

@@ -216,7 +216,7 @@
                                 <select class="form-control" name="contactPerson" id="contactPerson">
                                     <option selected>Bitte wählen</option>
                                     @foreach (\App\Models\ContactPerson::all() as $key => $value)
-                                        <option value="{{ $value['name'] . $value['surname'] }}">{{ $value['name'] }}
+                                        <option value="{{ $value['name'] .' '. $value['surname'] }}">{{ $value['name'] }}
                                             {{ $value['surname'] }}</option>
                                     @endforeach
                                 </select>
@@ -304,6 +304,9 @@
                                     <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview"
                                         formtarget="_blank"
                                         formaction="{{ route('offer.offerPdfPreview', ['id' => $data['id']]) }}">
+                                        <input class="btn btn-info btn-rounded" type="submit" value="TEST PDF"
+                                        formtarget="_blank"
+                                        formaction="{{ route('offer.offerPdfPreviewTest', ['id' => $data['id']]) }}">
                                 </div>
                             </div>
                         </div>

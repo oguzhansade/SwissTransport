@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Offerte - {{ $offerteNumber }}</title>
+    <title>Offerte Test Preview- 1</title>
     <meta charset="UTF-8">
     <style>
         * {
@@ -34,7 +34,6 @@
             padding: 0px;
             line-height: 12px;
             z-index: -5;
-
         }
 
         footer {
@@ -50,6 +49,7 @@
             text-align: center;
             z-index: -5;
         }
+
 
         .pagenum:before {
             content: counter(page);
@@ -132,11 +132,12 @@
             border-radius: 0px 120px 120px 0px;
         }
     </style>
+
 </head>
 
 <body>
     <header>
-        <table style="width: 100%;border-bottom:1px solid black;margin-bottom:50px;">
+        <table style="width: 100%;border-bottom:1px solid black;padding-bottom:8px;">
             <tr style="width: 100%;">
                 <td>
                     <table style="width: 100%;">
@@ -194,9 +195,68 @@
             </div>
         </div>
 
+        
+                
+           
         <div class="teklif-boyutu" style="page-break-after: always;padding-top:10px;">
+            {{-- <table style="width:100%;">
+                <tr style="width:100%;">
+                  <td colspan="4" class="custom-heading-bar">
+                    <b style="font-size:13px;">Umzug</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1"><b>Tarif:</b></td>
+                  <td colspan="3">2 Umzugsmitarbeiter mit 1 Lieferwagen à CHF 160.- / Stunde</td>
+                </tr>
+                <tr>
+                  <td>Umzugstermin</td>
+                  <td>offen</td>
+                  <td>Geschätzter Aufwand</td>
+                  <td>4 Stunden</td>
+                </tr>
+                <tr>
+                  <td>Anfahrt/Rückfahrt</td>
+                  <td>CHF 0.-</td>
+                  <td valign="top">Zusatzkosten:</td>
+                  <td>
+                    <table>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                      <tr>
+                        <td>Klavier CHF 250.-</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>De- und Montage</td>
+                  <td>-</td>
+                  <td><b>Geschätzte Kosten</b></td>
+                  <td><b style="color:red">CHF 640.-</b></td>
+                </tr>
+            </table> --}}
+              
             <table border="0" style="width:100%;">
-
                 <tr style="width:100%;">
                     <td class="pt-3" colspan="2">
                         {{-- Müşteri Bilgileri --}}
@@ -240,11 +300,11 @@
                 </tr>
                 <tr style="width:100%;">
                     <td colspan="2" class="py-1 ">
-                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: {{ $offerteNumber }}
+                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: 1
                         </b>
                     </td>
                     <td colspan="2" align="right">
-                        {{ date('d.m.Y', strtotime($offer['created_at'])) }}
+                        {{ date('d.m.Y', strtotime(Carbon\Carbon::now())) }}
                     </td>
                 </tr>
                 <tr style="width:100%;">
@@ -262,13 +322,12 @@
 
                 {{-- Umzug Alanı --}}
                 @if ($isUmzug)
-
                     {{-- Aus ve Einler --}}
                     <tr style="width:100%;">
                         <td colspan="2" class=" custom-heading-bar">
                             <b style="font-size:13px;">Auszug</b>
                         </td>
-                        @if ($einzug1)
+                        @if ($isEinzug1)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug</b>
                             </td>
@@ -309,7 +368,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug1)
+                        @if ($isEinzug1)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -341,12 +400,12 @@
 
                     {{-- 2.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($auszug2)
+                        @if ($isAuszug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 2</b>
                             </td>
                         @endif
-                        @if ($einzug2)
+                        @if ($isEinzug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 2</b>
                             </td>
@@ -354,7 +413,7 @@
                     </tr>
 
                     <tr>
-                        @if ($auszug2)
+                        @if ($isAuszug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -375,7 +434,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug2)
+                        @if ($isEinzug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -404,12 +463,12 @@
 
                     {{-- 3.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($auszug3)
+                        @if ($isAuszug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 3</b>
                             </td>
                         @endif
-                        @if ($einzug3)
+                        @if ($isEinzug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 3</b>
                             </td>
@@ -417,7 +476,7 @@
                     </tr>
 
                     <tr>
-                        @if ($auszug3)
+                        @if ($isAuszug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -438,7 +497,7 @@
                             </td>
                         @endif
 
-                        @if ($einzug3)
+                        @if ($isEinzug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -465,12 +524,13 @@
                         <td colspan="4" style="padding-top:15px;"></td>
                     </tr>
 
-                    <tr style="width:100%;">
+                    {{-- <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Umzug</b>
                         </td>
-                    </tr>
+                    </tr> --}}
 
+                    
                     <tr style="width:100%;">
                         <td colspan="2" style="padding-top:5px;"><b style="">Tarif:</b></td>
                         <td colspan="2" style="padding-top:5px;">{{ $umzug['ma'] }} Umzugsmitarbeiter mit
@@ -538,6 +598,7 @@
                                     <td>{{ $umzug['extra'] }} CHF</td>
                                 </tr>
                 @endif
+
                 @if ($umzug['extra1'])
                     <tr>
                         <td style="padding-left:15px;">Klavier</td>
@@ -696,16 +757,17 @@
                 @endif
 
             </table>
+            
             </td>
             </tr>
             @endif
+            </table>
             {{-- Umzug Alanı --}}
 
-            </table>
             @if ($isUmzug)
                 <div style="@if (
-                    (($auszug2 || $einzug2 || $einzug3 || $auszug3 || $einzug3) && $einpack) ||
-                        $auspack ||
+                    (($isAuszug2 || $isEinzug2 || $isEinzug3 || $isAuszug3 || $isEinzug3) && $isEinpack) ||
+                        $isAuspack ||
                         $isReinigung ||
                         $isReinigung2 ||
                         $isEntsorgung ||
@@ -715,6 +777,7 @@
             @endif
             {{-- Einpack Alanı --}}
             @if ($isEinpack)
+
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
@@ -768,7 +831,7 @@
                                     <td>
                                         @if ($einpack['extra'])
                                 <tr>
-                                    <td >Spesen</td>
+                                    <td style="padding-left:15px;">Spesen</td>
                                     <td>{{ $einpack['extra'] }} CHF</td>
                                 </tr>
             @endif
@@ -932,7 +995,7 @@
                                     <td>
                                         @if ($auspack['extra'])
                                 <tr>
-                                    <td >Spesen</td>
+                                    <td style="padding-left:15px;">Spesen</td>
                                     <td>{{ $auspack['extra'] }} CHF</td>
                                 </tr>
             @endif
@@ -1256,7 +1319,7 @@
             @endif
 
             {{-- Reinigung 2 Alanı --}}
-            @if ($reinigung2)
+            @if ($isReinigung2)
                 <table border="0" style="width: 100%;margin-top:20px;">
                     <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
@@ -1537,7 +1600,7 @@
                                     <td>
                                         @if ($entsorgung['entsorgungExtra1'])
                                 <tr>
-                                    <td >Spesen</td>
+                                    <td style="padding-left:15px;">Spesen</td>
                                     <td>{{ $entsorgung['entsorgungExtra1'] }} CHF</td>
                                 </tr>
             @endif
@@ -2093,7 +2156,7 @@
             @endif
         </div>
 
-        <div class="last-page">
+        <div class="last-page" >
             
         </div>
     </main>
