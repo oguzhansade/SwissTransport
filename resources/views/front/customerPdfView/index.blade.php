@@ -1903,60 +1903,7 @@
 
             <div class="row border-top mt-3 mb-3">
                 <div class="col-md-12 px-1 pt-1 text-dark justify-content-left">
-                    <h3 class="font-weight-bold text-dark">Erstklassiger Full-Service aus einer Hand</h5>
-                        <p>
-                            Eine durchdachte Umzugsplanung ist unerlässlich und hilft Ihnen Kosten, Nerven und Zeit zu
-                            sparen.
-                            Wir planen, organisieren und führen Ihren Umzug durch. Ihre Zufriedenheit steht dabei an
-                            erster Stelle.
-                            Unsere erfahrenen und langjährigen Mitarbeiter übernehmen die organisatorische sowie
-                            praktische Umsetzung Ihres Umzugs.
-                        </p>
-
-
-                        <h5 class="font-weight-bold text-dark">Qualität beim Umziehen garantiert mit Swiss Transport:
-                        </h5>
-
-                        <li>Persönliche Betreuung vor, während und nach dem Umzug</li>
-                        <li>Breite Palette an Verpackungsmaterial, zum Kauf oder zur Miete</li>
-                        <li>Qualifizierte und motivierte Fachleute mit langjähriger Berufserfahrung</li>
-                        <li>Professionell ausgerüstete Möbelwagen und Zügellifte</li>
-                        <li>Fachmännisches Ein- und Auspacken Ihres Hausrates</li>
-                        <li>De- und Montage der Möbel von versierten Möbelmonteuren</li>
-                        <li>Umweltgerechte Entsorgung / Räumung alter Möbel und Hausrat</li>
-                        <li>Lagerungsmöglichkeiten in unserem Möbellagerhaus</li>
-                        <li>Umzugsreinigung mit Abnahmegarantie</li>
-
-
-                        <h5 class="font-weight-bold text-dark">Folgende Kosten sind im Preis inbegriffen:</h5>
-
-                        <li>Schutzmaterial für Bilder, elektronische Geräte und Matratzenhüllen </li>
-                        <li>Bodenvlies zum Schutz heikler Bodenbeläge, falls erforderlich</li>
-                        <li>Stretchfolie für den optimalen Schutz heikler Möbel am Umzugstag</li>
-                        <li>Glas und Spiegel werden mit Luftpolsterfolie vor dem Transport geschützt</li>
-                        <li>Selbstverständlich führen wir Traggurten, Werkzeuge und genügend Wolldecken mit</li>
-
-
-                        <h5 class="font-weight-bold text-dark">Versicherung:</h5>
-                        <p>Haftpflichtversicherung bis CHF 10 Mio. und Transportversicherung CHF 100'000.- (ohne
-                            Selbstbehalt)</p>
-
-                        <h5 class="font-weight-bold text-dark">Arbeitsaufwand:</h5>
-                        <p>Es wird bei einem Mindestaufwand von 3 Stunden auf 15 Minuten genau nach effektivem Aufwand
-                            abgerechnet.</p>
-
-                        <h5 class="font-weight-bold text-dark">Pausen:</h5>
-                        <p>Betragen für die Mitarbeiter pro Vor- und Nachmittag je 15 Minuten. Die Mittagspause beträgt
-                            i.d.R. eine Stunde und gilt nicht als Arbeitszeit.</p>
-
-                        <h5 class="font-weight-bold text-dark">Gewichtszuschläge:</h5>
-                        <p>Gewichtszuschlag von CHF 150.– für Gegenstände mit einem Eigengewicht von über 100kg.
-                            Klavierzuschlag ab CHF 250.–</p>
-                        <p>Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie schon bald als
-                            einen unserer zufriedenen Kunden begrüssen zu können.</p>
-                        <p>Freundliche Grüsse</p>
-                        <p>Ihr Swiss Transport Team</p>
-
+                    <img src="{{ asset('assets/img/swiss-pdf-last-page.png') }}" class="img-fluid mt-3" alt="">
                 </div>
             </div>
         </div>
