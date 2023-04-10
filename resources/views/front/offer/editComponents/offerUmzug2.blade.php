@@ -442,7 +442,7 @@
             </div>
 
             <div class="kostendach-area" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) 
                     value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost') }}"
                     @else value="{{ 0 }}"
@@ -461,10 +461,9 @@
             </div>
 
             <div class="pauschal-area "  @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) style="display: block;" @else style="display:none;" @endif>
-                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) 
                     value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice') }}"
-                    @else value="{{ 0 }}"
                 @endif>
 
                 <div class="mt-2">

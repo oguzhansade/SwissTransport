@@ -89,7 +89,7 @@
     
                 <tr style="width:100%;">
                     <td colspan="4" class="py-1 " style="background-color:#E5E5E5;">
-                        <b style="font-size:13px;">Rechnung {{ $invoiceNumber }} vom {{ date('d.m.Y', strtotime($invoice['created_at'])); }} für Herr {{ $customer['name'] }} {{ $customer['surname'] }}</b>
+                        <b style="font-size:13px;">Rechnung {{ $invoice['id'] }} vom {{ date('d.m.Y', strtotime($invoice['created_at'])); }} für Herr {{ $customer['name'] }} {{ $customer['surname'] }}</b>
                     </td>
                 </tr>
                 <tr  style="width:100%;">

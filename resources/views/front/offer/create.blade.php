@@ -216,7 +216,8 @@
                                 <select class="form-control" name="contactPerson" id="contactPerson">
                                     <option selected>Bitte wählen</option>
                                     @foreach (\App\Models\ContactPerson::all() as $key => $value)
-                                        <option value="{{ $value['name'] .' '. $value['surname'] }}">{{ $value['name'] }}
+                                        <option value="{{ $value['name'] . ' ' . $value['surname'] }}">
+                                            {{ $value['name'] }}
                                             {{ $value['surname'] }}</option>
                                     @endforeach
                                 </select>
@@ -304,7 +305,7 @@
                                     <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview"
                                         formtarget="_blank"
                                         formaction="{{ route('offer.offerPdfPreview', ['id' => $data['id']]) }}">
-                                        <input class="btn btn-info btn-rounded" type="submit" value="TEST PDF"
+                                    <input class="btn btn-info btn-rounded" type="submit" value="TEST PDF"
                                         formtarget="_blank"
                                         formaction="{{ route('offer.offerPdfPreviewTest', ['id' => $data['id']]) }}">
                                 </div>
@@ -355,12 +356,12 @@
                     toastr.error('Produktname ist leer', 'Fehler!');
                     console.log('URUN İSMİ HATASI');
                     isValid = false;
-                    console.log(isValid,'Ürün İsmi')
+                    console.log(isValid, 'Ürün İsmi')
                     return false;
 
-                }
-                else {
-                    $(this).closest('.islem_field').find('.urun').css('border-color', ''); // önceki uyarı mesajını kaldır
+                } else {
+                    $(this).closest('.islem_field').find('.urun').css('border-color',
+                    ''); // önceki uyarı mesajını kaldır
                     isValid = true;
                 }
                 if (!buyType) {
@@ -371,10 +372,9 @@
                     // alert('Die Miet/Kauf Option in Zeile ' + (index+1) + ' ist leer!');
                     console.log('buyType HATASI');
                     isValid = false;
-                    console.log(isValid,'BuyType')
+                    console.log(isValid, 'BuyType')
                     return false;
-                }
-                else {
+                } else {
                     $(this).closest('.islem_field').find('.buyType').css('border-color', '')
                     isValid = true;
                 }
@@ -384,7 +384,7 @@
                 toastr.error('Fügen Sie mindestens ein Produkt hinzu', 'Fehler!');
                 console.log('urun Sayısı HATASI');
                 isValid = false;
-                console.log(isValid,'Urun Sayısı')
+                console.log(isValid, 'Urun Sayısı')
                 return false; // işlemi durdur
             }
         }
@@ -417,13 +417,19 @@
                 return false; // Form gönderimini durdur
 
             }
+            
+                console.log("Telefon numarası doğru formatlıdır. Ülke kodu: " + countryCode);
+                console.log("Telefon numarası doğru formatlıdır. Alan kodu: " + areaCode);
+                console.log("Telefon numarası doğru formatlıdır. Numara: " + phoneNumber);
+            
 
-            console.log("Telefon numarası doğru formatlıdır. Ülke kodu: " + countryCode);
-            console.log("Telefon numarası doğru formatlıdır. Alan kodu: " + areaCode);
-            console.log("Telefon numarası doğru formatlıdır. Numara: " + phoneNumber);
+
         }
         return isValid;
     }
+    $("input[name=mobile]").on("input", function() {
+        phoneValidation()
+    })
 </script>
 <script>
     var smsFormatbutton = $("div.sms-format");
@@ -448,17 +454,16 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         contactPerson()
     })
+
     function contactPerson() {
-        if($('select[name=contactPerson]').val() != 'Bitte wählen')
-        {
-        $(".customContactPerson").hide(300)
-        }
-        else {
-        $(".customContactPerson").show(300)
-        $("input[name=customContactPerson]").val('Swiss Transport Team')
+        if ($('select[name=contactPerson]').val() != 'Bitte wählen') {
+            $(".customContactPerson").hide(300)
+        } else {
+            $(".customContactPerson").show(300)
+            $("input[name=customContactPerson]").val('Swiss Transport Team')
         }
     }
 

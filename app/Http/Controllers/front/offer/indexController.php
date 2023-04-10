@@ -38,7 +38,7 @@ use Illuminate\Routing\Redirector;
 class indexController extends Controller
 {
     public function index()
-    { 
+    {
         return view('front.offer.index');
     }
 
@@ -47,9 +47,9 @@ class indexController extends Controller
         $customerId = $request->route('customerId');
         $id = $request->route('id');
 
-        $data = offerte::where('id',$id)->first();
-        $data2 = DB::table('offertes')->where('customerId','=', $customerId)->where('mainOfferteId', '=', $id)->get()->toArray();   
-        return view('front.offer.updatedOffer',['data' => $data,'data2'=>$data2]);
+        $data = offerte::where('id', $id)->first();
+        $data2 = DB::table('offertes')->where('customerId', '=', $customerId)->where('mainOfferteId', '=', $id)->get()->toArray();
+        return view('front.offer.updatedOffer', ['data' => $data, 'data2' => $data2]);
     }
 
 
@@ -57,51 +57,79 @@ class indexController extends Controller
     {
         $customerId = $request->route('id');
 
-        $table= DB::table('offertes')->where('customerId','=', $customerId)->where('mainOfferteId', '=', NULL)->get()->toArray();   
-        $data=DataTables::of($table)
-        
-        ->editColumn('id', function($data){ 
-            return ''.$data->id;
-        })
-        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y H:i:s'); return $formatedDate; })
-        ->editColumn('services', function($data) {
+        $table = DB::table('offertes')->where('customerId', '=', $customerId)->where('mainOfferteId', '=', NULL)->get()->toArray();
+        $data = DataTables::of($table)
 
-            $services = collect([
-                $data->offerteUmzugId ? 'Umzug': NULL,
-                $data->offerteEinpackId ? 'Einpack': NULL,
-                $data->offerteAuspackId ? 'Auspack': NULL,
-                $data->offerteReinigungId ? 'Reinigung': NULL,
-                $data->offerteReinigung2Id ? 'Reinigung 2': NULL,
-                $data->offerteEntsorgungId ? 'Entsorgung': NULL,
-                $data->offerteTransportId ? 'Transport': NULL,
-                $data->offerteLagerungId ? 'Lagerung': NULL,
-                $data->offerteMaterialId ? 'Material': NULL,
-            ])->implode(' ');
-           
-            return $services;
-        })
+            ->editColumn('id', function ($data) {
+                return '' . $data->id;
+            })
+            ->editColumn('created_at', function ($data) {
+                $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y H:i:s');
+                return $formatedDate;
+            })
+            ->editColumn('services', function ($data) {
 
-        ->addColumn('option',function($table) 
-        {
-            return '
-            <a title="Detail" class="btn btn-sm    btn-primary" href="'.route('offer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
-            <a title="Bearbeiten" class="btn btn-sm   btn-edit" href="'.route('offer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
-            <a title="Delete" class="btn btn-sm  btn-danger"  href="'.route('offer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
-        })
-        ->rawColumns(['option'])
-        ->make(true);
+                $services = collect([
+                    $data->offerteUmzugId ? 'Umzug' : NULL,
+                    $data->offerteEinpackId ? 'Einpack' : NULL,
+                    $data->offerteAuspackId ? 'Auspack' : NULL,
+                    $data->offerteReinigungId ? 'Reinigung' : NULL,
+                    $data->offerteReinigung2Id ? 'Reinigung 2' : NULL,
+                    $data->offerteEntsorgungId ? 'Entsorgung' : NULL,
+                    $data->offerteTransportId ? 'Transport' : NULL,
+                    $data->offerteLagerungId ? 'Lagerung' : NULL,
+                    $data->offerteMaterialId ? 'Material' : NULL,
+                ])->implode(' ');
+
+                return $services;
+            })
+
+            ->addColumn('option', function ($table) {
+                return '
+            <a title="Detail" class="btn btn-sm    btn-primary" href="' . route('offer.detail', ['id' => $table->id]) . '"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+            <a title="Bearbeiten" class="btn btn-sm   btn-edit" href="' . route('offer.edit', ['id' => $table->id]) . '"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+            <a title="Delete" class="btn btn-sm  btn-danger"  href="' . route('offer.delete', ['id' => $table->id]) . '"><i class="feather feather-trash-2" ></i></a>';
+            })
+            ->rawColumns(['option'])
+            ->make(true);
 
         return $data;
     }
 
     public function create($id)
-    { 
-        $data = Customer::where('id',$id)->first();
-        return view('front.offer.create',['data'=>$data]);
+    {
+        $data = Customer::where('id', $id)->first();
+        return view('front.offer.create', ['data' => $data]);
+    }
+
+    
+
+    public function sendSms(Request $request)
+    {
+
+        $this->middleware('throttle:1,1');
+
+        $customerId = $request->route('id');
+        $customer = Customer::where('id', $customerId)->first();
+
+        $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+        $client = new \Vonage\Client($basic);
+
+        $number = $request->mobile;
+        $staticContent = 'Herr' . ' ' . $customer['name'] . ' ' . $customer['surname'] . ',' . ' ';
+        $content = 'Ihr Angebot wurde erstellt From Swiss';
+        $staticContent2 = ' ' . Company::InfoCompany('name');
+
+       
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+        );
+        
+        return response()->json(['success' => true]);
     }
 
     public function store(Request $request)
-    { 
+    {
         $customerId = $request->route('id');
         $all = $request->except('_token');
         $mailSuccess = NULL;
@@ -127,10 +155,11 @@ class indexController extends Controller
         $offerMaterialId = NULL;
         $contactPerson = NULL;
         $offerteId = 0;
-       
+
+
+
         // Offerte Adresse    
-        if($request->ausStreet1)
-        {
+        if ($request->ausStreet1) {
             $mainAusAdress = [
                 'street' => $request->ausStreet1,
                 'postCode' => $request->ausPostcode1,
@@ -139,16 +168,15 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType1,
                 'floor' => $request->ausFloorType1,
                 'lift' => $request->isAusLift1,
-                'addressType' => 0   
+                'addressType' => 0
             ];
 
             offerteAddress::create($mainAusAdress);
-            $mainAusAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
+            $mainAusAdress = DB::table('offerte_addresses')->where('addressType', '=', 0)->orderBy('id', 'DESC')->first();
             $AusId = $mainAusAdress->id;
         }
-        
-        if($request->ausStreet2)
-        {
+
+        if ($request->ausStreet2) {
             $mainAusAdress = [
                 'street' => $request->ausStreet2,
                 'postCode' => $request->ausPostcode2,
@@ -157,16 +185,15 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType2,
                 'floor' => $request->ausFloorType2,
                 'lift' => $request->isAusLift2,
-                'addressType' => 0   
+                'addressType' => 0
             ];
 
             offerteAddress::create($mainAusAdress);
-            $mainAusAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
+            $mainAusAdress = DB::table('offerte_addresses')->where('addressType', '=', 0)->orderBy('id', 'DESC')->first();
             $AusId2 = $mainAusAdress->id;
         }
 
-        if($request->ausStreet3)
-        {
+        if ($request->ausStreet3) {
             $mainAusAdress = [
                 'street' => $request->ausStreet3,
                 'postCode' => $request->ausPostcode3,
@@ -175,17 +202,16 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType3,
                 'floor' => $request->ausFloorType3,
                 'lift' => $request->isAusLift3,
-                'addressType' => 0   
+                'addressType' => 0
             ];
 
             offerteAddress::create($mainAusAdress);
-            $mainAusAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
+            $mainAusAdress = DB::table('offerte_addresses')->where('addressType', '=', 0)->orderBy('id', 'DESC')->first();
             $AusId3 = $mainAusAdress->id;
         }
-        
 
-        if($request->einStreet1)
-        {
+
+        if ($request->einStreet1) {
             $mainEinAdress = [
                 'street' => $request->einStreet1,
                 'postCode' => $request->einPostcode1,
@@ -193,18 +219,17 @@ class indexController extends Controller
                 'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1, 
-                'addressType' => 1  
+                'lift' => $request->isEinLift1,
+                'addressType' => 1
             ];
 
             offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
             $EinId = $mainEinAdress->id;
         }
 
-        
-        if($request->einStreet2)
-        {
+
+        if ($request->einStreet2) {
             $mainEinAdress = [
                 'street' => $request->einStreet2,
                 'postCode' => $request->einPostcode2,
@@ -212,17 +237,16 @@ class indexController extends Controller
                 'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
                 'buildType' => $request->einBuildType2,
                 'floor' => $request->einFloorType2,
-                'lift' => $request->isEinLift2, 
-                'addressType' => 1  
+                'lift' => $request->isEinLift2,
+                'addressType' => 1
             ];
 
             offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
             $EinId2 = $mainEinAdress->id;
         }
 
-        if($request->einStreet3)
-        {
+        if ($request->einStreet3) {
             $mainEinAdress = [
                 'street' => $request->einStreet3,
                 'postCode' => $request->einPostcode3,
@@ -230,903 +254,17 @@ class indexController extends Controller
                 'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
+                'lift' => $request->isEinLift3,
+                'addressType' => 1
             ];
 
             offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
             $EinId3 = $mainEinAdress->id;
         }
 
         // offerteUmzug
-        if($request->isUmzug)
-        {
-            $offerUmzug = [
-                'tariff' => $request->umzugTariff,
-                'ma' => $request->umzug1ma,
-                'lkw' => $request->umzug1lkw,
-                'anhanger' => $request->umzug1anhanger,
-                'chf' => $request->umzug1chf,
-                'moveDate' => $request->umzugausdate,
-                'moveTime' => $request->umzug1time,
-                'moveDate2' => $request->umzugeindate,
-                'arrivalReturn' => $request->umzugroadChf,
-                'montage' => $request->umzugMontaj,
-                'moveHours' => $request->umzugHours,
-                'extra' => $request->masraf ? $request->extra1 : Null,
-                'extra1' => $request->masraf1 ? $request->extra2 : Null,
-                'extra2' => $request->masraf2 ? $request->extra3 : Null,
-                'extra3' => $request->masraf3 ? $request->extra4 : Null,
-                'extra4' => $request->masraf4 ? $request->extra5 : Null,
-                'extra5' => $request->masraf5 ? $request->extra6 : Null,
-                'extra6' => $request->masraf6 ? $request->extra7 : Null,
-                'extra7' => $request->masraf7 ? $request->extra8 : Null,
-                'extra8' => $request->masraf8 ? $request->extra9 : Null,
-                'extra9' => $request->masraf9 ? $request->extra10 : Null,
-                'extra10' => $request->masraf10 ? $request->extra11 : Null,
-                'customCostName1' => $request->extra12CostText,
-                'customCostPrice1' => $request->extra12Cost,
-                'customCostName2' => $request->extra13CostText,
-                'customCostPrice2' => $request->extra13Cost,
-                'costPrice' => $request->umzugCost,
-                'discount' => $request->umzugDiscount,
-                'discountPercent' => $request->umzugDiscountPercent,
-                'compromiser' => $request->umzugCompromiser,
-                'extraCostName' => $request->umzugExtraDiscountText,
-                'extraCostPrice' => $request->umzugExtraDiscount,
-                'defaultPrice' => $request->umzugTotalPrice, 
-                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
-            ];
-            OfferteUmzug::create($offerUmzug);
-            $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id','DESC')->first();
-            $offerUmzugId = $offerteUmzugIdBul->id;
-        }
-
-        if($request->isEinpack)
-        {
-            $offerEinpack = [
-                'tariff' => $request->einpackTariff,
-                'ma' => $request->einpack1ma,
-                'chf' => $request->einpack1chf,
-                'einpackDate' => $request->einpackdate,
-                'einpackTime' => $request->einpacktime,
-                'arrivalReturn' => $request->einpackroadChf,
-                'moveHours' => $request->einpackHours,
-                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
-                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
-                'customCostName1' => $request->einpackCostText1,
-                'customCostPrice1' => $request->einpackCost1,
-                'customCostName2' => $request->einpackCostText2,
-                'customCostPrice2' => $request->einpackCost2,
-                'costPrice' => $request->einpackCost,
-                'discount' => $request->einpackDiscount,
-                'discountPercent' => $request->einpackDiscountPercent,
-                'compromiser' => $request->einpackCompromiser,
-                'extraCostName' => $request->einpackExtraDiscountText,
-                'extraCostPrice' => $request->einpackExtraDiscount,
-                'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
-                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
-            ];
-
-            OfferteEinpack::create($offerEinpack);
-            $offerteEinpackIdBul = DB::table('offerte_einpacks')->orderBy('id','DESC')->first();
-            $offerEinpackId = $offerteEinpackIdBul->id;
-        }
-
-        if($request->isAuspack)
-        {
-            $offerAuspack = [
-                'tariff' => $request->auspackTariff,
-                'ma' => $request->auspack1ma,
-                'chf' => $request->auspack1chf,
-                'auspackDate' => $request->auspackdate,
-                'auspackTime' => $request->auspacktime,
-                'arrivalReturn' => $request->auspackroadChf,
-                'moveHours' => $request->auspackHours,
-                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
-                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
-                'customCostName1' => $request->auspackCostText1,
-                'customCostPrice1' => $request->auspackCost1,
-                'customCostName2' => $request->auspackCostText2,
-                'customCostPrice2' => $request->auspackCost2,
-                'costPrice' => $request->auspackCost,
-                'discount' => $request->auspackDiscount,
-                'discountPercent' => $request->auspackDiscountPercent,
-                'compromiser' => $request->auspackCompromiser,
-                'extraCostName' => $request->auspackExtraDiscountText,
-                'extraCostPrice' => $request->auspackExtraDiscount,
-                'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
-                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
-            ];
-
-            OfferteAuspack::create($offerAuspack);
-            $offerteAuspackIdBul = DB::table('offerte_auspacks')->orderBy('id','DESC')->first();
-            $offerAuspackId = $offerteAuspackIdBul->id;
-        }
-
-        if($request->isReinigung)
-        {
-            $offerReinigung = [
-                'reinigungType' => $request->reinigungType,
-                'extraReinigung' => $request->extraReinigung,
-                'fixedTariff' => $request->reinigungFixedPrice,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
-                'standartTariff' => $request->reinigungPriceTariff,
-                'ma' => $request->reinigungmaValue,
-                'chf' => $request->reinigungchfValue,
-                'hours' => $request->reinigunghourValue,
-                'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
-                'startDate' => $request->reinigungdate,
-                'startTime' => $request->reinigungtime,
-                'endDate' => $request->reinigungEnddate,
-                'endTime' => $request->reinigungEndtime,
-                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
-                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
-                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
-                'extraCostText1' => $request->reinigungCostText1,
-                'extraCostValue1' => $request->reinigungCost1,
-                'extraCostText2' => $request->reinigungCostText2,
-                'extraCostValue2' => $request->reinigungCost2,
-                'costPrice' => $request->reinigungCostPrice,
-                'discountText' => $request->reinigungExtraDiscountText,
-                'discount' => $request->reinigungExtraDiscount,
-                'discountPercent' => $request->reinigungDiscountPercent,
-                'totalPrice' => $request->reinigungTotalPrice,
-            ];
-
-            OfferteReinigung::create($offerReinigung);
-            $offerteReinigungIdBul = DB::table('offerte_reinigungs')->orderBy('id','DESC')->first();
-            $offerReinigungId = $offerteReinigungIdBul->id;
-        }
-
-        if($request->isReinigung2)
-        {
-            $offerReinigung2 = [
-                'reinigungType' => $request->reinigungType2,
-                'extraReinigung' => $request->extraReinigung2,
-                'fixedTariff' => $request->reinigungFixedPrice2,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
-                'standartTariff' => $request->reinigungPriceTariff2,
-                'ma' => $request->reinigungmaValue2,
-                'chf' => $request->reinigungchfValue2,
-                'hours' => $request->reinigunghourValue2,
-                'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
-                'startDate' => $request->reinigungdate2,
-                'startTime' => $request->reinigungtime2,
-                'endDate' => $request->reinigungEnddate2,
-                'endTime' => $request->reinigungEndtime2,
-                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
-                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
-                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
-                'extraCostText1' => $request->reinigungCostText12,
-                'extraCostValue1' => $request->reinigungCost12,
-                'extraCostText2' => $request->reinigungCostText22,
-                'extraCostValue2' => $request->reinigungCost22,
-                'costPrice' => $request->reinigung2CostPrice,
-                'discountText' => $request->reinigungExtraDiscountText2,
-                'discount' => $request->reinigungExtraDiscount2,
-                'discountPercent' => $request->reinigungDiscountPercent2,
-                'totalPrice' => $request->reinigungTotalPrice2,
-            ];
-
-            OfferteReinigung::create($offerReinigung2);
-            $offerteReinigungIdBul2 = DB::table('offerte_reinigungs')->orderBy('id','DESC')->first();
-            $offerReinigungId2 = $offerteReinigungIdBul2->id;
-        }
-
-        if($request->isEntsorgung)
-        {
-            $offerEntsorgung = [
-                'volume' => $request->entsorgungVolume,
-                'volumeCHF' => $request->entsorgungVolumeChf,
-                'fixedCost' => $request->entsorgungFixedChf,
-                'm3' => $request->estimatedVolume,
-                'tariff' => $request->entsorgungTariff,
-                'ma' => $request->entsorgungma,
-                'lkw' => $request->entsorgunglkw,
-                'anhanger' => $request->entsorgunganhanger,
-                'chf' => $request->entsorgungchf,
-                'hour' => $request->entsorgungHours,
-                'entsorgungDate' => $request->entsorgungDate,
-                'entsorgungTime' => $request->entsorgungTime,
-                'arrivalReturn' => $request->entsorgungroadChf,
-                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
-                'extraCostText1' => $request->entsorgungCostText1,
-                'extraCostValue1' => $request->entsorgungCost1,
-                'extraCostText2' => $request->entsorgungCostText2,
-                'extraCostValue2' => $request->entsorgungCost2,
-                'discount' => $request->entsorgungDiscount,
-                'discountPercent' => $request->entsorgungDiscountPercent,
-                'extraDiscountText' => $request->entsorgungExtraDiscountText,
-                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
-                'costPrice' => $request->entsorgungCostPrice,
-                'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
-                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
-            ];
-
-            OfferteEntsorgung::create($offerEntsorgung);
-            $offerteEntsorgungIdBul = DB::table('offerte_entsorgungs')->orderBy('id','DESC')->first();
-            $offerEntsorgungId = $offerteEntsorgungIdBul->id;
-        }
-        
-        if($request->isTransport)
-        {
-            $offerTransport = [
-                'pdfText' => $request->pdfText,
-                'fixedChf' => $request->transportFixedTariff,
-                'tariff' => $request->transportTariff,
-                'ma' => $request->transportma,
-                'lkw' => $request->transportlkw,
-                'anhanger' => $request->transportanhanger,
-                'chf' => $request->transportchf,
-                'hour' => $request->transporthour,
-                'transportDate' => $request->transportDate,
-                'transportTime' => $request->transportTime,
-                'arrivalReturn' => $request->transportRoadChf,
-                'extraCostText1' => $request->transportCostText1,
-                'extraCostValue1' => $request->transportCost1,
-                'extraCostText2' => $request->transportCostText2,
-                'extraCostValue2' => $request->transportCost2,
-                'extraCostText3' => $request->transportCostText3,
-                'extraCostValue3' => $request->transportCost3,
-                'extraCostText4' => $request->transportCostText4,
-                'extraCostValue4' => $request->transportCost4,
-                'extraCostText5' => $request->transportCostText5,
-                'extraCostValue5' => $request->transportCost5,
-                'extraCostText6' => $request->transportCostText6,
-                'extraCostValue6' => $request->transportCost6,
-                'extraCostText7' => $request->transportCostText7,
-                'extraCostValue7' => $request->transportCost7,
-                'totalPrice' => $request->transportCost,
-                'discount' => $request->transportDiscount,
-                'discountPercent' => $request->transportDiscountPercent,
-                'compromiser' => $request->transportCompromiser,
-                'extraDiscountText' => $request->transportExtraDiscountText,
-                'extraDiscountValue' => $request->transportExtraDiscount,
-                'extraDiscountText2' => $request->transportExtraDiscountText2,
-                'extraDiscountValue2' => $request->transportExtraDiscount2,
-                'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
-                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
-            ];
-
-            OfferteTransport::create($offerTransport);
-            $offerteTransportIdBul = DB::table('offerte_transports')->orderBy('id','DESC')->first();
-            $offerTransportId = $offerteTransportIdBul->id;
-        }
-
-        if($request->isLagerung)
-        {
-            $offerLagerung = [
-                'tariff' => $request->lagerungTariff,
-                'chf' => $request->lagerungChf,
-                'volume' => $request->lagerungVolume,
-                'extraCostText1' => $request->lagerungCostText1,
-                'extraCostValue1' => $request->lagerungCost1,
-                'extraCostText2' => $request->lagerungCostText2,
-                'extraCostValue2' => $request->lagerungCost2, 
-                'discountText' => $request->lagerungExtraDiscountText, 
-                'discountValue' => $request->lagerungExtraDiscount, 
-                'discountPercent' => $request->lagerungDiscountPercent,
-                'costPrice' => $request->lagerungCostPrice,
-                'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
-                
-            ];
-
-            OfferteLagerung::create($offerLagerung);
-            $offerteLagerungIdBul = DB::table('offerte_lagerungs')->orderBy('id','DESC')->first();
-            $offerLagerungId = $offerteLagerungIdBul->id;
-        }
-
-        if($request->isVerpackungsmaterial)
-        {
-            $offerMaterial = [
-                'discount' => $request->materialDiscount,
-                'discountPercent' => $request->materialDiscountPercent,
-                'deliverPrice' => $request->materialShipPrice,
-                'recievePrice' => $request->materialRecievePrice,
-                'totalPrice' => $request->materialTotalPrice
-            ];
-
-            $material = OfferteMaterial::create($offerMaterial);
-            $offerteMaterialIdBul = DB::table('offerte_materials')->orderBy('id','DESC')->first();
-            $offerMaterialId = $offerteMaterialIdBul->id;
-
-            if($material)
-            {
-               
-                $islem = $all['islem'];
-                if($islem)
-                {
-                    unset($all['islem']);
-                    if(count($islem) !=0) {
-                        foreach($islem as $k => $v)
-                        {
-                            $offerBasket = [
-                                'productId' => $v['urunId'],
-                                'buyType' => $v['buyType'],
-                                'productPrice' => $v['tutar'],
-                                'quantity' => $v['adet'],
-                                'totalPrice' => $v['toplam'],
-                                'materialId' => $offerMaterialId
-                            ];
-                            OfferteBasket::create($offerBasket);
-                        }
-                    }
-                }
-                
-            }
-        }
-
-        if ($request->contactPerson == 'Bitte wählen')
-        {   
-            $contactPerson = $request->customContactPerson;
-        }
-        else
-        {
-            $contactPerson = $request->contactPerson;
-        }
-
-        $offerte = [
-            'customerId' =>$customerId,
-            'appType' => $request->appOfferType,
-            'auszugaddressId' => $AusId,
-            'auszugaddressId2' => $AusId2,
-            'auszugaddressId3' => $AusId3,
-            'einzugaddressId' => $EinId,
-            'einzugaddressId2' => $EinId2,
-            'einzugaddressId3' => $EinId3,
-            'offerteUmzugId' => $offerUmzugId,
-            'offerteEinpackId' => $offerEinpackId,
-            'offerteAuspackId' => $offerAuspackId,
-            'offerteReinigungId' => $offerReinigungId,
-            'offerteReinigung2Id' => $offerReinigungId2,
-            'offerteEntsorgungId' => $offerEntsorgungId,
-            'offerteTransportId' => $offerTransportId,
-            'offerteLagerungId' => $offerLagerungId,
-            'offerteMaterialId' => $offerMaterialId,
-            'offerteNote' => $request->offertePdfNote,
-            'panelNote' => $request->offerteNote,
-            'kostenInkl' => $request->kdvType,
-            'kostenExkl' => $request->kdvType1,
-            'kostenFrei' => $request->kdvType3,
-            'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Beklemede'
-        ];
-
-        $create = offerte::create($offerte);
-        $offerteIdBul = DB::table('offertes')->orderBy('id','DESC')->first();
-        $offerteId = $offerteIdBul->id;
-
-        // Teklif Onayı
-            $oToken = Str::random(64);
-
-            OfferVerify::create([
-                'offerId' => $offerteId,
-                'oToken' => $oToken,
-            ]);
-
-        // Teklif Göster
-            $zToken = Str::random(64);
-            OfferCustomerView::create([
-                'offerId' => $offerteId,
-                'zToken' => $zToken,
-            ]);
-
-            // SMS
-                if($request->isSMS)
-                {
-                    $customerId = $request->route('id');
-                    $customer = Customer::where('id',$customerId)->first();
-                
-                    $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
-                    $client = new \Vonage\Client($basic);
-
-                    $number = $customer['mobile'];
-                    $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
-                    $content ='Ihr Angebot wurde erstellt From Swiss';
-                    $staticContent2 = ' '.Company::InfoCompany('name');
-                    if($request->isCustomSMS)
-                    {
-                        $content = $request->customSMS;
-                        $response = $client->sms()->send(
-                            new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                        );
-                    }
-                    else{
-                        $response = $client->sms()->send(
-                            new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                        );
-                    }
-                }
-            // SMS
-
-        $sub = 'Ihr Angebot';
-        $from = Company::InfoCompany('email'); // gösterilen mail.
-        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
-        $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
-        $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname');
-        $customerData = Customer::where('id',$customerId)->first();
-
-        $offer = offerte::where('id',$offerteId)->first();
-        $customerData =  Customer::where('id',$customerId)->first();
-        $auszug1 = offerteAddress::where('id',$AusId)->first();
-        $auszug2 = offerteAddress::where('id',$AusId2)->first();
-        $auszug3 = offerteAddress::where('id',$AusId3)->first();
-        $einzug1 = offerteAddress::where('id',$EinId)->first();
-        $einzug2 = offerteAddress::where('id',$EinId2)->first();
-        $einzug3 = offerteAddress::where('id',$EinId3)->first();
-        $umzugPdf = OfferteUmzug::where('id',$offerUmzugId)->first();
-        $einpackPdf = OfferteEinpack::where('id',$offerEinpackId)->first();
-        $auspackPdf = OfferteAuspack::where('id',$offerAuspackId)->first();
-        $reinigungPdf = OfferteReinigung::where('id',$offerReinigungId)->first();
-        $reinigungPdf2 = OfferteReinigung::where('id',$offerReinigungId2)->first();
-        $entsorgungPdf = OfferteEntsorgung::where('id',$offerEntsorgungId)->first();
-        $transportPdf = OfferteTransport::where('id',$offerTransportId)->first();
-        $lagerungPdf = OfferteLagerung::where('id',$offerLagerungId)->first();
-        $materialPdf = OfferteMaterial::where('id',$offerMaterialId)->first();
-        $basketPdf = OfferteBasket::where('materialId',$offerMaterialId)->get()->toArray();
-        
-
-        $pdfData = [
-            'offer' => $offer,
-            'offerteNumber' => $offerteId ,
-            'customer' => $customerData,
-            'isUmzug' => $request->isUmzug,
-            'isEinpack' => $request->isEinpack,
-            'isAuspack' => $request->isAuspack,
-            'isReinigung' => $request->isReinigung,
-            'isReinigung2' => $request->isReinigung2,
-            'isEntsorgung' => $request->isEntsorgung,
-            'isTransport' => $request->isTransport,
-            'isLagerung' => $request->isLagerung,
-            'isMaterial' => $request->isVerpackungsmaterial,
-            'isAuszug2' => $request->isofferAuszug2,
-            'isAuszug3' => $request->isofferAuszug3,
-            'isEinzug2' => $request->isofferEinzug2,
-            'isEinzug3' => $request->isofferEinzug3,
-            'isEinzug1' => $request->einStreet1,
-            'auszug1' => $auszug1,
-            'auszug2' => $auszug2,
-            'auszug3' => $auszug3,
-            'einzug1' => $einzug1,
-            'einzug2' => $einzug2,
-            'einzug3' => $einzug3,
-            'umzug' => $umzugPdf,
-            'einpack' => $einpackPdf,
-            'auspack' => $auspackPdf,
-            'reinigung' => $reinigungPdf,
-            'reinigung2' => $reinigungPdf2,
-            'entsorgung' => $entsorgungPdf,
-            'transport' => $transportPdf,
-            'lagerung' => $lagerungPdf,
-            'material' => $materialPdf,
-            'basket' => $basketPdf,
-        ];
-        
-        $pdf = Pdf::loadView('offerPdf', $pdfData);
-        $pdf->setPaper('A4');
-        //     // Offerte {{ route('customerOfferView', $data['token2']) }}"
-        //    >Ansicht </a>
-        
-            $customLinks = "<a href=".route('customerOfferView', $zToken).'
-            style="background-color: #8359B7;
-            border-radius: 30px;
-            color: white!important;
-            padding: 7px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 4px 2px;
-            cursor: pointer;"
-            '.'>'.'Offerten Ansicht'.'</a>'.'<br>'."<a href=".route('acceptOffer', $oToken).'
-            style="background-color: #28A745;
-            border-radius: 30px;
-            color: white!important;
-            padding: 7px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 4px 2px;
-            cursor: pointer;"
-            '.'>'.'Offerte Annehmen '.'</a>'.'<br>'."<a href=".route('rejectOffer', $oToken).'
-            style="background-color: #DC3545;
-            border-radius: 30px;
-            color: white!important;
-            padding: 7px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            margin: 4px 2px;
-            cursor: pointer;"
-            '.'>'.'Offerte Ablehnen'.'</a>';
-            $offerMailFooter = view('offerMailFooter');
-    
-            $emailData = [
-                'appType' => $offer['appType'],
-                'offerteNumber' => $offerteId,
-                'contactPerson' => $contactPerson,
-                'name' => $customer,
-                'surname' => $customerSurname,
-                'gender' => $customerData['gender'],
-                'sub' => $sub,
-                'from' => $from,
-                'companyName' => $companyName,
-                'email' => $request->email,
-                'emailContent'=> $request->emailContent,
-                'isCustomEmailSend' => $isCustomEmailSend,
-                'customEmailContent' => $customEmail,
-                'pdf' => $pdf,
-                'token' => $oToken,
-                'token2' => $zToken,
-                'customLinks' => $customLinks,
-                'offerMailFooter' => $offerMailFooter
-            ];
-
-            if ($isCustomEmailSend)
-            {
-                Arr::set($emailData, 'customEmailContent', $customEmail);
-            }
-
-            if($create)
-            {   
-                $mailSuccess = '';
-                if($isEmailSend)
-                {
-                    Mail::to($emailData['email'])->send(new OfferMail($emailData));
-                    $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
-                }          
-                //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
-                return redirect()
-                ->route('customer.detail', ['id' => $customerId])
-                ->with('status', 'Teklif Başarıyla Eklendi ' . $mailSuccess)
-                ->with('cat','Offerte')
-                ->withInput()
-                ->with('keep_status', true);
-            }
-            else {
-                return redirect()->back()->with('status-err','Hata:Teklif Eklenemedi, Mail Gönderilemedi');
-            }
-
-    }
-
-    public function edit(Request $request)
-    {   
-        $id = $request->route('id');
-        if($id !=0)
-        {
-            
-            $data = offerte::where('id',$id)->first();
-            // dd($data);
-            $customer = Customer::where('id',$data['customerId'])->first();
-            return view ('front.offer.edit', 
-            [
-                'data' => $data,
-                'customer' => $customer
-            ]);
-        }
-    }
-
-    
-    // Düzenlenecek
-    public function update (Request $request)
-    {
-        $id = $request->route('id');
-        $c = offerte::where('id',$id)->count();
-        $d = offerte::where('id',$id)->first();
-        $all = $request->except('_token');
-
-        $isCustomEmailSend = $request->get('isCustomEmail');
-        $customEmail = $request->get('customEmail');
-
-        $customer = Customer::where('id','=',$d['customerId'])->first();
-
-         // Tanımlamalar
-         $AusId = $d['auszugaddressId'] ? $d['auszugaddressId'] : NULL;
-         $AusId2 = $d['auszugaddressId2'] ? $d['auszugaddressId2'] : NULL;
-         $AusId3 = $d['auszugaddressId3'] ? $d['auszugaddressId3'] : NULL;
-         $EinId = $d['einzugaddressId'] ? $d['einzugaddressId'] : NULL;
-         $EinId2 = $d['einzugaddressId2'] ? $d['einzugaddressId2'] : NULL;
-         $EinId3 = $d['einzugaddressId3'] ? $d['einzugaddressId3'] : NULL;
-         $offerUmzugId = $d['offerteUmzugId'] ? $d['offerteUmzugId'] : NULL;
-         $offerEinpackId = $d['offerteEinpackId'] ? $d['offerteEinpackId'] : NULL;
-         $offerAuspackId = $d['offerteAuspackId'] ? $d['offerteAuspackId'] : NULL;
-         $offerReinigungId = $d['offerteReinigungId'] ? $d['offerteReinigungId'] : NULL;
-         $offerReinigungId2 = $d['offerteReinigung2Id'] ? $d['offerteReinigung2Id'] : NULL;
-         $offerEntsorgungId = $d['offerteEntsorgungId'] ? $d['offerteEntsorgungId'] : NULL;
-         $offerTransportId  = $d['offerteTransportId'] ? $d['offerteTransportId'] : NULL;
-         $offerLagerungId = $d['offerteLagerungId'] ? $d['offerteLagerungId'] : NULL;
-         $offerMaterialId = $d['offerteMaterialId'] ? $d['offerteMaterialId'] : NULL;
-         $contactPerson = NULL;
-         $isEmailSend = $request->get('isEmail');
-         $offerteId = 0;
-
-     // Offerte Adresse    
-         if($AusId)
-         {
-             $mainAusAdress = [
-                 'street' => $request->ausStreet1,
-                 'postCode' => $request->ausPostcode1,
-                 'city' => $request->ausCity1,
-                 'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
-                 'buildType' => $request->ausBuildType1,
-                 'floor' => $request->ausFloorType1,
-                 'lift' => $request->isAusLift1,
-                 'addressType' => 0   
-             ];
-             offerteAddress::where('id',$AusId)->update($mainAusAdress);
-         }
-
-        if($AusId2)
-        {
-            if($request->isofferAuszug2 == NULL)
-            {
-                offerteAddress::where('id',$AusId2)->delete();
-                $AusId2 = NULL;
-            }
-            else
-            {
-                $mainAusAdress = [
-                    'street' => $request->ausStreet2,
-                    'postCode' => $request->ausPostcode2,
-                    'city' => $request->ausCity2,
-                    'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
-                    'buildType' => $request->ausBuildType2,
-                    'floor' => $request->ausFloorType2,
-                    'lift' => $request->isAusLift2,
-                    'addressType' => 0   
-                ];
-
-                offerteAddress::where('id',$AusId2)->update($mainAusAdress);
-            }
-        }
-
-        elseif($AusId2 == NULL && $request->isofferAuszug2)
-        {
-            $mainAusAdress = [
-                'street' => $request->ausStreet2,
-                'postCode' => $request->ausPostcode2,
-                'city' => $request->ausCity2,
-                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
-                'buildType' => $request->ausBuildType2,
-                'floor' => $request->ausFloorType2,
-                'lift' => $request->isAusLift2,
-                'addressType' => 0   
-            ];
-
-            offerteAddress::create($mainAusAdress);
-            $mainAusAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
-            $AusId2 = $mainAusAdress->id;
-        }
-
-
-        if($AusId3)
-        {
-
-            if($request->isofferAuszug3 == NULL)
-            {
-                offerteAddress::where('id',$AusId3)->delete();
-                $AusId3 = NULL;
-            }
-
-            else {
-                $mainAusAdress = [
-                    'street' => $request->ausStreet3,
-                    'postCode' => $request->ausPostcode3,
-                    'city' => $request->ausCity3,
-                    'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
-                    'buildType' => $request->ausBuildType3,
-                    'floor' => $request->ausFloorType3,
-                    'lift' => $request->isAusLift3,
-                    'addressType' => 0   
-                ];
-
-                offerteAddress::where('id',$AusId3)->update($mainAusAdress);
-            }
-
-        }
-
-        elseif($AusId3 == NULL && $request->isofferAuszug3)
-        {
-            $mainAusAdress = [
-                'street' => $request->ausStreet3,
-                'postCode' => $request->ausPostcode3,
-                'city' => $request->ausCity3,
-                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
-                'buildType' => $request->ausBuildType3,
-                'floor' => $request->ausFloorType3,
-                'lift' => $request->isAusLift3,
-                'addressType' => 0   
-            ];
-
-            offerteAddress::create($mainAusAdress);
-            $mainAusAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
-            $AusId3 = $mainAusAdress->id;
-        }
-
-
-        if($EinId)
-        {
-            $mainEinAdress = [
-                'street' => $request->einStreet1,
-                'postCode' => $request->einPostcode1,
-                'city' => $request->einCity1,
-                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
-                'buildType' => $request->einBuildType1,
-                'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1,
-                'addressType' => 1   
-            ];
-            offerteAddress::where('id',$EinId)->update($mainEinAdress);
-        }
-
-        elseif($EinId == NULL && $request->einStreet1)
-        {
-            $mainEinAdress = [
-                'street' => $request->einStreet1,
-                'postCode' => $request->einPostcode1,
-                'city' => $request->einCity1,
-                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
-                'buildType' => $request->einBuildType1,
-                'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1,
-                'addressType' => 1   
-            ];
-
-            offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
-            $EinId = $mainEinAdress->id;
-        }
-
-        if($EinId2)
-        {
-            if($request->isofferEinzug2 == NULL)
-            {
-                offerteAddress::where('id',$EinId2)->delete();
-                $EinId2 = NULL;
-            }
-
-            else {
-
-                $mainEinAdress = [
-                    'street' => $request->einStreet2,
-                    'postCode' => $request->einPostcode2,
-                    'city' => $request->einCity2,
-                    'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
-                    'buildType' => $request->einBuildType2,
-                    'floor' => $request->einFloorType2,
-                    'lift' => $request->isEinLift2, 
-                    'addressType' => 1  
-                ];
-                offerteAddress::where('id',$EinId2)->update($mainEinAdress);
-            }
-
-        }
-
-        elseif($EinId2 == NULL && $request->einStreet2)
-        {
-             $mainEinAdress = [
-                'street' => $request->einStreet2,
-                'postCode' => $request->einPostcode2,
-                'city' => $request->einCity2,
-                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
-                'buildType' => $request->einBuildType2,
-                'floor' => $request->einFloorType2,
-                'lift' => $request->isEinLift2, 
-                'addressType' => 1  
-            ];
-
-            offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
-            $EinId2 = $mainEinAdress->id;
-        }
-
-        if($EinId3)
-        {
-            if($request->isofferEinzug3 == NULL)
-            {
-                offerteAddress::where('id',$EinId3)->delete();
-                $EinId3 = NULL;
-            }
-
-            $mainEinAdress = [
-                'street' => $request->einStreet3,
-                'postCode' => $request->einPostcode3,
-                'city' => $request->einCity3,
-                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
-                'buildType' => $request->einBuildType3,
-                'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
-            ];
-
-            offerteAddress::where('id',$EinId3)->update($mainEinAdress);
-        }
-
-        elseif($EinId3 == NULL && $request->einStreet3)
-        {
-             $mainEinAdress = [
-                'street' => $request->einStreet3,
-                'postCode' => $request->einPostcode3,
-                'city' => $request->einCity3,
-                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
-                'buildType' => $request->einBuildType3,
-                'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
-            ];
-
-            offerteAddress::create($mainEinAdress);
-            $mainEinAdress = DB::table('offerte_addresses')->where('addressType' ,'=', 1)->orderBy('id','DESC')->first();
-            $EinId3 = $mainEinAdress->id;
-        }
-
-        if($offerUmzugId)
-        {
-
-            if($request->isUmzug == NULL)
-            {
-                OfferteUmzug::where('id',$offerUmzugId)->delete();
-                $offerUmzugId = NULL;
-            }
-
-            else {
-                $offerUmzug = [
-                    'tariff' => $request->umzugTariff,
-                    'ma' => $request->umzug1ma,
-                    'lkw' => $request->umzug1lkw,
-                    'anhanger' => $request->umzug1anhanger,
-                    'chf' => $request->umzug1chf,
-                    'moveDate' => $request->umzugausdate,
-                    'moveTime' => $request->umzug1time,
-                    'moveDate2' => $request->umzugeindate,
-                    'arrivalReturn' => $request->umzugroadChf,
-                    'montage' => $request->umzugMontaj,
-                    'moveHours' => $request->umzugHours,
-                    'extra' => $request->masraf ? $request->extra1 : Null,
-                    'extra1' => $request->masraf1 ? $request->extra2 : Null,
-                    'extra2' => $request->masraf2 ? $request->extra3 : Null,
-                    'extra3' => $request->masraf3 ? $request->extra4 : Null,
-                    'extra4' => $request->masraf4 ? $request->extra5 : Null,
-                    'extra5' => $request->masraf5 ? $request->extra6 : Null,
-                    'extra6' => $request->masraf6 ? $request->extra7 : Null,
-                    'extra7' => $request->masraf7 ? $request->extra8 : Null,
-                    'extra8' => $request->masraf8 ? $request->extra9 : Null,
-                    'extra9' => $request->masraf9 ? $request->extra10 : Null,
-                    'extra10' => $request->masraf10 ? $request->extra11 : Null,
-                    'customCostName1' => $request->extra12CostText,
-                    'customCostPrice1' => $request->extra12Cost,
-                    'customCostName2' => $request->extra13CostText,
-                    'customCostPrice2' => $request->extra13Cost,
-                    'costPrice' => $request->umzugCost,
-                    'discount' => $request->umzugDiscount,
-                    'discountPercent' => $request->umzugDiscountPercent,
-                    'compromiser' => $request->umzugCompromiser,
-                    'extraCostName' => $request->umzugExtraDiscountText,
-                    'extraCostPrice' => $request->umzugExtraDiscount,
-                    'defaultPrice' => $request->umzugTotalPrice,
-                    'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                    'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
-                ];
-
-                OfferteUmzug::where('id',$offerUmzugId)->update($offerUmzug);
-            }
-
-        }
-
-        elseif($offerUmzugId == NULL && $request->isUmzug)
-        {
+        if ($request->isUmzug) {
             $offerUmzug = [
                 'tariff' => $request->umzugTariff,
                 'ma' => $request->umzug1ma,
@@ -1165,54 +303,11 @@ class indexController extends Controller
                 'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
             ];
             OfferteUmzug::create($offerUmzug);
-            $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id','DESC')->first();
+            $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id', 'DESC')->first();
             $offerUmzugId = $offerteUmzugIdBul->id;
         }
 
-
-
-        if($offerEinpackId)
-        {
-
-            if($request->isEinpack == NULL)
-            {
-                OfferteEinpack::where('id',$offerEinpackId)->delete();
-                $offerEinpackId = NULL;
-            }
-
-            else {
-                $offerEinpack = [
-                    'tariff' => $request->einpackTariff,
-                    'ma' => $request->einpack1ma,
-                    'chf' => $request->einpack1chf,
-                    'einpackDate' => $request->einpackdate,
-                    'einpackTime' => $request->einpacktime,
-                    'arrivalReturn' => $request->einpackroadChf,
-                    'moveHours' => $request->einpackHours,
-                    'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
-                    'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
-                    'customCostName1' => $request->einpackCostText1,
-                    'customCostPrice1' => $request->einpackCost1,
-                    'customCostName2' => $request->einpackCostText2,
-                    'customCostPrice2' => $request->einpackCost2,
-                    'costPrice' => $request->einpackCost,
-                    'discount' => $request->einpackDiscount,
-                    'discountPercent' => $request->einpackDiscountPercent,
-                    'compromiser' => $request->einpackCompromiser,
-                    'extraCostName' => $request->einpackExtraDiscountText,
-                    'extraCostPrice' => $request->einpackExtraDiscount,
-                    'defaultPrice' => $request->einpackTotalPrice,
-                    'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
-                    'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
-                ];
-
-                OfferteEinpack::where('id',$offerEinpackId)->update($offerEinpack);
-            }
-
-        }
-
-        elseif($offerEinpackId == NULL && $request->isEinpack)
-        {
+        if ($request->isEinpack) {
             $offerEinpack = [
                 'tariff' => $request->einpackTariff,
                 'ma' => $request->einpack1ma,
@@ -1239,53 +334,11 @@ class indexController extends Controller
             ];
 
             OfferteEinpack::create($offerEinpack);
-            $offerteEinpackIdBul = DB::table('offerte_einpacks')->orderBy('id','DESC')->first();
+            $offerteEinpackIdBul = DB::table('offerte_einpacks')->orderBy('id', 'DESC')->first();
             $offerEinpackId = $offerteEinpackIdBul->id;
         }
 
-
-        if($offerAuspackId)
-        {
-
-            if($request->isAuspack == NULL)
-            {
-                OfferteAuspack::where('id',$offerAuspackId)->delete();
-                $offerAuspackId = NULL;
-            }
-
-            else {
-                $offerAuspack = [
-                    'tariff' => $request->auspackTariff,
-                    'ma' => $request->auspack1ma,
-                    'chf' => $request->auspack1chf,
-                    'auspackDate' => $request->auspackdate,
-                    'auspackTime' => $request->auspacktime,
-                    'arrivalReturn' => $request->auspackroadChf,
-                    'moveHours' => $request->auspackHours,
-                    'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
-                    'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
-                    'customCostName1' => $request->auspackCostText1,
-                    'customCostPrice1' => $request->auspackCost1,
-                    'customCostName2' => $request->auspackCostText2,
-                    'customCostPrice2' => $request->auspackCost2,
-                    'costPrice' => $request->auspackCost,
-                    'discount' => $request->auspackDiscount,
-                    'discountPercent' => $request->auspackDiscountPercent,
-                    'compromiser' => $request->auspackCompromiser,
-                    'extraCostName' => $request->auspackExtraDiscountText,
-                    'extraCostPrice' => $request->auspackExtraDiscount,
-                    'defaultPrice' => $request->auspackTotalPrice,
-                    'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
-                    'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
-                ];
-
-                OfferteAuspack::where('id',$offerAuspackId)->update($offerAuspack);
-            }
-
-        }
-
-        elseif($offerAuspackId == NULL && $request->isAuspack)
-        {
+        if ($request->isAuspack) {
             $offerAuspack = [
                 'tariff' => $request->auspackTariff,
                 'ma' => $request->auspack1ma,
@@ -1312,56 +365,11 @@ class indexController extends Controller
             ];
 
             OfferteAuspack::create($offerAuspack);
-            $offerteAuspackIdBul = DB::table('offerte_auspacks')->orderBy('id','DESC')->first();
+            $offerteAuspackIdBul = DB::table('offerte_auspacks')->orderBy('id', 'DESC')->first();
             $offerAuspackId = $offerteAuspackIdBul->id;
         }
 
-        if($offerReinigungId)
-        {
-
-            if($request->isReinigung == NULL)
-            {
-                OfferteReinigung::where('id',$offerReinigungId)->delete();
-                $offerReinigungId = NULL;
-            }
-
-            else {
-                $offerReinigung = [
-                    'reinigungType' => $request->reinigungType,
-                    'extraReinigung' => $request->extraReinigung,
-                    'fixedTariff' => $request->reinigungFixedPrice,
-                    'fixedTariffPrice' => $request->reinigungFixedPriceValue,
-                    'standartTariff' => $request->reinigungPriceTariff,
-                    'ma' => $request->reinigungmaValue,
-                    'chf' => $request->reinigungchfValue,
-                    'hours' => $request->reinigunghourValue,
-                    'extraService1' => $request->extraReinigungService1,
-                    'extraService2' => $request->extraReinigungService2,
-                    'startDate' => $request->reinigungdate,
-                    'startTime' => $request->reinigungtime,
-                    'endDate' => $request->reinigungEnddate,
-                    'endTime' => $request->reinigungEndtime,
-                    'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
-                    'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
-                    'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
-                    'extraCostText1' => $request->reinigungCostText1,
-                    'extraCostValue1' => $request->reinigungCost1,
-                    'extraCostText2' => $request->reinigungCostText2,
-                    'extraCostValue2' => $request->reinigungCost2,
-                    'costPrice' => $request->reinigungCostPrice,
-                    'discountText' => $request->reinigungExtraDiscountText,
-                    'discount' => $request->reinigungExtraDiscount,
-                    'discountPercent' => $request->reinigungDiscountPercent,
-                    'totalPrice' => $request->reinigungTotalPrice,
-                ];
-
-                OfferteReinigung::where('id',$offerReinigungId)->update($offerReinigung);
-            }
-
-        }
-
-        elseif($offerReinigungId == NULL && $request->isReinigung)
-        {
+        if ($request->isReinigung) {
             $offerReinigung = [
                 'reinigungType' => $request->reinigungType,
                 'extraReinigung' => $request->extraReinigung,
@@ -1392,56 +400,11 @@ class indexController extends Controller
             ];
 
             OfferteReinigung::create($offerReinigung);
-            $offerteReinigungIdBul = DB::table('offerte_reinigungs')->orderBy('id','DESC')->first();
+            $offerteReinigungIdBul = DB::table('offerte_reinigungs')->orderBy('id', 'DESC')->first();
             $offerReinigungId = $offerteReinigungIdBul->id;
         }
 
-        if($offerReinigungId2)
-        {
-
-            if($request->isReinigung2 == NULL)
-            {
-                OfferteReinigung::where('id',$offerReinigungId2)->delete();
-                $offerReinigungId2 = NULL;
-            }
-
-            else {
-                $offerReinigung2 = [
-                    'reinigungType' => $request->reinigungType2,
-                    'extraReinigung' => $request->extraReinigung2,
-                    'fixedTariff' => $request->reinigungFixedPrice2,
-                    'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
-                    'standartTariff' => $request->reinigungPriceTariff2,
-                    'ma' => $request->reinigungmaValue2,
-                    'chf' => $request->reinigungchfValue2,
-                    'hours' => $request->reinigunghourValue2,
-                    'extraService1' => $request->extraReinigungService12,
-                    'extraService2' => $request->extraReinigungService22,
-                    'startDate' => $request->reinigungdate2,
-                    'startTime' => $request->reinigungtime2,
-                    'endDate' => $request->reinigungEnddate2,
-                    'endTime' => $request->reinigungEndtime2,
-                    'extra1' => $request->reinigungmasraf2 ? $request->reinigungextra12 : Null,
-                    'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
-                    'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
-                    'extraCostText1' => $request->reinigungCostText12,
-                    'extraCostValue1' => $request->reinigungCost12,
-                    'extraCostText2' => $request->reinigungCostText22,
-                    'extraCostValue2' => $request->reinigungCost22,
-                    'costPrice' => $request->reinigung2CostPrice,
-                    'discountText' => $request->reinigungExtraDiscountText2,
-                    'discount' => $request->reinigungExtraDiscount2,
-                    'discountPercent' => $request->reinigungDiscountPercent2,
-                    'totalPrice' => $request->reinigungTotalPrice2,
-                ];
-
-                OfferteReinigung::where('id',$offerReinigungId2)->update($offerReinigung2);
-            }
-
-        }
-
-        elseif($offerReinigungId2 == NULL && $request->isReinigung2)
-        {
+        if ($request->isReinigung2) {
             $offerReinigung2 = [
                 'reinigungType' => $request->reinigungType2,
                 'extraReinigung' => $request->extraReinigung2,
@@ -1457,7 +420,7 @@ class indexController extends Controller
                 'startTime' => $request->reinigungtime2,
                 'endDate' => $request->reinigungEnddate2,
                 'endTime' => $request->reinigungEndtime2,
-                'extra1' => $request->reinigungmasraf2 ? $request->reinigungextra12 : Null,
+                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
                 'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
                 'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
                 'extraCostText1' => $request->reinigungCostText12,
@@ -1472,57 +435,11 @@ class indexController extends Controller
             ];
 
             OfferteReinigung::create($offerReinigung2);
-            $offerteReinigungIdBul2 = DB::table('offerte_reinigungs')->orderBy('id','DESC')->first();
+            $offerteReinigungIdBul2 = DB::table('offerte_reinigungs')->orderBy('id', 'DESC')->first();
             $offerReinigungId2 = $offerteReinigungIdBul2->id;
         }
 
-
-        if($offerEntsorgungId)
-        {
-
-            if($request->isEntsorgung == NULL)
-            {
-                OfferteEntsorgung::where('id',$offerEntsorgungId)->delete();
-                $offerEntsorgungId = NULL;
-            }
-
-            else {
-                $offerEntsorgung = [
-                    'volume' => $request->entsorgungVolume,
-                    'volumeCHF' => $request->entsorgungVolumeChf,
-                    'fixedCost' => $request->entsorgungFixedChf,
-                    'm3' => $request->estimatedVolume,
-                    'tariff' => $request->entsorgungTariff,
-                    'ma' => $request->entsorgungma,
-                    'lkw' => $request->entsorgunglkw,
-                    'anhanger' => $request->entsorgunganhanger,
-                    'chf' => $request->entsorgungchf,
-                    'hour' => $request->entsorgungHours,
-                    'entsorgungDate' => $request->entsorgungDate,
-                    'entsorgungTime' => $request->entsorgungTime,
-                    'arrivalReturn' => $request->entsorgungroadChf,
-                    'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
-                    'extraCostText1' => $request->entsorgungCostText1,
-                    'extraCostValue1' => $request->entsorgungCost1,
-                    'extraCostText2' => $request->entsorgungCostText2,
-                    'extraCostValue2' => $request->entsorgungCost2,
-                    'discount' => $request->entsorgungDiscount,
-                    'discountPercent' => $request->entsorgungDiscountPercent,
-                    'extraDiscountText' => $request->entsorgungExtraDiscountText,
-                    'extraDiscountPrice' => $request->entsorgungExtraDiscount,
-                    'costPrice' => $request->entsorgungCostPrice,
-                    'defaultPrice' => $request->entsorgungTotalPrice,
-                    'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
-                    'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
-                ];
-
-                OfferteEntsorgung::where('id',$offerEntsorgungId)->update($offerEntsorgung);
-            }
-
-        }
-
-        elseif($offerEntsorgungId == NULL && $request->isEntsorgung)
-        {
+        if ($request->isEntsorgung) {
             $offerEntsorgung = [
                 'volume' => $request->entsorgungVolume,
                 'volumeCHF' => $request->entsorgungVolumeChf,
@@ -1553,64 +470,11 @@ class indexController extends Controller
             ];
 
             OfferteEntsorgung::create($offerEntsorgung);
-            $offerteEntsorgungIdBul = DB::table('offerte_entsorgungs')->orderBy('id','DESC')->first();
+            $offerteEntsorgungIdBul = DB::table('offerte_entsorgungs')->orderBy('id', 'DESC')->first();
             $offerEntsorgungId = $offerteEntsorgungIdBul->id;
         }
 
-        if($offerTransportId)
-        {
-            if($request->isTransport == NULL)
-            {
-                OfferteTransport::where('id',$offerTransportId)->delete();
-                $offerTransportId = NULL;
-            }
-
-            else {
-                $offerTransport = [
-                    'pdfText' => $request->pdfText,
-                    'fixedChf' => $request->transportFixedTariff,
-                    'tariff' => $request->transportTariff,
-                    'ma' => $request->transportma,
-                    'lkw' => $request->transportlkw,
-                    'anhanger' => $request->transportanhanger,
-                    'chf' => $request->transportchf,
-                    'hour' => $request->transporthour,
-                    'transportDate' => $request->transportDate,
-                    'transportTime' => $request->transportTime,
-                    'arrivalReturn' => $request->transportRoadChf,
-                    'extraCostText1' => $request->transportCostText1,
-                    'extraCostValue1' => $request->transportCost1,
-                    'extraCostText2' => $request->transportCostText2,
-                    'extraCostValue2' => $request->transportCost2,
-                    'extraCostText3' => $request->transportCostText3,
-                    'extraCostValue3' => $request->transportCost3,
-                    'extraCostText4' => $request->transportCostText4,
-                    'extraCostValue4' => $request->transportCost4,
-                    'extraCostText5' => $request->transportCostText5,
-                    'extraCostValue5' => $request->transportCost5,
-                    'extraCostText6' => $request->transportCostText6,
-                    'extraCostValue6' => $request->transportCost6,
-                    'extraCostText7' => $request->transportCostText7,
-                    'extraCostValue7' => $request->transportCost7,
-                    'totalPrice' => $request->transportCost,
-                    'discount' => $request->transportDiscount,
-                    'discountPercent' => $request->transportDiscountPercent,
-                    'compromiser' => $request->transportCompromiser,
-                    'extraDiscountText' => $request->transportExtraDiscountText,
-                    'extraDiscountValue' => $request->transportExtraDiscount,
-                    'extraDiscountText2' => $request->transportExtraDiscountText2,
-                    'extraDiscountValue2' => $request->transportExtraDiscount2,
-                    'defaultPrice' => $request->transportDefaultPrice,
-                    'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
-                    'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
-                ];
-                OfferteTransport::where('id',$offerTransportId)->update($offerTransport);
-            }
-
-        }
-
-        elseif($offerTransportId == NULL && $request->isTransport)
-        {
+        if ($request->isTransport) {
             $offerTransport = [
                 'pdfText' => $request->pdfText,
                 'fixedChf' => $request->transportFixedTariff,
@@ -1651,41 +515,11 @@ class indexController extends Controller
             ];
 
             OfferteTransport::create($offerTransport);
-            $offerteTransportIdBul = DB::table('offerte_transports')->orderBy('id','DESC')->first();
+            $offerteTransportIdBul = DB::table('offerte_transports')->orderBy('id', 'DESC')->first();
             $offerTransportId = $offerteTransportIdBul->id;
         }
 
-        if($offerLagerungId)
-        {
-            if($request->isLagerung == NULL)
-            {
-                OfferteLagerung::where('id',$offerLagerungId)->delete();
-                $offerLagerungId = NULL;
-            }
-
-            else {
-                $offerLagerung = [
-                    'tariff' => $request->lagerungTariff,
-                    'chf' => $request->lagerungChf,
-                    'volume' => $request->lagerungVolume,
-                    'extraCostText1' => $request->lagerungCostText1,
-                    'extraCostValue1' => $request->lagerungCost1,
-                    'extraCostText2' => $request->lagerungCostText2,
-                    'extraCostValue2' => $request->lagerungCost2, 
-                    'discountText' => $request->lagerungExtraDiscountText, 
-                    'discountValue' => $request->lagerungExtraDiscount, 
-                    'discountPercent' => $request->lagerungDiscountPercent,
-                    'costPrice' => $request->lagerungCostPrice,
-                    'totalPrice' => $request->lagerungCost, 
-                    'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
-                ];
-                OfferteLagerung::where('id',$offerLagerungId)->update($offerLagerung);
-            }
-
-        }
-
-        elseif($offerLagerungId == NULL && $request->isLagerung)
-        {
+        if ($request->isLagerung) {
             $offerLagerung = [
                 'tariff' => $request->lagerungTariff,
                 'chf' => $request->lagerungChf,
@@ -1693,72 +527,22 @@ class indexController extends Controller
                 'extraCostText1' => $request->lagerungCostText1,
                 'extraCostValue1' => $request->lagerungCost1,
                 'extraCostText2' => $request->lagerungCostText2,
-                'extraCostValue2' => $request->lagerungCost2, 
-                'discountText' => $request->lagerungExtraDiscountText, 
-                'discountValue' => $request->lagerungExtraDiscount, 
+                'extraCostValue2' => $request->lagerungCost2,
+                'discountText' => $request->lagerungExtraDiscountText,
+                'discountValue' => $request->lagerungExtraDiscount,
                 'discountPercent' => $request->lagerungDiscountPercent,
                 'costPrice' => $request->lagerungCostPrice,
-                'totalPrice' => $request->lagerungCost, 
+                'totalPrice' => $request->lagerungCost,
                 'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+
             ];
 
             OfferteLagerung::create($offerLagerung);
-            $offerteLagerungIdBul = DB::table('offerte_lagerungs')->orderBy('id','DESC')->first();
+            $offerteLagerungIdBul = DB::table('offerte_lagerungs')->orderBy('id', 'DESC')->first();
             $offerLagerungId = $offerteLagerungIdBul->id;
         }
 
-
-        if($offerMaterialId)
-        {
-            if($request->isVerpackungsmaterial == NULL)
-            {
-                OfferteMaterial::where('id',$offerMaterialId)->delete();
-                OfferteBasket::where('materialId',$offerMaterialId)->delete();
-                $offerMaterialId = NULL;
-            }
-
-            else {
-
-                $offerMaterial = [
-                    'discount' => $request->materialDiscount,
-                    'discountPercent' => $request->materialDiscountPercent,
-                    'deliverPrice' => $request->materialShipPrice,
-                    'recievePrice' => $request->materialRecievePrice,
-                    'totalPrice' => $request->materialTotalPrice
-                ];
-
-                $materialUpdate = OfferteMaterial::where('id',$offerMaterialId)->update($offerMaterial);
-
-                if($materialUpdate && $all['islem'])
-                {
-                    $islem = $all['islem'];
-                    unset($all['islem']);
-                    if(count($islem) !=0) {
-                        OfferteBasket::where('materialId',$offerMaterialId)->delete();
-                        foreach($islem as $k => $v)
-                        {
-                            $offerBasket = [
-                                'productId' => $v['urunId'],
-                                'buyType' => $v['buyType'],
-                                'quantity' => $v['adet'],
-                                'totalPrice' => $v['toplam'],
-                                'materialId' => $offerMaterialId
-                            ];
-                            OfferteBasket::create($offerBasket);
-                        }
-                    }
-                    else {
-                        OfferteMaterial::where('id',$offerMaterialId)->delete();
-                        OfferteBasket::where('materialId',$offerMaterialId)->delete();
-                    }
-                }
-
-            }
-
-        }
-
-        elseif($offerMaterialId == NULL && $request->isVerpackungsmaterial)
-        {
+        if ($request->isVerpackungsmaterial) {
             $offerMaterial = [
                 'discount' => $request->materialDiscount,
                 'discountPercent' => $request->materialDiscountPercent,
@@ -1768,40 +552,39 @@ class indexController extends Controller
             ];
 
             $material = OfferteMaterial::create($offerMaterial);
-            $offerteMaterialIdBul = DB::table('offerte_materials')->orderBy('id','DESC')->first();
+            $offerteMaterialIdBul = DB::table('offerte_materials')->orderBy('id', 'DESC')->first();
             $offerMaterialId = $offerteMaterialIdBul->id;
 
-            if($material && $all['islem'])
-            {
+            if ($material) {
+
                 $islem = $all['islem'];
-                unset($all['islem']);
-                if(count($islem) !=0) {
-                    foreach($islem as $k => $v)
-                    {
-                        $offerBasket = [
-                            'productId' => $v['urunId'],
-                            'buyType' => $v['buyType'],
-                            'quantity' => $v['adet'],
-                            'totalPrice' => $v['tutar'],
-                            'materialId' => $offerMaterialId
-                        ];
-                        OfferteBasket::create($offerBasket);
+                if ($islem) {
+                    unset($all['islem']);
+                    if (count($islem) != 0) {
+                        foreach ($islem as $k => $v) {
+                            $offerBasket = [
+                                'productId' => $v['urunId'],
+                                'buyType' => $v['buyType'],
+                                'productPrice' => $v['tutar'],
+                                'quantity' => $v['adet'],
+                                'totalPrice' => $v['toplam'],
+                                'materialId' => $offerMaterialId
+                            ];
+                            OfferteBasket::create($offerBasket);
+                        }
                     }
                 }
             }
         }
 
-        if ($request->contactPerson == 'Bitte wählen')
-        {   
+        if ($request->contactPerson == 'Bitte wählen') {
             $contactPerson = $request->customContactPerson;
-        }
-        else
-        {
+        } else {
             $contactPerson = $request->contactPerson;
         }
 
-        $offerteUpdate = [
-            'customerId' =>$d['customerId'],
+        $offerte = [
+            'customerId' => $customerId,
             'appType' => $request->appOfferType,
             'auszugaddressId' => $AusId,
             'auszugaddressId2' => $AusId2,
@@ -1827,7 +610,1115 @@ class indexController extends Controller
             'offerteStatus' => 'Beklemede'
         ];
 
-        $update = offerte::where('id',$id)->update($offerteUpdate);
+        $create = offerte::create($offerte);
+        $offerteIdBul = DB::table('offertes')->orderBy('id', 'DESC')->first();
+        $offerteId = $offerteIdBul->id;
+
+        // Teklif Onayı
+        $oToken = Str::random(64);
+
+        OfferVerify::create([
+            'offerId' => $offerteId,
+            'oToken' => $oToken,
+        ]);
+
+        // Teklif Göster
+        $zToken = Str::random(64);
+        OfferCustomerView::create([
+            'offerId' => $offerteId,
+            'zToken' => $zToken,
+        ]);
+
+        // SMS
+            if ($request->isSMS) {
+                function sms(Request $request)
+                {
+                    $customerId = $request->route('id');
+                    $customer = Customer::where('id', $customerId)->first();
+
+                    $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+                    $client = new \Vonage\Client($basic);
+
+                    $number = $request->mobile;
+                    $staticContent = 'Herr' . ' ' . $customer['name'] . ' ' . $customer['surname'] . ',' . ' ';
+                    $content = 'Ihr Angebot wurde erstellt From Swiss';
+                    $staticContent2 = ' ' . Company::InfoCompany('name');
+
+                    if ($request->isCustomSMS) {
+                        $content = $request->customSMS;
+                        $response = $client->sms()->send(
+                            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+                        );
+                    } else {
+                        $response = $client->sms()->send(
+                            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+                        );
+                    }
+                }
+            }
+        // SMS
+
+        $sub = 'Ihr Angebot';
+        $from = Company::InfoCompany('email'); // gösterilen mail.
+        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        $customer = DB::table('customers')->where('id', '=', $customerId)->value('name'); // Customer Name
+        $customerSurname = DB::table('customers')->where('id', '=', $customerId)->value('surname');
+        $customerData = Customer::where('id', $customerId)->first();
+        
+        $offer = offerte::where('id', $offerteId)->first();
+        $customerData =  Customer::where('id', $customerId)->first();
+        $auszug1 = offerteAddress::where('id', $AusId)->first();
+        $auszug2 = offerteAddress::where('id', $AusId2)->first();
+        $auszug3 = offerteAddress::where('id', $AusId3)->first();
+        $einzug1 = offerteAddress::where('id', $EinId)->first();
+        $einzug2 = offerteAddress::where('id', $EinId2)->first();
+        $einzug3 = offerteAddress::where('id', $EinId3)->first();
+        $umzugPdf = OfferteUmzug::where('id', $offerUmzugId)->first();
+        $einpackPdf = OfferteEinpack::where('id', $offerEinpackId)->first();
+        $auspackPdf = OfferteAuspack::where('id', $offerAuspackId)->first();
+        $reinigungPdf = OfferteReinigung::where('id', $offerReinigungId)->first();
+        $reinigungPdf2 = OfferteReinigung::where('id', $offerReinigungId2)->first();
+        $entsorgungPdf = OfferteEntsorgung::where('id', $offerEntsorgungId)->first();
+        $transportPdf = OfferteTransport::where('id', $offerTransportId)->first();
+        $lagerungPdf = OfferteLagerung::where('id', $offerLagerungId)->first();
+        $materialPdf = OfferteMaterial::where('id', $offerMaterialId)->first();
+        $basketPdf = OfferteBasket::where('materialId', $offerMaterialId)->get()->toArray();
+
+
+        $pdfData = [
+            'offer' => $offer,
+            'offerteNumber' => $offerteId,
+            'customer' => $customerData,
+            'isUmzug' => $request->isUmzug,
+            'isEinpack' => $request->isEinpack,
+            'isAuspack' => $request->isAuspack,
+            'isReinigung' => $request->isReinigung,
+            'isReinigung2' => $request->isReinigung2,
+            'isEntsorgung' => $request->isEntsorgung,
+            'isTransport' => $request->isTransport,
+            'isLagerung' => $request->isLagerung,
+            'isMaterial' => $request->isVerpackungsmaterial,
+            'isAuszug2' => $request->isofferAuszug2,
+            'isAuszug3' => $request->isofferAuszug3,
+            'isEinzug2' => $request->isofferEinzug2,
+            'isEinzug3' => $request->isofferEinzug3,
+            'isEinzug1' => $request->einStreet1,
+            'auszug1' => $auszug1,
+            'auszug2' => $auszug2,
+            'auszug3' => $auszug3,
+            'einzug1' => $einzug1,
+            'einzug2' => $einzug2,
+            'einzug3' => $einzug3,
+            'umzug' => $umzugPdf,
+            'einpack' => $einpackPdf,
+            'auspack' => $auspackPdf,
+            'reinigung' => $reinigungPdf,
+            'reinigung2' => $reinigungPdf2,
+            'entsorgung' => $entsorgungPdf,
+            'transport' => $transportPdf,
+            'lagerung' => $lagerungPdf,
+            'material' => $materialPdf,
+            'basket' => $basketPdf,
+        ];
+
+        $pdf = Pdf::loadView('offerPdf', $pdfData);
+        $pdf->setPaper('A4');
+        //     // Offerte {{ route('customerOfferView', $data['token2']) }}"
+        //    >Ansicht </a>
+
+        $customLinks = "<a href=" . route('customerOfferView', $zToken) . '
+            style="background-color: #8359B7;
+            border-radius: 30px;
+            color: white!important;
+            padding: 7px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;"
+            ' . '>' . 'Offerten Ansicht' . '</a>' . '<br>' . "<a href=" . route('acceptOffer', $oToken) . '
+            style="background-color: #28A745;
+            border-radius: 30px;
+            color: white!important;
+            padding: 7px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;"
+            ' . '>' . 'Offerte Annehmen ' . '</a>' . '<br>' . "<a href=" . route('rejectOffer', $oToken) . '
+            style="background-color: #DC3545;
+            border-radius: 30px;
+            color: white!important;
+            padding: 7px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;"
+            ' . '>' . 'Offerte Ablehnen' . '</a>';
+        $offerMailFooter = view('offerMailFooter');
+
+        $emailData = [
+            'appType' => $offer['appType'],
+            'offerteNumber' => $offerteId,
+            'contactPerson' => $contactPerson,
+            'name' => $customer,
+            'surname' => $customerSurname,
+            'gender' => $customerData['gender'],
+            'sub' => $sub,
+            'from' => $from,
+            'companyName' => $companyName,
+            'email' => $request->email,
+            'emailContent' => $request->emailContent,
+            'isCustomEmailSend' => $isCustomEmailSend,
+            'customEmailContent' => $customEmail,
+            'pdf' => $pdf,
+            'token' => $oToken,
+            'token2' => $zToken,
+            'customLinks' => $customLinks,
+            'offerMailFooter' => $offerMailFooter
+        ];
+
+        if ($isCustomEmailSend) {
+            Arr::set($emailData, 'customEmailContent', $customEmail);
+        }
+
+        if ($create) {
+            $mailSuccess = '';
+            if ($isEmailSend) {
+                Mail::to($emailData['email'])->send(new OfferMail($emailData));
+                $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
+            }
+            //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Teklif Başarıyla Eklendi ' . $mailSuccess)
+                ->with('cat', 'Offerte')
+                ->withInput()
+                ->with('keep_status', true);
+        } else {
+            return redirect()->back()->with('status-err', 'Hata:Teklif Eklenemedi, Mail Gönderilemedi');
+        }
+    }
+
+    public function edit(Request $request)
+    {
+        $id = $request->route('id');
+        if ($id != 0) {
+
+            $data = offerte::where('id', $id)->first();
+            // dd($data);
+            $customer = Customer::where('id', $data['customerId'])->first();
+            return view(
+                'front.offer.edit',
+                [
+                    'data' => $data,
+                    'customer' => $customer
+                ]
+            );
+        }
+    }
+
+
+    // Düzenlenecek
+    public function update(Request $request)
+    {
+        $id = $request->route('id');
+        $c = offerte::where('id', $id)->count();
+        $d = offerte::where('id', $id)->first();
+        $all = $request->except('_token');
+
+        $isCustomEmailSend = $request->get('isCustomEmail');
+        $customEmail = $request->get('customEmail');
+
+        $customer = Customer::where('id', '=', $d['customerId'])->first();
+
+        // Tanımlamalar
+        $AusId = $d['auszugaddressId'] ? $d['auszugaddressId'] : NULL;
+        $AusId2 = $d['auszugaddressId2'] ? $d['auszugaddressId2'] : NULL;
+        $AusId3 = $d['auszugaddressId3'] ? $d['auszugaddressId3'] : NULL;
+        $EinId = $d['einzugaddressId'] ? $d['einzugaddressId'] : NULL;
+        $EinId2 = $d['einzugaddressId2'] ? $d['einzugaddressId2'] : NULL;
+        $EinId3 = $d['einzugaddressId3'] ? $d['einzugaddressId3'] : NULL;
+        $offerUmzugId = $d['offerteUmzugId'] ? $d['offerteUmzugId'] : NULL;
+        $offerEinpackId = $d['offerteEinpackId'] ? $d['offerteEinpackId'] : NULL;
+        $offerAuspackId = $d['offerteAuspackId'] ? $d['offerteAuspackId'] : NULL;
+        $offerReinigungId = $d['offerteReinigungId'] ? $d['offerteReinigungId'] : NULL;
+        $offerReinigungId2 = $d['offerteReinigung2Id'] ? $d['offerteReinigung2Id'] : NULL;
+        $offerEntsorgungId = $d['offerteEntsorgungId'] ? $d['offerteEntsorgungId'] : NULL;
+        $offerTransportId  = $d['offerteTransportId'] ? $d['offerteTransportId'] : NULL;
+        $offerLagerungId = $d['offerteLagerungId'] ? $d['offerteLagerungId'] : NULL;
+        $offerMaterialId = $d['offerteMaterialId'] ? $d['offerteMaterialId'] : NULL;
+        $contactPerson = NULL;
+        $isEmailSend = $request->get('isEmail');
+        $offerteId = 0;
+
+        // Offerte Adresse    
+        if ($AusId) {
+            $mainAusAdress = [
+                'street' => $request->ausStreet1,
+                'postCode' => $request->ausPostcode1,
+                'city' => $request->ausCity1,
+                'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
+                'buildType' => $request->ausBuildType1,
+                'floor' => $request->ausFloorType1,
+                'lift' => $request->isAusLift1,
+                'addressType' => 0
+            ];
+            offerteAddress::where('id', $AusId)->update($mainAusAdress);
+        }
+
+        if ($AusId2) {
+            if ($request->isofferAuszug2 == NULL) {
+                offerteAddress::where('id', $AusId2)->delete();
+                $AusId2 = NULL;
+            } else {
+                $mainAusAdress = [
+                    'street' => $request->ausStreet2,
+                    'postCode' => $request->ausPostcode2,
+                    'city' => $request->ausCity2,
+                    'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+                    'buildType' => $request->ausBuildType2,
+                    'floor' => $request->ausFloorType2,
+                    'lift' => $request->isAusLift2,
+                    'addressType' => 0
+                ];
+
+                offerteAddress::where('id', $AusId2)->update($mainAusAdress);
+            }
+        } elseif ($AusId2 == NULL && $request->isofferAuszug2) {
+            $mainAusAdress = [
+                'street' => $request->ausStreet2,
+                'postCode' => $request->ausPostcode2,
+                'city' => $request->ausCity2,
+                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+                'buildType' => $request->ausBuildType2,
+                'floor' => $request->ausFloorType2,
+                'lift' => $request->isAusLift2,
+                'addressType' => 0
+            ];
+
+            offerteAddress::create($mainAusAdress);
+            $mainAusAdress = DB::table('offerte_addresses')->where('addressType', '=', 0)->orderBy('id', 'DESC')->first();
+            $AusId2 = $mainAusAdress->id;
+        }
+
+
+        if ($AusId3) {
+
+            if ($request->isofferAuszug3 == NULL) {
+                offerteAddress::where('id', $AusId3)->delete();
+                $AusId3 = NULL;
+            } else {
+                $mainAusAdress = [
+                    'street' => $request->ausStreet3,
+                    'postCode' => $request->ausPostcode3,
+                    'city' => $request->ausCity3,
+                    'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+                    'buildType' => $request->ausBuildType3,
+                    'floor' => $request->ausFloorType3,
+                    'lift' => $request->isAusLift3,
+                    'addressType' => 0
+                ];
+
+                offerteAddress::where('id', $AusId3)->update($mainAusAdress);
+            }
+        } elseif ($AusId3 == NULL && $request->isofferAuszug3) {
+            $mainAusAdress = [
+                'street' => $request->ausStreet3,
+                'postCode' => $request->ausPostcode3,
+                'city' => $request->ausCity3,
+                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+                'buildType' => $request->ausBuildType3,
+                'floor' => $request->ausFloorType3,
+                'lift' => $request->isAusLift3,
+                'addressType' => 0
+            ];
+
+            offerteAddress::create($mainAusAdress);
+            $mainAusAdress = DB::table('offerte_addresses')->where('addressType', '=', 0)->orderBy('id', 'DESC')->first();
+            $AusId3 = $mainAusAdress->id;
+        }
+
+
+        if ($EinId) {
+            $mainEinAdress = [
+                'street' => $request->einStreet1,
+                'postCode' => $request->einPostcode1,
+                'city' => $request->einCity1,
+                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+                'buildType' => $request->einBuildType1,
+                'floor' => $request->einFloorType1,
+                'lift' => $request->isEinLift1,
+                'addressType' => 1
+            ];
+            offerteAddress::where('id', $EinId)->update($mainEinAdress);
+        } elseif ($EinId == NULL && $request->einStreet1) {
+            $mainEinAdress = [
+                'street' => $request->einStreet1,
+                'postCode' => $request->einPostcode1,
+                'city' => $request->einCity1,
+                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+                'buildType' => $request->einBuildType1,
+                'floor' => $request->einFloorType1,
+                'lift' => $request->isEinLift1,
+                'addressType' => 1
+            ];
+
+            offerteAddress::create($mainEinAdress);
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
+            $EinId = $mainEinAdress->id;
+        }
+
+        if ($EinId2) {
+            if ($request->isofferEinzug2 == NULL) {
+                offerteAddress::where('id', $EinId2)->delete();
+                $EinId2 = NULL;
+            } else {
+
+                $mainEinAdress = [
+                    'street' => $request->einStreet2,
+                    'postCode' => $request->einPostcode2,
+                    'city' => $request->einCity2,
+                    'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+                    'buildType' => $request->einBuildType2,
+                    'floor' => $request->einFloorType2,
+                    'lift' => $request->isEinLift2,
+                    'addressType' => 1
+                ];
+                offerteAddress::where('id', $EinId2)->update($mainEinAdress);
+            }
+        } elseif ($EinId2 == NULL && $request->einStreet2) {
+            $mainEinAdress = [
+                'street' => $request->einStreet2,
+                'postCode' => $request->einPostcode2,
+                'city' => $request->einCity2,
+                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+                'buildType' => $request->einBuildType2,
+                'floor' => $request->einFloorType2,
+                'lift' => $request->isEinLift2,
+                'addressType' => 1
+            ];
+
+            offerteAddress::create($mainEinAdress);
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
+            $EinId2 = $mainEinAdress->id;
+        }
+
+        if ($EinId3) {
+            if ($request->isofferEinzug3 == NULL) {
+                offerteAddress::where('id', $EinId3)->delete();
+                $EinId3 = NULL;
+            }
+
+            $mainEinAdress = [
+                'street' => $request->einStreet3,
+                'postCode' => $request->einPostcode3,
+                'city' => $request->einCity3,
+                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+                'buildType' => $request->einBuildType3,
+                'floor' => $request->einFloorType3,
+                'lift' => $request->isEinLift3,
+                'addressType' => 1
+            ];
+
+            offerteAddress::where('id', $EinId3)->update($mainEinAdress);
+        } elseif ($EinId3 == NULL && $request->einStreet3) {
+            $mainEinAdress = [
+                'street' => $request->einStreet3,
+                'postCode' => $request->einPostcode3,
+                'city' => $request->einCity3,
+                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+                'buildType' => $request->einBuildType3,
+                'floor' => $request->einFloorType3,
+                'lift' => $request->isEinLift3,
+                'addressType' => 1
+            ];
+
+            offerteAddress::create($mainEinAdress);
+            $mainEinAdress = DB::table('offerte_addresses')->where('addressType', '=', 1)->orderBy('id', 'DESC')->first();
+            $EinId3 = $mainEinAdress->id;
+        }
+
+        if ($offerUmzugId) {
+
+            if ($request->isUmzug == NULL) {
+                OfferteUmzug::where('id', $offerUmzugId)->delete();
+                $offerUmzugId = NULL;
+            } else {
+                $offerUmzug = [
+                    'tariff' => $request->umzugTariff,
+                    'ma' => $request->umzug1ma,
+                    'lkw' => $request->umzug1lkw,
+                    'anhanger' => $request->umzug1anhanger,
+                    'chf' => $request->umzug1chf,
+                    'moveDate' => $request->umzugausdate,
+                    'moveTime' => $request->umzug1time,
+                    'moveDate2' => $request->umzugeindate,
+                    'arrivalReturn' => $request->umzugroadChf,
+                    'montage' => $request->umzugMontaj,
+                    'moveHours' => $request->umzugHours,
+                    'extra' => $request->masraf ? $request->extra1 : Null,
+                    'extra1' => $request->masraf1 ? $request->extra2 : Null,
+                    'extra2' => $request->masraf2 ? $request->extra3 : Null,
+                    'extra3' => $request->masraf3 ? $request->extra4 : Null,
+                    'extra4' => $request->masraf4 ? $request->extra5 : Null,
+                    'extra5' => $request->masraf5 ? $request->extra6 : Null,
+                    'extra6' => $request->masraf6 ? $request->extra7 : Null,
+                    'extra7' => $request->masraf7 ? $request->extra8 : Null,
+                    'extra8' => $request->masraf8 ? $request->extra9 : Null,
+                    'extra9' => $request->masraf9 ? $request->extra10 : Null,
+                    'extra10' => $request->masraf10 ? $request->extra11 : Null,
+                    'customCostName1' => $request->extra12CostText,
+                    'customCostPrice1' => $request->extra12Cost,
+                    'customCostName2' => $request->extra13CostText,
+                    'customCostPrice2' => $request->extra13Cost,
+                    'costPrice' => $request->umzugCost,
+                    'discount' => $request->umzugDiscount,
+                    'discountPercent' => $request->umzugDiscountPercent,
+                    'compromiser' => $request->umzugCompromiser,
+                    'extraCostName' => $request->umzugExtraDiscountText,
+                    'extraCostPrice' => $request->umzugExtraDiscount,
+                    'defaultPrice' => $request->umzugTotalPrice,
+                    'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+                    'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+                ];
+
+                OfferteUmzug::where('id', $offerUmzugId)->update($offerUmzug);
+            }
+        } elseif ($offerUmzugId == NULL && $request->isUmzug) {
+            $offerUmzug = [
+                'tariff' => $request->umzugTariff,
+                'ma' => $request->umzug1ma,
+                'lkw' => $request->umzug1lkw,
+                'anhanger' => $request->umzug1anhanger,
+                'chf' => $request->umzug1chf,
+                'moveDate' => $request->umzugausdate,
+                'moveTime' => $request->umzug1time,
+                'moveDate2' => $request->umzugeindate,
+                'arrivalReturn' => $request->umzugroadChf,
+                'montage' => $request->umzugMontaj,
+                'moveHours' => $request->umzugHours,
+                'extra' => $request->masraf ? $request->extra1 : Null,
+                'extra1' => $request->masraf1 ? $request->extra2 : Null,
+                'extra2' => $request->masraf2 ? $request->extra3 : Null,
+                'extra3' => $request->masraf3 ? $request->extra4 : Null,
+                'extra4' => $request->masraf4 ? $request->extra5 : Null,
+                'extra5' => $request->masraf5 ? $request->extra6 : Null,
+                'extra6' => $request->masraf6 ? $request->extra7 : Null,
+                'extra7' => $request->masraf7 ? $request->extra8 : Null,
+                'extra8' => $request->masraf8 ? $request->extra9 : Null,
+                'extra9' => $request->masraf9 ? $request->extra10 : Null,
+                'extra10' => $request->masraf10 ? $request->extra11 : Null,
+                'customCostName1' => $request->extra12CostText,
+                'customCostPrice1' => $request->extra12Cost,
+                'customCostName2' => $request->extra13CostText,
+                'customCostPrice2' => $request->extra13Cost,
+                'costPrice' => $request->umzugCost,
+                'discount' => $request->umzugDiscount,
+                'discountPercent' => $request->umzugDiscountPercent,
+                'compromiser' => $request->umzugCompromiser,
+                'extraCostName' => $request->umzugExtraDiscountText,
+                'extraCostPrice' => $request->umzugExtraDiscount,
+                'defaultPrice' => $request->umzugTotalPrice,
+                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+            ];
+            OfferteUmzug::create($offerUmzug);
+            $offerteUmzugIdBul = DB::table('offerte_umzugs')->orderBy('id', 'DESC')->first();
+            $offerUmzugId = $offerteUmzugIdBul->id;
+        }
+
+
+
+        if ($offerEinpackId) {
+
+            if ($request->isEinpack == NULL) {
+                OfferteEinpack::where('id', $offerEinpackId)->delete();
+                $offerEinpackId = NULL;
+            } else {
+                $offerEinpack = [
+                    'tariff' => $request->einpackTariff,
+                    'ma' => $request->einpack1ma,
+                    'chf' => $request->einpack1chf,
+                    'einpackDate' => $request->einpackdate,
+                    'einpackTime' => $request->einpacktime,
+                    'arrivalReturn' => $request->einpackroadChf,
+                    'moveHours' => $request->einpackHours,
+                    'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+                    'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+                    'customCostName1' => $request->einpackCostText1,
+                    'customCostPrice1' => $request->einpackCost1,
+                    'customCostName2' => $request->einpackCostText2,
+                    'customCostPrice2' => $request->einpackCost2,
+                    'costPrice' => $request->einpackCost,
+                    'discount' => $request->einpackDiscount,
+                    'discountPercent' => $request->einpackDiscountPercent,
+                    'compromiser' => $request->einpackCompromiser,
+                    'extraCostName' => $request->einpackExtraDiscountText,
+                    'extraCostPrice' => $request->einpackExtraDiscount,
+                    'defaultPrice' => $request->einpackTotalPrice,
+                    'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+                    'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+                ];
+
+                OfferteEinpack::where('id', $offerEinpackId)->update($offerEinpack);
+            }
+        } elseif ($offerEinpackId == NULL && $request->isEinpack) {
+            $offerEinpack = [
+                'tariff' => $request->einpackTariff,
+                'ma' => $request->einpack1ma,
+                'chf' => $request->einpack1chf,
+                'einpackDate' => $request->einpackdate,
+                'einpackTime' => $request->einpacktime,
+                'arrivalReturn' => $request->einpackroadChf,
+                'moveHours' => $request->einpackHours,
+                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+                'customCostName1' => $request->einpackCostText1,
+                'customCostPrice1' => $request->einpackCost1,
+                'customCostName2' => $request->einpackCostText2,
+                'customCostPrice2' => $request->einpackCost2,
+                'costPrice' => $request->einpackCost,
+                'discount' => $request->einpackDiscount,
+                'discountPercent' => $request->einpackDiscountPercent,
+                'compromiser' => $request->einpackCompromiser,
+                'extraCostName' => $request->einpackExtraDiscountText,
+                'extraCostPrice' => $request->einpackExtraDiscount,
+                'defaultPrice' => $request->einpackTotalPrice,
+                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+            ];
+
+            OfferteEinpack::create($offerEinpack);
+            $offerteEinpackIdBul = DB::table('offerte_einpacks')->orderBy('id', 'DESC')->first();
+            $offerEinpackId = $offerteEinpackIdBul->id;
+        }
+
+
+        if ($offerAuspackId) {
+
+            if ($request->isAuspack == NULL) {
+                OfferteAuspack::where('id', $offerAuspackId)->delete();
+                $offerAuspackId = NULL;
+            } else {
+                $offerAuspack = [
+                    'tariff' => $request->auspackTariff,
+                    'ma' => $request->auspack1ma,
+                    'chf' => $request->auspack1chf,
+                    'auspackDate' => $request->auspackdate,
+                    'auspackTime' => $request->auspacktime,
+                    'arrivalReturn' => $request->auspackroadChf,
+                    'moveHours' => $request->auspackHours,
+                    'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+                    'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+                    'customCostName1' => $request->auspackCostText1,
+                    'customCostPrice1' => $request->auspackCost1,
+                    'customCostName2' => $request->auspackCostText2,
+                    'customCostPrice2' => $request->auspackCost2,
+                    'costPrice' => $request->auspackCost,
+                    'discount' => $request->auspackDiscount,
+                    'discountPercent' => $request->auspackDiscountPercent,
+                    'compromiser' => $request->auspackCompromiser,
+                    'extraCostName' => $request->auspackExtraDiscountText,
+                    'extraCostPrice' => $request->auspackExtraDiscount,
+                    'defaultPrice' => $request->auspackTotalPrice,
+                    'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+                    'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+                ];
+
+                OfferteAuspack::where('id', $offerAuspackId)->update($offerAuspack);
+            }
+        } elseif ($offerAuspackId == NULL && $request->isAuspack) {
+            $offerAuspack = [
+                'tariff' => $request->auspackTariff,
+                'ma' => $request->auspack1ma,
+                'chf' => $request->auspack1chf,
+                'auspackDate' => $request->auspackdate,
+                'auspackTime' => $request->auspacktime,
+                'arrivalReturn' => $request->auspackroadChf,
+                'moveHours' => $request->auspackHours,
+                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+                'customCostName1' => $request->auspackCostText1,
+                'customCostPrice1' => $request->auspackCost1,
+                'customCostName2' => $request->auspackCostText2,
+                'customCostPrice2' => $request->auspackCost2,
+                'costPrice' => $request->auspackCost,
+                'discount' => $request->auspackDiscount,
+                'discountPercent' => $request->auspackDiscountPercent,
+                'compromiser' => $request->auspackCompromiser,
+                'extraCostName' => $request->auspackExtraDiscountText,
+                'extraCostPrice' => $request->auspackExtraDiscount,
+                'defaultPrice' => $request->auspackTotalPrice,
+                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+            ];
+
+            OfferteAuspack::create($offerAuspack);
+            $offerteAuspackIdBul = DB::table('offerte_auspacks')->orderBy('id', 'DESC')->first();
+            $offerAuspackId = $offerteAuspackIdBul->id;
+        }
+
+        if ($offerReinigungId) {
+
+            if ($request->isReinigung == NULL) {
+                OfferteReinigung::where('id', $offerReinigungId)->delete();
+                $offerReinigungId = NULL;
+            } else {
+                $offerReinigung = [
+                    'reinigungType' => $request->reinigungType,
+                    'extraReinigung' => $request->extraReinigung,
+                    'fixedTariff' => $request->reinigungFixedPrice,
+                    'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+                    'standartTariff' => $request->reinigungPriceTariff,
+                    'ma' => $request->reinigungmaValue,
+                    'chf' => $request->reinigungchfValue,
+                    'hours' => $request->reinigunghourValue,
+                    'extraService1' => $request->extraReinigungService1,
+                    'extraService2' => $request->extraReinigungService2,
+                    'startDate' => $request->reinigungdate,
+                    'startTime' => $request->reinigungtime,
+                    'endDate' => $request->reinigungEnddate,
+                    'endTime' => $request->reinigungEndtime,
+                    'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+                    'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+                    'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+                    'extraCostText1' => $request->reinigungCostText1,
+                    'extraCostValue1' => $request->reinigungCost1,
+                    'extraCostText2' => $request->reinigungCostText2,
+                    'extraCostValue2' => $request->reinigungCost2,
+                    'costPrice' => $request->reinigungCostPrice,
+                    'discountText' => $request->reinigungExtraDiscountText,
+                    'discount' => $request->reinigungExtraDiscount,
+                    'discountPercent' => $request->reinigungDiscountPercent,
+                    'totalPrice' => $request->reinigungTotalPrice,
+                ];
+
+                OfferteReinigung::where('id', $offerReinigungId)->update($offerReinigung);
+            }
+        } elseif ($offerReinigungId == NULL && $request->isReinigung) {
+            $offerReinigung = [
+                'reinigungType' => $request->reinigungType,
+                'extraReinigung' => $request->extraReinigung,
+                'fixedTariff' => $request->reinigungFixedPrice,
+                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+                'standartTariff' => $request->reinigungPriceTariff,
+                'ma' => $request->reinigungmaValue,
+                'chf' => $request->reinigungchfValue,
+                'hours' => $request->reinigunghourValue,
+                'extraService1' => $request->extraReinigungService1,
+                'extraService2' => $request->extraReinigungService2,
+                'startDate' => $request->reinigungdate,
+                'startTime' => $request->reinigungtime,
+                'endDate' => $request->reinigungEnddate,
+                'endTime' => $request->reinigungEndtime,
+                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+                'extraCostText1' => $request->reinigungCostText1,
+                'extraCostValue1' => $request->reinigungCost1,
+                'extraCostText2' => $request->reinigungCostText2,
+                'extraCostValue2' => $request->reinigungCost2,
+                'costPrice' => $request->reinigungCostPrice,
+                'discountText' => $request->reinigungExtraDiscountText,
+                'discount' => $request->reinigungExtraDiscount,
+                'discountPercent' => $request->reinigungDiscountPercent,
+                'totalPrice' => $request->reinigungTotalPrice,
+            ];
+
+            OfferteReinigung::create($offerReinigung);
+            $offerteReinigungIdBul = DB::table('offerte_reinigungs')->orderBy('id', 'DESC')->first();
+            $offerReinigungId = $offerteReinigungIdBul->id;
+        }
+
+        if ($offerReinigungId2) {
+
+            if ($request->isReinigung2 == NULL) {
+                OfferteReinigung::where('id', $offerReinigungId2)->delete();
+                $offerReinigungId2 = NULL;
+            } else {
+                $offerReinigung2 = [
+                    'reinigungType' => $request->reinigungType2,
+                    'extraReinigung' => $request->extraReinigung2,
+                    'fixedTariff' => $request->reinigungFixedPrice2,
+                    'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+                    'standartTariff' => $request->reinigungPriceTariff2,
+                    'ma' => $request->reinigungmaValue2,
+                    'chf' => $request->reinigungchfValue2,
+                    'hours' => $request->reinigunghourValue2,
+                    'extraService1' => $request->extraReinigungService12,
+                    'extraService2' => $request->extraReinigungService22,
+                    'startDate' => $request->reinigungdate2,
+                    'startTime' => $request->reinigungtime2,
+                    'endDate' => $request->reinigungEnddate2,
+                    'endTime' => $request->reinigungEndtime2,
+                    'extra1' => $request->reinigungmasraf2 ? $request->reinigungextra12 : Null,
+                    'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+                    'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+                    'extraCostText1' => $request->reinigungCostText12,
+                    'extraCostValue1' => $request->reinigungCost12,
+                    'extraCostText2' => $request->reinigungCostText22,
+                    'extraCostValue2' => $request->reinigungCost22,
+                    'costPrice' => $request->reinigung2CostPrice,
+                    'discountText' => $request->reinigungExtraDiscountText2,
+                    'discount' => $request->reinigungExtraDiscount2,
+                    'discountPercent' => $request->reinigungDiscountPercent2,
+                    'totalPrice' => $request->reinigungTotalPrice2,
+                ];
+
+                OfferteReinigung::where('id', $offerReinigungId2)->update($offerReinigung2);
+            }
+        } elseif ($offerReinigungId2 == NULL && $request->isReinigung2) {
+            $offerReinigung2 = [
+                'reinigungType' => $request->reinigungType2,
+                'extraReinigung' => $request->extraReinigung2,
+                'fixedTariff' => $request->reinigungFixedPrice2,
+                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+                'standartTariff' => $request->reinigungPriceTariff2,
+                'ma' => $request->reinigungmaValue2,
+                'chf' => $request->reinigungchfValue2,
+                'hours' => $request->reinigunghourValue2,
+                'extraService1' => $request->extraReinigungService12,
+                'extraService2' => $request->extraReinigungService22,
+                'startDate' => $request->reinigungdate2,
+                'startTime' => $request->reinigungtime2,
+                'endDate' => $request->reinigungEnddate2,
+                'endTime' => $request->reinigungEndtime2,
+                'extra1' => $request->reinigungmasraf2 ? $request->reinigungextra12 : Null,
+                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+                'extraCostText1' => $request->reinigungCostText12,
+                'extraCostValue1' => $request->reinigungCost12,
+                'extraCostText2' => $request->reinigungCostText22,
+                'extraCostValue2' => $request->reinigungCost22,
+                'costPrice' => $request->reinigung2CostPrice,
+                'discountText' => $request->reinigungExtraDiscountText2,
+                'discount' => $request->reinigungExtraDiscount2,
+                'discountPercent' => $request->reinigungDiscountPercent2,
+                'totalPrice' => $request->reinigungTotalPrice2,
+            ];
+
+            OfferteReinigung::create($offerReinigung2);
+            $offerteReinigungIdBul2 = DB::table('offerte_reinigungs')->orderBy('id', 'DESC')->first();
+            $offerReinigungId2 = $offerteReinigungIdBul2->id;
+        }
+
+
+        if ($offerEntsorgungId) {
+
+            if ($request->isEntsorgung == NULL) {
+                OfferteEntsorgung::where('id', $offerEntsorgungId)->delete();
+                $offerEntsorgungId = NULL;
+            } else {
+                $offerEntsorgung = [
+                    'volume' => $request->entsorgungVolume,
+                    'volumeCHF' => $request->entsorgungVolumeChf,
+                    'fixedCost' => $request->entsorgungFixedChf,
+                    'm3' => $request->estimatedVolume,
+                    'tariff' => $request->entsorgungTariff,
+                    'ma' => $request->entsorgungma,
+                    'lkw' => $request->entsorgunglkw,
+                    'anhanger' => $request->entsorgunganhanger,
+                    'chf' => $request->entsorgungchf,
+                    'hour' => $request->entsorgungHours,
+                    'entsorgungDate' => $request->entsorgungDate,
+                    'entsorgungTime' => $request->entsorgungTime,
+                    'arrivalReturn' => $request->entsorgungroadChf,
+                    'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+                    'extraCostText1' => $request->entsorgungCostText1,
+                    'extraCostValue1' => $request->entsorgungCost1,
+                    'extraCostText2' => $request->entsorgungCostText2,
+                    'extraCostValue2' => $request->entsorgungCost2,
+                    'discount' => $request->entsorgungDiscount,
+                    'discountPercent' => $request->entsorgungDiscountPercent,
+                    'extraDiscountText' => $request->entsorgungExtraDiscountText,
+                    'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+                    'costPrice' => $request->entsorgungCostPrice,
+                    'defaultPrice' => $request->entsorgungTotalPrice,
+                    'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+                    'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+                ];
+
+                OfferteEntsorgung::where('id', $offerEntsorgungId)->update($offerEntsorgung);
+            }
+        } elseif ($offerEntsorgungId == NULL && $request->isEntsorgung) {
+            $offerEntsorgung = [
+                'volume' => $request->entsorgungVolume,
+                'volumeCHF' => $request->entsorgungVolumeChf,
+                'fixedCost' => $request->entsorgungFixedChf,
+                'm3' => $request->estimatedVolume,
+                'tariff' => $request->entsorgungTariff,
+                'ma' => $request->entsorgungma,
+                'lkw' => $request->entsorgunglkw,
+                'anhanger' => $request->entsorgunganhanger,
+                'chf' => $request->entsorgungchf,
+                'hour' => $request->entsorgungHours,
+                'entsorgungDate' => $request->entsorgungDate,
+                'entsorgungTime' => $request->entsorgungTime,
+                'arrivalReturn' => $request->entsorgungroadChf,
+                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+                'extraCostText1' => $request->entsorgungCostText1,
+                'extraCostValue1' => $request->entsorgungCost1,
+                'extraCostText2' => $request->entsorgungCostText2,
+                'extraCostValue2' => $request->entsorgungCost2,
+                'discount' => $request->entsorgungDiscount,
+                'discountPercent' => $request->entsorgungDiscountPercent,
+                'extraDiscountText' => $request->entsorgungExtraDiscountText,
+                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+                'costPrice' => $request->entsorgungCostPrice,
+                'defaultPrice' => $request->entsorgungTotalPrice,
+                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+            ];
+
+            OfferteEntsorgung::create($offerEntsorgung);
+            $offerteEntsorgungIdBul = DB::table('offerte_entsorgungs')->orderBy('id', 'DESC')->first();
+            $offerEntsorgungId = $offerteEntsorgungIdBul->id;
+        }
+
+        if ($offerTransportId) {
+            if ($request->isTransport == NULL) {
+                OfferteTransport::where('id', $offerTransportId)->delete();
+                $offerTransportId = NULL;
+            } else {
+                $offerTransport = [
+                    'pdfText' => $request->pdfText,
+                    'fixedChf' => $request->transportFixedTariff,
+                    'tariff' => $request->transportTariff,
+                    'ma' => $request->transportma,
+                    'lkw' => $request->transportlkw,
+                    'anhanger' => $request->transportanhanger,
+                    'chf' => $request->transportchf,
+                    'hour' => $request->transporthour,
+                    'transportDate' => $request->transportDate,
+                    'transportTime' => $request->transportTime,
+                    'arrivalReturn' => $request->transportRoadChf,
+                    'extraCostText1' => $request->transportCostText1,
+                    'extraCostValue1' => $request->transportCost1,
+                    'extraCostText2' => $request->transportCostText2,
+                    'extraCostValue2' => $request->transportCost2,
+                    'extraCostText3' => $request->transportCostText3,
+                    'extraCostValue3' => $request->transportCost3,
+                    'extraCostText4' => $request->transportCostText4,
+                    'extraCostValue4' => $request->transportCost4,
+                    'extraCostText5' => $request->transportCostText5,
+                    'extraCostValue5' => $request->transportCost5,
+                    'extraCostText6' => $request->transportCostText6,
+                    'extraCostValue6' => $request->transportCost6,
+                    'extraCostText7' => $request->transportCostText7,
+                    'extraCostValue7' => $request->transportCost7,
+                    'totalPrice' => $request->transportCost,
+                    'discount' => $request->transportDiscount,
+                    'discountPercent' => $request->transportDiscountPercent,
+                    'compromiser' => $request->transportCompromiser,
+                    'extraDiscountText' => $request->transportExtraDiscountText,
+                    'extraDiscountValue' => $request->transportExtraDiscount,
+                    'extraDiscountText2' => $request->transportExtraDiscountText2,
+                    'extraDiscountValue2' => $request->transportExtraDiscount2,
+                    'defaultPrice' => $request->transportDefaultPrice,
+                    'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+                    'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+                ];
+                OfferteTransport::where('id', $offerTransportId)->update($offerTransport);
+            }
+        } elseif ($offerTransportId == NULL && $request->isTransport) {
+            $offerTransport = [
+                'pdfText' => $request->pdfText,
+                'fixedChf' => $request->transportFixedTariff,
+                'tariff' => $request->transportTariff,
+                'ma' => $request->transportma,
+                'lkw' => $request->transportlkw,
+                'anhanger' => $request->transportanhanger,
+                'chf' => $request->transportchf,
+                'hour' => $request->transporthour,
+                'transportDate' => $request->transportDate,
+                'transportTime' => $request->transportTime,
+                'arrivalReturn' => $request->transportRoadChf,
+                'extraCostText1' => $request->transportCostText1,
+                'extraCostValue1' => $request->transportCost1,
+                'extraCostText2' => $request->transportCostText2,
+                'extraCostValue2' => $request->transportCost2,
+                'extraCostText3' => $request->transportCostText3,
+                'extraCostValue3' => $request->transportCost3,
+                'extraCostText4' => $request->transportCostText4,
+                'extraCostValue4' => $request->transportCost4,
+                'extraCostText5' => $request->transportCostText5,
+                'extraCostValue5' => $request->transportCost5,
+                'extraCostText6' => $request->transportCostText6,
+                'extraCostValue6' => $request->transportCost6,
+                'extraCostText7' => $request->transportCostText7,
+                'extraCostValue7' => $request->transportCost7,
+                'totalPrice' => $request->transportCost,
+                'discount' => $request->transportDiscount,
+                'discountPercent' => $request->transportDiscountPercent,
+                'compromiser' => $request->transportCompromiser,
+                'extraDiscountText' => $request->transportExtraDiscountText,
+                'extraDiscountValue' => $request->transportExtraDiscount,
+                'extraDiscountText2' => $request->transportExtraDiscountText2,
+                'extraDiscountValue2' => $request->transportExtraDiscount2,
+                'defaultPrice' => $request->transportDefaultPrice,
+                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+            ];
+
+            OfferteTransport::create($offerTransport);
+            $offerteTransportIdBul = DB::table('offerte_transports')->orderBy('id', 'DESC')->first();
+            $offerTransportId = $offerteTransportIdBul->id;
+        }
+
+        if ($offerLagerungId) {
+            if ($request->isLagerung == NULL) {
+                OfferteLagerung::where('id', $offerLagerungId)->delete();
+                $offerLagerungId = NULL;
+            } else {
+                $offerLagerung = [
+                    'tariff' => $request->lagerungTariff,
+                    'chf' => $request->lagerungChf,
+                    'volume' => $request->lagerungVolume,
+                    'extraCostText1' => $request->lagerungCostText1,
+                    'extraCostValue1' => $request->lagerungCost1,
+                    'extraCostText2' => $request->lagerungCostText2,
+                    'extraCostValue2' => $request->lagerungCost2,
+                    'discountText' => $request->lagerungExtraDiscountText,
+                    'discountValue' => $request->lagerungExtraDiscount,
+                    'discountPercent' => $request->lagerungDiscountPercent,
+                    'costPrice' => $request->lagerungCostPrice,
+                    'totalPrice' => $request->lagerungCost,
+                    'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+                ];
+                OfferteLagerung::where('id', $offerLagerungId)->update($offerLagerung);
+            }
+        } elseif ($offerLagerungId == NULL && $request->isLagerung) {
+            $offerLagerung = [
+                'tariff' => $request->lagerungTariff,
+                'chf' => $request->lagerungChf,
+                'volume' => $request->lagerungVolume,
+                'extraCostText1' => $request->lagerungCostText1,
+                'extraCostValue1' => $request->lagerungCost1,
+                'extraCostText2' => $request->lagerungCostText2,
+                'extraCostValue2' => $request->lagerungCost2,
+                'discountText' => $request->lagerungExtraDiscountText,
+                'discountValue' => $request->lagerungExtraDiscount,
+                'discountPercent' => $request->lagerungDiscountPercent,
+                'costPrice' => $request->lagerungCostPrice,
+                'totalPrice' => $request->lagerungCost,
+                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+            ];
+
+            OfferteLagerung::create($offerLagerung);
+            $offerteLagerungIdBul = DB::table('offerte_lagerungs')->orderBy('id', 'DESC')->first();
+            $offerLagerungId = $offerteLagerungIdBul->id;
+        }
+
+
+        if ($offerMaterialId) {
+            if ($request->isVerpackungsmaterial == NULL) {
+                OfferteMaterial::where('id', $offerMaterialId)->delete();
+                OfferteBasket::where('materialId', $offerMaterialId)->delete();
+                $offerMaterialId = NULL;
+            } else {
+
+                $offerMaterial = [
+                    'discount' => $request->materialDiscount,
+                    'discountPercent' => $request->materialDiscountPercent,
+                    'deliverPrice' => $request->materialShipPrice,
+                    'recievePrice' => $request->materialRecievePrice,
+                    'totalPrice' => $request->materialTotalPrice
+                ];
+
+                $materialUpdate = OfferteMaterial::where('id', $offerMaterialId)->update($offerMaterial);
+
+                if ($materialUpdate && $all['islem']) {
+                    $islem = $all['islem'];
+                    unset($all['islem']);
+                    if (count($islem) != 0) {
+                        OfferteBasket::where('materialId', $offerMaterialId)->delete();
+                        foreach ($islem as $k => $v) {
+                            $offerBasket = [
+                                'productId' => $v['urunId'],
+                                'buyType' => $v['buyType'],
+                                'quantity' => $v['adet'],
+                                'totalPrice' => $v['toplam'],
+                                'materialId' => $offerMaterialId
+                            ];
+                            OfferteBasket::create($offerBasket);
+                        }
+                    } else {
+                        OfferteMaterial::where('id', $offerMaterialId)->delete();
+                        OfferteBasket::where('materialId', $offerMaterialId)->delete();
+                    }
+                }
+            }
+        } elseif ($offerMaterialId == NULL && $request->isVerpackungsmaterial) {
+            $offerMaterial = [
+                'discount' => $request->materialDiscount,
+                'discountPercent' => $request->materialDiscountPercent,
+                'deliverPrice' => $request->materialShipPrice,
+                'recievePrice' => $request->materialRecievePrice,
+                'totalPrice' => $request->materialTotalPrice
+            ];
+
+            $material = OfferteMaterial::create($offerMaterial);
+            $offerteMaterialIdBul = DB::table('offerte_materials')->orderBy('id', 'DESC')->first();
+            $offerMaterialId = $offerteMaterialIdBul->id;
+
+            if ($material && $all['islem']) {
+                $islem = $all['islem'];
+                unset($all['islem']);
+                if (count($islem) != 0) {
+                    foreach ($islem as $k => $v) {
+                        $offerBasket = [
+                            'productId' => $v['urunId'],
+                            'buyType' => $v['buyType'],
+                            'quantity' => $v['adet'],
+                            'totalPrice' => $v['tutar'],
+                            'materialId' => $offerMaterialId
+                        ];
+                        OfferteBasket::create($offerBasket);
+                    }
+                }
+            }
+        }
+
+        if ($request->contactPerson == 'Bitte wählen') {
+            $contactPerson = $request->customContactPerson;
+        } else {
+            $contactPerson = $request->contactPerson;
+        }
+
+        $offerteUpdate = [
+            'customerId' => $d['customerId'],
+            'appType' => $request->appOfferType,
+            'auszugaddressId' => $AusId,
+            'auszugaddressId2' => $AusId2,
+            'auszugaddressId3' => $AusId3,
+            'einzugaddressId' => $EinId,
+            'einzugaddressId2' => $EinId2,
+            'einzugaddressId3' => $EinId3,
+            'offerteUmzugId' => $offerUmzugId,
+            'offerteEinpackId' => $offerEinpackId,
+            'offerteAuspackId' => $offerAuspackId,
+            'offerteReinigungId' => $offerReinigungId,
+            'offerteReinigung2Id' => $offerReinigungId2,
+            'offerteEntsorgungId' => $offerEntsorgungId,
+            'offerteTransportId' => $offerTransportId,
+            'offerteLagerungId' => $offerLagerungId,
+            'offerteMaterialId' => $offerMaterialId,
+            'offerteNote' => $request->offertePdfNote,
+            'panelNote' => $request->offerteNote,
+            'kostenInkl' => $request->kdvType,
+            'kostenExkl' => $request->kdvType1,
+            'kostenFrei' => $request->kdvType3,
+            'contactPerson' => $contactPerson,
+            'offerteStatus' => 'Beklemede'
+        ];
+
+        $update = offerte::where('id', $id)->update($offerteUpdate);
 
         // Teklif Onayı
         $oToken = Str::random(64);
@@ -1845,62 +1736,62 @@ class indexController extends Controller
         ]);
 
         // SMS
-            if($request->isSMS)
-            {
-                $customerId = $request->route('id');
-                $customer = Customer::where('id',$customerId)->first();
-            
-                $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
-                $client = new \Vonage\Client($basic);
+        // if($request->isSMS)
+        // {
+        //     $customerId = $request->route('id');
+        //     $customer = Customer::where('id',$customerId)->first();
 
-                $number = $customer['mobile'];
-                $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
-                $content ='Ihr Angebot wurde erstellt From Swiss';
-                $staticContent2 = ' '.Company::InfoCompany('name');
-                if($request->isCustomSMS)
-                {
-                    $content = $request->customSMS;
-                    $response = $client->sms()->send(
-                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                    );
-                }
-                else{
-                    $response = $client->sms()->send(
-                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                    );
-                }
-            }
+        //     $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+        //     $client = new \Vonage\Client($basic);
+
+        //     $number = $customer['mobile'];
+        //     $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
+        //     $content ='Ihr Angebot wurde erstellt From Swiss';
+        //     $staticContent2 = ' '.Company::InfoCompany('name');
+        //     if($request->isCustomSMS)
+        //     {
+        //         $content = $request->customSMS;
+        //         $response = $client->sms()->send(
+        //             new \Vonage\SMS\Message\SMS('90 544 975 77 97', 'BRAND_NAME', $staticContent.$content.$staticContent2)
+        //         );
+        //     }
+        //     else{
+        //         $response = $client->sms()->send(
+        //             new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent.$content.$staticContent2)
+        //         );
+        //     }
+        // }
         // SMS
 
         $sub = 'Ihr Angebot';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
-        $customer=DB::table('customers')->where('id','=', $d['customerId'])->value('name'); // Customer Name
-        $customerSurname=DB::table('customers')->where('id','=', $d['customerId'])->value('surname');
-        $customerData =  Customer::where('id',$d['customerId'])->first();
-        
-        $offer = offerte::where('id',$id)->first();
-        $auszug1 = offerteAddress::where('id',$AusId)->first();
-        $auszug2 = offerteAddress::where('id',$AusId2)->first();
-        $auszug3 = offerteAddress::where('id',$AusId3)->first();
-        $einzug1 = offerteAddress::where('id',$EinId)->first();
-        $einzug2 = offerteAddress::where('id',$EinId2)->first();
-        $einzug3 = offerteAddress::where('id',$EinId3)->first();
-        $umzugPdf = OfferteUmzug::where('id',$offerUmzugId)->first();
-        $einpackPdf = OfferteEinpack::where('id',$offerEinpackId)->first();
-        $auspackPdf = OfferteAuspack::where('id',$offerAuspackId)->first();
-        $reinigungPdf = OfferteReinigung::where('id',$offerReinigungId)->first();
-        $reinigungPdf2 = OfferteReinigung::where('id',$offerReinigungId2)->first();
-        $entsorgungPdf = OfferteEntsorgung::where('id',$offerEntsorgungId)->first();
-        $transportPdf = OfferteTransport::where('id',$offerTransportId)->first();
-        $lagerungPdf = OfferteLagerung::where('id',$offerLagerungId)->first();
-        $materialPdf = OfferteMaterial::where('id',$offerMaterialId)->first();
-        $basketPdf = OfferteBasket::where('materialId',$offerMaterialId)->get()->toArray();
+        $customer = DB::table('customers')->where('id', '=', $d['customerId'])->value('name'); // Customer Name
+        $customerSurname = DB::table('customers')->where('id', '=', $d['customerId'])->value('surname');
+        $customerData =  Customer::where('id', $d['customerId'])->first();
+
+        $offer = offerte::where('id', $id)->first();
+        $auszug1 = offerteAddress::where('id', $AusId)->first();
+        $auszug2 = offerteAddress::where('id', $AusId2)->first();
+        $auszug3 = offerteAddress::where('id', $AusId3)->first();
+        $einzug1 = offerteAddress::where('id', $EinId)->first();
+        $einzug2 = offerteAddress::where('id', $EinId2)->first();
+        $einzug3 = offerteAddress::where('id', $EinId3)->first();
+        $umzugPdf = OfferteUmzug::where('id', $offerUmzugId)->first();
+        $einpackPdf = OfferteEinpack::where('id', $offerEinpackId)->first();
+        $auspackPdf = OfferteAuspack::where('id', $offerAuspackId)->first();
+        $reinigungPdf = OfferteReinigung::where('id', $offerReinigungId)->first();
+        $reinigungPdf2 = OfferteReinigung::where('id', $offerReinigungId2)->first();
+        $entsorgungPdf = OfferteEntsorgung::where('id', $offerEntsorgungId)->first();
+        $transportPdf = OfferteTransport::where('id', $offerTransportId)->first();
+        $lagerungPdf = OfferteLagerung::where('id', $offerLagerungId)->first();
+        $materialPdf = OfferteMaterial::where('id', $offerMaterialId)->first();
+        $basketPdf = OfferteBasket::where('materialId', $offerMaterialId)->get()->toArray();
 
 
         $pdfData = [
             'offer' => $offer,
-            'offerteNumber' => $offerteId ,
+            'offerteNumber' => $offerteId,
             'customer' => $customerData,
             'isUmzug' => $request->isUmzug,
             'isEinpack' => $request->isEinpack,
@@ -1937,7 +1828,7 @@ class indexController extends Controller
         $pdf = Pdf::loadView('offerPdf', $pdfData);
         $pdf->setPaper('A4');
 
-        $customLinks = "<a href=".route('customerOfferView', $zToken).'
+        $customLinks = "<a href=" . route('customerOfferView', $zToken) . '
         style="background-color: #8359B7;
         border-radius: 30px;
         color: white!important;
@@ -1948,7 +1839,7 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'Offerten Ansicht'.'</a>'.'<br>'."<a href=".route('acceptOffer', $oToken).'
+        ' . '>' . 'Offerten Ansicht' . '</a>' . '<br>' . "<a href=" . route('acceptOffer', $oToken) . '
         style="background-color: #007BFF;
         border-radius: 30px;
         color: white!important;
@@ -1959,7 +1850,7 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'Offerte Annehmen '.'</a>'.'<br>'."<a href=".route('rejectOffer', $oToken).'
+        ' . '>' . 'Offerte Annehmen ' . '</a>' . '<br>' . "<a href=" . route('rejectOffer', $oToken) . '
         style="background-color: #DC3545;
         border-radius: 30px;
         color: white!important;
@@ -1970,7 +1861,7 @@ class indexController extends Controller
         font-size: 12px;
         margin: 4px 2px;
         cursor: pointer;"
-        '.'>'.'Offerte Ablehnen'.'</a>';
+        ' . '>' . 'Offerte Ablehnen' . '</a>';
         $offerMailFooter = view('offerMailFooter');
 
         $emailData = [
@@ -1984,7 +1875,7 @@ class indexController extends Controller
             'from' => $from,
             'companyName' => $companyName,
             'email' => $request->email,
-            'emailContent'=> $request->emailContent,
+            'emailContent' => $request->emailContent,
             'isCustomEmailSend' => $isCustomEmailSend,
             'customEmailContent' => $customEmail,
             'pdf' => $pdf,
@@ -1994,542 +1885,532 @@ class indexController extends Controller
             'offerMailFooter' => $offerMailFooter
         ];
 
-        if ($isCustomEmailSend)
-        {
+        if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
 
-        if($update) 
-            {
-                $mailSuccess = '';
-                if($isEmailSend)
-                {
-                    Mail::to($emailData['email'])->send(new OfferMail($emailData));
-                    $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
-                }
+        if ($update) {
+            $mailSuccess = '';
+            if ($isEmailSend) {
+                Mail::to($emailData['email'])->send(new OfferMail($emailData));
+                $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
+            }
 
-                 return redirect()
+            return redirect()
                 ->route('customer.detail', ['id' => $d['customerId']])
-                ->with('status',$id.' - '.'Numaralı Teklif Düzenlendi'.$mailSuccess)
-                ->with('cat','Offerte')
+                ->with('status', $id . ' - ' . 'Numaralı Teklif Düzenlendi' . $mailSuccess)
+                ->with('cat', 'Offerte')
                 ->withInput()
                 ->with('keep_status', true);
-            }
-
-            else {
-                return redirect()->back()->with('status','HATA:Teklif Düzenlenemedi');
-            }
-
+        } else {
+            return redirect()->back()->with('status', 'HATA:Teklif Düzenlenemedi');
+        }
     }
 
 
     public function detail(Request $request)
     {
         $id = $request->route('id');
-        if($id !=0)
-        {
-            
-            $data = offerte::where('id',$id)->first();
+        if ($id != 0) {
+
+            $data = offerte::where('id', $id)->first();
             // dd($data);
-            $customer = Customer::where('id',$data['customerId'])->first();
-            return view ('front.offer.detail', 
-            [
-                'data' => $data,
-                'customer' => $customer
-            ]);
+            $customer = Customer::where('id', $data['customerId'])->first();
+            return view(
+                'front.offer.detail',
+                [
+                    'data' => $data,
+                    'customer' => $customer
+                ]
+            );
         }
     }
 
-    public function delete ($id)
+    public function delete($id)
     {
-        $c = offerte::where('id',$id)->count();
-        $offer = offerte::where('id',$id)->first();
+        $c = offerte::where('id', $id)->count();
+        $offer = offerte::where('id', $id)->first();
         $customerId = $offer['customerId'];
-        if($c !=0)
-        {
-            $data = offerte::where('id',$id)->first();
-            $data2 = offerte::where('mainOfferteId',$data['mainOfferteId'])->first();
+        if ($c != 0) {
+            $data = offerte::where('id', $id)->first();
+            $data2 = offerte::where('mainOfferteId', $data['mainOfferteId'])->first();
 
             // MainOfferte
-            $auszug = offerteAddress::where('id',$data['auszugaddressId'])->delete();
-            $auszug2 = offerteAddress::where('id',$data['auszugaddressId2'])->delete();
-            $auszug3 = offerteAddress::where('id',$data['auszugaddressId3'])->delete();
-            $einzug = offerteAddress::where('id',$data['einzugaddressId'])->delete();
-            $einzug2 = offerteAddress::where('id',$data['einzugaddressId2'])->delete();
-            $einzug2 = offerteAddress::where('id',$data['einzugaddressId3'])->delete();
-            $umzug = OfferteUmzug::where('id',$data['offerteUmzugId'])->delete();
-            $einpack = OfferteEinpack::where('id',$data['offerteEinpackId'])->delete();
-            $auspack = OfferteAuspack::where('id',$data['offerteAuspackId'])->delete();
-            $reinigung = OfferteReinigung::where('id',$data['offerteReinigungId'])->delete();
-            $reinigung2 = OfferteReinigung::where('id',$data['offerteReinigung2Id'])->delete();
-            $entsorgung = OfferteEntsorgung::where('id',$data['offerteEntsorgungId'])->delete();
-            $transport = OfferteTransport::where('id',$data['offerteTransportId'])->delete();
-            $lagerung = OfferteLagerung::where('id',$data['offerteLagerungId'])->delete();
-            $basket = OfferteBasket::where('materialId',$data['offerteMaterialId'])->delete();
-            $material = OfferteMaterial::where('id',$data['offerteMaterialId'])->delete();
-            Task::where('offerteId',$data['id'])->delete();
-            WorkerBasket::where('offerteID',$data['id'])->delete();
-            OfferVerify::where('offerId',$data['id'])->delete();
-            OfferCustomerView::where('offerId',$data['id'])->delete();
+            $auszug = offerteAddress::where('id', $data['auszugaddressId'])->delete();
+            $auszug2 = offerteAddress::where('id', $data['auszugaddressId2'])->delete();
+            $auszug3 = offerteAddress::where('id', $data['auszugaddressId3'])->delete();
+            $einzug = offerteAddress::where('id', $data['einzugaddressId'])->delete();
+            $einzug2 = offerteAddress::where('id', $data['einzugaddressId2'])->delete();
+            $einzug2 = offerteAddress::where('id', $data['einzugaddressId3'])->delete();
+            $umzug = OfferteUmzug::where('id', $data['offerteUmzugId'])->delete();
+            $einpack = OfferteEinpack::where('id', $data['offerteEinpackId'])->delete();
+            $auspack = OfferteAuspack::where('id', $data['offerteAuspackId'])->delete();
+            $reinigung = OfferteReinigung::where('id', $data['offerteReinigungId'])->delete();
+            $reinigung2 = OfferteReinigung::where('id', $data['offerteReinigung2Id'])->delete();
+            $entsorgung = OfferteEntsorgung::where('id', $data['offerteEntsorgungId'])->delete();
+            $transport = OfferteTransport::where('id', $data['offerteTransportId'])->delete();
+            $lagerung = OfferteLagerung::where('id', $data['offerteLagerungId'])->delete();
+            $basket = OfferteBasket::where('materialId', $data['offerteMaterialId'])->delete();
+            $material = OfferteMaterial::where('id', $data['offerteMaterialId'])->delete();
+            Task::where('offerteId', $data['id'])->delete();
+            WorkerBasket::where('offerteID', $data['id'])->delete();
+            OfferVerify::where('offerId', $data['id'])->delete();
+            OfferCustomerView::where('offerId', $data['id'])->delete();
 
             // UpdatedOfferte
-            $Uauszug = offerteAddress::where('id',$data2['auszugaddressId'])->delete();
-            $Uauszug2 = offerteAddress::where('id',$data2['auszugaddressId2'])->delete();
-            $Uauszug3 = offerteAddress::where('id',$data2['auszugaddressId3'])->delete();
-            $Ueinzug = offerteAddress::where('id',$data2['einzugaddressId'])->delete();
-            $Ueinzug2 = offerteAddress::where('id',$data2['einzugaddressId2'])->delete();
-            $Ueinzug2 = offerteAddress::where('id',$data2['einzugaddressId3'])->delete();
-            $Uumzug = OfferteUmzug::where('id',$data2['offerteUmzugId'])->delete();
-            $Ueinpack = OfferteEinpack::where('id',$data2['offerteEinpackId'])->delete();
-            $Uauspack = OfferteAuspack::where('id',$data2['offerteAuspackId'])->delete();
-            $Ureinigung = OfferteReinigung::where('id',$data2['offerteReinigungId'])->delete();
-            $Ureinigung2 = OfferteReinigung::where('id',$data2['offerteReinigung2Id'])->delete();
-            $Uentsorgung = OfferteEntsorgung::where('id',$data2['offerteEntsorgungId'])->delete();
-            $Utransport = OfferteTransport::where('id',$data2['offerteTransportId'])->delete();
-            $Ulagerung = OfferteLagerung::where('id',$data2['offerteLagerungId'])->delete();
-            $Ubasket = OfferteBasket::where('materialId',$data2['offerteMaterialId'])->delete();
-            $Umaterial = OfferteMaterial::where('id',$data2['offerteMaterialId'])->delete();
-            Task::where('offerteId',$data2['id'])->delete();
-            WorkerBasket::where('offerteID',$data2['id'])->delete();
-            OfferVerify::where('offerId',$data2['id'])->delete();
-            OfferCustomerView::where('offerId',$data2['id'])->delete();
+            $Uauszug = offerteAddress::where('id', $data2['auszugaddressId'])->delete();
+            $Uauszug2 = offerteAddress::where('id', $data2['auszugaddressId2'])->delete();
+            $Uauszug3 = offerteAddress::where('id', $data2['auszugaddressId3'])->delete();
+            $Ueinzug = offerteAddress::where('id', $data2['einzugaddressId'])->delete();
+            $Ueinzug2 = offerteAddress::where('id', $data2['einzugaddressId2'])->delete();
+            $Ueinzug2 = offerteAddress::where('id', $data2['einzugaddressId3'])->delete();
+            $Uumzug = OfferteUmzug::where('id', $data2['offerteUmzugId'])->delete();
+            $Ueinpack = OfferteEinpack::where('id', $data2['offerteEinpackId'])->delete();
+            $Uauspack = OfferteAuspack::where('id', $data2['offerteAuspackId'])->delete();
+            $Ureinigung = OfferteReinigung::where('id', $data2['offerteReinigungId'])->delete();
+            $Ureinigung2 = OfferteReinigung::where('id', $data2['offerteReinigung2Id'])->delete();
+            $Uentsorgung = OfferteEntsorgung::where('id', $data2['offerteEntsorgungId'])->delete();
+            $Utransport = OfferteTransport::where('id', $data2['offerteTransportId'])->delete();
+            $Ulagerung = OfferteLagerung::where('id', $data2['offerteLagerungId'])->delete();
+            $Ubasket = OfferteBasket::where('materialId', $data2['offerteMaterialId'])->delete();
+            $Umaterial = OfferteMaterial::where('id', $data2['offerteMaterialId'])->delete();
+            Task::where('offerteId', $data2['id'])->delete();
+            WorkerBasket::where('offerteID', $data2['id'])->delete();
+            OfferVerify::where('offerId', $data2['id'])->delete();
+            OfferCustomerView::where('offerId', $data2['id'])->delete();
 
-            offerte::where('mainOfferteId',$data2['id'])->delete();
-            offerte::where('id',$id)->delete();
+            offerte::where('mainOfferteId', $data2['id'])->delete();
+            offerte::where('id', $id)->delete();
 
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status', 'Teklif Başarıyla Silindi')
-                ->with('cat','Offerte')
+                ->with('cat', 'Offerte')
                 ->withInput()
                 ->with('keep_status', true);
-        }
-        else {
+        } else {
             return redirect('/');
         }
     }
 
     public function showPdf($id)
     {
-            $offer = offerte::where('id',$id)->first();
-            $customerData =  Customer::where('id',$offer['customerId'])->first();
-            $auszug1 = offerteAddress::where('id',$offer['auszugaddressId'])->first();
-            $auszug2 = offerteAddress::where('id',$offer['auszugaddressId2'])->first();
-            $auszug3 = offerteAddress::where('id',$offer['auszugaddressId3'])->first();
-            $einzug1 = offerteAddress::where('id',$offer['einzugaddressId'])->first();
-            $einzug2 = offerteAddress::where('id',$offer['einzugaddressId2'])->first();
-            $einzug3 = offerteAddress::where('id',$offer['einzugaddressId3'])->first();
-            $umzugPdf = OfferteUmzug::where('id',$offer['offerteUmzugId'])->first();
-            $einpackPdf = OfferteEinpack::where('id',$offer['offerteEinpackId'])->first();
-            $auspackPdf = OfferteAuspack::where('id',$offer['offerteAuspackId'])->first();
-            $reinigungPdf = OfferteReinigung::where('id',$offer['offerteReinigungId'])->first();
-            $reinigungPdf2 = OfferteReinigung::where('id',$offer['offerteReinigung2Id'])->first();
-            $entsorgungPdf = OfferteEntsorgung::where('id',$offer['offerteEntsorgungId'])->first();
-            $transportPdf = OfferteTransport::where('id',$offer['offerteTransportId'])->first();
-            $lagerungPdf = OfferteLagerung::where('id',$offer['offerteLagerungId'])->first();
-            $materialPdf = OfferteMaterial::where('id',$offer['offerteMaterialId'])->first();
-            $basketPdf = OfferteBasket::where('materialId',$offer['offerteMaterialId'])->get()->toArray();
-            
+        $offer = offerte::where('id', $id)->first();
+        $customerData =  Customer::where('id', $offer['customerId'])->first();
+        $auszug1 = offerteAddress::where('id', $offer['auszugaddressId'])->first();
+        $auszug2 = offerteAddress::where('id', $offer['auszugaddressId2'])->first();
+        $auszug3 = offerteAddress::where('id', $offer['auszugaddressId3'])->first();
+        $einzug1 = offerteAddress::where('id', $offer['einzugaddressId'])->first();
+        $einzug2 = offerteAddress::where('id', $offer['einzugaddressId2'])->first();
+        $einzug3 = offerteAddress::where('id', $offer['einzugaddressId3'])->first();
+        $umzugPdf = OfferteUmzug::where('id', $offer['offerteUmzugId'])->first();
+        $einpackPdf = OfferteEinpack::where('id', $offer['offerteEinpackId'])->first();
+        $auspackPdf = OfferteAuspack::where('id', $offer['offerteAuspackId'])->first();
+        $reinigungPdf = OfferteReinigung::where('id', $offer['offerteReinigungId'])->first();
+        $reinigungPdf2 = OfferteReinigung::where('id', $offer['offerteReinigung2Id'])->first();
+        $entsorgungPdf = OfferteEntsorgung::where('id', $offer['offerteEntsorgungId'])->first();
+        $transportPdf = OfferteTransport::where('id', $offer['offerteTransportId'])->first();
+        $lagerungPdf = OfferteLagerung::where('id', $offer['offerteLagerungId'])->first();
+        $materialPdf = OfferteMaterial::where('id', $offer['offerteMaterialId'])->first();
+        $basketPdf = OfferteBasket::where('materialId', $offer['offerteMaterialId'])->get()->toArray();
 
-            $pdfData = [
-                'offer' => $offer,
-                'offerteNumber' => $offer['id'] ,
-                'customer' => $customerData,
-                'isUmzug' => $offer['offerteUmzugId'],
-                'isEinpack' => $offer['offerteEinpackId'],
-                'isAuspack' => $offer['offerteAuspackId'],
-                'isReinigung' => $offer['offerteReinigungId'],
-                'isReinigung2' => $offer['offerteReinigungId2'],
-                'isEntsorgung' => $offer['offerteEntsorgungId'],
-                'isTransport' => $offer['offerteTransportId'],
-                'isLagerung' => $offer['offerteLagerungId'],
-                'isMaterial' => $offer['offerteMaterialId'],
-                'auszug1' => $auszug1,
-                'auszug2' => $auszug2,
-                'auszug3' => $auszug3,
-                'einzug1' => $einzug1,
-                'einzug2' => $einzug2,
-                'einzug3' => $einzug3,
-                'umzug' => $umzugPdf,
-                'einpack' => $einpackPdf,
-                'auspack' => $auspackPdf,
-                'reinigung' => $reinigungPdf,
-                'reinigung2' => $reinigungPdf2,
-                'entsorgung' => $entsorgungPdf,
-                'transport' => $transportPdf,
-                'lagerung' => $lagerungPdf,
-                'material' => $materialPdf,
-                'basket' => $basketPdf,
-            ];
-            
-            $pdf = Pdf::loadView('offerPdf', $pdfData);
-            return $pdf->stream();
+
+        $pdfData = [
+            'offer' => $offer,
+            'offerteNumber' => $offer['id'],
+            'customer' => $customerData,
+            'isUmzug' => $offer['offerteUmzugId'],
+            'isEinpack' => $offer['offerteEinpackId'],
+            'isAuspack' => $offer['offerteAuspackId'],
+            'isReinigung' => $offer['offerteReinigungId'],
+            'isReinigung2' => $offer['offerteReinigungId2'],
+            'isEntsorgung' => $offer['offerteEntsorgungId'],
+            'isTransport' => $offer['offerteTransportId'],
+            'isLagerung' => $offer['offerteLagerungId'],
+            'isMaterial' => $offer['offerteMaterialId'],
+            'auszug1' => $auszug1,
+            'auszug2' => $auszug2,
+            'auszug3' => $auszug3,
+            'einzug1' => $einzug1,
+            'einzug2' => $einzug2,
+            'einzug3' => $einzug3,
+            'umzug' => $umzugPdf,
+            'einpack' => $einpackPdf,
+            'auspack' => $auspackPdf,
+            'reinigung' => $reinigungPdf,
+            'reinigung2' => $reinigungPdf2,
+            'entsorgung' => $entsorgungPdf,
+            'transport' => $transportPdf,
+            'lagerung' => $lagerungPdf,
+            'material' => $materialPdf,
+            'basket' => $basketPdf,
+        ];
+
+        $pdf = Pdf::loadView('offerPdf', $pdfData);
+        return $pdf->stream();
     }
 
     // Akşam Bakılacak
     public function offerPdfPreview(Request $request)
     {
         $customerId = $request->route('id');
-        $customerData = Customer::where('id',$customerId)->first();
+        $customerData = Customer::where('id', $customerId)->first();
 
         // Auszug Adresses
-            $auszug1 = [
-                'street' => $request->ausStreet1,
-                'postCode' => $request->ausPostcode1,
-                'city' => $request->ausCity1,
-                'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
-                'buildType' => $request->ausBuildType1,
-                'floor' => $request->ausFloorType1,
-                'lift' => $request->isAusLift1,
-                'addressType' => 0   
-            ];
+        $auszug1 = [
+            'street' => $request->ausStreet1,
+            'postCode' => $request->ausPostcode1,
+            'city' => $request->ausCity1,
+            'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
+            'buildType' => $request->ausBuildType1,
+            'floor' => $request->ausFloorType1,
+            'lift' => $request->isAusLift1,
+            'addressType' => 0
+        ];
 
-            $auszug2 = [
-                'street' => $request->ausStreet2,
-                'postCode' => $request->ausPostcode2,
-                'city' => $request->ausCity2,
-                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
-                'buildType' => $request->ausBuildType2,
-                'floor' => $request->ausFloorType2,
-                'lift' => $request->isAusLift2,
-                'addressType' => 0    
-            ];
+        $auszug2 = [
+            'street' => $request->ausStreet2,
+            'postCode' => $request->ausPostcode2,
+            'city' => $request->ausCity2,
+            'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+            'buildType' => $request->ausBuildType2,
+            'floor' => $request->ausFloorType2,
+            'lift' => $request->isAusLift2,
+            'addressType' => 0
+        ];
 
-            $auszug3 = [
-                'street' => $request->ausStreet3,
-                'postCode' => $request->ausPostcode3,
-                'city' => $request->ausCity3,
-                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
-                'buildType' => $request->ausBuildType3,
-                'floor' => $request->ausFloorType3,
-                'lift' => $request->isAusLift3,
-                'addressType' => 0   
-            ];
+        $auszug3 = [
+            'street' => $request->ausStreet3,
+            'postCode' => $request->ausPostcode3,
+            'city' => $request->ausCity3,
+            'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+            'buildType' => $request->ausBuildType3,
+            'floor' => $request->ausFloorType3,
+            'lift' => $request->isAusLift3,
+            'addressType' => 0
+        ];
 
 
         // Einzug Adresses
-            $einzug1 = [
-                'street' => $request->einStreet1,
-                'postCode' => $request->einPostcode1,
-                'city' => $request->einCity1,
-                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
-                'buildType' => $request->einBuildType1,
-                'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1, 
-                'addressType' => 1 
-            ];
+        $einzug1 = [
+            'street' => $request->einStreet1,
+            'postCode' => $request->einPostcode1,
+            'city' => $request->einCity1,
+            'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+            'buildType' => $request->einBuildType1,
+            'floor' => $request->einFloorType1,
+            'lift' => $request->isEinLift1,
+            'addressType' => 1
+        ];
 
-            $einzug2 = [
-                'street' => $request->einStreet2,
-                'postCode' => $request->einPostcode2,
-                'city' => $request->einCity2,
-                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
-                'buildType' => $request->einBuildType2,
-                'floor' => $request->einFloorType2,
-                'lift' => $request->isEinLift2, 
-                'addressType' => 1  
-            ];
+        $einzug2 = [
+            'street' => $request->einStreet2,
+            'postCode' => $request->einPostcode2,
+            'city' => $request->einCity2,
+            'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+            'buildType' => $request->einBuildType2,
+            'floor' => $request->einFloorType2,
+            'lift' => $request->isEinLift2,
+            'addressType' => 1
+        ];
 
-            $einzug3 = [
-                'street' => $request->einStreet3,
-                'postCode' => $request->einPostcode3,
-                'city' => $request->einCity3,
-                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
-                'buildType' => $request->einBuildType3,
-                'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
-            ];
+        $einzug3 = [
+            'street' => $request->einStreet3,
+            'postCode' => $request->einPostcode3,
+            'city' => $request->einCity3,
+            'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+            'buildType' => $request->einBuildType3,
+            'floor' => $request->einFloorType3,
+            'lift' => $request->isEinLift3,
+            'addressType' => 1
+        ];
 
-        
+
         // Umzug Dizi
-            $umzugPdf = [
-                'tariff' => $request->umzugTariff,
-                'ma' => $request->umzug1ma,
-                'lkw' => $request->umzug1lkw,
-                'anhanger' => $request->umzug1anhanger,
-                'chf' => $request->umzug1chf,
-                'moveDate' => $request->umzugausdate,
-                'moveTime' => $request->umzug1time,
-                'moveDate2' => $request->umzugeindate,
-                'arrivalReturn' => $request->umzugroadChf,
-                'montage' => $request->umzugMontaj,
-                'moveHours' => $request->umzugHours,
-                'extra' => $request->masraf ? $request->extra1 : Null,
-                'extra1' => $request->masraf1 ? $request->extra2 : Null,
-                'extra2' => $request->masraf2 ? $request->extra3 : Null,
-                'extra3' => $request->masraf3 ? $request->extra4 : Null,
-                'extra4' => $request->masraf4 ? $request->extra5 : Null,
-                'extra5' => $request->masraf5 ? $request->extra6 : Null,
-                'extra6' => $request->masraf6 ? $request->extra7 : Null,
-                'extra7' => $request->masraf7 ? $request->extra8 : Null,
-                'extra8' => $request->masraf8 ? $request->extra9 : Null,
-                'extra9' => $request->masraf9 ? $request->extra10 : Null,
-                'extra10' => $request->masraf10 ? $request->extra11 : Null,
-                'customCostName1' => $request->extra12CostText,
-                'customCostPrice1' => $request->extra12Cost,
-                'customCostName2' => $request->extra13CostText,
-                'customCostPrice2' => $request->extra13Cost,
-                'costPrice' => $request->umzugCost,
-                'discount' => $request->umzugDiscount,
-                'discountPercent' => $request->umzugDiscountPercent,
-                'compromiser' => $request->umzugCompromiser,
-                'extraCostName' => $request->umzugExtraDiscountText,
-                'extraCostPrice' => $request->umzugExtraDiscount,
-                'defaultPrice' => $request->umzugTotalPrice, 
-                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
-            ];
-        
+        $umzugPdf = [
+            'tariff' => $request->umzugTariff,
+            'ma' => $request->umzug1ma,
+            'lkw' => $request->umzug1lkw,
+            'anhanger' => $request->umzug1anhanger,
+            'chf' => $request->umzug1chf,
+            'moveDate' => $request->umzugausdate,
+            'moveTime' => $request->umzug1time,
+            'moveDate2' => $request->umzugeindate,
+            'arrivalReturn' => $request->umzugroadChf,
+            'montage' => $request->umzugMontaj,
+            'moveHours' => $request->umzugHours,
+            'extra' => $request->masraf ? $request->extra1 : Null,
+            'extra1' => $request->masraf1 ? $request->extra2 : Null,
+            'extra2' => $request->masraf2 ? $request->extra3 : Null,
+            'extra3' => $request->masraf3 ? $request->extra4 : Null,
+            'extra4' => $request->masraf4 ? $request->extra5 : Null,
+            'extra5' => $request->masraf5 ? $request->extra6 : Null,
+            'extra6' => $request->masraf6 ? $request->extra7 : Null,
+            'extra7' => $request->masraf7 ? $request->extra8 : Null,
+            'extra8' => $request->masraf8 ? $request->extra9 : Null,
+            'extra9' => $request->masraf9 ? $request->extra10 : Null,
+            'extra10' => $request->masraf10 ? $request->extra11 : Null,
+            'customCostName1' => $request->extra12CostText,
+            'customCostPrice1' => $request->extra12Cost,
+            'customCostName2' => $request->extra13CostText,
+            'customCostPrice2' => $request->extra13Cost,
+            'costPrice' => $request->umzugCost,
+            'discount' => $request->umzugDiscount,
+            'discountPercent' => $request->umzugDiscountPercent,
+            'compromiser' => $request->umzugCompromiser,
+            'extraCostName' => $request->umzugExtraDiscountText,
+            'extraCostPrice' => $request->umzugExtraDiscount,
+            'defaultPrice' => $request->umzugTotalPrice,
+            'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+            'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+        ];
+
         // Einpack Dizi
-            $einpackPdf = [
-                'tariff' => $request->einpackTariff,
-                'ma' => $request->einpack1ma,
-                'chf' => $request->einpack1chf,
-                'einpackDate' => $request->einpackdate,
-                'einpackTime' => $request->einpacktime,
-                'arrivalReturn' => $request->einpackroadChf,
-                'moveHours' => $request->einpackHours,
-                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
-                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
-                'customCostName1' => $request->einpackCostText1,
-                'customCostPrice1' => $request->einpackCost1,
-                'customCostName2' => $request->einpackCostText2,
-                'customCostPrice2' => $request->einpackCost2,
-                'costPrice' => $request->einpackCost,
-                'discount' => $request->einpackDiscount,
-                'discountPercent' => $request->einpackDiscountPercent,
-                'compromiser' => $request->einpackCompromiser,
-                'extraCostName' => $request->einpackExtraDiscountText,
-                'extraCostPrice' => $request->einpackExtraDiscount,
-                'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
-                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
-            ];
+        $einpackPdf = [
+            'tariff' => $request->einpackTariff,
+            'ma' => $request->einpack1ma,
+            'chf' => $request->einpack1chf,
+            'einpackDate' => $request->einpackdate,
+            'einpackTime' => $request->einpacktime,
+            'arrivalReturn' => $request->einpackroadChf,
+            'moveHours' => $request->einpackHours,
+            'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+            'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+            'customCostName1' => $request->einpackCostText1,
+            'customCostPrice1' => $request->einpackCost1,
+            'customCostName2' => $request->einpackCostText2,
+            'customCostPrice2' => $request->einpackCost2,
+            'costPrice' => $request->einpackCost,
+            'discount' => $request->einpackDiscount,
+            'discountPercent' => $request->einpackDiscountPercent,
+            'compromiser' => $request->einpackCompromiser,
+            'extraCostName' => $request->einpackExtraDiscountText,
+            'extraCostPrice' => $request->einpackExtraDiscount,
+            'defaultPrice' => $request->einpackTotalPrice,
+            'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+            'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+        ];
 
         // Auspack Dizi
-            $auspackPdf = [
-                'tariff' => $request->auspackTariff,
-                'ma' => $request->auspack1ma,
-                'chf' => $request->auspack1chf,
-                'auspackDate' => $request->auspackdate,
-                'auspackTime' => $request->auspacktime,
-                'arrivalReturn' => $request->auspackroadChf,
-                'moveHours' => $request->auspackHours,
-                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
-                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
-                'customCostName1' => $request->auspackCostText1,
-                'customCostPrice1' => $request->auspackCost1,
-                'customCostName2' => $request->auspackCostText2,
-                'customCostPrice2' => $request->auspackCost2,
-                'costPrice' => $request->auspackCost,
-                'discount' => $request->auspackDiscount,
-                'discountPercent' => $request->auspackDiscountPercent,
-                'compromiser' => $request->auspackCompromiser,
-                'extraCostName' => $request->auspackExtraDiscountText,
-                'extraCostPrice' => $request->auspackExtraDiscount,
-                'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
-                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
-            ];
+        $auspackPdf = [
+            'tariff' => $request->auspackTariff,
+            'ma' => $request->auspack1ma,
+            'chf' => $request->auspack1chf,
+            'auspackDate' => $request->auspackdate,
+            'auspackTime' => $request->auspacktime,
+            'arrivalReturn' => $request->auspackroadChf,
+            'moveHours' => $request->auspackHours,
+            'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+            'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+            'customCostName1' => $request->auspackCostText1,
+            'customCostPrice1' => $request->auspackCost1,
+            'customCostName2' => $request->auspackCostText2,
+            'customCostPrice2' => $request->auspackCost2,
+            'costPrice' => $request->auspackCost,
+            'discount' => $request->auspackDiscount,
+            'discountPercent' => $request->auspackDiscountPercent,
+            'compromiser' => $request->auspackCompromiser,
+            'extraCostName' => $request->auspackExtraDiscountText,
+            'extraCostPrice' => $request->auspackExtraDiscount,
+            'defaultPrice' => $request->auspackTotalPrice,
+            'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+            'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+        ];
 
         // Reinigung Dizi
-            $reinigungPdf = [
-                'reinigungType' => $request->reinigungType,
-                'extraReinigung' => $request->extraReinigung,
-                'fixedTariff' => $request->reinigungFixedPrice,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
-                'standartTariff' => $request->reinigungPriceTariff,
-                'ma' => $request->reinigungmaValue,
-                'chf' => $request->reinigungchfValue,
-                'hours' => $request->reinigunghourValue,
-                'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
-                'startDate' => $request->reinigungdate,
-                'startTime' => $request->reinigungtime,
-                'endDate' => $request->reinigungEnddate,
-                'endTime' => $request->reinigungEndtime,
-                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
-                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
-                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
-                'extraCostText1' => $request->reinigungCostText1,
-                'extraCostValue1' => $request->reinigungCost1,
-                'extraCostText2' => $request->reinigungCostText2,
-                'extraCostValue2' => $request->reinigungCost2,
-                'discountText' => $request->reinigungExtraDiscountText,
-                'discount' => $request->reinigungExtraDiscount,
-                'discountPercent' => $request->reinigungDiscountPercent,
-                'totalPrice' => $request->reinigungTotalPrice,
-            ];
+        $reinigungPdf = [
+            'reinigungType' => $request->reinigungType,
+            'extraReinigung' => $request->extraReinigung,
+            'fixedTariff' => $request->reinigungFixedPrice,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+            'standartTariff' => $request->reinigungPriceTariff,
+            'ma' => $request->reinigungmaValue,
+            'chf' => $request->reinigungchfValue,
+            'hours' => $request->reinigunghourValue,
+            'extraService1' => $request->extraReinigungService1,
+            'extraService2' => $request->extraReinigungService2,
+            'startDate' => $request->reinigungdate,
+            'startTime' => $request->reinigungtime,
+            'endDate' => $request->reinigungEnddate,
+            'endTime' => $request->reinigungEndtime,
+            'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+            'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+            'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+            'extraCostText1' => $request->reinigungCostText1,
+            'extraCostValue1' => $request->reinigungCost1,
+            'extraCostText2' => $request->reinigungCostText2,
+            'extraCostValue2' => $request->reinigungCost2,
+            'discountText' => $request->reinigungExtraDiscountText,
+            'discount' => $request->reinigungExtraDiscount,
+            'discountPercent' => $request->reinigungDiscountPercent,
+            'totalPrice' => $request->reinigungTotalPrice,
+        ];
 
         // Reinigung 2 Dizi
-            $reinigungPdf2 = [
-                'reinigungType' => $request->reinigungType2,
-                'extraReinigung' => $request->extraReinigung2,
-                'fixedTariff' => $request->reinigungFixedPrice2,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
-                'standartTariff' => $request->reinigungPriceTariff2,
-                'ma' => $request->reinigungmaValue2,
-                'chf' => $request->reinigungchfValue2,
-                'hours' => $request->reinigunghourValue2,
-                'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
-                'startDate' => $request->reinigungdate2,
-                'startTime' => $request->reinigungtime2,
-                'endDate' => $request->reinigungEnddate2,
-                'endTime' => $request->reinigungEndtime2,
-                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
-                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
-                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
-                'extraCostText1' => $request->reinigungCostText12,
-                'extraCostValue1' => $request->reinigungCost12,
-                'extraCostText2' => $request->reinigungCostText22,
-                'extraCostValue2' => $request->reinigungCost22,
-                'discountText' => $request->reinigungExtraDiscountText2,
-                'discount' => $request->reinigungExtraDiscount2,
-                'discountPercent' => $request->reinigungDiscountPercent2,
-                'totalPrice' => $request->reinigungTotalPrice2,
-            ];
+        $reinigungPdf2 = [
+            'reinigungType' => $request->reinigungType2,
+            'extraReinigung' => $request->extraReinigung2,
+            'fixedTariff' => $request->reinigungFixedPrice2,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+            'standartTariff' => $request->reinigungPriceTariff2,
+            'ma' => $request->reinigungmaValue2,
+            'chf' => $request->reinigungchfValue2,
+            'hours' => $request->reinigunghourValue2,
+            'extraService1' => $request->extraReinigungService12,
+            'extraService2' => $request->extraReinigungService22,
+            'startDate' => $request->reinigungdate2,
+            'startTime' => $request->reinigungtime2,
+            'endDate' => $request->reinigungEnddate2,
+            'endTime' => $request->reinigungEndtime2,
+            'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
+            'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+            'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+            'extraCostText1' => $request->reinigungCostText12,
+            'extraCostValue1' => $request->reinigungCost12,
+            'extraCostText2' => $request->reinigungCostText22,
+            'extraCostValue2' => $request->reinigungCost22,
+            'discountText' => $request->reinigungExtraDiscountText2,
+            'discount' => $request->reinigungExtraDiscount2,
+            'discountPercent' => $request->reinigungDiscountPercent2,
+            'totalPrice' => $request->reinigungTotalPrice2,
+        ];
 
         // Entsorgung Dizi
-            $entsorgungPdf = [
-                'volume' => $request->entsorgungVolume,
-                'volumeCHF' => $request->entsorgungVolumeChf,
-                'fixedCost' => $request->entsorgungFixedChf,
-                'm3' => $request->estimatedVolume,
-                'tariff' => $request->entsorgungTariff,
-                'ma' => $request->entsorgungma,
-                'lkw' => $request->entsorgunglkw,
-                'anhanger' => $request->entsorgunganhanger,
-                'chf' => $request->entsorgungchf,
-                'hour' => $request->entsorgungHours,
-                'entsorgungDate' => $request->entsorgungDate,
-                'entsorgungTime' => $request->entsorgungTime,
-                'arrivalReturn' => $request->entsorgungroadChf,
-                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
-                'extraCostText1' => $request->entsorgungCostText1,
-                'extraCostValue1' => $request->entsorgungCost1,
-                'extraCostText2' => $request->entsorgungCostText2,
-                'extraCostValue2' => $request->entsorgungCost2,
-                'discount' => $request->entsorgungDiscount,
-                'discountPercent' => $request->entsorgungDiscountPercent,
-                'extraDiscountText' => $request->entsorgungExtraDiscountText,
-                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
-                'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
-                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
-            ];
+        $entsorgungPdf = [
+            'volume' => $request->entsorgungVolume,
+            'volumeCHF' => $request->entsorgungVolumeChf,
+            'fixedCost' => $request->entsorgungFixedChf,
+            'm3' => $request->estimatedVolume,
+            'tariff' => $request->entsorgungTariff,
+            'ma' => $request->entsorgungma,
+            'lkw' => $request->entsorgunglkw,
+            'anhanger' => $request->entsorgunganhanger,
+            'chf' => $request->entsorgungchf,
+            'hour' => $request->entsorgungHours,
+            'entsorgungDate' => $request->entsorgungDate,
+            'entsorgungTime' => $request->entsorgungTime,
+            'arrivalReturn' => $request->entsorgungroadChf,
+            'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+            'extraCostText1' => $request->entsorgungCostText1,
+            'extraCostValue1' => $request->entsorgungCost1,
+            'extraCostText2' => $request->entsorgungCostText2,
+            'extraCostValue2' => $request->entsorgungCost2,
+            'discount' => $request->entsorgungDiscount,
+            'discountPercent' => $request->entsorgungDiscountPercent,
+            'extraDiscountText' => $request->entsorgungExtraDiscountText,
+            'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+            'defaultPrice' => $request->entsorgungTotalPrice,
+            'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+            'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+        ];
         // Transport Dizi
-            $transportPdf = [
-                'pdfText' => $request->pdfText,
-                'fixedChf' => $request->transportFixedTariff,
-                'tariff' => $request->transportTariff,
-                'ma' => $request->transportma,
-                'lkw' => $request->transportlkw,
-                'anhanger' => $request->transportanhanger,
-                'chf' => $request->transportchf,
-                'hour' => $request->transporthour,
-                'transportDate' => $request->transportDate,
-                'transportTime' => $request->transportTime,
-                'arrivalReturn' => $request->transportRoadChf,
-                'extraCostText1' => $request->transportCostText1,
-                'extraCostValue1' => $request->transportCost1,
-                'extraCostText2' => $request->transportCostText2,
-                'extraCostValue2' => $request->transportCost2,
-                'extraCostText3' => $request->transportCostText3,
-                'extraCostValue3' => $request->transportCost3,
-                'extraCostText4' => $request->transportCostText4,
-                'extraCostValue4' => $request->transportCost4,
-                'extraCostText5' => $request->transportCostText5,
-                'extraCostValue5' => $request->transportCost5,
-                'extraCostText6' => $request->transportCostText6,
-                'extraCostValue6' => $request->transportCost6,
-                'extraCostText7' => $request->transportCostText7,
-                'extraCostValue7' => $request->transportCost7,
-                'totalPrice' => $request->transportCost,
-                'discount' => $request->transportDiscount,
-                'discountPercent' => $request->transportDiscountPercent,
-                'compromiser' => $request->transportCompromiser,
-                'extraDiscountText' => $request->transportExtraDiscountText,
-                'extraDiscountValue' => $request->transportExtraDiscount,
-                'extraDiscountText2' => $request->transportExtraDiscountText2,
-                'extraDiscountValue2' => $request->transportExtraDiscount2,
-                'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
-                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
-            ];
+        $transportPdf = [
+            'pdfText' => $request->pdfText,
+            'fixedChf' => $request->transportFixedTariff,
+            'tariff' => $request->transportTariff,
+            'ma' => $request->transportma,
+            'lkw' => $request->transportlkw,
+            'anhanger' => $request->transportanhanger,
+            'chf' => $request->transportchf,
+            'hour' => $request->transporthour,
+            'transportDate' => $request->transportDate,
+            'transportTime' => $request->transportTime,
+            'arrivalReturn' => $request->transportRoadChf,
+            'extraCostText1' => $request->transportCostText1,
+            'extraCostValue1' => $request->transportCost1,
+            'extraCostText2' => $request->transportCostText2,
+            'extraCostValue2' => $request->transportCost2,
+            'extraCostText3' => $request->transportCostText3,
+            'extraCostValue3' => $request->transportCost3,
+            'extraCostText4' => $request->transportCostText4,
+            'extraCostValue4' => $request->transportCost4,
+            'extraCostText5' => $request->transportCostText5,
+            'extraCostValue5' => $request->transportCost5,
+            'extraCostText6' => $request->transportCostText6,
+            'extraCostValue6' => $request->transportCost6,
+            'extraCostText7' => $request->transportCostText7,
+            'extraCostValue7' => $request->transportCost7,
+            'totalPrice' => $request->transportCost,
+            'discount' => $request->transportDiscount,
+            'discountPercent' => $request->transportDiscountPercent,
+            'compromiser' => $request->transportCompromiser,
+            'extraDiscountText' => $request->transportExtraDiscountText,
+            'extraDiscountValue' => $request->transportExtraDiscount,
+            'extraDiscountText2' => $request->transportExtraDiscountText2,
+            'extraDiscountValue2' => $request->transportExtraDiscount2,
+            'defaultPrice' => $request->transportDefaultPrice,
+            'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+            'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+        ];
 
         // Lagerung Dizi
-            $lagerungPdf = [
-                'tariff' => $request->lagerungTariff,
-                'chf' => $request->lagerungChf,
-                'volume' => $request->lagerungVolume,
-                'extraCostText1' => $request->lagerungCostText1,
-                'extraCostValue1' => $request->lagerungCost1,
-                'extraCostText2' => $request->lagerungCostText2,
-                'extraCostValue2' => $request->lagerungCost2, 
-                'discountText' => $request->lagerungExtraDiscountText, 
-                'discountValue' => $request->lagerungExtraDiscount, 
-                'discountPercent' => $request->lagerungDiscountPercent,
-                'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
-            ];
+        $lagerungPdf = [
+            'tariff' => $request->lagerungTariff,
+            'chf' => $request->lagerungChf,
+            'volume' => $request->lagerungVolume,
+            'extraCostText1' => $request->lagerungCostText1,
+            'extraCostValue1' => $request->lagerungCost1,
+            'extraCostText2' => $request->lagerungCostText2,
+            'extraCostValue2' => $request->lagerungCost2,
+            'discountText' => $request->lagerungExtraDiscountText,
+            'discountValue' => $request->lagerungExtraDiscount,
+            'discountPercent' => $request->lagerungDiscountPercent,
+            'totalPrice' => $request->lagerungCost,
+            'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+        ];
         // Material Dizi
-            $materialPdf = [
+        $materialPdf = [
             'discount' => $request->materialDiscount,
             'deliverPrice' => $request->materialShipPrice,
             'recievePrice' => $request->materialRecievePrice,
             'discountPercent' => $request->materialDiscountPercent,
             'totalPrice' => $request->materialTotalPrice
-            ];
+        ];
 
-            $all = $request->except('_token');
-            if (isset($all['islem'])) {
-                $islem = $all['islem'];
-                unset($all['islem']);
+        $all = $request->except('_token');
+        if (isset($all['islem'])) {
+            $islem = $all['islem'];
+            unset($all['islem']);
 
-                $baskets = collect();
-                foreach ($islem as $v) {
-                    $basket = [
-                        'productId' => $v['urunId'],
-                        'buyType' => $v['buyType'],
-                        'productPrice' => $v['tutar'],
-                        'quantity' => $v['adet'],
-                        'totalPrice' => $v['toplam'],
-                    ];
-                    $baskets->push($basket);
-                }
-
-                $basketPdf = $baskets->toArray();
-            } else {
-                $basketPdf = [];
+            $baskets = collect();
+            foreach ($islem as $v) {
+                $basket = [
+                    'productId' => $v['urunId'],
+                    'buyType' => $v['buyType'],
+                    'productPrice' => $v['tutar'],
+                    'quantity' => $v['adet'],
+                    'totalPrice' => $v['toplam'],
+                ];
+                $baskets->push($basket);
             }
 
-        if ($request->customContactPerson)
-        {   
-            $contactPerson = $request->customContactPerson;
+            $basketPdf = $baskets->toArray();
+        } else {
+            $basketPdf = [];
         }
-        else
-        {
+
+        if ($request->customContactPerson) {
+            $contactPerson = $request->customContactPerson;
+        } else {
             $contactPerson = $request->contactPerson;
         }
-        
-        // Offer Dizi
-            $offer = [
-                'customerId' =>$customerId,
-                'appType' => $request->appOfferType,
-                'offerteNote' => $request->offertePdfNote,
-                'panelNote' => $request->offerteNote,
-                'kostenInkl' => $request->kdvType,
-                'kostenExkl' => $request->kdvType1,
-                'kostenFrei' => $request->kdvType3,
-                'contactPerson' => $contactPerson,
-                'offerteStatus' => 'Beklemede'
-            ];
 
-            $company = Company::first();
-            // PDF Dizi
-            $pdfData = [
+        // Offer Dizi
+        $offer = [
+            'customerId' => $customerId,
+            'appType' => $request->appOfferType,
+            'offerteNote' => $request->offertePdfNote,
+            'panelNote' => $request->offerteNote,
+            'kostenInkl' => $request->kdvType,
+            'kostenExkl' => $request->kdvType1,
+            'kostenFrei' => $request->kdvType3,
+            'contactPerson' => $contactPerson,
+            'offerteStatus' => 'Beklemede'
+        ];
+
+        $company = Company::first();
+        // PDF Dizi
+        $pdfData = [
             'offer' => $offer,
             'company' => $company,
             'customer' => $customerData,
@@ -2564,7 +2445,7 @@ class indexController extends Controller
             'material' => $materialPdf,
             'basket' => $basketPdf,
         ];
-        
+
         $pdf = Pdf::loadView('offerPdfPreview', $pdfData);
         $pdf->setPaper('A4');
         return $pdf->stream();
@@ -2574,366 +2455,363 @@ class indexController extends Controller
     public function offerPdfPreviewTest(Request $request)
     {
         $customerId = $request->route('id');
-        $customerData = Customer::where('id',$customerId)->first();
+        $customerData = Customer::where('id', $customerId)->first();
 
         // Auszug Adresses
-            $auszug1 = [
-                'street' => $request->ausStreet1,
-                'postCode' => $request->ausPostcode1,
-                'city' => $request->ausCity1,
-                'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
-                'buildType' => $request->ausBuildType1,
-                'floor' => $request->ausFloorType1,
-                'lift' => $request->isAusLift1,
-                'addressType' => 0   
-            ];
+        $auszug1 = [
+            'street' => $request->ausStreet1,
+            'postCode' => $request->ausPostcode1,
+            'city' => $request->ausCity1,
+            'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
+            'buildType' => $request->ausBuildType1,
+            'floor' => $request->ausFloorType1,
+            'lift' => $request->isAusLift1,
+            'addressType' => 0
+        ];
 
-            $auszug2 = [
-                'street' => $request->ausStreet2,
-                'postCode' => $request->ausPostcode2,
-                'city' => $request->ausCity2,
-                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
-                'buildType' => $request->ausBuildType2,
-                'floor' => $request->ausFloorType2,
-                'lift' => $request->isAusLift2,
-                'addressType' => 0    
-            ];
+        $auszug2 = [
+            'street' => $request->ausStreet2,
+            'postCode' => $request->ausPostcode2,
+            'city' => $request->ausCity2,
+            'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+            'buildType' => $request->ausBuildType2,
+            'floor' => $request->ausFloorType2,
+            'lift' => $request->isAusLift2,
+            'addressType' => 0
+        ];
 
-            $auszug3 = [
-                'street' => $request->ausStreet3,
-                'postCode' => $request->ausPostcode3,
-                'city' => $request->ausCity3,
-                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
-                'buildType' => $request->ausBuildType3,
-                'floor' => $request->ausFloorType3,
-                'lift' => $request->isAusLift3,
-                'addressType' => 0   
-            ];
+        $auszug3 = [
+            'street' => $request->ausStreet3,
+            'postCode' => $request->ausPostcode3,
+            'city' => $request->ausCity3,
+            'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+            'buildType' => $request->ausBuildType3,
+            'floor' => $request->ausFloorType3,
+            'lift' => $request->isAusLift3,
+            'addressType' => 0
+        ];
 
 
         // Einzug Adresses
-            $einzug1 = [
-                'street' => $request->einStreet1,
-                'postCode' => $request->einPostcode1,
-                'city' => $request->einCity1,
-                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
-                'buildType' => $request->einBuildType1,
-                'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1, 
-                'addressType' => 1 
-            ];
+        $einzug1 = [
+            'street' => $request->einStreet1,
+            'postCode' => $request->einPostcode1,
+            'city' => $request->einCity1,
+            'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+            'buildType' => $request->einBuildType1,
+            'floor' => $request->einFloorType1,
+            'lift' => $request->isEinLift1,
+            'addressType' => 1
+        ];
 
-            $einzug2 = [
-                'street' => $request->einStreet2,
-                'postCode' => $request->einPostcode2,
-                'city' => $request->einCity2,
-                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
-                'buildType' => $request->einBuildType2,
-                'floor' => $request->einFloorType2,
-                'lift' => $request->isEinLift2, 
-                'addressType' => 1  
-            ];
+        $einzug2 = [
+            'street' => $request->einStreet2,
+            'postCode' => $request->einPostcode2,
+            'city' => $request->einCity2,
+            'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+            'buildType' => $request->einBuildType2,
+            'floor' => $request->einFloorType2,
+            'lift' => $request->isEinLift2,
+            'addressType' => 1
+        ];
 
-            $einzug3 = [
-                'street' => $request->einStreet3,
-                'postCode' => $request->einPostcode3,
-                'city' => $request->einCity3,
-                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
-                'buildType' => $request->einBuildType3,
-                'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
-            ];
+        $einzug3 = [
+            'street' => $request->einStreet3,
+            'postCode' => $request->einPostcode3,
+            'city' => $request->einCity3,
+            'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+            'buildType' => $request->einBuildType3,
+            'floor' => $request->einFloorType3,
+            'lift' => $request->isEinLift3,
+            'addressType' => 1
+        ];
 
-        
+
         // Umzug Dizi
-            $umzugPdf = [
-                'tariff' => $request->umzugTariff,
-                'ma' => $request->umzug1ma,
-                'lkw' => $request->umzug1lkw,
-                'anhanger' => $request->umzug1anhanger,
-                'chf' => $request->umzug1chf,
-                'moveDate' => $request->umzugausdate,
-                'moveTime' => $request->umzug1time,
-                'moveDate2' => $request->umzugeindate,
-                'arrivalReturn' => $request->umzugroadChf,
-                'montage' => $request->umzugMontaj,
-                'moveHours' => $request->umzugHours,
-                'extra' => $request->masraf ? $request->extra1 : Null,
-                'extra1' => $request->masraf1 ? $request->extra2 : Null,
-                'extra2' => $request->masraf2 ? $request->extra3 : Null,
-                'extra3' => $request->masraf3 ? $request->extra4 : Null,
-                'extra4' => $request->masraf4 ? $request->extra5 : Null,
-                'extra5' => $request->masraf5 ? $request->extra6 : Null,
-                'extra6' => $request->masraf6 ? $request->extra7 : Null,
-                'extra7' => $request->masraf7 ? $request->extra8 : Null,
-                'extra8' => $request->masraf8 ? $request->extra9 : Null,
-                'extra9' => $request->masraf9 ? $request->extra10 : Null,
-                'extra10' => $request->masraf10 ? $request->extra11 : Null,
-                'customCostName1' => $request->extra12CostText,
-                'customCostPrice1' => $request->extra12Cost,
-                'customCostName2' => $request->extra13CostText,
-                'customCostPrice2' => $request->extra13Cost,
-                'costPrice' => $request->umzugCost,
-                'discount' => $request->umzugDiscount,
-                'discountPercent' => $request->umzugDiscountPercent,
-                'compromiser' => $request->umzugCompromiser,
-                'extraCostName' => $request->umzugExtraDiscountText,
-                'extraCostPrice' => $request->umzugExtraDiscount,
-                'defaultPrice' => $request->umzugTotalPrice, 
-                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
-            ];
-        
+        $umzugPdf = [
+            'tariff' => $request->umzugTariff,
+            'ma' => $request->umzug1ma,
+            'lkw' => $request->umzug1lkw,
+            'anhanger' => $request->umzug1anhanger,
+            'chf' => $request->umzug1chf,
+            'moveDate' => $request->umzugausdate,
+            'moveTime' => $request->umzug1time,
+            'moveDate2' => $request->umzugeindate,
+            'arrivalReturn' => $request->umzugroadChf,
+            'montage' => $request->umzugMontaj,
+            'moveHours' => $request->umzugHours,
+            'extra' => $request->masraf ? $request->extra1 : Null,
+            'extra1' => $request->masraf1 ? $request->extra2 : Null,
+            'extra2' => $request->masraf2 ? $request->extra3 : Null,
+            'extra3' => $request->masraf3 ? $request->extra4 : Null,
+            'extra4' => $request->masraf4 ? $request->extra5 : Null,
+            'extra5' => $request->masraf5 ? $request->extra6 : Null,
+            'extra6' => $request->masraf6 ? $request->extra7 : Null,
+            'extra7' => $request->masraf7 ? $request->extra8 : Null,
+            'extra8' => $request->masraf8 ? $request->extra9 : Null,
+            'extra9' => $request->masraf9 ? $request->extra10 : Null,
+            'extra10' => $request->masraf10 ? $request->extra11 : Null,
+            'customCostName1' => $request->extra12CostText,
+            'customCostPrice1' => $request->extra12Cost,
+            'customCostName2' => $request->extra13CostText,
+            'customCostPrice2' => $request->extra13Cost,
+            'costPrice' => $request->umzugCost,
+            'discount' => $request->umzugDiscount,
+            'discountPercent' => $request->umzugDiscountPercent,
+            'compromiser' => $request->umzugCompromiser,
+            'extraCostName' => $request->umzugExtraDiscountText,
+            'extraCostPrice' => $request->umzugExtraDiscount,
+            'defaultPrice' => $request->umzugTotalPrice,
+            'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+            'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+        ];
+
         // Einpack Dizi
-            $einpackPdf = [
-                'tariff' => $request->einpackTariff,
-                'ma' => $request->einpack1ma,
-                'chf' => $request->einpack1chf,
-                'einpackDate' => $request->einpackdate,
-                'einpackTime' => $request->einpacktime,
-                'arrivalReturn' => $request->einpackroadChf,
-                'moveHours' => $request->einpackHours,
-                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
-                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
-                'customCostName1' => $request->einpackCostText1,
-                'customCostPrice1' => $request->einpackCost1,
-                'customCostName2' => $request->einpackCostText2,
-                'customCostPrice2' => $request->einpackCost2,
-                'costPrice' => $request->einpackCost,
-                'discount' => $request->einpackDiscount,
-                'discountPercent' => $request->einpackDiscountPercent,
-                'compromiser' => $request->einpackCompromiser,
-                'extraCostName' => $request->einpackExtraDiscountText,
-                'extraCostPrice' => $request->einpackExtraDiscount,
-                'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
-                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
-            ];
+        $einpackPdf = [
+            'tariff' => $request->einpackTariff,
+            'ma' => $request->einpack1ma,
+            'chf' => $request->einpack1chf,
+            'einpackDate' => $request->einpackdate,
+            'einpackTime' => $request->einpacktime,
+            'arrivalReturn' => $request->einpackroadChf,
+            'moveHours' => $request->einpackHours,
+            'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+            'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+            'customCostName1' => $request->einpackCostText1,
+            'customCostPrice1' => $request->einpackCost1,
+            'customCostName2' => $request->einpackCostText2,
+            'customCostPrice2' => $request->einpackCost2,
+            'costPrice' => $request->einpackCost,
+            'discount' => $request->einpackDiscount,
+            'discountPercent' => $request->einpackDiscountPercent,
+            'compromiser' => $request->einpackCompromiser,
+            'extraCostName' => $request->einpackExtraDiscountText,
+            'extraCostPrice' => $request->einpackExtraDiscount,
+            'defaultPrice' => $request->einpackTotalPrice,
+            'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+            'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+        ];
 
         // Auspack Dizi
-            $auspackPdf = [
-                'tariff' => $request->auspackTariff,
-                'ma' => $request->auspack1ma,
-                'chf' => $request->auspack1chf,
-                'auspackDate' => $request->auspackdate,
-                'auspackTime' => $request->auspacktime,
-                'arrivalReturn' => $request->auspackroadChf,
-                'moveHours' => $request->auspackHours,
-                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
-                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
-                'customCostName1' => $request->auspackCostText1,
-                'customCostPrice1' => $request->auspackCost1,
-                'customCostName2' => $request->auspackCostText2,
-                'customCostPrice2' => $request->auspackCost2,
-                'costPrice' => $request->auspackCost,
-                'discount' => $request->auspackDiscount,
-                'discountPercent' => $request->auspackDiscountPercent,
-                'compromiser' => $request->auspackCompromiser,
-                'extraCostName' => $request->auspackExtraDiscountText,
-                'extraCostPrice' => $request->auspackExtraDiscount,
-                'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
-                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
-            ];
+        $auspackPdf = [
+            'tariff' => $request->auspackTariff,
+            'ma' => $request->auspack1ma,
+            'chf' => $request->auspack1chf,
+            'auspackDate' => $request->auspackdate,
+            'auspackTime' => $request->auspacktime,
+            'arrivalReturn' => $request->auspackroadChf,
+            'moveHours' => $request->auspackHours,
+            'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+            'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+            'customCostName1' => $request->auspackCostText1,
+            'customCostPrice1' => $request->auspackCost1,
+            'customCostName2' => $request->auspackCostText2,
+            'customCostPrice2' => $request->auspackCost2,
+            'costPrice' => $request->auspackCost,
+            'discount' => $request->auspackDiscount,
+            'discountPercent' => $request->auspackDiscountPercent,
+            'compromiser' => $request->auspackCompromiser,
+            'extraCostName' => $request->auspackExtraDiscountText,
+            'extraCostPrice' => $request->auspackExtraDiscount,
+            'defaultPrice' => $request->auspackTotalPrice,
+            'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+            'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+        ];
 
         // Reinigung Dizi
-            $reinigungPdf = [
-                'reinigungType' => $request->reinigungType,
-                'extraReinigung' => $request->extraReinigung,
-                'fixedTariff' => $request->reinigungFixedPrice,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
-                'standartTariff' => $request->reinigungPriceTariff,
-                'ma' => $request->reinigungmaValue,
-                'chf' => $request->reinigungchfValue,
-                'hours' => $request->reinigunghourValue,
-                'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
-                'startDate' => $request->reinigungdate,
-                'startTime' => $request->reinigungtime,
-                'endDate' => $request->reinigungEnddate,
-                'endTime' => $request->reinigungEndtime,
-                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
-                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
-                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
-                'extraCostText1' => $request->reinigungCostText1,
-                'extraCostValue1' => $request->reinigungCost1,
-                'extraCostText2' => $request->reinigungCostText2,
-                'extraCostValue2' => $request->reinigungCost2,
-                'discountText' => $request->reinigungExtraDiscountText,
-                'discount' => $request->reinigungExtraDiscount,
-                'discountPercent' => $request->reinigungDiscountPercent,
-                'totalPrice' => $request->reinigungTotalPrice,
-            ];
+        $reinigungPdf = [
+            'reinigungType' => $request->reinigungType,
+            'extraReinigung' => $request->extraReinigung,
+            'fixedTariff' => $request->reinigungFixedPrice,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+            'standartTariff' => $request->reinigungPriceTariff,
+            'ma' => $request->reinigungmaValue,
+            'chf' => $request->reinigungchfValue,
+            'hours' => $request->reinigunghourValue,
+            'extraService1' => $request->extraReinigungService1,
+            'extraService2' => $request->extraReinigungService2,
+            'startDate' => $request->reinigungdate,
+            'startTime' => $request->reinigungtime,
+            'endDate' => $request->reinigungEnddate,
+            'endTime' => $request->reinigungEndtime,
+            'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+            'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+            'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+            'extraCostText1' => $request->reinigungCostText1,
+            'extraCostValue1' => $request->reinigungCost1,
+            'extraCostText2' => $request->reinigungCostText2,
+            'extraCostValue2' => $request->reinigungCost2,
+            'discountText' => $request->reinigungExtraDiscountText,
+            'discount' => $request->reinigungExtraDiscount,
+            'discountPercent' => $request->reinigungDiscountPercent,
+            'totalPrice' => $request->reinigungTotalPrice,
+        ];
 
         // Reinigung 2 Dizi
-            $reinigungPdf2 = [
-                'reinigungType' => $request->reinigungType2,
-                'extraReinigung' => $request->extraReinigung2,
-                'fixedTariff' => $request->reinigungFixedPrice2,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
-                'standartTariff' => $request->reinigungPriceTariff2,
-                'ma' => $request->reinigungmaValue2,
-                'chf' => $request->reinigungchfValue2,
-                'hours' => $request->reinigunghourValue2,
-                'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
-                'startDate' => $request->reinigungdate2,
-                'startTime' => $request->reinigungtime2,
-                'endDate' => $request->reinigungEnddate2,
-                'endTime' => $request->reinigungEndtime2,
-                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
-                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
-                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
-                'extraCostText1' => $request->reinigungCostText12,
-                'extraCostValue1' => $request->reinigungCost12,
-                'extraCostText2' => $request->reinigungCostText22,
-                'extraCostValue2' => $request->reinigungCost22,
-                'discountText' => $request->reinigungExtraDiscountText2,
-                'discount' => $request->reinigungExtraDiscount2,
-                'discountPercent' => $request->reinigungDiscountPercent2,
-                'totalPrice' => $request->reinigungTotalPrice2,
-            ];
+        $reinigungPdf2 = [
+            'reinigungType' => $request->reinigungType2,
+            'extraReinigung' => $request->extraReinigung2,
+            'fixedTariff' => $request->reinigungFixedPrice2,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+            'standartTariff' => $request->reinigungPriceTariff2,
+            'ma' => $request->reinigungmaValue2,
+            'chf' => $request->reinigungchfValue2,
+            'hours' => $request->reinigunghourValue2,
+            'extraService1' => $request->extraReinigungService12,
+            'extraService2' => $request->extraReinigungService22,
+            'startDate' => $request->reinigungdate2,
+            'startTime' => $request->reinigungtime2,
+            'endDate' => $request->reinigungEnddate2,
+            'endTime' => $request->reinigungEndtime2,
+            'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
+            'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+            'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+            'extraCostText1' => $request->reinigungCostText12,
+            'extraCostValue1' => $request->reinigungCost12,
+            'extraCostText2' => $request->reinigungCostText22,
+            'extraCostValue2' => $request->reinigungCost22,
+            'discountText' => $request->reinigungExtraDiscountText2,
+            'discount' => $request->reinigungExtraDiscount2,
+            'discountPercent' => $request->reinigungDiscountPercent2,
+            'totalPrice' => $request->reinigungTotalPrice2,
+        ];
 
         // Entsorgung Dizi
-            $entsorgungPdf = [
-                'volume' => $request->entsorgungVolume,
-                'volumeCHF' => $request->entsorgungVolumeChf,
-                'fixedCost' => $request->entsorgungFixedChf,
-                'm3' => $request->estimatedVolume,
-                'tariff' => $request->entsorgungTariff,
-                'ma' => $request->entsorgungma,
-                'lkw' => $request->entsorgunglkw,
-                'anhanger' => $request->entsorgunganhanger,
-                'chf' => $request->entsorgungchf,
-                'hour' => $request->entsorgungHours,
-                'entsorgungDate' => $request->entsorgungDate,
-                'entsorgungTime' => $request->entsorgungTime,
-                'arrivalReturn' => $request->entsorgungroadChf,
-                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
-                'extraCostText1' => $request->entsorgungCostText1,
-                'extraCostValue1' => $request->entsorgungCost1,
-                'extraCostText2' => $request->entsorgungCostText2,
-                'extraCostValue2' => $request->entsorgungCost2,
-                'discount' => $request->entsorgungDiscount,
-                'discountPercent' => $request->entsorgungDiscountPercent,
-                'extraDiscountText' => $request->entsorgungExtraDiscountText,
-                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
-                'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
-                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
-            ];
+        $entsorgungPdf = [
+            'volume' => $request->entsorgungVolume,
+            'volumeCHF' => $request->entsorgungVolumeChf,
+            'fixedCost' => $request->entsorgungFixedChf,
+            'm3' => $request->estimatedVolume,
+            'tariff' => $request->entsorgungTariff,
+            'ma' => $request->entsorgungma,
+            'lkw' => $request->entsorgunglkw,
+            'anhanger' => $request->entsorgunganhanger,
+            'chf' => $request->entsorgungchf,
+            'hour' => $request->entsorgungHours,
+            'entsorgungDate' => $request->entsorgungDate,
+            'entsorgungTime' => $request->entsorgungTime,
+            'arrivalReturn' => $request->entsorgungroadChf,
+            'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+            'extraCostText1' => $request->entsorgungCostText1,
+            'extraCostValue1' => $request->entsorgungCost1,
+            'extraCostText2' => $request->entsorgungCostText2,
+            'extraCostValue2' => $request->entsorgungCost2,
+            'discount' => $request->entsorgungDiscount,
+            'discountPercent' => $request->entsorgungDiscountPercent,
+            'extraDiscountText' => $request->entsorgungExtraDiscountText,
+            'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+            'defaultPrice' => $request->entsorgungTotalPrice,
+            'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+            'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+        ];
         // Transport Dizi
-            $transportPdf = [
-                'pdfText' => $request->pdfText,
-                'fixedChf' => $request->transportFixedTariff,
-                'tariff' => $request->transportTariff,
-                'ma' => $request->transportma,
-                'lkw' => $request->transportlkw,
-                'anhanger' => $request->transportanhanger,
-                'chf' => $request->transportchf,
-                'hour' => $request->transporthour,
-                'transportDate' => $request->transportDate,
-                'transportTime' => $request->transportTime,
-                'arrivalReturn' => $request->transportRoadChf,
-                'extraCostText1' => $request->transportCostText1,
-                'extraCostValue1' => $request->transportCost1,
-                'extraCostText2' => $request->transportCostText2,
-                'extraCostValue2' => $request->transportCost2,
-                'extraCostText3' => $request->transportCostText3,
-                'extraCostValue3' => $request->transportCost3,
-                'extraCostText4' => $request->transportCostText4,
-                'extraCostValue4' => $request->transportCost4,
-                'extraCostText5' => $request->transportCostText5,
-                'extraCostValue5' => $request->transportCost5,
-                'extraCostText6' => $request->transportCostText6,
-                'extraCostValue6' => $request->transportCost6,
-                'extraCostText7' => $request->transportCostText7,
-                'extraCostValue7' => $request->transportCost7,
-                'totalPrice' => $request->transportCost,
-                'discount' => $request->transportDiscount,
-                'discountPercent' => $request->transportDiscountPercent,
-                'compromiser' => $request->transportCompromiser,
-                'extraDiscountText' => $request->transportExtraDiscountText,
-                'extraDiscountValue' => $request->transportExtraDiscount,
-                'extraDiscountText2' => $request->transportExtraDiscountText2,
-                'extraDiscountValue2' => $request->transportExtraDiscount2,
-                'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
-                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
-            ];
+        $transportPdf = [
+            'pdfText' => $request->pdfText,
+            'fixedChf' => $request->transportFixedTariff,
+            'tariff' => $request->transportTariff,
+            'ma' => $request->transportma,
+            'lkw' => $request->transportlkw,
+            'anhanger' => $request->transportanhanger,
+            'chf' => $request->transportchf,
+            'hour' => $request->transporthour,
+            'transportDate' => $request->transportDate,
+            'transportTime' => $request->transportTime,
+            'arrivalReturn' => $request->transportRoadChf,
+            'extraCostText1' => $request->transportCostText1,
+            'extraCostValue1' => $request->transportCost1,
+            'extraCostText2' => $request->transportCostText2,
+            'extraCostValue2' => $request->transportCost2,
+            'extraCostText3' => $request->transportCostText3,
+            'extraCostValue3' => $request->transportCost3,
+            'extraCostText4' => $request->transportCostText4,
+            'extraCostValue4' => $request->transportCost4,
+            'extraCostText5' => $request->transportCostText5,
+            'extraCostValue5' => $request->transportCost5,
+            'extraCostText6' => $request->transportCostText6,
+            'extraCostValue6' => $request->transportCost6,
+            'extraCostText7' => $request->transportCostText7,
+            'extraCostValue7' => $request->transportCost7,
+            'totalPrice' => $request->transportCost,
+            'discount' => $request->transportDiscount,
+            'discountPercent' => $request->transportDiscountPercent,
+            'compromiser' => $request->transportCompromiser,
+            'extraDiscountText' => $request->transportExtraDiscountText,
+            'extraDiscountValue' => $request->transportExtraDiscount,
+            'extraDiscountText2' => $request->transportExtraDiscountText2,
+            'extraDiscountValue2' => $request->transportExtraDiscount2,
+            'defaultPrice' => $request->transportDefaultPrice,
+            'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+            'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+        ];
 
         // Lagerung Dizi
-            $lagerungPdf = [
-                'tariff' => $request->lagerungTariff,
-                'chf' => $request->lagerungChf,
-                'volume' => $request->lagerungVolume,
-                'extraCostText1' => $request->lagerungCostText1,
-                'extraCostValue1' => $request->lagerungCost1,
-                'extraCostText2' => $request->lagerungCostText2,
-                'extraCostValue2' => $request->lagerungCost2, 
-                'discountText' => $request->lagerungExtraDiscountText, 
-                'discountValue' => $request->lagerungExtraDiscount, 
-                'discountPercent' => $request->lagerungDiscountPercent,
-                'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
-            ];
+        $lagerungPdf = [
+            'tariff' => $request->lagerungTariff,
+            'chf' => $request->lagerungChf,
+            'volume' => $request->lagerungVolume,
+            'extraCostText1' => $request->lagerungCostText1,
+            'extraCostValue1' => $request->lagerungCost1,
+            'extraCostText2' => $request->lagerungCostText2,
+            'extraCostValue2' => $request->lagerungCost2,
+            'discountText' => $request->lagerungExtraDiscountText,
+            'discountValue' => $request->lagerungExtraDiscount,
+            'discountPercent' => $request->lagerungDiscountPercent,
+            'totalPrice' => $request->lagerungCost,
+            'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+        ];
         // Material Dizi
-            $materialPdf = [
+        $materialPdf = [
             'discount' => $request->materialDiscount,
             'deliverPrice' => $request->materialShipPrice,
             'recievePrice' => $request->materialRecievePrice,
             'discountPercent' => $request->materialDiscountPercent,
             'totalPrice' => $request->materialTotalPrice
-            ];
+        ];
 
-            $all = $request->except('_token');
-            if (isset($all['islem'])) {
-                $islem = $all['islem'];
-                unset($all['islem']);
+        $all = $request->except('_token');
+        if (isset($all['islem'])) {
+            $islem = $all['islem'];
+            unset($all['islem']);
 
-                $baskets = collect();
-                foreach ($islem as $v) {
-                    $basket = [
-                        'productId' => $v['urunId'],
-                        'buyType' => $v['buyType'],
-                        'productPrice' => $v['tutar'],
-                        'quantity' => $v['adet'],
-                        'totalPrice' => $v['toplam'],
-                    ];
-                    $baskets->push($basket);
-                }
-
-                $basketPdf = $baskets->toArray();
-            } else {
-                $basketPdf = [];
+            $baskets = collect();
+            foreach ($islem as $v) {
+                $basket = [
+                    'productId' => $v['urunId'],
+                    'buyType' => $v['buyType'],
+                    'productPrice' => $v['tutar'],
+                    'quantity' => $v['adet'],
+                    'totalPrice' => $v['toplam'],
+                ];
+                $baskets->push($basket);
             }
 
-        if ($request->customContactPerson)
-        {   
-            $contactPerson = $request->customContactPerson;
+            $basketPdf = $baskets->toArray();
+        } else {
+            $basketPdf = [];
         }
-        else
-        {
+
+        if ($request->customContactPerson) {
+            $contactPerson = $request->customContactPerson;
+        } else {
             $contactPerson = $request->contactPerson;
         }
-        
-        // Offer Dizi
-            $offer = [
-                'customerId' =>$customerId,
-                'appType' => $request->appOfferType,
-                'offerteNote' => $request->offertePdfNote,
-                'panelNote' => $request->offerteNote,
-                'kostenInkl' => $request->kdvType,
-                'kostenExkl' => $request->kdvType1,
-                'kostenFrei' => $request->kdvType3,
-                'contactPerson' => $contactPerson,
-                'offerteStatus' => 'Beklemede'
-            ];
 
-            $company = Company::first();
-            // PDF Dizi
-            $pdfData = [
+        // Offer Dizi
+        $offer = [
+            'customerId' => $customerId,
+            'appType' => $request->appOfferType,
+            'offerteNote' => $request->offertePdfNote,
+            'panelNote' => $request->offerteNote,
+            'kostenInkl' => $request->kdvType,
+            'kostenExkl' => $request->kdvType1,
+            'kostenFrei' => $request->kdvType3,
+            'contactPerson' => $contactPerson,
+            'offerteStatus' => 'Beklemede'
+        ];
+
+        $company = Company::first();
+        // PDF Dizi
+        $pdfData = [
             'offer' => $offer,
             'company' => $company,
             'customer' => $customerData,
@@ -2968,378 +2846,375 @@ class indexController extends Controller
             'material' => $materialPdf,
             'basket' => $basketPdf,
         ];
-        
+
         $pdf = Pdf::loadView('offerPdfPreviewTest', $pdfData);
         $pdf->setPaper('A4');
         return $pdf->stream();
     }
-       
+
     public function offerPdfPreviewEdit(Request $request)
     {
         $id = $request->route('id');
-        $offer = offerte::where('id',$id)->first();
+        $offer = offerte::where('id', $id)->first();
         $customerId = $offer['customerId'];
-        $customerData = Customer::where('id',$customerId)->first();
+        $customerData = Customer::where('id', $customerId)->first();
 
         // Auszug Adresses
-            $auszug1 = [
-                'street' => $request->ausStreet1,
-                'postCode' => $request->ausPostcode1,
-                'city' => $request->ausCity1,
-                'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
-                'buildType' => $request->ausBuildType1,
-                'floor' => $request->ausFloorType1,
-                'lift' => $request->isAusLift1,
-                'addressType' => 0   
-            ];
+        $auszug1 = [
+            'street' => $request->ausStreet1,
+            'postCode' => $request->ausPostcode1,
+            'city' => $request->ausCity1,
+            'country' => $request->isAusCustomLand1 ? $request->ausCustomLand1 : $request->ausCountry1,
+            'buildType' => $request->ausBuildType1,
+            'floor' => $request->ausFloorType1,
+            'lift' => $request->isAusLift1,
+            'addressType' => 0
+        ];
 
-            $auszug2 = [
-                'street' => $request->ausStreet2,
-                'postCode' => $request->ausPostcode2,
-                'city' => $request->ausCity2,
-                'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
-                'buildType' => $request->ausBuildType2,
-                'floor' => $request->ausFloorType2,
-                'lift' => $request->isAusLift2,
-                'addressType' => 0    
-            ];
+        $auszug2 = [
+            'street' => $request->ausStreet2,
+            'postCode' => $request->ausPostcode2,
+            'city' => $request->ausCity2,
+            'country' => $request->isAusCustomLand2 ? $request->ausCustomLand2 : $request->ausCountry2,
+            'buildType' => $request->ausBuildType2,
+            'floor' => $request->ausFloorType2,
+            'lift' => $request->isAusLift2,
+            'addressType' => 0
+        ];
 
-            $auszug3 = [
-                'street' => $request->ausStreet3,
-                'postCode' => $request->ausPostcode3,
-                'city' => $request->ausCity3,
-                'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
-                'buildType' => $request->ausBuildType3,
-                'floor' => $request->ausFloorType3,
-                'lift' => $request->isAusLift3,
-                'addressType' => 0   
-            ];
+        $auszug3 = [
+            'street' => $request->ausStreet3,
+            'postCode' => $request->ausPostcode3,
+            'city' => $request->ausCity3,
+            'country' => $request->isAusCustomLand3 ? $request->ausCustomLand3 : $request->ausCountry3,
+            'buildType' => $request->ausBuildType3,
+            'floor' => $request->ausFloorType3,
+            'lift' => $request->isAusLift3,
+            'addressType' => 0
+        ];
 
 
         // Einzug Adresses
-            $einzug1 = [
-                'street' => $request->einStreet1,
-                'postCode' => $request->einPostcode1,
-                'city' => $request->einCity1,
-                'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
-                'buildType' => $request->einBuildType1,
-                'floor' => $request->einFloorType1,
-                'lift' => $request->isEinLift1, 
-                'addressType' => 1 
-            ];
+        $einzug1 = [
+            'street' => $request->einStreet1,
+            'postCode' => $request->einPostcode1,
+            'city' => $request->einCity1,
+            'country' => $request->isEinCustomLand1 ? $request->einCustomLand1 : $request->einCountry1,
+            'buildType' => $request->einBuildType1,
+            'floor' => $request->einFloorType1,
+            'lift' => $request->isEinLift1,
+            'addressType' => 1
+        ];
 
-            $einzug2 = [
-                'street' => $request->einStreet2,
-                'postCode' => $request->einPostcode2,
-                'city' => $request->einCity2,
-                'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
-                'buildType' => $request->einBuildType2,
-                'floor' => $request->einFloorType2,
-                'lift' => $request->isEinLift2, 
-                'addressType' => 1  
-            ];
+        $einzug2 = [
+            'street' => $request->einStreet2,
+            'postCode' => $request->einPostcode2,
+            'city' => $request->einCity2,
+            'country' => $request->isEinCustomLand2 ? $request->einCustomLand2 : $request->einCountry2,
+            'buildType' => $request->einBuildType2,
+            'floor' => $request->einFloorType2,
+            'lift' => $request->isEinLift2,
+            'addressType' => 1
+        ];
 
-            $einzug3 = [
-                'street' => $request->einStreet3,
-                'postCode' => $request->einPostcode3,
-                'city' => $request->einCity3,
-                'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
-                'buildType' => $request->einBuildType3,
-                'floor' => $request->einFloorType3,
-                'lift' => $request->isEinLift3, 
-                'addressType' => 1  
-            ];
+        $einzug3 = [
+            'street' => $request->einStreet3,
+            'postCode' => $request->einPostcode3,
+            'city' => $request->einCity3,
+            'country' => $request->isEinCustomLand3 ? $request->einCustomLand3 : $request->einCountry3,
+            'buildType' => $request->einBuildType3,
+            'floor' => $request->einFloorType3,
+            'lift' => $request->isEinLift3,
+            'addressType' => 1
+        ];
 
-        
+
         // Umzug Dizi
-            $umzugPdf = [
-                'tariff' => $request->umzugTariff,
-                'ma' => $request->umzug1ma,
-                'lkw' => $request->umzug1lkw,
-                'anhanger' => $request->umzug1anhanger,
-                'chf' => $request->umzug1chf,
-                'moveDate' => $request->umzugausdate,
-                'moveTime' => $request->umzug1time,
-                'moveDate2' => $request->umzugeindate,
-                'arrivalReturn' => $request->umzugroadChf,
-                'montage' => $request->umzugMontaj,
-                'moveHours' => $request->umzugHours,
-                'extra' => $request->masraf ? $request->extra1 : Null,
-                'extra1' => $request->masraf1 ? $request->extra2 : Null,
-                'extra2' => $request->masraf2 ? $request->extra3 : Null,
-                'extra3' => $request->masraf3 ? $request->extra4 : Null,
-                'extra4' => $request->masraf4 ? $request->extra5 : Null,
-                'extra5' => $request->masraf5 ? $request->extra6 : Null,
-                'extra6' => $request->masraf6 ? $request->extra7 : Null,
-                'extra7' => $request->masraf7 ? $request->extra8 : Null,
-                'extra8' => $request->masraf8 ? $request->extra9 : Null,
-                'extra9' => $request->masraf9 ? $request->extra10 : Null,
-                'extra10' => $request->masraf10 ? $request->extra11 : Null,
-                'customCostName1' => $request->extra12CostText,
-                'customCostPrice1' => $request->extra12Cost,
-                'customCostName2' => $request->extra13CostText,
-                'customCostPrice2' => $request->extra13Cost,
-                'costPrice' => $request->umzugCost,
-                'discount' => $request->umzugDiscount,
-                'discountPercent' => $request->umzugDiscountPercent,
-                'compromiser' => $request->umzugCompromiser,
-                'extraCostName' => $request->umzugExtraDiscountText,
-                'extraCostPrice' => $request->umzugExtraDiscount,
-                'defaultPrice' => $request->umzugTotalPrice, 
-                'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
-                'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
-            ];
-        
+        $umzugPdf = [
+            'tariff' => $request->umzugTariff,
+            'ma' => $request->umzug1ma,
+            'lkw' => $request->umzug1lkw,
+            'anhanger' => $request->umzug1anhanger,
+            'chf' => $request->umzug1chf,
+            'moveDate' => $request->umzugausdate,
+            'moveTime' => $request->umzug1time,
+            'moveDate2' => $request->umzugeindate,
+            'arrivalReturn' => $request->umzugroadChf,
+            'montage' => $request->umzugMontaj,
+            'moveHours' => $request->umzugHours,
+            'extra' => $request->masraf ? $request->extra1 : Null,
+            'extra1' => $request->masraf1 ? $request->extra2 : Null,
+            'extra2' => $request->masraf2 ? $request->extra3 : Null,
+            'extra3' => $request->masraf3 ? $request->extra4 : Null,
+            'extra4' => $request->masraf4 ? $request->extra5 : Null,
+            'extra5' => $request->masraf5 ? $request->extra6 : Null,
+            'extra6' => $request->masraf6 ? $request->extra7 : Null,
+            'extra7' => $request->masraf7 ? $request->extra8 : Null,
+            'extra8' => $request->masraf8 ? $request->extra9 : Null,
+            'extra9' => $request->masraf9 ? $request->extra10 : Null,
+            'extra10' => $request->masraf10 ? $request->extra11 : Null,
+            'customCostName1' => $request->extra12CostText,
+            'customCostPrice1' => $request->extra12Cost,
+            'customCostName2' => $request->extra13CostText,
+            'customCostPrice2' => $request->extra13Cost,
+            'costPrice' => $request->umzugCost,
+            'discount' => $request->umzugDiscount,
+            'discountPercent' => $request->umzugDiscountPercent,
+            'compromiser' => $request->umzugCompromiser,
+            'extraCostName' => $request->umzugExtraDiscountText,
+            'extraCostPrice' => $request->umzugExtraDiscount,
+            'defaultPrice' => $request->umzugTotalPrice,
+            'topCost' => $request->isKostendach ?  $request->umzugTopPrice : Null,
+            'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
+        ];
+
         // Einpack Dizi
-            $einpackPdf = [
-                'tariff' => $request->einpackTariff,
-                'ma' => $request->einpack1ma,
-                'chf' => $request->einpack1chf,
-                'einpackDate' => $request->einpackdate,
-                'einpackTime' => $request->einpacktime,
-                'arrivalReturn' => $request->einpackroadChf,
-                'moveHours' => $request->einpackHours,
-                'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
-                'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
-                'customCostName1' => $request->einpackCostText1,
-                'customCostPrice1' => $request->einpackCost1,
-                'customCostName2' => $request->einpackCostText2,
-                'customCostPrice2' => $request->einpackCost2,
-                'costPrice' => $request->einpackCost,
-                'discount' => $request->einpackDiscount,
-                'discountPercent' => $request->einpackDiscountPercent,
-                'compromiser' => $request->einpackCompromiser,
-                'extraCostName' => $request->einpackExtraDiscountText,
-                'extraCostPrice' => $request->einpackExtraDiscount,
-                'defaultPrice' => $request->einpackTotalPrice,
-                'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
-                'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
-            ];
+        $einpackPdf = [
+            'tariff' => $request->einpackTariff,
+            'ma' => $request->einpack1ma,
+            'chf' => $request->einpack1chf,
+            'einpackDate' => $request->einpackdate,
+            'einpackTime' => $request->einpacktime,
+            'arrivalReturn' => $request->einpackroadChf,
+            'moveHours' => $request->einpackHours,
+            'extra' => $request->einpackmasraf ? $request->einpackextra1 : Null,
+            'extra1' => $request->einpackmasraf1 ? $request->einpackextra2 : Null,
+            'customCostName1' => $request->einpackCostText1,
+            'customCostPrice1' => $request->einpackCost1,
+            'customCostName2' => $request->einpackCostText2,
+            'customCostPrice2' => $request->einpackCost2,
+            'costPrice' => $request->einpackCost,
+            'discount' => $request->einpackDiscount,
+            'discountPercent' => $request->einpackDiscountPercent,
+            'compromiser' => $request->einpackCompromiser,
+            'extraCostName' => $request->einpackExtraDiscountText,
+            'extraCostPrice' => $request->einpackExtraDiscount,
+            'defaultPrice' => $request->einpackTotalPrice,
+            'topCost' => $request->isEinpackKostendach ?  $request->einpackTopPrice : Null,
+            'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
+        ];
 
         // Auspack Dizi
-            $auspackPdf = [
-                'tariff' => $request->auspackTariff,
-                'ma' => $request->auspack1ma,
-                'chf' => $request->auspack1chf,
-                'auspackDate' => $request->auspackdate,
-                'auspackTime' => $request->auspacktime,
-                'arrivalReturn' => $request->auspackroadChf,
-                'moveHours' => $request->auspackHours,
-                'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
-                'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
-                'customCostName1' => $request->auspackCostText1,
-                'customCostPrice1' => $request->auspackCost1,
-                'customCostName2' => $request->auspackCostText2,
-                'customCostPrice2' => $request->auspackCost2,
-                'costPrice' => $request->auspackCost,
-                'discount' => $request->auspackDiscount,
-                'discountPercent' => $request->auspackDiscountPercent,
-                'compromiser' => $request->auspackCompromiser,
-                'extraCostName' => $request->auspackExtraDiscountText,
-                'extraCostPrice' => $request->auspackExtraDiscount,
-                'defaultPrice' => $request->auspackTotalPrice,
-                'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
-                'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
-            ];
+        $auspackPdf = [
+            'tariff' => $request->auspackTariff,
+            'ma' => $request->auspack1ma,
+            'chf' => $request->auspack1chf,
+            'auspackDate' => $request->auspackdate,
+            'auspackTime' => $request->auspacktime,
+            'arrivalReturn' => $request->auspackroadChf,
+            'moveHours' => $request->auspackHours,
+            'extra' => $request->auspackmasraf ? $request->auspackextra1 : Null,
+            'extra1' => $request->auspackmasraf1 ? $request->auspackextra2 : Null,
+            'customCostName1' => $request->auspackCostText1,
+            'customCostPrice1' => $request->auspackCost1,
+            'customCostName2' => $request->auspackCostText2,
+            'customCostPrice2' => $request->auspackCost2,
+            'costPrice' => $request->auspackCost,
+            'discount' => $request->auspackDiscount,
+            'discountPercent' => $request->auspackDiscountPercent,
+            'compromiser' => $request->auspackCompromiser,
+            'extraCostName' => $request->auspackExtraDiscountText,
+            'extraCostPrice' => $request->auspackExtraDiscount,
+            'defaultPrice' => $request->auspackTotalPrice,
+            'topCost' => $request->isAuspackKostendach ?  $request->auspackTopPrice : Null,
+            'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
+        ];
 
         // Reinigung Dizi
-            $reinigungPdf = [
-                'reinigungType' => $request->reinigungType,
-                'extraReinigung' => $request->extraReinigung,
-                'fixedTariff' => $request->reinigungFixedPrice,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue,
-                'standartTariff' => $request->reinigungPriceTariff,
-                'ma' => $request->reinigungmaValue,
-                'chf' => $request->reinigungchfValue,
-                'hours' => $request->reinigunghourValue,
-                'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
-                'startDate' => $request->reinigungdate,
-                'startTime' => $request->reinigungtime,
-                'endDate' => $request->reinigungEnddate,
-                'endTime' => $request->reinigungEndtime,
-                'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
-                'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
-                'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
-                'extraCostText1' => $request->reinigungCostText1,
-                'extraCostValue1' => $request->reinigungCost1,
-                'extraCostText2' => $request->reinigungCostText2,
-                'extraCostValue2' => $request->reinigungCost2,
-                'discountText' => $request->reinigungExtraDiscountText,
-                'discount' => $request->reinigungExtraDiscount,
-                'discountPercent' => $request->reinigungDiscountPercent,
-                'totalPrice' => $request->reinigungTotalPrice,
-            ];
+        $reinigungPdf = [
+            'reinigungType' => $request->reinigungType,
+            'extraReinigung' => $request->extraReinigung,
+            'fixedTariff' => $request->reinigungFixedPrice,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue,
+            'standartTariff' => $request->reinigungPriceTariff,
+            'ma' => $request->reinigungmaValue,
+            'chf' => $request->reinigungchfValue,
+            'hours' => $request->reinigunghourValue,
+            'extraService1' => $request->extraReinigungService1,
+            'extraService2' => $request->extraReinigungService2,
+            'startDate' => $request->reinigungdate,
+            'startTime' => $request->reinigungtime,
+            'endDate' => $request->reinigungEnddate,
+            'endTime' => $request->reinigungEndtime,
+            'extra1' => $request->reinigungmasraf ? $request->reinigungextra1 : Null,
+            'extra2' => $request->reinigungmasraf2 ? $request->reinigungextra2 : Null,
+            'extra3' => $request->reinigungmasraf3 ? $request->reinigungextra3 : Null,
+            'extraCostText1' => $request->reinigungCostText1,
+            'extraCostValue1' => $request->reinigungCost1,
+            'extraCostText2' => $request->reinigungCostText2,
+            'extraCostValue2' => $request->reinigungCost2,
+            'discountText' => $request->reinigungExtraDiscountText,
+            'discount' => $request->reinigungExtraDiscount,
+            'discountPercent' => $request->reinigungDiscountPercent,
+            'totalPrice' => $request->reinigungTotalPrice,
+        ];
 
         // Reinigung 2 Dizi
-            $reinigungPdf2 = [
-                'reinigungType' => $request->reinigungType2,
-                'extraReinigung' => $request->extraReinigung2,
-                'fixedTariff' => $request->reinigungFixedPrice2,
-                'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
-                'standartTariff' => $request->reinigungPriceTariff2,
-                'ma' => $request->reinigungmaValue2,
-                'chf' => $request->reinigungchfValue2,
-                'hours' => $request->reinigunghourValue2,
-                'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
-                'startDate' => $request->reinigungdate2,
-                'startTime' => $request->reinigungtime2,
-                'endDate' => $request->reinigungEnddate2,
-                'endTime' => $request->reinigungEndtime2,
-                'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
-                'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
-                'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
-                'extraCostText1' => $request->reinigungCostText12,
-                'extraCostValue1' => $request->reinigungCost12,
-                'extraCostText2' => $request->reinigungCostText22,
-                'extraCostValue2' => $request->reinigungCost22,
-                'discountText' => $request->reinigungExtraDiscountText2,
-                'discount' => $request->reinigungExtraDiscount2,
-                'discountPercent' => $request->reinigungDiscountPercent2,
-                'totalPrice' => $request->reinigungTotalPrice2,
-            ];
+        $reinigungPdf2 = [
+            'reinigungType' => $request->reinigungType2,
+            'extraReinigung' => $request->extraReinigung2,
+            'fixedTariff' => $request->reinigungFixedPrice2,
+            'fixedTariffPrice' => $request->reinigungFixedPriceValue2,
+            'standartTariff' => $request->reinigungPriceTariff2,
+            'ma' => $request->reinigungmaValue2,
+            'chf' => $request->reinigungchfValue2,
+            'hours' => $request->reinigunghourValue2,
+            'extraService1' => $request->extraReinigungService12,
+            'extraService2' => $request->extraReinigungService22,
+            'startDate' => $request->reinigungdate2,
+            'startTime' => $request->reinigungtime2,
+            'endDate' => $request->reinigungEnddate2,
+            'endTime' => $request->reinigungEndtime2,
+            'extra1' => $request->reinigungmasraf12 ? $request->reinigungextra12 : Null,
+            'extra2' => $request->reinigungmasraf22 ? $request->reinigungextra22 : Null,
+            'extra3' => $request->reinigungmasraf32 ? $request->reinigungextra32 : Null,
+            'extraCostText1' => $request->reinigungCostText12,
+            'extraCostValue1' => $request->reinigungCost12,
+            'extraCostText2' => $request->reinigungCostText22,
+            'extraCostValue2' => $request->reinigungCost22,
+            'discountText' => $request->reinigungExtraDiscountText2,
+            'discount' => $request->reinigungExtraDiscount2,
+            'discountPercent' => $request->reinigungDiscountPercent2,
+            'totalPrice' => $request->reinigungTotalPrice2,
+        ];
 
         // Entsorgung Dizi
-            $entsorgungPdf = [
-                'volume' => $request->entsorgungVolume,
-                'volumeCHF' => $request->entsorgungVolumeChf,
-                'fixedCost' => $request->entsorgungFixedChf,
-                'm3' => $request->estimatedVolume,
-                'tariff' => $request->entsorgungTariff,
-                'ma' => $request->entsorgungma,
-                'lkw' => $request->entsorgunglkw,
-                'anhanger' => $request->entsorgunganhanger,
-                'chf' => $request->entsorgungchf,
-                'hour' => $request->entsorgungHours,
-                'entsorgungDate' => $request->entsorgungDate,
-                'entsorgungTime' => $request->entsorgungTime,
-                'arrivalReturn' => $request->entsorgungroadChf,
-                'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
-                'extraCostText1' => $request->entsorgungCostText1,
-                'extraCostValue1' => $request->entsorgungCost1,
-                'extraCostText2' => $request->entsorgungCostText2,
-                'extraCostValue2' => $request->entsorgungCost2,
-                'discount' => $request->entsorgungDiscount,
-                'discountPercent' => $request->entsorgungDiscountPercent,
-                'extraDiscountText' => $request->entsorgungExtraDiscountText,
-                'extraDiscountPrice' => $request->entsorgungExtraDiscount,
-                'defaultPrice' => $request->entsorgungTotalPrice,
-                'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
-                'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
-            ];
+        $entsorgungPdf = [
+            'volume' => $request->entsorgungVolume,
+            'volumeCHF' => $request->entsorgungVolumeChf,
+            'fixedCost' => $request->entsorgungFixedChf,
+            'm3' => $request->estimatedVolume,
+            'tariff' => $request->entsorgungTariff,
+            'ma' => $request->entsorgungma,
+            'lkw' => $request->entsorgunglkw,
+            'anhanger' => $request->entsorgunganhanger,
+            'chf' => $request->entsorgungchf,
+            'hour' => $request->entsorgungHours,
+            'entsorgungDate' => $request->entsorgungDate,
+            'entsorgungTime' => $request->entsorgungTime,
+            'arrivalReturn' => $request->entsorgungroadChf,
+            'entsorgungExtra1' => $request->entsorgungmasraf ? $request->entsorgungextra1 : Null,
+            'extraCostText1' => $request->entsorgungCostText1,
+            'extraCostValue1' => $request->entsorgungCost1,
+            'extraCostText2' => $request->entsorgungCostText2,
+            'extraCostValue2' => $request->entsorgungCost2,
+            'discount' => $request->entsorgungDiscount,
+            'discountPercent' => $request->entsorgungDiscountPercent,
+            'extraDiscountText' => $request->entsorgungExtraDiscountText,
+            'extraDiscountPrice' => $request->entsorgungExtraDiscount,
+            'defaultPrice' => $request->entsorgungTotalPrice,
+            'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
+            'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
+        ];
         // Transport Dizi
-            $transportPdf = [
-                'pdfText' => $request->pdfText,
-                'fixedChf' => $request->transportFixedTariff,
-                'tariff' => $request->transportTariff,
-                'ma' => $request->transportma,
-                'lkw' => $request->transportlkw,
-                'anhanger' => $request->transportanhanger,
-                'chf' => $request->transportchf,
-                'hour' => $request->transporthour,
-                'transportDate' => $request->transportDate,
-                'transportTime' => $request->transportTime,
-                'arrivalReturn' => $request->transportRoadChf,
-                'extraCostText1' => $request->transportCostText1,
-                'extraCostValue1' => $request->transportCost1,
-                'extraCostText2' => $request->transportCostText2,
-                'extraCostValue2' => $request->transportCost2,
-                'extraCostText3' => $request->transportCostText3,
-                'extraCostValue3' => $request->transportCost3,
-                'extraCostText4' => $request->transportCostText4,
-                'extraCostValue4' => $request->transportCost4,
-                'extraCostText5' => $request->transportCostText5,
-                'extraCostValue5' => $request->transportCost5,
-                'extraCostText6' => $request->transportCostText6,
-                'extraCostValue6' => $request->transportCost6,
-                'extraCostText7' => $request->transportCostText7,
-                'extraCostValue7' => $request->transportCost7,
-                'totalPrice' => $request->transportCost,
-                'discount' => $request->transportDiscount,
-                'discountPercent' => $request->transportDiscountPercent,
-                'compromiser' => $request->transportCompromiser,
-                'extraDiscountText' => $request->transportExtraDiscountText,
-                'extraDiscountValue' => $request->transportExtraDiscount,
-                'extraDiscountText2' => $request->transportExtraDiscountText2,
-                'extraDiscountValue2' => $request->transportExtraDiscount2,
-                'defaultPrice' => $request->transportDefaultPrice,
-                'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
-                'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
-            ];
+        $transportPdf = [
+            'pdfText' => $request->pdfText,
+            'fixedChf' => $request->transportFixedTariff,
+            'tariff' => $request->transportTariff,
+            'ma' => $request->transportma,
+            'lkw' => $request->transportlkw,
+            'anhanger' => $request->transportanhanger,
+            'chf' => $request->transportchf,
+            'hour' => $request->transporthour,
+            'transportDate' => $request->transportDate,
+            'transportTime' => $request->transportTime,
+            'arrivalReturn' => $request->transportRoadChf,
+            'extraCostText1' => $request->transportCostText1,
+            'extraCostValue1' => $request->transportCost1,
+            'extraCostText2' => $request->transportCostText2,
+            'extraCostValue2' => $request->transportCost2,
+            'extraCostText3' => $request->transportCostText3,
+            'extraCostValue3' => $request->transportCost3,
+            'extraCostText4' => $request->transportCostText4,
+            'extraCostValue4' => $request->transportCost4,
+            'extraCostText5' => $request->transportCostText5,
+            'extraCostValue5' => $request->transportCost5,
+            'extraCostText6' => $request->transportCostText6,
+            'extraCostValue6' => $request->transportCost6,
+            'extraCostText7' => $request->transportCostText7,
+            'extraCostValue7' => $request->transportCost7,
+            'totalPrice' => $request->transportCost,
+            'discount' => $request->transportDiscount,
+            'discountPercent' => $request->transportDiscountPercent,
+            'compromiser' => $request->transportCompromiser,
+            'extraDiscountText' => $request->transportExtraDiscountText,
+            'extraDiscountValue' => $request->transportExtraDiscount,
+            'extraDiscountText2' => $request->transportExtraDiscountText2,
+            'extraDiscountValue2' => $request->transportExtraDiscount2,
+            'defaultPrice' => $request->transportDefaultPrice,
+            'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
+            'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
+        ];
 
         // Lagerung Dizi
-            $lagerungPdf = [
-                'tariff' => $request->lagerungTariff,
-                'chf' => $request->lagerungChf,
-                'volume' => $request->lagerungVolume,
-                'extraCostText1' => $request->lagerungCostText1,
-                'extraCostValue1' => $request->lagerungCost1,
-                'extraCostText2' => $request->lagerungCostText2,
-                'extraCostValue2' => $request->lagerungCost2, 
-                'discountText' => $request->lagerungExtraDiscountText, 
-                'discountValue' => $request->lagerungExtraDiscount, 
-                'discountPercent' => $request->lagerungDiscountPercent,
-                'totalPrice' => $request->lagerungCost, 
-                'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
-            ];
+        $lagerungPdf = [
+            'tariff' => $request->lagerungTariff,
+            'chf' => $request->lagerungChf,
+            'volume' => $request->lagerungVolume,
+            'extraCostText1' => $request->lagerungCostText1,
+            'extraCostValue1' => $request->lagerungCost1,
+            'extraCostText2' => $request->lagerungCostText2,
+            'extraCostValue2' => $request->lagerungCost2,
+            'discountText' => $request->lagerungExtraDiscountText,
+            'discountValue' => $request->lagerungExtraDiscount,
+            'discountPercent' => $request->lagerungDiscountPercent,
+            'totalPrice' => $request->lagerungCost,
+            'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
+        ];
         // Material Dizi
-            $materialPdf = [
+        $materialPdf = [
             'discount' => $request->materialDiscount,
             'deliverPrice' => $request->materialShipPrice,
             'recievePrice' => $request->materialRecievePrice,
             'discountPercent' => $request->materialDiscountPercent,
             'totalPrice' => $request->materialTotalPrice
-            ];
+        ];
 
-            $all = $request->except('_token');
-            if (isset($all['islem'])) {
-                $islem = $all['islem'];
-                unset($all['islem']);
+        $all = $request->except('_token');
+        if (isset($all['islem'])) {
+            $islem = $all['islem'];
+            unset($all['islem']);
 
-                $baskets = collect();
-                foreach ($islem as $v) {
-                    $basket = [
-                        'productId' => $v['urunId'],
-                        'buyType' => $v['buyType'],
-                        'productPrice' => $v['tutar'],
-                        'quantity' => $v['adet'],
-                        'totalPrice' => $v['toplam'],
-                    ];
-                    $baskets->push($basket);
-                }
-
-                $basketPdf = $baskets->toArray();
-            } else {
-                $basketPdf = [];
+            $baskets = collect();
+            foreach ($islem as $v) {
+                $basket = [
+                    'productId' => $v['urunId'],
+                    'buyType' => $v['buyType'],
+                    'productPrice' => $v['tutar'],
+                    'quantity' => $v['adet'],
+                    'totalPrice' => $v['toplam'],
+                ];
+                $baskets->push($basket);
             }
 
-        if ($request->customContactPerson)
-        {   
-            $contactPerson = $request->customContactPerson;
+            $basketPdf = $baskets->toArray();
+        } else {
+            $basketPdf = [];
         }
-        else
-        {
+
+        if ($request->customContactPerson) {
+            $contactPerson = $request->customContactPerson;
+        } else {
             $contactPerson = $request->contactPerson;
         }
-        
+
         // Offer Dizi
-            $offer = [
-                'customerId' =>$customerId,
-                'appType' => $request->appOfferType,
-                'offerteNote' => $request->offertePdfNote,
-                'panelNote' => $request->offerteNote,
-                'kostenInkl' => $request->kdvType,
-                'kostenExkl' => $request->kdvType1,
-                'kostenFrei' => $request->kdvType3,
-                'contactPerson' => $contactPerson,
-                'offerteStatus' => 'Beklemede'
-            ];
+        $offer = [
+            'customerId' => $customerId,
+            'appType' => $request->appOfferType,
+            'offerteNote' => $request->offertePdfNote,
+            'panelNote' => $request->offerteNote,
+            'kostenInkl' => $request->kdvType,
+            'kostenExkl' => $request->kdvType1,
+            'kostenFrei' => $request->kdvType3,
+            'contactPerson' => $contactPerson,
+            'offerteStatus' => 'Beklemede'
+        ];
 
-            $company = Company::first();
+        $company = Company::first();
 
-            // PDF Dizi
-            $pdfData = [
+        // PDF Dizi
+        $pdfData = [
             'offer' => $offer,
             'company' => $company,
             'customer' => $customerData,
@@ -3374,10 +3249,9 @@ class indexController extends Controller
             'material' => $materialPdf,
             'basket' => $basketPdf,
         ];
-        
+
         $pdf = Pdf::loadView('offerPdfPreview', $pdfData);
         $pdf->setPaper('A4');
         return $pdf->stream();
     }
-   
 }

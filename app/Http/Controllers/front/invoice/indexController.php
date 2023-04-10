@@ -1527,36 +1527,42 @@ class indexController extends Controller
             $create = Invoice::create($invoice);
             $invoiceIdBul = DB::table('invoices')->orderBy('id','DESC')->first();
             $invoiceId = $invoiceIdBul->id;
+           
 
             
         // Invoice
         
         // SMS
-            if($request->isSMS)
-            {
-                $customerId = $request->route('id');
-                $customer = Customer::where('id',$customerId)->first();
-            
-                $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
-                $client = new \Vonage\Client($basic);
+        if($request->isSMS)
+        {
+            $customerId = $request->route('id');
+            $customer = Customer::where('id',$customerId)->first();
+        
+            $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+            $client = new \Vonage\Client($basic);
 
-                $number = $customer['mobile'];
-                $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
-                $content ='Ihre Rechnung wurde erstellt';
-                $staticContent2 = ' '.Company::InfoCompany('name');
-                if($request->isCustomSMS)
-                {
-                    $content = $request->customSMS;
-                    $response = $client->sms()->send(
-                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                    );
-                }
-                else{
-                    $response = $client->sms()->send(
-                        new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
-                    );
-                }
+            $number = $request->mobile;
+            $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
+            $content ='Ihr Angebot wurde erstellt From Swiss';
+            $staticContent2 = ' '.Company::InfoCompany('name');
+           
+            if($request->isCustomSMS)
+            {
+                $content = $request->customSMS;
+                $response = $client->sms()->send(
+                    new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
+                );
+                
+                
             }
+            else{
+                $response = $client->sms()->send(
+                    new \Vonage\SMS\Message\SMS($number, 'BRAND_NAME', $staticContent.$content.$staticContent2)
+                );
+                
+                
+            }
+        }
         // SMS
 
         $sub = 'Ihre Rechnung wurde erstellt';
@@ -1565,6 +1571,7 @@ class indexController extends Controller
         $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname');
         $customerData = Customer::where('id',$customerId)->first();
+        
         
         $customerData =  Customer::where('id',$customerId)->first();
         $invoicePdf = Invoice::where('id',$invoiceId)->first();
@@ -1578,6 +1585,7 @@ class indexController extends Controller
         $lagerungPdf = InvoiceLagerung::where('id',$invoiceLagerungId)->first();
         $materialPdf = InvoiceMaterial::where('id',$invoiceMaterialId)->first();
         $basketPdf = InvoiceBasket::where('materialId',$invoiceMaterialId)->get()->toArray();
+
 
         $pdfData = [
             'invoiceNumber' => $invoiceId,

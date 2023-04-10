@@ -155,12 +155,12 @@
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
                                     <input type="checkbox" name="isEmail" id="isEmail" class="js-switch "
-                                        data-color="#9c27b0" data-switchery="false">
+                                        data-color="#9c27b0" data-switchery="true" checked>
                                 </div>
                             </div>
 
 
-                            <div class="row form-group email--area" style="display: none;">
+                            <div class="row form-group email--area" style="display: block;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
                                     <input class="form-control" name="email" type="text"
@@ -185,7 +185,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">
                                     <label for="" class="col-form-label">SMS an Kunden</label><br>
-                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
                                 </div>                            
                             </div>
 

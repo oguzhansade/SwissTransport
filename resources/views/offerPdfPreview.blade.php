@@ -524,11 +524,11 @@
                         <td colspan="4" style="padding-top:15px;"></td>
                     </tr>
 
-                    {{-- <tr style="width:100%;">
+                    <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Umzug</b>
                         </td>
-                    </tr> --}}
+                    </tr>
 
                     
                     <tr style="width:100%;">
