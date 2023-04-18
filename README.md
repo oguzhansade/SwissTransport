@@ -26,7 +26,14 @@
 <p>Login Sorunu için https://www.mertbuldur.com/laravel-login-icin-md5-nasil-kullanilir ya da Hash::make() kullan</p>
 
 <h3>Calendar Renk</h3>
-<p>Calendar Renk setColorId() metodu eksik bunu gerekli yere ekle için github da commitlerde var</p>
+<p>Calendar Renk setColorId() metodu eksik bunun için;<br>
+vendor>spatie>laravel-google-calendar>src>Event.php ye git <br>
+setSourceProperty metodunun altına aşşağıdaki metodu ekle <br><br>
+public function setColorId(int $id) <br>
+    {<br>
+        $this->googleEvent->setColorId($id); <br>
+    }<br>
+</p>
 <p>Calendar Renk Paleti https://lukeboyle.com/blog/posts/google-calendar-api-color-id</p>
 
 <h3>SSH Bağlantısı (CYON için)</h3>
