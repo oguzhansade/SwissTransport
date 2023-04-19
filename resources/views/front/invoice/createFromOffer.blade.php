@@ -11,9 +11,9 @@
 @endsection
 
 @section('content')
-@section('sidebarType')
-    sidebar-collapse
-@endsection
+    @section('sidebarType')
+        sidebar-collapse
+    @endsection
 <div class="row page-title clearfix">
     <div class="page-title-left">
         <h6 class="page-title-heading mr-0 mr-r-5">Neue Rechnung Erstellen (from Offerte)</h6>
@@ -288,7 +288,8 @@
                     toastr.error('Produktname ist leer', 'Fehler!');
                     console.log('URUN İSMİ HATASI');
                     isValid = false;
-                    console.log(isValid,'Ürün İsmi')
+                    console.log(urunIsmi,'Ürün İsmi')
+                    console.log(index,'İndex')
                     return false;
 
                 }
@@ -320,6 +321,7 @@
                 console.log(isValid,'Urun Sayısı')
                 return false; // işlemi durdur
             }
+            
         }
         return isValid;
     }
@@ -394,7 +396,6 @@
             var div = $(this).parent().parent();
             if (div.is(':visible')) {
                 invoiceTotalPrice = parseFloat(invoiceTotalPrice) + parseFloat($(this).val());
-                console.log(parseFloat($(this).val()),'Toplama Fonksiyonu')
             }
         });
 

@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Offerte - {{ $offerteNumber }}</title>
+    <title>Offerte - {{ $offer->id }}</title>
     <meta charset="UTF-8">
     <style>
         * {
@@ -146,7 +146,7 @@
                                 Offertennr:
                             </td>
                             <td align="left">
-                                {{ $offerteNumber }}
+                                {{ $offer->id }}
                             </td>
                         </tr>
                         <tr style="width: 100%;">
@@ -217,7 +217,7 @@
                 </tr>
                 <tr style="width:100%;">
                     <td colspan="2" class="py-1 ">
-                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: 1
+                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: {{ $offer->id }}
                         </b>
                     </td>
                     <td colspan="2" align="right">
@@ -244,7 +244,7 @@
                         <td colspan="2" class=" custom-heading-bar">
                             <b style="font-size:13px;">Auszug</b>
                         </td>
-                        @if ($isEinzug1)
+                        @if ($einzug1)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug</b>
                             </td>
@@ -285,7 +285,7 @@
                             </td>
                         @endif
 
-                        @if ($isEinzug1)
+                        @if ($einzug1)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -317,12 +317,12 @@
 
                     {{-- 2.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($isAuszug2)
+                        @if ($auszug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 2</b>
                             </td>
                         @endif
-                        @if ($isEinzug2)
+                        @if ($einzug2)
                             <td colspan="2" class=" custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 2</b>
                             </td>
@@ -330,7 +330,7 @@
                     </tr>
 
                     <tr>
-                        @if ($isAuszug2)
+                        @if ($auszug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -351,7 +351,7 @@
                             </td>
                         @endif
 
-                        @if ($isEinzug2)
+                        @if ($einzug2)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -380,12 +380,12 @@
 
                     {{-- 3.Adresler --}}
                     <tr style="width:100%;">
-                        @if ($isAuszug3)
+                        @if ($auszug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Auszug 3</b>
                             </td>
                         @endif
-                        @if ($isEinzug3)
+                        @if ($einzug3)
                             <td colspan="2" class="custom-heading-bar">
                                 <b style="font-size:13px;">Einzug 3</b>
                             </td>
@@ -393,7 +393,7 @@
                     </tr>
 
                     <tr>
-                        @if ($isAuszug3)
+                        @if ($auszug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -414,7 +414,7 @@
                             </td>
                         @endif
 
-                        @if ($isEinzug3)
+                        @if ($einzug3)
                             <td>
                                 Strasse: <br>
                                 PLZ / Ort: <br>
@@ -673,7 +673,7 @@
 
             @if ($isUmzug)
                 <div style="@if (
-                    (($isAuszug2 || $isEinzug2 || $isEinzug3 || $isAuszug3 || $isEinzug3) && $isEinpack) ||
+                    (($auszug2 || $einzug2 || $einzug3 || $auszug3 || $einzug3) && $isEinpack) ||
                         $isAuspack ||
                         $isReinigung ||
                         $isReinigung2 ||

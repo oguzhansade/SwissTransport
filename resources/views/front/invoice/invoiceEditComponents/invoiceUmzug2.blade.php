@@ -280,6 +280,9 @@
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="umzugDiscount" placeholder="0"  type="text" @if($umzug && $umzug['discount']) value="{{ $umzug['discount'] }}" @else value="0.00" @endif> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="umzugDiscountPercent" placeholder="0"  type="text" @if($umzug && $umzug['discountPercent']) value="{{ $umzug['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="umzugDiscount2" placeholder="0"  type="text" @if($umzug && $umzug['discount2']) value="{{ $umzug['discount2'] }}" @else value="0.00" @endif>
 
@@ -342,184 +345,137 @@
 </div>
 @section('invoiceEditFooter1')
 {{-- Tarife Fiyatları --}}
-<script>        
-    function isRequiredUmzug()
-    {
-        $("input[name=umzugDate]").prop('required',true);      
-        $("input[name=umzugHours]").prop('required',true);   
-        $("input[name=umzugChf]").prop('required',true);  
-        $("input[name=umzugHours]").attr({'min':1}); 
-        $("input[name=umzugChf]").attr({'min':1});
+<script>
+    function isRequiredUmzug() {
+        $("input[name=umzugDate]").prop('required', true);
+        $("input[name=umzugHours]").prop('required', true);
+        $("input[name=umzugChf]").prop('required', true);
+        $("input[name=umzugHours]").attr({
+            'min': 1
+        });
+        $("input[name=umzugChf]").attr({
+            'min': 1
+        });
     }
 
-    function isNotRequiredUmzug()
-    {
-        $("input[name=umzugDate]").prop('required',false);      
-        $("input[name=umzugHours]").prop('required',false);   
-        $("input[name=umzugChf]").prop('required',false);  
-        $("input[name=umzugHours]").removeAttr('min'); 
+    function isNotRequiredUmzug() {
+        $("input[name=umzugDate]").prop('required', false);
+        $("input[name=umzugHours]").prop('required', false);
+        $("input[name=umzugChf]").prop('required', false);
+        $("input[name=umzugHours]").removeAttr('min');
         $("input[name=umzugChf]").removeAttr('min');
         $("input[name=umzugChf2]").removeAttr('min');
         $("input[name=umzugHours2]").removeAttr('min');
     }
 
-    function extraAreaUmzug()
-    {
+    function extraAreaUmzug() {
         $(".extraTime-umzug-area").show(300);
         $(".extraTimeUmzug").hide();
-        $("input[name=umzugChf2]").attr({'min':1});
-        $("input[name=umzugHours2]").attr({'min':1});
+        $("input[name=umzugChf2]").attr({
+            'min': 1
+        });
+        $("input[name=umzugHours2]").attr({
+            'min': 1
+        });
     }
-    
+
     var morebutton2 = $("div.umzug-control");
-    morebutton2.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    morebutton2.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".umzug--area").show(700);
             isRequiredUmzug()
-            
-        }
-        else{
+
+        } else {
             $(".umzug--area").hide(500);
             isNotRequiredUmzug()
         }
     })
 
     var isFixedbutton = $("div.fixed-price");
-    isFixedbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    isFixedbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".fixed-price-area").show(700);
-        }
-        else{
+        } else {
             $(".fixed-price-area").hide(500);
         }
     })
 
-   
 
-    $("body").on("change",".umzug--area", function() {
-        let chf = parseInt($("input[name=umzugChf]").val());
-        let hours = parseInt($("input[name=umzugHours]").val());
+    function umzugInvoiceCalc() {
+        const chf = parseInt($("input[name=umzugChf]").val()) || 0;
+        const hours = parseInt($("input[name=umzugHours]").val()) || 0;
+        const chf2 = parseInt($("input[name=umzugChf2]").val()) || 0;
+        const hours2 = parseInt($("input[name=umzugHours2]").val()) || 0;
+        const umzugRoadChf = parseInt($("input[name=umzugRoadChf]").val()) || 0;
+        const extras = [
+            {name: 'extra1', masraf: 'masraf'},
+            {name: 'extra2', masraf: 'masraf1'},
+            {name: 'extra3', masraf: 'masraf2'},
+            {name: 'extra4', masraf: 'masraf3'},
+            {name: 'extra5', masraf: 'masraf4'},
+            {name: 'extra6', masraf: 'masraf5'},
+            {name: 'extra7', masraf: 'masraf6'},
+            {name: 'extra8', masraf: 'masraf7'},
+            {name: 'extra9', masraf: 'masraf8'},
+            {name: 'extra10', masraf: 'masraf9'},
+            {name: 'extra11', masraf: 'masraf10'}
+        ];
+        let extrasTotal = 0;
+        for (const extra of extras) {
+            if ($(`input[name=${extra.masraf}]`).is(':checked')) {
+            const value = parseInt($(`input[name=${extra.name}]`).val()) || 0;
+            extrasTotal += isNaN(value) ? 0 : value;
+            }
+        }
+        const extra12Cost = parseFloat($('input[name=extra12Cost]').val()) || 0;
+        const extra13Cost = parseFloat($('input[name=extra13Cost]').val()) || 0;
+        const umzugDiscount = parseFloat($('input[name=umzugDiscount]').val()) || 0 ;
+        const umzugDiscount2 = parseFloat($('input[name=umzugDiscount2]').val()) || 0;
+        const umzugExtraDiscount = parseFloat($('input[name=umzugExtraDiscount]').val()) || 0;
+        const umzugExtraDiscount2 = parseFloat($('input[name=umzugExtraDiscount2]').val()) || 0;
+        const umzugDiscountPercent = parseFloat($('input[name=umzugDiscountPercent]').val()) || 0;
+        const umzugPaid1 = parseFloat($('input[name=umzugPaid1]').val()) || 0;
+        const umzugPaid2 = parseFloat($('input[name=umzugPaid2]').val()) || 0;
+        const umzugPaid3 = parseFloat($('input[name=umzugPaid3]').val()) || 0;
+        let umzugTotalPrice;
 
-        let chf2 = parseInt($("input[name=umzugChf2]").val());
-        let hours2 = parseInt($("input[name=umzugHours2]").val());
+        const umzugPreCost = (hours * chf) + (hours2 * chf2) +
+            (umzugRoadChf + extrasTotal + extra12Cost + extra13Cost);
 
-        let umzugRoadChf = parseInt($("input[name=umzugRoadChf]").val());
-        let umzugCost = 0;
-        let umzugTotalPrice = 0;
-        if ($('input[name=masraf]').is(":checked")){
-               var extra1 = parseInt($('input[name=extra1]').val());               
-            }
-            else {
-                extra1 = 0;
-            }
-            if ($('input[name=masraf1]').is(":checked")){
-               var extra2 = parseInt($('input[name=extra2]').val());               
-            }
-            else {
-                extra2 = 0;
-            }
-            if ($('input[name=masraf2]').is(":checked")){
-                var extra3 = parseInt($('input[name=extra3]').val());               
-            }
-            else {
-                extra3 = 0;
-            }
-            if ($('input[name=masraf3]').is(":checked")){
-                var extra4 = parseInt($('input[name=extra4]').val());               
-            }
-            else {
-                extra4 = 0;
-            }
-            if ($('input[name=masraf4]').is(":checked")){
-                var extra5 = parseInt($('input[name=extra5]').val());               
-            }
-            else {
-                extra5 = 0;
-            }
-            if ($('input[name=masraf5]').is(":checked")){
-                var extra6 = parseInt($('input[name=extra6]').val());               
-            }
-            else {
-                extra6 = 0;
-            }
-            if ($('input[name=masraf6]').is(":checked")){
-                var extra7 = parseInt($('input[name=extra7]').val());               
-            }
-            else {
-                extra7 = 0;
-            }
-            if ($('input[name=masraf7]').is(":checked")){
-                var extra8 = parseInt($('input[name=extra8]').val());               
-            }
-            else {
-                extra8 = 0;
-            }
-            if ($('input[name=masraf8]').is(":checked")){
-                var extra9 = parseInt($('input[name=extra9]').val());               
-            }
-            else {
-                extra9 = 0;
-            }
-            if ($('input[name=masraf9]').is(":checked")){
-                var extra10 = parseInt($('input[name=extra10]').val());               
-            }
-            else {
-                extra10 = 0;
-            }
-            if ($('input[name=masraf10]').is(":checked")){
-                var extra11 = parseInt($('input[name=extra11]').val());               
-            }
-            else {
-                extra11 = 0;
-            }
+        const umzugCost = (hours * chf) + (hours2 * chf2) +
+            (umzugRoadChf + extrasTotal + extra12Cost + extra13Cost) - (umzugPreCost*umzugDiscountPercent/100) -
+            umzugDiscount - umzugDiscount2 - umzugExtraDiscount - umzugExtraDiscount2;
+        $("input[name=umzugCost]").val(umzugCost);
 
-            let extra12Cost = parseFloat($('input[name=extra12Cost]').val());               
-            let extra13Cost = parseFloat($('input[name=extra13Cost]').val()); 
-            let umzugDiscount = parseFloat($('input[name=umzugDiscount]').val());
-            let umzugDiscount2 = parseFloat($('input[name=umzugDiscount2]').val());
-            let umzugExtraDiscount = parseFloat($('input[name=umzugExtraDiscount]').val());
-            let umzugExtraDiscount2 = parseFloat($('input[name=umzugExtraDiscount2]').val());
+        const isUmzugFixedPrice = $('input[name=isUmzugFixedPrice]').is(":checked");
+        const umzugFixedPrice = parseFloat($('input[name=umzugFixedPrice]').val()) || 0;
+        umzugTotalPrice = isUmzugFixedPrice ? umzugFixedPrice : umzugCost;
+        umzugTotalPrice -= umzugPaid1 + umzugPaid2 + umzugPaid3;
+        $("input[name=umzugTotalPrice]").val(umzugTotalPrice);
+    }
 
-            umzugTotalPrice = parseFloat($('input[name=umzugTotalPrice]').val());
-
-            let umzugPaid1 = parseFloat($('input[name=umzugPaid1]').val());
-            let umzugPaid2 = parseFloat($('input[name=umzugPaid2]').val());
-            let umzugPaid3 = parseFloat($('input[name=umzugPaid3]').val());
-
-            umzugCost = (hours*chf) + (hours2*chf2) + 
-            (umzugRoadChf+extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost)-
-            umzugDiscount-umzugDiscount2-umzugExtraDiscount-umzugExtraDiscount2;
-            umzugCost = parseFloat(umzugCost);
-
-            $("input[name=umzugCost]").val(umzugCost.toFixed(2))
-
-            if ($('input[name=isUmzugFixedPrice]').is(":checked")){
-                let umzugFixedCalc = parseFloat($('input[name=umzugFixedPrice]').val());
-                umzugTotalPrice = umzugFixedCalc - umzugPaid1 - umzugPaid2 - umzugPaid3;
-                $("input[name=umzugTotalPrice]").val(umzugTotalPrice.toFixed(2));
-            }
-            else {
-                umzugTotalPrice = umzugCost - umzugPaid1 - umzugPaid2 - umzugPaid3;
-                $("input[name=umzugTotalPrice]").val(umzugTotalPrice.toFixed(2));
-            }
-
+    $("body").on("change", ".umzug--area", function() {
+        umzugInvoiceCalc()
     })
+
+    $(document).ready(function() {
+        umzugInvoiceCalc()
+        if($("div.umzug--area").is(":visible"))
+        {
+            isRequiredUmzug()
+        }
+    })
+    
 </script>
 {{-- İlave ücret Aç/kapa --}}
 <script>
     var umzugextracostbutton = $("div.umzug-extra-cost");
-    umzugextracostbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    umzugextracostbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".umzug-extra-cost-area").show(700);
-        }
-        else{
+        } else {
             $(".umzug-extra-cost-area").hide(500);
         }
     })
 </script>
-
-
 @endsection

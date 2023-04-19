@@ -33,6 +33,7 @@ class InvoiceTransport extends Model
         'extraValue7',
         'discount',
         'discount2',
+        'discountPercent',
         'extraDiscountText1',
         'extraDiscountValue1',
         'extraDiscountText2',

@@ -218,6 +218,10 @@
             <input class="form-control"  name="reinigungDiscount" placeholder="0"  type="text" 
             @if($reinigung && $reinigung['discount']) value="{{ $reinigung['discount'] }}" @else value="0.00" @endif> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="reinigungDiscountPercent" placeholder="0"  type="text" 
+            @if($reinigung && $reinigung['discountPercent']) value="{{ $reinigung['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="reinigungDiscount2" placeholder="0"  type="text" 
             @if($reinigung && $reinigung['discount2']) value="{{ $reinigung['discount2'] }}" @else value="0.00" @endif>
@@ -274,7 +278,14 @@
 <script>
     $(document).ready(function (){
         let isFixedPrice = parseInt($('input[name=reinigungFixedPrice]').val());
+        reinigungInvoiceCalc()
+        
+        if($("div.reinigung--area").is(":visible"))
+        {
+            isRequiredReinigung()
+        }
     })
+    
     function isRequiredReinigung()
     {
         $("input[name=reinigungDate]").prop('required',true);  
@@ -299,115 +310,116 @@
         
     }
 
-    $("body").on("change",".reinigung--area",function (){
-        let isFixedPrice = parseInt($('input[name=reinigungFixedPrice]').val());
-        if(isFixedPrice != 0){
-            $("input[name=reinigungHours]").prop("required",false);
-            $("input[name=reinigungChf]").prop("required",false);
-            $("input[name=reinigungHours]").removeAttr('min'); 
-            $("input[name=reinigungChf]").removeAttr('min');
-        }
-        else{
-            $("input[name=reinigungFixedPrice]").prop("required",false);
-            $("input[name=reinigungHours]").prop("required",true);
-            $("input[name=reinigungChf]").prop("required",true);
-            $("input[name=reinigungHours]").removeAttr('min'); 
-            $("input[name=reinigungChf]").removeAttr('min');
-           
-        }
-    })
-
-    $("select[name=reinigungType]").on("change",function () {
-        let control = $(this).find(":selected").data('selection');
-
-        if (control == 'bos')
-        {
-            $('.reinigung-type-manuel-area').show(300)
-            $("select[name=reinigungType]").prop("required",false);
-            $("input[name=reinigungTypeManuel]").prop("required",true);
-        }
-        else
-        {
-            $('.reinigung-type-manuel-area').hide(300)
-            $("select[name=reinigungType]").prop("required",true);
-            $("input[name=reinigungTypeManuel]").prop("required",false);
-            $("input[name=reinigungTypeManuel]").val("");
-        }
-    })
-
-    var morebutton5 = $("div.reinigung-control");
-    morebutton5.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".reinigung--area").show(700);
-            isRequiredReinigung()
+        $("body").on("change",".reinigung--area",function (){
+            let isFixedPrice = parseInt($('input[name=reinigungFixedPrice]').val());
+            if(isFixedPrice != 0){
+                $("input[name=reinigungHours]").prop("required",false);
+                $("input[name=reinigungChf]").prop("required",false);
+                $("input[name=reinigungHours]").removeAttr('min'); 
+                $("input[name=reinigungChf]").removeAttr('min');
+            }
+            else{
+                $("input[name=reinigungFixedPrice]").prop("required",false);
+                $("input[name=reinigungHours]").prop("required",true);
+                $("input[name=reinigungChf]").prop("required",true);
+                $("input[name=reinigungHours]").removeAttr('min'); 
+                $("input[name=reinigungChf]").removeAttr('min');
             
-        }
-        else{
-            $(".reinigung--area").hide(500);
-            isNotRequiredReinigung()
-        }
-    })
-
-    $("body").on("change",".reinigung--area", function() {
-        let reinigungChf = parseInt($("input[name=reinigungChf]").val());
-        let reinigungHours = parseInt($("input[name=reinigungHours]").val());
-        let reinigungFixedPrice = parseInt($("input[name=reinigungFixedPrice]").val());
-
-        let reinigungCost = 0;
-        let reinigungTotalPrice = 0;
-
-        
-        if ($('input[name=reinigungMasraf1]').is(":checked")){
-            var extra1 = parseInt($('input[name=reinigungExtra1]').val());               
             }
-            else {
-                extra1 = 0;
-            }
-            if ($('input[name=reinigungMasraf2]').is(":checked")){
-               var extra2 = parseInt($('input[name=reinigungExtra2]').val());               
-            }
-            else {
-                extra2 = 0;
-            }
-            if ($('input[name=reinigungMasraf3]').is(":checked")){
-               var extra3 = parseInt($('input[name=reinigungExtra3]').val());               
-            }
-            else {
-                extra3 = 0;
-            }
+            reinigungInvoiceCalc()
+        })  
 
-            let reinigungExtra1Cost = parseFloat($('input[name=reinigungExtra1Cost]').val());               
-            let reinigungExtra2Cost = parseFloat($('input[name=reinigungExtra2Cost]').val()); 
-            let reinigungDiscount = parseFloat($('input[name=reinigungDiscount]').val());
-            let reinigungDiscount2 = parseFloat($('input[name=reinigungDiscount2]').val());
-            let reinigungExtraDiscount = parseFloat($('input[name=reinigungExtraDiscount]').val());
-            let reinigungExtraDiscount2 = parseFloat($('input[name=reinigungExtraDiscount2]').val());
+        $("select[name=reinigungType]").on("change",function () {
+            let control = $(this).find(":selected").data('selection');
 
-            reinigungTotalPrice = parseFloat($('input[name=reinigungTotalPrice]').val());
+            if (control == 'bos')
+            {
+                $('.reinigung-type-manuel-area').show(300)
+                $("select[name=reinigungType]").prop("required",false);
+                $("input[name=reinigungTypeManuel]").prop("required",true);
+            }
+            else
+            {
+                $('.reinigung-type-manuel-area').hide(300)
+                $("select[name=reinigungType]").prop("required",true);
+                $("input[name=reinigungTypeManuel]").prop("required",false);
+                $("input[name=reinigungTypeManuel]").val("");
+            }
+        })
 
-            let reinigungPaid1 = parseFloat($('input[name=reinigungPaid1]').val());
-            let reinigungPaid2 = parseFloat($('input[name=reinigungPaid2]').val());
-            let reinigungPaid3 = parseFloat($('input[name=reinigungPaid3]').val());
-
-            if (reinigungFixedPrice == 0 || !reinigungFixedPrice){
-                console.log('BURDA','fixed 0')
-                reinigungCost = (reinigungHours*reinigungChf) + 
-                (reinigungExtra1Cost+reinigungExtra2Cost+extra1+extra2+extra3)-
-                reinigungDiscount-reinigungDiscount2-reinigungExtraDiscount-reinigungExtraDiscount2;
-                reinigungCost = parseFloat(reinigungCost);
-                $("input[name=reinigungCost]").val(reinigungCost.toFixed(2))
+        var morebutton5 = $("div.reinigung-control");
+        morebutton5.click(function(){
+            if($(this).hasClass("checkbox-checked"))
+            {
+                $(".reinigung--area").show(700);
+                isRequiredReinigung()
                 
             }
             else{
-                reinigungCost = parseFloat(reinigungFixedPrice);
-                $("input[name=reinigungCost]").val(reinigungCost.toFixed(2))
+                $(".reinigung--area").hide(500);
+                isNotRequiredReinigung()
+            }
+        })
+
+    
+    
+        function reinigungInvoiceCalc() {
+            const reinigungChf = parseInt($("input[name=reinigungChf]").val()) || 0;
+            const reinigungHours = parseInt($("input[name=reinigungHours]").val()) || 0;
+            const reinigungRoadChf = parseInt($("input[name=reinigungRoadChf]").val()) || 0;
+            const reinigungDiscountPercent = parseInt($("input[name=reinigungDiscountPercent]").val()) || 0;
+            
+            let reinigungTotalPrice = 0;
+            let reinigungExtrasTotal = 0;
+            const reinigungExtras = [
+                {name: 'reinigungExtra1', masraf: 'reinigungMasraf1'},
+                {name: 'reinigungExtra2', masraf: 'reinigungMasraf2'},
+                {name: 'reinigungExtra3', masraf: 'reinigungMasraf3'},
+            ];
+            
+            for (const reinigungExtra of reinigungExtras) {
+                if ($(`input[name=${reinigungExtra.masraf}]`).is(':checked')) {
+                const value = parseInt($(`input[name=${reinigungExtra.name}]`).val()) || 0;
+                reinigungExtrasTotal += isNaN(value) ? 0 : value;
+                }
             }
 
-            reinigungTotalPrice = reinigungCost - reinigungPaid1 - reinigungPaid2 - reinigungPaid3;
-            $("input[name=reinigungTotalPrice]").val(reinigungTotalPrice.toFixed(2));
+            const reinigungExtra1Cost = parseFloat($('input[name=reinigungExtra1Cost]').val()) || 0;
+            const reinigungExtra2Cost = parseFloat($('input[name=reinigungExtra2Cost]').val()) || 0;
+            const reinigungDiscount = parseFloat($('input[name=reinigungDiscount]').val()) || 0 ;
+            const reinigungDiscount2 = parseFloat($('input[name=reinigungDiscount2]').val()) || 0;
+            const reinigungExtraDiscount = parseFloat($('input[name=reinigungExtraDiscount]').val()) || 0;
+            const reinigungExtraDiscount2 = parseFloat($('input[name=reinigungExtraDiscount2]').val()) || 0;
 
-    })
+            const reinigungPaid1 = parseFloat($('input[name=reinigungPaid1]').val()) || 0;
+            const reinigungPaid2 = parseFloat($('input[name=reinigungPaid2]').val()) || 0;
+            const reinigungPaid3 = parseFloat($('input[name=reinigungPaid3]').val()) || 0;
+            
+            const reinigungFixedPrice = parseFloat($('input[name=reinigungFixedPrice]').val()) || 0;
+
+            if(reinigungFixedPrice > 0) {
+                $("input[name=reinigungCost]").val(reinigungFixedPrice);
+                reinigungTotalPrice = reinigungFixedPrice;
+            }
+            else {
+                const reinigungPreCost = (reinigungHours * reinigungChf)  +
+                (reinigungRoadChf + reinigungExtrasTotal + reinigungExtra1Cost + reinigungExtra2Cost);
+
+                const reinigungCost = (reinigungHours * reinigungChf) +
+                (reinigungRoadChf + reinigungExtrasTotal + reinigungExtra1Cost + reinigungExtra2Cost) - (reinigungPreCost*reinigungDiscountPercent/100) -
+                reinigungDiscount - reinigungDiscount2 - reinigungExtraDiscount - reinigungExtraDiscount2;
+           
+                $("input[name=reinigungCost]").val(reinigungCost);
+                reinigungTotalPrice = reinigungCost;
+            }
+            
+            reinigungTotalPrice -= reinigungPaid1 + reinigungPaid2 + reinigungPaid3;
+            reinigungTotalPrice = parseFloat(reinigungTotalPrice);
+            $("input[name=reinigungTotalPrice]").val(reinigungTotalPrice.toFixed(2));
+            console.log(reinigungPaid1, reinigungPaid2 , reinigungPaid3)
+            
+        }
+    
 </script>
 
 {{-- İlave ücret Aç/kapa --}}

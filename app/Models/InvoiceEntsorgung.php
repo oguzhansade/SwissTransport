@@ -23,6 +23,7 @@ class InvoiceEntsorgung extends Model
         'extraValue2',
         'discount',
         'discount2',
+        'discountPercent',
         'extraDiscountText1',
         'extraDiscountValue1',
         'extraDiscountText2',

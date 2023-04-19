@@ -29,8 +29,14 @@
             <div class="row " >
                 <div class="col-md-6">
                     <label class=" col-form-label" for="l0">Anzahl Std</label>
+                    <?php
+                        if ($transport && $transport['hour']) {
+                            $transportHours = is_numeric($transport['hour']) ? $transport['hour'] : explode('-', $transport['hour'])[1];
+                            $transportHours = (int) $transportHours; // "$transportHours" değişkenini integer'a dönüştürür
+                        }
+                    ?>
                     <input class="form-control" class="date"  name="transportHours"  type="number" 
-                    @if($transport) value="{{ $transport['hour'] }}" @else value="0" @endif>
+                    @if($transport && $transport['hour']) value="{{ $transportHours }}" @else value="0" @endif>
                     <a onclick="extraAreaTransport()" class="extraTimeTransport text-primary mt-1" style="cursor: pointer;">+ Weitere Zeiteingabe</a>
                 </div>
 
@@ -179,8 +185,13 @@
             <input class="form-control"  name="transportDiscount" placeholder="0"  type="text" 
             @if($transport && $transport['discount']) value="{{ $transport['discount'] }}" @else value="0.00" @endif> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="transportDiscountPercent" placeholder="0"  type="text" 
+            @if($transport && $transport['discountPercent']) value="{{ $transport['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
-            <input class="form-control"  name="transportDiscount2" placeholder="0"  type="text" value="0.00">
+            <input class="form-control"  name="transportDiscount2" placeholder="0"  type="text" 
+            @if($transport && $transport['compromiser']) value="{{ $transport['compromiser'] }}" @else value="0.00" @endif>
 
             <div class="row ">
                 <div class="col-md-7">
@@ -207,8 +218,14 @@
             </div>
 
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
+            <?php
+                if ($transport && $transport['defaultPrice']) {
+                    $transportCost = is_numeric($transport['defaultPrice']) ? $transport['defaultPrice'] : explode('-', $transport['defaultPrice'])[1];
+                    $transportCost = (int) $transportCost; // "$defaultPrice" değişkenini integer'a dönüştürür
+                }
+            ?>
             <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($transport && $transport['defaultPrice']) value="{{ $transport['defaultPrice'] }}" @else value="0.00" @endif>
+            @if($transport && $transport['defaultPrice']) value="{{ $transportCost }}" @else value="0.00" @endif>
             
             <div class="transport-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
@@ -231,8 +248,14 @@
             <input class="form-control"  name="transportPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"  value="0.00">
 
             <label class="col-form-label" for="l0">Betrag </label>
+            <?php
+                if ($transport && $transport['defaultPrice']) {
+                    $transportDefault = is_numeric($transport['defaultPrice']) ? $transport['defaultPrice'] : explode('-', $transport['defaultPrice'])[1];
+                    $transportDefault = (int) $transportDefault; // "$transportDefault" değişkenini integer'a dönüştürür
+                }
+            ?>
             <input class="form-control total-piece"  name="transportTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($transport && $transport['fixedPrice']) value="{{ $transport['fixedPrice'] }}" @elseif($transport && $transport['defaultPrice']) value="{{ $transport['defaultPrice'] }}" @endif>
+            @if($transport && $transport['fixedPrice']) value="{{ $transport['fixedPrice'] }}" @elseif($transport && $transport['defaultPrice']) value="{{ $transportDefault }}" @endif>
         </div>
     </div>
 </div>
@@ -242,7 +265,13 @@
 {{-- Tarife Fiyatları --}}
 <script>        
 
-
+    $(document).ready(function() {
+        transportInvoiceCalc()
+        if($("div.transport--area").is(":visible"))
+        {
+            isRequiredTransport()
+        }
+    })
     function isRequiredTransport()
     {
         $("input[name=transportDate]").prop('required',true);  
@@ -263,9 +292,9 @@
         $("input[name=transportChf]").removeAttr('min');
     }
 
-    $("body").on("change",".reinigung--area",function (){
+    $("body").on("change",".transport--area",function (){
         let isFixedPrice = parseInt($('input[name=transportFixedTariff]').val());
-        if(isFixedPrice != 0){
+        if(isFixedPrice && isFixedPrice != 0){
             $("input[name=transportHours]").prop("required",false);
             $("input[name=transportChf]").prop("required",false);
             $("input[name=transportHours]").removeAttr('min'); 
@@ -278,6 +307,7 @@
             $("input[name=transportHours]").removeAttr('min'); 
             $("input[name=transportChf]").removeAttr('min');
         }
+        transportInvoiceCalc()
     })
 
     var isTransportFixedbutton = $("div.transport-fixed-price");
@@ -292,7 +322,6 @@
     })
 
     var morebutton8 = $("div.transport-control");
-
     morebutton8.click(function() {
             if ($(this).hasClass("checkbox-checked")) {
                 $(".transport--area").show(700);
@@ -325,81 +354,132 @@
         }
     })
 
-    $("body").on("change",".transport--area", function() {
-        let transportFixedTariff = parseInt($("input[name=transportFixedTariff]").val());
+    function transportInvoiceCalc() {
+            const transportChf = parseInt($("input[name=transportChf]").val()) || 0;
+            const transportHours = parseInt($("input[name=transportHours]").val()) || 0;
+            const transportChf2 = parseInt($("input[name=transportChf2]").val()) || 0;
+            const transportHours2 = parseInt($("input[name=transportHours2]").val()) || 0;
+            const transportRoadChf = parseInt($("input[name=transportRoadChf]").val()) || 0;
+            const transportDiscountPercent = parseInt($("input[name=transportDiscountPercent]").val()) || 0;
 
-        let transportHours = parseInt($("input[name=transportHours]").val());
-        let transportChf = parseInt($("input[name=transportChf]").val());
-
-        let transportHours2 = parseInt($("input[name=transportHours2]").val());
-        let transportChf2 = parseInt($("input[name=transportChf2]").val());
-
-        let transportRoadChf = parseInt($("input[name=transportRoadChf]").val());
-
-        let transportCost = 0;
-        let transportTotalPrice = 0;
-
-        let transportExtra1Cost = parseFloat($('input[name=transportExtra1Cost]').val());               
-        let transportExtra2Cost = parseFloat($('input[name=transportExtra2Cost]').val()); 
-        let transportExtra3Cost = parseFloat($('input[name=transportExtra3Cost]').val()); 
-        let transportExtra4Cost = parseFloat($('input[name=transportExtra4Cost]').val()); 
-        let transportExtra5Cost = parseFloat($('input[name=transportExtra5Cost]').val()); 
-        let transportExtra6Cost = parseFloat($('input[name=transportExtra6Cost]').val()); 
-        let transportExtra7Cost = parseFloat($('input[name=transportExtra7Cost]').val()); 
-
-        let transportDiscount = parseFloat($('input[name=transportDiscount]').val());
-        let transportDiscount2 = parseFloat($('input[name=transportDiscount2]').val());
-
-        let transportExtraDiscount = parseFloat($('input[name=transportExtraDiscount]').val());
-        let transportExtraDiscount2 = parseFloat($('input[name=transportExtraDiscount2]').val());
-
-        transportTotalPrice = parseFloat($('input[name=transportTotalPrice]').val());
-
-        let transportPaid1 = parseFloat($('input[name=transportPaid1]').val());
-        let transportPaid2 = parseFloat($('input[name=transportPaid2]').val());
-        let transportPaid3 = parseFloat($('input[name=transportPaid3]').val());
-
-        if(transportFixedTariff != 0)
-        {
-            let transportFixedTariffCalc = transportFixedTariff - transportDiscount - transportDiscount2 - transportExtraDiscount - transportExtraDiscount2;
-            transportFixedTariffCalc = parseFloat(transportFixedTariffCalc);
-            transportFixedTariffCalc = transportFixedTariffCalc.toFixed(2);
-            $("input[name=transportCost]").val(transportFixedTariffCalc);
-
-            if ($('input[name=isTransportFixedPrice]').is(":checked")){
-                let transportTotalPriceCalc = parseFloat($('input[name=transportFixedPrice]').val());
-                transportTotalPrice = transportTotalPriceCalc - transportPaid1 - transportPaid2 - transportPaid3;
-                $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+            const transportExtras = [
+                {name: 'transportExtra1Cost'},
+                {name: 'transportExtra2Cost'},
+                {name: 'transportExtra3Cost'},
+                {name: 'transportExtra4Cost'},
+                {name: 'transportExtra5Cost'},
+                {name: 'transportExtra6Cost'},
+                {name: 'transportExtra7Cost'},
+            ];
+            let transportExtrasTotal = 0;
+            for (const transportExtra of transportExtras) {
+                const value = parseInt($(`input[name=${transportExtra.name}]`).val()) || 0;
+                transportExtrasTotal += isNaN(value) ? 0 : value;
             }
-            else{
-                transportTotalPrice = transportFixedTariffCalc - transportPaid1 - transportPaid2 - transportPaid3;
-                $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
-            }
-        }
-        else
-        {
-            transportCostCalc = (transportHours*transportChf) + (transportHours2*transportChf2) + 
-            transportRoadChf + transportExtra1Cost + transportExtra2Cost + transportExtra3Cost + 
-            transportExtra4Cost + transportExtra5Cost + transportExtra6Cost + transportExtra7Cost - transportDiscount - transportDiscount2 - transportExtraDiscount - transportExtraDiscount2;
-            transportCostCalc = parseFloat(transportCostCalc);
-            transportCostCalc = transportCostCalc.toFixed(2);
-            $("input[name=transportCost]").val(transportCostCalc);
 
-            if ($('input[name=isTransportFixedPrice]').is(":checked")){
-                let transportTotalPriceCalc = parseFloat($('input[name=transportFixedPrice]').val());
-                transportTotalPrice = transportTotalPriceCalc - transportPaid1 - transportPaid2 - transportPaid3;
-                $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+            const transportDiscount = parseFloat($('input[name=transportDiscount]').val()) || 0 ;
+            const transportDiscount2 = parseFloat($('input[name=transportDiscount2]').val()) || 0;
+            const transportExtraDiscount = parseFloat($('input[name=transportExtraDiscount]').val()) || 0;
+            const transportExtraDiscount2 = parseFloat($('input[name=transportExtraDiscount2]').val()) || 0;
+
+            const transportPaid1 = parseFloat($('input[name=transportPaid1]').val()) || 0;
+            const transportPaid2 = parseFloat($('input[name=transportPaid2]').val()) || 0;
+            const transportPaid3 = parseFloat($('input[name=transportPaid3]').val()) || 0;
+            
+            const transportFixedPrice = parseFloat($('input[name=transportFixedTariff]').val()) || 0;
+
+            if(transportFixedPrice > 0) {
+                $("input[name=transportCost]").val(transportFixedPrice);
+                transportTotalPrice = transportFixedPrice;
             }
-            else{
-                transportTotalPrice = transportCostCalc - transportPaid1 - transportPaid2 - transportPaid3;
-                $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+            else {
+                const transportPreCost = (transportHours * transportChf)  + (transportHours2 * transportChf2) +
+                (transportRoadChf + transportExtrasTotal );
+
+                const transportCost = (transportHours * transportChf) +  (transportHours2 * transportChf2) +
+                (transportRoadChf + transportExtrasTotal ) - transportDiscount - (transportPreCost*transportDiscountPercent/100) -
+                 transportDiscount2 - transportExtraDiscount - transportExtraDiscount2;
+           
+                $("input[name=transportCost]").val(transportCost);
+                transportTotalPrice = transportCost;
             }
-        }
-    })
+            
+            transportTotalPrice -= transportPaid1 + transportPaid2 + transportPaid3;
+            transportTotalPrice = parseFloat(transportTotalPrice);
+            $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+            console.log(transportPaid1, transportPaid2 , transportPaid3)
+    }
+
+    // function transportFunc() {
+    //     let transportFixedTariff = parseInt($("input[name=transportFixedTariff]").val());
+
+    //     let transportHours = parseInt($("input[name=transportHours]").val());
+    //     let transportChf = parseInt($("input[name=transportChf]").val());
+
+    //     let transportHours2 = parseInt($("input[name=transportHours2]").val());
+    //     let transportChf2 = parseInt($("input[name=transportChf2]").val());
+
+    //     let transportRoadChf = parseInt($("input[name=transportRoadChf]").val());
+
+    //     let transportCost = 0;
+    //     let transportTotalPrice = 0;
+
+    //     let transportExtra1Cost = parseFloat($('input[name=transportExtra1Cost]').val()) || 0;               
+    //     let transportExtra2Cost = parseFloat($('input[name=transportExtra2Cost]').val()) || 0; 
+    //     let transportExtra3Cost = parseFloat($('input[name=transportExtra3Cost]').val()) || 0; 
+    //     let transportExtra4Cost = parseFloat($('input[name=transportExtra4Cost]').val()) || 0; 
+    //     let transportExtra5Cost = parseFloat($('input[name=transportExtra5Cost]').val()) || 0; 
+    //     let transportExtra6Cost = parseFloat($('input[name=transportExtra6Cost]').val()) || 0; 
+    //     let transportExtra7Cost = parseFloat($('input[name=transportExtra7Cost]').val()) || 0; 
+
+    //     let transportDiscount = parseFloat($('input[name=transportDiscount]').val()) || 0;
+    //     let transportDiscount2 = parseFloat($('input[name=transportDiscount2]').val()) || 0;
+
+    //     let transportExtraDiscount = parseFloat($('input[name=transportExtraDiscount]').val()) || 0;
+    //     let transportExtraDiscount2 = parseFloat($('input[name=transportExtraDiscount2]').val()) || 0;
+
+    //     transportTotalPrice = parseFloat($('input[name=transportTotalPrice]').val()) || 0;
+
+    //     let transportPaid1 = parseFloat($('input[name=transportPaid1]').val()) || 0;
+    //     let transportPaid2 = parseFloat($('input[name=transportPaid2]').val()) || 0;
+    //     let transportPaid3 = parseFloat($('input[name=transportPaid3]').val()) || 0;
+
+    //     if(transportFixedTariff != 0)
+    //     {
+    //         let transportFixedTariffCalc = transportFixedTariff - transportDiscount - transportDiscount2 - transportExtraDiscount - transportExtraDiscount2;
+    //         transportFixedTariffCalc = parseFloat(transportFixedTariffCalc);
+    //         transportFixedTariffCalc = transportFixedTariffCalc.toFixed(2);
+    //         $("input[name=transportCost]").val(transportFixedTariffCalc);
+
+    //         if ($('input[name=isTransportFixedPrice]').is(":checked")){
+    //             let transportTotalPriceCalc = parseFloat($('input[name=transportFixedPrice]').val());
+    //             transportTotalPrice = transportTotalPriceCalc - transportPaid1 - transportPaid2 - transportPaid3;
+    //             $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+    //         }
+    //         else{
+    //             transportTotalPrice = transportFixedTariffCalc - transportPaid1 - transportPaid2 - transportPaid3;
+    //             $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+    //         }
+    //     }
+    //     else
+    //     {
+    //         transportCostCalc = (transportHours*transportChf) + (transportHours2*transportChf2) + 
+    //         transportRoadChf + transportExtra1Cost + transportExtra2Cost + transportExtra3Cost + 
+    //         transportExtra4Cost + transportExtra5Cost + transportExtra6Cost + transportExtra7Cost - transportDiscount - transportDiscount2 - transportExtraDiscount - transportExtraDiscount2;
+    //         transportCostCalc = parseFloat(transportCostCalc);
+    //         transportCostCalc = transportCostCalc.toFixed(2);
+    //         $("input[name=transportCost]").val(transportCostCalc);
+
+    //         if ($('input[name=isTransportFixedPrice]').is(":checked")){
+    //             let transportTotalPriceCalc = parseFloat($('input[name=transportFixedPrice]').val());
+    //             transportTotalPrice = transportTotalPriceCalc - transportPaid1 - transportPaid2 - transportPaid3;
+    //             $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+    //         }
+    //         else{
+    //             transportTotalPrice = transportCostCalc - transportPaid1 - transportPaid2 - transportPaid3;
+    //             $("input[name=transportTotalPrice]").val(transportTotalPrice.toFixed(2));
+    //         }
+    //     }
+    // }
 </script>
-<script>
-
-</script>
-
-    
 @endsection

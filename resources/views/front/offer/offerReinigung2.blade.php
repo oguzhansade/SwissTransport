@@ -354,7 +354,7 @@
                     if(rightHour){
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceRight = calcReinigungPriceRight-(calcReinigungPriceRight*reinigungDiscountPercent/100)
+                            calcReinigungPriceRight = calcReinigungPriceRight-(calcReinigungPriceRight*reinigungDiscountPercent/100) -reinigungDiscount;
                         }
                         $('input[name=reinigungTotalPrice2]').val(calcReinigungPriceRight)
                         $('input[name=reinigung2CostPrice]').val(calcReinigungRight);
@@ -362,7 +362,7 @@
                     if(leftHour){
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungPriceLeft-(calcReinigungPriceLeft*reinigungDiscountPercent/100)
+                            calcReinigungPriceLeft = calcReinigungPriceLeft-(calcReinigungPriceLeft*reinigungDiscountPercent/100) - reinigungDiscount;
                         }
                         $('input[name=reinigungTotalPrice2]').val(calcReinigungPriceLeft)
                         $('input[name=reinigung2CostPrice]').val(calcReinigungLeft);
@@ -370,8 +370,8 @@
                     if(leftHour && rightHour ){
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100)
-                            calcReinigungPriceRight = calcReinigungRight-(calcReinigungRight*reinigungDiscountPercent/100)
+                            calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100) - reinigungDiscount;
+                            calcReinigungPriceRight = calcReinigungRight-(calcReinigungRight*reinigungDiscountPercent/100) - reinigungDiscount;
                         }
                         $('input[name=reinigungTotalPrice2]').val(calcReinigungPriceLeft+'-'+calcReinigungPriceRight) 
                         $('input[name=reinigung2CostPrice]').val(calcReinigungLeft+'-'+calcReinigungRight);

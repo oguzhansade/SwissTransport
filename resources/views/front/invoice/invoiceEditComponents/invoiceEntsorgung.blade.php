@@ -120,6 +120,10 @@
             <input class="form-control"  name="entsorgungDiscount" placeholder="0"  type="text" 
             @if($entsorgung && $entsorgung['discount']) value="{{ $entsorgung['discount'] }}" @else value="0.00" @endif> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="entsorgungDiscountPercent" placeholder="0"  type="text" 
+            @if($entsorgung && $entsorgung['discountPercent']) value="{{ $entsorgung['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="entsorgungDiscount2" placeholder="0"  type="text" 
             @if($entsorgung && $entsorgung['discount2']) value="{{ $entsorgung['discount2'] }}" @else value="0.00" @endif>
@@ -181,7 +185,6 @@
 
 {{-- Tarife Fiyatları --}}
 <script>
-
     function isRequiredEntsorgung()
     {
         $("input[name=entsorgungDate]").prop('required',true);      
@@ -215,9 +218,17 @@
             $("input[name=entsorgungFixedChf]").prop('required',true);
             $("input[name=entsorgungHours]").prop('required',false); 
             $("input[name=entsorgungChf]").prop('required',false);
+            $("input[name=entsorgungHours]").removeAttr('min'); 
+            $("input[name=entsorgungChf]").removeAttr('min');
         }
     })
 
+    $(document).ready(function() {
+        if($("div.entsorgung--area").is(":visible"))
+        {
+            isRequiredEntsorgung()
+        }
+    })
     var isEntsorgungFixedbutton = $("div.entsorgung-fixed-price");
     isEntsorgungFixedbutton.click(function(){
         if($(this).hasClass("checkbox-checked"))
@@ -231,11 +242,11 @@
         }
     })
 
-    var morebutton7 = $("div.entsorgung-control");
-    morebutton7.click(function(){
+    var morebutton32 = $("div.entsorgung-control");
+    morebutton32.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
-            $(".entsorgung--area").show(700);
+            $(".entsorgung--area").show(500);
             isRequiredEntsorgung()
         }
         else{
@@ -245,14 +256,14 @@
     })
 
     $("body").on("change",".entsorgung--area", function() {
-        let entsorgungVolume = parseInt($("input[name=entsorgungVolume]").val());
-        let entsorgungFixedChf = parseInt($("input[name=entsorgungFixedChf]").val());
-        let entsorgungFixedChfCost = parseInt($("input[name=entsorgungFixedChfCost]").val());
+        let entsorgungVolume = parseInt($("input[name=entsorgungVolume]").val()) || 0;
+        let entsorgungFixedChf = parseInt($("input[name=entsorgungFixedChf]").val()) || 0;
+        let entsorgungFixedChfCost = parseInt($("input[name=entsorgungFixedChfCost]").val()) || 0;
 
-        let entsorgungChf = parseInt($("input[name=entsorgungChf]").val());
-        let entsorgungHours = parseInt($("input[name=entsorgungHours]").val());
+        let entsorgungChf = parseInt($("input[name=entsorgungChf]").val()) || 0;
+        let entsorgungHours = parseInt($("input[name=entsorgungHours]").val()) || 0;
 
-        let entsorgungRoadChf = parseInt($("input[name=entsorgungRoadChf]").val());
+        let entsorgungRoadChf = parseInt($("input[name=entsorgungRoadChf]").val()) || 0;
 
         let entsorgungCost = 0;
         let entsorgungTotalPrice = 0;
@@ -263,29 +274,32 @@
                 extra1 = 0;
             }
 
-            let entsorgungExtra1Cost = parseFloat($('input[name=entsorgungExtra1Cost]').val());               
-            let entsorgungExtra2Cost = parseFloat($('input[name=entsorgungExtra2Cost]').val()); 
+            let entsorgungExtra1Cost = parseFloat($('input[name=entsorgungExtra1Cost]').val()) || 0;               
+            let entsorgungExtra2Cost = parseFloat($('input[name=entsorgungExtra2Cost]').val()) || 0; 
 
-            let entsorgungDiscount = parseFloat($('input[name=entsorgungDiscount]').val());
-            let entsorgungDiscount2 = parseFloat($('input[name=entsorgungDiscount2]').val());
+            let entsorgungDiscount = parseFloat($('input[name=entsorgungDiscount]').val()) || 0;
+            let entsorgungDiscount2 = parseFloat($('input[name=entsorgungDiscount2]').val()) || 0;
 
-            let entsorgungExtraDiscount = parseFloat($('input[name=entsorgungExtraDiscount]').val());
-            let entsorgungExtraDiscount2 = parseFloat($('input[name=entsorgungExtraDiscount2]').val());
+            let entsorgungExtraDiscount = parseFloat($('input[name=entsorgungExtraDiscount]').val()) || 0;
+            let entsorgungExtraDiscount2 = parseFloat($('input[name=entsorgungExtraDiscount2]').val()) || 0;
+            let entsorgungExtraDiscountPercent = parseFloat($('input[name=entsorgungExtraDiscountPercent]').val()) || 0;
 
-            entsorgungTotalPrice = parseFloat($('input[name=entsorgungTotalPrice]').val());
+            entsorgungTotalPrice = parseFloat($('input[name=entsorgungTotalPrice]').val()) || 0;
 
-            let entsorgungPaid1 = parseFloat($('input[name=entsorgungPaid1]').val());
-            let entsorgungPaid2 = parseFloat($('input[name=entsorgungPaid2]').val());
+            let entsorgungPaid1 = parseFloat($('input[name=entsorgungPaid1]').val()) || 0; 
+            let entsorgungPaid2 = parseFloat($('input[name=entsorgungPaid2]').val()) || 0;
 
+            let entPreCost = (entsorgungVolume*entsorgungFixedChf) + entsorgungFixedChfCost  + (entsorgungChf*entsorgungHours) + 
+            (entsorgungRoadChf+entsorgungExtra1Cost+entsorgungExtra2Cost+extra1);
             entsorgungCost = (entsorgungVolume*entsorgungFixedChf) + entsorgungFixedChfCost  + (entsorgungChf*entsorgungHours) + 
-            (entsorgungRoadChf+entsorgungExtra1Cost+entsorgungExtra2Cost+extra1)-
+            (entsorgungRoadChf+entsorgungExtra1Cost+entsorgungExtra2Cost+extra1)- (entPreCost*entsorgungExtraDiscountPercent/100) -
             entsorgungDiscount-entsorgungDiscount2-entsorgungExtraDiscount-entsorgungExtraDiscount2;
             entsorgungCost = parseFloat(entsorgungCost);
 
             $("input[name=entsorgungCost]").val(entsorgungCost.toFixed(2))
 
             if ($('input[name=isEntsorgungFixedPrice]').is(":checked")){
-                let entsorgungFixedCalc = parseFloat($('input[name=entsorgungFixedPrice]').val());
+                let entsorgungFixedCalc = parseFloat($('input[name=entsorgungFixedPrice]').val()) || 0;
                 entsorgungTotalPrice = entsorgungFixedCalc - entsorgungPaid1 - entsorgungPaid2;
                 $("input[name=entsorgungTotalPrice]").val(entsorgungTotalPrice.toFixed(2));
             }

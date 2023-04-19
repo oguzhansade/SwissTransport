@@ -189,6 +189,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->extra13Cost,
                     'discount' => $request->umzugDiscount,
                     'discount2' => $request->umzugDiscount2,
+                    'discountPercent' => $request->umzugDiscountPercent,
                     'extraDiscountText1' => $request->umzugExtraDiscountText,
                     'extraDiscountValue1' => $request->umzugExtraDiscount,
                     'extraDiscountText2' => $request->umzugExtraDiscountText2,
@@ -232,6 +233,7 @@ class indexController extends Controller
                 'extraValue2'=> $request->extra13Cost,
                 'discount' => $request->umzugDiscount,
                 'discount2' => $request->umzugDiscount2,
+                'discountPercent' => $request->umzugDiscountPercent,
                 'extraDiscountText1' => $request->umzugExtraDiscountText,
                 'extraDiscountValue1' => $request->umzugExtraDiscount,
                 'extraDiscountText2' => $request->umzugExtraDiscountText2,
@@ -275,6 +277,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->einpackExtra2Cost,
                     'discount' => $request->einpackDiscount,
                     'discount2' => $request->einpackDiscount2,
+                    'discountPercent' => $request->einpackDiscountPercent,
                     'extraDiscountText1' => $request->einpackExtraDiscountText,
                     'extraDiscountValue1' => $request->einpackExtraDiscount,
                     'extraDiscountText2' => $request->einpackExtraDiscountText2,
@@ -309,6 +312,7 @@ class indexController extends Controller
                 'extraValue2'=> $request->einpackExtra2Cost,
                 'discount' => $request->einpackDiscount,
                 'discount2' => $request->einpackDiscount2,
+                'discountPercent' => $request->einpackDiscountPercent,
                 'extraDiscountText1' => $request->einpackExtraDiscountText,
                 'extraDiscountValue1' => $request->einpackExtraDiscount,
                 'extraDiscountText2' => $request->einpackExtraDiscountText2,
@@ -352,6 +356,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->auspackExtra2Cost,
                     'discount' => $request->auspackDiscount,
                     'discount2' => $request->auspackDiscount2,
+                    'discountPercent' => $request->auspackDiscountPercent,
                     'extraDiscountText1' => $request->auspackExtraDiscountText,
                     'extraDiscountValue1' => $request->auspackExtraDiscount,
                     'extraDiscountText2' => $request->auspackExtraDiscountText2,
@@ -386,6 +391,7 @@ class indexController extends Controller
                 'extraValue2'=> $request->auspackExtra2Cost,
                 'discount' => $request->auspackDiscount,
                 'discount2' => $request->auspackDiscount2,
+                'discountPercent' => $request->auspackDiscountPercent,
                 'extraDiscountText1' => $request->auspackExtraDiscountText,
                 'extraDiscountValue1' => $request->auspackExtraDiscount,
                 'extraDiscountText2' => $request->auspackExtraDiscountText2,
@@ -430,6 +436,7 @@ class indexController extends Controller
                     'extraValue2' => $request->reinigungExtra2Cost,
                     'discount' => $request->reinigungDiscount,
                     'discount2' => $request->reinigungDiscount2,
+                    'discountPercent' => $request->reinigungDiscountPercent,
                     'extraDiscountText1' => $request->reinigungExtraDiscountText,
                     'extraDiscountValue1' => $request->reinigungExtraDiscount,
                     'extraDiscountText2' => $request->reinigungExtraDiscountText2,
@@ -465,6 +472,7 @@ class indexController extends Controller
                 'extraValue2' => $request->reinigungExtra2Cost,
                 'discount' => $request->reinigungDiscount,
                 'discount2' => $request->reinigungDiscount2,
+                'discountPercent' => $request->reinigungDiscountPercent,
                 'extraDiscountText1' => $request->reinigungExtraDiscountText,
                 'extraDiscountValue1' => $request->reinigungExtraDiscount,
                 'extraDiscountText2' => $request->reinigungExtraDiscountText2,
@@ -508,6 +516,7 @@ class indexController extends Controller
                     'extraValue2' => $request->reinigung2Extra2Cost,
                     'discount' => $request->reinigung2Discount,
                     'discount2' => $request->reinigung2Discount2,
+                    'discountPercent' => $request->reinigung2DiscountPercent,
                     'extraDiscountText1' => $request->reinigung2ExtraDiscountText,
                     'extraDiscountValue1' => $request->reinigung2ExtraDiscount,
                     'extraDiscountText2' => $request->reinigung2ExtraDiscountText2,
@@ -543,6 +552,7 @@ class indexController extends Controller
                 'extraValue2' => $request->reinigung2Extra2Cost,
                 'discount' => $request->reinigung2Discount,
                 'discount2' => $request->reinigung2Discount2,
+                'discountPercent' => $request->reinigung2DiscountPercent,
                 'extraDiscountText1' => $request->reinigung2ExtraDiscountText,
                 'extraDiscountValue1' => $request->reinigung2ExtraDiscount,
                 'extraDiscountText2' => $request->reinigung2ExtraDiscountText2,
@@ -585,6 +595,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->entsorgungExtra2Cost,
                     'discount' => $request->entsorgungDiscount,
                     'discount2' => $request->entsorgungDiscount2,
+                    'discountPercent' => $request->entsorgungDiscountPercent,
                     'extraDiscountText1' => $request->entsorgungExtraDiscountText,
                     'extraDiscountValue1' => $request->entsorgungExtraDiscount,
                     'extraDiscountText2' => $request->entsorgungExtraDiscountText2,
@@ -618,6 +629,7 @@ class indexController extends Controller
                 'extraValue2'=> $request->entsorgungExtra2Cost,
                 'discount' => $request->entsorgungDiscount,
                 'discount2' => $request->entsorgungDiscount2,
+                'discountPercent' => $request->entsorgungDiscountPercent,
                 'extraDiscountText1' => $request->entsorgungExtraDiscountText,
                 'extraDiscountValue1' => $request->entsorgungExtraDiscount,
                 'extraDiscountText2' => $request->entsorgungExtraDiscountText2,
@@ -668,6 +680,7 @@ class indexController extends Controller
                     'extraValue7'=> $request->transportExtra7Cost,
                     'discount' => $request->transportDiscount,
                     'discount2' => $request->transportDiscount2,
+                    'discountPercent' => $request->transportDiscountPercent,
                     'extraDiscountText1' => $request->transportExtraDiscountText,
                     'extraDiscountValue1' => $request->transportExtraDiscount,
                     'extraDiscountText2' => $request->transportExtraDiscountText2,
@@ -711,6 +724,7 @@ class indexController extends Controller
                 'extraValue7'=> $request->transportExtra7Cost,
                 'discount' => $request->transportDiscount,
                 'discount2' => $request->transportDiscount2,
+                'discountPercent' => $request->transportDiscountPercent,
                 'extraDiscountText1' => $request->transportExtraDiscountText,
                 'extraDiscountValue1' => $request->transportExtraDiscount,
                 'extraDiscountText2' => $request->transportExtraDiscountText2,
@@ -748,6 +762,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->lagerungExtra2Cost,
                     'discount' => $request->lagerungDiscount,
                     'discount2' =>  $request->lagerungDiscount2,
+                    'discountPercent' => $request->lagerungDiscountPercent,
                     'extraDiscountText1' => $request->lagerungExtraDiscountText,
                     'extraDiscountValue1'=> $request->lagerungExtraDiscount,
                     'extraDiscountText2' => $request->lagerungExtraDiscountText2,
@@ -776,6 +791,7 @@ class indexController extends Controller
                 'extraValue2'=> $request->lagerungExtra2Cost,
                 'discount' => $request->lagerungDiscount,
                 'discount2' =>  $request->lagerungDiscount2,
+                'discountPercent' => $request->lagerungDiscountPercent,
                 'extraDiscountText1' => $request->lagerungExtraDiscountText,
                 'extraDiscountValue1'=> $request->lagerungExtraDiscount,
                 'extraDiscountText2' => $request->lagerungExtraDiscountText2,
@@ -807,6 +823,7 @@ class indexController extends Controller
                 $all = $request->except('_token');
                 $invoiceMaterial = [
                     'discount' => $request->materialDiscount,
+                    'discountPercent' => $request->materialDiscountPercent,
                     'customDiscountText' => $request->materialExtraDiscount,
                     'customDiscountValue' => $request->materialExtraDiscountValue,
                     'deliverPrice' => $request->materialShipPrice,
@@ -849,6 +866,7 @@ class indexController extends Controller
             $all = $request->except('_token');
             $invoiceMaterial = [
                 'discount' => $request->materialDiscount,
+                'discountPercent' => $request->materialDiscountPercent,
                 'customDiscountText' => $request->materialExtraDiscount,
                 'customDiscountValue' => $request->materialExtraDiscountValue,
                 'deliverPrice' => $request->materialShipPrice,
@@ -1023,6 +1041,7 @@ class indexController extends Controller
             $material = InvoiceMaterial::where('id',$data['materialId'])->first();
             $basket = InvoiceBasket::where('materialId',$data['materialId'])->first();
             $data2 = Customer::where('id',$data['customerId'])->first();
+            $customer = Customer::where('id',$data['customerId'])->first();
             return view ('front.invoice.detail', 
             [
                 'data' => $data,
@@ -1087,40 +1106,40 @@ class indexController extends Controller
     
     public function store(Request $request)
     {
-            $lagerunMailer = LagerungMailer::where('startDate',Carbon::now()->format('Y-m-d'))
-                ->get();
+            // $lagerunMailer = LagerungMailer::where('startDate',Carbon::now()->format('Y-m-d'))
+            //     ->get();
             
-            foreach ($lagerunMailer as $lagerunMailer) {
-                $invoicePdf = Invoice::where('id',$lagerunMailer['invoiceId'])->first();
-                if($invoicePdf)
-                {
-                    $CustomerMail = Customer::where('id',$lagerunMailer['customerId'])->first();
-                    $customerData =  Customer::where('id',$lagerunMailer['customerId'])->first();
-                    $lagerungPdf = InvoiceLagerung::where('id',$lagerunMailer['lagerungId'])->first();
+            // foreach ($lagerunMailer as $lagerunMailer) {
+            //     $invoicePdf = Invoice::where('id',$lagerunMailer['invoiceId'])->first();
+            //     if($invoicePdf)
+            //     {
+            //         $CustomerMail = Customer::where('id',$lagerunMailer['customerId'])->first();
+            //         $customerData =  Customer::where('id',$lagerunMailer['customerId'])->first();
+            //         $lagerungPdf = InvoiceLagerung::where('id',$lagerunMailer['lagerungId'])->first();
     
-                    $pdfData = [
-                        'invoiceNumber' => $lagerunMailer['invoiceId'],
-                        'invoice' => $invoicePdf,
-                        'customer' => $customerData,
-                        'lagerung' => $lagerungPdf,
-                    ];
+            //         $pdfData = [
+            //             'invoiceNumber' => $lagerunMailer['invoiceId'],
+            //             'invoice' => $invoicePdf,
+            //             'customer' => $customerData,
+            //             'lagerung' => $lagerungPdf,
+            //         ];
     
-                    $pdf = Pdf::loadView('lagerungPdf', $pdfData);
-                    $pdf->setPaper('A4');
+            //         $pdf = Pdf::loadView('lagerungPdf', $pdfData);
+            //         $pdf->setPaper('A4');
     
-                    $emailData = [
-                        'invoiceNumber' => $lagerunMailer['invoiceId'],
-                        'name' => $CustomerMail['name'],
-                        'gender' => $customerData['gender'],
-                        'surname' => $CustomerMail['surname'],
-                        'companyName'=>Company::InfoCompany('name'),
-                        'sub' => 'Lagerung Bill Reminder',
-                        'from' => Company::InfoCompany('email'),
-                        'pdf' => $pdf,
-                    ];
-                Mail::to($CustomerMail['email'])->send(new LagerungMail($emailData));
-                }
-            }
+            //         $emailData = [
+            //             'invoiceNumber' => $lagerunMailer['invoiceId'],
+            //             'name' => $CustomerMail['name'],
+            //             'gender' => $customerData['gender'],
+            //             'surname' => $CustomerMail['surname'],
+            //             'companyName'=>Company::InfoCompany('name'),
+            //             'sub' => 'Lagerung Bill Reminder',
+            //             'from' => Company::InfoCompany('email'),
+            //             'pdf' => $pdf,
+            //         ];
+            //     Mail::to($CustomerMail['email'])->send(new LagerungMail($emailData));
+            //     }
+            // }
         //Invoice Variables
 
             $customerId = $request->route('id');
@@ -1169,6 +1188,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->extra13Cost,
                     'discount' => $request->umzugDiscount,
                     'discount2' => $request->umzugDiscount2,
+                    'discountPercent' => $request->umzugDiscountPercent,
                     'extraDiscountText1' => $request->umzugExtraDiscountText,
                     'extraDiscountValue1' => $request->umzugExtraDiscount,
                     'extraDiscountText2' => $request->umzugExtraDiscountText2,
@@ -1204,6 +1224,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->einpackExtra2Cost,
                     'discount' => $request->einpackDiscount,
                     'discount2' => $request->einpackDiscount2,
+                    'discountPercent' => $request->einpackDiscountPercent,
                     'extraDiscountText1' => $request->einpackExtraDiscountText,
                     'extraDiscountValue1' => $request->einpackExtraDiscount,
                     'extraDiscountText2' => $request->einpackExtraDiscountText2,
@@ -1240,6 +1261,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->auspackExtra2Cost,
                     'discount' => $request->auspackDiscount,
                     'discount2' => $request->auspackDiscount2,
+                    'discountPercent' => $request->auspackDiscountPercent,
                     'extraDiscountText1' => $request->auspackExtraDiscountText,
                     'extraDiscountValue1' => $request->auspackExtraDiscount,
                     'extraDiscountText2' => $request->auspackExtraDiscountText2,
@@ -1278,6 +1300,7 @@ class indexController extends Controller
                     'extraValue2' => $request->reinigungExtra2Cost,
                     'discount' => $request->reinigungDiscount,
                     'discount2' => $request->reinigungDiscount2,
+                    'discountPercent' => $request->reinigungDiscountPercent,
                     'extraDiscountText1' => $request->reinigungExtraDiscountText,
                     'extraDiscountValue1' => $request->reinigungExtraDiscount,
                     'extraDiscountText2' => $request->reinigungExtraDiscountText2,
@@ -1315,6 +1338,7 @@ class indexController extends Controller
                     'extraValue2' => $request->reinigung2Extra2Cost,
                     'discount' => $request->reinigung2Discount,
                     'discount2' => $request->reinigung2Discount2,
+                    'discountPercent' => $request->reinigung2DiscountPercent,
                     'extraDiscountText1' => $request->reinigung2ExtraDiscountText,
                     'extraDiscountValue1' => $request->reinigung2ExtraDiscount,
                     'extraDiscountText2' => $request->reinigung2ExtraDiscountText2,
@@ -1350,6 +1374,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->entsorgungExtra2Cost,
                     'discount' => $request->entsorgungDiscount,
                     'discount2' => $request->entsorgungDiscount2,
+                    'discountPercent' => $request->entsorgungDiscountPercent,
                     'extraDiscountText1' => $request->entsorgungExtraDiscountText,
                     'extraDiscountValue1' => $request->entsorgungExtraDiscount,
                     'extraDiscountText2' => $request->entsorgungExtraDiscountText2,
@@ -1395,6 +1420,7 @@ class indexController extends Controller
                     'extraValue7'=> $request->transportExtra7Cost,
                     'discount' => $request->transportDiscount,
                     'discount2' => $request->transportDiscount2,
+                    'discountPercent' => $request->transportDiscountPercent,
                     'extraDiscountText1' => $request->transportExtraDiscountText,
                     'extraDiscountValue1' => $request->transportExtraDiscount,
                     'extraDiscountText2' => $request->transportExtraDiscountText2,
@@ -1427,6 +1453,7 @@ class indexController extends Controller
                     'extraValue2'=> $request->lagerungExtra2Cost,
                     'discount' => $request->lagerungDiscount,
                     'discount2' =>  $request->lagerungDiscount2,
+                    'discountPercent' => $request->lagerungDiscountPercent,
                     'extraDiscountText1' => $request->lagerungExtraDiscountText,
                     'extraDiscountValue1'=> $request->lagerungExtraDiscount,
                     'extraDiscountText2' => $request->lagerungExtraDiscountText2,
@@ -1455,6 +1482,7 @@ class indexController extends Controller
                 $all = $request->except('_token');
                 $invoiceMaterial = [
                     'discount' => $request->materialDiscount,
+                    'discountPercent' => $request->materialDiscountPercent,
                     'customDiscountText' => $request->materialExtraDiscount,
                     'customDiscountValue' => $request->materialExtraDiscountValue,
                     'deliverPrice' => $request->materialShipPrice,

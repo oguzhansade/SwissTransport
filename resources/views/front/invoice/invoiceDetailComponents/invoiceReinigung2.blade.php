@@ -218,6 +218,10 @@
             <input class="form-control"  name="reinigung2Discount" placeholder="0"  type="text" 
             @if($reinigung2 && $reinigung2['discount']) value="{{ $reinigung2['discount'] }}" @else value="0.00" @endif> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="reinigung2DiscountPercent" placeholder="0"  type="text" 
+            @if($reinigung2 && $reinigung2['discountPercent']) value="{{ $reinigung2['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="reinigung2Discount2" placeholder="0"  type="text" 
             @if($reinigung2 && $reinigung2['discount2']) value="{{ $reinigung2['discount2'] }}" @else value="0.00" @endif>
@@ -274,9 +278,14 @@
 <script>
     $(document).ready(function (){
         let isFixedPrice = parseInt($('input[name=reinigung2FixedPrice]').val());
+        reinigung2InvoiceCalc()
+        if($("div.reinigung2--area").is(":visible"))
+        {
+            isRequiredReinigung2()
+        }
     })
     
-    function isRequiredReinigung()
+    function isRequiredReinigung2()
     {
         $("input[name=reinigung2Date]").prop('required',true);  
         $("select[name=reinigung2Type]").prop("required",true);   
@@ -287,7 +296,7 @@
         $("input[name=reinigung2Chf]").attr({'min':1});  
     }
 
-    function isNotRequiredReinigung()
+    function isNotRequiredReinigung2()
     {
         $("input[name=reinigung2Date]").prop('required',false); 
         $("select[name=reinigung2Type]").prop("required",false);     
@@ -316,6 +325,7 @@
             $("input[name=reinigung2Chf]").removeAttr('min');
            
         }
+        reinigung2InvoiceCalc()
     })
 
     $("select[name=reinigung2Type]").on("change",function () {
@@ -336,79 +346,75 @@
         }
     })
 
-    var morebutton5 = $("div.reinigung2-control");
-    morebutton5.click(function(){
+    var morebutton6 = $("div.reinigung2-control");
+    morebutton6.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
             $(".reinigung2--area").show(700);
-            isRequiredReinigung()
+            isRequiredReinigung2()
             
         }
         else{
             $(".reinigung2--area").hide(500);
-            isNotRequiredReinigung()
+            isNotRequiredReinigung2()
         }
     })
 
-    $("body").on("change",".reinigung2--area", function() {
-        let reinigung2Chf = parseInt($("input[name=reinigung2Chf]").val());
-        let reinigung2Hours = parseInt($("input[name=reinigung2Hours]").val());
-        let reinigung2FixedPrice = parseInt($("input[name=reinigung2FixedPrice]").val());
+    function reinigung2InvoiceCalc() {
+            const reinigung2Chf = parseInt($("input[name=reinigung2Chf]").val()) || 0;
+            const reinigung2Hours = parseInt($("input[name=reinigung2Hours]").val()) || 0;
+            const reinigung2RoadChf = parseInt($("input[name=reinigung2RoadChf]").val()) || 0;
+            const reinigung2DiscountPercent = parseInt($("input[name=reinigung2DiscountPercent]").val()) || 0;
+            let reinigung2TotalPrice = 0;
+            let reinigung2ExtrasTotal = 0;
+            const reinigung2Extras = [
+                {name: 'reinigung2Extra1', masraf: 'reinigung2Masraf1'},
+                {name: 'reinigung2Extra2', masraf: 'reinigung2Masraf2'},
+                {name: 'reinigung2Extra3', masraf: 'reinigung2Masraf3'},
+            ];
+            
+            for (const reinigung2Extra of reinigung2Extras) {
+                if ($(`input[name=${reinigung2Extra.masraf}]`).is(':checked')) {
+                const value = parseInt($(`input[name=${reinigung2Extra.name}]`).val()) || 0;
+                reinigung2ExtrasTotal += isNaN(value) ? 0 : value;
+                }
+            }
 
-        let reinigung2Cost = 0;
-        let reinigung2TotalPrice = 0;
+            const reinigung2Extra1Cost = parseFloat($('input[name=reinigung2Extra1Cost]').val()) || 0;
+            const reinigung2Extra2Cost = parseFloat($('input[name=reinigung2Extra2Cost]').val()) || 0;
+            const reinigung2Discount = parseFloat($('input[name=reinigung2Discount]').val()) || 0 ;
+            const reinigung2Discount2 = parseFloat($('input[name=reinigung2Discount2]').val()) || 0;
+            const reinigung2ExtraDiscount = parseFloat($('input[name=reinigung2ExtraDiscount]').val()) || 0;
+            const reinigung2ExtraDiscount2 = parseFloat($('input[name=reinigung2ExtraDiscount2]').val()) || 0;
 
-        
-        if ($('input[name=reinigung2Masraf1]').is(":checked")){
-            var extra1 = parseInt($('input[name=reinigung2Extra1]').val());               
+            const reinigung2Paid1 = parseFloat($('input[name=reinigung2Paid1]').val()) || 0;
+            const reinigung2Paid2 = parseFloat($('input[name=reinigung2Paid2]').val()) || 0;
+            const reinigung2Paid3 = parseFloat($('input[name=reinigung2Paid3]').val()) || 0;
+            
+            const reinigung2FixedPrice = parseFloat($('input[name=reinigung2FixedPrice]').val()) || 0;
+
+            if(reinigung2FixedPrice > 0) {
+                $("input[name=reinigung2Cost]").val(reinigung2FixedPrice);
+                reinigung2TotalPrice = reinigung2FixedPrice;
             }
             else {
-                extra1 = 0;
-            }
-            if ($('input[name=reinigung2Masraf2]').is(":checked")){
-               var extra2 = parseInt($('input[name=reinigung2Extra2]').val());               
-            }
-            else {
-                extra2 = 0;
-            }
-            if ($('input[name=reinigung2Masraf3]').is(":checked")){
-               var extra3 = parseInt($('input[name=reinigung2Extra3]').val());               
-            }
-            else {
-                extra3 = 0;
-            }
+                const reinigung2PreCost = (reinigung2Hours * reinigung2Chf)  +
+                (reinigung2RoadChf + reinigung2ExtrasTotal + reinigung2Extra1Cost + reinigung2Extra2Cost);
 
-            let reinigung2Extra1Cost = parseFloat($('input[name=reinigung2Extra1Cost]').val());               
-            let reinigung2Extra2Cost = parseFloat($('input[name=reinigung2Extra2Cost]').val()); 
-            let reinigung2Discount = parseFloat($('input[name=reinigung2Discount]').val());
-            let reinigung2Discount2 = parseFloat($('input[name=reinigung2Discount2]').val());
-            let reinigung2ExtraDiscount = parseFloat($('input[name=reinigung2ExtraDiscount]').val());
-            let reinigung2ExtraDiscount2 = parseFloat($('input[name=reinigung2ExtraDiscount2]').val());
-
-            reinigung2TotalPrice = parseFloat($('input[name=reinigung2TotalPrice]').val());
-
-            let reinigung2Paid1 = parseFloat($('input[name=reinigung2Paid1]').val());
-            let reinigung2Paid2 = parseFloat($('input[name=reinigung2Paid2]').val());
-            let reinigung2Paid3 = parseFloat($('input[name=reinigung2Paid3]').val());
-
-            if (reinigung2FixedPrice == 0 || !reinigung2FixedPrice){
-                console.log('BURDA','fixed 0')
-                reinigung2Cost = (reinigung2Hours*reinigung2Chf) + 
-                (reinigung2Extra1Cost+reinigung2Extra2Cost+extra1+extra2+extra3)-
-                reinigung2Discount-reinigung2Discount2-reinigung2ExtraDiscount-reinigung2ExtraDiscount2;
-                reinigung2Cost = parseFloat(reinigung2Cost);
-                $("input[name=reinigung2Cost]").val(reinigung2Cost.toFixed(2))
-                
+                const reinigung2Cost = (reinigung2Hours * reinigung2Chf) +
+                (reinigung2RoadChf + reinigung2ExtrasTotal + reinigung2Extra1Cost + reinigung2Extra2Cost) - (reinigung2PreCost*reinigung2DiscountPercent/100) -
+                reinigung2Discount - reinigung2Discount2 - reinigung2ExtraDiscount - reinigung2ExtraDiscount2;
+           
+                $("input[name=reinigung2Cost]").val(reinigung2Cost);
+                reinigung2TotalPrice = reinigung2Cost;
             }
-            else{
-                reinigung2Cost = parseFloat(reinigung2FixedPrice);
-                $("input[name=reinigung2Cost]").val(reinigung2Cost.toFixed(2))
-            }
-
-            reinigung2TotalPrice = reinigung2Cost - reinigung2Paid1 - reinigung2Paid2 - reinigung2Paid3;
+            
+            reinigung2TotalPrice -= reinigung2Paid1 + reinigung2Paid2 + reinigung2Paid3;
+            reinigung2TotalPrice = parseFloat(reinigung2TotalPrice);
             $("input[name=reinigung2TotalPrice]").val(reinigung2TotalPrice.toFixed(2));
-
-    })
+            console.log(reinigung2Paid1, reinigung2Paid2 , reinigung2Paid3)
+            
+        }
     
     
 </script>

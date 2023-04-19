@@ -59,6 +59,9 @@
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="lagerungDiscount" placeholder="0"  type="text" value="0.00"> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="lagerungDiscountPercent" placeholder="0"  type="text" value="0.00"> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="lagerungDiscount2" placeholder="0"  type="text" value="0.00">
 
@@ -108,7 +111,6 @@
 @section('invoiceFooterLagerung')
 
 <script>
-    
     function isRequiredLagerung()
     {
         $("input[name=lagerungStartDate]").prop('required',true);      
@@ -139,6 +141,13 @@
         }
     })
 
+    $(document).ready(function() {
+        if($("div.lagerung--area").is(":visible"))
+        {
+            isRequiredLagerung()
+        }
+    })
+
     var isLagerungFixedbutton = $("div.lagerung-fixed-price");
     isLagerungFixedbutton.click(function(){
     if($(this).hasClass("checkbox-checked"))
@@ -151,27 +160,30 @@
     })
 
     $("body").on("change",".lagerung--area", function() {
-        let lagerungVolume = parseInt($("input[name=lagerungVolume]").val());
-        let lagerungChf = parseInt($("input[name=lagerungChf]").val());
+        let lagerungVolume = parseInt($("input[name=lagerungVolume]").val()) || 0;
+        let lagerungChf = parseInt($("input[name=lagerungChf]").val()) || 0;
 
         let lagerungCost = 0;
         let lagerungTotalPrice = 0;
 
-        let lagerungExtra1Cost = parseFloat($('input[name=lagerungExtra1Cost]').val());               
-        let lagerungExtra2Cost = parseFloat($('input[name=lagerungExtra2Cost]').val()); 
+        let lagerungExtra1Cost = parseFloat($('input[name=lagerungExtra1Cost]').val()) || 0;               
+        let lagerungExtra2Cost = parseFloat($('input[name=lagerungExtra2Cost]').val()) || 0; 
 
-        let lagerungDiscount = parseFloat($('input[name=lagerungDiscount]').val());
-        let lagerungDiscount2 = parseFloat($('input[name=lagerungDiscount2]').val());
-        let lagerungExtraDiscount = parseFloat($('input[name=lagerungExtraDiscount]').val());
-        let lagerungExtraDiscount2 = parseFloat($('input[name=lagerungExtraDiscount2]').val());
+        let lagerungDiscount = parseFloat($('input[name=lagerungDiscount]').val()) || 0;
+        let lagerungDiscountPercent = parseFloat($('input[name=lagerungDiscountPercent]').val()) || 0;
+        let lagerungDiscount2 = parseFloat($('input[name=lagerungDiscount2]').val()) || 0;
+        let lagerungExtraDiscount = parseFloat($('input[name=lagerungExtraDiscount]').val()) || 0;
+        let lagerungExtraDiscount2 = parseFloat($('input[name=lagerungExtraDiscount2]').val()) || 0;
 
-        lagerungTotalPrice = parseFloat($('input[name=lagerungTotalPrice]').val());
+        lagerungTotalPrice = parseFloat($('input[name=lagerungTotalPrice]').val()) || 0;
 
-        let lagerungPaid1 = parseFloat($('input[name=lagerungPaid1]').val());
-        let lagerungPaid2 = parseFloat($('input[name=lagerungPaid2]').val());
+        let lagerungPaid1 = parseFloat($('input[name=lagerungPaid1]').val()) || 0;
+        let lagerungPaid2 = parseFloat($('input[name=lagerungPaid2]').val()) || 0;
 
+        let minusPercent = (lagerungVolume*lagerungChf) + lagerungExtra1Cost + 
+        lagerungExtra2Cost;
         lagerungCost = (lagerungVolume*lagerungChf) + lagerungExtra1Cost + 
-        lagerungExtra2Cost - lagerungDiscount - lagerungDiscount2 - lagerungExtraDiscount - lagerungExtraDiscount2;
+        lagerungExtra2Cost - lagerungDiscount - lagerungDiscount2 - lagerungExtraDiscount - lagerungExtraDiscount2 - (minusPercent*lagerungDiscountPercent/100);
         lagerungCost = parseFloat(lagerungCost);
         lagerungCost = lagerungCost.toFixed(2);
         
@@ -187,5 +199,6 @@
             $("input[name=lagerungTotalPrice]").val(lagerungTotalPrice.toFixed(2));
         }
     })
+   
 </script>
 @endsection

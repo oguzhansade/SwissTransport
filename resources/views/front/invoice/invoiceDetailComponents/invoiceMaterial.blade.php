@@ -40,7 +40,7 @@
                             <td><select class="form-control urun"  name="islem[{{ $a }}][urunId]">
                             <option class="form-control" value="0"> Bitte wählen </option>
                             @foreach (\App\Models\Product::all() as $key => $value)
-                                <option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}"  value="{{ $value['id'] }}"
+                                <option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}"
                                 @if($b['productId'] == $value['id']) selected @endif>{{ $value['productName'] }}</option>  
                             @endforeach
                     
@@ -84,6 +84,12 @@
                 <label class="col-form-label" for="l0">Reduktion</label>
                 <input class="form-control indirim" name="materialDiscount" type="number" 
                 @if($material && $material['discount']) value="{{ $material['discount'] }}" @else value="0.00" @endif min="0">
+            </div>
+
+            <div class="col-md-6">
+                <label class="col-form-label" for="l0">Reduktion[%]</label>
+                <input class="form-control indirim_yuzde" name="materialDiscountPercent" type="number" 
+                @if($material && $material['discountPercent']) value="{{ $material['discountPercent'] }}" @else value="0.00" @endif min="0">
             </div>
         </div>
 
@@ -161,7 +167,7 @@
         '<td><select class="form-control urun"  name="islem['+i+'][urunId]">'+
         '<option class="form-control" value="0"> Bitte wählen </option>';
         @foreach (\App\Models\Product::all() as $key => $value)
-            newRow+= '<option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
+            newRow+= '<option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
         @endforeach
 
         newRow+='</select></td>'+
@@ -184,52 +190,53 @@
     });
 
 
-    $("body").on("change",".islem_field", function (){
+    $("body").on("change", ".islem_field", function() {
+        const $islemField = $(this);
+        const fiyat = $islemField.find(".urun").find(":selected").data("fiyat");
+        const kirala = $islemField.find(".urun").find(":selected").data("kirala");
+        const adet = parseFloat($islemField.find("#adet").val());
+        const buyType = $islemField.find(".buyType").find(":selected").data("buy");
+        let tutar;
 
+        tutar = parseFloat(tutar);
 
-        let fiyat = $(this).find('.urun').find(":selected").data("fiyat")
-        let kirala = $(this).find('.urun').find(":selected").data("kirala")
-        let   adet = $(this).closest(".islem_field").find("#adet").val();
-        const buyType = $(this).find('.buyType').find(":selected").data("buy")
-        let tutar = $(this).closest(".islem_field").find("#tutar").val() || 0;
+        $islemField.find("#tutar").val(tutar.toFixed(2));
+        $islemField.find("#toplam").val((tutar * adet).toFixed(2));
+    });
 
+    $(".buyType").on("change", function() {
+    const $buyType = $(this);
+    const buyType = $buyType.find(":selected").data("buy");
+    const $islemField = $buyType.closest(".islem_field");
+    const fiyat = $islemField.find(".urun").find(":selected").data("fiyat");
+    const kirala = $islemField.find(".urun").find(":selected").data("kirala");
+    let tutar = islemField.find("#tutar").val()
 
-        $(".buyType").on("change", function() {
-            const buyType2 = $(this).find(":selected").data("buy")
-            switch(buyType2) {
-            case 0:
-                tutar = 0;
-                break;
-            case 1:
-                tutar = fiyat 
-                break;
-            case 2:
-                tutar = kirala 
-                break;
-            }
+    switch (buyType) {
+        case 0:
+        tutar = 0;
+        break;
+        case 1:
+        tutar = fiyat;
+        break;
+        case 2:
+        tutar = kirala;
+        break;
+    }
 
-            tutar = parseFloat(tutar)
-            adet = parseFloat(adet)
-            $(this).closest(".islem_field").find("#tutar").val(tutar.toFixed(2));
-            $(this).closest(".islem_field").find("#toplam").val((tutar * adet).toFixed(2));
+    const adet = parseFloat($islemField.find("#adet").val());
+    $islemField.find("#tutar").val(tutar.toFixed(2));
+    $islemField.find("#toplam").val((tutar * adet).toFixed(2));
+    });
 
-            calc()
-        })
-        
+        tutar = parseFloat(tutar)
+        adet = parseFloat(adet)
+        $(this).closest(".islem_field").find("#tutar").val(tutar.toFixed(2));
+        $(this).closest(".islem_field").find("#toplam").val((tutar * adet).toFixed(2));
 
-    })
-
-    $("body").on("click","#removeButton", function () {
-        
-        say = say-1;
-        $(".urun_adet").html(say+' '+'Stück Produkte');
-        $(this).closest(".islem_field").remove();
-        console.log(say,'Silerken')
-        calc();
-    })
-
+        calc()
+    
     $("body").on("click","#removeAllButton", function () {
-        
         say = 0;
         $(".urun_adet").html('Sie haben noch keine Produkte hinzugefügt');
         
@@ -250,7 +257,6 @@
             var toplam;
             var genel_tutar;
             var indirim;
-            var ekstra;
             var teslimalma_ucreti;
             var teslimat_ucreti ;
 
@@ -273,26 +279,24 @@
             toplam = toplam.toFixed(2);
             
             $this.closest("tr").find("#toplam").val(toplam);
-            
-            
-            
-
         }
         calc();
     });
 
     function calc() {
-        var ara_toplam = 0;
+        let ara_toplam = 0;
         var indirim = parseFloat($(".indirim").val());
-        var ekstraIndirim = parseFloat($(".customIndirimValue").val())
+        var indirimyuzde = parseFloat($(".indirim_yuzde").val());
         var teslimat_ucreti = parseFloat($(".teslimat_ucreti").val());
         var teslimalma_ucreti = parseFloat($(".toplama_ucreti").val());
         
         $("[id=toplam]").each(function () {
            ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());          
         });
-        ara_toplam = ara_toplam+teslimat_ucreti+teslimalma_ucreti - indirim - ekstraIndirim
+        ara_toplam = ara_toplam+teslimat_ucreti+teslimalma_ucreti - indirim - (ara_toplam*indirimyuzde/100);
+        
         $(".ara_toplam").val(ara_toplam.toFixed(2));
+        console.log('%'+$(".indirim_yuzde").val(),'indirim')
     }
 </script>
 

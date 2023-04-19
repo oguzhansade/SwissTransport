@@ -25,6 +25,7 @@ return new class extends Migration
             $table->float('extraValue2')->nullable();
             $table->float('discount')->nullable();
             $table->float('discount2')->nullable();
+            $table->integer('discountPercent')->nullable();
             $table->string('extraDiscountText1')->nullable();
             $table->float('extraDiscountValue1')->nullable();
             $table->string('extraDiscountText2')->nullable();

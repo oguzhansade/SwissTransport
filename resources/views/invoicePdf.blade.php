@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Invoice - {{ $invoiceNumber }}</title>
+    <title>Rechnung - {{ $invoiceNumber }}</title>
     <meta charset="UTF-8">
     <style>
         *{ font-family: DejaVu Sans !important;
@@ -58,7 +58,7 @@
                     <table style="width: 100%;">
                         <tr style="width: 100%;">
                             <td align="left">
-                                Invoice: 
+                                Rechnung: 
                             </td>
                             <td  align="left">
                                 {{ $invoiceNumber }}
@@ -69,7 +69,7 @@
                             <td >{{ date('d.m.Y', strtotime($invoice['created_at'])); }}</td>
                         </tr>
                         <tr>
-                            <td>Page</td>
+                            <td>Seiten</td>
                             <td><span class="pagenum"></span></td>
                         </tr>
                     </table>
@@ -247,7 +247,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $umzug['umzugTotalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>
@@ -258,13 +258,13 @@
                 {{-- Einpack Alanı --}}
                 @if ($isEinpack) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Einpack</b>
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $einpack['einpackDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 <tr style="width:100%;">
                                     <td>{{ $einpack['einpackHour'] }} Std. à {{ $einpack['einpackChf'] }}</td>
@@ -333,7 +333,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"><span style="color:#835AB1;"><b>{{ $einpack['einpackTotalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>
@@ -344,13 +344,13 @@
                 {{-- Auspack Alanı --}}
                 @if ($isAuspack) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Auspack</b>
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $auspack['auspackDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 <tr style="width:100%;">
                                     <td>{{ $auspack['auspackHour'] }} Std. à {{ $auspack['auspackChf'] }}</td>
@@ -419,7 +419,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"><span style="color:#835AB1;"><b>{{ $auspack['auspackTotalPrice'] }} CHF</b> </span></td>
                                 </tr>
                             </table>
@@ -430,14 +430,14 @@
                 {{-- Reinigung Alanı --}}
                 @if ($isReinigung) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Reinigung</b> <br>
                             @if($reinigung['extraReinigung']) (<i>{{ $reinigung['extraReinigung'] }}</i>) @endif
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $reinigung['reinigungDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 <tr style="width:100%;">
                                     @if ($reinigung['reinigungFixedPrice'])
@@ -492,7 +492,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"><span style="color:#835AB1;"><b>{{ $reinigung['reinigungTotalPrice'] }}  CHF</b></span></td>
                                 </tr>
                             </table>
@@ -503,14 +503,14 @@
                 {{-- Reinigung 2 Alanı --}}
                 @if ($isReinigung2) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Reinigung 2</b> <br>
                             @if($reinigung2['extraReinigung']) (<i>{{ $reinigung2['extraReinigung'] }}</i>) @endif
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $reinigung2['reinigungDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 <tr style="width:100%;">
                                     @if ($reinigung2['reinigungFixedPrice'])
@@ -565,7 +565,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $reinigung2['reinigungTotalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>
@@ -576,13 +576,13 @@
                 {{-- Entsorgung Alanı --}}
                 @if ($isEntsorgung) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Entsorgung</b>
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $entsorgung['entsorgungDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 <tr style="width:100%;">
                                     <td>{{ $entsorgung['entsorgungHours'] }} Std. à {{ $entsorgung['entsorgungChf'] }}</td>
@@ -647,7 +647,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $entsorgung['entsorgungTotalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>
@@ -659,13 +659,13 @@
                 {{-- Transport Alanı --}}
                 @if ($isTransport) 
                     <tr style="width:100%;">
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             <b>Transport</b>
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $transport['transportDate'] }}
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
                                 @if($transport['pdfText']) 
                                     <tr style="width:100%;">
@@ -752,7 +752,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $transport['transportTotalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>
@@ -764,24 +764,24 @@
                 {{-- Lagerung Alanı --}}
                 @if ($isLagerung) 
                     <tr style="width: 100%">
-                        <td colspan="2" valign="top" style="padding-top:5px;">
+                        <td colspan="2" valign="top" style="padding-top:15px;">
                             <b>Lagerung</b>
                         </td>
-                        <td valign="top" style="padding-top:5px;">
+                        <td valign="top" style="padding-top:15px;">
                             {{ $lagerung['lagerungVolume'] }} m3 à {{ $lagerung['lagerungChf'] }} im Monat
                         </td>
-                        <td valign="top" style="padding-top:5px;padding-left:40px;">
+                        <td valign="top" style="padding-top:15px;padding-left:40px;">
                             CHF {{ $lagerung['lagerungVolume']*$lagerung['lagerungChf'] }}
                         </td>
                         </tr>
                         <tr style="width:100%;">
-                            <td valign="top" style="padding-top:5px;">
+                            <td valign="top" style="padding-top:15px;">
                                 <b>Verrechnungsperiode</b>
                             </td>
-                            <td valign="top" style="padding-top:5px;">
+                            <td valign="top" style="padding-top:15px;">
                                 {{ $lagerung['lagerungStartDate'] }} - {{ $lagerung['lagerungEndDate'] }}
                             </td>
-                            <td colspan="2">
+                            <td colspan="2" style="padding-top:15px;">
                                 <table style="width:100%;">
                                     <tr style="width:100%;">
                                         <td colspan="2" style="padding-top:5px;"></td>
@@ -825,7 +825,7 @@
                                     </tr>
     
                                     <tr style="width:100%;">
-                                        <td><b>Cost</b></td>
+                                        <td><b>Kosten</b></td>
                                         <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $lagerung['lagerungTotalPrice'] }} CHF</b></span></td>
                                     </tr>
                                 </table>
@@ -836,22 +836,14 @@
                 {{-- Material Alanı --}}
                 @if ($isMaterial) 
                     <tr style="width:100%;">
-                        <td colspan="2" valign="top" style="padding-top:5px;">
+                        <td colspan="2" valign="top" style="padding-top:15px;">
                             <b>Verpackungsmaterial</b>
                         </td>
-                        <td colspan="2">
+                        <td colspan="2" style="padding-top:15px;">
                             <table style="width:100%;">
-    
-                                <tr style="width:100%;">
-                                    <td colspan="2" style="padding-top:5px;"></td>
-                                </tr>
     
                                 @if($material['discount'])<tr style="width:100%;"><td>Rabatt</td><td style="padding-left:10px;">-{{ $material['discount'] }} CHF</td></tr>@endif
                                 @if($material['customDiscountValue'])<tr style="width:100%;"><td>@if ( $material['customDiscountText']) {{  $material['customDiscountText'] }} @else Ek İndirim @endif</td><td style="padding-left:10px;">-{{ $material['customDiscountValue'] }} CHF</td></tr>@endif
-    
-                                <tr style="width:100%;">
-                                    <td colspan="2" style="padding-top:5px;"></td>
-                                </tr>
     
     
                                 <tr style="width:100%;">
@@ -868,7 +860,7 @@
                                 </tr>
     
                                 <tr style="width:100%;">
-                                    <td><b>Cost</b></td>
+                                    <td><b>Kosten</b></td>
                                     <td style="padding-left:10px;"> <span style="color:#835AB1;"><b>{{ $material['totalPrice'] }} CHF</b></span></td>
                                 </tr>
                             </table>

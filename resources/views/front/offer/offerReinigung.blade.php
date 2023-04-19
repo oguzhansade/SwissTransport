@@ -359,7 +359,7 @@
                         
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100))
+                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100)) - reinigungDiscount
                           
                         }
                         $('input[name=reinigungTotalPrice]').val(parseFloat(calcReinigungPriceRight))
@@ -369,7 +369,7 @@
                         
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100)
+                            calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100) - reinigungDiscount
                         }
                         $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft)
                         $('input[name=reinigungCostPrice]').val(calcReinigungLeft);
@@ -377,8 +377,8 @@
                     if(leftHour && rightHour ){
                         if(reinigungDiscountPercent)
                         {
-                            calcReinigungPriceLeft = calcReinigungLeft- (calcReinigungLeft*(reinigungDiscountPercent/100))
-                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100))
+                            calcReinigungPriceLeft = calcReinigungLeft- (calcReinigungLeft*(reinigungDiscountPercent/100)) - reinigungDiscount
+                            calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100)) - reinigungDiscount
                         }
                         $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft + '-' + calcReinigungPriceRight) 
                         $('input[name=reinigungCostPrice]').val(calcReinigungLeft + '-' + calcReinigungRight);

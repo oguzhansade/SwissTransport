@@ -54,6 +54,11 @@
                 <label class="col-form-label" for="l0">Reduktion</label>
                 <input class="form-control indirim" name="materialDiscount" type="number" value="0" min="0">
             </div>
+
+            <div class="col-md-6">
+                <label class="col-form-label" for="l0">Reduktion[%]</label>
+                <input class="form-control indirimYuzde" name="materialDiscountPercent" type="number" value="0.00"  min="0">
+            </div>
         </div>
 
         <div class="row p-3">
@@ -120,7 +125,7 @@
         '<td><select class="form-control urun"  name="islem['+i+'][urunId]">'+
         '<option class="form-control" value="0"> Bitte wählen </option>';
         @foreach (\App\Models\Product::all() as $key => $value)
-            newRow+= '<option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
+            newRow+= '<option class="form-control" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
         @endforeach
 
         newRow+='</select></td>'+
@@ -239,6 +244,7 @@
     function calc() {
         var ara_toplam = 0;
         var indirim = parseFloat($(".indirim").val());
+        var indirimYuzde = parseFloat($(".indirimYuzde").val());
         var ekstraIndirim = parseFloat($(".customIndirimValue").val())
         var teslimat_ucreti = parseFloat($(".teslimat_ucreti").val());
         var teslimalma_ucreti = parseFloat($(".toplama_ucreti").val());
@@ -246,7 +252,7 @@
         $("[id=toplam]").each(function () {
            ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());          
         });
-        ara_toplam = ara_toplam+teslimat_ucreti+teslimalma_ucreti - indirim - ekstraIndirim
+        ara_toplam = ara_toplam+teslimat_ucreti+teslimalma_ucreti - indirim - (ara_toplam*indirimYuzde/100) - ekstraIndirim
         $(".ara_toplam").val(ara_toplam.toFixed(2));
     }
 </script>

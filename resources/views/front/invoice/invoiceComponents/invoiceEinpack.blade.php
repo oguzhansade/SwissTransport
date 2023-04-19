@@ -97,6 +97,9 @@
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="einpackDiscount" placeholder="0"  type="text" value="0.00"> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="einpackDiscountPercent" placeholder="0"  type="text" value="0.00">
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="einpackDiscount2" placeholder="0"  type="text" value="0.00">
 
@@ -147,129 +150,131 @@
     </div>
 </div>
 @section('invoiceFooter2')
-
 {{-- Tarife Fiyatları --}}
 <script>
-
-    function isRequiredEinpack()
-    {
-        $("input[name=einpackDate]").prop('required',true);      
-        $("input[name=einpackHours]").prop('required',true);   
-        $("input[name=einpackChf]").prop('required',true); 
-        $("input[name=einpackHours]").attr({'min':1}); 
-        $("input[name=einpackChf]").attr({'min':1}); 
+    function isRequiredEinpack() {
+        $("input[name=einpackDate]").prop('required', true);
+        $("input[name=einpackHours]").prop('required', true);
+        $("input[name=einpackChf]").prop('required', true);
+        $("input[name=einpackHours]").attr({
+            'min': 1
+        });
+        $("input[name=einpackChf]").attr({
+            'min': 1
+        });
     }
 
-    function isNotRequiredEinpack()
-    {
-        $("input[name=einpackDate]").prop('required',false);      
-        $("input[name=einpackHours]").prop('required',false);   
-        $("input[name=einpackChf]").prop('required',false);  
-        $("input[name=einpackHours]").removeAttr('min'); 
+    function isNotRequiredEinpack() {
+        $("input[name=einpackDate]").prop('required', false);
+        $("input[name=einpackHours]").prop('required', false);
+        $("input[name=einpackChf]").prop('required', false);
+        $("input[name=einpackHours]").removeAttr('min');
         $("input[name=einpackChf]").removeAttr('min');
         $("input[name=einpackChf2]").removeAttr('min');
         $("input[name=einpackHours2]").removeAttr('min');
     }
 
-    function extraAreaEinpack()
-    {
+    function extraAreaEinpack() {
         $(".extraTime-einpack-area").show(300);
         $(".extraTimeEinpack").hide();
-        $("input[name=einpackChf2]").attr({'min':1});
-        $("input[name=einpackHours2]").attr({'min':1});
+        $("input[name=einpackChf2]").attr({
+            'min': 1
+        });
+        $("input[name=einpackHours2]").attr({
+            'min': 1
+        });
     }
 
-    $("body").on("change",".einpack--area",function (){
+    $("body").on("change", ".einpack--area", function() {
         isRequiredEinpack()
+        einpackInvoiceCalc()
     })
 
     var morebutton3 = $("div.einpack-control");
-    morebutton3.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    morebutton3.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".einpack--area").show(700);
             isRequiredEinpack()
-        }
-        else{
+        } else {
             $(".einpack--area").hide(500);
             isNotRequiredEinpack()
         }
     })
 
     var isEinpackFixedbutton = $("div.einpack-fixed-price");
-    isEinpackFixedbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    isEinpackFixedbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".einpack-fixed-price-area").show(700);
-        }
-        else{
+        } else {
             $(".einpack-fixed-price-area").hide(500);
         }
     })
 
-    $("body").on("change",".einpack--area", function() {
-        let einpackChf = parseInt($("input[name=einpackChf]").val());
-        let einpackHours = parseInt($("input[name=einpackHours]").val());
 
-        let einpackChf2 = parseInt($("input[name=einpackChf2]").val());
-        let einpackHours2 = parseInt($("input[name=einpackHours2]").val());
-
-        let einpackRoadChf = parseInt($("input[name=einpackRoadChf]").val());
-        let einpackCost = 0;
-        let einpackTotalPrice = 0;
-        if ($('input[name=einpackMasraf]').is(":checked")){
-            var extra1 = parseInt($('input[name=einpackExtra1]').val());               
+    $(document).ready(function() {
+        einpackInvoiceCalc()
+        if($("div.einpack--area").is(":visible"))
+        {
+            isRequiredEinpack()
+        }
+    })
+    
+    function einpackInvoiceCalc() {
+        const einpackChf = parseInt($("input[name=einpackChf]").val()) || 0;
+        const einpackHours = parseInt($("input[name=einpackHours]").val()) || 0;
+        const einpackChf2 = parseInt($("input[name=einpackChf2]").val()) || 0;
+        const einpackHours2 = parseInt($("input[name=einpackHours2]").val()) || 0;
+        const einpackRoadChf = parseInt($("input[name=einpackRoadChf]").val()) || 0;
+        const einpackExtras = [
+            {name: 'einpackExtra1', masraf: 'einpackMasraf'},
+            {name: 'einpackExtra2', masraf: 'einpackMasraf1'},
+        ];
+        let einpackExtrasTotal = 0;
+        for (const einpackExtra of einpackExtras) {
+            if ($(`input[name=${einpackExtra.masraf}]`).is(':checked')) {
+            const value = parseInt($(`input[name=${einpackExtra.name}]`).val()) || 0;
+            einpackExtrasTotal += isNaN(value) ? 0 : value;
             }
-            else {
-                extra1 = 0;
-            }
-            if ($('input[name=einpackMasraf1]').is(":checked")){
-               var extra2 = parseInt($('input[name=einpackExtra2]').val());               
-            }
-            else {
-                extra2 = 0;
-            }
+        }
 
-            let einpackExtra1Cost = parseFloat($('input[name=einpackExtra1Cost]').val());               
-            let einpackExtra2Cost = parseFloat($('input[name=einpackExtra2Cost]').val()); 
-            let einpackDiscount = parseFloat($('input[name=einpackDiscount]').val());
-            let einpackDiscount2 = parseFloat($('input[name=einpackDiscount2]').val());
-            let einpackExtraDiscount = parseFloat($('input[name=einpackExtraDiscount]').val());
-            let einpackExtraDiscount2 = parseFloat($('input[name=einpackExtraDiscount2]').val());
+        const einpackExtra1Cost = parseFloat($('input[name=einpackExtra1Cost]').val()) || 0;
+        const einpackExtra2Cost = parseFloat($('input[name=einpackExtra2Cost]').val()) || 0;
+        const einpackDiscount = parseFloat($('input[name=einpackDiscount]').val()) || 0 ;
+        const einpackDiscount2 = parseFloat($('input[name=einpackDiscount2]').val()) || 0;
+        const einpackExtraDiscount = parseFloat($('input[name=einpackExtraDiscount]').val()) || 0;
+        const einpackExtraDiscount2 = parseFloat($('input[name=einpackExtraDiscount]').val()) || 0;
+        const einpackDiscountPercent = parseFloat($('input[name=einpackDiscountPercent]').val()) || 0;
 
-            einpackTotalPrice = parseFloat($('input[name=einpackTotalPrice]').val());
+        const einpackPaid1 = parseFloat($('input[name=einpackPaid1]').val()) || 0;
+        const einpackPaid2 = parseFloat($('input[name=einpackPaid2]').val()) || 0;
+        const einpackPaid3 = parseFloat($('input[name=einpackPaid3]').val()) || 0;
+        let einpackTotalPrice;
 
-            let einpackPaid1 = parseFloat($('input[name=einpackPaid1]').val());
-            let einpackPaid2 = parseFloat($('input[name=einpackPaid2]').val());
-            let einpackPaid3 = parseFloat($('input[name=einpackPaid3]').val());
+        const einpackPreCost = (einpackHours * einpackChf) + (einpackHours2 * einpackChf2) +
+        (einpackRoadChf + einpackExtrasTotal + einpackExtra1Cost + einpackExtra2Cost) ;
 
-            einpackCost = (einpackHours*einpackChf) + (einpackHours2*einpackChf2) + 
-            (einpackRoadChf+einpackExtra1Cost+einpackExtra2Cost+extra1+extra2)-
-            einpackDiscount-einpackDiscount2-einpackExtraDiscount-einpackExtraDiscount2;
-            einpackCost = parseFloat(einpackCost);
+        const einpackCost = (einpackHours * einpackChf) + (einpackHours2 * einpackChf2) +
+        (einpackRoadChf + einpackExtrasTotal + einpackExtra1Cost + einpackExtra2Cost) - (einpackPreCost*einpackDiscountPercent/100) -
+        einpackDiscount - einpackDiscount2 - einpackExtraDiscount - einpackExtraDiscount2;
 
-            $("input[name=einpackCost]").val(einpackCost.toFixed(2))
+        $("input[name=einpackCost]").val(einpackCost);
 
-            if ($('input[name=isEinpackFixedPrice]').is(":checked")){
-                let einpackFixedCalc = parseFloat($('input[name=einpackFixedPrice]').val());
-                einpackTotalPrice = einpackFixedCalc - einpackPaid1 - einpackPaid2 - einpackPaid3;
-                $("input[name=einpackTotalPrice]").val(einpackTotalPrice.toFixed(2));
-            }
-            else {
-                einpackTotalPrice = einpackCost - einpackPaid1 - einpackPaid2 - einpackPaid3;
-                $("input[name=einpackTotalPrice]").val(einpackTotalPrice.toFixed(2));
-            }
-        })
+        const isEinpackFixedPrice = $('input[name=isEinpackFixedPrice]').is(":checked");
+        const einpackFixedPrice = parseFloat($('input[name=einpackFixedPrice]').val()) || 0;
+        einpackTotalPrice = isEinpackFixedPrice ? einpackFixedPrice : einpackCost;
+        einpackTotalPrice -= einpackPaid1 + einpackPaid2 + einpackPaid3;
+        $("input[name=einpackTotalPrice]").val(einpackTotalPrice);
+        
+    }
+
 </script>
 {{-- İlave ücret Aç/kapa --}}
 <script>
     var einpackextracostbutton = $("div.einpack-extra-cost");
-    einpackextracostbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
+    einpackextracostbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
             $(".einpack-extra-cost-area").show(700);
-        }
-        else{
+        } else {
             $(".einpack-extra-cost-area").hide(500);
         }
     })

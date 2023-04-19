@@ -3,7 +3,6 @@
 @section('header')
     <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-    <script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         .checkbox .label-text:after {
             border-color: #999494;
@@ -240,74 +239,199 @@
 @endsection
 
 @section('footer')
-    {{-- SMS --}}
-    <script>
-        var smsFormatbutton = $("div.sms-format");
-        smsFormatbutton.click(function() {
-        if ($(this).hasClass("checkbox-checked"))
-        {
-            $(".sms-format-area").show(700);
+<script>
+    $("form").submit(function(event) {
+        let checkMobile = phoneValidation();
+        let checkMaterial = materialValidation();
+        if ($("div.sms-send").hasClass("checkbox-checked")) {
+            if (!checkMobile) {
+                console.log('Telefon Validasyon False')
+                return false;
+            }
         }
-        else {
-            $(".sms-format-area").hide(500);
+        if ($("div.verpackungsmaterial-control").hasClass("checkbox-checked")) {
+            if (!checkMaterial) {
+                console.log('Material Validasyon False')
+                return false;
+            }
         }
-        })
-    </script>
+    })
 
-    <script>
-        function calculator() {
-            let warningPrice = parseFloat($("input[name=invoiceWarningPrice]").val());
-            let invoiceTotalPrice = 0;
 
-            $(".total-piece").each(function() {
-                var div = $(this).parent().parent();
-                if (div.is(':visible')) {
-                    invoiceTotalPrice = parseFloat(invoiceTotalPrice) + parseFloat($(this).val());
+    function materialValidation() {
+        let isValid = true;
+        if ($("div.verpackungsmaterial-control").hasClass("checkbox-checked")) {
+            $('.islem_field').each(function(index) {
+                let urunIsmi = $(this).closest('.islem_field').find('.urun').find(
+                    ":selected").data("urunadi")
+                let buyType = $(this).closest('.islem_field').find('.buyType').find(
+                    ":selected").data("buy")
+                if (!urunIsmi) {
+                    $(this).closest('.islem_field').find('.urun').focus().css(
+                        'border-color', 'red')
+                    toastr.error('Produktname ist leer', 'Fehler!');
+                    console.log('URUN İSMİ HATASI');
+                    isValid = false;
+                    console.log(urunIsmi,'Ürün İsmi')
+                    console.log(index,'İndex')
+                    return false;
+
+                }
+                else {
+                    $(this).closest('.islem_field').find('.urun').css('border-color', ''); // önceki uyarı mesajını kaldır
+                    isValid = true;
+                }
+                if (!buyType) {
+
+                    $(this).closest('.islem_field').find('.buyType').focus().css(
+                        'border-color', 'red');
+                    toastr.error('Kauf/Mieten ist leer', 'Fehler!');
+                    // alert('Die Miet/Kauf Option in Zeile ' + (index+1) + ' ist leer!');
+                    console.log('buyType HATASI');
+                    isValid = false;
+                    console.log(isValid,'BuyType')
+                    return false;
+                }
+                else {
+                    $(this).closest('.islem_field').find('.buyType').css('border-color', '')
+                    isValid = true;
                 }
             });
 
-            invoiceTotalPrice = invoiceTotalPrice + warningPrice;
-            invoiceTotalPrice = parseFloat(invoiceTotalPrice);
-            $("input[name=invoiceTotalPrice]").val(invoiceTotalPrice.toFixed(2));
-        };
-        $("body").on('change', '.invoice-area', function() {
-            setTimeout(() => {
-                calculator();
-            }, 700);
-        })
-    </script>
-
-    <script>
-        var morebutton = $("div.email-send");
-        morebutton.click(function() {
-            if ($(this).hasClass("checkbox-checked")) {
-                $(".email--area").show(700);
-            } else {
-                $(".email--area").hide(500);
+            if ($('.urun').length === 0) { // ürün yoksa
+                toastr.error('Fügen Sie mindestens ein Produkt hinzu', 'Fehler!');
+                console.log('urun Sayısı HATASI');
+                isValid = false;
+                console.log(isValid,'Urun Sayısı')
+                return false; // işlemi durdur
             }
-        })
-    </script>
+            
+        }
+        return isValid;
+    }
 
-    <script>
-        var emailFormatbutton = $("div.email-format");
-        emailFormatbutton.click(function() {
-            if ($(this).hasClass("checkbox-checked")) {
-                $(".email--format").show(700);
-            } else {
-                $(".email--format").hide(500);
+
+    function phoneValidation() {
+        let isValid = true;
+        if ($("div.sms-send").hasClass("checkbox-checked")) {
+            var phoneNum = $("input[name=mobile]").val();
+
+            // Tüm boşlukları kaldır
+            phoneNum = phoneNum.replace(/\s/g, '');
+
+            // Ülke kodu ve telefon numarasını ayırma
+            var countryCode = phoneNum.substring(0, 3);
+            var areaCode = phoneNum.substring(3, 5);
+            var phoneNumber = phoneNum.substring(5);
+
+            // Ülke kodu kontrolü
+            var countryRegex = /^\+\d{1,3}$/;
+
+            // Telefon numarası kontrolü
+            var phoneRegex = /^\d{6,}$/;
+
+            if (!countryRegex.test(countryCode) || !phoneRegex.test(phoneNumber)) {
+                console.log("Yanlış Telefon Formatı");
+                toastr.error('Falsches Telefonformat.', 'Fehler!');
+                let isValid = false;
+                return false; // Form gönderimini durdur
+
             }
-        })
-    </script>
 
-    <script>
-        tinymce.init({
-            selector: 'textarea.editor',
-            plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-            toolbar_mode: 'floating',
-            apply_source_formatting: true,
-            plugins: 'code',
+            console.log("Telefon numarası doğru formatlıdır. Ülke kodu: " + countryCode);
+            console.log("Telefon numarası doğru formatlıdır. Alan kodu: " + areaCode);
+            console.log("Telefon numarası doğru formatlıdır. Numara: " + phoneNumber);
+        }
+        return isValid;
+    }
+</script>
+
+
+
+{{-- SMS --}}
+<script>
+    var smsFormatbutton = $("div.sms-format");
+    smsFormatbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".sms-format-area").show(700);
+        } else {
+            $(".sms-format-area").hide(500);
+        }
+    })
+
+    var mobilePhonebutton = $("div.sms-send");
+    mobilePhonebutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".mobile-area").show(500);
+            $("input[name=mobile]").prop('required', true)
+        } else {
+            $(".mobile-area").hide(300);
+            $("input[name=mobile]").prop('required', false)
+        }
+    })
+</script>
+
+<script>
+    function calculator() {
+        let warningPrice = parseFloat($("input[name=invoiceWarningPrice]").val());
+
+        let invoiceTotalPrice = 0;
+        $(".total-piece").each(function() {
+            var div = $(this).parent().parent();
+            if (div.is(':visible')) {
+                invoiceTotalPrice = parseFloat(invoiceTotalPrice) + parseFloat($(this).val());
+            }
         });
-    </script>
+
+        invoiceTotalPrice = invoiceTotalPrice + warningPrice;
+        invoiceTotalPrice = parseFloat(invoiceTotalPrice);
+        $("input[name=invoiceTotalPrice]").val(invoiceTotalPrice.toFixed(2));
+    };
+
+    $("body").on('change', '.invoice-area', function() {
+        setTimeout(() => {
+            calculator();
+        }, 700);
+    })
+
+    $(document).ready(function() {
+        setTimeout(() => {
+            calculator();
+        }, 700);
+    })
+</script>
+
+<script>
+    var morebutton = $("div.email-send");
+    morebutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".email--area").show(700);
+        } else {
+            $(".email--area").hide(500);
+        }
+    })
+</script>
+
+<script>
+    var emailFormatbutton = $("div.email-format");
+    emailFormatbutton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".email--format").show(700);
+        } else {
+            $(".email--format").hide(500);
+        }
+    })
+</script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea.editor',
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+        toolbar_mode: 'floating',
+        apply_source_formatting: true,
+        plugins: 'code',
+    });
+</script>
 
 @yield('invoiceEditFooter1')
 @yield('invoiceEditFooter2')

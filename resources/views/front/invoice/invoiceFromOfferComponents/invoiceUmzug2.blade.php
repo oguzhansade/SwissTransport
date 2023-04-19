@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <label class=" col-form-label" for="l0">Anzahl Std</label>
                     <?php
-                    if ($umzug) {
+                    if ($umzug && $umzug['moveHours']) {
                         $umzugHours = is_numeric($umzug['moveHours']) ? $umzug['moveHours'] : explode('-', $umzug['moveHours'])[1];
                         $umzugHours = (int) $umzugHours; // "$umzugHours" değişkenini integer'a dönüştürür
                     }
@@ -302,6 +302,10 @@
             <input class="form-control" name="umzugDiscount" placeholder="0" type="text"
                 @if ($umzug && $umzug['discount']) value="{{ $umzug['discount'] }}" @else value="0.00" @endif>
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="umzugDiscountPercent" placeholder="0"  type="text" 
+            @if($umzug && $umzug['discountPercent']) value="{{ $umzug['discountPercent'] }}" @else value="0.00" @endif> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control" name="umzugDiscount2" placeholder="0" type="text"
                 @if ($umzug && $umzug['compromiser']) value="{{ $umzug['compromiser'] }}" @else value="0.00" @endif>
@@ -333,7 +337,7 @@
 
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
             <?php
-            if ($umzug) {
+            if ($umzug && $umzug['costPrice']) {
                 $umzugCost = is_numeric($umzug['costPrice']) ? $umzug['costPrice'] : explode('-', $umzug['costPrice'])[1];
                 $umzugCost = floatval($umzugCost); // "$umzugCost" değişkenini integer'a dönüştürür
             }
@@ -467,16 +471,23 @@
             const umzugDiscount2 = parseFloat($('input[name=umzugDiscount2]').val()) || 0;
             const umzugExtraDiscount = parseFloat($('input[name=umzugExtraDiscount]').val()) || 0;
             const umzugExtraDiscount2 = parseFloat($('input[name=umzugExtraDiscount2]').val()) || 0;
+            const umzugDiscountPercent = parseFloat($('input[name=umzugDiscountPercent]').val()) || 0;
             const umzugPaid1 = parseFloat($('input[name=umzugPaid1]').val()) || 0;
             const umzugPaid2 = parseFloat($('input[name=umzugPaid2]').val()) || 0;
             const umzugPaid3 = parseFloat($('input[name=umzugPaid3]').val()) || 0;
+            let umzugTotalPrice;
+
+            const umzugPreCost = (hours * chf) + (hours2 * chf2) +
+                (umzugRoadChf + extrasTotal + extra12Cost + extra13Cost);
+
             const umzugCost = (hours * chf) + (hours2 * chf2) +
-                (umzugRoadChf + extrasTotal + extra12Cost + extra13Cost) -
+                (umzugRoadChf + extrasTotal + extra12Cost + extra13Cost) - (umzugPreCost*umzugDiscountPercent/100) -
                 umzugDiscount - umzugDiscount2 - umzugExtraDiscount - umzugExtraDiscount2;
             $("input[name=umzugCost]").val(umzugCost);
+
             const isUmzugFixedPrice = $('input[name=isUmzugFixedPrice]').is(":checked");
             const umzugFixedPrice = parseFloat($('input[name=umzugFixedPrice]').val()) || 0;
-            let umzugTotalPrice = isUmzugFixedPrice ? umzugFixedPrice : umzugCost;
+            umzugTotalPrice = isUmzugFixedPrice ? umzugFixedPrice : umzugCost;
             umzugTotalPrice -= umzugPaid1 + umzugPaid2 + umzugPaid3;
             $("input[name=umzugTotalPrice]").val(umzugTotalPrice);
         }
@@ -487,7 +498,10 @@
 
         $(document).ready(function() {
             umzugInvoiceCalc()
-            isRequiredUmzug()
+            if($("div.umzug--area").is(":visible"))
+            {
+                isRequiredUmzug()
+            }
         })
         
     </script>

@@ -10,6 +10,7 @@ class InvoiceMaterial extends Model
     use HasFactory;
     protected $fillable = [
         'discount',
+        'discountPercent',
         'customDiscountText',
         'customDiscountValue',
         'deliverPrice',

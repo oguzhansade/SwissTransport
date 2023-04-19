@@ -97,6 +97,9 @@
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="auspackDiscount" placeholder="0"  type="text" value="0.00"> 
 
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="auspackDiscountPercent" placeholder="0"  type="text" value="0.00"> 
+
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="auspackDiscount2" placeholder="0"  type="text" value="0.00">
 
@@ -157,7 +160,7 @@
         $("input[name=auspackHours]").prop('required',true);   
         $("input[name=auspackChf]").prop('required',true); 
         $("input[name=auspackHours]").attr({'min':1}); 
-        $("input[name=auspackChf]").attr({'min':1});  
+        $("input[name=auspackChf]").attr({'min':1}); 
     }
 
     function isNotRequiredAuspack()
@@ -181,19 +184,9 @@
 
     $("body").on("change",".auspack--area",function (){
         isRequiredAuspack()
+        auspackInvoiceCalc()
     })
-
-    var isAuspackFixedbutton = $("div.auspack-fixed-price");
-    isAuspackFixedbutton.click(function(){
-        if($(this).hasClass("checkbox-checked"))
-        {
-            $(".auspack-fixed-price-area").show(700);
-        }
-        else{
-            $(".auspack-fixed-price-area").hide(500);
-        }
-    })
-
+   
     var morebutton4 = $("div.auspack-control");
     morebutton4.click(function(){
         if($(this).hasClass("checkbox-checked"))
@@ -207,66 +200,72 @@
         }
     })
 
-    $("body").on("change",".auspack--area", function() {
-        let auspackChf = parseInt($("input[name=auspackChf]").val());
-        let auspackHours = parseInt($("input[name=auspackHours]").val());
-
-        let auspackChf2 = parseInt($("input[name=auspackChf2]").val());
-        let auspackHours2 = parseInt($("input[name=auspackHours2]").val());
-
-        let auspackRoadChf = parseInt($("input[name=auspackRoadChf]").val());
-        let auspackCost = 0;
-        let auspackTotalPrice = 0;
-        if ($('input[name=auspackMasraf]').is(":checked")){
-            var extra1 = parseInt($('input[name=auspackExtra1]').val());               
-            }
-            else {
-                extra1 = 0;
-            }
-            if ($('input[name=auspackMasraf1]').is(":checked")){
-               var extra2 = parseInt($('input[name=auspackExtra2]').val());               
-            }
-            else {
-                extra2 = 0;
-            }
-        
-            
-
-            let auspackExtra1Cost = parseFloat($('input[name=auspackExtra1Cost]').val());               
-            let auspackExtra2Cost = parseFloat($('input[name=auspackExtra2Cost]').val()); 
-
-            let auspackDiscount = parseFloat($('input[name=auspackDiscount]').val());
-            let auspackDiscount2 = parseFloat($('input[name=auspackDiscount2]').val());
-            
-            let auspackExtraDiscount = parseFloat($('input[name=auspackExtraDiscount]').val());
-            let auspackExtraDiscount2 = parseFloat($('input[name=auspackExtraDiscount2]').val());
-
-            auspackTotalPrice = parseFloat($('input[name=auspackTotalPrice]').val());
-
-            let auspackPaid1 = parseFloat($('input[name=auspackPaid1]').val());
-            let auspackPaid2 = parseFloat($('input[name=auspackPaid2]').val());
-            let auspackPaid3 = parseFloat($('input[name=auspackPaid3]').val());
-
-            auspackCost = (auspackHours*auspackChf) + (auspackHours2*auspackChf2) + 
-            (auspackRoadChf+auspackExtra1Cost+auspackExtra2Cost+extra1+extra2)-
-            auspackDiscount-auspackDiscount2-auspackExtraDiscount-auspackExtraDiscount2;
-            auspackCost = parseFloat(auspackCost);
-
-            $("input[name=auspackCost]").val(auspackCost.toFixed(2))
-
-            if ($('input[name=isAuspackFixedPrice]').is(":checked")){
-                let auspackFixedCalc = parseFloat($('input[name=auspackFixedPrice]').val());
-                auspackTotalPrice = auspackFixedCalc - auspackPaid1 - auspackPaid2 - auspackPaid3;
-                $("input[name=auspackTotalPrice]").val(auspackTotalPrice.toFixed(2));
-            }
-            else {
-                auspackTotalPrice = auspackCost - auspackPaid1 - auspackPaid2 - auspackPaid3;
-                $("input[name=auspackTotalPrice]").val(auspackTotalPrice.toFixed(2));
-            }
-
+    var isAuspackFixedbutton = $("div.auspack-fixed-price");
+    isAuspackFixedbutton.click(function(){
+        if($(this).hasClass("checkbox-checked"))
+        {
+            $(".auspack-fixed-price-area").show(700);
+        }
+        else{
+            $(".auspack-fixed-price-area").hide(500);
+        }
     })
-</script>
 
+    $(document).ready(function() {
+        auspackInvoiceCalc()
+        if($("div.auspack--area").is(":visible"))
+        {
+            isRequiredAuspack()
+        }
+    })
+
+    function auspackInvoiceCalc() {
+        const auspackChf = parseInt($("input[name=auspackChf]").val()) || 0;
+        const auspackHours = parseInt($("input[name=auspackHours]").val()) || 0;
+        const auspackChf2 = parseInt($("input[name=auspackChf2]").val()) || 0;
+        const auspackHours2 = parseInt($("input[name=auspackHours2]").val()) || 0;
+        const auspackRoadChf = parseInt($("input[name=auspackRoadChf]").val()) || 0;
+        const auspackExtras = [
+            {name: 'auspackExtra1', masraf: 'auspackMasraf'},
+            {name: 'auspackExtra2', masraf: 'auspackMasraf1'},
+        ];
+        let auspackExtrasTotal = 0;
+        for (const auspackExtra of auspackExtras) {
+            if ($(`input[name=${auspackExtra.masraf}]`).is(':checked')) {
+            const value = parseInt($(`input[name=${auspackExtra.name}]`).val()) || 0;
+            auspackExtrasTotal += isNaN(value) ? 0 : value;
+            }
+        }
+
+        const auspackExtra1Cost = parseFloat($('input[name=auspackExtra1Cost]').val()) || 0;
+        const auspackExtra2Cost = parseFloat($('input[name=auspackExtra2Cost]').val()) || 0;
+        const auspackDiscount = parseFloat($('input[name=auspackDiscount]').val()) || 0 ;
+        const auspackDiscount2 = parseFloat($('input[name=auspackDiscount2]').val()) || 0;
+        const auspackExtraDiscount = parseFloat($('input[name=auspackExtraDiscount]').val()) || 0;
+        const auspackExtraDiscount2 = parseFloat($('input[name=auspackExtraDiscount]').val()) || 0;
+        const auspackDiscountPercent = parseFloat($('input[name=auspackDiscountPercent]').val()) || 0;
+
+        const auspackPaid1 = parseFloat($('input[name=auspackPaid1]').val()) || 0;
+        const auspackPaid2 = parseFloat($('input[name=auspackPaid2]').val()) || 0;
+        const auspackPaid3 = parseFloat($('input[name=auspackPaid3]').val()) || 0;
+        let auspackTotalPrice;
+
+        const auspackPreCost = (auspackHours * auspackChf) + (auspackHours2 * auspackChf2) +
+            (auspackRoadChf + auspackExtrasTotal + auspackExtra1Cost + auspackExtra2Cost);
+
+        const auspackCost = (auspackHours * auspackChf) + (auspackHours2 * auspackChf2) +
+            (auspackRoadChf + auspackExtrasTotal + auspackExtra1Cost + auspackExtra2Cost) - (auspackPreCost*auspackDiscountPercent/100) -
+            auspackDiscount - auspackDiscount2 - auspackExtraDiscount - auspackExtraDiscount2;
+        $("input[name=auspackCost]").val(auspackCost);
+
+        const isAuspackFixedPrice = $('input[name=isAuspackFixedPrice]').is(":checked");
+        const auspackFixedPrice = parseFloat($('input[name=auspackFixedPrice]').val()) || 0;
+        auspackTotalPrice = isAuspackFixedPrice ? auspackFixedPrice : auspackCost;
+        auspackTotalPrice -= auspackPaid1 + auspackPaid2 + auspackPaid3;
+        $("input[name=auspackTotalPrice]").val(auspackTotalPrice);
+        
+    }
+</script>
 {{-- İlave ücret Aç/kapa --}}
 <script>
     var auspackextracostbutton = $("div.auspack-extra-cost");

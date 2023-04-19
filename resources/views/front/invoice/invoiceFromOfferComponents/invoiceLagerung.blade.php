@@ -21,8 +21,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <label class=" col-form-label" for="l0">Volumen  [m3]</label>
+                    <?php
+                        if ($lagerung && $lagerung['volume']) {
+                            $lagerungVolumes = is_numeric($lagerung['volume']) ? $lagerung['volume'] : explode('-', $lagerung['volume'])[1];
+                            $lagerungVolumes = (int) $lagerungVolumes; // "$lagerungVolumes" değişkenini integer'a dönüştürür
+                        }
+                    ?>
                     <input class="form-control" class="date"  name="lagerungVolume"  type="number" min="0" 
-                    @if($lagerung) value="{{ $lagerung['volume'] }}" @else value="0" @endif> 
+                    @if($lagerung) value="{{ $lagerungVolumes }}" @else value="0" @endif> 
                 </div>
 
                 <div class="col-md-6">
@@ -63,7 +69,12 @@
 
         <div class="col-md-6">
             <label class="col-form-label" for="l0">Rabatt</label>
-            <input class="form-control"  name="lagerungDiscount" placeholder="0"  type="text" value="0.00"> 
+            <input class="form-control"  name="lagerungDiscount" placeholder="0"  type="text" 
+            @if($lagerung && $lagerung['discount']) value="{{ $lagerung['discount'] }}" @else value="0.00" @endif> 
+
+            <label class="col-form-label" for="l0">Rabatt[%]</label>
+            <input class="form-control"  name="lagerungDiscountPercent" placeholder="0"  type="text" 
+            @if($lagerung && $lagerung['discountPercent']) value="{{ $lagerung['discountPercent'] }}" @else value="0.00" @endif> 
 
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="lagerungDiscount2" placeholder="0"  type="text" value="0.00">
@@ -91,8 +102,14 @@
             </div>
 
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
+            <?php
+                if ($lagerung && $lagerung['totalPrice']) {
+                    $lagerungCost = is_numeric($lagerung['totalPrice']) ? $lagerung['totalPrice'] : explode('-', $lagerung['totalPrice'])[1];
+                    $lagerungCost = (int) $lagerungCost; // "$totalPrice" değişkenini integer'a dönüştürür
+                }
+            ?>
             <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($lagerung && $lagerung['totalPrice']) value="{{ $lagerung['totalPrice'] }}" @else value="0.00" @endif> 
+            @if($lagerung && $lagerung['totalPrice']) value="{{ $lagerungCost }}" @else value="0.00" @endif> 
 
             <div class="lagerung-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
@@ -112,16 +129,20 @@
             <input class="form-control"  name="lagerungPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag</label>
+            <?php
+                if ($lagerung && $lagerung['totalPrice']) {
+                    $lagerungCost = is_numeric($lagerung['totalPrice']) ? $lagerung['totalPrice'] : explode('-', $lagerung['totalPrice'])[1];
+                    $lagerungCost = (int) $lagerungCost; // "$totalPrice" değişkenini integer'a dönüştürür
+                }
+            ?>
             <input class="form-control total-piece"  name="lagerungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
-            @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @elseif($lagerung && $lagerung['totalPrice']) value="{{ $lagerung['totalPrice'] }}" @endif>
+            @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @elseif($lagerung && $lagerung['totalPrice']) value="{{ $lagerungCost}}" @endif>
         </div>
     </div>
 </div>
 @section('invoiceOfferFooterLagerung')
 
 <script>
-    
-        
     function isRequiredLagerung()
     {
         $("input[name=lagerungStartDate]").prop('required',true);      
@@ -152,6 +173,13 @@
         }
     })
 
+    $(document).ready(function() {
+        if($("div.lagerung--area").is(":visible"))
+        {
+            isRequiredLagerung()
+        }
+    })
+
     var isLagerungFixedbutton = $("div.lagerung-fixed-price");
     isLagerungFixedbutton.click(function(){
     if($(this).hasClass("checkbox-checked"))
@@ -164,27 +192,30 @@
     })
 
     $("body").on("change",".lagerung--area", function() {
-        let lagerungVolume = parseInt($("input[name=lagerungVolume]").val());
-        let lagerungChf = parseInt($("input[name=lagerungChf]").val());
+        let lagerungVolume = parseInt($("input[name=lagerungVolume]").val()) || 0;
+        let lagerungChf = parseInt($("input[name=lagerungChf]").val()) || 0;
 
         let lagerungCost = 0;
         let lagerungTotalPrice = 0;
 
-        let lagerungExtra1Cost = parseFloat($('input[name=lagerungExtra1Cost]').val());               
-        let lagerungExtra2Cost = parseFloat($('input[name=lagerungExtra2Cost]').val()); 
+        let lagerungExtra1Cost = parseFloat($('input[name=lagerungExtra1Cost]').val()) || 0;               
+        let lagerungExtra2Cost = parseFloat($('input[name=lagerungExtra2Cost]').val()) || 0; 
 
-        let lagerungDiscount = parseFloat($('input[name=lagerungDiscount]').val());
-        let lagerungDiscount2 = parseFloat($('input[name=lagerungDiscount2]').val());
-        let lagerungExtraDiscount = parseFloat($('input[name=lagerungExtraDiscount]').val());
-        let lagerungExtraDiscount2 = parseFloat($('input[name=lagerungExtraDiscount2]').val());
+        let lagerungDiscount = parseFloat($('input[name=lagerungDiscount]').val()) || 0;
+        let lagerungDiscountPercent = parseFloat($('input[name=lagerungDiscountPercent]').val()) || 0;
+        let lagerungDiscount2 = parseFloat($('input[name=lagerungDiscount2]').val()) || 0;
+        let lagerungExtraDiscount = parseFloat($('input[name=lagerungExtraDiscount]').val()) || 0;
+        let lagerungExtraDiscount2 = parseFloat($('input[name=lagerungExtraDiscount2]').val()) || 0;
 
-        lagerungTotalPrice = parseFloat($('input[name=lagerungTotalPrice]').val());
+        lagerungTotalPrice = parseFloat($('input[name=lagerungTotalPrice]').val()) || 0;
 
-        let lagerungPaid1 = parseFloat($('input[name=lagerungPaid1]').val());
-        let lagerungPaid2 = parseFloat($('input[name=lagerungPaid2]').val());
+        let lagerungPaid1 = parseFloat($('input[name=lagerungPaid1]').val()) || 0;
+        let lagerungPaid2 = parseFloat($('input[name=lagerungPaid2]').val()) || 0;
 
+        let minusPercent = (lagerungVolume*lagerungChf) + lagerungExtra1Cost + 
+        lagerungExtra2Cost;
         lagerungCost = (lagerungVolume*lagerungChf) + lagerungExtra1Cost + 
-        lagerungExtra2Cost - lagerungDiscount - lagerungDiscount2 - lagerungExtraDiscount - lagerungExtraDiscount2;
+        lagerungExtra2Cost - lagerungDiscount - lagerungDiscount2 - lagerungExtraDiscount - lagerungExtraDiscount2 - (minusPercent*lagerungDiscountPercent/100);
         lagerungCost = parseFloat(lagerungCost);
         lagerungCost = lagerungCost.toFixed(2);
         

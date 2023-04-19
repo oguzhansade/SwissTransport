@@ -164,7 +164,7 @@ morebutton9.click(function(){
                 if(rightVolume){
                     if(discountPercent)
                     {
-                        lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
+                        lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100) - discount
                     }
                     $('input[name=lagerungCost]').val(lagerungCostRight)
                     $('input[name=lagerungCostPrice]').val(lagerungCostRightPrice)
@@ -172,14 +172,14 @@ morebutton9.click(function(){
                 if(leftVolume){
                     if(discountPercent)
                     {
-                        lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
+                        lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)  - discount
                     }
                     $('input[name=lagerungCost]').val(lagerungCostLeft)
                     $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice)
                 }
                 if(leftVolume && rightVolume ){
-                    lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100)
-                    lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100)
+                    lagerungCostRight = lagerungCostRightPrice-(lagerungCostRightPrice*discountPercent/100) - discount
+                    lagerungCostLeft = lagerungCostLeftPrice-(lagerungCostLeftPrice*discountPercent/100) - discount
                     $('input[name=lagerungCost]').val(lagerungCostLeft+'-'+lagerungCostRight) 
                     $('input[name=lagerungCostPrice]').val(lagerungCostLeftPrice+'-'+lagerungCostRightPrice)
                 }
