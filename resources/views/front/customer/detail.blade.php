@@ -110,7 +110,7 @@
 
             <li class="nav-item" style=""><a href="#profile-tab-bordered-1"
                     class="nav-link 
-        @if (session('cat') != 'Offerte' && session('cat') != 'Termine') active @endif" data-toggle="tab"
+        @if (session('cat') != 'Offerte' && session('cat') != 'Termine' && session('cat') != 'Rechnung' && session('cat') != 'Quittung') active @endif" data-toggle="tab"
                     aria-expanded="true">Profil</a>
             </li>
             @if (App\Models\UserPermission::getMyControl(9))
@@ -128,13 +128,15 @@
             @endif
 
             @if (App\Models\UserPermission::getMyControl(10))
-                <li class="nav-item" style=""><a href="#fatura-tab-bordered-1" class="nav-link" data-toggle="tab"
+                <li class="nav-item " style=""><a href="#fatura-tab-bordered-1" 
+                        class="nav-link @if (session('cat') == 'Rechnung') active @endif" data-toggle="tab"
                         aria-expanded="false">Rechnungen</a>
                 </li>
             @endif
 
             @if (App\Models\UserPermission::getMyControl(11))
-                <li class="nav-item" style=""><a href="#makbuz-tab-bordered-1" class="nav-link" data-toggle="tab"
+                <li class="nav-item " style=""><a href="#makbuz-tab-bordered-1" 
+                        class="nav-link @if (session('cat') == 'Quittung') active @endif" data-toggle="tab"
                         aria-expanded="false">Quittungen</a>
                 </li>
             @endif
@@ -143,7 +145,7 @@
         <div class="tab-content">
 
             <!-- /.tab-pane Müşteri Profili -->
-            <div role="tabpanel" class="tab-pane @if (session('cat') != 'Offerte' && session('cat') != 'Termine') active @endif "
+            <div role="tabpanel" class="tab-pane @if (session('cat') != 'Offerte' && session('cat') != 'Termine' && session('cat') != 'Rechnung' && session('cat') != 'Quittung') active @endif "
                 id="profile-tab-bordered-1" aria-expanded="false">
 
                 <div class="contact-details-profile ">
@@ -369,7 +371,7 @@
             </div>
 
             <!-- /.tab-pane Faturalar -->
-            <div role="tabpanel" class="tab-pane" id="fatura-tab-bordered-1" aria-expanded="false">
+            <div role="tabpanel" class="tab-pane @if (session('cat') == 'Rechnung') active @endif" id="fatura-tab-bordered-1" aria-expanded="false">
                 <div class="contact-details-profile ">
                     <div class="row">
                         <div class="col-md-9">
@@ -422,7 +424,7 @@
             </div>
 
             <!-- /.tab-pane Makbuzlar -->
-            <div role="tabpanel" class="tab-pane" id="makbuz-tab-bordered-1" aria-expanded="false">
+            <div role="tabpanel" class="@if (session('cat') == 'Quittung') active @endif tab-pane" id="makbuz-tab-bordered-1" aria-expanded="false">
                 <div class="contact-details-profile ">
                     <div class="row">
                         <div class="col-md-9">
@@ -682,17 +684,15 @@
                             "targets": 3,
                             "createdCell": function(td, cellData, rowData, row, col) {
                                 if (cellData == 'Onaylandı') {
-                                    $(td).css('vertical-align', 'middle');
                                     $(td).html(
                                         '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
                                     )
                                 } else if (cellData == 'Beklemede') {
-                                    $(td).css('vertical-align', 'middle');
+                                    
                                     $(td).html(
                                         '<span class="bg-custom-warning px-3 py-1 text-center shadow" >in Wartestellung<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
-                                } else {
-                                    $(td).css('vertical-align', 'middle');
+                                } else if(cellData == 'Onaylanmadı') {
                                     $(td).html(
                                         '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nicht Bestätigt<i class="text-center feather feather-x-circle pl-1"></i></span>'
                                     )
@@ -747,7 +747,7 @@
                             data: 'services',
                             name: 'services',
                             orderable: false,
-                            searchable: false,
+                            searchable: true,
                             exportable: false
                         },
                         {

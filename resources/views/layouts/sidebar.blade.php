@@ -88,6 +88,19 @@
         @if (App\Models\UserPermission::getMyControl(3))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
+                <i class="list-icon feather feather-users"></i> <span class="hide-menu">Statistiken</span>
+            </a>
+            <ul class="list-unstyled sub-menu">
+                <li><a href="{{ route('statistics.offer') }}">Offerte Stats</a></li>
+                <li><a href="{{ route('statistics.receipt') }}">Receipt Stats</a></li>
+            </ul>
+        </li>
+        @endif
+
+
+        @if (App\Models\UserPermission::getMyControl(3))
+        <li class="menu-item-has-children">
+            <a href="javascript:void(0);">
                 <i class="list-icon feather feather-list"></i> <span class="hide-menu">Aufgaben</span>
             </a>
             <ul class="list-unstyled sub-menu">

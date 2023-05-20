@@ -59,17 +59,23 @@ class indexController extends Controller
     public function data(Request $request)
     {
         $table=Customer::query();
+        $totalPrice = 0; // Initialize the total price variable,
+
+        // Minimum date filter
+
+        if($request->min_date) {
+            $table->whereDate('created_at', '>=', $request->min_date);
+        }
+        
+        // Maximum date filter
+        if($request->max_date) {
+            $table->whereDate('created_at', '<=', $request->max_date);
+        }
+
+        // Select total price
+       
         $data=DataTables::of($table)
-        ->addColumn('publicname',function ($table) {
-            if($table->customerType == 0)
-            {
-                $fullname = $table->name.' '.$table->surname;
-                return $fullname;
-            }
-            else {
-                return $table->companyName;
-            }
-        })
+        
         ->editColumn('customerType',function ($table) {
             if($table->customerType == 0) {
                 return "Kunde";

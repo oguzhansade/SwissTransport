@@ -62,7 +62,7 @@
 
                                         <div class="col-md-6">
                                             <label class="col-form-label" >E-mail</label>
-                                            <input class="form-control" required name="email" type="email" placeholder="worker@example.com">
+                                            <input class="form-control"  required name="email" type="email" placeholder="worker@example.com">
                                             <i class="text-primary">Erforderlich für die Panel-Anmeldung</i>
                                         </div>
 

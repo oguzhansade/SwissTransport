@@ -39,5 +39,13 @@ class offerte extends Model
     protected $casts = [
         'offer_verified_at' => 'datetime',
     ];
+    static function getUmzugId($id)
+    {
+        if($id){
+            $data = offerte::where('id',$id)->first();
+            return $data['offerteUmzugId'];
+        }
+        
+    }
     use HasFactory;
 }

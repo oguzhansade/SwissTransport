@@ -457,7 +457,12 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
                 $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
             } 
-            return redirect()->back()->with('status','Makbuz Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess);
+            return redirect()
+                ->route('customer.detail', ['id' => $d['customerId']])
+                ->with('status','Makbuz Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess)
+                ->with('cat', 'Quittung')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status','Hata:Makbuz Düzenlenemedi');
@@ -481,7 +486,7 @@ class indexController extends Controller
                 $array[$i]["id"] = $v->id;
                 $array[$i]["makbuzNo"] = $v->offerId.'.'.$v->id;
                 $array[$i]["receiptType"] = 'Umzug';
-                $array[$i]["orderDate"] = date('d-m-Y', strtotime($v->orderDate)).' '.$v->orderTime;
+                $array[$i]["orderDate"] = $v->orderDate ? date('d-m-Y', strtotime($v->orderDate)) : '-'.' '.$v->orderTime;
                 $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["payType"] = $v->payType;
@@ -500,7 +505,7 @@ class indexController extends Controller
                 $array[$i]["id"] = $v->id;
                 $array[$i]["makbuzNo"] = $v->offerId.'.'.$v->id;
                 $array[$i]["receiptType"] = 'Reinigung';
-                $array[$i]["orderDate"] = date('d-m-Y', strtotime($v->reinigungDate)).' '.$v->reinigungTime;
+                $array[$i]["orderDate"] = $v->reinigungDate ? date('d-m-Y', strtotime($v->reinigungDate)) : '-'.' '.$v->reinigungTime;
                 $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["payType"] = $v->payType;
@@ -803,7 +808,12 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
                 $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
             } 
-            return redirect()->back()->with('status','Makbuz Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptStandartId.$mailSuccess);
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status','Makbuz Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptStandartId.$mailSuccess)
+                ->with('cat', 'Quittung')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status','Hata:Makbuz Oluşturulamadı');

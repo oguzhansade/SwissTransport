@@ -172,7 +172,12 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new ReceiptReinigungMail($emailData));
                 $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
             } 
-            return redirect()->back()->with('status','Temizlik Makbuzu Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptReinigungId.$mailSuccess);
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status','Temizlik Makbuzu Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptReinigungId.$mailSuccess)
+                ->with('cat', 'Quittung')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status','Hata:Makbuz Oluşturulamadı');
@@ -379,6 +384,12 @@ class indexController extends Controller
                 $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
             } 
             return redirect()->back()->with('status','Temizlik Makbuzu Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess);
+            return redirect()
+                ->route('customer.detail', ['id' => $d['customerId']])
+                ->with('status','Temizlik Makbuzu Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess)
+                ->with('cat', 'Quittung')
+                ->withInput()
+                ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status','Hata:Makbuz Düzenlenemedi');

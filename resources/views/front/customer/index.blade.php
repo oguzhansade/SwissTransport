@@ -34,32 +34,35 @@
                 </div>
                 <!-- /.widget-heading -->
                 <div class="widget-body clearfix">
-                    {{-- <div id="date-range">
-                        <table border="0" cellspacing="5" cellpadding="5">
+                    <div id="date-range">
+                        <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
                             <tbody>
                                 <tr>
-                                    <td>Minimum date:</td>
-                                    <td><input type="date" id="start-date" name="min"></td>
+                                    <td><b class="test-dark">Erfasst</b></td>
+                                    <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
+                                    <td><b class="test-dark">bis</b></td>
+                                    <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
+                                    <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                 </tr>
-                            <tr>
-                                <td>Maximum date:</td>
-                                <td><input type="date" id="end-date" name="max"></td>
-                            </tr>
-                        </tbody></table>
-                    </div> --}}
-                    <table id="example" class="table table-striped table-responsive">
-                        <thead>
-                            <tr class="text-dark">
-                                <th>Nachname</th>
-                                <th>Vorname</th>
-                                <th>Email</th>
-                                <th>Mobil</th>
-                                <th>Datum</th>
-                                <th>Option</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3">
+                        <table id="example" class="table table-striped table-responsive">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th>Nachname</th>
+                                    <th>Vorname</th>
+                                    <th>Email</th>
+                                    <th>Mobil</th>
+                                    <th>Datum</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    
                 </div>
                 <!-- /.widget-body -->
             </div>
@@ -85,14 +88,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
 
-<script>
-    
-</script>
+
 <script>
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
             "order" : [[4,'desc']], 
-            
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',
             buttons: [
@@ -105,8 +105,8 @@
                 headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
                 url: '{{route('customer.data')}}',
                 data: function (d) {
-                    d.startDate = $('#start-date').val();
-                    d.endDate = $('#end-date').val();
+                    d.min_date = $('#start_date').val();
+                    d.max_date = $('#end_date').val();
                     return d
                 }
             },
@@ -117,7 +117,7 @@
                 { data:'mobile', name:'mobile' , searchable:true},
                 { data:'created_at',name:'created_at', searchable:true},
                 { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
-            ]
+            ],
         });
         
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
@@ -139,12 +139,17 @@
                 .draw();
         });
 
-        // Add event listener for date range filter
-        $('#date-range').on('change', function() {
-        table.draw();
+        $('#start_date, #end_date').on('change', function() {
+            table.draw();
         });
-    });
+        $('#reset').on('click', function() {
+            $('#start_date').val('');
+            $('#end_date').val('');
+            table.draw();
+        });
     
+        
+    });
 </script>
 
 @endsection

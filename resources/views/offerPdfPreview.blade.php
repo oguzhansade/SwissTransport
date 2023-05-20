@@ -604,8 +604,8 @@
 
                 @if ($umzug['discountPercent'] != 0)
                     <tr>
-                        <td align="left" valign="top"> Rabatt[%]: </td>
-                        <td><span>- %{{ $umzug['discountPercent'] }}</span></td>
+                        <td align="left" valign="top"> Rabatt: </td>
+                        <td><span>{{ $umzug['discountPercent'] }}%</span></td>
                     </tr>
                 @endif
 
@@ -629,10 +629,17 @@
                     </tr>
                 @endif
 
-                <tr>
-                    <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
-                </tr>
+                @if ($umzug['fixedPrice'])
+                    <tr>
+                        <td align="left" valign="top">Pauschal:</td>
+                        <td><span style="color:#D10D0C;"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
+                    </tr>
+                    @else
+                    <tr>
+                        <td align="left" valign="top">Geschätzte Kosten:</td>
+                        <td><span style="color:#D10D0C;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
+                    </tr>
+                @endif
 
                 @if ($umzug['topCost'] != null)
                     <tr>
@@ -779,8 +786,8 @@
 
                 @if ($einpack['discountPercent'] != 0)
                     <tr>
-                        <td align="left" valign="top">Rabatt[%]:</td>
-                        <td><span>- %{{ $einpack['discountPercent'] }}</span></td>
+                        <td align="left" valign="top">Rabatt:</td>
+                        <td><span>{{ $einpack['discountPercent'] }}%</span></td>
                     </tr>
                 @endif
 
@@ -804,10 +811,17 @@
                     </tr>
                 @endif
 
+                @if($einpack['fixedPrice'])
+                <tr>
+                    <td align="left" valign="top">Pauschal:</td>
+                    <td><span style="color:#D10D0C;"><b>{{ $einpack['fixedPrice'] }} CHF</b></span></td>
+                </tr>
+                @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
                     <td><span style="color:#D10D0C;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
+                @endif
 
                 @if ($einpack['topCost'] != null)
                     <tr>
@@ -938,8 +952,8 @@
 
                 @if ($auspack['discountPercent'] != 0)
                     <tr>
-                        <td align="left" valign="top">Rabatt[%]:</td>
-                        <td><span>- %{{ $auspack['discountPercent'] }}</span></td>
+                        <td align="left" valign="top">Rabatt:</td>
+                        <td><span>{{ $auspack['discountPercent'] }}%</span></td>
                     </tr>
                 @endif
 
@@ -963,11 +977,18 @@
                     </tr>
                 @endif
 
+                @if($auspack['fixedPrice'])
+                <tr>
+                    <td align="left" valign="top">Pauschal:</td>
+                    <td><span style="color:#D10D0C;"><b>{{ $auspack['fixedPrice'] }} CHF</b></span></td>
+                </tr>
+                @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
                     <td><span style="color:#D10D0C;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
-
+                @endif
+                
                 @if ($auspack['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
@@ -1158,8 +1179,8 @@
 
             @if ($reinigung['discountPercent'] != 0)
                 <tr>
-                    <td align="left" valign="top">Rabatt[%]: </td>
-                    <td><span>- %{{ $reinigung['discountPercent'] }}</span></td>
+                    <td align="left" valign="top">Rabatt: </td>
+                    <td><span>{{ $reinigung['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
@@ -1353,8 +1374,8 @@
 
             @if ($reinigung2['discountPercent'] != 0)
                 <tr>
-                    <td align="left" valign="top">Rabatt[%]: </td>
-                    <td><span>- %{{ $reinigung2['discountPercent'] }}</span></td>
+                    <td align="left" valign="top">Rabatt: </td>
+                    <td><span>{{ $reinigung2['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
@@ -1516,8 +1537,8 @@
 
             @if ($entsorgung['discountPercent'] != 0)
                 <tr>
-                    <td align="left" valign="top">Rabatt[%]: </td>
-                    <td><span>- %{{ $entsorgung['discountPercent'] }}</span></td>
+                    <td align="left" valign="top">Rabatt: </td>
+                    <td><span>{{ $entsorgung['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
@@ -1696,8 +1717,8 @@
 
             @if ($transport['discountPercent'] != 0)
                 <tr>
-                    <td align="left" valign="top">Rabatt[%]: </td>
-                    <td><span>- %{{ $transport['discountPercent'] }}</span></td>
+                    <td align="left" valign="top">Rabatt: </td>
+                    <td><span>{{ $transport['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
@@ -1852,8 +1873,8 @@
 
             @if ($lagerung['discountPercent'] != 0)
                 <tr>
-                    <td align="left" valign="top">Rabatt[%]:</td>
-                    <td><span>- %{{ $lagerung['discountPercent'] }}</span></td>
+                    <td align="left" valign="top">Rabatt:</td>
+                    <td><span>{{ $lagerung['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
@@ -2003,7 +2024,7 @@
             @if ($offer['offerteNote'])
                 <table border="0" style="width: 100%;margin-top:10px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
+                        <td colspan="4" class="p-1 custom-heading-bar">
                             <b style="font-size:13px;line-height:13px;">Bemerkung</b>
                         </td>
                     </tr>

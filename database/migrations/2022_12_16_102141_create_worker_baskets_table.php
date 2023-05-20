@@ -23,9 +23,10 @@ return new class extends Migration
             $table->integer('workerPrice');
             $table->integer('workHour');
             $table->integer('workerHour')->nullable();
-            $table->date('taskDate');
-            $table->time('taskTime');
+            $table->date('taskDate')->nullable();
+            $table->time('taskTime')->nullable();
             $table->integer('totalPrice')->nullable();
+            $table->integer('payStatus')->default(0);
             $table->timestamps();
         });
     }

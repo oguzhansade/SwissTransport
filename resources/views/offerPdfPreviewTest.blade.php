@@ -2029,7 +2029,7 @@
             @if ($offer['offerteNote'])
                 <table border="0" style="width: 100%;margin-top:10px;">
                     <tr style="width:100%;">
-                        <td colspan="4" class="p-1 " style="background-color:#E5E5E5;">
+                        <td colspan="4" class="p-1 custom-heading-bar" >
                             <b style="font-size:13px;line-height:13px;">Bemerkung</b>
                         </td>
                     </tr>

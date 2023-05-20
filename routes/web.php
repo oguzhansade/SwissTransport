@@ -108,8 +108,12 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/create', [App\Http\Controllers\front\worker\indexController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [App\Http\Controllers\front\worker\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\worker\indexController::class, 'update'])->name('update');
+        Route::get('/detail/{id}', [App\Http\Controllers\front\worker\indexController::class, 'detail'])->name('detail');
         Route::get('/delete/{id}', [App\Http\Controllers\front\worker\indexController::class, 'delete'])->name('delete');
         Route::post('/data', [App\Http\Controllers\front\worker\indexController::class, 'data'])->name('data');
+        Route::post('/taskData/{id}', [App\Http\Controllers\front\worker\indexController::class, 'taskData'])->name('taskData');
+        Route::post('/payStatusChanger/{id}', [App\Http\Controllers\front\worker\indexController::class, 'payStatusChanger'])->name('payStatusChanger');
+        Route::get('/payStatusChanger/{id}', [App\Http\Controllers\front\worker\indexController::class, 'payStatusChanger'])->name('payStatusChanger');
     });
 
     Route::group(['namespace' => 'task', 'as' => 'task.', 'prefix' => 'task', 'middleware' => ['PermissionControl']], function () {
@@ -145,6 +149,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/delete/{id}', [App\Http\Controllers\front\customer\indexController::class, 'delete'])->name('delete');
         Route::get('/detail/{id}', [App\Http\Controllers\front\customer\indexController::class, 'detail'])->name('detail');
         Route::post('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
+        Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
     });
 
     Route::group(['namespace' => 'appointment', 'as' => 'appointment.', 'prefix' => 'appointment', 'middleware' => ['PermissionControl']], function () {
@@ -271,5 +276,16 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/edit/{id}', [App\Http\Controllers\front\tariff\indexController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [App\Http\Controllers\front\tariff\indexController::class, 'delete'])->name('delete');
         Route::post('/data', [App\Http\Controllers\front\tariff\indexController::class, 'data'])->name('data');
+    });
+
+    Route::group(['namespace' => 'statistics', 'as' => 'statistics.', 'prefix' => 'statistics', 'middleware' => ['PermissionControl']], function () {
+        Route::get('/', [App\Http\Controllers\front\statistics\indexController::class, 'index'])->name('index');
+        Route::get('/offerte', [App\Http\Controllers\front\statistics\indexController::class, 'offer'])->name('offer');
+        Route::get('/quittung', [App\Http\Controllers\front\statistics\indexController::class, 'receipt'])->name('receipt');
+        Route::get('/edit/{id}', [App\Http\Controllers\front\statistics\indexController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [App\Http\Controllers\front\statistics\indexController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [App\Http\Controllers\front\statistics\indexController::class, 'delete'])->name('delete');
+        Route::post('/data', [App\Http\Controllers\front\statistics\indexController::class, 'data'])->name('data');
+        Route::post('/offerData', [App\Http\Controllers\front\statistics\indexController::class, 'offerData'])->name('offerData');
     });
 });

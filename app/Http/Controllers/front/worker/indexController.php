@@ -8,10 +8,12 @@ use App\Models\Company;
 use App\Models\User;
 use App\Models\UserPermission;
 use App\Models\Worker;
+use App\Models\WorkerBasket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 use Yajra\DataTables\Facades\DataTables;
 
@@ -33,10 +35,84 @@ class indexController extends Controller
         ->addColumn('option',function($table) 
         {
             return '
+            <a class="btn btn-sm  btn-primary" href="'.route('worker.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> 
             <a class="btn btn-sm  btn-edit" href="'.route('worker.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
             <a class="btn btn-sm  btn-danger"  href="'.route('worker.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
         ->rawColumns(['option'])
+        ->make(true);
+
+        return $data;
+    }
+
+    public function payStatusChanger ($taskId)
+    {
+        $task = WorkerBasket::where('id',$taskId)->first();
+        if($task['payStatus'] == 0)
+        {
+            $task = [
+                'payStatus' => 1
+            ];
+
+            $update = WorkerBasket::where('id',$taskId)->first()->update($task);
+        } else if($task['payStatus'] == 1)
+        {
+            $task = [
+                'payStatus' => 0
+            ];
+            $update = WorkerBasket::where('id',$taskId)->update($task);
+        }
+
+        if($update) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Kayıt Güncellendi',
+                'task' => WorkerBasket::where('id',$taskId)->first()
+            ]);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => 'Kayıt Güncellendi',
+                'task' => WorkerBasket::where('id',$taskId)->first()
+            ]);
+        }
+
+
+    }
+    public function taskData(Request $request)
+    {
+        $workerId = $request->route('id');
+        $table = DB::table('worker_baskets')->where('workerId', '=', $workerId);
+        // Minimum date filter
+
+        if($request->min_date) {
+            $table->whereDate('created_at', '>=', $request->min_date);
+        }
+        
+        // Maximum date filter
+        if($request->max_date) {
+            $table->whereDate('created_at', '<=', $request->max_date);
+        }
+
+        
+
+        // $table = $table->get()->toArray(); // sorun çıkarsa açıklama satırından çıkar
+        $data=DataTables::of($table)
+        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
+        ->addColumn('payStatus',function($table) 
+        {
+            if($table->payStatus == 0)
+            {
+                return '
+                        <button  class="btn btn-sm btn-warning payButton" onClick="payStatusChanger('.$table->id.')">Unpaid</button>';
+            }
+            else {
+                return '
+                <button class="btn btn-sm btn-success payButton" onClick="payStatusChanger('.$table->id.')">Paid</button>';
+            }
+            
+        })
+        ->rawColumns(['payStatus'])
         ->make(true);
 
         return $data;
@@ -52,6 +128,19 @@ class indexController extends Controller
         {
             $data = Worker::where('id',$id)->first();
             return view ('front.worker.edit', ['data' => $data]);
+        }
+    }
+
+    public function detail(Request $request)
+    {
+        $id = $request->route('id');
+        $c = Worker::where('id',$id)->count();
+        
+
+        if($c !=0)
+        {
+            $data = Worker::where('id',$id)->first();
+            return view ('front.worker.detail', ['data' => $data]);
         }
     }
 
@@ -184,6 +273,10 @@ class indexController extends Controller
             }
             else {
                 return redirect()->back()->with('status2','Hata:İşçi Eklenemedi');
+                if($userId)
+                {
+                    User::where('id',$userId)->delete(); // User oluşturulursa ama işçi oluşturulmamışsa ilgili user silinecek
+                }
             }
 
         }

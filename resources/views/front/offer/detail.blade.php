@@ -273,7 +273,7 @@
                                     </a>
                                     @endif
                                     <a id="createTask"  href="{{ route('offer.showPdf',['id' => $data['id']]) }}" 
-                                        class="btn btn-rounded text-white" style="background-color:#ff0000"> <strong>Ausdrucken</strong> 
+                                        class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong> 
                                     </a>
                                     </div>
                                 </div>

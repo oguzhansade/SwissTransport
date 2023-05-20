@@ -52,4 +52,10 @@ class OfferteUmzug extends Model
         $data = OfferteUmzug::where('id',$id)->first();
         return $data[$param];
     }
+
+    static function getHour($id)
+    {
+        $data = OfferteUmzug::where('id',$id)->first();
+        return $data['moveHours'];
+    }
 }

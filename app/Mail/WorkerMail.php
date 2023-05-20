@@ -28,7 +28,7 @@ class WorkerMail extends Mailable
      */
     public function build()
     {
-        return $this->view('WorkerMail')
+        return $this->view('workerMail')
                     ->subject($this->data['sub'])
                     ->from($this->data['from'],$this->data['companyName'])
                     ->with('data',$this->data);

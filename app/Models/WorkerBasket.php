@@ -19,7 +19,8 @@ class WorkerBasket extends Model
         'workerHour',
         'taskDate',
         'taskTime',
-        'totalPrice'
+        'totalPrice',
+        'payStatus'
     ];
 
     static function getBasket($id)

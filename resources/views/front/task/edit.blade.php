@@ -76,7 +76,6 @@
                                                 <th>Aufgaben Name</th>
                                                 <th>Preis[h]</th>
                                                 <th>Stunde</th>
-                                                <th>Saat(Arbeiter)</th>
                                                 <th>Total</th>
                                                 <th>Löschen</th>
                                             </tr>

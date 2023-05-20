@@ -51,7 +51,7 @@
                                 <select name="offerteId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
                                     @foreach (\App\Models\offerte::all() as $k => $v)
-                                        <option class="form-control"  value="{{ $v['id'] }}">{{ $v['id'] }}</option>
+                                        <option class="form-control" data-offerteId = "{{ $v['id'] }}"  value="{{ $v['id'] }}">{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
                             </div>
@@ -122,9 +122,12 @@
 
 @section('footer')
 <script>
+    
     var say= 0;
     var i = $(".islem_field").lenght || 0;
+    let defaultHour = 1;
     $("#addRowBtn").click(function () {
+        
         
         var topitop = 0;
         $("[id=toplam]").each(function () {
@@ -142,10 +145,10 @@
             
         newRow+= '<option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>';  
         @endforeach
-
+        //value="' + defaultHour + '"
         newRow+='</select></td>'+
         '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
-        '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="1"></td>'+
+        '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="' + defaultHour + '"></td>'+
         ''+
         '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
         '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+

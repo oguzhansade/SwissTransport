@@ -278,8 +278,22 @@
 <script>
     $(document).ready(function (){
         let isFixedPrice = parseInt($('input[name=reinigungFixedPrice]').val());
+        console.log(isFixedPrice,'test');
         reinigungInvoiceCalc()
-        
+        if(isFixedPrice != 0){
+                $("input[name=reinigungHours]").prop("required",false);
+                $("input[name=reinigungChf]").prop("required",false);
+                $("input[name=reinigungHours]").removeAttr('min'); 
+                $("input[name=reinigungChf]").removeAttr('min');
+            }
+            else{
+                $("input[name=reinigungFixedPrice]").prop("required",false);
+                $("input[name=reinigungHours]").prop("required",true);
+                $("input[name=reinigungChf]").prop("required",true);
+                $("input[name=reinigungHours]").removeAttr('min'); 
+                $("input[name=reinigungChf]").removeAttr('min');
+            
+            }
         if($("div.reinigung--area").is(":visible"))
         {
             isRequiredReinigung()
@@ -311,7 +325,7 @@
     }
 
         $("body").on("change",".reinigung--area",function (){
-            let isFixedPrice = parseInt($('input[name=reinigungFixedPrice]').val());
+            
             if(isFixedPrice != 0){
                 $("input[name=reinigungHours]").prop("required",false);
                 $("input[name=reinigungChf]").prop("required",false);

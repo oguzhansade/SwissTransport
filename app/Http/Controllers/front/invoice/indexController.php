@@ -38,7 +38,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Vonage;
-use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Notification;
 
 class indexController extends Controller
@@ -1014,7 +1013,12 @@ class indexController extends Controller
                     Mail::to($emailData['email'])->send(new InvoiceMail($emailData));
                     $mailSuccess = ', Mail ve Fatura Dosyası Başarıyla Gönderildi';
                 }
-                return redirect()->back()->with('status',$id.' - '.'Numaralı Fatura Düzenlendi'.$mailSuccess);
+                return redirect()
+                    ->route('customer.detail', ['id' => $d['customerId']])
+                    ->with('status',$id.' - '.'Numaralı Fatura Düzenlendi'.' '.$mailSuccess)
+                    ->with('cat', 'Rechnung')
+                    ->withInput()
+                    ->with('keep_status', true);
             }
 
             else {
@@ -1697,7 +1701,12 @@ class indexController extends Controller
                 Mail::to($emailData['email'])->send(new invoiceMail($emailData));
                 $mailSuccess = ', Mail ve Fatura Başarıyla Gönderildi';
             } 
-            return redirect()->back()->with('status','Fatura Başarıyla Oluşturuldu.'.' '.'Fatura NO:'.' '.$invoiceId.$mailSuccess);
+            return redirect()
+                    ->route('customer.detail', ['id' => $customerId])
+                    ->with('status','Fatura Başarıyla Oluşturuldu.'.' '.'Fatura NO:'.' '.$invoiceId.' '.$mailSuccess)
+                    ->with('cat', 'Rechnung')
+                    ->withInput()
+                    ->with('keep_status', true);
         }
         else {
             return redirect()->back()->with('status','Hata:Fatura Oluşturulamadı');
@@ -1724,7 +1733,12 @@ class indexController extends Controller
             $lagerungMailer = LagerungMailer::where('lagerungId',$data['invoiceLagerungId'])->delete();
             Invoice::where('id',$id)->delete();
 
-            return redirect()->back()->with('status','Fatura Başarıyla Silindi');
+            return redirect()
+                    ->route('customer.detail', ['id' => $d['customerId']])
+                    ->with('status','Fatura Başarıyla Silindi')
+                    ->with('cat', 'Rechnung')
+                    ->withInput()
+                    ->with('keep_status', true);
         }
         else {
             return redirect('/');

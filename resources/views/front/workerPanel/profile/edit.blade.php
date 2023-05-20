@@ -95,6 +95,11 @@
                             </div>
 
                             <div class="col-md-12">
+                                {{-- <label class="col-form-label" >Preis/Stunde</label> --}}
+                                <input class="form-control" required name="workPrice" type="hidden" value="{{ $data['workPrice'] }}">
+                            </div>
+
+                            <div class="col-md-12">
                                 <label class="col-form-label" >Telefon</label>
                                 <input class="form-control" required name="phone" type="text" placeholder="Worker Phone" value="{{ $data['phone'] }}" readonly>
                                 <small><i class="text-primary">Ask admin to change phone number</i></small>

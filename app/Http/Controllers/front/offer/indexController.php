@@ -68,7 +68,7 @@ class indexController extends Controller
                 return $formatedDate;
             })
             ->editColumn('services', function ($data) {
-
+                
                 $services = collect([
                     $data->offerteUmzugId ? 'Umzug' : NULL,
                     $data->offerteEinpackId ? 'Einpack' : NULL,
