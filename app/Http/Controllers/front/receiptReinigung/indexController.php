@@ -127,6 +127,7 @@ class indexController extends Controller
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); // Customer Name
+        $gender=DB::table('customers')->where('id','=', $customerId)->value('gender');// Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname');
 
         $customerData =  Customer::where('id',$customerId)->first();
@@ -149,6 +150,7 @@ class indexController extends Controller
             'receiptNumber' => $receiptReinigungId,
             'name' => $customer,
             'surname' => $customerSurname,
+            'gender' => $gender,
             'sub' => $sub,
             'from' => $from,
             'companyName' => $companyName,
@@ -339,7 +341,7 @@ class indexController extends Controller
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $d['customerId'])->value('name'); // Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $d['customerId'])->value('surname');
-
+        $gender=DB::table('customers')->where('id','=', $customerId)->value('gender');// Customer Name
         $receiptPdf = ReceiptReinigung::where('id',$id)->first();
         $customerData =  Customer::where('id',$d['customerId'])->first();
         $extraPdf = ReceiptExtra::where('id',$receiptExtraId)->first();
@@ -360,6 +362,7 @@ class indexController extends Controller
             'receiptNumber' => $id,
             'name' => $customer,
             'surname' => $customerSurname,
+            'gender' => $gender,
             'sub' => $sub,
             'from' => $from,
             'companyName' => $companyName,

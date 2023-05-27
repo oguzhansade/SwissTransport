@@ -45,7 +45,7 @@ class indexController extends Controller
 
         $table=offerte::query();
         $totalPrice = 0; // Initialize the total price variable,
-
+        $col1Sum = 0; // İlk sütunun toplamını temsil eden değişken
         if (!empty($request->search)) {
             $searchValue = $request->search;
             $customerIds = Customer::where('name', 'like', "%$searchValue%")
@@ -56,6 +56,7 @@ class indexController extends Controller
             $table->whereIn('customerId', $customerIds);
         }
 
+        
         // Minimum date filter
         if($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
@@ -65,6 +66,8 @@ class indexController extends Controller
         if($request->max_date) {
             $table->whereDate('created_at', '<=', $request->max_date);
         }
+
+       
 
         // ServiceType Filter
         if($request->serviceType) {
@@ -126,11 +129,14 @@ class indexController extends Controller
             }
             else if ($request->appType == 'Alle')
             {
-                
+
             }
         }
-        // Select total price
-        $totalPrices = [];
+
+        
+        
+        
+        
         $data=DataTables::of($table)
         
         // Servisler
@@ -159,8 +165,10 @@ class indexController extends Controller
                 return $customerName.' '.$customerSurname;
             }
         })
-        ->addColumn('totalPrice', function ($data) {
-            $totalPrice = 0;
+        ->addColumn('offerPrices', function ($data) use (&$totalPrice, &$col1Sum) {
+            // Burası Önemli Sakın Silme
+            $offerPrice = 0;
+            
             // Get the default prices for all of the services.
             $defaultPrices = [
                 'offerteUmzug' => OfferteUmzug::where('id', $data['offerteUmzugId'])->value('defaultPrice'),
@@ -174,30 +182,48 @@ class indexController extends Controller
                 'offerteMaterial' =>  OfferteMaterial::where('id', $data['offerteMaterialId'])->value('totalPrice'),
             ];
 
+            $col1Value = $data[0];
+            $col1Sum += $col1Value;
+
             // Calculate the total price for each service.
             foreach ($defaultPrices as $service => $defaultPrice) {
                 if ($defaultPrice) {
-                $totalPrice += getPriceFromParts($defaultPrice);
+                $offerPrice += getPriceFromParts($defaultPrice);
                 }
             }
+            offerte::where('id',$data->id)->update(['offerPrice' => $offerPrice]);
+
+            // Güncel offerPrice'ı totalPrice'a ekleyin
+            $totalPrice += $offerPrice;
+            return $offerPrice;
+        })
+        ->addColumn ('totalPrice', function ($data) use (&$totalPrice, &$col1Sum) {
+            $totalPrice = $data->sum('offerPrice');
             return $totalPrice;
         })
-
-        ->addColumn('gratTotalPrice', function ($data) {
-            $gratTotalPrice = $data->sum('id');
-            return $gratTotalPrice;
-        })
+        
         ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
         ->addColumn('option',function($data) 
+
+        
         {
-            
             return '
             <a class="btn btn-sm  btn-primary" href="'.route('offer.detail',['id'=>$data->id]).'"><i class="feather feather-eye" ></i> Offerte</a> <span class="text-primary"></span>
             <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$data->customerId]).'"><i class="feather feather-edit" ></i> Kunde</a> <span class="text-primary"></span>';
         })
         ->rawColumns(['gratTotalPrice','totalPrice','services','option'])
         ->make(true);
+
+        $renderedData = (array)$data->original;
+
+        $renderedData['filteredTotal'] = $table->sum('offerPrice');
+        $renderedData['nonFilteredTotal'] = $totalPrice;
+        return response()->json($renderedData);
         
-        return $data;
+        // $renderedData = $data;
+        // dd($renderedData);
+        // return json_decode($renderedData->original, true);
+            
+
     }
 }

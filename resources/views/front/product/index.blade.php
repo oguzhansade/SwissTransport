@@ -91,6 +91,7 @@
 @endsection
 @section('footer')
 
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
@@ -121,7 +122,8 @@
                 { data: 'buyPrice', name: 'buyPrice'},
                 { data: 'rentPrice', name: 'rentPrice'},
                 { data: 'option', name: 'option', orderable: false, searchable: false },
-            ]
+            ],
+            
         });
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?

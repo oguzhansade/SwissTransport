@@ -108,7 +108,16 @@
                                     </div>
                                     <div class="col-md-5">
                                         <b class="text-dark">Zusatztext (Bsp. Zimmer-Anzahl)</b>
-                                        <input class="form-control" name="reinigungExText"  type="text" >
+                                        <?php 
+                                        
+                                        if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff')) {
+                                            $reiningungFixedTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff');
+                                            $reinigungZimmer = \App\Models\Tariff::InfoTariff($reiningungFixedTariffId);
+                                            $reinigungZimmer = $reinigungZimmer ? explode('à', $reinigungZimmer)[0] : '';
+                                        }
+                                        ?>
+                                        
+                                        <input class="form-control" name="reinigungExText"  type="text" value="{{ $reinigungZimmer }}">
                                     </div>
                                 </div>
 
@@ -125,7 +134,7 @@
                                     <div class="col-md-12">
                                         <b class="text-dark">Pauschaltarif</b>
                                         <input class="form-control" name="reinigungFixedChf"  type="text" 
-                                        @if ($offer['offerteUmzugId']) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'chf') }}" @endif>
+                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariffPrice') }}" @endif>
                                     </div>
                                 </div>
 

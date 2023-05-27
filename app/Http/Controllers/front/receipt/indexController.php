@@ -401,7 +401,7 @@ class indexController extends Controller
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $d['customerId'])->value('name'); // Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $d['customerId'])->value('surname');
-
+        $gender=DB::table('customers')->where('id','=', $d['customerId'])->value('gender');// Customer Name
         $customerData =  Customer::where('id',$d['customerId'])->first();
         $receiptPdf = ReceiptUmzug::where('id',$id)->first();
         $auszug1Pdf = ReceiptAddress::where('id',$auszugId1)->first();
@@ -434,6 +434,7 @@ class indexController extends Controller
             'receiptNumber' => $id,
             'name' => $customer,
             'surname' => $customerSurname,
+            'gender' => $gender,
             'sub' => $sub,
             'from' => $from,
             'companyName' => $companyName,

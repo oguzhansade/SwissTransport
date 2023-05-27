@@ -25,7 +25,7 @@
 </head>
 <body>
     <div>
-        @if ($data['name'])
+        @if ($data['name'] && $data['gender'])
         <strong>
             @if($data['gender'] == 'male') 
             Herr, 

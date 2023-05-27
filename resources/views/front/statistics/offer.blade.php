@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('header')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <style>
         .bg-custom-success {
             color: white;
@@ -83,65 +86,83 @@
                 </div>
                 <!-- /.widget-heading -->
                 <div class="widget-body clearfix">
-                    <div id="date-range">
-                        <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
-                            <tbody>
+                    <div class="row">
+                        <div class="col-md-6" id="date-range">
+                            <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
+                                <tbody>
+                                    <tr>
+                                        
+    
+                                        
+                                        {{-- <div id="gratTotalPriceDiv">Toplam Ücret</div> --}}
+                                        <td><b class="test-dark">Erfasst</b></td>
+                                        <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
+                                        <td><b class="test-dark">bis</b></td>
+                                        <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
+                                        <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
+                                    </tr>
+                                   
+                                   
+                                </tbody>
+                            </table>
+                            <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b class="test-dark">Service Type</b>
+                                            <select class="form-control" name="serviceType" id="serviceType">
+                                            <option value="Alle">Alle</option>
+                                            <option value="Umzug">Umzug</option>
+                                            <option value="Einpack">Einpack</option>
+                                            <option value="Auspack">Auspack</option>
+                                            <option value="Entsorgung">Entsorgung</option>
+                                            <option value="Reinigung">Reinigung</option>
+                                            <option value="Transport">Transport</option>
+                                            <option value="Lagerung">Lagerung</option>
+                                            <option value="Verpackungsmaterial">Verpackungsmaterial</option>
+                                          </select>
+                                        </td>
+                                        <td>
+                                            <b class="test-dark">Stand</b>
+                                            <select class="form-control" name="standType" id="standType">
+                                            <option value="Alle">Alle</option>
+                                            <option value="Beklemede">Wartet Auf Kunde</option>
+                                            <option value="Onaylandı">Betaicht</option>
+                                            <option value="Onaylanmadı">Abgesagt</option>
+                                          </select>
+                                        </td>
+                                        <td>
+                                            <b class="test-dark">Besichtigung</b>
+                                            <select class="form-control" name="appType" id="appType">
+                                            <option value="Alle">Alle</option>
+                                            <option value="Nein">Nein</option>
+                                            <option value="Gemacht">Gemacht</option>
+                                            <option value="Winscht Keine">Winscht Keine</option>
+                                          </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-md-3">
+                                <b class="text-dark">Kunde Search</b>
+                                        <input class="form-control" type="text" id="searchInput" name="searchInput">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="text-dark">
                                 <tr>
-                                    <div id="totalPrice">Toplam Ücret</div>
-                                    <td><b class="test-dark">Erfasst</b></td>
-                                    <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
-                                    <td><b class="test-dark">bis</b></td>
-                                    <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
-                                    <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
-                                </tr>
-                               
-                               
-                            </tbody>
-                        </table>
-                        <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <b class="test-dark">Service Type</b>
-                                        <select class="form-control" name="serviceType" id="serviceType">
-                                        <option value="Alle">Alle</option>
-                                        <option value="Umzug">Umzug</option>
-                                        <option value="Einpack">Einpack</option>
-                                        <option value="Auspack">Auspack</option>
-                                        <option value="Entsorgung">Entsorgung</option>
-                                        <option value="Reinigung">Reinigung</option>
-                                        <option value="Transport">Transport</option>
-                                        <option value="Lagerung">Lagerung</option>
-                                        <option value="Verpackungsmaterial">Verpackungsmaterial</option>
-                                      </select>
-                                    </td>
-                                    <td>
-                                        <b class="test-dark">Stand</b>
-                                        <select class="form-control" name="standType" id="standType">
-                                        <option value="Alle">Alle</option>
-                                        <option value="Beklemede">Wartet Auf Kunde</option>
-                                        <option value="Onaylandı">Betaicht</option>
-                                        <option value="Onaylanmadı">Abgesagt</option>
-                                      </select>
-                                    </td>
-                                    <td>
-                                        <b class="test-dark">Besichtigung</b>
-                                        <select class="form-control" name="appType" id="appType">
-                                        <option value="Alle">Alle</option>
-                                        <option value="Nein">Nein</option>
-                                        <option value="Gemacht">Gemacht</option>
-                                        <option value="Winscht Keine">Winscht Keine</option>
-                                      </select>
-                                    </td>
+                                    <td><span>Filtered Total</span></td>
+                                    <td>: <span id="filteredTotal"></span></td>
+                            
                                 </tr>
                                 <tr>
-                                    
+                                    <td><span>Non Filtered Total</span></td>
+                                    <td>: <span id="nonFilteredTotal"></span></td>
                                 </tr>
-                            </tbody>
-                        </table>
-                        <div class="col-md-3">
-                            <b class="text-dark">Kunde Search</b>
-                                    <input class="form-control" type="text" id="searchInput" name="searchInput">
+                            </table>
                         </div>
                     </div>
                     <div class="mt-3">
@@ -154,10 +175,17 @@
                                     <th>Stand</th>
                                     <th>Esimated Income</th>
                                     <th>Datum</th>
+                                    {{-- <th>GratTotal</th> --}}
                                     <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" style="text-align:right">Total:</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     
@@ -173,7 +201,6 @@
 <!-- /.widget-list -->
 @endsection
 @section('footer')
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
@@ -187,10 +214,12 @@
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
 
 
+
 <script>
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
+           
             "order": [0, 'desc'],
             "columnDefs": [{
                             "className": "dt-center",
@@ -214,6 +243,13 @@
                             }
                         },
                         {
+                            "targets": 6,
+                            "createdCell": function(td, cellData, rowData, row, col) {
+                                $(td).html(cellData);
+                                $("#gratTotalPriceDiv2").html(cellData); // gratTotalPrice sütununu div'e yazdırma
+                            }
+                        },
+                        {
                             "targets": 3,
                             "createdCell": function(td, cellData, rowData, row, col) {
                                 $(td).css('vertical-align', 'middle');
@@ -221,10 +257,12 @@
                         }
                     ],
             
-            dom: 'Blfrtip',
+            dom: 'l<"toolbar">frtip',
             buttons: [
-                'copy', 'excel', 'pdf', 
+                'copy', 'excel', 'pdf',{ extend: 'print',
+            footer: true } 
             ],
+            
             processing: true,
             serverSide: true,
             ajax: {
@@ -239,18 +277,54 @@
                     d.appType = $('#appType').val();
                     d.search =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
                     return d
-                }
+                },
+                
             },
             columns: [
                 { data: 'id', name: 'id' , searchable:true},
                 { data: 'services', name: 'services' , searchable:true},
                 { data:'customerId', name:'customerId' , searchable:true, orderable: true},
                 { data:'offerteStatus', name:'offerteStatus' , searchable:true},
-                { data:'totalPrice',name:'totalPrice', searchable:false},
+                { data:'offerPrice',name:'offerPrice', searchable:false},
                 { data:'created_at',name:'created_at', searchable:true},
                 { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
             ],
+
+            "footerCallback": function ( row, data, start, end, display ) {
+                var rsTot = table.ajax.json();    
+                var api = this.api(), data;
+ 
+            var intVal = function ( i ) {
+              return typeof i === 'string' ?
+                  i.replace(/[\$,]/g, '')*1 :
+                  typeof i === 'number' ?
+                      i : 0;
+          };
+ 
+          ent = api
+              .column( 4 )
+              .data()
+              .reduce( function (a, b) {
+                  return intVal(a) + intVal(b);
+              }, 0 );
+ 
+        $( api.column( 4 ).footer() ).html(ent);
+        if(rsTot.filteredTotal)
+        {
+            let filteredTotal = rsTot.filteredTotal;
+            $('#filteredTotal').text(filteredTotal.toFixed(2));
+        }
+        if(rsTot.nonFilteredTotal)
+        {
+            let nonFilteredTotal = rsTot.nonFilteredTotal;
+            $('#nonFilteredTotal').text(nonFilteredTotal.toFixed(2));
+        }
+        
+      }    
+ 
+            
         });
+
         
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
@@ -285,8 +359,41 @@
             $('#searchInput').val('');
             table.draw();
         });
-        
     });
 </script>
+<script>
+     $('#example').on('draw.dt', function() { 
+        testajax();
+        let total= 0;
+        $('#example tbody tr').each(function() {
+            let offertePrice = parseFloat($(this).find('td:eq(4)').text());
 
+            if(!isNaN(offertePrice)){
+                total += offertePrice;
+            }
+
+            
+        });
+        $('#gratTotalPriceDiv').text(total);
+     })
+    
+</script>
+<script>
+    function testajax(){
+        $.ajax({
+    type:'POST',
+    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+    url: '{{route('statistics.offerData')}}',
+    success: function(response) {
+    var totalPrice = response.totalPrice; // Backend'den gelen totalPrice değerini alın
+
+    // Frontend'de totalPrice'ı göstermek istediğiniz div'in ID'sini buraya yazın
+    $('#totalPriceDiv').text(totalPrice);
+  },
+  error: function() {
+    console.log('AJAX isteği başarısız oldu.');
+  }
+});
+    }
+</script>
 @endsection
