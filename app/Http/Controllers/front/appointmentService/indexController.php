@@ -694,7 +694,6 @@ class indexController extends Controller
             // AppointmentService Güncelleme
             $appointmentService = [
                 'paymentType' => $request->paymentType,
-                'address' => $request->address,
                 'calendarTitle' => $request->calendarTitle,
                 'calendarContent' => $request->calendarContent,
                 'umzugId' => $umzugId,
@@ -710,7 +709,7 @@ class indexController extends Controller
             ];
 
 
-
+            
             $update = AppoinmentService::where('id', $id)->update($appointmentService);
             $randevuTipi = 'Auftragsbestätigung';
             $emailData = [

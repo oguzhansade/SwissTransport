@@ -197,8 +197,9 @@ class indexController extends Controller
             $totalPrice += $offerPrice;
             return $offerPrice;
         })
-        ->addColumn ('totalPrice', function ($data) use (&$totalPrice, &$col1Sum) {
+        ->addColumn ('totalPrice', function ($data) use (&$totalPrice, &$totalOfferte) {
             $totalPrice = $data->sum('offerPrice');
+            $totalOfferte = $data->count();
             return $totalPrice;
         })
         
@@ -218,6 +219,7 @@ class indexController extends Controller
 
         $renderedData['filteredTotal'] = $table->sum('offerPrice');
         $renderedData['nonFilteredTotal'] = $totalPrice;
+        $renderedData['totalOfferte'] = $totalOfferte;
         return response()->json($renderedData);
         
         // $renderedData = $data;

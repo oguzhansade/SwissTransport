@@ -20,7 +20,10 @@
             /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px
         inset; */
         }
-
+        .shadow-custom {
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 30px;
+        }
         .bg-custom-danger {
             color: white;
             background-color: #E6614F;
@@ -87,14 +90,10 @@
                 <!-- /.widget-heading -->
                 <div class="widget-body clearfix">
                     <div class="row">
-                        <div class="col-md-6" id="date-range">
+                        <div class="col-md-10" id="date-range">
                             <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
                                 <tbody>
                                     <tr>
-                                        
-    
-                                        
-                                        {{-- <div id="gratTotalPriceDiv">Toplam Ücret</div> --}}
                                         <td><b class="test-dark">Erfasst</b></td>
                                         <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
                                         <td><b class="test-dark">bis</b></td>
@@ -151,18 +150,24 @@
                                         <input class="form-control" type="text" id="searchInput" name="searchInput">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <table class="text-dark">
-                                <tr>
-                                    <td><span>Filtered Total</span></td>
-                                    <td>: <span id="filteredTotal"></span></td>
-                            
-                                </tr>
-                                <tr>
-                                    <td><span>Non Filtered Total</span></td>
-                                    <td>: <span id="nonFilteredTotal"></span></td>
-                                </tr>
-                            </table>
+                        <div class="col-md-2 ">
+                            <div class="p-3 text-white bg-primary shadow-custom">
+                                <table style="font-size:1rem">
+                                    <tr>
+                                        <td><span>Gefiltert</span></td>
+                                        <td>: <span id="filteredTotal"></span></td>
+                                
+                                    </tr>
+                                    <tr>
+                                        <td><span>Ungefiltert</span></td>
+                                        <td>: <span id="nonFilteredTotal"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Offerte</span></td>
+                                        <td>: <span id="filteredOfferte"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-3">
@@ -293,7 +298,7 @@
             "footerCallback": function ( row, data, start, end, display ) {
                 var rsTot = table.ajax.json();    
                 var api = this.api(), data;
- 
+                console.log(rsTot)
             var intVal = function ( i ) {
               return typeof i === 'string' ?
                   i.replace(/[\$,]/g, '')*1 :
@@ -312,14 +317,16 @@
         if(rsTot.filteredTotal)
         {
             let filteredTotal = rsTot.filteredTotal;
-            $('#filteredTotal').text(filteredTotal.toFixed(2));
+            let formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+            $('#filteredTotal').text(formattedTotal);
         }
         if(rsTot.nonFilteredTotal)
         {
             let nonFilteredTotal = rsTot.nonFilteredTotal;
-            $('#nonFilteredTotal').text(nonFilteredTotal.toFixed(2));
+            let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+            $('#nonFilteredTotal').text(nfFormattedTotal);
         }
-        
+        $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
       }    
  
             
