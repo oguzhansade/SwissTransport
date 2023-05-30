@@ -126,7 +126,7 @@
                                             <select class="form-control" name="standType" id="standType">
                                             <option value="Alle">Alle</option>
                                             <option value="Beklemede">Wartet Auf Kunde</option>
-                                            <option value="Onaylandı">Betaicht</option>
+                                            <option value="Onaylandı">Bestätigung</option>
                                             <option value="Onaylanmadı">Abgesagt</option>
                                           </select>
                                         </td>

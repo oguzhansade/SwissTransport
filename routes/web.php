@@ -268,6 +268,19 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/data', [App\Http\Controllers\front\product\indexController::class, 'data'])->name('data');
     });
 
+    Route::group(['namespace' => 'expense', 'as' => 'expense.', 'prefix' => 'expense', 'middleware' => ['PermissionControl']], function () {
+        Route::get('/', [App\Http\Controllers\front\expense\indexController::class, 'index'])->name('index');
+        Route::get('/createUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'createUmzug'])->name('createUmzug');
+        Route::get('/createReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'createReinigung'])->name('createReinigung');
+        Route::post('/createUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'storeUmzug'])->name('storeUmzug');
+        Route::post('/createReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'storeUmzugReinigung'])->name('storeUmzugReinigung');
+        Route::post('/create', [App\Http\Controllers\front\expense\indexController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [App\Http\Controllers\front\expense\indexController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [App\Http\Controllers\front\expense\indexController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [App\Http\Controllers\front\expense\indexController::class, 'delete'])->name('delete');
+        Route::post('/data', [App\Http\Controllers\front\expense\indexController::class, 'data'])->name('data');
+    });
+
     Route::group(['namespace' => 'tariff', 'as' => 'tariff.', 'prefix' => 'tariff', 'middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\tariff\indexController::class, 'index'])->name('index');
         Route::get('/create', [App\Http\Controllers\front\tariff\indexController::class, 'create'])->name('create');

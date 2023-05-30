@@ -109,15 +109,17 @@
                                     <div class="col-md-5">
                                         <b class="text-dark">Zusatztext (Bsp. Zimmer-Anzahl)</b>
                                         <?php 
-                                        
-                                        if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff')) {
-                                            $reiningungFixedTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff');
+                                        $reiningungFixedTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff');
+                                        if ($offer['offerteReinigungId'] && $reiningungFixedTariffId) {
                                             $reinigungZimmer = \App\Models\Tariff::InfoTariff($reiningungFixedTariffId);
-                                            $reinigungZimmer = $reinigungZimmer ? explode('à', $reinigungZimmer)[0] : '';
+                                            $reinigungZimmer2 = $reinigungZimmer ? explode('à', $reinigungZimmer)[0] : '';
                                         }
-                                        ?>
                                         
-                                        <input class="form-control" name="reinigungExText"  type="text" value="{{ $reinigungZimmer }}">
+                                        ?>
+                                        <input class="form-control" name="reinigungExText"  type="text" 
+                                        @if ($offer['offerteReinigungId'] && $reiningungFixedTariffId)
+                                        value="{{ $reinigungZimmer2 }}">
+                                        @endif
                                     </div>
                                 </div>
 
