@@ -7,6 +7,7 @@
 </p>
 
 
+<h1>SSH Bağlantısı</h1>
 
 <h1>Kurulum Adımları</h1>
 
