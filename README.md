@@ -8,7 +8,7 @@
 
 
 <h1>SSH Bağlantısı</h1>
-
+ssh hywefuza@s108.cyon.net
 <h1>Kurulum Adımları</h1>
 
 <ol>
