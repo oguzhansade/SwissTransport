@@ -153,6 +153,34 @@
                             </div>
                         </div>
 
+                        {{-- Rechnung Address Area --}}
+                        
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <h5><strong>Rechnung Adresse</strong></h5>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label for="" class="col-form-label"> Strasse</label><br>
+                                <input type="text" class="form-control" name="invoiceStreet" placeholder="Strasse "  value="{{ $data['street'] }}" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="" class="col-form-label"> Plz</label><br>
+                                <input type="text" class="form-control" name="invoicePostCode" placeholder="PLZ "  value="{{ $data['postCode'] }}" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label for="" class="col-form-label"> Ort</label><br>
+                                <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort "  value="{{ $data['Ort'] }}" required> 
+                            </div>
+                            <div class="col-md-2">
+                                <label for="" class="col-form-label"> Land</label><br>
+                                <input type="text" class="form-control" name="invoiceLand" placeholder="Land "  value="{{ $data['country'] }}" required>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-md-12 email-send">
                                 <label for="" class="col-form-label"> E-Mail an Kunden</label><br>

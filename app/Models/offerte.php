@@ -26,6 +26,7 @@ class offerte extends Model
         'offerteTransportId',
         'offerteLagerungId',
         'offerteMaterialId',
+        'offerPrice',
         'offerteNote',
         'panelNote',
         'kostenInkl',

@@ -17,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->integer('customerId');
             $table->integer('payCondition')->nullable();
-            $table->string('status')->default('Açık');
+            $table->string('street')->nullable();
+            $table->string('ort')->nullable();
+            $table->string('plz')->nullable();
+            $table->string('land')->nullable();
             $table->dateTime('expiryDate')->nullable();
             $table->integer('umzugId')->nullable();
             $table->integer('einpackId')->nullable();

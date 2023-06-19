@@ -171,6 +171,36 @@
                                 </div>
                             </div>
 
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <h5><strong>Rechnung Adresse</strong></h5>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    <label for="" class="col-form-label"> Strasse</label><br>
+                                    <input type="text" class="form-control" name="invoiceStreet" placeholder="Strasse"   required
+                                    @if($data['street']) value="{{ $data['street']  }}" @else value="{{ $customer['street']  }}" @endif>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="" class="col-form-label"> Plz</label><br>
+                                    <input type="text" class="form-control" name="invoicePostCode" placeholder="PLZ"   required
+                                    @if($data['plz']) value="{{ $data['plz']  }}" @else value="{{ $customer['postCode']  }}" @endif>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    <label for="" class="col-form-label"> Ort</label><br>
+                                    <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort"   required
+                                    @if($data['ort']) value="{{ $data['ort']  }}" @else value="{{ $customer['Ort']  }}" @endif> 
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="" class="col-form-label"> Land</label><br>
+                                    <input type="text" class="form-control" name="invoiceLand" placeholder="Land"  required
+                                    @if($data['land']) value="{{ $data['land']  }}" @else value="{{ $customer['country']  }}" @endif>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
@@ -201,6 +231,7 @@
                                     </textarea>
                                 </div>
                             </div>
+
 
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">

@@ -104,8 +104,8 @@
                         {{-- Müşteri Bilgileri --}}
                         <span style="color:#835AB1;font-size:9px;">Auftraggeber:</span><br>
                         {{ $customer['name'] }} {{ $customer['surname'] }}<br>
-                        {{ $customer['street'] }} <br>
-                        {{ $customer['postCode'] }} {{ $customer['country'] }} <br>
+                        {{ $invoice['street'] }} {{ $invoice['plz'] }}<br>
+                        {{ $invoice['ort'] }} {{ $invoice['land'] }} <br>
                     </td>
                 </tr>
         

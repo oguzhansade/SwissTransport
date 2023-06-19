@@ -9,6 +9,8 @@ class Expense extends Model
 {
     protected $fillable = [
         'quittungId',
+        'offerId',
+        'exType',
         'expenseName',
         'expenseValue',
     ];

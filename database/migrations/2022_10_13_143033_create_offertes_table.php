@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('offerteTransportId')->nullable();
             $table->integer('offerteLagerungId')->nullable();
             $table->integer('offerteMaterialId')->nullable();
+            $table->float('offerPrice', 8, 2)->nullable();
             $table->string('offerteNote')->nullable();
             $table->string('panelNote')->nullable();
             $table->integer('kostenInkl')->nullable();

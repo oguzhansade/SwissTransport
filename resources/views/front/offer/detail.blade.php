@@ -11,7 +11,9 @@
     .b-shadow {
             box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
         }
-
+    .b-shadow2 {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
         .back-button {
             cursor: pointer;
             border-radius: 35px !important;
@@ -64,19 +66,39 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <span class="h5 font-weight-bolder"> <strong>Kunde:</strong>  </span> <span class="h5 ml-3 text-primary"><a href="{{ route('customer.detail',['id' => $data['customerId']]) }}"> <u>{{ $customer['name'] }} {{ $customer['surname'] }}</u></a></span>
+                                <table>
+                                    <tr>
+                                        <td><span class="h5 font-weight-bolder"> <strong>Kunde:</strong>  </span> </td>
+                                        <td><span class="h5 ml-3 text-primary"><a href="{{ route('customer.detail',['id' => $data['customerId']]) }}"> <u>{{ $customer['name'] }} {{ $customer['surname'] }}</u></a></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="h5 font-weight-bolder"> <strong>Offertennr:</strong> </span></td>
+                                        <td><span class="h5 ml-3 text-primary">{{ $data['id'] }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span></td>
+                                        <td>
+                                            <span class="h5 ml-3 font-weight-bold text-primary">
+                                                @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Bestätigt 
+                                                @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt  
+                                                @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Beklemede') in Wartestellung
+                                                @endif
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"><span class="h5 font-weight-bold text-dark"> <strong>Stand Changer:</strong></span> </td>
+                                        <td class="pl-3">
+                                            <a href="#" id="manuelAccept" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">Bestätigt</a> <br>
+                                            <a href="#" id="manuelReject" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">Nicht Bestätigt</a><br>
+                                            <a href="#" id="manuelDefault" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">In Wartestellung</a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="col-md-12">
-                                <span class="h5 font-weight-bolder"> <strong>Offertennr:</strong> </span> <span class="h5 ml-3 text-primary">{{ $data['id'] }}</span>
-                            </div>
-                            <div class="col-md-12">
-                                <span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span> <span class="h5 ml-3 font-weight-bold text-primary">
-                                    @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Bestätigt 
-                                    @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt  
-                                    @else in Wartestellung
-                                    @endif</span>
-                            </div>
+                           
                         </div>
+                      
 
                         <div class="form-group row">
                             <div class="col-md-12">
@@ -289,7 +311,7 @@
               <div class="modal-content" style="border-radius: 30px;">
                 <div class="modal-header bg-primary text-white" style="border-top-right-radius: 30px;border-top-left-radius: 30px;">
                   <h5 class="modal-title" id="receiptModalLabel">Quittungsart auswählen</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -317,13 +339,115 @@
                 </div>
               </div>
             </div>
-          </div>
+        </div>
+        <div class="modal fade" id="manuelAcceptModal" tabindex="-1" role="dialog" aria-labelledby="manuelAcceptModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="border-radius: 30px;">
+                <div class="modal-header bg-primary text-white" style="border-top-right-radius: 30px;border-top-left-radius: 30px;">
+                  <h5 class="modal-title">Offerte Status Changer</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span id="offerteStatusChangerText" class="text-dark h6">Möchten Sie den Status des Angebots in 'Bestätigt' ändern?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:none;padding-top:0px;">
+                <a id="offerteStatusChangerButton" class="btn btn-primary" href="">Ja</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Nein</button>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </div>
 
 @endsection
 
 @section('footer')
+
+
+<script>
+    // // Offerte Status Changer Accept
+    // document.getElementById('manuelAccept').onclick = function(event) {
+    //   // Varsayılan davranışı engelle
+    //   event.preventDefault();
+  
+    //   // Kullanıcıya bir "confirm" mesajı göster
+    //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'Bestätigt' ändern?");
+  
+    //   // Kullanıcının seçimine göre işlem yap
+    //   if (confirmResult) {
+    //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
+    //     window.location.href = this.href;
+    //   } else {
+        
+    //   }
+    // };
+
+   
+    $("#manuelAccept").click(function(e) {
+        e.preventDefault(); // Öntanımlı tıklama işlemini engeller
+
+        var newHref = "{{ route('offer.manuelAccept',['id' => $data['id']]) }}"; // Yeni href değeri
+        $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
+        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Bestätigt</strong> ändern?");
+    });
+    
+    $("#manuelReject").click(function(e) {
+        e.preventDefault(); // Öntanımlı tıklama işlemini engeller
+
+        var newHref = "{{ route('offer.manuelReject',['id' => $data['id']]) }}"; // Yeni href değeri
+        $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
+        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Nicht bestätigt</strong> ändern?");
+    });
+    
+    $("#manuelDefault").click(function(e) {
+        e.preventDefault(); // Öntanımlı tıklama işlemini engeller
+
+        var newHref = "{{ route('offer.manuelDefault',['id' => $data['id']]) }}"; // Yeni href değeri
+        $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
+        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>In Wartestellung</strong> ändern?");
+    });
+
+    // // Offerte Status Changer Reject
+    // document.getElementById('manuelReject').onclick = function(event) {
+    //   // Varsayılan davranışı engelle
+    //   event.preventDefault();
+  
+    //   // Kullanıcıya bir "confirm" mesajı göster
+    //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'Nicht bestätigt' ändern?");
+  
+    //   // Kullanıcının seçimine göre işlem yap
+    //   if (confirmResult) {
+    //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
+    //     window.location.href = this.href;
+    //   } else {
+        
+    //   }
+    // };
+
+    // // Offerte Status Changer Default
+    // document.getElementById('manuelDefault').onclick = function(event) {
+    //   // Varsayılan davranışı engelle
+    //   event.preventDefault();
+  
+    //   // Kullanıcıya bir "confirm" mesajı göster
+    //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'In Wartestellung' ändern?");
+  
+    //   // Kullanıcının seçimine göre işlem yap
+    //   if (confirmResult) {
+    //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
+    //     window.location.href = this.href;
+    //   } else {
+        
+    //   }
+    // };
+</script>
 
 <script>
 

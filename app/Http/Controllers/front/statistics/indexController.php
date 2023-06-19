@@ -13,6 +13,7 @@ use App\Models\OfferteMaterial;
 use App\Models\OfferteReinigung;
 use App\Models\OfferteTransport;
 use App\Models\OfferteUmzug;
+use App\Models\ReceiptUmzug;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
@@ -227,5 +228,161 @@ class indexController extends Controller
         // return json_decode($renderedData->original, true);
             
 
+    }
+
+    public function receiptData(Request $request)
+    {
+        $receiptType = $request->get('receiptType');
+
+        $array = [];
+        $i = 0;
+        $totalPrice = 0; // Initialize the total price variable,
+        $customerId = $request->route('id');
+
+        $table = DB::table('receipt_umzugs');
+        $table2 = DB::table('receipt_reinigungs');
+
+        $totalRecords = $table->count() + $table2->count();
+        // Minimum date filter
+        if ($request->min_date) {
+            $table->whereDate('created_at', '>=', $request->min_date);
+            $table2->whereDate('created_at', '>=', $request->min_date);
+        }
+
+        // Maximum date filter
+        if ($request->max_date) {
+            $table->whereDate('created_at', '<=', $request->max_date);
+            $table2->whereDate('created_at', '<=', $request->max_date);
+        }
+
+        $tableData = $table->get()->toArray();
+        $table2Data = $table2->get()->toArray();
+       
+        
+        $MobeTotal = 0;
+        $LiefTotal = 0;
+        $SchuTotal = 0;
+        $SchaTotal = 0;
+        $BussTotal = 0;
+        $EntgTotal = 0;
+        $ArbeTotal = 0;
+        $DiesTotal = 0;
+        $OtheTotal = 0;
+
+        $expenseTypes = [
+            'Umzug' => $tableData,
+            'Reinigung' => $table2Data,
+        ];
+        
+        
+
+        foreach ($expenseTypes as $exType => $data) {
+            foreach ($data as $record) {
+                $expenses = DB::table('expenses')
+                    ->where('quittungId', $record->id)
+                    ->where('exType', $exType)
+                    ->get();
+        
+                foreach ($expenses as $expense) {
+                    if ($expense->expenseName === 'Möbellift Miete') {
+                        $MobeTotal += $expense->expenseValue;
+                    } elseif ($expense->expenseName === 'Lieferwagen Miete') {
+                        $LiefTotal += $expense->expenseValue;
+                    } elseif ($expense->expenseName === 'Schutzmaterial') {
+                        $SchuTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Schaden') {
+                        $SchaTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Busse') {
+                        $BussTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Entgegenkommen') {
+                        $EntgTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Arbeiter') {
+                        $ArbeTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Diesel') {
+                        $DiesTotal += $expense->expenseValue;
+                    }elseif ($expense->expenseName === 'Other') {
+                        $OtheTotal += $expense->expenseValue;
+                    }
+                    
+                }
+            }
+        }
+        
+       
+        if ($tableData) {
+            foreach ($tableData as $k => $v) {
+                $array[$i]["aid"] = $i + 1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["makbuzNo"] = $v->offerId . '.' . $v->id;
+                $array[$i]["receiptType"] = 'Umzug';
+                $array[$i]["offerId"] = $v->offerId;
+                $array[$i]["customer"] = Customer::where('id',$v->customerId)->value('name');
+                $array[$i]["customerId"] = $v->customerId;
+                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["tutar"] = $v->totalPrice;
+                $array[$i]["expensePrice"] =  $v->expensePrice ? $v->expensePrice : 0;
+                $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
+                $array[$i]["payType"] = $v->payType;
+                $array[$i]["status"] = $v->status;
+                $i++;
+            }
+        }
+
+        if ($table2Data) {
+            foreach ($table2Data as $k => $v) {
+                $array[$i]["aid"] = $i + 1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["makbuzNo"] = $v->offerId . '.' . $v->id;
+                $array[$i]["receiptType"] = 'Reinigung';
+                $array[$i]["offerId"] = $v->offerId;
+                $array[$i]["customer"] = Customer::where('id',$v->customerId)->value('name');
+                $array[$i]["customerId"] = $v->customerId;
+                $array[$i]["expensePrice"] = $v->expensePrice ? $v->expensePrice : 0;
+                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["tutar"] = $v->totalPrice;
+                $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
+                $array[$i]["payType"] = $v->payType;
+                $array[$i]["status"] = $v->status;
+                $i++;
+            }
+        }
+       
+        
+       
+        $data = DataTables::of($array)
+       
+            ->addColumn('option', function ($array) {
+                switch ($array['receiptType']) {
+                    case ('Umzug');
+                        return '
+                            <a class="btn btn-sm  btn-primary" href="' . route('receipt.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a> 
+                            <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$array['customerId']]).'"><i class="feather feather-edit" ></i> Kunde</a> ';
+                        break;
+                    case ('Reinigung');
+                        return '
+                            <a class="btn btn-sm  btn-primary" href="' . route('receiptReinigung.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a> 
+                            <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$array['customerId']]).'"><i class="feather feather-edit" ></i> Kunde</a> ';
+                        break;
+                }
+            })
+            
+            ->rawColumns(['option'])
+            ->make(true);
+
+
+            $renderedData = (array)$data->original;
+            $renderedData['total'] = $table->sum('totalPrice') + $table2->sum('totalPrice');
+            $renderedData['expense'] = $table->sum('expensePrice') + $table2->sum('expensePrice');
+            $renderedData['totalQuittung'] = $totalRecords;
+            $renderedData['MobeTotal'] = $MobeTotal;
+            $renderedData['LiefTotal'] = $LiefTotal;
+            $renderedData['SchuTotal'] = $SchuTotal;
+            $renderedData['SchaTotal'] = $SchaTotal;
+            $renderedData['BussTotal'] = $BussTotal;
+            $renderedData['EntgTotal'] = $EntgTotal;
+            $renderedData['ArbeTotal'] = $ArbeTotal;
+            $renderedData['DiesTotal'] = $DiesTotal;
+            $renderedData['OtheTotal'] = $OtheTotal;
+            return response()->json($renderedData);
     }
 }

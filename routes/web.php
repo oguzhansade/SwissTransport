@@ -205,6 +205,9 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/offerPdfPreviewTest/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreviewTest'])->name('offerPdfPreviewTest');
         Route::post('/offerPdfPreviewEdit/{id}', [App\Http\Controllers\front\offer\indexController::class, 'offerPdfPreviewEdit'])->name('offerPdfPreviewEdit');
         Route::post('/send-mail', [App\Http\Controllers\front\offer\indexController::class, 'sendEmail'])->name('send.mail');
+        Route::get('/manuelAccept/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelAccept'])->name('manuelAccept');
+        Route::get('/manuelReject/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelReject'])->name('manuelReject');
+        Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
     });
 
     Route::group(['namespace' => 'invoice', 'as' => 'invoice.', 'prefix' => 'invoice', 'middleware' => ['PermissionControl']], function () {
@@ -270,14 +273,13 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
 
     Route::group(['namespace' => 'expense', 'as' => 'expense.', 'prefix' => 'expense', 'middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\expense\indexController::class, 'index'])->name('index');
-        Route::get('/createUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'createUmzug'])->name('createUmzug');
-        Route::get('/createReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'createReinigung'])->name('createReinigung');
-        Route::post('/createUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'storeUmzug'])->name('storeUmzug');
-        Route::post('/createReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'storeUmzugReinigung'])->name('storeUmzugReinigung');
+        Route::get('/editUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'editUmzug'])->name('editUmzug');
+        Route::post('/editUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'updateUmzug'])->name('updateUmzug');
+        Route::get('/editReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'editReinigung'])->name('editReinigung');
+        Route::post('/editReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'updateReinigung'])->name('updateReinigung');
         Route::post('/create', [App\Http\Controllers\front\expense\indexController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [App\Http\Controllers\front\expense\indexController::class, 'edit'])->name('edit');
-        Route::post('/edit/{id}', [App\Http\Controllers\front\expense\indexController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [App\Http\Controllers\front\expense\indexController::class, 'delete'])->name('delete');
+        Route::get('/deleteUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'deleteUmzug'])->name('deleteUmzug');
+        Route::get('/deleteReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'deleteReinigung'])->name('deleteReinigung');
         Route::post('/data', [App\Http\Controllers\front\expense\indexController::class, 'data'])->name('data');
     });
 
@@ -300,5 +302,6 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/delete/{id}', [App\Http\Controllers\front\statistics\indexController::class, 'delete'])->name('delete');
         Route::post('/data', [App\Http\Controllers\front\statistics\indexController::class, 'data'])->name('data');
         Route::post('/offerData', [App\Http\Controllers\front\statistics\indexController::class, 'offerData'])->name('offerData');
+        Route::post('/receiptData', [App\Http\Controllers\front\statistics\indexController::class, 'receiptData'])->name('receiptData');
     });
 });

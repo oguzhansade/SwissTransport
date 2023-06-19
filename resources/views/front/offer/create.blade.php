@@ -78,95 +78,105 @@
                             </div>
                         </div>
 
-                        {{-- Offerte Umzug  Alanı --}}
-                        @include('front.offer.offerUmzug')
-                        {{-- Offerte Umzug Alanı --}}
+                        <div class="componentArea">
+                            {{-- Offerte Umzug  Alanı --}}
+                            @include('front.offer.offerUmzug')
+                            {{-- Offerte Umzug Alanı --}}
 
 
 
-                        {{-- Offerte Umzug 2 Alanı --}}
-                        @include('front.offer.offerUmzug2')
-                        {{-- Offerte Umzug 2 Alanı --}}
+                            {{-- Offerte Umzug 2 Alanı --}}
+                            @include('front.offer.offerUmzug2')
+                            {{-- Offerte Umzug 2 Alanı --}}
+
+                            <div class="form-group row">
+                                <div class="col-md-12 einpack-control">
+                                    <label for="" class="col-form-label">Einpack</label><br>
+                                    <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch "
+                                        data-color="#9c27b0" data-switchery="false">
+                                </div>
+                            </div>
+
+                            {{-- Offerte Einpack Alanı --}}
+                            <div class="rounded einpack--area" style="background-color: #CBB4FF; display:none;">
+                                @include('front.offer.offerEinpack')
+                            </div>
+                            {{-- Offerte Einpack Alanı --}}
+
+
+                            <div class="form-group row">
+                                <div class="col-md-12 auspack-control">
+                                    <label for="" class="col-form-label">Auspack</label><br>
+                                    <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch "
+                                        data-color="#9c27b0" data-switchery="false">
+                                </div>
+                            </div>
+
+                            {{-- Offerte Auspack Alanı --}}
+                            <div class="rounded auspack--area" style="background-color: #CBB4FF; display:none;">
+                                @include('front.offer.offerAuspack')
+                            </div>
+                            {{-- Offerte Auspack Alanı --}}
+
+
+
+                            {{-- Offerte Reinigung Alanı --}}
+                            @include('front.offer.offerReinigung')
+                            {{-- Offerte Reinigung Alanı --}}
+
+                            <div class="form-group row">
+                                <div class="col-md-12 reinigung2-control">
+                                    <label for="" class="col-form-label">Reinigung 2</label><br>
+                                    <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch "
+                                        data-color="#9c27b0" data-switchery="false">
+                                </div>
+                            </div>
+
+                            {{-- Offerte Reinigung2 Alanı --}}
+                            @include('front.offer.offerReinigung2')
+                            {{-- Offerte Reinigung2 Alanı --}}
+
+
+
+                            {{-- Offerte Entsorgung Alanı --}}
+                            @include('front.offer.offerEntsorgung')
+                            {{-- Offerte Entsorgung Alanı --}}
+
+
+                            {{-- Offerte Transport Alanı --}}
+                            @include('front.offer.offerTransport')
+                            {{-- Offerte Transport Alanı --}}
+
+
+
+
+                            {{-- Offerte Lagerung Alanı --}}
+                            @include('front.offer.offerLagerung')
+                            {{-- Offerte Lagerung Alanı --}}
+
+
+                            <div class="form-group row">
+                                <div class="col-md-12 verpackungsmaterial-control">
+                                    <label for="" class="col-form-label">Verpackungsmaterial</label><br>
+                                    <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial"
+                                        class="js-switch " data-color="#9c27b0" data-switchery="false">
+                                </div>
+                            </div>
+
+                            {{-- Offerte Material Alanı --}}
+                            <div class="rounded verpackungsmaterial--area" style="background-color: #CBB4FF;display:none;">
+                                @include('front.offer.offerMaterial')
+                            </div>
+                            {{-- Offerte Material Alanı --}}
+
+                        </div>
 
                         <div class="form-group row">
-                            <div class="col-md-12 einpack-control">
-                                <label for="" class="col-form-label">Einpack</label><br>
-                                <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false">
-                            </div>
+                            <div class="col-md-5">
+                                <label for="" class="col-form-label">Esimated Income</label><br>
+                                <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #8778AA">
+                            </div>                            
                         </div>
-
-                        {{-- Offerte Einpack Alanı --}}
-                        <div class="rounded einpack--area" style="background-color: #CBB4FF; display:none;">
-                            @include('front.offer.offerEinpack')
-                        </div>
-                        {{-- Offerte Einpack Alanı --}}
-
-
-                        <div class="form-group row">
-                            <div class="col-md-12 auspack-control">
-                                <label for="" class="col-form-label">Auspack</label><br>
-                                <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false">
-                            </div>
-                        </div>
-
-                        {{-- Offerte Auspack Alanı --}}
-                        <div class="rounded auspack--area" style="background-color: #CBB4FF; display:none;">
-                            @include('front.offer.offerAuspack')
-                        </div>
-                        {{-- Offerte Auspack Alanı --}}
-
-
-
-                        {{-- Offerte Reinigung Alanı --}}
-                        @include('front.offer.offerReinigung')
-                        {{-- Offerte Reinigung Alanı --}}
-
-                        <div class="form-group row">
-                            <div class="col-md-12 reinigung2-control">
-                                <label for="" class="col-form-label">Reinigung 2</label><br>
-                                <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false">
-                            </div>
-                        </div>
-
-                        {{-- Offerte Reinigung2 Alanı --}}
-                        @include('front.offer.offerReinigung2')
-                        {{-- Offerte Reinigung2 Alanı --}}
-
-
-
-                        {{-- Offerte Entsorgung Alanı --}}
-                        @include('front.offer.offerEntsorgung')
-                        {{-- Offerte Entsorgung Alanı --}}
-
-
-                        {{-- Offerte Transport Alanı --}}
-                        @include('front.offer.offerTransport')
-                        {{-- Offerte Transport Alanı --}}
-
-
-
-
-                        {{-- Offerte Lagerung Alanı --}}
-                        @include('front.offer.offerLagerung')
-                        {{-- Offerte Lagerung Alanı --}}
-
-
-                        <div class="form-group row">
-                            <div class="col-md-12 verpackungsmaterial-control">
-                                <label for="" class="col-form-label">Verpackungsmaterial</label><br>
-                                <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial"
-                                    class="js-switch " data-color="#9c27b0" data-switchery="false">
-                            </div>
-                        </div>
-
-                        {{-- Offerte Material Alanı --}}
-                        <div class="rounded verpackungsmaterial--area" style="background-color: #CBB4FF;display:none;">
-                            @include('front.offer.offerMaterial')
-                        </div>
-                        {{-- Offerte Material Alanı --}}
 
                         <div class="form-group row">
                             <div class="col-md-12 ">
@@ -456,8 +466,13 @@
 <script>
     $(document).ready(function() {
         contactPerson()
+        esimatedIncome();
     })
 
+    $("body").on("change",".componentArea",function(){
+        esimatedIncome()
+    })
+    
     function contactPerson() {
         if ($('select[name=contactPerson]').val() != 'Bitte wählen') {
             $(".customContactPerson").hide(300)
@@ -465,6 +480,107 @@
             $(".customContactPerson").show(300)
             $("input[name=customContactPerson]").val('Swiss Transport Team')
         }
+    }
+
+    function priceSplitter(value){
+        const splitValues = value.split("-");
+        return finalValue = parseFloat(splitValues[1]);
+    }
+    function esimatedIncome() {
+        let esimatedIncome = 0;
+        let umzug = $("input[name=umzugTotalPrice]").val();
+        let einpack = $("input[name=einpackTotalPrice]").val();
+        let auspack = $("input[name=auspackTotalPrice]").val();
+        let reinigung = $("input[name=reinigungTotalPrice]").val();
+        let reinigung2 = $("input[name=reinigungTotalPrice2]").val();
+        let entsorgung = $("input[name=entsorgungTotalPrice]").val();
+        let transport = $("input[name=transportDefaultPrice]").val();
+        let lagerung = $("input[name=lagerungCost]").val();
+        let material = $("input[name=materialTotalPrice]").val();
+
+        if (umzug) {
+            if(umzug.includes("-")) {
+                umzug = priceSplitter(umzug);
+            }else{
+                umzug = parseFloat(umzug);
+            }
+        }else{umzug = 0}
+
+        if (einpack) {
+            if(einpack.includes("-")) {
+                einpack = priceSplitter(einpack);
+            }else{
+                einpack = parseFloat(einpack);
+            }
+        }else{einpack = 0}
+        
+        if (auspack) {
+            if(auspack.includes("-")) {
+                auspack = priceSplitter(auspack);
+            }else{
+                auspack = parseFloat(auspack);
+            }
+        }else{auspack = 0}
+
+        if (reinigung) {
+            if(reinigung.includes("-")) {
+                reinigung = priceSplitter(reinigung);
+            }else{
+                reinigung = parseFloat(reinigung);
+            }
+        }else{reinigung = 0}
+
+        if (reinigung2) {
+            if(reinigung2.includes("-")) {
+                reinigung2 = priceSplitter(reinigung2);
+            }else{
+                reinigung2 = parseFloat(reinigung2);
+            }
+        }else{reinigung2 = 0}
+
+        if (entsorgung) {
+            if(entsorgung.includes("-")) {
+                entsorgung = priceSplitter(entsorgung);
+            }else{
+                entsorgung = parseFloat(entsorgung);
+            }
+        }else{entsorgung = 0}
+
+        if (transport) {
+            if(transport.includes("-")) {
+                transport = priceSplitter(transport);
+            }else{
+                transport = parseFloat(transport);
+            }
+        }else{transport = 0}
+
+        if (lagerung) {
+            if(lagerung.includes("-")) {
+                lagerung = priceSplitter(lagerung);
+            }else{
+                lagerung = parseFloat(lagerung);
+            }
+        }else{lagerung = 0}
+
+        if (material) {
+            if(material.includes("-")) {
+                material = priceSplitter(material);
+            }else{
+                material = parseFloat(material);
+            }
+        }else{material = 0}
+
+        esimatedIncome = 
+        parseFloat(umzug) + 
+        parseFloat(einpack) + 
+        parseFloat(auspack) + 
+        parseFloat(reinigung) + 
+        parseFloat(reinigung2) +
+        parseFloat(entsorgung) +
+        parseFloat(transport) +
+        parseFloat(lagerung) +
+        parseFloat(material);
+        $("input[name=offerteEsimatedIncome]").val(esimatedIncome);
     }
 
     console.log($('select[name=contactPerson]').val(), 'contact')

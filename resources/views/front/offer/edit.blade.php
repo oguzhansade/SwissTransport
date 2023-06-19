@@ -73,7 +73,8 @@
 
                             
                         
-                            {{-- Offerte Umzug  Alanı --}}
+                            <div class="componentArea">
+                                {{-- Offerte Umzug  Alanı --}}
                                 @include('front.offer.editComponents.offerUmzug',[
                                     'auszug1' => $data['auszugaddressId'],
                                     'auszug2' => $data['auszugaddressId2'],
@@ -119,7 +120,14 @@
                             {{-- Offerte Material Alanı --}}
                                 @include('front.offer.editComponents.offerMaterial',['material' => $data['offerteMaterialId']])
                             {{-- Offerte Material Alanı --}}
+                            </div>
 
+                            <div class="form-group row">
+                                <div class="col-md-5">
+                                    <label for="" class="col-form-label">Esimated Income</label><br>
+                                    <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #8778AA">
+                                </div>                            
+                            </div>
                             
 
                             <div class="form-group row">
@@ -262,7 +270,13 @@
 <script>
     $(document).ready(function(){
         contactPerson()
+        esimatedIncome()
     })
+
+    $("body").on("change",".componentArea",function(){
+        esimatedIncome()
+    })
+    
     function contactPerson() {
         if($('select[name=contactPerson]').val() != 0)
         {
@@ -282,7 +296,106 @@
         $(".customContactPerson").show(300)
         }
     })
-    
+    function priceSplitter(value){
+        const splitValues = value.split("-");
+        return finalValue = parseFloat(splitValues[1]);
+    }
+    function esimatedIncome() {
+        let esimatedIncome = 0;
+        let umzug = $("input[name=umzugTotalPrice]").val();
+        let einpack = $("input[name=einpackTotalPrice]").val();
+        let auspack = $("input[name=auspackTotalPrice]").val();
+        let reinigung = $("input[name=reinigungTotalPrice]").val();
+        let reinigung2 = $("input[name=reinigungTotalPrice2]").val();
+        let entsorgung = $("input[name=entsorgungTotalPrice]").val();
+        let transport = $("input[name=transportDefaultPrice]").val();
+        let lagerung = $("input[name=lagerungCost]").val();
+        let material = $("input[name=materialTotalPrice]").val();
+
+        if (umzug) {
+            if(umzug.includes("-")) {
+                umzug = priceSplitter(umzug);
+            }else{
+                umzug = parseFloat(umzug);
+            }
+        }else{umzug = 0}
+
+        if (einpack) {
+            if(einpack.includes("-")) {
+                einpack = priceSplitter(einpack);
+            }else{
+                einpack = parseFloat(einpack);
+            }
+        }else{einpack = 0}
+        
+        if (auspack) {
+            if(auspack.includes("-")) {
+                auspack = priceSplitter(auspack);
+            }else{
+                auspack = parseFloat(auspack);
+            }
+        }else{auspack = 0}
+
+        if (reinigung) {
+            if(reinigung.includes("-")) {
+                reinigung = priceSplitter(reinigung);
+            }else{
+                reinigung = parseFloat(reinigung);
+            }
+        }else{reinigung = 0}
+
+        if (reinigung2) {
+            if(reinigung2.includes("-")) {
+                reinigung2 = priceSplitter(reinigung2);
+            }else{
+                reinigung2 = parseFloat(reinigung2);
+            }
+        }else{reinigung2 = 0}
+
+        if (entsorgung) {
+            if(entsorgung.includes("-")) {
+                entsorgung = priceSplitter(entsorgung);
+            }else{
+                entsorgung = parseFloat(entsorgung);
+            }
+        }else{entsorgung = 0}
+
+        if (transport) {
+            if(transport.includes("-")) {
+                transport = priceSplitter(transport);
+            }else{
+                transport = parseFloat(transport);
+            }
+        }else{transport = 0}
+
+        if (lagerung) {
+            if(lagerung.includes("-")) {
+                lagerung = priceSplitter(lagerung);
+            }else{
+                lagerung = parseFloat(lagerung);
+            }
+        }else{lagerung = 0}
+
+        if (material) {
+            if(material.includes("-")) {
+                material = priceSplitter(material);
+            }else{
+                material = parseFloat(material);
+            }
+        }else{material = 0}
+
+        esimatedIncome = 
+        parseFloat(umzug) + 
+        parseFloat(einpack) + 
+        parseFloat(auspack) + 
+        parseFloat(reinigung) + 
+        parseFloat(reinigung2) +
+        parseFloat(entsorgung) +
+        parseFloat(transport) +
+        parseFloat(lagerung) +
+        parseFloat(material);
+        $("input[name=offerteEsimatedIncome]").val(esimatedIncome);
+    }
 </script>
 <script>       
     var morebutton = $("div.email-send");

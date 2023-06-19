@@ -49,6 +49,7 @@ class ReceiptUmzug extends Model
         'inRechnung',
         'cashPrice',
         'invoicePrice',
-        'signerName'
+        'signerName',
+        'expensePrice',
     ];
 }

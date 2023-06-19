@@ -1,7 +1,7 @@
 <nav class="sidebar-nav">
     <ul class="nav in side-menu">
         @if (App\Models\UserPermission::getMyControl(0))
-        <li class="menu-item-has-children" >
+        <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Firma</span>
             </a>
@@ -43,7 +43,7 @@
         @endif
 
         @if (App\Models\UserPermission::getMyControl(2))
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 
                 <i class="list-icon feather feather-box"></i> <span class="hide-menu">Produkte</span>
@@ -58,7 +58,7 @@
         @endif
 
         @if (App\Models\UserPermission::getMyControl(2))
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-clipboard"></i> <span class="hide-menu">Tarif</span>
             </a>
@@ -113,7 +113,7 @@
         @endif
 
         @if (App\Models\UserPermission::getMyControl(3))
-        <li class="menu-item-has-children">
+        <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-phone"></i> <span class="hide-menu">ContactPerson</span>
             </a>

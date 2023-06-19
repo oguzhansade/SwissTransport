@@ -3,7 +3,7 @@
 @section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5"> Neue Aufgaben Erfassen</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5"> Edit Umzug</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
@@ -40,10 +40,10 @@
 
 <div class="widget-list">
     <div class="row">
-        <div class="col-md-12 widget-holder islem_field">
+        <div class="col-md-12 widget-holder task-area">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form action="{{ route('expense.storeUmzug',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('expense.updateUmzug',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row p-3 mb-3">
 
@@ -60,6 +60,24 @@
                                                 <th>Löschen</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            @if($data && $expense)
+
+                                            {{-- Kaç Ürün Varsa O kadar Tekrarlanacak --}}
+                                            @foreach ($expense as $a => $b)
+                                            <tr class="islem_field">
+                                                <td><select class="form-control expense"  name="islem[{{ $a }}][expense]">
+                                                <option class="form-control" value="0"> Bitte wählen </option>
+                                                @foreach ($expenseList as $key => $value)
+                                                    <option class="form-control" value="{{ $value }}" @if($b['expenseName'] == $value) selected @endif>{{ $value }}</option>  
+                                                @endforeach
+                                                </select></td>
+                                                <td><input type="text" class="form-control expenseValue" id="tutar" name="islem[{{ $a }}][expenseValue]" value="{{ $b['expenseValue'] }}"></td>
+                                                <td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -75,14 +93,24 @@
                         <div class="row p-3">
                             <div class="col-md-6">
                                 <label class="col-form-label" for="l0">Total</label>
-                                <input class="form-control ara_toplam" name="totalExpense" type="text" value="0">
+                                <input class="form-control ara_toplam" name="totalExpense" type="text" value="{{ $data['expensePrice'] }}">
                             </div>
                         </div>
 
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit" onclick="">Erstellen</button>
+                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                </div>
+                                <div class="col-md-12 ml-md-auto btn-list">
+                                    <a id="createTask" href="{{ route('expense.deleteUmzug',['id' => $data['id']]) }}"
+                                        class = "btn btn-rounded text-white"
+                                        style="background-color: #E6614F;"
+                                        onMouseOver="this.style.backgroundColor='#E1432E';"
+                                        onMouseOut="this.style.backgroundColor='#E6614F';"
+                                        target="_blank">
+                                        <strong>Bütün Giderleri Sil</strong>
+                                     </a>
                                 </div>
                             </div>
                         </div>
@@ -99,9 +127,8 @@
 
 @section('footer')
 <script>
-   
-    var say= 0;
-    var i = $(".islem_field").lenght || 0;
+      var i = $(".islem_field").lenght;
+    
     let giderler = [
     'Möbellift Miete',
     'Lieferwagen Miete',
@@ -113,7 +140,11 @@
     'Diesel',
     'Other'
     ];
+    $('#deleteAll').click(function() {
+        $('input[name=totalExpense]').val('');
+    })
     $("#addRowBtn").click(function () {
+        
         
         var newRow = 
         '<tr class="islem_field">' +
@@ -131,12 +162,10 @@
         $("#faturaData").append(newRow);
         
         i++;
-        say++; 
     });
 
     $("form").submit(function(event) {
         let checkMaterial = expenseValidation();
-        
         
         if (!checkMaterial) {
             console.log('Material Validasyon False')
@@ -147,69 +176,65 @@
 
     function expenseValidation() {
        
-        let isValid = false;
-    
-        $('.islem_field').each(function(index) {
-            let expenseName = $(this).closest('.islem_field').find('.expense').find(
-                ":selected").val();
-            let expensePrice = $(this).closest('.islem_field').find('.expenseValue').val();
-            if (!expenseName || expenseName == 0) {
-                $(this).closest('.islem_field').find('.expense').focus().css(
-                    'border-color', 'red')
-                toastr.error('Sparname fehlt', 'Fehler!');
-                isValid = false;
-                return false;
-
-            } else {
-                $(this).closest('.islem_field').find('.expense').css('border-color',
-                ''); // önceki uyarı mesajını kaldır
-                isValid = true;
-            }
-            if (!expensePrice || expensePrice == 0) {
-                $(this).closest('.islem_field').find('.expenseValue').focus().css(
-                    'border-color', 'red')
-                toastr.error('Preis für Ausgaben fehlt', 'Fehler!');
-                isValid = false;
-                return false;
-
-            } else {
-                $(this).closest('.islem_field').find('.expenseValue').css('border-color',
-                ''); // önceki uyarı mesajını kaldır
-                isValid = true;
-            }
-        });
-
-        if ($('.expense').length === 0) { // ürün yoksa
-            toastr.error('Sie haben keine Ausgaben hinzugefügt', 'Fehler!');
-            isValid = false;
-            console.log(isValid, 'Urun Sayısı')
-            return false; // işlemi durdur
-        }
+       let isValid = true;
+       $("body").on("change",".islem_field", function (){
         
-        return isValid;
-    }
+    })
+    $('.islem_field').each(function(index) {
+        let expenseName = $(this).closest('.islem_field').find('.expense').find(":selected").val();
+        let expensePrice = $(this).closest('.islem_field').find('.expenseValue').val();
+        if (!expenseName || expenseName == 0) {
+            $(this).closest('.islem_field').find('.expense').focus().css(
+                'border-color', 'red')
+            toastr.error('Sparname fehlt', 'Fehler!');
+            isValid = false;
+            
+            console.log(index,'İndex')
+            return false;
 
+        } else {
+            $(this).closest('.islem_field').find('.expense').css('border-color',
+            ''); // önceki uyarı mesajını kaldır
+            isValid = true;
+        }
+        if (!expensePrice || expensePrice == 0) {
+            $(this).closest('.islem_field').find('.expenseValue').focus().css(
+                'border-color', 'red')
+            toastr.error('Preis für Ausgaben fehlt', 'Fehler!');
+            isValid = false;
+            return false;
+
+        } else {
+            $(this).closest('.islem_field').find('.expenseValue').css('border-color',
+            ''); // önceki uyarı mesajını kaldır
+            isValid = true;
+        }
+    });
+
+       if ($('.expense').length === 0) { // ürün yoksa
+           toastr.error('Sie haben keine Ausgaben hinzugefügt', 'Fehler!');
+           isValid = false;
+           console.log(isValid, 'Urun Sayısı')
+           return false; // işlemi durdur
+       }
+       
+       return isValid;
+   }
 
     $("body").on("change",".islem_field", function (){
-       
         let tutar = $(this).closest(".islem_field").find("#tutar").val() || 0;
         tutar = parseFloat(tutar)
         $(this).closest(".islem_field").find("#tutar").val(tutar.toFixed(2));
         calc()
+        console.log(i,'Sayaç')
     })
 
     $("body").on("click","#removeButton", function () {
-        say = say-1;
-        $(".isciadet").html(say+' '+'Anzahl der Arbeiter');
         $(this).closest(".islem_field").remove();
-        console.log(say,'Silerken')
         calc();
     })
 
     $("body").on("click","#removeAllButton", function () {
-        say = 0;
-        $(".isciadet").html(say+' '+'Anzahl der Arbeiter');
-        
         $("[id=tutar]").each(function () {
             $(this).closest(".islem_field").remove();
         });

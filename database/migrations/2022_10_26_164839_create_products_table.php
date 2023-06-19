@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('productName');
-            $table->integer('rentPrice');
-            $table->integer('buyPrice');
+            $table->float('rentPrice', 8, 2);
+            $table->float('buyPrice', 8, 2);
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use App\Mail\ReceiptReinigungMail;
 use App\Mail\ReceiptStandartMail;
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Expense;
 use App\Models\offerte;
 use App\Models\ReceiptDiscount;
 use App\Models\ReceiptExtra;
@@ -528,14 +529,14 @@ class indexController extends Controller
                     return '
                     <a class="btn btn-sm  btn-primary" href="'.route('receipt.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> 
                     <a class="btn btn-sm  btn-edit" href="'.route('receipt.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> 
-                    <a class="btn btn-sm  btn-warning" href="'.route('expense.createUmzug',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
+                    <a class="btn btn-sm  btn-warning" href="'.route('expense.editUmzug',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
                     <a class="btn btn-sm  btn-danger"  href="'.route('receipt.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
                 break;
                 case('Reinigung');
                     return '
                     <a class="btn btn-sm  btn-primary" href="'.route('receiptReinigung.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> 
                     <a class="btn btn-sm  btn-edit" href="'.route('receiptReinigung.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> 
-                    <a class="btn btn-sm  btn-warning" href="'.route('expense.createReinigung',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
+                    <a class="btn btn-sm  btn-warning" href="'.route('expense.editReinigung',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
                     <a class="btn btn-sm  btn-danger"  href="'.route('receiptReinigung.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
                 break;
             }
@@ -839,7 +840,7 @@ class indexController extends Controller
 
             $extra = ReceiptExtra::where('id',$data['receiptExtraId'])->delete();
             $discount = ReceiptDiscount::where('id',$data['receiptDiscountId'])->delete();
-
+            $expense = Expense::where('quittungId','=',$id)->where('exType','=', 'Umzug')->delete();
             ReceiptUmzug::where('id',$id)->delete();
 
             return redirect()->back()->with('status','Makbuz Başarıyla Silindi');

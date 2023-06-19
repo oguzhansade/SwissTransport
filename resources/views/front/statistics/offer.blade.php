@@ -299,35 +299,37 @@
                 var rsTot = table.ajax.json();    
                 var api = this.api(), data;
                 console.log(rsTot)
-            var intVal = function ( i ) {
-              return typeof i === 'string' ?
-                  i.replace(/[\$,]/g, '')*1 :
-                  typeof i === 'number' ?
-                      i : 0;
-          };
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
  
-          ent = api
-              .column( 4 )
-              .data()
-              .reduce( function (a, b) {
-                  return intVal(a) + intVal(b);
-              }, 0 );
- 
-        $( api.column( 4 ).footer() ).html(ent);
-        if(rsTot.filteredTotal)
-        {
-            let filteredTotal = rsTot.filteredTotal;
-            let formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
-            $('#filteredTotal').text(formattedTotal);
-        }
-        if(rsTot.nonFilteredTotal)
-        {
-            let nonFilteredTotal = rsTot.nonFilteredTotal;
-            let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
-            $('#nonFilteredTotal').text(nfFormattedTotal);
-        }
-        $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
-      }    
+                ent = api
+                    .column( 4 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+        
+                $( api.column( 4 ).footer() ).html(ent);
+                if(rsTot.filteredTotal)
+                {
+                    let filteredTotal = rsTot.filteredTotal;
+                    let formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+                    $('#filteredTotal').text(formattedTotal);
+
+                    if(rsTot.nonFilteredTotal)
+                    {
+                        let nonFilteredTotal = rsTot.nonFilteredTotal;
+                        let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+                        $('#nonFilteredTotal').text(nfFormattedTotal);
+                    }
+                }
+               
+                $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
+            }    
  
             
         });

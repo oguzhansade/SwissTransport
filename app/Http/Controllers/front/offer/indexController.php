@@ -601,6 +601,7 @@ class indexController extends Controller
             'offerteTransportId' => $offerTransportId,
             'offerteLagerungId' => $offerLagerungId,
             'offerteMaterialId' => $offerMaterialId,
+            'offerPrice' => $request->offerteEsimatedIncome,
             'offerteNote' => $request->offertePdfNote,
             'panelNote' => $request->offerteNote,
             'kostenInkl' => $request->kdvType,
@@ -1709,6 +1710,7 @@ class indexController extends Controller
             'offerteTransportId' => $offerTransportId,
             'offerteLagerungId' => $offerLagerungId,
             'offerteMaterialId' => $offerMaterialId,
+            'offerPrice' => $request->offerteEsimatedIncome,
             'offerteNote' => $request->offertePdfNote,
             'panelNote' => $request->offerteNote,
             'kostenInkl' => $request->kdvType,
@@ -1923,6 +1925,54 @@ class indexController extends Controller
                     'customer' => $customer
                 ]
             );
+        }
+    }
+
+    public function manuelAccept (Request $request)
+    {
+        $id = request()->route('id');
+        $offer = [
+            'offerteStatus' => 'Onaylandı'
+        ];
+        $offerAcception = offerte::where('id',$id)->update($offer);
+        if($offerAcception){
+            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+        }
+        else {
+            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
+        }
+        
+    }
+
+    public function manuelReject (Request $request)
+    {
+        $id = request()->route('id');
+        $offer = [
+            'offerteStatus' => 'Onaylanmadı'
+        ];
+        $offerRejection = offerte::where('id',$id)->update($offer);
+
+        if($offerRejection){
+            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+        }
+        else {
+            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
+        }
+    }
+
+    public function manuelDefault (Request $request)
+    {
+        $id = request()->route('id');
+        $offer = [
+            'offerteStatus' => 'Beklemede'
+        ];
+        $offerDefault = offerte::where('id',$id)->update($offer);
+        
+        if($offerDefault){
+            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+        }
+        else {
+            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
         }
     }
 

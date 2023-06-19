@@ -172,6 +172,36 @@
                             </div>
                         </div>
 
+                        {{-- Rechnung Address Area --}}
+                        
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <h5><strong>Rechnung Adresse</strong></h5>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    <label for="" class="col-form-label"> Strasse</label><br>
+                                    <input type="text" class="form-control" name="invoiceStreet" placeholder="Strasse "  value="{{ $data2['street'] }}" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="" class="col-form-label"> Plz</label><br>
+                                    <input type="text" class="form-control" name="invoicePostCode" placeholder="PLZ "  value="{{ $data2['postCode'] }}" required>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    <label for="" class="col-form-label"> Ort</label><br>
+                                    <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort "  value="{{ $data2['Ort'] }}" required> 
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="" class="col-form-label"> Land</label><br>
+                                    <input type="text" class="form-control" name="invoiceLand" placeholder="Land "  value="{{ $data2['country'] }}" required>
+                                </div>
+                            </div>
+                        
+
+
                         <div class="form-group row">
                             <div class="col-md-12 email-send">
                                 <label for="" class="col-form-label"> E-Mail an Kunden</label><br>
@@ -179,7 +209,6 @@
                                     data-color="#9c27b0" data-switchery="false">
                             </div>
                         </div>
-
 
                         <div class="row form-group email--area" style="display: none;">
                             <div class="col-md-12">

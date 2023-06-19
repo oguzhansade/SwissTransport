@@ -55,6 +55,7 @@ return new class extends Migration
             $table->integer('inRechnung')->nullable();
             $table->float('cashPrice')->nullable();
             $table->float('invoicePrice')->nullable();
+            $table->float('expensePrice',8,2)->nullable();
             $table->string('signerName')->nullable();
             $table->timestamps();
         });
