@@ -306,6 +306,108 @@
             </div>
             <!-- /.widget-bg -->
         </div>
+        {{-- Loglar --}}
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Logs
+                </a>
+              </p>
+              <div class="collapse" id="collapseExample">
+                @foreach ($logs->reverse() as $key => $value )
+                    
+                        <div class="card card-body">
+                            @if($value['oldValue'] && $value['newValue'])
+                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki <span class="text-primary">
+                            {{ $value['inputName'] }}
+                                </span>, <span class="text-danger">
+                                    @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
+                                    {{ App\Models\Tariff::InfoTariff($value['oldValue']) }}
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '1') 
+                                    Bitte Wahlen 
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '2')
+                                    Kunde
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '3')
+                                    Firma
+                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '0')
+                                    Nein
+                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '1')
+                                    Ja
+                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '0')
+                                    Nein
+                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '1')
+                                    Ja
+                                    @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '0')
+                                    Ja
+                                    @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '1')
+                                    Nein
+                                    @else
+                                    {{ $value['oldValue'] }}
+                                    @endif
+                                </span>' den <span class="text-success">
+                                    @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
+                                    {{ App\Models\Tariff::InfoTariff($value['newValue']) }}
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '1') 
+                                    Bitte Wahlen 
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '2')
+                                    Kunde
+                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '3')
+                                    Firma
+                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '1')
+                                    Ja
+                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '0')
+                                    Nein
+                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '1')
+                                    Ja
+                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '0')
+                                    Nein
+                                    @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '0')
+                                    Ja
+                                    @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '1')
+                                    Nein
+                                    @else
+                                    {{ $value['newValue'] }}
+                                    @endif
+                                </span> olarak değiştirildi. </span>
+                            @elseif (empty($value['oldValue']) && !empty($value['newValue']))
+                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                @if (strpos($value['inputName'], 'Adresse') !== false 
+                                || strpos($value['inputName'], 'Umzug') !== false
+                                || strpos($value['inputName'], 'Einpack') !== false
+                                || strpos($value['inputName'], 'Auspack') !== false
+                                || strpos($value['inputName'], 'Reinigung') !== false
+                                || strpos($value['inputName'], 'Reinigung-2') !== false
+                                || strpos($value['inputName'], 'Entsorgung') !== false
+                                || strpos($value['inputName'], 'Transport') !== false
+                                || strpos($value['inputName'], 'Lagerung') !== false
+                                || strpos($value['inputName'], 'Material') !== false)
+                                    <span class="text-success">{{ $value['inputName'] }}</span>, Eklendi
+                                @else
+                                    <span class="text-success">{{ $value['inputName'] }}[{{ $value['newValue'] }}]</span>, Eklendi
+                                @endif
+                                
+                            @elseif (empty($value['newValue']) && !empty($value['oldValue']))
+                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                @if (strpos($value['inputName'], 'Adresse') !== false
+                                || strpos($value['inputName'], 'Umzug') !== false
+                                || strpos($value['inputName'], 'Einpack') !== false
+                                || strpos($value['inputName'], 'Auspack') !== false
+                                || strpos($value['inputName'], 'Reinigung') !== false
+                                || strpos($value['inputName'], 'Reinigung-2') !== false
+                                || strpos($value['inputName'], 'Entsorgung') !== false
+                                || strpos($value['inputName'], 'Transport') !== false
+                                || strpos($value['inputName'], 'Lagerung') !== false
+                                || strpos($value['inputName'], 'Material') !== false)
+                                    <span class="text-danger">{{ $value['inputName'] }}</span>, Silindi
+                                @else
+                                    <span class="text-danger">{{ $value['inputName'] }}[{{ $value['oldValue'] }}]</span>, Silindi
+                                @endif
+                                
+                            @endif
+                        </div>
+                @endforeach
+              </div>
+        </div>
         <div class="modal fade" id="receiptModal" tabindex="-1" role="dialog" aria-labelledby="receiptModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document" >
               <div class="modal-content" style="border-radius: 30px;">

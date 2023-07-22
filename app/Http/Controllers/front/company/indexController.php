@@ -51,10 +51,10 @@ class indexController extends Controller
         if($company && $emailconf)
         { 
                       
-            return redirect()->back()->with('status','Firma Başarıyla Eklendi');
+            return redirect()->back()->with('status','Firma erfolgreich hinzugefügt.');
         }
         else {
-            return redirect()->back()->with('status','Hata:Firma Eklenemedi');
+            return redirect()->back()->with('status','Fehler: Firma konnte nicht hinzugefügt werden.');
         }
     }
 
@@ -119,10 +119,10 @@ class indexController extends Controller
             ]);
 
             if($update) {
-                return redirect()->back()->with('status','Firma Düzenlendi');
+                return redirect()->back()->with('status','Firma wurde bearbeitet.');
             }
             else {
-                return redirect()->back()->with('status','HATA:Firma Düzenlenemedi');
+                return redirect()->back()->with('status','Fehler: Die Firma konnte nicht bearbeitet werden');
             }
         }
     }

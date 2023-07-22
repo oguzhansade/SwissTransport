@@ -82,9 +82,9 @@
 
             <label class=" col-form-label" for="l0">Ab- und Aufbau</label>
             <select class="form-control" class="umzugMontaj" name="umzugMontaj" id="umzugMontaj" >
-                <option value="1" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == NULL) selected @endif>Bitte wählen</option>
-                <option value="2" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == 0) selected @endif>Kunde</option>
-                <option value="3" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == 1) selected @endif>Firma</option>
+                <option value="1" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == 1) selected @endif>Bitte wählen</option>
+                <option value="2" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == 2) selected @endif>Kunde</option>
+                <option value="3" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'montage') == 3) selected @endif>Firma</option>
             </select>
         </div>
         <div class="col-md-6">

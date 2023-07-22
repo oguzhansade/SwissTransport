@@ -4,9 +4,11 @@ namespace App\Http\Controllers\front\customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerForm;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class indexController extends Controller
@@ -19,6 +21,58 @@ class indexController extends Controller
     public function create()
     {
         return view ('front.customer.create');
+    }
+    public function createForm($id)
+    {
+        $c = CustomerForm::where('id',$id)->count();
+        if($c !=0)
+        {
+            $data = CustomerForm::where('id',$id)->first();
+            return view ('front.customer.createForm', ['data' => $data]);
+        }
+        
+    }
+    public function storeForm(Request $request)
+    {
+        $all = $request->except('_token');
+        $customer = [
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'mobile' => $request->mobile,
+            'street' => $request->street,
+            'postCode' => $request->postCode,
+            'Ort' => $request->Ort,
+            'country' => $request->isCustomCountry ? $request->customCountry : $request->country,
+            'source1' => $request->source1,
+            'source2' => $request->source2,
+            'note' => $request->note,
+            'companyName' => $request->companyName,
+            'contactPerson' => $request->contactPerson,
+
+        ];
+
+        $create = Customer::create($customer);
+        $customerIdBul = DB::table('customers')->orderBy('id', 'DESC')->first();
+        $customerId = $customerIdBul->id;
+
+        $formUpdate = CustomerForm::where('id',$request->route('id'))->update([
+            'status' => 1,
+            'customerId' => $customerId
+        ]);
+        if($create && $formUpdate)
+        {   
+            
+            $data = Customer::where('id',$create->id)->get();
+            //return redirect()->back()->with('status','Müşteri Başarıyla Eklendi');
+            return view ('front.customer.detail', ['id' => $create->id , 'data' => $data]);
+        }
+        else {
+            return redirect()->back()->with('status','Fehler: Kunde konnte nicht hinzugefügt werden.');
+        }
+        
     }
 
     public function store(Request $request)
@@ -52,7 +106,7 @@ class indexController extends Controller
             return view ('front.customer.detail', ['id' => $create->id , 'data' => $data]);
         }
         else {
-            return redirect()->back()->with('status','Hata:Müşteri Eklenemedi');
+            return redirect()->back()->with('status','Fehler: Kunde konnte nicht hinzugefügt werden.');
         }
     }
 
@@ -147,10 +201,10 @@ class indexController extends Controller
             $update = Customer::where('id',$id)->update($customer);
             if($update) 
             {
-                return redirect()->back()->with('status','Müşteri Düzenlendi');
+                return redirect()->back()->with('status','Kunde wurde bearbeitet.');
             }
             else {
-                return redirect()->back()->with('status','HATA:Müşteri Düzenlenemedi');
+                return redirect()->back()->with('status','Fehler: Kunde konnte nicht bearbeitet werden.');
             }
         }
     }
@@ -165,6 +219,14 @@ class indexController extends Controller
         {
             $data = Customer::where('id',$id)->get();
             Customer::where('id',$id)->delete();
+            $customerForm = CustomerForm::where('customerId',$id)->count();
+            if($customerForm != 0)
+            {
+                CustomerForm::where('customerId',$id)->update([
+                    'status' => 0
+                ]);
+            }
+            
             return redirect()->back();
         }
         else {

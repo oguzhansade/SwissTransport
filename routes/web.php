@@ -144,12 +144,20 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/', [App\Http\Controllers\front\customer\indexController::class, 'index'])->name('index');
         Route::get('/create', [App\Http\Controllers\front\customer\indexController::class, 'create'])->name('create');
         Route::post('/create', [App\Http\Controllers\front\customer\indexController::class, 'store'])->name('store');
+        Route::get('/createForm/{id}', [App\Http\Controllers\front\customer\indexController::class, 'createForm'])->name('createForm');
+        Route::post('/createForm/{id}', [App\Http\Controllers\front\customer\indexController::class, 'storeForm'])->name('storeForm');
         Route::get('/edit/{id}', [App\Http\Controllers\front\customer\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\customer\indexController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [App\Http\Controllers\front\customer\indexController::class, 'delete'])->name('delete');
         Route::get('/detail/{id}', [App\Http\Controllers\front\customer\indexController::class, 'detail'])->name('detail');
         Route::post('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
         Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
+    });
+
+    Route::group(['namespace' => 'customerForms', 'as' => 'customerForms.', 'prefix' => 'customerForms', 'middleware' => ['PermissionControl']], function () {
+        Route::post('/data', [App\Http\Controllers\front\customerForms\indexController::class, 'data'])->name('data');
+        Route::get('/data', [App\Http\Controllers\front\customerForms\indexController::class, 'data'])->name('data');
+        Route::get('/detail/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'detail'])->name('detail');
     });
 
     Route::group(['namespace' => 'appointment', 'as' => 'appointment.', 'prefix' => 'appointment', 'middleware' => ['PermissionControl']], function () {

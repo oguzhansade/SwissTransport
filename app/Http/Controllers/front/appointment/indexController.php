@@ -543,7 +543,7 @@ class indexController extends Controller
             if ($isEmailSend) {
                 Mail::to($emailData['email'])->send(new InformationMail($emailData));
                 // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
-                $mailSuccess = ', Mail Başarıyla Gönderildi';
+                $mailSuccess = ', Die E-Mail wurde erfolgreich gesendet.';
             }
             foreach ($appDateArray as $item) {
                 $fullDate = $item['date'] . ' ' . $item['time'];
@@ -557,12 +557,12 @@ class indexController extends Controller
             }
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status', $randevuTipi . ' ' . 'Randevusu Başarıyla Eklendi' . ' ' . $mailSuccess)
+                ->with('status', $randevuTipi . ' ' . 'Der Termin wurde erfolgreich hinzugefügt.' . ' ' . $mailSuccess)
                 ->with('cat', 'Termine')
                 ->withInput()
                 ->with('keep_status', true);
         } else {
-            return redirect()->back()->with('status-err', 'Hata:Randevu Eklenemedi, Mail Gönderilemedi');
+            return redirect()->back()->with('status-err', 'Fehler: Termin konnte nicht hinzugefügt werden, E-Mail konnte nicht gesendet werden.');
         }
     }
 
@@ -765,13 +765,12 @@ class indexController extends Controller
                 }
                 return redirect()
                     ->route('customer.detail', ['id' => $customerId])
-                    ->with('status', 'Keşif Randevusu Başarıyla Düzenlendi' . ' ' . $mailSuccess)
+                    ->with('status', 'Die Erkundungstermin wurde erfolgreich bearbeitet.' . ' ' . $mailSuccess)
                     ->with('cat', 'Termine')
                     ->withInput()
                     ->with('keep_status', true);
-                return redirect()->back()->with('status', 'Keşif Randevusu Başarıyla Düzenlendi' . ' ' . $mailSuccess);
             } else {
-                return redirect()->back()->with('status-danger', 'HATA:Keşif Randevusu Düzenlenemedi');
+                return redirect()->back()->with('status-danger', 'Fehler: Die Erkundungstermin konnte nicht bearbeitet werden.');
             }
         }
     }
@@ -797,7 +796,7 @@ class indexController extends Controller
             Appointment::where('id', $id)->delete();
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status', 'Keşif Randevusu Başarıyla Silindi')
+                ->with('status', 'Die Erkundungstermin wurde erfolgreich gelöscht.')
                 ->with('cat', 'Termine')
                 ->withInput()
                 ->with('keep_status', true);

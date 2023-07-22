@@ -91,13 +91,13 @@ class indexController extends Controller
         {
             return redirect()
             ->route('customer.detail', ['id' => $receipt['customerId']])
-            ->with('status','Makbuz Giderleri Başarıyla Eklendi.'.' '.'Makbuz NO:'.' '.$receipt['offerId'].'.'.$id)
+            ->with('status','Belegausgaben erfolgreich hinzugefügt..'.' '.'Belegnummer:'.' '.$receipt['offerId'].'.'.$id)
             ->with('cat', 'Quittung')
             ->withInput()
             ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status2','Hata:Makbuz Giderleri Girilemedi');
+            return redirect()->back()->with('status2','Fehler: Belegausgaben konnten nicht eingetragen werden.');
         }
     }
 
@@ -140,13 +140,13 @@ class indexController extends Controller
         {
             return redirect()
             ->route('customer.detail', ['id' => $receipt['customerId']])
-            ->with('status','Makbuz Giderleri Başarıyla Güncellendi.'.' '.'Makbuz NO:'.' '.$receipt['offerId'].'.'.$id)
+            ->with('status','Belegausgaben erfolgreich aktualisiert..'.' '.'Belegnummer:'.' '.$receipt['offerId'].'.'.$id)
             ->with('cat', 'Quittung')
             ->withInput()
             ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status2','Hata:Makbuz Giderleri Güncellenemedi');
+            return redirect()->back()->with('status2','Fehler: Belegausgaben konnten nicht aktualisiert werden.');
         }
     }
 
@@ -189,13 +189,13 @@ class indexController extends Controller
         {
             return redirect()
             ->route('customer.detail', ['id' => $receipt['customerId']])
-            ->with('status','Makbuz Giderleri Başarıyla Güncellendi.'.' '.'Makbuz NO:'.' '.$receipt['offerId'].'.'.$id)
+            ->with('status','Belegausgaben erfolgreich aktualisiert.'.' '.'Belegnummer:'.' '.$receipt['offerId'].'.'.$id)
             ->with('cat', 'Quittung')
             ->withInput()
             ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status2','Hata:Makbuz Giderleri Güncellenemedi');
+            return redirect()->back()->with('status2','Fehler: Belegausgaben konnten nicht aktualisiert werden.');
         }
     }
 
@@ -213,13 +213,13 @@ class indexController extends Controller
         {
             return redirect()
             ->route('customer.detail', ['id' => $receipt['customerId']])
-            ->with('status','Makbuz Giderleri Başarıyla Silindi.'.' '.'Makbuz NO:'.' '.$receipt['offerId'].'.'.$id)
+            ->with('status','Belegausgaben erfolgreich gelöscht..'.' '.'Belegnummer:'.' '.$receipt['offerId'].'.'.$id)
             ->with('cat', 'Quittung')
             ->withInput()
             ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status2','Hata:Makbuz Giderleri Silinemedi');
+            return redirect()->back()->with('status2','Fehler: Belegausgaben konnten nicht gelöscht werden');
         }
     }
     public function deleteReinigung(Request $request)
@@ -236,13 +236,13 @@ class indexController extends Controller
         {
             return redirect()
             ->route('customer.detail', ['id' => $receipt['customerId']])
-            ->with('status','Makbuz Giderleri Başarıyla Silindi.'.' '.'Makbuz NO:'.' '.$receipt['offerId'].'.'.$id)
+            ->with('status','Belegausgaben wurden erfolgreich gelöscht.'.' '.'Belegnummer:'.' '.$receipt['offerId'].'.'.$id)
             ->with('cat', 'Quittung')
             ->withInput()
             ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status2','Hata:Makbuz Giderleri Silinemedi');
+            return redirect()->back()->with('status2','Fehler: Belegausgaben konnten nicht gelöscht werden.');
         }
     }
 

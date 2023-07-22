@@ -1015,7 +1015,7 @@ class indexController extends Controller
                 if($isEmailSend)
                 {
                     Mail::to($emailData['email'])->send(new InvoiceMail($emailData));
-                    $mailSuccess = ', Mail ve Fatura Dosyası Başarıyla Gönderildi';
+                    $mailSuccess = ', E-Mail und Rechnungsdatei wurden erfolgreich gesendet.';
                 }
                 return redirect()
                     ->route('customer.detail', ['id' => $d['customerId']])
@@ -1026,7 +1026,7 @@ class indexController extends Controller
             }
 
             else {
-                return redirect()->back()->with('status','HATA:Fatura Düzenlenemedi');
+                return redirect()->back()->with('status','Fehler: Rechnung konnte nicht bearbeitet werden.');
             }
 
     }
@@ -1707,17 +1707,17 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new invoiceMail($emailData));
-                $mailSuccess = ', Mail ve Fatura Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Rechnung erfolgreich versendet.';
             } 
             return redirect()
                     ->route('customer.detail', ['id' => $customerId])
-                    ->with('status','Fatura Başarıyla Oluşturuldu.'.' '.'Fatura NO:'.' '.$invoiceId.' '.$mailSuccess)
+                    ->with('status','Rechnung erfolgreich erstellt..'.' '.'Belegnummer:'.' '.$invoiceId.' '.$mailSuccess)
                     ->with('cat', 'Rechnung')
                     ->withInput()
                     ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status','Hata:Fatura Oluşturulamadı');
+            return redirect()->back()->with('status','Fehler: Rechnung konnte nicht erstellt werden.');
         }
     }
 
@@ -1743,7 +1743,7 @@ class indexController extends Controller
 
             return redirect()
                     ->route('customer.detail', ['id' => $d['customerId']])
-                    ->with('status','Fatura Başarıyla Silindi')
+                    ->with('status','Rechnung erfolgreich gelöscht.')
                     ->with('cat', 'Rechnung')
                     ->withInput()
                     ->with('keep_status', true);

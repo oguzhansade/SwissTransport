@@ -133,10 +133,6 @@ class indexController extends Controller
 
             }
         }
-
-        
-        
-        
         
         $data=DataTables::of($table)
         

@@ -42,12 +42,6 @@
     </div>
 </div>
 <div id="faturaData">
-    <div class="row p-3">
-        <div class="col-md-6">
-            <label class="col-form-label" for="l0">Kosten </label>
-            <input class="form-control indirim" name="materialCostPrice" type="text" value="0" style="background-color: #8778aa;color:white;">
-        </div>
-    </div>
 
     <div class="row p-3">
         <div class="col-md-6">

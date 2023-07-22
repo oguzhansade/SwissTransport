@@ -48,10 +48,10 @@ class indexController extends Controller
 
         if($create)
         {
-            return redirect()->back()->with('status','Ürün Başarıyla Eklendi');
+            return redirect()->back()->with('status','Produkt erfolgreich hinzugefügt');
         }
         else {
-            return redirect()->back()->with('status','Hata:Ürün Eklenemedi');
+            return redirect()->back()->with('status','Fehler: Produkt konnte nicht hinzugefügt werden');
         }
     }
 
@@ -64,10 +64,10 @@ class indexController extends Controller
             $data = Product::where('id',$id)->get();
             
             Product::where('id',$id)->delete();
-            return redirect()->back()->with('status','Ürün Silindi');
+            return redirect()->back()->with('status','Produkt wurde gelöscht');
         }
         else {
-            return redirect()->back()->with('status2','HATA:Ürün Silinemedi');
+            return redirect()->back()->with('status2','Fehler: Produkt konnte nicht gelöscht werden');
         }
     }
 
@@ -102,10 +102,10 @@ class indexController extends Controller
             ]);
 
             if($update) {
-                return redirect()->back()->with('status','Ürün Güncellendi');
+                return redirect()->back()->with('status','Produkt wurde aktualisiert');
             }
             else {
-                return redirect()->back()->with('status2','HATA:Ürün Güncellenemedi');
+                return redirect()->back()->with('status2','Fehler: Produkt konnte nicht aktualisiert werden');
             }
         }
     }

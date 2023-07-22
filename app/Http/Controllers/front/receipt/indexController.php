@@ -457,17 +457,17 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
-                $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Beleg erfolgreich gesendet';
             } 
             return redirect()
                 ->route('customer.detail', ['id' => $d['customerId']])
-                ->with('status','Makbuz Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess)
+                ->with('status','Beleg erfolgreich bearbeitet.'.' '.'Belegnummer:'.' '.$id.$mailSuccess)
                 ->with('cat', 'Quittung')
                 ->withInput()
                 ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status','Hata:Makbuz Düzenlenemedi');
+            return redirect()->back()->with('status','Fehler: Beleg konnte nicht bearbeitet werden');
         }
     }
     public function data(Request $request)
@@ -810,17 +810,17 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
-                $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Beleg erfolgreich versendet';
             } 
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status','Makbuz Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptStandartId.$mailSuccess)
+                ->with('status','Beleg erfolgreich erstellt.'.' '.'Belegnummer:'.' '.$receiptStandartId.$mailSuccess)
                 ->with('cat', 'Quittung')
                 ->withInput()
                 ->with('keep_status', true);
         }
         else {
-            return redirect()->back()->with('status','Hata:Makbuz Oluşturulamadı');
+            return redirect()->back()->with('status','Fehler: Beleg konnte nicht erstellt werden');
         }
     }
 
@@ -843,7 +843,7 @@ class indexController extends Controller
             $expense = Expense::where('quittungId','=',$id)->where('exType','=', 'Umzug')->delete();
             ReceiptUmzug::where('id',$id)->delete();
 
-            return redirect()->back()->with('status','Makbuz Başarıyla Silindi');
+            return redirect()->back()->with('status','Beleg erfolgreich gelöscht');
         }
         else {
             return redirect('/');

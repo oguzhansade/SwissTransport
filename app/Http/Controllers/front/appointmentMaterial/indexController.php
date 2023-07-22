@@ -131,7 +131,7 @@ class indexController extends Controller
                 if ($isEmailSend) {
                     Mail::to($emailData['email'])->send(new InformationMail($emailData));
                     // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
-                    $mailSuccess = 'Mail Başarıyla Gönderildi';
+                    $mailSuccess = 'Die E-Mail wurde erfolgreich versendet.';
                 }
                 foreach ($appDateArray as $item) {
                     $fullDate = $item['date'] . ' ' . $item['time'];
@@ -149,9 +149,9 @@ class indexController extends Controller
                         calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
                     }
                 }
-                return redirect()->back()->with('status', 'Teslimat Randevusu Düzenlendi' . ' ' . $mailSuccess);
+                return redirect()->back()->with('status', 'Liefertermin wurde bearbeitet.' . ' ' . $mailSuccess);
             } else {
-                return redirect()->back()->with('status-danger', 'HATA:Teslimat Randevusu Düzenlenemedi');
+                return redirect()->back()->with('status-danger', 'Fehler: Liefertermin konnte nicht bearbeitet werden');
             }
         }
     }
@@ -186,7 +186,7 @@ class indexController extends Controller
                 ->with('cat', 'Termine')
                 ->withInput()
                 ->with('keep_status', true);
-            return redirect()->back()->with('status', 'Teslimat Randevusu Başarıyla Silindi');
+            return redirect()->back()->with('status', 'Liefertermin wurde erfolgreich gelöscht.');
         } else {
             return redirect('/');
         }

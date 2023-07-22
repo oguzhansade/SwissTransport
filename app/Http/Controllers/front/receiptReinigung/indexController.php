@@ -172,11 +172,11 @@ class indexController extends Controller
             if($isEmailSend)
             {
                 Mail::to($emailData['email'])->send(new ReceiptReinigungMail($emailData));
-                $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Beleg erfolgreich versendet';
             } 
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status','Temizlik Makbuzu Başarıyla Oluşturuldu.'.' '.'Makbuz NO:'.' '.$receiptReinigungId.$mailSuccess)
+                ->with('status','Reinigungsbeleg erfolgreich erstellt.'.' '.'Belegnummer:'.' '.$receiptReinigungId.$mailSuccess)
                 ->with('cat', 'Quittung')
                 ->withInput()
                 ->with('keep_status', true);
@@ -341,7 +341,7 @@ class indexController extends Controller
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer=DB::table('customers')->where('id','=', $d['customerId'])->value('name'); // Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $d['customerId'])->value('surname');
-        $gender=DB::table('customers')->where('id','=', $customerId)->value('gender');// Customer Name
+        $gender=DB::table('customers')->where('id','=', $d['customerId'])->value('gender');// Customer Name
         $receiptPdf = ReceiptReinigung::where('id',$id)->first();
         $customerData =  Customer::where('id',$d['customerId'])->first();
         $extraPdf = ReceiptExtra::where('id',$receiptExtraId)->first();

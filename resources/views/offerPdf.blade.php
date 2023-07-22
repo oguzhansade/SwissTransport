@@ -192,16 +192,16 @@
                         {{ $customer['email'] }}
                     </td>
                     <td class="pt-3" valign="top" align="right" colspan="2">
-                        @if ($offer['contactPerson'])
-                            <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
-                            @if ($offer['contactPerson'] == 'Bitte wählen')
-                                Swiss Transport Team
-                            @else
-                                {{ $offer['contactPerson'] }}
-                            @endif <br>
-                            {{ App\Models\Company::InfoCompany('email') }} <br>
-                            {{ App\Models\Company::InfoCompany('phone') }}
-                        @endif
+                       
+                        <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
+                        @if ($offer['contactPerson'] == 'Bitte wählen' || $offer['contactPerson'] == 'Swiss Transport Team' || $offer['contactPerson'] == 0 || $offer['contactPerson'] == NULL)
+                            Swiss Transport Team
+                        @else
+                            {{ $offer['contactPerson'] }}
+                        @endif <br>
+                        {{ App\Models\Company::InfoCompany('email') }} <br>
+                        {{ App\Models\Company::InfoCompany('phone') }}
+                        
 
                     </td>
                 </tr>

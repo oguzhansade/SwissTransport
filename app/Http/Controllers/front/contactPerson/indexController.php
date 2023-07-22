@@ -25,7 +25,7 @@ class indexController extends Controller
 
         if($emailControl!=0) 
         {
-            return redirect()->back()->with('status2','Email Başkasına Ait');
+            return redirect()->back()->with('status2','Die E-Mail gehört jemand anderem.');
         }
 
         $ContactPeople = [
@@ -40,10 +40,10 @@ class indexController extends Controller
 
         if($create)
         {
-            return redirect()->back()->with('status','Success:Contact Person Added');
+            return redirect()->back()->with('status','Erfolg: Kontaktperson hinzugefügt.');
         }
         else{
-            return redirect()->back()->with('status2','Error: Contact Person cannot be added');
+            return redirect()->back()->with('status2','Fehler: Kontaktperson kann nicht hinzugefügt werden.');
         }
     }
 
@@ -87,7 +87,7 @@ class indexController extends Controller
 
         if($emailControl!=0) 
         {
-            return redirect()->back()->with('status2','Email Başkasına Ait');
+            return redirect()->back()->with('status2','Die E-Mail gehört jemand anderem.');
         }
 
 
@@ -104,10 +104,10 @@ class indexController extends Controller
         {
             if($update) {
                
-                return redirect()->back()->with('status','Contact Person Update');
+                return redirect()->back()->with('status','Kontaktperson Aktualisierung');
             }
             else {
-                return redirect()->back()->with('status2','ERROR:Contact Person Cannot Update');
+                return redirect()->back()->with('status2','Fehler: Kontaktperson kann nicht aktualisiert werden.');
             }
         }
     }
@@ -120,7 +120,7 @@ class indexController extends Controller
             $delete = ContactPerson::where('id',$id)->delete();
             if($delete)
             {
-                return redirect()->back()->with('status','Contact Person Deleted');
+                return redirect()->back()->with('status','Kontaktperson gelöscht.');
             }
             else{
                 return redirect('/');

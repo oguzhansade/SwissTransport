@@ -173,7 +173,7 @@
                                 <div class="col-md-6">
                                     <label for="" class="col-form-label">Kontaktperson</label><br>
                                     <select class="form-control" name="contactPerson" id="contactPerson">
-                                        <option value="0" selected>Bitte wählen </option>
+                                        <option selected>Bitte wählen</option>
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
                                         <option value=" {{ $value['name'] .' '. $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].' '.$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
@@ -278,7 +278,7 @@
     })
     
     function contactPerson() {
-        if($('select[name=contactPerson]').val() != 0)
+        if($('select[name=contactPerson]').val() != 'Bitte wählen')
         {
         $(".customContactPerson").hide(300)
         }
@@ -288,7 +288,7 @@
     }
     console.log($('select[name=contactPerson]').val(),'contact')
     $('select[name=contactPerson]').on('change', function() {
-        if($('select[name=contactPerson]').val() != 0)
+        if($('select[name=contactPerson]').val() != 'Bitte wählen')
         {
         $(".customContactPerson").hide(300)
         }
@@ -394,7 +394,7 @@
         parseFloat(transport) +
         parseFloat(lagerung) +
         parseFloat(material);
-        $("input[name=offerteEsimatedIncome]").val(esimatedIncome);
+        $("input[name=offerteEsimatedIncome]").val(esimatedIncome.toFixed(2));
     }
 </script>
 <script>       

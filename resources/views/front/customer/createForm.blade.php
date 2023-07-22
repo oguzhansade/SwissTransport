@@ -33,7 +33,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form action="{{ route('customer.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('customer.storeForm',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="form-group row">
@@ -42,13 +42,13 @@
                                 <label for="" class="col-form-label">Typ</label>
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio" class="change-customerType" name="customerType" value="0" checked="checked"> <span class="label-text">Privatperson</span>
+                                        <input type="radio" class="change-customerType" name="customerType" value="0"  checked="checked" > <span class="label-text">Privatperson</span>
                                     </label>
                                 </div>
 
                                 <div class="radiobox">
                                     <label>
-                                        <input type="radio" class="change-customerType" name="customerType" value="1"> <span class="label-text">Firma</span>
+                                        <input type="radio" class="change-customerType" name="customerType" value="1" @if($data['type'] == 'Firmenform') checked="checked" @endif> <span class="label-text">Firma</span>
                                     </label>
                                 </div>
 
@@ -56,10 +56,10 @@
                             </div>                            
                         </div>
 
-                        <div class="form-group row firma--area" style="display: none;">
+                        <div class="form-group row firma--area" @if($data['type'] != 'Firmenform') style="display: none;"  @endif >
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Firmenname</label>
-                                    <input class="form-control" name="companyName"  type="text">                                
+                                    <input class="form-control" name="companyName"  type="text" @if($data['firma']) value="{{ $data['firma'] }}" @endif>                                
                                 </div>
     
                                 <div class="col-md-6">
@@ -68,15 +68,23 @@
                                 </div>
                         </div>
 
+                        @php
+                            $fullName = $data['customerName'];
+                            $wordCount = str_word_count($fullName);
+                            $lastSpaceIndex = strrpos($fullName, ' ');
+
+                            $name = substr($fullName, 0, $lastSpaceIndex);
+                            $surname = substr($fullName, $lastSpaceIndex + 1);
+                        @endphp
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Vorname</label>
-                                    <input class="form-control" name="name"  type="text" required>                                
+                                    <input class="form-control" name="name"  type="text"  value="{{ $name }}" required>                                
                                 </div>
     
                                 <div class="col-md-6">
                                     <label class=" col-form-label" for="l0">Nachname</label>
-                                    <input class="form-control"  name="surname"  type="text" required>                                
+                                    <input class="form-control"  name="surname"  type="text" value="{{ $surname }}" required>                                
                                 </div>
                             </div>
 
@@ -99,7 +107,7 @@
                             <div class="row form-group">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">E-Mail</label>
-                                    <input class="form-control" name="email"  type="text" required>                                
+                                    <input class="form-control" name="email"  type="text" required value="{{ $data['mail'] }}">                                
                                 </div>
     
                                 <div class="col-md-4 form-group">
@@ -109,7 +117,7 @@
     
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Mobile</label>
-                                    <input class="form-control" type="text" id="phone"  placeholder="Phone Number" value="+41" name="mobile" required>
+                                    <input class="form-control" type="text" id="phone"  placeholder="Phone Number" value="+41{{ $data['phone'] }}" name="mobile" required>
                                     <small class="text-primary"><i>Important For Notifications</i></small>
                                 </div>
                             </div>
@@ -118,12 +126,12 @@
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Strasse</label>
-                                    <input class="form-control"  name="street"  type="text" required>                                
+                                    <input class="form-control"  name="street"  type="text"  value="{{ $data['vonStreet'] }}" required>                                
                                 </div>
     
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">PLZ</label>
-                                    <input class="form-control"  name="postCode"  type="text" required>                                
+                                    <input class="form-control"  name="postCode"  type="text"  value="{{ $data['vonPlz'] }}" required>                                
                                 </div>
 
                                 <div class="col-md-4">
@@ -235,10 +243,10 @@
         var value = $(this).val();
         if(value == 1)
         {
-            $(".firma--area").show();
+            $(".firma--area").show(300);
         }
         else {
-            $(".firma--area").hide();
+            $(".firma--area").hide(100);
         }
     });
 </script>

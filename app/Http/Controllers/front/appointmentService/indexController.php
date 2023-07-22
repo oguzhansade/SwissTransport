@@ -735,7 +735,7 @@ class indexController extends Controller
                 if ($isEmailSend) {
                     Mail::to($emailData['email'])->send(new InformationMail($emailData));
                     // Mail::to($from)->send(new CompanyMail($emailData)); //Firmaya Takvime Eklendi Bildirimi
-                    $mailSuccess = 'Mail Başarıyla Gönderildi';
+                    $mailSuccess = 'Die E-Mail wurde erfolgreich versendet.';
                 }
                 foreach ($appDateArray as $item) {
 
@@ -757,13 +757,13 @@ class indexController extends Controller
 
                 return redirect()
                     ->route('customer.detail', ['id' => $customerId])
-                    ->with('status', $randevuTipi . ' ' . 'Auftragsbestätigung Randevusu Düzenlendi' . ' ' . $mailSuccess)
+                    ->with('status', $randevuTipi . ' ' . 'Auftragsbestätigungstermin wurde bearbeitet.' . ' ' . $mailSuccess)
                     ->with('cat', 'Termine')
                     ->withInput()
                     ->with('keep_status', true);
                 // return redirect()->back()->with('status','Auftragsbestätigung Randevusu Düzenlendi'.' '.$mailSuccess);
             } else {
-                return redirect()->back()->with('status-danger', 'HATA:Auftragsbestätigung Randevusu Düzenlenemedi');
+                return redirect()->back()->with('status-danger', 'Fehler: Auftragsbestätigungstermin konnte nicht bearbeitet werden.');
             }
         }
     }
@@ -902,7 +902,7 @@ class indexController extends Controller
             AppoinmentService::where('id', $id)->delete();
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status', 'Onay Randevusu Başarıyla Silindi')
+                ->with('status', 'Bestätigungstermin erfolgreich gelöscht.')
                 ->with('cat', 'Termine')
                 ->withInput()
                 ->with('keep_status', true);

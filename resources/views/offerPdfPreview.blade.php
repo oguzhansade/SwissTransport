@@ -266,8 +266,9 @@
                                 @endif <br>
                                 @if ($auszug1['postCode'])
                                     CH - {{ $auszug1['postCode'] }}
-                                    @endif @if ($auszug1['city'])
-                                        {{ $auszug1['city'] }}
+                                    @endif 
+                                    @if ($auszug1['city'])
+                                        {{ $auszug1['city'] }} / {{ $auszug1['country'] }}
                                     @endif <br>
                                     @if ($auszug1['buildType'])
                                         {{ $auszug1['buildType'] }}
@@ -297,7 +298,7 @@
                                 @if ($einzug1['street'])
                                     {{ $einzug1['street'] }}
                                 @endif <br>
-                                CH - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} <br>
+                                CH - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} / {{ $einzug1['country'] }} <br>
                                 {{ $einzug1['buildType'] }}<br>
                                 {{ $einzug1['floor'] }}<br>
                                 @if ($einzug1['lift'] == 1)
@@ -340,7 +341,7 @@
                             </td>
                             <td align="left">
                                 {{ $auszug2['street'] }} <br>
-                                CH - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} <br>
+                                CH - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} / {{ $auszug2['country'] }} <br>
                                 {{ $auszug2['buildType'] }}<br>
                                 {{ $auszug2['floor'] }}<br>
                                 @if ($auszug2['lift'] == 1)
@@ -361,7 +362,7 @@
                             </td>
                             <td align="left">
                                 {{ $einzug2['street'] }} <br>
-                                CH - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} <br>
+                                CH - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} / {{ $einzug2['country'] }} <br>
                                 {{ $einzug2['buildType'] }}<br>
                                 {{ $einzug2['floor'] }}<br>
                                 @if ($einzug2['lift'] == 1)
@@ -403,7 +404,7 @@
                             </td>
                             <td align="left">
                                 {{ $auszug3['street'] }} <br>
-                                CH - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} <br>
+                                CH - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} / {{ $auszug3['country'] }}<br>
                                 {{ $auszug3['buildType'] }}<br>
                                 {{ $auszug3['floor'] }}<br>
                                 @if ($auszug3['lift'] == 1)
@@ -424,7 +425,7 @@
                             </td>
                             <td align="left">
                                 {{ $einzug3['street'] }} <br>
-                                CH - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} <br>
+                                CH - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} / {{ $einzug3['country'] }}<br>
                                 {{ $einzug3['buildType'] }}<br>
                                 {{ $einzug3['floor'] }}<br>
                                 @if ($einzug3['lift'] == 1)

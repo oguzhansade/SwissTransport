@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/schnellanform', [App\Http\Controllers\front\customerForms\indexController::class, 'handleSchnellanForm'])->name('handleSchnellanForm');
+Route::post('/firmenform', [App\Http\Controllers\front\customerForms\indexController::class, 'handleFirmenForm'])->name('handleFirmenForm');
+Route::post('/privatform', [App\Http\Controllers\front\customerForms\indexController::class, 'handlePrivatForm'])->name('handlePrivatForm');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

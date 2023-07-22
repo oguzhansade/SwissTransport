@@ -7,6 +7,7 @@ use App\Mail\OfferMail;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\OfferCustomerView;
+use App\Models\OfferLogs;
 use App\Models\offerte;
 use App\Models\offerteAddress;
 use App\Models\OfferteAuspack;
@@ -686,6 +687,7 @@ class indexController extends Controller
         $basketPdf = OfferteBasket::where('materialId', $offerMaterialId)->get()->toArray();
 
 
+
         $pdfData = [
             'offer' => $offer,
             'offerteNumber' => $offerteId,
@@ -792,17 +794,17 @@ class indexController extends Controller
             $mailSuccess = '';
             if ($isEmailSend) {
                 Mail::to($emailData['email'])->send(new OfferMail($emailData));
-                $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Angebotdatei wurden erfolgreich gesendet';
             }
             //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status', 'Teklif Başarıyla Eklendi ' . $mailSuccess)
+                ->with('status', 'Angebot erfolgreich hinzugefügt ' . $mailSuccess)
                 ->with('cat', 'Offerte')
                 ->withInput()
                 ->with('keep_status', true);
         } else {
-            return redirect()->back()->with('status-err', 'Hata:Teklif Eklenemedi, Mail Gönderilemedi');
+            return redirect()->back()->with('status-err', 'Fehler: Angebot konnte nicht hinzugefügt werden, E-Mail konnte nicht gesendet werden');
         }
     }
 
@@ -832,7 +834,7 @@ class indexController extends Controller
         $c = offerte::where('id', $id)->count();
         $d = offerte::where('id', $id)->first();
         $all = $request->except('_token');
-
+        $changedData = [];
         $isCustomEmailSend = $request->get('isCustomEmail');
         $customEmail = $request->get('customEmail');
 
@@ -870,7 +872,62 @@ class indexController extends Controller
                 'lift' => $request->isAusLift1,
                 'addressType' => 0
             ];
-            offerteAddress::where('id', $AusId)->update($mainAusAdress);
+            // offerteAddress::where('id', $AusId)->update($mainAusAdress);
+            $offerteAusAdress = offerteAddress::find($AusId);
+            $originalDataAusAdress = $offerteAusAdress->getAttributes();
+
+            $offerteAusAdress->fill($mainAusAdress);
+            $offerteAusAdress->save();
+
+            $changes = $offerteAusAdress->getChanges();
+
+            
+            foreach ($changes as $attribute => $newValue) {
+                $oldValue = $originalDataAusAdress[$attribute];
+                if ($attribute === 'updated_at') {
+                    continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                }
+
+                $attributeMappings = array(
+                    'street' => 'STRASSE',
+                    'postCode' => 'PLZ',
+                    'city' => 'ORT',
+                    'country' => 'LAND',
+                    'buildType' => 'GEBÄUDE',
+                    'floor' => 'ETAGE',
+                    'lift' => 'LIFT',
+                );
+                $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                $changedData[$attribute] = [
+                    'oldValue' => $oldValue,
+                    'newValue' => $newValue,
+                    'serviceType' => 'AusAdress',
+                    'offerId' => $request->route('id'),
+                    'inputName' => $newAtt,
+                ];
+                
+            }
+
+            if($id == 719){
+                foreach ($changedData as $key => $value) {
+                    $oldValue = $value['oldValue'];
+                    $newValue = $value['newValue'];
+                    $serviceType = $value['serviceType'];
+                    $offerId = $value['offerId'];
+                    $inputName = $value['inputName'];
+                    
+                    $offerLog = [
+                        'offerId' => $offerId,
+                        'serviceType' => $serviceType,
+                        'inputName' => $inputName,
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                    ];
+                    OfferLogs::create($offerLog);
+                    $changedData = [];
+                }
+            }
         }
 
         if ($AusId2) {
@@ -889,7 +946,62 @@ class indexController extends Controller
                     'addressType' => 0
                 ];
 
-                offerteAddress::where('id', $AusId2)->update($mainAusAdress);
+                // offerteAddress::where('id', $AusId2)->update($mainAusAdress);
+                $offerteAusAdress2 = offerteAddress::find($AusId2);
+                $originalDataAusAdress2 = $offerteAusAdress2->getAttributes();
+
+                $offerteAusAdress2->fill($mainAusAdress);
+                $offerteAusAdress2->save();
+
+                $changes = $offerteAusAdress2->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataAusAdress2[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'street' => 'STRASSE',
+                        'postCode' => 'PLZ',
+                        'city' => 'ORT',
+                        'country' => 'LAND',
+                        'buildType' => 'GEBÄUDE',
+                        'floor' => 'ETAGE',
+                        'lift' => 'LIFT',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'AusAdress2',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                    
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($AusId2 == NULL && $request->isofferAuszug2) {
             $mainAusAdress = [
@@ -926,7 +1038,61 @@ class indexController extends Controller
                     'addressType' => 0
                 ];
 
-                offerteAddress::where('id', $AusId3)->update($mainAusAdress);
+                // offerteAddress::where('id', $AusId3)->update($mainAusAdress);
+                $offerteAusAdress3 = offerteAddress::find($AusId3);
+                $originalDataAusAdress3 = $offerteAusAdress3->getAttributes();
+
+                $offerteAusAdress3->fill($mainAusAdress);
+                $offerteAusAdress3->save();
+
+                $changes = $offerteAusAdress3->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataAusAdress3[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+                    $attributeMappings = array(
+                        'street' => 'STRASSE',
+                        'postCode' => 'PLZ',
+                        'city' => 'ORT',
+                        'country' => 'LAND',
+                        'buildType' => 'GEBÄUDE',
+                        'floor' => 'ETAGE',
+                        'lift' => 'LIFT',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'AusAdress3',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                    
+                }
+
+                if( $id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($AusId3 == NULL && $request->isofferAuszug3) {
             $mainAusAdress = [
@@ -957,7 +1123,62 @@ class indexController extends Controller
                 'lift' => $request->isEinLift1,
                 'addressType' => 1
             ];
-            offerteAddress::where('id', $EinId)->update($mainEinAdress);
+            // offerteAddress::where('id', $EinId)->update($mainEinAdress);
+            $offerteEinAdress = offerteAddress::find($EinId);
+            $originalDataEinAdress = $offerteEinAdress->getAttributes();
+
+            $offerteEinAdress->fill($mainEinAdress);
+            $offerteEinAdress->save();
+
+            $changes = $offerteEinAdress->getChanges();
+
+            
+            foreach ($changes as $attribute => $newValue) {
+                $oldValue = $originalDataEinAdress[$attribute];
+                if ($attribute === 'updated_at') {
+                    continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                }
+
+                $attributeMappings = array(
+                    'street' => 'STRASSE',
+                    'postCode' => 'PLZ',
+                    'city' => 'ORT',
+                    'country' => 'LAND',
+                    'buildType' => 'GEBÄUDE',
+                    'floor' => 'ETAGE',
+                    'lift' => 'LIFT',
+                );
+                $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                $changedData[$attribute] = [
+                    'oldValue' => $oldValue,
+                    'newValue' => $newValue,
+                    'serviceType' => 'EinAdress',
+                    'offerId' => $request->route('id'),
+                    'inputName' => $newAtt,
+                ];
+                
+            }
+
+            if($id == 719){
+                foreach ($changedData as $key => $value) {
+                    $oldValue = $value['oldValue'];
+                    $newValue = $value['newValue'];
+                    $serviceType = $value['serviceType'];
+                    $offerId = $value['offerId'];
+                    $inputName = $value['inputName'];
+                    
+                    $offerLog = [
+                        'offerId' => $offerId,
+                        'serviceType' => $serviceType,
+                        'inputName' => $inputName,
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                    ];
+                    OfferLogs::create($offerLog);
+                    $changedData = [];
+                }
+            }
         } elseif ($EinId == NULL && $request->einStreet1) {
             $mainEinAdress = [
                 'street' => $request->einStreet1,
@@ -991,7 +1212,62 @@ class indexController extends Controller
                     'lift' => $request->isEinLift2,
                     'addressType' => 1
                 ];
-                offerteAddress::where('id', $EinId2)->update($mainEinAdress);
+                // offerteAddress::where('id', $EinId2)->update($mainEinAdress);
+                $offerteEinAdress2 = offerteAddress::find($EinId2);
+                $originalDataEinAdress2 = $offerteEinAdress2->getAttributes();
+
+                $offerteEinAdress2->fill($mainEinAdress);
+                $offerteEinAdress2->save();
+
+                $changes = $offerteEinAdress2->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataEinAdress2[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'street' => 'STRASSE',
+                        'postCode' => 'PLZ',
+                        'city' => 'ORT',
+                        'country' => 'LAND',
+                        'buildType' => 'GEBÄUDE',
+                        'floor' => 'ETAGE',
+                        'lift' => 'LIFT',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'EinAdress2',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                    
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($EinId2 == NULL && $request->einStreet2) {
             $mainEinAdress = [
@@ -1027,7 +1303,63 @@ class indexController extends Controller
                 'addressType' => 1
             ];
 
-            offerteAddress::where('id', $EinId3)->update($mainEinAdress);
+            // offerteAddress::where('id', $EinId3)->update($mainEinAdress);
+            $offerteEinAdress3 = offerteAddress::find($EinId3);
+            $originalDataEinAdress3 = $offerteEinAdress3->getAttributes();
+
+            $offerteEinAdress3->fill($mainEinAdress);
+            $offerteEinAdress3->save();
+
+            $changes = $offerteEinAdress3->getChanges();
+
+            
+            foreach ($changes as $attribute => $newValue) {
+                $oldValue = $originalDataEinAdress3[$attribute];
+                if ($attribute === 'updated_at') {
+                    continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                }
+
+                $attributeMappings = array(
+                    'street' => 'STRASSE',
+                    'postCode' => 'PLZ',
+                    'city' => 'ORT',
+                    'country' => 'LAND',
+                    'buildType' => 'GEBÄUDE',
+                    'floor' => 'ETAGE',
+                    'lift' => 'LIFT',
+                );
+                $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                $changedData[$attribute] = [
+                    'oldValue' => $oldValue,
+                    'newValue' => $newValue,
+                    'serviceType' => 'EinAdress3',
+                    'offerId' => $request->route('id'),
+                    'inputName' => $newAtt,
+                ];
+                
+            }
+
+            if($id == 719){
+                foreach ($changedData as $key => $value) {
+                    $oldValue = $value['oldValue'];
+                    $newValue = $value['newValue'];
+                    $serviceType = $value['serviceType'];
+                    $offerId = $value['offerId'];
+                    $inputName = $value['inputName'];
+                    
+                    $offerLog = [
+                        'offerId' => $offerId,
+                        'serviceType' => $serviceType,
+                        'inputName' => $inputName,
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                    ];
+                    OfferLogs::create($offerLog);
+                    $changedData = [];
+                }
+            }
+
         } elseif ($EinId3 == NULL && $request->einStreet3) {
             $mainEinAdress = [
                 'street' => $request->einStreet3,
@@ -1089,7 +1421,88 @@ class indexController extends Controller
                     'fixedPrice' => $request->isPauschal ?  $request->umzugDefaultPrice : Null,
                 ];
 
-                OfferteUmzug::where('id', $offerUmzugId)->update($offerUmzug);
+                // OfferteUmzug::where('id', $offerUmzugId)->update($offerUmzug);
+                $offerteUmzug = OfferteUmzug::find($offerUmzugId);
+                $originalDataUmzug = $offerteUmzug->getAttributes();
+
+                $offerteUmzug->fill($offerUmzug);
+                $offerteUmzug->save();
+
+                $changes = $offerteUmzug->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataUmzug[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+                    $attributeMappings = array(
+                        'tariff' => 'TARIF',
+                        'ma' => 'MA',
+                        'lkw' => 'LKW',
+                        'anhanger' => 'ANHÄNGER',
+                        'chf' => 'CHF-ANSATZ',
+                        'moveDate' => 'UMZUGSTERMIN',
+                        'moveTime' => 'ARBEITSBEGINN',
+                        'moveDate2' => 'EINZUGSTERMIN',
+                        'arrivalReturn' => 'ANFAHRT/RÜCKFAHRT [CHF]',
+                        'montage' => 'AB- UND AUFBAU',
+                        'moveHours' => 'DAUER [H]',
+                        'extra' => 'Spesen',
+                        'extra1' => 'Klavier 250.-',
+                        'extra2' => 'Klavier 350.-',
+                        'extra3' => 'Möbellift 0.-',
+                        'extra4' => 'Möbellift 250.-',
+                        'extra5' => 'Möbellift 350.-',
+                        'extra6' => 'Schwergutzuschlag 150.-',
+                        'extra7' => 'Schwergutzuschlag 250.-',
+                        'extra8' => 'Tresor 350.-',
+                        'extra9' => 'Tresor 450.-',
+                        'extra10' => 'Wasserbett',
+                        'customCostName1' => 'CustomZUSATZ-1 Text',
+                        'customCostName2' => 'CustomZUSATZ-2 Text',
+                        'customCostPrice1' => 'CustomZUSATZ-1',
+                        'customCostPrice2' => 'CustomZUSATZ-2',
+                        'costPrice' => 'KOSTEN',
+                        'discount' => 'RABATT',
+                        'discountPercent' => 'RABATT[%]',
+                        'compromiser' => 'ENTGEGENKOMMEN',
+                        'extraCostName' => 'WEITERE ABZÜGE',
+                        'extraCostPrice' => 'WEITERE ABZÜGE PREIS',
+                        'defaultPrice' => 'GESCHÄTZTE KOSTEN',
+                        'topCost' => 'KOSTENDACH',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+                    
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Umzug',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt
+                    ];
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerUmzugId == NULL && $request->isUmzug) {
             $offerUmzug = [
@@ -1167,7 +1580,77 @@ class indexController extends Controller
                     'fixedPrice' => $request->isEinpackPauschal ?  $request->einpackDefaultPrice : Null,
                 ];
 
-                OfferteEinpack::where('id', $offerEinpackId)->update($offerEinpack);
+                // OfferteEinpack::where('id', $offerEinpackId)->update($offerEinpack);
+                $offerteEinpack = OfferteEinpack::find($offerEinpackId);
+                $originalDataEinpack = $offerteEinpack->getAttributes();
+
+                $offerteEinpack->fill($offerEinpack);
+                $offerteEinpack->save();
+
+                $changes = $offerteEinpack->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataEinpack[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+                    
+                    $attributeMappings = array(
+                        'tariff' => 'TARIF',
+                        'ma' => 'MA',
+                        'chf' => 'CHF-ANSATZ',
+                        'einpackDate' => 'PACKTERMIN',
+                        'einpackTime' => 'ARBEITSBEGINN',
+                        'arrivalReturn' => 'ANFAHRT/RÜCKFAHRT [CHF]',
+                        'moveHours' => 'DAUER [H]',
+                        'extra' => 'Spesen',
+                        'extra1' => 'Verpackungsmaterial',
+                        'customCostName1' => 'CustomZUSATZ-1 Text',
+                        'customCostName2' => 'CustomZUSATZ-2 Text',
+                        'customCostPrice1' => 'CustomZUSATZ-1',
+                        'customCostPrice2' => 'CustomZUSATZ-2',
+                        'costPrice' => 'KOSTEN',
+                        'discount' => 'RABATT',
+                        'discountPercent' => 'RABATT[%]',
+                        'compromiser' => 'ENTGEGENKOMMEN',
+                        'extraCostName' => 'WEITERE ABZÜGE',
+                        'extraCostPrice' => 'WEITERE ABZÜGE PREIS',
+                        'defaultPrice' => 'GESCHÄTZTE KOSTEN',
+                        'topCost' => 'KOSTENDACH',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Einpack',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerEinpackId == NULL && $request->isEinpack) {
             $offerEinpack = [
@@ -1232,7 +1715,77 @@ class indexController extends Controller
                     'fixedPrice' => $request->isAuspackPauschal ?  $request->auspackDefaultPrice : Null,
                 ];
 
-                OfferteAuspack::where('id', $offerAuspackId)->update($offerAuspack);
+                // OfferteAuspack::where('id', $offerAuspackId)->update($offerAuspack);
+                $offerteAuspack = OfferteAuspack::find($offerAuspackId);
+                $originalDataAuspack = $offerteAuspack->getAttributes();
+
+                $offerteAuspack->fill($offerAuspack);
+                $offerteAuspack->save();
+
+                $changes = $offerteAuspack->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataAuspack[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'tariff' => 'TARIF',
+                        'ma' => 'MA',
+                        'chf' => 'CHF-ANSATZ',
+                        'auspackDate' => 'PACKTERMIN',
+                        'auspackTime' => 'ARBEITSBEGINN',
+                        'arrivalReturn' => 'ANFAHRT/RÜCKFAHRT [CHF]',
+                        'moveHours' => 'DAUER [H]',
+                        'extra' => 'Spesen',
+                        'extra1' => 'Verpackungsmaterial',
+                        'customCostName1' => 'CustomZUSATZ-1 Text',
+                        'customCostName2' => 'CustomZUSATZ-2 Text',
+                        'customCostPrice1' => 'CustomZUSATZ-1',
+                        'customCostPrice2' => 'CustomZUSATZ-2',
+                        'costPrice' => 'KOSTEN',
+                        'discount' => 'RABATT',
+                        'discountPercent' => 'RABATT[%]',
+                        'compromiser' => 'ENTGEGENKOMMEN',
+                        'extraCostName' => 'WEITERE ABZÜGE',
+                        'extraCostPrice' => 'WEITERE ABZÜGE PREIS',
+                        'defaultPrice' => 'GESCHÄTZTE KOSTEN',
+                        'topCost' => 'KOSTENDACH',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Auspack',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerAuspackId == NULL && $request->isAuspack) {
             $offerAuspack = [
@@ -1300,7 +1853,81 @@ class indexController extends Controller
                     'totalPrice' => $request->reinigungTotalPrice,
                 ];
 
-                OfferteReinigung::where('id', $offerReinigungId)->update($offerReinigung);
+                // OfferteReinigung::where('id', $offerReinigungId)->update($offerReinigung);
+                $offerteReinigung = OfferteReinigung::find($offerReinigungId);
+                $originalDataReinigung = $offerteReinigung->getAttributes();
+
+                $offerteReinigung->fill($offerReinigung);
+                $offerteReinigung->save();
+
+                $changes = $offerteReinigung->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataReinigung[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+                    
+                    $attributeMappings = array(
+                        'reinigungType' => 'REINIGUNGSART',
+                        'extraReinigung' => 'MANUELLE EINGABE (REINIGUNGSART)',
+                        'fixedTariff' => 'TARIF (PAUSCHAL)',
+                        'fixedTariffPrice' => 'TARIFPREIS',
+                        'standartTariff' => 'TARIF (STUNDENANSATZ)',
+                        'ma' => 'MA',
+                        'chf' => 'CHF-ANSATZ',
+                        'hours' => 'DAUER [H]',
+                        'extraService1' => 'DÜBELLÖCHER ZUSPACHTELN',
+                        'extraService2' => 'MIT HOCHDRUCKREINIGER',
+                        'startDate' => 'REINIGUNGSTERMIN',
+                        'startTime' => 'ARBEITSBEGINN',
+                        'endDate' => 'ABGABETERMIN',
+                        'endTime' => 'ABGABEZEIT',
+                        'extra1' => 'Hochdruckreiniger',
+                        'extra2' => 'Stein- und Parkettböden',
+                        'extra3' => 'Teppichschamponieren',
+                        'extraCostText1' => 'CustomZUSATZ-1 Text',
+                        'extraCostValue1' => 'CustomZUSATZ-1',
+                        'extraCostText2' => 'CustomZUSATZ-2 Text',
+                        'extraCostValue2' => 'CustomZUSATZ-2',
+                        'costPrice' => 'KOSTEN',
+                        'discountText' => 'ABZUG-TEXT',
+                        'discount' => 'ABZUG',
+                        'discountPercent' => 'RABATT[%]',
+                        'totalPrice' => 'GESCHÄTZTE KOSTEN',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Reinigung',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerReinigungId == NULL && $request->isReinigung) {
             $offerReinigung = [
@@ -1372,7 +1999,81 @@ class indexController extends Controller
                     'totalPrice' => $request->reinigungTotalPrice2,
                 ];
 
-                OfferteReinigung::where('id', $offerReinigungId2)->update($offerReinigung2);
+                // OfferteReinigung::where('id', $offerReinigungId2)->update($offerReinigung2);
+                $offerteReinigung2 = OfferteReinigung::find($offerReinigungId2);
+                $originalDataReinigung2 = $offerteReinigung2->getAttributes();
+
+                $offerteReinigung2->fill($offerReinigung2);
+                $offerteReinigung2->save();
+
+                $changes = $offerteReinigung2->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataReinigung2[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'reinigungType' => 'REINIGUNGSART',
+                        'extraReinigung' => 'MANUELLE EINGABE (REINIGUNGSART)',
+                        'fixedTariff' => 'TARIF (PAUSCHAL)',
+                        'fixedTariffPrice' => 'TARIFPREIS',
+                        'standartTariff' => 'TARIF (STUNDENANSATZ)',
+                        'ma' => 'MA',
+                        'chf' => 'CHF-ANSATZ',
+                        'hours' => 'DAUER [H]',
+                        'extraService1' => 'DÜBELLÖCHER ZUSPACHTELN',
+                        'extraService2' => 'MIT HOCHDRUCKREINIGER',
+                        'startDate' => 'REINIGUNGSTERMIN',
+                        'startTime' => 'ARBEITSBEGINN',
+                        'endDate' => 'ABGABETERMIN',
+                        'endTime' => 'ABGABEZEIT',
+                        'extra1' => 'Hochdruckreiniger',
+                        'extra2' => 'Stein- und Parkettböden',
+                        'extra3' => 'Teppichschamponieren',
+                        'extraCostText1' => 'CustomZUSATZ-1 Text',
+                        'extraCostValue1' => 'CustomZUSATZ-1',
+                        'extraCostText2' => 'CustomZUSATZ-2 Text',
+                        'extraCostValue2' => 'CustomZUSATZ-2',
+                        'costPrice' => 'KOSTEN',
+                        'discountText' => 'ABZUG-TEXT',
+                        'discount' => 'ABZUG',
+                        'discountPercent' => 'RABATT[%]',
+                        'totalPrice' => 'GESCHÄTZTE KOSTEN',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Reinigung2',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerReinigungId2 == NULL && $request->isReinigung2) {
             $offerReinigung2 = [
@@ -1445,7 +2146,81 @@ class indexController extends Controller
                     'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
                 ];
 
-                OfferteEntsorgung::where('id', $offerEntsorgungId)->update($offerEntsorgung);
+                // OfferteEntsorgung::where('id', $offerEntsorgungId)->update($offerEntsorgung);
+                $offerteEntsorgung = OfferteEntsorgung::find($offerEntsorgungId);
+                $originalDataEntsorgung = $offerteEntsorgung->getAttributes();
+
+                $offerteEntsorgung->fill($offerEntsorgung);
+                $offerteEntsorgung->save();
+
+                $changes = $offerteEntsorgung->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataEntsorgung[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'volume' => 'VOLUMEN-TARIF',
+                        'volumeCHF' => 'CHF-Ansatz',
+                        'fixedCost' => 'ENTSORGUNGSAUFWAND PAUSCHAL',
+                        'm3' => 'GESCHÄTZTES VOLUMEN [M3]',
+                        'tariff' => 'TARIF',
+                        'ma' => 'MA',
+                        'lkw' => 'LKW',
+                        'anhanger' => 'ANHÄNGER',
+                        'chf' => 'CHF-ANSATZ',
+                        'hour' => 'DAUER [H]',
+                        'entsorgungDate' => 'ENTSORGUNGSTERMIN',
+                        'entsorgungTime' => 'ARBEITSBEGINN',
+                        'arrivalReturn' => 'ANFAHRT/RÜCKFAHRT [CHF]',
+                        'entsorgungExtra1' => 'Spesen',
+                        'extraCostText1' => 'CustomZUSATZ-1 Text',
+                        'extraCostValue1' => 'CustomZUSATZ-1',
+                        'extraCostText2' => 'CustomZUSATZ-2 Text',
+                        'extraCostValue2' => 'CustomZUSATZ-2',
+                        'discount' => 'RABATT',
+                        'discountPercent' => 'RABATT[%]',
+                        'extraDiscountText' => 'WEITERE ABZÜGE-TEXT',
+                        'extraDiscountPrice' => 'WEITERE ABZÜGE-PREIS',
+                        'costPrice' => 'KOSTEN',
+                        'defaultPrice' => 'GESCHÄTZTE KOSTEN',
+                        'topCost' => 'KOSTENDACH',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Entsorgung',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerEntsorgungId == NULL && $request->isEntsorgung) {
             $offerEntsorgung = [
@@ -1525,7 +2300,91 @@ class indexController extends Controller
                     'topCost' => $request->isTransportKostendach ?  $request->transportTopPrice : Null,
                     'fixedPrice' => $request->isTransportKostendach ?  $request->transportFixedPrice : Null,
                 ];
-                OfferteTransport::where('id', $offerTransportId)->update($offerTransport);
+                // OfferteTransport::where('id', $offerTransportId)->update($offerTransport);
+                $offerteTransport = OfferteTransport::find($offerTransportId);
+                $originalDataTransport = $offerteTransport->getAttributes();
+
+                $offerteTransport->fill($offerTransport);
+                $offerteTransport->save();
+
+                $changes = $offerteTransport->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataTransport[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'pdfText' => 'TRANSPORT-ART TEXT (KOMMT IN PDF)',
+                        'fixedChf' => 'PAUSCHALPREIS-TARIF',
+                        'tariff' => 'TARIF',
+                        'ma' => 'MA',
+                        'lkw' => 'LKW',
+                        'anhanger' => 'ANHÄNGER',
+                        'chf' => 'CHF-ANSATZ',
+                        'hour' => 'DAUER [H]',
+                        'transportDate' => 'TRANSPORTTERMIN',
+                        'transportTime' => 'ARBEITSBEGINN',
+                        'arrivalReturn' => 'ANFAHRT/RÜCKFAHRT [CHF]',
+                        'extraCostText1' => 'CustomZUSATZ-1 Text',
+                        'extraCostValue1' => 'CustomZUSATZ-1',
+                        'extraCostText2' => 'CustomZUSATZ-2 Text',
+                        'extraCostValue2' => 'CustomZUSATZ-2',
+                        'extraCostText3' => 'CustomZUSATZ-3 Text',
+                        'extraCostValue3' => 'CustomZUSATZ-3',
+                        'extraCostText4' => 'CustomZUSATZ-4 Text',
+                        'extraCostValue4' => 'CustomZUSATZ-4',
+                        'extraCostText5' => 'CustomZUSATZ-5 Text',
+                        'extraCostValue5' => 'CustomZUSATZ-5',
+                        'extraCostText6' => 'CustomZUSATZ-6 Text',
+                        'extraCostValue6' => 'CustomZUSATZ-6',
+                        'extraCostText7' => 'CustomZUSATZ-7 Text',
+                        'extraCostValue7' => 'CustomZUSATZ-7',
+                        'totalPrice' => 'KOSTEN',
+                        'discount' => 'RABATT',
+                        'discountPercent' => 'RABATT[%]',
+                        'compromiser' => 'ENTGEGENKOMMEN',
+                        'extraDiscountText' => 'WEITERE ABZÜGE-1 TEXT',
+                        'extraDiscountValue' => 'WEITERE ABZÜGE-1',
+                        'extraDiscountText2' => 'WEITERE ABZÜGE-2 TEXT',
+                        'extraDiscountValue2' => 'WEITERE ABZÜGE-2',
+                        'defaultPrice' => 'GESCHÄTZTE KOSTEN',
+                        'topCost' => 'KOSTENDACH',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Transport',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerTransportId == NULL && $request->isTransport) {
             $offerTransport = [
@@ -1592,7 +2451,68 @@ class indexController extends Controller
                     'totalPrice' => $request->lagerungCost,
                     'fixedPrice' => $request->isLagerungFixedPrice ?  $request->lagerungFixedPrice : Null,
                 ];
-                OfferteLagerung::where('id', $offerLagerungId)->update($offerLagerung);
+                // OfferteLagerung::where('id', $offerLagerungId)->update($offerLagerung);
+                $offerteLagerung = OfferteLagerung::find($offerLagerungId);
+                $originalDataLagerung = $offerteLagerung->getAttributes();
+
+                $offerteLagerung->fill($offerLagerung);
+                $offerteLagerung->save();
+
+                $changes = $offerteLagerung->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataLagerung[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'tariff' => 'TARIF',
+                        'chf' => 'CHF-ANSATZ',
+                        'volume' => 'VOLUMEN [M3]',
+                        'extraCostText1' => 'WEITERE KOSTEN-1 TEXT',
+                        'extraCostValue1' => 'WEITERE KOSTEN-1',
+                        'extraCostText2' => 'WEITERE KOSTEN-2 TEXT',
+                        'extraCostValue2' => 'WEITERE KOSTEN-2',
+                        'discountText' => 'WEITERE ABZÜGE-TEXT',
+                        'discountValue' => 'WEITERE ABZÜGE-PREIS',
+                        'discountPercent' => 'RABATT[%]',
+                        'costPrice' => 'KOSTEN',
+                        'totalPrice' => 'GESCHÄTZTE KOSTEN',
+                        'fixedPrice' => 'PAUSCHAL',
+                    );
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Lagerung',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
             }
         } elseif ($offerLagerungId == NULL && $request->isLagerung) {
             $offerLagerung = [
@@ -1632,9 +2552,63 @@ class indexController extends Controller
                     'totalPrice' => $request->materialTotalPrice
                 ];
 
-                $materialUpdate = OfferteMaterial::where('id', $offerMaterialId)->update($offerMaterial);
+                // $materialUpdate = OfferteMaterial::where('id', $offerMaterialId)->update($offerMaterial);
+                $offerteMaterial = OfferteMaterial::find($offerMaterialId);
+                $originalDataMaterial = $offerteMaterial->getAttributes();
 
-                if ($materialUpdate && $all['islem']) {
+                $offerteMaterial->fill($offerMaterial);
+                $offerteMaterial->save();
+
+                $changes = $offerteMaterial->getChanges();
+
+                
+                foreach ($changes as $attribute => $newValue) {
+                    $oldValue = $originalDataMaterial[$attribute];
+                    if ($attribute === 'updated_at') {
+                        continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                    }
+
+                    $attributeMappings = array(
+                        'discount' => 'REDUKTION',
+                        'discountPercent' => 'REDUKTION[%]',
+                        'deliverPrice' => 'LIEFERUNG',
+                        'recievePrice' => 'ABHOLUNG',
+                        'totalPrice' => 'TOTAL',
+                    );
+
+                    $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+                    $changedData[$attribute] = [
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                        'serviceType' => 'Material',
+                        'offerId' => $request->route('id'),
+                        'inputName' => $newAtt,
+                    ];
+                   
+                }
+
+                if($id == 719){
+                    foreach ($changedData as $key => $value) {
+                        $oldValue = $value['oldValue'];
+                        $newValue = $value['newValue'];
+                        $serviceType = $value['serviceType'];
+                        $offerId = $value['offerId'];
+                        $inputName = $value['inputName'];
+                        
+                        $offerLog = [
+                            'offerId' => $offerId,
+                            'serviceType' => $serviceType,
+                            'inputName' => $inputName,
+                            'oldValue' => $oldValue,
+                            'newValue' => $newValue,
+                        ];
+                        OfferLogs::create($offerLog);
+                        $changedData = [];
+                    }
+                }
+
+                if ($offerteMaterial && $all['islem']) {
                     $islem = $all['islem'];
                     unset($all['islem']);
                     if (count($islem) != 0) {
@@ -1685,7 +2659,6 @@ class indexController extends Controller
                 }
             }
         }
-
         if ($request->contactPerson == 'Bitte wählen') {
             $contactPerson = $request->customContactPerson;
         } else {
@@ -1720,7 +2693,79 @@ class indexController extends Controller
             'offerteStatus' => 'Beklemede'
         ];
 
-        $update = offerte::where('id', $id)->update($offerteUpdate);
+        $offerte = offerte::find($id);
+        $originalData = $offerte->getAttributes();
+
+        $offerte->fill($offerteUpdate);
+        $offerte->save();
+
+        $changes = $offerte->getChanges();
+
+        
+        foreach ($changes as $attribute => $newValue) {
+            $oldValue = $originalData[$attribute];
+            if ($attribute === 'updated_at') {
+                continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+            }
+
+            $attributeMappings = array(
+                'appType' => 'BESICHTIGUNG',
+                'auszugaddressId' => 'AuszugAdresse-1',
+                'auszugaddressId2' => 'AuszugAdresse-2',
+                'auszugaddressId3' => 'AuszugAdresse-3',
+                'einzugaddressId' => 'EinzugAdresse-1',
+                'einzugaddressId2' => 'EinzugAdresse-2',
+                'einzugaddressId3' => 'EinzugAdresse-3',
+                'offerteUmzugId' => 'Umzug',
+                'offerteEinpackId' => 'Einpack',
+                'offerteAuspackId' => 'Auspack',
+                'offerteReinigungId' => 'Reinigung',
+                'offerteReinigung2Id' => 'Reinigung-2',
+                'offerteEntsorgungId' => 'Entsorgung',
+                'offerteTransportId' => 'Transport',
+                'offerteLagerungId' => 'Lagerung',
+                'offerteMaterialId' => 'Material',
+                'offerPrice' => 'ESIMATED INCOME',
+                'offerteNote' => 'BEMERKUNG (IN OFFERTE)',
+                'panelNote' => 'NOTIZ (NICHT IN OFFERTE)',
+                'kostenInkl' => 'Kosten inkl. MwSt.',
+                'kostenExkl' => 'Kosten exkl. MwSt.',
+                'kostenFrei' => 'Kostenfrei MwSt.',
+                'contactPerson' => 'KONTAKTPERSON',
+                'offerteStatus' => 'OFFERTE-Stand',
+            );
+
+            $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
+
+            $changedData[$attribute] = [
+                'oldValue' => $oldValue,
+                'newValue' => $newValue,
+                'serviceType' => 'Offerte',
+                'offerId' => $request->route('id'),
+                'inputName' => $newAtt,
+            ];
+            
+        }
+
+        if($id == 719){
+            foreach ($changedData as $key => $value) {
+                $oldValue = $value['oldValue'];
+                $newValue = $value['newValue'];
+                $serviceType = $value['serviceType'];
+                $offerId = $value['offerId'];
+                $inputName = $value['inputName'];
+                
+                $offerLog = [
+                    'offerId' => $offerId,
+                    'serviceType' => $serviceType,
+                    'inputName' => $inputName,
+                    'oldValue' => $oldValue,
+                    'newValue' => $newValue,
+                ];
+                OfferLogs::create($offerLog);
+                $changedData = [];
+            }
+        }
 
         // Teklif Onayı
         $oToken = Str::random(64);
@@ -1825,6 +2870,7 @@ class indexController extends Controller
             'lagerung' => $lagerungPdf,
             'material' => $materialPdf,
             'basket' => $basketPdf,
+            'contactPerson' => $offer['contactPerson'],
         ];
 
         $pdf = Pdf::loadView('offerPdf', $pdfData);
@@ -1864,11 +2910,11 @@ class indexController extends Controller
         margin: 4px 2px;
         cursor: pointer;"
         ' . '>' . 'Offerte Ablehnen' . '</a>';
-        $offerMailFooter = view('offerMailFooter');
+        $offerMailFooter = view('offerMailFooter'); 
 
         $emailData = [
             'appType' => $offer['appType'],
-            'offerteNumber' => $offerteId,
+            'offerteNumber' => $id,
             'contactPerson' => $contactPerson,
             'name' => $customer,
             'surname' => $customerSurname,
@@ -1887,25 +2933,26 @@ class indexController extends Controller
             'offerMailFooter' => $offerMailFooter
         ];
 
+        
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
 
-        if ($update) {
+        if ($offerte->save()) {
             $mailSuccess = '';
             if ($isEmailSend) {
                 Mail::to($emailData['email'])->send(new OfferMail($emailData));
-                $mailSuccess = ', Mail ve Teklif Dosyası Başarıyla Gönderildi';
+                $mailSuccess = ', E-Mail und Angebotdatei wurden erfolgreich gesendet';
             }
 
             return redirect()
                 ->route('customer.detail', ['id' => $d['customerId']])
-                ->with('status', $id . ' - ' . 'Numaralı Teklif Düzenlendi' . $mailSuccess)
+                ->with('status', $id . ' - ' . 'Angebot mit Nummer wurde bearbeitet' . $mailSuccess)
                 ->with('cat', 'Offerte')
                 ->withInput()
                 ->with('keep_status', true);
         } else {
-            return redirect()->back()->with('status', 'HATA:Teklif Düzenlenemedi');
+            return redirect()->back()->with('status', 'Fehler: Angebot konnte nicht bearbeitet werden');
         }
     }
 
@@ -1918,11 +2965,13 @@ class indexController extends Controller
             $data = offerte::where('id', $id)->first();
             // dd($data);
             $customer = Customer::where('id', $data['customerId'])->first();
+            $logs = OfferLogs::where('offerId', $id)->get();
             return view(
                 'front.offer.detail',
                 [
                     'data' => $data,
-                    'customer' => $customer
+                    'customer' => $customer,
+                    'logs' => $logs
                 ]
             );
         }
@@ -1936,10 +2985,10 @@ class indexController extends Controller
         ];
         $offerAcception = offerte::where('id',$id)->update($offer);
         if($offerAcception){
-            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+            return redirect()->back()->with('status', 'Angebotsstatus erfolgreich aktualisiert.');
         }
         else {
-            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
+            return redirect()->back()->with('status-err', 'Fehler: Angebotsstatus konnte nicht aktualisiert werden.');
         }
         
     }
@@ -1953,10 +3002,10 @@ class indexController extends Controller
         $offerRejection = offerte::where('id',$id)->update($offer);
 
         if($offerRejection){
-            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+            return redirect()->back()->with('status', 'Angebotsstatus erfolgreich aktualisiert.');
         }
         else {
-            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
+            return redirect()->back()->with('status-err', 'Fehler: Angebotsstatus konnte nicht aktualisiert werden.');
         }
     }
 
@@ -1969,10 +3018,10 @@ class indexController extends Controller
         $offerDefault = offerte::where('id',$id)->update($offer);
         
         if($offerDefault){
-            return redirect()->back()->with('status', 'Teklif Durumu Başarıyla Güncellendi.');
+            return redirect()->back()->with('status', 'Angebotsstatus erfolgreich aktualisiert.');
         }
         else {
-            return redirect()->back()->with('status-err', 'Hata:Teklif Durumu Güncellenemedi.');
+            return redirect()->back()->with('status-err', 'Fehler: Angebotsstatus konnte nicht aktualisiert werden.');
         }
     }
 
@@ -2034,7 +3083,7 @@ class indexController extends Controller
 
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
-                ->with('status', 'Teklif Başarıyla Silindi')
+                ->with('status', 'Angebot erfolgreich gelöscht')
                 ->with('cat', 'Offerte')
                 ->withInput()
                 ->with('keep_status', true);
