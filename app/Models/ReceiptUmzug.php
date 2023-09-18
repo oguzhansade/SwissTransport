@@ -51,5 +51,6 @@ class ReceiptUmzug extends Model
         'invoicePrice',
         'signerName',
         'expensePrice',
+        'docTaken'
     ];
 }

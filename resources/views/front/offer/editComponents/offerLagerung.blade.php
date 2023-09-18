@@ -2,11 +2,11 @@
 <div class="form-group row">
     <div class="col-md-12 lagerung-control">
         <label for="" class="col-form-label">Lagerung</label><br>
-        <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($lagerung) checked @endif>  
+        <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch " data-color="#286090" data-switchery="false" @if($lagerung) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded lagerung--area" style="background-color: #CBB4FF; @if($lagerung == NULL) display:none; @endif">
+<div class="rounded lagerung--area" style="background-color: #C8DFF3; @if($lagerung == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="lagerungCostPrice"  name="lagerungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="lagerungCostPrice"  name="lagerungCostPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'costPrice') != NULL) 
                 value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'costPrice') }}"
                 @else value="{{ 0 }}"
@@ -111,7 +111,7 @@
             </div>
 
             <label class="col-form-label mt-1 " for="l0">GESCHÄTZTE KOSTEN</label>
-            <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'totalPrice') != NULL) 
                 value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'totalPrice') }}"
                 @else value="{{ 0 }}"
@@ -119,20 +119,20 @@
 
             <div class="mt-2 lagerung-fixed-control">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice')) checked @endif>
             </div>
 
 
             <div class="lagerung-fixed-area" style="display: none;">
-                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($lagerung && \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') != NULL) 
                     value="{{ \App\Models\OfferteLagerung::InfoLagerung($lagerung,'fixedPrice') }}"
                 @endif>
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isLagerungFxPrice" id="isLagerungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isLagerungFxPrice" id="isLagerungFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

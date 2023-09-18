@@ -47,13 +47,14 @@
                         @csrf
                         <div class="row p-3 mb-3">
                             <div class="col-md-4">
-                                <label class=" col-form-label" for="l0">Offertennr</label>
-                                <select name="offerteId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
+                                <label class=" col-form-label" for="l0">Quittung(Standart)</label>
+                                <select id="receiptUmzug" name="receiptUmzugId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
-                                    @foreach (\App\Models\offerte::all() as $k => $v)
-                                        <option class="form-control" data-offerteId = "{{ $v['id'] }}"  value="{{ $v['id'] }}">{{ $v['id'] }}</option>
+                                    @foreach (\App\Models\ReceiptUmzug::all() as $k => $v)
+                                        <option class="form-control" data-receiptUmzugId="{{ $v['id'] }}" data-umzugHour="{{ $v['umzugHour'] }}" value="{{ $v['id'] }}">{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
+                                <small id="defaultHour" class="text-primary">Standardstunde: 0</small>
                             </div>
 
                             <div class="col-md-4">
@@ -125,7 +126,30 @@
     
     var say= 0;
     var i = $(".islem_field").lenght || 0;
-    let defaultHour = 1;
+
+    let defaultHour = $(this).find("option:selected").attr("data-umzugHour") || 0;
+    if(!isNaN(defaultHour))
+    {
+        $("#defaultHour").text('Standardstunde: '+defaultHour);
+    }
+    else{
+        defaultHour = 0;
+        $("#defaultHour").text('Standardstunde: 0');
+    }
+
+    $("#receiptUmzug").on("change", function() {
+        defaultHour = $(this).find("option:selected").attr("data-umzugHour");
+        defaultHour = parseInt(defaultHour)
+        if(!isNaN(defaultHour))
+        {
+            $("#defaultHour").text('Standardstunde: '+defaultHour);
+        }
+        else{
+            defaultHour = 0;
+            $("#defaultHour").text('Standardstunde: 0');
+        }
+    })
+
     $("#addRowBtn").click(function () {
         
         
@@ -169,9 +193,8 @@
     
 
     $("body").on("change",".islem_field", function (){
-
         let fiyat = $(this).find('.isci').find(":selected").data("fiyat")
-        let   saat = $(this).closest(".islem_field").find("#saat").val();
+        let saat =  $(this).closest(".islem_field").find("#saat").val();
         let tutar = $(this).closest(".islem_field").find("#tutar").val() || 0;
         tutar = parseFloat(tutar)
         saat = parseFloat(saat)

@@ -35,7 +35,7 @@
         
         <div class="extra-cost-auspack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
         </div>  
 
         <div class="auspack--extra--cost--area" style="display: block;">
@@ -91,7 +91,7 @@
         </div>
         
         <label class="col-form-label mt-1 " for="l0">Kosten</label>
-        <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+        <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
 
         <label class="col-form-label" for="l0">Rabatt</label>
         <input class="form-control"  name="auspackDiscount" placeholder="0"  type="number" > 
@@ -114,33 +114,33 @@
         </div>
 
         <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-        <input class="form-control"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+        <input class="form-control"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
         <div class="mt-2 isAuspackKostendach">
             <label class="col-form-label" for="l0">Kostendach</label>
-            <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
         </div>
 
         <div class="auspack-kostendach-area" style="display: none;">
-            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
         </div>
 
         <div class="mt-3 isAuspackPauschal">
             <label class="col-form-label" for="l0">Pauschal</label>
-            <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
         </div>
 
         <div class="auspack-pauschal-area " style="display:none;">
-            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
         </div>
     </div>

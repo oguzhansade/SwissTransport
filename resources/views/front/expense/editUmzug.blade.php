@@ -55,8 +55,8 @@
                                     <table id="faturaData" class="table">
                                         <thead class="text-dark">
                                             <tr>
-                                                <th>Gider Adı</th>
-                                                <th>Gider Fiyatı</th>
+                                                <th>Spesenname</th>
+                                                <th>Kostenpreis</th>
                                                 <th>Löschen</th>
                                             </tr>
                                         </thead>
@@ -85,7 +85,7 @@
                         
                         <div class="row p-3">
                             <div class="col-md-12 d-flex justify-content-center">
-                                <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i> Arbeiter hinzufügen</button>
+                                <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i> Aufgaben hinzufügen</button>
                                 <button type="button" id="removeAllButton" class="btn-rounded btn btn-danger ml-1" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">Alles löschen</button>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                         onMouseOver="this.style.backgroundColor='#E1432E';"
                                         onMouseOut="this.style.backgroundColor='#E6614F';"
                                         target="_blank">
-                                        <strong>Bütün Giderleri Sil</strong>
+                                        <strong>Löschen Sie alle Ausgaben</strong>
                                      </a>
                                 </div>
                             </div>
@@ -126,9 +126,12 @@
 @endsection
 
 @section('footer')
+
 <script>
-      var i = $(".islem_field").lenght;
     
+    var i = $(".islem_field").length || 0;
+
+    console.log(i);
     let giderler = [
     'Möbellift Miete',
     'Lieferwagen Miete',
@@ -144,8 +147,6 @@
         $('input[name=totalExpense]').val('');
     })
     $("#addRowBtn").click(function () {
-        
-        
         var newRow = 
         '<tr class="islem_field">' +
         '<td><select class="m-b-10 form-control expense" name="islem['+i+'][expense]" data-toggle="select2">'+

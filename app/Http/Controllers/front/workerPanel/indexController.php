@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WorkerMail;
+use App\Models\ReceiptUmzug;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -45,8 +46,8 @@ class indexController extends Controller
                 return $data->workerHour.' '.'[h]';
             }
         })
-        ->editColumn('offerteId', function($data){ 
-                return ''.$data->offerteId;
+        ->editColumn('receiptUmzugId', function($data){ 
+                return ''.$data->receiptUmzugId;
         })
         ->editColumn('workerPrice', function($data){ 
             return 'CHF'.' '.$data->workerPrice;
@@ -60,37 +61,45 @@ class indexController extends Controller
             return $taskfullDate;
         
         })
-        ->addColumn('detail',function($table) 
-        {
+        ->addColumn('detail',function($table){
             return '<a href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'">Detay</a>';
         })
-        ->addColumn('edit',function($table) 
-        {
-            if($table->workerHour > 0)
-            {
-                return '<a href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">Saati Düzenle</a>';
-            }
-            else
-            {
-                return '<a href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">Saat Gir</a>';
-            }
-            
-            
+
+        ->addColumn('customerName',function($data){
+            $task = Task::where('id',$data->taskId)->first();
+            $receipt = ReceiptUmzug::where('id',$task->receiptUmzugId)->first();
+            $customer = Customer::where('id',$receipt['customerId'])->first();
+            return $customer['name'].' '.$customer['surname'];
         })
+
+        // ->addColumn('edit',function($table) 
+        // {
+        //     if($table->workerHour > 0)
+        //     {
+        //         return '<a href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">Saati Düzenle</a>';
+        //     }
+        //     else
+        //     {
+        //         return '<a href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">Saat Gir</a>';
+        //     }
+            
+            
+        // })
         ->addColumn('option',function($table) 
         {
-            if($table->workerHour >0) 
-            {
-                return '<a class="btn btn-sm  btn-primary" href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-eye" ></i></a>
-                <a class="btn btn-sm  btn-success" href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-clock" ></i></a>';
-            }
-            else
-            {
-                return '<a class="btn btn-sm  btn-primary" href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-eye" ></i></a>
-                <a  class="btn btn-sm  btn-warning" href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">
-                <i class="feather feather-clock" ></i>
-                </a>';
-            }
+            return '<a class="btn btn-sm px-5 py-0  btn-primary" href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'">Detail</a>';
+            // if($table->workerHour >0) 
+            // {
+            //     return '<a class="btn btn-sm  btn-primary" href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-eye" ></i></a>
+            //     <a class="btn btn-sm  btn-success" href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-clock" ></i></a>';
+            // }
+            // else
+            // {
+            //     return '<a class="btn btn-sm  btn-primary" href="'.route('workerPanel.taskDetail',['userId'=>$table->userId,'id'=>$table->id]).'"><i class="feather feather-eye" ></i></a>
+            //     <a  class="btn btn-sm  btn-warning" href="'.route('workerPanel.taskEdit',['userId'=>$table->userId,'id'=>$table->id]).'">
+            //     <i class="feather feather-clock" ></i>
+            //     </a>';
+            // }
             
         })
         ->rawColumns(['option'])
@@ -117,17 +126,21 @@ class indexController extends Controller
         $taskid = $request->route('id');
         $data = WorkerBasket::where('userId',Auth::id())->where('id',$taskid)->first();
         $task = Task::where('id',$data['taskId'])->first();
-        $offerte = offerte::where('id',$data['offerteId'])->first();
-        $customer = Customer::where('id',$offerte['customerId'])->first();
+        $receipt = ReceiptUmzug::where('id',$data['receiptUmzugId'])->first();
+        $customer = Customer::where('id',$receipt['customerId'])->first();
+        $offerte = offerte::where('id',$receipt['offerId'])->first();
         $ausAdres1 = offerteAddress::where('id',$offerte['auszugaddressId'])->first();
         $ausAdres2 = offerteAddress::where('id',$offerte['auszugaddressId2'])->first();
         $ausAdres3 = offerteAddress::where('id',$offerte['auszugaddressId3'])->first();
         $einAdres1 = offerteAddress::where('id',$offerte['einzugaddressId'])->first();
         $einAdres2 = offerteAddress::where('id',$offerte['einzugaddressId2'])->first();
         $einAdres3 = offerteAddress::where('id',$offerte['einzugaddressId3'])->first();
+        $workerTeam = WorkerBasket::where('taskId',$task['id'])->get()->toArray();
+        // dd($workerTeam);
         return view ('front.workerPanel.task.detail',[
             'data' => $data, 
             'task' => $task,
+            'receipt' => $receipt,
             'offerte' => $offerte,
             'customer' => $customer,
             'ausAdres1' => $ausAdres1,
@@ -136,6 +149,7 @@ class indexController extends Controller
             'einAdres1' => $einAdres1,
             'einAdres2' => $einAdres2,
             'einAdres3' => $einAdres3,
+            'team' => $workerTeam,
         ]);
     }
 

@@ -54,7 +54,7 @@
         </header>
     </header>
     <footer>
-        <p style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 58 | info@swisstransport.ch | www.swisstransport.ch</p>
+        <p style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731 96 58 | info@swisstransport.ch | www.swisstransport.ch</p>
     </footer>
     <main>
         <div class="teklif-boyutu">
@@ -187,7 +187,7 @@
                         </td>
                     </tr>
                     
-                    @if ( $receipt['withTax'] )
+                    @if ( $receipt['withoutTax'] )
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ></td>
                         <td colspan="2">
@@ -198,7 +198,36 @@
                         </td>
                     </tr>
                     @endif
+                    @if($receipt['withTax'])
+                        <tr valign="top" style="width:100%;margin-top:20px;">
+                            <td style="font-size:8px;">Alle Kosten sind inkl. MwSt.</td>
+                            <td colspan="2" style="font-size:8px;">
+                                MwSt.-Nummer: CHE-100.582.488
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endif
     
+                    @if($receipt['fixedPrice'])
+                    <tr valign="top" style="width:100%;margin-top:20px;">
+                        <td ><b>Pauschal:</b></td>
+                        <td colspan="2"></td>
+                        <td>
+                            <b>CHF {{ $receipt['fixedPrice'] }}</b><br><br>
+                        </td>
+                    </tr>
+                    @endif
+
+                    @if($receipt['topPrice'])
+                    <tr valign="top" style="width:100%;margin-top:20px;">
+                        <td ><b>Kostendach:</b></td>
+                        <td colspan="2"></td>
+                        <td>
+                            <b>CHF {{ $receipt['topPrice'] }}</b><br><br>
+                        </td>
+                    </tr>
+                    @endif
+
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Total Kosten:</b></td>
                         <td colspan="2"></td>
@@ -206,13 +235,7 @@
                             <b>CHF {{ $receipt['totalPrice'] }}</b><br><br>
                         </td>
                     </tr>
-                    {{-- <tr valign="top" style="width:100%;margin-top:20px;">
-                        <td style="font-size:8px;">Alle Kosten sind inkl. MwSt.</td>
-                        <td colspan="2" style="font-size:8px;">
-                            MwSt.-Nummer: CHE-100.582.488
-                        </td>
-                        <td></td>
-                    </tr> --}}
+                    
                 </table>
             </div>
     

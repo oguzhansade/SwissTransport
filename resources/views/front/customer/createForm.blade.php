@@ -112,7 +112,7 @@
     
                                 <div class="col-md-4 form-group">
                                     <label class="col-form-label"  for="l0">Telefon</label>
-                                    <input class="form-control" type="text"  placeholder="Phone Number" name="phone">
+                                    <input class="form-control" id="telefon" type="text"  placeholder="Phone Number" name="phone">
                                 </div>
     
                                 <div class="col-md-4">
@@ -129,14 +129,31 @@
                                     <input class="form-control"  name="street"  type="text"  value="{{ $data['vonStreet'] }}" required>                                
                                 </div>
     
+                                @php
+                                    $fullPlz = $data['vonPlz'];
+                                    $wordCount = str_word_count($fullPlz);
+                                    $lastSpaceIndex = strrpos($fullPlz, ' ');
+
+                                    $plz = '';
+                                    $ort = '';
+
+                                    // Eğer boşluk varsa ayrıştırma işlemini gerçekleştir
+                                    if ($lastSpaceIndex !== false) {
+                                        $plz = substr($fullPlz, 0, $lastSpaceIndex);
+                                        $ort = substr($fullPlz, $lastSpaceIndex + 1);
+                                    } else {
+                                        // Boşluk yoksa direkt olarak $data['vonPlz'] yi plz'ye atayın
+                                        $plz = $fullPlz;
+                                    }
+                                @endphp
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">PLZ</label>
-                                    <input class="form-control"  name="postCode"  type="text"  value="{{ $data['vonPlz'] }}" required>                                
+                                    <input class="form-control"  name="postCode"  type="text"  value="{{ $plz }}" required>                                
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Ort</label>
-                                    <input class="form-control"  name="Ort"  type="text" required>                                
+                                    <input class="form-control"  name="Ort"  type="text" value="{{ $ort }}" required>                                
                                 </div>
                             </div>
     
@@ -153,7 +170,7 @@
                                     </select>
 
                                     <div class="mt-1 isCustomCountry">
-                                        <label class="col-form-label" for="l0">Custom Land</label>
+                                        <label class="col-form-label" for="l0">Weitere Länder</label>
                                         <input type="checkbox"  name="isCustomCountry" id="isCustomCountry" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
                                     </div>
                                     <div class="custom-land-area" style="display:none;">
@@ -221,6 +238,25 @@
           var countryCode = countryCode.replace(/[^0-9]/g,'')
           $('#phone').val("");
           $('#phone').val("+"+countryCode+ $('#phone').val());
+       });
+    });
+</script>
+
+<script>
+    // Vanilla Javascript
+    var input = document.querySelector("#telefon");
+    window.intlTelInput(input,({
+        preferredCountries : ["ch","tr","de","li","at","it","fr"],
+        formatOnDisplay:true,
+        nationalMode:true,
+    }));
+ 
+    $(document).ready(function() {
+        $('.iti__flag-container').click(function() { 
+          var countryCode = $('.iti__selected-flag').attr('title');
+          var countryCode = countryCode.replace(/[^0-9]/g,'')
+          $('#telefon').val("");
+          $('#telefon').val("+"+countryCode+ $('#telefon').val());
        });
     });
 </script>

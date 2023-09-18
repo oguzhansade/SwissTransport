@@ -123,7 +123,7 @@
             <td valign="top" align="left" style="padding:0px!important;">
                 {{ \App\Models\Company::InfoCompany('phone') }} <br>
                 {{ \App\Models\Company::InfoCompany('email') }} <br>
-                <a href="{{ \App\Models\Company::InfoCompany('website') }}" target="_blank">{{ \App\Models\Company::InfoCompany('name') }}</a>
+                <a href="{{ \App\Models\Company::InfoCompany('website') }}" target="_blank">www.swisstransport.ch</a>
             </td>
         </tr>
         </tbody>

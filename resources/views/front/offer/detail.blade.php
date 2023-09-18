@@ -90,8 +90,8 @@
                                         <td valign="top"><span class="h5 font-weight-bold text-dark"> <strong>Stand Changer:</strong></span> </td>
                                         <td class="pl-3">
                                             <a href="#" id="manuelAccept" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">Bestätigt</a> <br>
-                                            <a href="#" id="manuelReject" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">Nicht Bestätigt</a><br>
-                                            <a href="#" id="manuelDefault" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">In Wartestellung</a>
+                                            <a href="#" id="manuelReject" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">Abgesagt</a><br>
+                                            <a href="#" id="manuelDefault" class="text-underline " data-toggle="modal" data-target="#manuelAcceptModal">is Offen</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -104,9 +104,8 @@
                             <div class="col-md-12">
                                 <label for="" class="col-form-label">Besichtigung</label><br>
                                 <select class="form-control" name="appOfferType" id="appOfferType">
-                                    <option value="0" @if($data['appType'] == 0) selected @endif>Nein</option>
+                                    <option value="0" @if($data['appType'] == 0 || 2) selected @endif>Nein</option>
                                     <option value="1" @if($data['appType'] == 1) selected @endif>Gemacht</option>
-                                    <option value="2" @if($data['appType'] == 2) selected @endif>Wünscht keine</option>
                                 </select> 
                             </div>                            
                         </div>
@@ -220,7 +219,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" checked>  
                                 </div>                            
                             </div>
                             
@@ -234,7 +233,7 @@
 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
                                 </div>   
                             </div>
 
@@ -249,13 +248,13 @@
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">
                                     <label for="" class="col-form-label">SMS an Kunden</label><br>
-                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
 
                             <div class="col-md-12 sms-format mb-3">
                                 <label for="" class="col-form-label">Standard SMStext bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#9c27b0" data-switchery="false" >   
+                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#286090" data-switchery="false" >   
                             </div>  
 
                             <div class="row form-group sms-format-area" style="display: none;">
@@ -271,12 +270,12 @@
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
                                     @if (App\Models\UserPermission::getMyControl(6)) 
                                     <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Termin trotzdem erstellen</strong> 
+                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong> 
                                     </a>
                                     @endif
 
                                     <a id="createapp"  href="{{ route('offer.edit',['id' => $data['id']]) }}" 
-                                        class="btn btn-info btn-rounded text-white" target="_blank"> <strong>Bearbeiten</strong> 
+                                        class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong> 
                                     </a>
 
                                     @if (App\Models\UserPermission::getMyControl(11)) 
@@ -289,12 +288,12 @@
                                         class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong> 
                                     </a>
                                     @endif
-                                    @if (App\Models\UserPermission::getMyControl(5))
+                                    {{-- @if (App\Models\UserPermission::getMyControl(5))
                                     <a id="createTask"  href="{{ route('task.createFromOffer',['id' => $data['id']]) }}" 
                                         class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Aufgabe erstellen</strong> 
                                     </a>
-                                    @endif
-                                    <a id="createTask"  href="{{ route('offer.showPdf',['id' => $data['id']]) }}" 
+                                    @endif --}}
+                                    <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}" 
                                         class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong> 
                                     </a>
                                     </div>
@@ -313,100 +312,110 @@
                   Logs
                 </a>
               </p>
+              
               <div class="collapse" id="collapseExample">
-                @foreach ($logs->reverse() as $key => $value )
+                
+                @if(count($logs) > 0)
+                    @foreach ($logs->reverse() as $key => $value )
+                            <div class="card card-body">
+                                @if($value['oldValue'] && $value['newValue'])
+                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki <span class="text-primary">
+                                {{ $value['inputName'] }}
+                                    </span>, <span class="text-danger">
+                                        @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
+                                        {{ App\Models\Tariff::InfoTariff($value['oldValue']) }}
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '1') 
+                                        Bitte Wahlen 
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '2')
+                                        Kunde
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '3')
+                                        Firma
+                                        @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '0')
+                                        Nein
+                                        @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '1')
+                                        Ja
+                                        @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '0')
+                                        Nein
+                                        @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '1')
+                                        Ja
+                                        @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '0')
+                                        Ja
+                                        @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '1')
+                                        Nein
+                                        @else
+                                        {{ $value['oldValue'] }}
+                                        @endif
+                                    </span>' den <span class="text-success">
+                                        @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
+                                        {{ App\Models\Tariff::InfoTariff($value['newValue']) }}
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '1') 
+                                        Bitte Wahlen 
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '2')
+                                        Kunde
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '3')
+                                        Firma
+                                        @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '1')
+                                        Ja
+                                        @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '0')
+                                        Nein
+                                        @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '1')
+                                        Ja
+                                        @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '0')
+                                        Nein
+                                        @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '0')
+                                        Ja
+                                        @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '1')
+                                        Nein
+                                        @else
+                                        {{ $value['newValue'] }}
+                                        @endif
+                                    </span> olarak değiştirildi. </span>
+                                @elseif (empty($value['oldValue']) && !empty($value['newValue']))
+                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                    @if (strpos($value['inputName'], 'Adresse') !== false 
+                                    || strpos($value['inputName'], 'Umzug') !== false
+                                    || strpos($value['inputName'], 'Einpack') !== false
+                                    || strpos($value['inputName'], 'Auspack') !== false
+                                    || strpos($value['inputName'], 'Reinigung') !== false
+                                    || strpos($value['inputName'], 'Reinigung-2') !== false
+                                    || strpos($value['inputName'], 'Entsorgung') !== false
+                                    || strpos($value['inputName'], 'Transport') !== false
+                                    || strpos($value['inputName'], 'Lagerung') !== false
+                                    || strpos($value['inputName'], 'Material') !== false)
+                                        <span class="text-success">{{ $value['inputName'] }}</span>, Eklendi
+                                    @else
+                                        <span class="text-success">{{ $value['inputName'] }}[{{ $value['newValue'] }}]</span>, Eklendi
+                                    @endif
+                                    
+                                @elseif (empty($value['newValue']) && !empty($value['oldValue']))
+                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                    @if (strpos($value['inputName'], 'Adresse') !== false
+                                    || strpos($value['inputName'], 'Umzug') !== false
+                                    || strpos($value['inputName'], 'Einpack') !== false
+                                    || strpos($value['inputName'], 'Auspack') !== false
+                                    || strpos($value['inputName'], 'Reinigung') !== false
+                                    || strpos($value['inputName'], 'Reinigung-2') !== false
+                                    || strpos($value['inputName'], 'Entsorgung') !== false
+                                    || strpos($value['inputName'], 'Transport') !== false
+                                    || strpos($value['inputName'], 'Lagerung') !== false
+                                    || strpos($value['inputName'], 'Material') !== false)
+                                        <span class="text-danger">{{ $value['inputName'] }}</span>, Silindi
+                                    @else
+                                        <span class="text-danger">{{ $value['inputName'] }}[{{ $value['oldValue'] }}]</span>, Silindi
+                                    @endif
+                                @endif
+                            </div>
+                    @endforeach
+                @else
+                <div class="card card-body">
+                    Keine Änderung vorgenommen
+                </div>
                     
-                        <div class="card card-body">
-                            @if($value['oldValue'] && $value['newValue'])
-                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki <span class="text-primary">
-                            {{ $value['inputName'] }}
-                                </span>, <span class="text-danger">
-                                    @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
-                                    {{ App\Models\Tariff::InfoTariff($value['oldValue']) }}
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '1') 
-                                    Bitte Wahlen 
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '2')
-                                    Kunde
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '3')
-                                    Firma
-                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '0')
-                                    Nein
-                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['oldValue'] == '1')
-                                    Ja
-                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '0')
-                                    Nein
-                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['oldValue'] == '1')
-                                    Ja
-                                    @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '0')
-                                    Ja
-                                    @elseif($value['inputName'] == 'LIFT' && $value['oldValue'] == '1')
-                                    Nein
-                                    @else
-                                    {{ $value['oldValue'] }}
-                                    @endif
-                                </span>' den <span class="text-success">
-                                    @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
-                                    {{ App\Models\Tariff::InfoTariff($value['newValue']) }}
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '1') 
-                                    Bitte Wahlen 
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '2')
-                                    Kunde
-                                    @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '3')
-                                    Firma
-                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '1')
-                                    Ja
-                                    @elseif($value['inputName'] == 'DÜBELLÖCHER ZUSPACHTELN' && $value['newValue'] == '0')
-                                    Nein
-                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '1')
-                                    Ja
-                                    @elseif($value['inputName'] == 'MIT HOCHDRUCKREINIGER' && $value['newValue'] == '0')
-                                    Nein
-                                    @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '0')
-                                    Ja
-                                    @elseif($value['inputName'] == 'LIFT' && $value['newValue'] == '1')
-                                    Nein
-                                    @else
-                                    {{ $value['newValue'] }}
-                                    @endif
-                                </span> olarak değiştirildi. </span>
-                            @elseif (empty($value['oldValue']) && !empty($value['newValue']))
-                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
-                                @if (strpos($value['inputName'], 'Adresse') !== false 
-                                || strpos($value['inputName'], 'Umzug') !== false
-                                || strpos($value['inputName'], 'Einpack') !== false
-                                || strpos($value['inputName'], 'Auspack') !== false
-                                || strpos($value['inputName'], 'Reinigung') !== false
-                                || strpos($value['inputName'], 'Reinigung-2') !== false
-                                || strpos($value['inputName'], 'Entsorgung') !== false
-                                || strpos($value['inputName'], 'Transport') !== false
-                                || strpos($value['inputName'], 'Lagerung') !== false
-                                || strpos($value['inputName'], 'Material') !== false)
-                                    <span class="text-success">{{ $value['inputName'] }}</span>, Eklendi
-                                @else
-                                    <span class="text-success">{{ $value['inputName'] }}[{{ $value['newValue'] }}]</span>, Eklendi
-                                @endif
-                                
-                            @elseif (empty($value['newValue']) && !empty($value['oldValue']))
-                            Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
-                                @if (strpos($value['inputName'], 'Adresse') !== false
-                                || strpos($value['inputName'], 'Umzug') !== false
-                                || strpos($value['inputName'], 'Einpack') !== false
-                                || strpos($value['inputName'], 'Auspack') !== false
-                                || strpos($value['inputName'], 'Reinigung') !== false
-                                || strpos($value['inputName'], 'Reinigung-2') !== false
-                                || strpos($value['inputName'], 'Entsorgung') !== false
-                                || strpos($value['inputName'], 'Transport') !== false
-                                || strpos($value['inputName'], 'Lagerung') !== false
-                                || strpos($value['inputName'], 'Material') !== false)
-                                    <span class="text-danger">{{ $value['inputName'] }}</span>, Silindi
-                                @else
-                                    <span class="text-danger">{{ $value['inputName'] }}[{{ $value['oldValue'] }}]</span>, Silindi
-                                @endif
-                                
-                            @endif
-                        </div>
-                @endforeach
+                @endif
               </div>
+              
+              
+              
         </div>
         <div class="modal fade" id="receiptModal" tabindex="-1" role="dialog" aria-labelledby="receiptModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document" >
@@ -505,7 +514,7 @@
 
         var newHref = "{{ route('offer.manuelReject',['id' => $data['id']]) }}"; // Yeni href değeri
         $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
-        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Nicht bestätigt</strong> ändern?");
+        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Abgesagt</strong> ändern?");
     });
     
     $("#manuelDefault").click(function(e) {
@@ -513,7 +522,7 @@
 
         var newHref = "{{ route('offer.manuelDefault',['id' => $data['id']]) }}"; // Yeni href değeri
         $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
-        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>In Wartestellung</strong> ändern?");
+        $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>is Offen</strong> ändern?");
     });
 
     // // Offerte Status Changer Reject

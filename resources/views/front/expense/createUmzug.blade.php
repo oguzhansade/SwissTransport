@@ -3,14 +3,14 @@
 @section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5"> Neue Aufgaben Erfassen</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5"> Neue Ausgabe hinzufügen</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Panel</a>
             </li>
-            <li class="breadcrumb-item active">Aufgaben</li>
+            <li class="breadcrumb-item active">Ausgabe</li>
         </ol>
         {{-- <div class="d-none d-md-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-color-scheme btn-sm fs-11 fw-400 mr-l-40 pd-lr-10 mr-l-0-rtl mr-r-40-rtl hidden-xs hidden-sm ripple" target="_blank">Yeni Görev Ekle</a>
         </div> --}}
@@ -55,8 +55,8 @@
                                     <table id="faturaData" class="table">
                                         <thead class="text-dark">
                                             <tr>
-                                                <th>Gider Adı</th>
-                                                <th>Gider Fiyatı</th>
+                                                <th>Spesenname</th>
+                                                <th>Kostenpreis</th>
                                                 <th>Löschen</th>
                                             </tr>
                                         </thead>
@@ -67,7 +67,7 @@
                         
                         <div class="row p-3">
                             <div class="col-md-12 d-flex justify-content-center">
-                                <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i> Arbeiter hinzufügen</button>
+                                <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i> Aufgaben hinzufügen</button>
                                 <button type="button" id="removeAllButton" class="btn-rounded btn btn-danger ml-1" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">Alles löschen</button>
                             </div>
                         </div>

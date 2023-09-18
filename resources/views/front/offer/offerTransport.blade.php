@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 transport-control">
         <label for="" class="col-form-label">Transport</label><br>
-        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded transport--area" style="background-color: #CBB4FF;display:none;">
+<div class="rounded transport--area" style="background-color: #c8dff3;display:none;">
     <div class="row p-3">
         <div class="col-md-6">
 
@@ -15,9 +15,9 @@
                     <input class="form-control"  name="pdfText"   type="text" >    
                 </div>
             </div>
-            <div class="row p-2 mt-1 rounded" style="background-color: #8778aa">
+            <div class="row p-2 mt-1 rounded" style="background-color: #286090">
                 <div class="col-md-12">
-                    <label class="col-form-label" for="l0">Pauschalpreis-Tarif</label>
+                    <label class="col-form-label text-white" for="l0">Pauschalpreis-Tarif</label>
                     <input class="form-control"  name="transportFixedTariff" placeholder="0"  type="number" >    
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 @endforeach
             </select>
 
-            <div class="row transport-tariffs--area p-2 mt-1 rounded" style="display: none;background-color: #8778aa;">
+            <div class="row transport-tariffs--area p-2 mt-1 rounded" style="display: none;background-color: #286090;">
                 <div class="col">
                     <label class=" col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="transportma" placeholder="0"  type="number" >                                
@@ -73,7 +73,7 @@
         <div class="col-md-6">
             <div class="extra-cost-transport mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
             </div>  
 
             <div class="transport--extra--cost--area mt-3" style="display: block;">
@@ -145,7 +145,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
 
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="transportDiscount" placeholder="0"  type="number" value="0"> 
@@ -179,33 +179,33 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="transportDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="transportDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2 isTransportKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="transport-kostendach-area" style="display: none;">
-                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
 
             <div class="mt-3 isTransportPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="transport-pauschal-area " style="display:none;">
-                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\front\worker;
 use App\Http\Controllers\Controller;
 use App\Mail\WorkerMail;
 use App\Models\Company;
+use App\Models\Customer;
+use App\Models\ReceiptUmzug;
 use App\Models\User;
 use App\Models\UserPermission;
 use App\Models\Worker;
@@ -112,7 +114,16 @@ class indexController extends Controller
             }
             
         })
-        ->rawColumns(['payStatus'])
+        ->addColumn('customerName', function($table)
+        {
+            if($table->receiptUmzugId)
+            {
+                $receiptUmzug = ReceiptUmzug::where('id',$table->receiptUmzugId)->first();
+                $customer = Customer::where('id',$receiptUmzug->customerId)->first();
+                return $customer['name'].' '.$customer['surname'];
+            }
+        })
+        ->rawColumns(['payStatus','customerName'])
         ->make(true);
 
         return $data;

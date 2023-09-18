@@ -9,7 +9,7 @@ class WorkerBasket extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'offerteId',
+        'receiptUmzugId',
         'taskId',
         'workerId',
         'userId',

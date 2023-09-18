@@ -119,7 +119,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
     Route::group(['namespace' => 'task', 'as' => 'task.', 'prefix' => 'task', 'middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\task\indexController::class, 'index'])->name('index');
         Route::get('/create', [App\Http\Controllers\front\task\indexController::class, 'create'])->name('create');
-        Route::get('/createFromOffer/{id}', [App\Http\Controllers\front\task\indexController::class, 'createFromOffer'])->name('createFromOffer');
+        Route::get('/createFromReceipt/{id}', [App\Http\Controllers\front\task\indexController::class, 'createFromReceipt'])->name('createFromReceipt');
         Route::post('/create', [App\Http\Controllers\front\task\indexController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [App\Http\Controllers\front\task\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\task\indexController::class, 'update'])->name('update');
@@ -198,6 +198,8 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
     Route::group(['namespace' => 'offer', 'as' => 'offer.', 'prefix' => 'offer','middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\offer\indexController::class, 'index'])->name('index');
         Route::post('/data/{id}', [App\Http\Controllers\front\offer\indexController::class, 'data'])->name('data');
+        Route::get('/getOfferte/{id}', [App\Http\Controllers\front\offer\indexController::class, 'getOfferte'])->name('getOfferte');
+        Route::post('/noticeUpdate/{id}', [App\Http\Controllers\front\offer\indexController::class, 'noticeUpdate'])->name('noticeUpdate');
         Route::get('/updatedOffer/{customerId}/{id}', [App\Http\Controllers\front\offer\indexController::class, 'updatedOffer'])->name('updatedOffer');
         Route::post('/updatedOffer/{customerId}/{id}', [App\Http\Controllers\front\offer\indexController::class, 'updatedData'])->name('updatedData');
         Route::get('/create/{id}', [App\Http\Controllers\front\offer\indexController::class, 'create'])->name('create');
@@ -247,6 +249,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/createStandart/{id}/{customer}', [App\Http\Controllers\front\receipt\indexController::class, 'createStandart'])->name('createStandart');
         Route::post('/createStandart/{id}/{customer}', [App\Http\Controllers\front\receipt\indexController::class, 'storeStandart'])->name('storeStandart');
         Route::get('/createReinigung/{id}/{customer}', [App\Http\Controllers\front\receipt\indexController::class, 'createReinigung'])->name('createReinigung');
+        Route::post('/docTaken/{id}/{type}', [App\Http\Controllers\front\receipt\indexController::class, 'docTaken'])->name('docTaken');
         Route::post('/data/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'data'])->name('data');
     });
 

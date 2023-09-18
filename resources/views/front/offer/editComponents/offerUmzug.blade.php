@@ -1,6 +1,6 @@
 
 
-<div class="rounded" style="background-color: #CBB4FF">
+<div class="rounded" style="background-color: #C8DFF3">
     <div class=" row p-3"  > 
         {{-- Offerte Umzug Sol --}}
         <div class="col-md-6">
@@ -32,7 +32,7 @@
 
                     <div class="mt-1 isAusCustomLand1">
                         <label class="col-form-label" for="l0">Custom Land</label>
-                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                         @if (
                             $auszug1 &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' && 
@@ -122,7 +122,7 @@
             <div class="form-group row ">
                 <div class="col-md-12 offer-auszug-2 ">
                     <label for="" class="col-form-label">2. Auszugsadresse</label><br>
-                    <input type="checkbox" name="isofferAuszug2" id="isofferAuszug2" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($auszug2) checked @endif>  
+                    <input type="checkbox" name="isofferAuszug2" id="isofferAuszug2" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug2) checked @endif>  
                 </div>                            
             </div>
         </div>
@@ -156,7 +156,7 @@
 
                         <div class="mt-1 isEinCustomLand1">
                             <label class="col-form-label" for="l0">Custom Land</label>
-                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                             @if (
                                 $einzug1 &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' && 
@@ -244,7 +244,7 @@
                 <div class="form-group row">
                     <div class="col-md-12 offer-einzug-2">
                         <label for="" class="col-form-label">2. Einzugsadresse</label><br>
-                        <input type="checkbox" name="isofferEinzug2" id="isofferEinzug2" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($einzug2) checked @endif>  
+                        <input type="checkbox" name="isofferEinzug2" id="isofferEinzug2" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug2) checked @endif>  
                     </div>                            
                 </div>
             </div>
@@ -284,7 +284,7 @@
 
                         <div class="mt-1 isAusCustomLand2">
                             <label class="col-form-label" for="l0">Custom Land</label>
-                            <input type="checkbox"  name="isAusCustomLand2" id="isAusCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false"
+                            <input type="checkbox"  name="isAusCustomLand2" id="isAusCustomLand2" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                             @if (
                                 $auszug2 &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' && 
@@ -372,7 +372,7 @@
                 <div class="form-group row">
                     <div class="col-md-12 offer-auszug-3">
                         <label for="" class="col-form-label">3. Auszugsadresse</label><br>
-                        <input type="checkbox" name="isofferAuszug3" id="isofferAuszug3" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($auszug3) checked @endif>  
+                        <input type="checkbox" name="isofferAuszug3" id="isofferAuszug3" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug3) checked @endif>  
                     </div>                            
                 </div>
     
@@ -408,7 +408,7 @@
 
                             <div class="mt-1 isEinCustomLand2">
                                 <label class="col-form-label" for="l0">Custom Land</label>
-                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                                 @if (
                                 $einzug2 &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' && 
@@ -497,7 +497,7 @@
                     <div class="form-group row">
                         <div class="col-md-12 offer-einzug-3">
                             <label for="" class="col-form-label">3. Einzugsadresse</label><br>
-                            <input type="checkbox" name="isofferEinzug3" id="isofferEinzug3" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($einzug3) checked @endif>  
+                            <input type="checkbox" name="isofferEinzug3" id="isofferEinzug3" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug3) checked @endif>  
                         </div>                            
                     </div>
                 </div>
@@ -535,7 +535,7 @@
 
                         <div class="mt-1 isAusCustomLand3">
                             <label class="col-form-label" for="l0">Custom Land</label>
-                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                             @if (
                                 $auszug3 &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' && 
@@ -653,7 +653,7 @@
 
                             <div class="mt-1 isEinCustomLand3">
                                 <label class="col-form-label" for="l0">Custom Land</label>
-                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                                 @if (
                                 $einzug3 &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' && 

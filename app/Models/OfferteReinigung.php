@@ -17,7 +17,6 @@ class OfferteReinigung extends Model
         'chf',
         'hours',
         'extraService1',
-        'extraService2',
         'startDate',
         'startTime',
         'endDate',

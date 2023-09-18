@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 reinigung2-control">
         <label for="" class="col-form-label">Reinigung 2</label><br>
-        <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($reinigung2) checked @endif>  
+        <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch " data-color="#286090" data-switchery="false" @if($reinigung2) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded reinigung2--area" style="background-color: #CBB4FF; @if($reinigung2 == NULL) display:none; @endif">
+<div class="rounded reinigung2--area" style="background-color: #C8DFF3; @if($reinigung2 == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Reinigungsart</label>
@@ -43,9 +43,9 @@
             </select>
             
 
-            <div class="row reinigung2-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariff')) display: block; @else display:none; @endif" >
+            <div class="row reinigung2-fixed--area p-2 mt-1 rounded" style="background-color:#286090;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariff')) display: block; @else display:none; @endif" >
                 <div class="col-md-6">
-                    <label class="col-form-label" for="l0">Tarifpreis</label>
+                    <label class="col-form-label text-white" for="l0">Tarifpreis</label>
                     <input class="form-control"  name="reinigungFixedPriceValue2" placeholder="0"  type="number" 
                     @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariff') != NULL) 
                         value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'fixedTariffPrice') }}"
@@ -64,7 +64,7 @@
             </select>
             
 
-            <div class="row reinigung2-price--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'standartTariff')) display: block; @else display:none; @endif">
+            <div class="row reinigung2-price--area p-2 mt-1 rounded" style="background-color:#286090;@if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'standartTariff')) display: block; @else display:none; @endif">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
                     <input class="form-control"  name="reinigungmaValue2" placeholder="0"  type="number" 
@@ -110,26 +110,6 @@
                     </div>                                        
                 </div>                            
             </div>
-
-            <div class=" row">
-                <div class="col-md-12">
-                    <label for="" class="col-form-label">Mit Hochdruckreiniger</label>  
-                    <div class="radiobox">                                                
-                        <label class="text-dark">
-                            <input type="radio" class="extraReinigungService22"  name="extraReinigungService22" value="1" 
-                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService2') == 1) checked @endif> <span class="label-text">Ja</span>
-                        </label>
-                        <label class="text-dark ml-1">
-                            <input type="radio"  class="extraReinigungService22"  name="extraReinigungService22" value="0"
-                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService2') == 0) checked @endif> <span class="label-text">Nein</span>
-                        </label>
-                    </div>                                        
-                </div>                            
-            </div> 
-            
-
-            
-
         </div>
         <div class="col-md-6">
 
@@ -159,7 +139,7 @@
 
             <div class="extra-cost-reinigung2 mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra2" id="reinigungisExtra2" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="reinigungisExtra2" id="reinigungisExtra2" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($reinigung2
                     && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extra1') == NULL 
                     && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extra2') == NULL
@@ -276,7 +256,7 @@
             </div>
             
             <label class="col-form-label" for="l0">Kosten</label>
-            <input class="form-control"  name="reinigungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="reinigungCostPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'costPrice')) 
                         value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'costPrice') }}" 
                     @endif>
@@ -310,7 +290,7 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="reinigungTotalPrice2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="reinigungTotalPrice2" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'totalPrice')) 
                 value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'totalPrice') }}" 
             @endif>

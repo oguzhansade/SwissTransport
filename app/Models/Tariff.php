@@ -18,8 +18,10 @@ class Tariff extends Model
 
     static function InfoTariff($id)
     {
-        $data = Tariff::where('id',$id)->first();
-        return $data['description'];
+        
+            $data = Tariff::where('id',$id)->first();
+            return $data ? $data['description'] : "-";
+        
     }
 
     static function getTariff($id,$param)

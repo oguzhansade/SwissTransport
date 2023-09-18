@@ -32,8 +32,9 @@
                     <table id="admintask" class="table table-striped table-responsive">
                         <thead>
                             <tr class="text-dark">
-                                <th>Offerte No</th>
+                                <th>Quittungnnr</th>
                                 <th>Aufgaben Am</th>
+                                <th>Erstellt Am</th>
                                 <th>Totalt</th>
                                 <th>Option</th>
                             </tr>
@@ -93,12 +94,25 @@
                 }
             },
             columns: [
-                { data: 'offerteId', name: 'offerteId'},
-                { data: 'taskDate', name: 'taskDate'},
-                { data: 'taskTotalPrice', name: 'taskTotalPrice'},
+                { data: 'receiptUmzugId', name: 'receiptUmzugId' },
+                { data: 'taskDate', name: 'taskDate' },
+                { data: 'created_at', name:'created_at' },
+                { data: 'taskTotalPrice', name: 'taskTotalPrice' },
                 { data: 'option', name: 'option', orderable: false, searchable: false },
 
-            ]
+            ],
+            "language": {
+                "paginate": {
+                    "previous": "Vorherige",
+                    "next" : "Nächste"
+                },
+                "search" : "Suche",     
+                "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                "zeroRecords": "Nichts gefunden - es tut uns leid",
+                "info": "Zeige Seite _PAGE_ von _PAGES_",
+                "infoEmpty": "Keine Einträge verfügbar",
+                "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            },
         });
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?

@@ -9,7 +9,7 @@ class Task extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'offerteId',
+        'receiptUmzugId',
         'taskDate',
         'taskTime',
         'taskTotalPrice'

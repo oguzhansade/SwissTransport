@@ -199,7 +199,7 @@
                                     <div class="col-md-7">
                                         <input class="form-control" name="addCost1Text" placeholder="Text"  type="text" 
                                         @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra1'))
-                                        value="Piyano"
+                                        value="Klavier"
                                         @endif>
                                     </div>
                                     <div class="col-md-5">
@@ -216,7 +216,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost2Text" placeholder="Text"  type="text" 
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra2'))
-                                            value="Piyano" 
+                                            value="Klavier" 
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -233,7 +233,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost3Text" placeholder="Text"  type="text" 
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra3'))
-                                            value="Mobilya Asansörü"
+                                            value="Möbellift"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -250,7 +250,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost4Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra4'))
-                                            value="Mobilya Asansörü" 
+                                            value="Möbellift" 
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -267,7 +267,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost5Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra5'))
-                                            value="Mobilya Asansörü"
+                                            value="Möbellift"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -284,7 +284,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost6Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra6'))
-                                            value="Ağır Mal"
+                                            value="Schwergutzuschlag"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -301,7 +301,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost7Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra7'))
-                                            value="Ağır Mal"
+                                            value="Schwergutzuschlag"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -318,7 +318,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost8Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra8'))
-                                            value="Güvenli"
+                                            value="Tresor"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -335,7 +335,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost9Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra9'))
-                                            value="Güvenli"
+                                            value="Tresor"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -352,7 +352,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost10Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra10'))
-                                            value="Su Yatağı"
+                                            value="Wasserbett"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -465,7 +465,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text" 
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount')) 
-                                            value="İndirim"
+                                            value="Rabatt"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -482,7 +482,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text" 
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser')) 
-                                            value="Uzlaşmacı"
+                                            value="ENTGEGENKOMMEN"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -516,7 +516,7 @@
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount4Text" placeholder="Text"  type="text" 
                                             @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount')) 
-                                            value="İndirim"
+                                            value="Rabatt"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">

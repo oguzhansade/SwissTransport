@@ -106,6 +106,8 @@ class indexController extends Controller
         $id = request()->route('id');
         $receipt = ReceiptUmzug::where('id',$id)->first();
         $all = $request->except('_token');
+
+        $exType = 'Umzug';
         if($receipt && $all['islem'])
         {
             

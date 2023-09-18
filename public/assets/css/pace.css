@@ -80,13 +80,13 @@ body.pace-done:after {
 
 .pace-activity::before {
   right: 0;
-  border-right-color: #8253eb;
+  border-right-color: #2A6699;
   -webkit-animation-delay: -0.29s;
           animation-delay: -0.29s; }
 
 .pace-activity::after {
   left: 0;
-  border-left-color: #8253eb; }
+  border-left-color: #2A6699; }
 
 @-webkit-keyframes spin {
   from {

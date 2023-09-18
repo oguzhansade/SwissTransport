@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 transport-control">
         <label for="" class="col-form-label">Transport</label><br>
-        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#9c27b0" data-switchery="false" @if ($transport) checked @endif>  
+        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#286090" data-switchery="false" @if ($transport) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded transport--area" style="background-color: #CBB4FF;
+<div class="rounded transport--area" style="background-color: #C8DFF3;
 @if ($transport == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
@@ -20,9 +20,9 @@
                 </div>
             </div>
             
-            <div class="row p-2 mt-1 rounded" style="background-color: #8778aa">
+            <div class="row p-2 mt-1 rounded" style="background-color: #286090">
                 <div class="col-md-12">
-                    <label class="col-form-label" for="l0">Pauschalpreis-Tarif</label>
+                    <label class="col-form-label text-white" for="l0">Pauschalpreis-Tarif</label>
                     <input class="form-control"  name="transportFixedTariff" placeholder="0"  type="number" 
                     @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedChf') != NULL) 
                         value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedChf') }}"
@@ -111,7 +111,7 @@
         <div class="col-md-6">
             <div class="extra-cost-transport mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($transport
                     && \App\Models\OfferteTransport::InfoTransport($transport,'extraCostValue1') == NULL
                     && \App\Models\OfferteTransport::InfoTransport($transport,'extraCostValue2') == NULL
@@ -258,7 +258,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'totalPrice') != NULL) 
                 value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'totalPrice') }}"
                 @else value="{{ 0 }}"
@@ -322,7 +322,7 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="transportDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="transportDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'defaultPrice') != NULL) 
                 value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'defaultPrice') }}"
                 @else value="{{ 0 }}"
@@ -330,12 +330,12 @@
 
             <div class="mt-2 isTransportKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isTransportKostendach" id="isTransportKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) checked @endif>
             </div>
 
             <div class="transport-kostendach-area" @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="transportTopPrice" placeholder="0"  type="number" style="background-color: #286090;color:white;"
                 @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'topCost') != NULL) 
                     value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'topCost') }}"
                     @else value="{{ 0 }}"
@@ -343,18 +343,18 @@
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isTransportMTPrice" id="isTransportMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
 
             <div class="mt-3 isTransportPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isTransportPauschal" id="isTransportPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) checked @endif>
             </div>
 
             <div class="transport-pauschal-area " @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
-                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="number" style="background-color: #286090;color:white;"
                 @if($transport && \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') != NULL) 
                     value="{{ \App\Models\OfferteTransport::InfoTransport($transport,'fixedPrice') }}"
                     @else value="{{ 0 }}"
@@ -362,7 +362,7 @@
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isTransportFxPrice" id="isTransportFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

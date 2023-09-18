@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('offerteId');
+            $table->integer('receiptUmzugId');
             $table->date('taskDate');
             $table->time('taskTime');
             $table->integer('taskTotalPrice')->nullable();

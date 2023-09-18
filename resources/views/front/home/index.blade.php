@@ -135,12 +135,12 @@
 <style>
     .btn-detail {
         transition: all 0.3s ease;
-        background-color: #8253eb;
+        background-color: #337AB6;
         color:white;
     }
     .btn-detail:hover {
         color:white;
-        background-color: #6125E6;
+        background-color: #286090;
     }
 </style>
 @endsection
@@ -185,12 +185,12 @@
     </div>
 </div>
 @else
-<h3>Willkommen im Admin-Panel Datum: {{ \Carbon\Carbon::now() }}</h3>
+<h3>Willkommen im Admin-Panel Datenschutz: {{ \Carbon\Carbon::now() }}</h3>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1>Yeni Müşteri Adayları</h1>
+            <h1>Potentielle Kunden</h1>
         </div>
     </div>
 
@@ -218,7 +218,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-heading clearfix">
-                    <h5>Aday Listesi</h5>
+                    <h5>Kandidatenliste</h5>
                 </div>
                 <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
                     <tbody>
@@ -239,9 +239,9 @@
                         <thead>
                             <tr class="text-dark">
                                 <th>Name</th>
-                                <th>Mail</th>
+                                <th>E-Mail</th>
                                 <th>Telefon</th>
-                                <th>Form Type</th>
+                                <th>Formular-Typ</th>
                                 <th>Datum</th>
                                 <th>Status</th>
                                 <th>Option</th>
@@ -274,6 +274,19 @@
     <script>
         $(document).ready(function() {
             let table = $('#example').DataTable({
+                "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
+                    },
+                    "search" : "Suche",     
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            
+                },
                 "order": [4, 'desc'],
                 lengthMenu: [
                     [25, 100, -1],

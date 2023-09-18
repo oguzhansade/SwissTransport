@@ -1,13 +1,13 @@
 <div class="form-group row">
     <div class="col-md-12 entsorgung-control">
         <label for="" class="col-form-label">Entsorgung</label><br>
-        <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch " data-color="#9c27b0"
+        <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch " data-color="#286090"
             data-switchery="false" @if ($entsorgung) checked @endif>
     </div>
 </div>
 
 <div class="rounded entsorgung--area"
-    style="background-color: #CBB4FF; @if ($entsorgung == null) display:none; @endif">
+    style="background-color: #C8DFF3; @if ($entsorgung == null) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Volumen-Tarif</label>
@@ -20,10 +20,10 @@
             </select>
 
             <div class="row entsorgung-chfVolume--area p-2 mt-1 rounded"
-                style="background-color:#8778aa;
+                style="background-color:#286090;
             @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'volumeCHF') == null) display:none;" @endif>
                 <label class="col-form-label
-                text-danger" for="l0"><span class="text-da">CHF-Ansatz</span></label>
+                text-danger" for="l0"><span class="text-white">CHF-Ansatz</span></label>
                 <input class="form-control" class="entsorgungVolumeChf" name="entsorgungVolumeChf" type="text"
                     @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'volumeCHF') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'volumeCHF') }}" @endif>
             </div>
@@ -32,7 +32,7 @@
             <div class="row  rounded">
                 <label class="col-form-label" for="l0">Entsorgungsaufwand Pauschal</label>
                 <input class="form-control" class="entsorgungFixedChf" name="entsorgungFixedChf" type="text"
-                    @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedCost') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedCost') }}" @endif>
+                    @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedCost') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedCost') }}" @else value="160" @endif>
             </div>
 
 
@@ -72,7 +72,7 @@
                         @else value="{{ 0 }}" @endif>
                 </div>
                 <div class="col">
-                    <label class=" col-form-label" for="l0">CHF-Ansatz</label>
+                    <label class=" col-form-label " for="l0">CHF-Ansatz</label>
                     <input class="form-control" name="entsorgungchf" placeholder="0" type="number"
                         @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'chf') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'chf') }}" @endif>
                 </div>
@@ -116,7 +116,7 @@
             <div class="extra-cost-entsorgung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
                 <input type="checkbox" name="entsorgungisExtra" id="entsorgungisExtra" class="js-switch "
-                    data-color="#9c27b0" data-switchery="false"
+                    data-color="#286090" data-switchery="false"
                     @if (
                         $entsorgung &&
                             \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'entsorgungExtra1') == null &&
@@ -180,7 +180,7 @@
 
             <label class="col-form-label" for="l0">Kosten</label>
             <input class="form-control" name="entsorgungCostPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'costPrice') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'costPrice') }}"
                 @else value="{{ 0 }}" @endif>
 
@@ -217,25 +217,25 @@
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
             <input class="form-control" name="entsorgungTotalPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'defaultPrice') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'defaultPrice') }}"
                 @else value="{{ 0 }}" @endif>
 
             <label class="col-form-label" for="l0">Kostendach</label>
             <input class="form-control" name="entsorgungTopPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'topCost') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'topCost') }}"
                 @else value="{{ 0 }}" @endif>
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
                 <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1"
-                    data-color="#9c27b0" data-size="small" data-switchery="false">
+                    data-color="#286090" data-size="small" data-switchery="false">
             </div> <br>
 
             <label class="col-form-label" for="l0">Pauschal</label>
             <input class="form-control" name="entsorgungDefaultPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedPrice') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'fixedPrice') }}"
                 @else value="{{ 0 }}" @endif>
         </div>

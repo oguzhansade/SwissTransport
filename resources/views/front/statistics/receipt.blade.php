@@ -147,7 +147,7 @@
                                         <td>: <span id="entExpense">-</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span>Arbeiter</span></td>
+                                        <td><span>Mitarbeiter</span></td>
                                         <td>: <span id="arbeExpense">-</span></td>
                                     </tr>
                                     <tr>
@@ -237,6 +237,7 @@
                 [25, 100, -1],
                 [25, 100, "All"]
             ],
+            
             dom: 'Blfrtip',
             buttons: [
                 'copy',
@@ -271,6 +272,18 @@
                 {data: 'option',name: 'detail',orderable: false,searchable: false,exportable: false},
 
             ],
+            "language": {
+                "paginate": {
+                    "previous": "Vorherige",
+                    "next" : "Nächste"
+                },
+                "search" : "Suche",     
+                "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                "zeroRecords": "Nichts gefunden - es tut uns leid",
+                "info": "Zeige Seite _PAGE_ von _PAGES_",
+                "infoEmpty": "Keine Einträge verfügbar",
+                "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            },
 
             "footerCallback": function ( row, data, start, end, display ) {
                 var rsTot = table.ajax.json();    

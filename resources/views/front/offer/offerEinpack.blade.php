@@ -35,7 +35,7 @@
         
         <div class="extra-cost-einpack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
         </div>  
 
         <div class="einpack--extra--cost--area" style="display: block;">
@@ -91,7 +91,7 @@
         </div>
         
         <label class="col-form-label mt-1 " for="l0">Kosten</label>
-        <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+        <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
 
         <label class="col-form-label" for="l0">Rabatt</label>
         <input class="form-control"  name="einpackDiscount" placeholder="0"  type="number" > 
@@ -114,33 +114,33 @@
         </div>
 
         <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-        <input class="form-control"  name="einpackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+        <input class="form-control"  name="einpackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
         <div class="mt-2 isEinpackKostendach">
             <label class="col-form-label" for="l0">Kostendach</label>
-            <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
         </div>
 
         <div class="einpack-kostendach-area" style="display: none;">
-            <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
         </div>
 
         <div class="mt-3 isEinpackPauschal">
             <label class="col-form-label" for="l0">Pauschal</label>
-            <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+            <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
         </div>
 
         <div class="einpack-pauschal-area " style="display:none;">
-            <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2">
                 <small class=" text-primary">manuell gesetzt</small>
-                <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
         </div>
        

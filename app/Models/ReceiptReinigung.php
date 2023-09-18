@@ -43,5 +43,6 @@ class ReceiptReinigung extends Model
         'cashPrice',
         'invoicePrice',
         'signerName',
+        'docTaken'
     ];
 }

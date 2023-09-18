@@ -48,11 +48,11 @@
                         <div class="row p-3 mb-3">
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Offertennr</label>
-                                <select name="offerteId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
+                                <select name="receiptUmzugId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
-                                    @foreach (\App\Models\offerte::all() as $k => $v)
+                                    @foreach (\App\Models\ReceiptUmzug::all() as $k => $v)
                                         <option class="form-control" value="{{ $v['id'] }}"
-                                        @if($data['offerteId'] == $v['id']) selected @endif>{{ $v['id'] }}</option>
+                                        @if($data['receiptUmzugId'] == $v['id']) selected @endif>{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
                             </div>
@@ -76,7 +76,7 @@
                                                 <th>Aufgaben Name</th>
                                                 <th>Preis[h]</th>
                                                 <th>Stunde</th>
-                                                <th>Saat(Arbeiter)</th>
+                                                {{-- <th>Saat(Arbeiter)</th> --}}
                                                 <th>Total</th>
                                                 <th>Löschen</th>
                                             </tr>
@@ -97,10 +97,10 @@
                                                 </select></td>
                                                 <td><input type="text" class="form-control" id="tutar" name="islem[{{ $a }}][tutar]" value="{{ $b['workerPrice'] }}" ></td>
                                                 <td><input type="text" class="form-control" id="saat" name="islem[{{ $a }}][saat]" value="{{ $b['workHour'] }}"></td>
-                                                <td>
+                                                {{-- <td>
                                                     <input type="text" class="form-control" id="tutar" name="islem[{{ $a }}][isciSaat]" value="{{ $b['workerHour'] }}" >
                                                     <i ><small class="text-primary">Vom Arbeiter eingegebene Stunden</small></i>
-                                                </td>
+                                                </td> --}}
                                                 <td><input type="text" class="form-control" id="toplam" name="islem[{{ $a }}][toplam]" value="{{ $b['totalPrice'] }}"></td>
                                                 <td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>
                                                 </tr>

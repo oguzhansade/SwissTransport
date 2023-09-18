@@ -12,10 +12,14 @@ use App\Models\offerte;
 use App\Models\ReceiptDiscount;
 use App\Models\ReceiptExtra;
 use App\Models\ReceiptAddress;
+use App\Models\ReceiptReinigung;
 use App\Models\ReceiptUmzug;
+use App\Models\Task;
+use App\Models\WorkerBasket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
@@ -397,6 +401,16 @@ class indexController extends Controller
 
         $update = ReceiptUmzug::where('id',$id)->update($receiptStandart);
 
+        // Task İşlemleri
+
+        $task = WorkerBasket::where('receiptUmzugId',$id)->count();
+        if($task != 0)
+        {
+            $updateTask = WorkerBasket::where('receiptUmzugId',$id)->update([
+                'workHour' => $request->umzugHour,
+            ]);
+        }
+
         $sub = 'Ihre Quittung ausgestellt';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
@@ -486,13 +500,14 @@ class indexController extends Controller
             {
                 $array[$i]["aid"] = $i+1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["makbuzNo"] = $v->offerId.'.'.$v->id;
+                $array[$i]["makbuzNo"] = $v->id;
                 $array[$i]["receiptType"] = 'Umzug';
                 $array[$i]["orderDate"] = $v->orderDate ? date('d-m-Y', strtotime($v->orderDate)) : '-'.' '.$v->orderTime;
-                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["created_at"] = Carbon::createFromFormat('Y-m-d H:i:s', $v->created_at)->format('d-m-Y');
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["payType"] = $v->payType;
                 $array[$i]["status"] = $v->status;
+                $array[$i]["docTaken"] = $v->docTaken;
                 $i++;
 
             }
@@ -505,13 +520,14 @@ class indexController extends Controller
             {
                 $array[$i]["aid"] = $i+1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["makbuzNo"] = $v->offerId.'.'.$v->id;
+                $array[$i]["makbuzNo"] = $v->id;
                 $array[$i]["receiptType"] = 'Reinigung';
                 $array[$i]["orderDate"] = $v->reinigungDate ? date('d-m-Y', strtotime($v->reinigungDate)) : '-'.' '.$v->reinigungTime;
-                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["created_at"] = Carbon::createFromFormat('Y-m-d H:i:s', $v->created_at)->format('d-m-Y');
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["payType"] = $v->payType;
                 $array[$i]["status"] = $v->status;
+                $array[$i]["docTaken"] = $v->docTaken;
                 $i++;
 
             }
@@ -541,12 +557,62 @@ class indexController extends Controller
                 break;
             }
         })
-        ->rawColumns(['option'])
+        ->addColumn('docTaken', function ($array) {
+            
+            
+            if($array['docTaken'] == 1)
+            {
+                return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Taken</button>', $array['id'], $array['receiptType']);
+            }
+            else {
+                return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Untaken</button>', $array['id'], $array['receiptType']);
+            }
+           
+           
+        })
+        ->rawColumns(['option','docTaken'])
         ->make(true);
 
         return $data;
     }
 
+    public function docTaken(Request $request)
+    {
+        $type = $request->route('type');
+        $receiptId = $request->route('id');
+        switch ($type){
+            case 'Umzug':
+                $update = ReceiptUmzug::where('id',$receiptId)->first();
+                if($update['docTaken'] == 0)
+                {
+                    $update = ReceiptUmzug::where('id',$receiptId)->update([
+                        'docTaken' => 1
+                    ]);
+                }
+                else if($update['docTaken'] == 1)
+                {
+                    $update = ReceiptUmzug::where('id',$receiptId)->update([
+                        'docTaken' => 0
+                    ]);
+                }
+                break;
+            case 'Reinigung':
+                $update = ReceiptReinigung::where('id',$receiptId)->first();
+                if($update['docTaken'] == 0)
+                {
+                    $update = ReceiptReinigung::where('id',$receiptId)->update([
+                        'docTaken' => 1
+                    ]);
+                }
+                else if($update['docTaken'] == 1)
+                {
+                    $update = ReceiptReinigung::where('id',$receiptId)->update([
+                        'docTaken' => 0
+                    ]);
+                }
+                break;
+        }
+    }
     public function storeStandart(Request $request)
     {
         $auszugId1 = NULL;
@@ -749,6 +815,7 @@ class indexController extends Controller
         $receiptStandartIdBul = DB::table('receipt_umzugs')->orderBy('id','DESC')->first();
         $receiptStandartId = $receiptStandartIdBul->id;
 
+        
         $sub = 'Ihre Quittung wurde erstellt';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
@@ -841,6 +908,9 @@ class indexController extends Controller
             $extra = ReceiptExtra::where('id',$data['receiptExtraId'])->delete();
             $discount = ReceiptDiscount::where('id',$data['receiptDiscountId'])->delete();
             $expense = Expense::where('quittungId','=',$id)->where('exType','=', 'Umzug')->delete();
+            Task::where('receiptUmzugId', $id)->delete();
+            WorkerBasket::where('receiptUmzug', $id)->delete();
+
             ReceiptUmzug::where('id',$id)->delete();
 
             return redirect()->back()->with('status','Beleg erfolgreich gelöscht');

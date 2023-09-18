@@ -68,36 +68,29 @@ class indexController extends Controller
             $table->whereDate('created_at', '<=', $request->max_date);
         }
 
-       
-
-        // ServiceType Filter
-        if($request->serviceType) {
-            if ($request->serviceType == 'Umzug') {
-                $table->whereNotNull('offerteUmzugId');
-            }
-            else if ($request->serviceType == 'Einpack') {
-                $table->whereNotNull('offerteEinpackId');
-            }
-            else if ($request->serviceType == 'Auspack') {
-                $table->whereNotNull('offerteAuspackId');
-            }
-            else if ($request->serviceType == 'Entsorgung') {
-                $table->whereNotNull('offerteEntsorgungId');
-            }
-            else if ($request->serviceType == 'Reinigung') {
-                $table->whereNotNull('offerteReinigungId');
-            }
-            else if ($request->serviceType == 'Transport') {
-                $table->whereNotNull('offerteTransportId');
-            }
-            else if ($request->serviceType == 'Lagerung') {
-                $table->whereNotNull('offerteLagerungId');
-            }
-            else if ($request->serviceType == 'Verpackungsmaterial') {
-                $table->whereNotNull('offerteMaterialId');
-            }
-            else if ($request->serviceType == 'Alle') {
-                
+        if ($request->typeFilter) {
+            $typeFilter = $request->typeFilter;
+        
+            if (is_array($typeFilter)) {
+                if (in_array("Umzug", $typeFilter)) {
+                    $table->whereNotNull('offerteUmzugId');
+                } elseif (in_array("Einpack", $typeFilter)) {
+                    $table->whereNotNull('offerteEinpackId');
+                } elseif (in_array("Auspack", $typeFilter)) {
+                    $table->whereNotNull('offerteAuspackId');
+                } elseif (in_array("Entsorgung", $typeFilter)) {
+                    $table->whereNotNull('offerteEntsorgungId');
+                } elseif (in_array("Reinigung", $typeFilter)) {
+                    $table->whereNotNull('offerteReinigungId');
+                } elseif (in_array("Transport", $typeFilter)) {
+                    $table->whereNotNull('offerteTransportId');
+                } elseif (in_array("Lagerung", $typeFilter)) {
+                    $table->whereNotNull('offerteLagerungId');
+                } elseif (in_array("Verpackungsmaterial", $typeFilter)) {
+                    $table->whereNotNull('offerteMaterialId');
+                }
+            } else {
+                $table->where('zimmer', $typeFilter);
             }
         }
 
@@ -207,13 +200,13 @@ class indexController extends Controller
         {
             return '
             <a class="btn btn-sm  btn-primary" href="'.route('offer.detail',['id'=>$data->id]).'"><i class="feather feather-eye" ></i> Offerte</a> <span class="text-primary"></span>
-            <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$data->customerId]).'"><i class="feather feather-edit" ></i> Kunde</a> <span class="text-primary"></span>';
+            <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$data->customerId]).'"><i class="feather feather-edit" ></i> Kunde</a> <span class="text-primary"></span>
+            <a class="btn btn-sm btn-info" href="#" data-toggle="modal" data-target="#notizModal" data-id="'.$data->id.'" ><i class="feather feather-edit-2"></i> Notiz</a>';
         })
         ->rawColumns(['gratTotalPrice','totalPrice','services','option'])
         ->make(true);
 
         $renderedData = (array)$data->original;
-
         $renderedData['filteredTotal'] = $table->sum('offerPrice');
         $renderedData['nonFilteredTotal'] = $totalPrice;
         $renderedData['totalOfferte'] = $totalOfferte;

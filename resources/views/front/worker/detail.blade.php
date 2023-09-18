@@ -147,7 +147,7 @@
                     <table id="example" class="table table-striped table-responsive">
                         <thead>
                             <tr class="text-dark">
-                                <th>OfferteId</th>
+                                <th>Kunde</th>
                                 <th>Datum</th>
                                 <th>Stunde [h]</th>
                                 <th>Stunde(Arbeiter)</th>
@@ -185,6 +185,19 @@
     $(document).ready(function() {
 
         let table =  $('#example').DataTable( {
+            "language": {
+                        "paginate": {
+                            "previous": "Vorherige",
+                            "next" : "Nächste"
+                        },
+                        "search" : "Suche",     
+                        "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                        "zeroRecords": "Nichts gefunden - es tut uns leid",
+                        "info": "Zeige Seite _PAGE_ von _PAGES_",
+                        "infoEmpty": "Keine Einträge verfügbar",
+                        "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+                
+                    },
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             pageLength: -1, // Display all records on a single page
             "columnDefs": [{
@@ -224,7 +237,7 @@
                 }
             },
             columns: [
-                { data: 'offerteId', name: 'offerteId'},
+                { data: 'customerName', name: 'customerName'},
                 { data: 'created_at', name: 'created_at'},
                 { data: 'workHour', name: 'workHour'},
                 { data: 'workerHour', name: 'workerHour'},
@@ -377,6 +390,16 @@
         confirmAndPay(id);
     }
 }
+</script>
+<script>
+    // Şu anki tarihi al
+    var today = new Date();
+
+    // Bulunduğumuz ayın başlangıcını hesapla
+    var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 2);
+
+    // Tarihi ISO formatına dönüştür ve min_date alanına ata
+    document.getElementById('start_date').value = firstDayOfMonth.toISOString().split('T')[0];
 </script>
 <script>
    function confirmAndPay(id){

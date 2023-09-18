@@ -4,9 +4,11 @@ namespace App\Http\Controllers\front\task;
 
 use App\Http\Controllers\Controller;
 use App\Models\offerte;
+use App\Models\ReceiptUmzug;
 use App\Models\Task;
 use App\Models\Worker;
 use App\Models\WorkerBasket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -23,7 +25,12 @@ class indexController extends Controller
 
         $table=Task::query();  
         $data=DataTables::of($table)
-        
+
+        ->editColumn('created_at', function ($data) {
+            $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y H:i:s');
+            return $formatedDate;
+        })
+
         ->editColumn('taskDate', function($data) {
             $taskDate = $data->taskDate.' '.$data->taskTime;
             return $taskDate;
@@ -44,8 +51,8 @@ class indexController extends Controller
             return '
             <a class="btn btn-sm  btn-primary" href="'.
             route('task.detail',['id'=>$table->id]).
-            '"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
-            <a class="btn btn-sm  btn-edit" href="'.route('task.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+            '"><i class="feather feather-eye" ></i></a> <span class="text-primary"></span>
+            <a class="btn btn-sm  btn-edit" href="'.route('task.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary"></span>
             <a class="btn btn-sm  btn-danger"  href="'.route('task.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
            
@@ -55,14 +62,14 @@ class indexController extends Controller
         return $data;
     }
 
-    public function createFromOffer(Request $request)
+    public function createFromReceipt(Request $request)
     {
-        $offerId = $request->route('id');
-        $c = offerte::where('id',$offerId)->count();
-        $offer = offerte::where('id',$offerId)->first();
+        $receiptUmzugId = $request->route('id');
+        $c = ReceiptUmzug::where('id',$receiptUmzugId)->count();
+        $receiptUmzug = ReceiptUmzug::where('id',$receiptUmzugId)->first();
         if($c != 0)
         {
-            return view ('front.task.createFromOffer',['offer' => $offer]);
+            return view ('front.task.createFromReceipt',['receipt' => $receiptUmzug]);
         }
         else{
             return view('front.errorPage');
@@ -80,7 +87,7 @@ class indexController extends Controller
         $all = $request->except('_token');
 
         $task = [
-            'offerteId' => $request->offerteId,
+            'receiptUmzugId' => $request->receiptUmzugId,
             'taskDate' => $request->taskDate,
             'taskTime' => $request->taskTime,
             'taskTotalPrice' => $request->taskTotalPrice,
@@ -103,7 +110,7 @@ class indexController extends Controller
                     $name = $worker['name'];
                     
                     $workerBasket = [
-                        'offerteId' => $request->offerteId,
+                        'receiptUmzugId' => $request->receiptUmzugId,
                         'taskId' => $taskId,
                         'workerId' => $v['workerId'],
                         'userId' => $userId,
@@ -162,16 +169,16 @@ class indexController extends Controller
         $all = $request->except('_token');
 
         $task = [
-            'offerteId' => $request->offerteId,
+            'receiptUmzugId' => $request->receiptUmzugId,
             'taskDate' => $request->taskDate,
             'taskTime' => $request->taskTime,
             'taskTotalPrice' => $request->taskTotalPrice,
         ];
-
+        
         $taskUpdate = Task::where('id',$id)->update($task);
         if($taskUpdate && $all['islem'])
         {
-           $all = $request->except('_token');
+            
             $islem = $all['islem'];
             unset($all['islem']);
             if(count($islem) !=0) {
@@ -184,7 +191,7 @@ class indexController extends Controller
                     $name = $worker['name'];
                     
                     $workerBasket = [
-                        'offerteId' => $request->offerteId,
+                        'receiptUmzugId' => $request->receiptUmzugId,
                         'taskId' => $id,
                         'workerId' => $v['workerId'],
                         'userId' => $userId,
@@ -220,6 +227,7 @@ class indexController extends Controller
         {
             $data = Task::where('id',$id)->get();
             Task::where('id',$id)->delete();
+            WorkerBasket::where('taskId','=',$id)->delete();
             return redirect()->back()->with('status','Görev Silindi');
         }
         else {

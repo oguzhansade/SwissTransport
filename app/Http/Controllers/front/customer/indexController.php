@@ -201,6 +201,10 @@ class indexController extends Controller
             $update = Customer::where('id',$id)->update($customer);
             if($update) 
             {
+                return redirect()
+                ->route('customer.detail', ['id' => $id])
+                ->with('status', 'Kunde wurde bearbeitet')
+                ->with('keep_status', true);
                 return redirect()->back()->with('status','Kunde wurde bearbeitet.');
             }
             else {
@@ -223,7 +227,8 @@ class indexController extends Controller
             if($customerForm != 0)
             {
                 CustomerForm::where('customerId',$id)->update([
-                    'status' => 0
+                    'status' => 0,
+                    'customerId' => NULL
                 ]);
             }
             

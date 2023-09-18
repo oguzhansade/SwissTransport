@@ -107,7 +107,7 @@
     // Vanilla Javascript
     var input = document.querySelector("#phone");
     window.intlTelInput(input,({
-        preferredCountries : ["tr","ch","de","li","at","it","fr"],
+        preferredCountries : ["ch","tr","de","li","at","it","fr"],
         formatOnDisplay:true,
         nationalMode:true,
     }));

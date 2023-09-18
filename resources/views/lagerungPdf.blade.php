@@ -81,7 +81,7 @@
         </table>
     </header>
     <footer>
-        <p style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</p>
+        <p style="font-size:9px;">Swiss Transport GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</p>
     </footer>
     <main>
         <div class="teklif-boyutu">
@@ -341,8 +341,8 @@
                             <div style="padding-top: 10px;">
                                 <span><b style="font-size:8px!important;line-height:8px;padding-top:10px;">Konto / Zahlbar an</b></span><br>
                                 <span>CH53 3000 0001 1563 8103 1</span><br>
-                                <span>Swiss Transport AG</span><br>
-                                <span>Wehntalerstrasse 190</span><br>
+                                <span>Swiss Transport GmbH</span><br>
+                                <span>Trockenloostrasse 37</span><br>
                                 <span>8105 Regensdorf</span><br>
                             </div>
     
@@ -396,8 +396,8 @@
                                         <div style="font-size:12px;padding-left:20px;">
                                             <span><b style="font-size:10px!important;line-height:10px;padding-top:30px;">Konto / Zahlbar an</b></span><br>
                                             <span style="font-size:12px!important;line-height:10px;">CH53 3000 0001 1563 8103 1</span><br>
-                                            <span style="font-size:12px!important;line-height:10px;">Swiss Transport AG</span><br>
-                                            <span style="font-size:12px!important;line-height:10px;">Wehntalerstrasse 190</span><br>
+                                            <span style="font-size:12px!important;line-height:10px;">Swiss Transporte GmbH</span><br>
+                                            <span style="font-size:12px!important;line-height:10px;">Trockenloostrasse 37</span><br>
                                             <span style="font-size:12px!important;line-height:10px;">8105 Regensdorf</span><br>
                                         </div>
                 

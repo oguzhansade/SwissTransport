@@ -167,7 +167,7 @@
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731
+        <span style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731
             96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
     </footer>
 
@@ -1106,12 +1106,6 @@
                                 Nein
                             @endif
                             <br>
-                            @if ($reinigung['extraService2'] == 1)
-                                Ja
-                            @else
-                                Nein
-                            @endif
-                            <br>
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">
@@ -1301,12 +1295,6 @@
                                 Nein
                             @endif
                             <br>
-                            @if ($reinigung2['extraService2'] == 1)
-                                Ja
-                            @else
-                                Nein
-                            @endif
-                            <br>
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">
@@ -1469,22 +1457,17 @@
 
                     <tr style="width:100%;">
                         <td valign="top" colspan="2">
-                            Entsorgungstermin:<br>
-                            Geschätzter Aufwand: <br>
-                            Geschätztes Volumen: <br>
-                            Anfahrt/Rückfahrt:
+                            @if ($entsorgung['entsorgungDate']) Entsorgungstermin:<br>@endif
+                            @if ($entsorgung['hour']) Geschätzter Aufwand: <br>@endif
+                            @if ($entsorgung['m3']) Geschätztes Volumen: <br>@endif
+                            @if ($entsorgung['arrivalReturn'])Anfahrt/Rückfahrt:@endif
                         </td>
 
                         <td valign="top">
-                            @if ($entsorgung['entsorgungDate'])
-                                {{ date('d/m/Y', strtotime($entsorgung['entsorgungDate'])) }}
-                            @else
-                                -
-                            @endif
-                            <br>
-                            {{ $entsorgung['hour'] }} Stunden<br>
-                            {{ $entsorgung['m3'] }} m³<br>
-                            {{ $entsorgung['arrivalReturn'] }} CHF<br>
+                            @if ($entsorgung['entsorgungDate']) {{ date('d/m/Y', strtotime($entsorgung['entsorgungDate'])) }} <br> @endif
+                            @if ($entsorgung['hour']){{ $entsorgung['hour'] }} Stunden<br>@endif
+                            @if ($entsorgung['m3']){{ $entsorgung['m3'] }} m³<br>@endif
+                            @if ($entsorgung['arrivalReturn']){{ $entsorgung['arrivalReturn'] }} CHF<br>@endif
                         </td>
 
                         <td valign="top" align="right">
@@ -1525,27 +1508,23 @@
             </td>
             </tr>
 
-            @if ($entsorgung['discount'] != 0)
+            @if ($entsorgung['discount'])
                 <tr>
                     <td align="left" valign="top">
-                        @if ($entsorgung['discountText'])
-                            {{ $entsorgung['discountText'] }}:
-                        @else
-                            Rabatt:
-                        @endif
+                        Rabatt:
                     </td>
                     <td><span>-{{ $entsorgung['discount'] }} CHF</span></td>
                 </tr>
             @endif
 
-            @if ($entsorgung['discountPercent'] != 0)
+            @if ($entsorgung['discountPercent'])
                 <tr>
                     <td align="left" valign="top">Rabatt: </td>
                     <td><span>{{ $entsorgung['discountPercent'] }}%</span></td>
                 </tr>
             @endif
 
-            @if ($entsorgung['extraDiscountPrice'] != 0)
+            @if ($entsorgung['extraDiscountPrice'])
                 <tr>
                     <td align="left" valign="top">
                         @if ($entsorgung['extraDiscountText'])
@@ -1558,15 +1537,19 @@
                 </tr>
             @endif
 
-            <tr>
-                <td align="left" valign="top"> Kosten: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
-            </tr>
+            @if($entsorgung['defaultPrice'])
+                <tr>
+                    <td align="left" valign="top"> Kosten: </td>
+                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
+                </tr>
+            @endif
 
-            <tr>
-                <td align="left" valign="top"> Pauschal: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
-            </tr>
+            @if($entsorgung['fixedPrice'])
+                <tr>
+                    <td align="left" valign="top"> Pauschal: </td>
+                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
+                </tr>
+            @endif
 
             @if ($offer['kostenExkl'])
                 <tr>

@@ -142,12 +142,27 @@ class indexController extends Controller
             ->editColumn('status', function ($data) {
                 if($data->status == 0)
                 {
-                    return '<button type="button" class="btn btn-sm btn-warning">Unregistered</button>';
+                    return '<button type="button" class="btn btn-sm btn-warning">Nicht registriert</button>';
                 }
                 else {
-                    return '<button type="button" class="btn btn-sm btn-success">Registered</button>';
+                    return '<button type="button" class="btn btn-sm btn-success">Registriert</button>';
                 }
                 
+            })
+            ->editColumn('type', function ($data) {
+                if($data->type == 'Privatform')
+                {
+                    return 'Privat kunde';
+                }
+                else if($data->type == 'Firmenform') {
+                    return 'Firmen kunde';
+                }
+                else if($data->type == 'Schnellanform') {
+                    return 'Schnellan kunde';
+                }
+                else if($data->type == 'Reinigungform') {
+                    return 'Reinigung kunde';
+                }
             })
     
             ->addColumn('option',function($table) 

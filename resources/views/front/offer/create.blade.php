@@ -73,7 +73,6 @@
                                 <select class="form-control" name="appOfferType" id="appOfferType">
                                     <option value="0" selected>Nein</option>
                                     <option value="1">Gemacht</option>
-                                    <option value="2">Wünscht keine</option>
                                 </select>
                             </div>
                         </div>
@@ -93,12 +92,12 @@
                                 <div class="col-md-12 einpack-control">
                                     <label for="" class="col-form-label">Einpack</label><br>
                                     <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch "
-                                        data-color="#9c27b0" data-switchery="false">
+                                        data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
 
                             {{-- Offerte Einpack Alanı --}}
-                            <div class="rounded einpack--area" style="background-color: #CBB4FF; display:none;">
+                            <div class="rounded einpack--area" style="background-color: #c8dff3; display:none;">
                                 @include('front.offer.offerEinpack')
                             </div>
                             {{-- Offerte Einpack Alanı --}}
@@ -108,12 +107,12 @@
                                 <div class="col-md-12 auspack-control">
                                     <label for="" class="col-form-label">Auspack</label><br>
                                     <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch "
-                                        data-color="#9c27b0" data-switchery="false">
+                                        data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
 
                             {{-- Offerte Auspack Alanı --}}
-                            <div class="rounded auspack--area" style="background-color: #CBB4FF; display:none;">
+                            <div class="rounded auspack--area" style="background-color: #c8dff3; display:none;">
                                 @include('front.offer.offerAuspack')
                             </div>
                             {{-- Offerte Auspack Alanı --}}
@@ -128,7 +127,7 @@
                                 <div class="col-md-12 reinigung2-control">
                                     <label for="" class="col-form-label">Reinigung 2</label><br>
                                     <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch "
-                                        data-color="#9c27b0" data-switchery="false">
+                                        data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
 
@@ -159,19 +158,19 @@
                                 <div class="col-md-12 verpackungsmaterial-control">
                                     <label for="" class="col-form-label">Verpackungsmaterial</label><br>
                                     <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial"
-                                        class="js-switch " data-color="#9c27b0" data-switchery="false">
+                                        class="js-switch " data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
 
                             {{-- Offerte Material Alanı --}}
-                            <div class="rounded verpackungsmaterial--area" style="background-color: #CBB4FF;display:none;">
+                            <div class="rounded verpackungsmaterial--area" style="background-color: #c8dff3;display:none;">
                                 @include('front.offer.offerMaterial')
                             </div>
                             {{-- Offerte Material Alanı --}}
 
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row d-none">
                             <div class="col-md-5">
                                 <label for="" class="col-form-label">Esimated Income</label><br>
                                 <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #8778AA">
@@ -242,7 +241,7 @@
                             <div class="col-md-12 email-send">
                                 <label for="" class="col-form-label"> E-Mail an Kunden</label><br>
                                 <input type="checkbox" name="isEmail" id="isEmail" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false" checked>
+                                    data-color="#286090" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -257,7 +256,7 @@
                             <div class="col-md-12 email-format">
                                 <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
                                 <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
-                                    class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false">
+                                    class="js-switch isCustomEmail" data-color="#286090" data-switchery="false">
                             </div>
                         </div>
 
@@ -276,7 +275,7 @@
                             <div class="col-md-12 sms-send">
                                 <label for="" class="col-form-label">SMS an Kunden</label><br>
                                 <input type="checkbox" name="isSMS" id="isSMS" class="js-switch "
-                                    data-color="#9c27b0" data-switchery="false">
+                                    data-color="#286090" data-switchery="false">
                             </div>
                         </div>
 
@@ -293,7 +292,7 @@
                             <div class="col-md-12 sms-format">
                                 <label for="" class="col-form-label">Standard SMStext bearbeiten</label><br>
                                 <input type="checkbox" name="isCustomSMS" id="isCustomSMS"
-                                    class="js-switch isCustomSMS" data-color="#9c27b0" data-switchery="false">
+                                    class="js-switch isCustomSMS" data-color="#286090" data-switchery="false">
                             </div>
 
                             <div class="row form-group sms-format-area" style="display: none;">

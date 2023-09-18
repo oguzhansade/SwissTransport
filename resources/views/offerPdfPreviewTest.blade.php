@@ -167,7 +167,7 @@
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transport AG | Wehntalerstrasse 190 | CH-8105 Regensdorf | Telefon: 044 731
+        <span style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731
             96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
     </footer>
 

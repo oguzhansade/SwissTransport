@@ -2,11 +2,11 @@
 <div class="form-group row">
     <div class="col-md-12 auspack-control">
         <label for="" class="col-form-label">Auspack</label><br>
-        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#9c27b0" data-switchery="false" @if ($auspack) checked @endif>  
+        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#286090" data-switchery="false" @if ($auspack) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded auspack--area" style="background-color: #CBB4FF; @if($auspack == NULL) display:none;  @endif">
+<div class="rounded auspack--area" style="background-color: #C8DFF3; @if($auspack == NULL) display:none;  @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>
@@ -65,7 +65,7 @@
             
             <div class="extra-cost-auspack mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($auspack
                 && \App\Models\OfferteAuspack::InfoAuspack($auspack,'extra') == NULL 
                 && \App\Models\OfferteAuspack::InfoAuspack($auspack,'extra1') == NULL
@@ -164,7 +164,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'costPrice')) 
                 value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'costPrice') }}" 
                 @else value="{{ 0 }}" 
@@ -210,44 +210,44 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'defaultPrice')) 
                 value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'defaultPrice') }}" 
             @endif>
 
             <div class="mt-2 isAuspackKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isAuspackKostendach" id="isAuspackKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) checked @endif>
             </div>
 
             <div class="auspack-kostendach-area" @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="auspackTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost')) 
                     value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'topCost') }}" 
                 @endif>
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isAuspackMTPrice" id="isAuspackMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
             
             <div class="mt-3 isAuspackPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isAuspackPauschal" id="isAuspackPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) checked @endif>
             </div>
 
             <div class="auspack-pauschal-area " @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
-                <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="auspackDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'fixedPrice') }}" 
                 @endif>
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isAuspackFxPrice" id="isAuspackFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 reinigung-control">
         <label for="" class="col-form-label">Reinigung</label><br>
-        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#9c27b0" data-switchery="false" @if ($reinigung) checked @endif>  
+        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#286090" data-switchery="false" @if ($reinigung) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded reinigung--area" style="background-color: #CBB4FF; @if($reinigung == NULL) display:none;  @endif">
+<div class="rounded reinigung--area" style="background-color: #C8DFF3; @if($reinigung == NULL) display:none;  @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Reinigungsart</label>
@@ -43,9 +43,9 @@
             </select>
             
 
-            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#8778aa;@if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff')) display: block; @else display: none;  @endif" >
+            <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="background-color:#286090;@if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff')) display: block; @else display: none;  @endif" >
                 <div class="col-md-6">
-                    <label class="col-form-label" for="l0">Tarifpreis</label>
+                    <label class="col-form-label text-white" for="l0">Tarifpreis</label>
                     <input class="form-control"   name="reinigungFixedPriceValue" placeholder="0"  type="number"
                     @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariff') != NULL) 
                         value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung,'fixedTariffPrice') }}"
@@ -64,7 +64,7 @@
             </select>
             
 
-            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#8778aa;
+            <div class="row reinigung-price--area p-2 mt-1 rounded" style="background-color:#286090;
             @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'standartTariff')) display: block; @else display: none;  @endif">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
@@ -111,23 +111,6 @@
                     </div>                                        
                 </div>                            
             </div>
-
-            <div class=" row">
-                <div class="col-md-12">
-                    <label for="" class="col-form-label">Mit Hochdruckreiniger</label>  
-                    <div class="radiobox">                                                
-                        <label class="text-dark">
-                            <input type="radio" class="extraReinigungService2"  name="extraReinigungService2" value="1" 
-                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService2') == 1) checked @endif> <span class="label-text">Ja</span>
-                        </label>
-                        <label class="text-dark ml-1">
-                            <input type="radio"  class="extraReinigungService2"  name="extraReinigungService2" value="0" 
-                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService2') == 0) checked @endif> <span class="label-text">Nein</span>
-                        </label>
-                    </div>                                        
-                </div>                            
-            </div> 
-            
         </div>
         <div class="col-md-6">
 
@@ -156,7 +139,7 @@
 
             <div class="extra-cost-reinigung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($reinigung
                     && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extra1') == NULL 
                     && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extra2') == NULL
@@ -272,7 +255,7 @@
             </div>
             
             <label class="col-form-label" for="l0">Kosten</label>
-            <input class="form-control"  name="reinigungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="reinigungCostPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'costPrice')) 
                         value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung,'costPrice') }}" 
                     @endif>
@@ -306,7 +289,7 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="reinigungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="reinigungTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'totalPrice')) 
                 value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung,'totalPrice') }}" 
             @endif>

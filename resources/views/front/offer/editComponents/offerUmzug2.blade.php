@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 umzug-control">
         <label for="" class="col-form-label">Umzug</label><br>
-        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false" @if ($umzug) checked @endif>  
+        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#286090" data-switchery="false" @if ($umzug) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded umzug--area" style="background-color: #CBB4FF; @if($umzug == NULL) display:none;  @endif">
+<div class="rounded umzug--area" style="background-color: #C8DFF3; @if($umzug == NULL) display:none;  @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>
@@ -97,7 +97,7 @@
             
             <div class="extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($umzug
                 && \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra') == NULL 
                 && \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra1') == NULL
@@ -383,7 +383,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'costPrice')) 
                 value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'costPrice') }}"
                 @else value="{{ 0 }}"
@@ -429,7 +429,7 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'defaultPrice')) 
                 value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'defaultPrice') }}"
                 @else value="{{ 0 }}"
@@ -437,12 +437,12 @@
 
             <div class="mt-2 isKostendach">
                 <label class="col-form-label" for="l0">Kostendach </label>
-                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) checked @endif>
             </div>
 
             <div class="kostendach-area" @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost')) 
                     value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'topCost') }}"
                     @else value="{{ 0 }}"
@@ -450,25 +450,25 @@
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
              
             <div class="mt-3 isPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) checked @endif>
             </div>
 
             <div class="pauschal-area "  @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) style="display: block;" @else style="display:none;" @endif>
-                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice')) 
                     value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'fixedPrice') }}"
                 @endif>
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

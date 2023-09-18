@@ -58,6 +58,7 @@
     </style>
 @endsection
 @section('content')
+
  <!-- Page Title Area -->
  <div class="row page-title clearfix">
     <div class="page-title-left">
@@ -75,6 +76,25 @@
     </div>
     <!-- /.page-title-right -->
 </div>
+@if (session('status'))
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session('status-danger'))
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    {{ session('status-danger') }}
+                </div>
+            </div>
+        </div>
+    @endif
 
 <div class="widget-list">
     <div class="row">
@@ -100,14 +120,16 @@
                                         <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                                         <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                     </tr>
-                                   
+                                   <tr>
+                                    
+                                   </tr>
                                    
                                 </tbody>
                             </table>
                             <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
                                 <tbody>
                                     <tr>
-                                        <td>
+                                        {{-- <td>
                                             <b class="test-dark">Service Type</b>
                                             <select class="form-control" name="serviceType" id="serviceType">
                                             <option value="Alle">Alle</option>
@@ -120,7 +142,9 @@
                                             <option value="Lagerung">Lagerung</option>
                                             <option value="Verpackungsmaterial">Verpackungsmaterial</option>
                                           </select>
-                                        </td>
+                                        </td> --}}
+                                        
+                                        
                                         <td>
                                             <b class="test-dark">Stand</b>
                                             <select class="form-control" name="standType" id="standType">
@@ -145,7 +169,38 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="col-md-3">
+                            <div id="checkbox-container" class="col-md-10 mt-3">
+                                <td>
+                                    <b class="text-dark">Service Types</b><br>
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="typeFilter[]" value="Alle" >
+                                    <label class="form-check-label mr-1" for="checkbox1">Alle</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="typeFilter[]" value="Umzug" >
+                                    <label class="form-check-label mr-1" for="checkbox2">Umzug</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="typeFilter[]" value="Einpack" >
+                                    <label class="form-check-label mr-1" for="checkbox3">Einpack</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="typeFilter[]" value="Auspack" >
+                                    <label class="form-check-label mr-1" for="checkbox4">Auspack</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="typeFilter[]" value="Entsorgung" >
+                                    <label class="form-check-label mr-1" for="checkbox5">Entsorgung</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="typeFilter[]" value="Reinigung" >
+                                    <label class="form-check-label mr-1" for="checkbox6">Reinigung</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox7" name="typeFilter[]" value="Transport" >
+                                    <label class="form-check-label mr-1" for="checkbox7">Transport</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox8" name="typeFilter[]" value="Lagerung" >
+                                    <label class="form-check-label mr-1" for="checkbox8">Lagerung</label>
+
+                                    <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox9" name="typeFilter[]" value="Verpackungsmaterial" >
+                                    <label class="form-check-label" for="checkbox9">Verpackungsmaterial</label>
+                                </td>
+                            </div>
+                            <div class="col-md-3 mt-3">
                                 <b class="text-dark">Kunde Search</b>
                                         <input class="form-control" type="text" id="searchInput" name="searchInput">
                             </div>
@@ -193,6 +248,32 @@
                             </tfoot>
                         </table>
                     </div>
+                    <!-- notizModal HTML -->
+                    <div class="modal fade" id="notizModal" tabindex="-1" role="dialog" aria-labelledby="notizModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="notizModalLabel">Notiz Bearbeiten</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <!-- Modal içeriği buraya gelir -->
+                            <form id="notizForm" action="" method="POST">
+                                @csrf
+                                <textarea name="notizTextArea" class="form-control" id="notizTextArea" rows="4" cols="50"></textarea>
+                            
+                            <!-- $data->id'yi burada kullanabilirsiniz -->
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                            <button  type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     
                 </div>
                 <!-- /.widget-body -->
@@ -221,10 +302,43 @@
 
 
 <script>
+    let checkedValues = [];
+
+    function updateCheckedValues() {
+        const checkboxIds = [
+            'checkbox1', 'checkbox2', 'checkbox3', 'checkbox4', 
+            'checkbox5', 'checkbox6', 'checkbox7', 'checkbox8', 
+            'checkbox9'
+        ];
+
+        checkboxIds.forEach(checkboxId => {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.addEventListener('change', () => {
+                const index = checkedValues.indexOf(checkbox.value);
+                if (checkbox.checked && index === -1) {
+                    checkedValues.push(checkbox.value);
+                } else if (!checkbox.checked && index !== -1) {
+                    checkedValues.splice(index, 1);
+                }
+            });
+        });
+    }
+
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
-           
+            "language": {
+                "paginate": {
+                    "previous": "Vorherige",
+                    "next" : "Nächste"
+                },
+                "search" : "Suche",     
+                "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                "zeroRecords": "Nichts gefunden - es tut uns leid",
+                "info": "Zeige Seite _PAGE_ von _PAGES_",
+                "infoEmpty": "Keine Einträge verfügbar",
+                "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            },
             "order": [0, 'desc'],
             "columnDefs": [{
                             "className": "dt-center",
@@ -237,11 +351,11 @@
                                 } else if (cellData == 'Beklemede') {
                                     
                                     $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >in Wartestellung<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >is Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
                                 } else if(cellData == 'Onaylanmadı') {
                                     $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nicht Bestätigt<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
                                     )
                                 }
 
@@ -278,6 +392,7 @@
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
                     d.serviceType = $('#serviceType').val();
+                    d.typeFilter = checkedValues;
                     d.standType = $('#standType').val();
                     d.appType = $('#appType').val();
                     d.search =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
@@ -356,6 +471,12 @@
         $('#searchInput').keyup(function(){
             table.draw();
         })
+
+        $('#checkbox-container').on('change', function () {
+                table.draw();
+                console.log(checkedValues,'çekbox değerleri')
+        })
+
         $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput').on('change', function() {
             table.draw();
         });
@@ -405,4 +526,66 @@
 });
     }
 </script>
+<script>
+    // Notiz düğmesine tıklanınca id'yi modal içeriğine yerleştirme
+    $(document).on('click', '.btn-info', function () {
+        
+        var id = $(this).data('id');
+        var url = '/offer/getOfferte/' + id
+
+        var formAction = '{{ route('offer.noticeUpdate', ['id' => ':id']) }}';
+        formAction = formAction.replace(':id', id);
+        $('#notizForm').attr('action', formAction);
+
+        $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            var offerteData = response.offerte;
+
+            if (offerteData) {
+                // offerteData içinde belirli bir offertenin bütün verileri bulunuyor
+                $('#notizTextArea').val(offerteData.panelNote);
+                // Örneğin, offerteData.field1, offerteData.field2 vb. şeklinde verilere erişebilirsiniz
+            } else {
+                $('#notizTextArea').val('Veri bulunamadı');
+            }
+        },
+        error: function () {
+            $('#notizTextArea').val('Sunucu hatası');
+        }
+    });
+    // noticeUpdater fonksiyonunu çağırmadan önce id'yi bir değişkende saklayın
+    var idForNoticeUpdater = id;
+
+    $('#updateNotice').on('click', function(){
+            noticeUpdater(idForNoticeUpdater)
+        })
+    });
+  </script>
+  <script>
+    function noticeUpdater(id)
+    {
+        var url = '/offer/noticeUpdate/' + id
+        var panelNote = $('#notizTextArea').val();
+            $.ajax({
+            url: url,
+            headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+            type: 'POST',
+            dataType: 'json',
+            data: {
+            '_token': '{{ csrf_token() }}', // CSRF token
+            'panelNote': panelNote // noticeArea değeri
+            },
+            success: function (response) {
+                
+            },
+            error: function () {
+                $('#notizTextArea').val('Sunucu hatası');
+            }
+        })
+    }
+    
+  </script>
 @endsection

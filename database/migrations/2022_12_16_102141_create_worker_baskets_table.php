@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('worker_baskets', function (Blueprint $table) {
             $table->id();
-            $table->integer('offerteId');
+            $table->integer('receiptUmzugId');
             $table->integer('taskId');
             $table->integer('workerId');
             $table->integer('userId');

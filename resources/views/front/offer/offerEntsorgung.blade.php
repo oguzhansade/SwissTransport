@@ -2,11 +2,11 @@
 <div class="form-group row">
     <div class="col-md-12 entsorgung-control">
         <label for="" class="col-form-label">Entsorgung</label><br>
-        <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded entsorgung--area" style="background-color: #CBB4FF;display:none;">
+<div class="rounded entsorgung--area" style="background-color: #c8dff3;display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Volumen-Tarif</label>
@@ -19,8 +19,8 @@
             </select>
 
 
-            <div class="row entsorgung-chfVolume--area p-2 mt-1 rounded" style="display: none;background-color:#8778aa;">
-                <label class="col-form-label" for="l0">CHF-Ansatz</label>
+            <div class="row entsorgung-chfVolume--area p-2 mt-1 rounded" style="display: none;background-color:#286090;">
+                <label class="col-form-label text-white" for="l0">CHF-Ansatz</label>
                 <input class="form-control" class="entsorgungVolumeChf"  name="entsorgungVolumeChf"  type="text" >
             </div>
             
@@ -94,7 +94,7 @@
         <div class="col-md-6">
             <div class="extra-cost-entsorgung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="entsorgungisExtra" id="entsorgungisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+                <input type="checkbox" name="entsorgungisExtra" id="entsorgungisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
             </div>  
 
             <div class="entsorgung--extra--cost--area" style="display: block;">
@@ -133,7 +133,7 @@
             </div>
             
             <label class="col-form-label" for="l0">Kosten</label>
-            <input class="form-control"  name="entsorgungCostPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="entsorgungCostPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
 
             <div class="row">
@@ -159,33 +159,33 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="entsorgungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="entsorgungTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2 isEntsorgungKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isEntsorgungKostendach" id="isEntsorgungKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isEntsorgungKostendach" id="isEntsorgungKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="entsorgung-kostendach-area" style="display: none;">
-                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="entsorgungTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isEntsorgungMTPrice" id="isEntsorgungMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div> 
             </div>
 
             <div class="mt-3 isEntsorgungPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isEntsorgungPauschal" id="isEntsorgungPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isEntsorgungPauschal" id="isEntsorgungPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="entsorgung-pauschal-area " style="display:none;">
-                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="entsorgungDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isEntsorgungFxPrice" id="isEntsorgungFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isEntsorgungFxPrice" id="isEntsorgungFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div> 
             </div>
         </div>
@@ -842,11 +842,24 @@
                 if(tariffChf2)
                 {
                     entTopPrice = entTotalPrice + parseFloat(tariffChf2);
-                    $('input[name=entsorgungTopPrice]').val(entTopPrice);
+                    if(!isNaN(entTopPrice))
+                    {
+                        $('input[name=entsorgungTopPrice]').val(entTopPrice);
+                    }
+                    else {
+                        $('input[name=entsorgungTopPrice]').val(0);
+                    }
+                    
                 }
                 else{
                     entTopPrice = entTotalPrice + parseFloat(volumeChf);
-                    $('input[name=entsorgungTopPrice]').val(entTopPrice);
+                    if(!isNaN(entTopPrice))
+                    {
+                        $('input[name=entsorgungTopPrice]').val(entTopPrice);
+                    }
+                    else {
+                        $('input[name=entsorgungTopPrice]').val(0);
+                    }
                 }
             }
 

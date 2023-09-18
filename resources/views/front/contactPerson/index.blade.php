@@ -96,7 +96,19 @@
                 { data: 'phone', name: 'phone'},
                 { data: 'duty', name: 'duty'},
                 { data: 'option', name: 'option', orderable: false, searchable: false },
-            ]
+            ],
+            "language": {
+                "paginate": {
+                    "previous": "Vorherige",
+                    "next" : "Nächste"
+                },
+                "search" : "Suche",     
+                "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                "zeroRecords": "Nichts gefunden - es tut uns leid",
+                "info": "Zeige Seite _PAGE_ von _PAGES_",
+                "infoEmpty": "Keine Einträge verfügbar",
+                "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            },
         });
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?

@@ -149,6 +149,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <div>
+                                    <input type="text" name="offerId" value="{{ $offer['id'] }}" hidden>
                                     <label for="" class="col-form-label">Offerten Nr.</label>
                                     <a href="{{ route('offer.detail', ['id' => $offer['id']]) }}"
                                         class="col-form-label text-underline">{{ $offer['id'] }}</a>
@@ -1498,7 +1499,7 @@
                                                 class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarLagerungColor" value="10" > <span
+                                            <input type="radio"  name="calendarLagerungColor" value="10" checked="checked"> <span
                                                 class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                         </label>
                                         <label class="mt-1 red">

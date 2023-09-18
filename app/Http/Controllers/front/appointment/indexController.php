@@ -54,13 +54,14 @@ class indexController extends Controller
     public function store(Request $request)
     {
 
+        
         $customerId = $request->route('id');
         $cekboks = $request->get('appType');
         $deliveryAble = $request->get('deliverable');
         $isEmailSend = $request->get('isEmail');
         $isCustomEmailSend = $request->get('isCustomEmail');
         $customEmail = $request->get('customEmail');
-
+        $offerId = $request->offerId;
 
         // Tanımlamalar
         $sub = '';
@@ -425,6 +426,7 @@ class indexController extends Controller
 
         // Onay Randevusu
         $appointmentService = [
+            'offerId' => $offerId,
             'paymentType' => $request->paymentType,
             'address' => $request->address,
             'calendarTitle' => $request->calendarTitle,
@@ -464,7 +466,7 @@ class indexController extends Controller
         $all = NULL;
         switch ($cekboks) {
             case (1);
-                $sub = 'Terminbestätigung Swiss Transport';
+                $sub = 'Auftragbestätigung Swiss Transporte';
                 $all = Appointment::create($appointment);
                 $AppointmentIdBul = DB::table('appointments')->orderBy('id', 'DESC')->first(); // Son Eklenen Lagerung un id'si
                 $appDateArray = [];
@@ -485,14 +487,14 @@ class indexController extends Controller
                 $randevuTipi = 'Besichtigung';
                 break;
             case (2);
-                $sub = 'Terminbestätigung Swiss Transport';
+                $sub = 'Auftragbestätigung Swiss Transporte';
                 $randevuTipi = 'Auftragsbestätigung';
                 $appointmentDate = $appDateArray;
                 $all = AppoinmentService::create($appointmentService);
 
                 break;
             case (3);
-                $sub = 'Terminbestätigung Swiss Transport';
+                $sub = 'Auftragbestätigung Swiss Transporte';
                 $all = AppointmentMaterial::create($appointmentMaterial);
                 $AppointmentMaterialIdBul = DB::table('appointment_materials')->orderBy('id', 'DESC')->first(); // Son Eklenen Lieferung un id'si
 

@@ -92,6 +92,19 @@
 <script>
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
+            "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
+                    },
+                    "search" : "Suche",     
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            
+                },
             "order" : [[4,'desc']], 
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',

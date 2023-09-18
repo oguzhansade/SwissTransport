@@ -74,10 +74,8 @@
                     <table id="example" class="table table-striped table-responsive">
                         <thead>
                             <tr class="text-dark">
-                                <th>Offerte No</th>
+                                <th>Kunde</th>
                                 <th>Missionsdatum</th>
-                                <th>Arbeitszeit</th>
-                                <th>Preis [h]</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -137,10 +135,8 @@
                 }
             },
             columns: [
-                { data: 'offerteId', name: 'offerteId'},
+                { data: 'customerName', name: 'customerName'},
                 { data: 'taskDate', name: 'taskDate'},
-                { data: 'workerHour', name: 'workerHour'},
-                { data: 'workerPrice', name: 'workerPrice'},
                 { data: 'option', name: 'option', orderable: false, searchable: false },
 
             ]

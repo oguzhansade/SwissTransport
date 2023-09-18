@@ -24,7 +24,6 @@ return new class extends Migration
             $table->integer('chf')->nullable();
             $table->string('hours')->nullable();
             $table->integer('extraService1')->nullable();
-            $table->integer('extraService2')->nullable();
             $table->date('startDate')->nullable();
             $table->time('startTime')->nullable();
             $table->date('endDate')->nullable();

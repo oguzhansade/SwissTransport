@@ -728,9 +728,16 @@
                                         <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
                                         <a class="btn btn-info btn-rounded" href="{{ route('receipt.edit',['id'=>$data['id']]) }}"> Bearbeiten</a>
 
+                                        @if (App\Models\UserPermission::getMyControl(5))
+                                            <a id="createTask"  href="{{ route('task.createFromReceipt',['id' => $data['id']]) }}" 
+                                                class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Aufgabe erstellen</strong> 
+                                            </a>
+                                        @endif
+
                                         <a id="createTask"  href="{{ route('receipt.showPdf',['id' => $data['id']]) }}" 
                                             class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong> 
                                         </a>
+                                        <a class="btn btn-warning btn-rounded" href="{{ route('expense.editUmzug',['id'=>$data['id']]) }}"> Aufgaben</a>
                                     </div>
                                 </div>
                             </div>

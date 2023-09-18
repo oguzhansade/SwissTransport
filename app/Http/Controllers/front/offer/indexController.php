@@ -43,22 +43,11 @@ class indexController extends Controller
         return view('front.offer.index');
     }
 
-    public function updatedOffer(Request $request)
-    {
-        $customerId = $request->route('customerId');
-        $id = $request->route('id');
-
-        $data = offerte::where('id', $id)->first();
-        $data2 = DB::table('offertes')->where('customerId', '=', $customerId)->where('mainOfferteId', '=', $id)->get()->toArray();
-        return view('front.offer.updatedOffer', ['data' => $data, 'data2' => $data2]);
-    }
-
-
     public function data(Request $request)
     {
         $customerId = $request->route('id');
 
-        $table = DB::table('offertes')->where('customerId', '=', $customerId)->where('mainOfferteId', '=', NULL)->get()->toArray();
+        $table = DB::table('offertes')->where('customerId', '=', $customerId)->get()->toArray();
         $data = DataTables::of($table)
 
             ->editColumn('id', function ($data) {
@@ -103,7 +92,32 @@ class indexController extends Controller
         return view('front.offer.create', ['data' => $data]);
     }
 
+    public function getOfferte($id)
+    {
+        $offerte = Offerte::find($id); // Belirli bir id ile offerte verilerini çekiyoruz
+
+        return response()->json(['offerte' => $offerte]);
+    }
     
+    public function noticeUpdate(Request $request)
+    {
+        $id = $request->route('id');
+        $offerteUpdateNotice = offerte::where('id',$id)->update([
+            'panelNote' => $request->notizTextArea
+        ]);
+        if($offerteUpdateNotice)
+        {
+            return redirect()
+                ->route('statistics.offer')
+                ->with('status', $id . ' - ' . 'Angebot mit Nummer wurde bearbeitet')
+                ->withInput()
+                ->with('keep_status', true);
+        }
+        else{
+            return response()->json(['success' => false]);
+        }
+        
+    }
 
     public function sendSms(Request $request)
     {
@@ -381,7 +395,6 @@ class indexController extends Controller
                 'chf' => $request->reinigungchfValue,
                 'hours' => $request->reinigunghourValue,
                 'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
                 'startDate' => $request->reinigungdate,
                 'startTime' => $request->reinigungtime,
                 'endDate' => $request->reinigungEnddate,
@@ -416,7 +429,6 @@ class indexController extends Controller
                 'chf' => $request->reinigungchfValue2,
                 'hours' => $request->reinigunghourValue2,
                 'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
                 'startDate' => $request->reinigungdate2,
                 'startTime' => $request->reinigungtime2,
                 'endDate' => $request->reinigungEnddate2,
@@ -557,7 +569,6 @@ class indexController extends Controller
             $offerMaterialId = $offerteMaterialIdBul->id;
 
             if ($material) {
-
                 $islem = $all['islem'];
                 if ($islem) {
                     unset($all['islem']);
@@ -909,7 +920,7 @@ class indexController extends Controller
                 
             }
 
-            if($id == 719){
+            
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -927,7 +938,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-            }
+            
         }
 
         if ($AusId2) {
@@ -983,7 +994,7 @@ class indexController extends Controller
                     
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1001,7 +1012,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($AusId2 == NULL && $request->isofferAuszug2) {
             $mainAusAdress = [
@@ -1074,7 +1085,7 @@ class indexController extends Controller
                     
                 }
 
-                if( $id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1092,7 +1103,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+               
             }
         } elseif ($AusId3 == NULL && $request->isofferAuszug3) {
             $mainAusAdress = [
@@ -1160,7 +1171,7 @@ class indexController extends Controller
                 
             }
 
-            if($id == 719){
+            
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -1178,7 +1189,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-            }
+           
         } elseif ($EinId == NULL && $request->einStreet1) {
             $mainEinAdress = [
                 'street' => $request->einStreet1,
@@ -1249,7 +1260,7 @@ class indexController extends Controller
                     
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1267,7 +1278,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+               
             }
         } elseif ($EinId2 == NULL && $request->einStreet2) {
             $mainEinAdress = [
@@ -1340,7 +1351,7 @@ class indexController extends Controller
                 
             }
 
-            if($id == 719){
+            
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -1358,7 +1369,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-            }
+            
 
         } elseif ($EinId3 == NULL && $request->einStreet3) {
             $mainEinAdress = [
@@ -1484,7 +1495,7 @@ class indexController extends Controller
                     ];
                 }
 
-                if($id == 719){
+               
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1502,7 +1513,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($offerUmzugId == NULL && $request->isUmzug) {
             $offerUmzug = [
@@ -1632,7 +1643,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+              
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1650,7 +1661,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+               
             }
         } elseif ($offerEinpackId == NULL && $request->isEinpack) {
             $offerEinpack = [
@@ -1767,7 +1778,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1785,7 +1796,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($offerAuspackId == NULL && $request->isAuspack) {
             $offerAuspack = [
@@ -1834,7 +1845,6 @@ class indexController extends Controller
                     'chf' => $request->reinigungchfValue,
                     'hours' => $request->reinigunghourValue,
                     'extraService1' => $request->extraReinigungService1,
-                    'extraService2' => $request->extraReinigungService2,
                     'startDate' => $request->reinigungdate,
                     'startTime' => $request->reinigungtime,
                     'endDate' => $request->reinigungEnddate,
@@ -1909,7 +1919,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1927,7 +1937,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($offerReinigungId == NULL && $request->isReinigung) {
             $offerReinigung = [
@@ -1940,7 +1950,6 @@ class indexController extends Controller
                 'chf' => $request->reinigungchfValue,
                 'hours' => $request->reinigunghourValue,
                 'extraService1' => $request->extraReinigungService1,
-                'extraService2' => $request->extraReinigungService2,
                 'startDate' => $request->reinigungdate,
                 'startTime' => $request->reinigungtime,
                 'endDate' => $request->reinigungEnddate,
@@ -1980,7 +1989,6 @@ class indexController extends Controller
                     'chf' => $request->reinigungchfValue2,
                     'hours' => $request->reinigunghourValue2,
                     'extraService1' => $request->extraReinigungService12,
-                    'extraService2' => $request->extraReinigungService22,
                     'startDate' => $request->reinigungdate2,
                     'startTime' => $request->reinigungtime2,
                     'endDate' => $request->reinigungEnddate2,
@@ -2055,7 +2063,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2073,7 +2081,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($offerReinigungId2 == NULL && $request->isReinigung2) {
             $offerReinigung2 = [
@@ -2086,7 +2094,6 @@ class indexController extends Controller
                 'chf' => $request->reinigungchfValue2,
                 'hours' => $request->reinigunghourValue2,
                 'extraService1' => $request->extraReinigungService12,
-                'extraService2' => $request->extraReinigungService22,
                 'startDate' => $request->reinigungdate2,
                 'startTime' => $request->reinigungtime2,
                 'endDate' => $request->reinigungEnddate2,
@@ -2202,7 +2209,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2220,7 +2227,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
             }
         } elseif ($offerEntsorgungId == NULL && $request->isEntsorgung) {
             $offerEntsorgung = [
@@ -2366,25 +2373,25 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
-                    foreach ($changedData as $key => $value) {
-                        $oldValue = $value['oldValue'];
-                        $newValue = $value['newValue'];
-                        $serviceType = $value['serviceType'];
-                        $offerId = $value['offerId'];
-                        $inputName = $value['inputName'];
-                        
-                        $offerLog = [
-                            'offerId' => $offerId,
-                            'serviceType' => $serviceType,
-                            'inputName' => $inputName,
-                            'oldValue' => $oldValue,
-                            'newValue' => $newValue,
-                        ];
-                        OfferLogs::create($offerLog);
-                        $changedData = [];
-                    }
+                
+                foreach ($changedData as $key => $value) {
+                    $oldValue = $value['oldValue'];
+                    $newValue = $value['newValue'];
+                    $serviceType = $value['serviceType'];
+                    $offerId = $value['offerId'];
+                    $inputName = $value['inputName'];
+                    
+                    $offerLog = [
+                        'offerId' => $offerId,
+                        'serviceType' => $serviceType,
+                        'inputName' => $inputName,
+                        'oldValue' => $oldValue,
+                        'newValue' => $newValue,
+                    ];
+                    OfferLogs::create($offerLog);
+                    $changedData = [];
                 }
+                
             }
         } elseif ($offerTransportId == NULL && $request->isTransport) {
             $offerTransport = [
@@ -2494,7 +2501,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2512,7 +2519,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+               
             }
         } elseif ($offerLagerungId == NULL && $request->isLagerung) {
             $offerLagerung = [
@@ -2588,7 +2595,7 @@ class indexController extends Controller
                    
                 }
 
-                if($id == 719){
+                
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2606,7 +2613,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                }
+                
 
                 if ($offerteMaterial && $all['islem']) {
                     $islem = $all['islem'];
@@ -2707,6 +2714,9 @@ class indexController extends Controller
             if ($attribute === 'updated_at') {
                 continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
             }
+            if ($attribute === 'panelNote') {
+                continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+            }
 
             $attributeMappings = array(
                 'appType' => 'BESICHTIGUNG',
@@ -2727,7 +2737,6 @@ class indexController extends Controller
                 'offerteMaterialId' => 'Material',
                 'offerPrice' => 'ESIMATED INCOME',
                 'offerteNote' => 'BEMERKUNG (IN OFFERTE)',
-                'panelNote' => 'NOTIZ (NICHT IN OFFERTE)',
                 'kostenInkl' => 'Kosten inkl. MwSt.',
                 'kostenExkl' => 'Kosten exkl. MwSt.',
                 'kostenFrei' => 'Kostenfrei MwSt.',
@@ -2747,7 +2756,7 @@ class indexController extends Controller
             
         }
 
-        if($id == 719){
+        
             foreach ($changedData as $key => $value) {
                 $oldValue = $value['oldValue'];
                 $newValue = $value['newValue'];
@@ -2765,7 +2774,7 @@ class indexController extends Controller
                 OfferLogs::create($offerLog);
                 $changedData = [];
             }
-        }
+        
 
         // Teklif Onayı
         $oToken = Str::random(64);
@@ -3032,7 +3041,6 @@ class indexController extends Controller
         $customerId = $offer['customerId'];
         if ($c != 0) {
             $data = offerte::where('id', $id)->first();
-            $data2 = offerte::where('mainOfferteId', $data['mainOfferteId'])->first();
 
             // MainOfferte
             $auszug = offerteAddress::where('id', $data['auszugaddressId'])->delete();
@@ -3051,34 +3059,10 @@ class indexController extends Controller
             $lagerung = OfferteLagerung::where('id', $data['offerteLagerungId'])->delete();
             $basket = OfferteBasket::where('materialId', $data['offerteMaterialId'])->delete();
             $material = OfferteMaterial::where('id', $data['offerteMaterialId'])->delete();
-            Task::where('offerteId', $data['id'])->delete();
-            WorkerBasket::where('offerteID', $data['id'])->delete();
+            
             OfferVerify::where('offerId', $data['id'])->delete();
             OfferCustomerView::where('offerId', $data['id'])->delete();
 
-            // UpdatedOfferte
-            $Uauszug = offerteAddress::where('id', $data2['auszugaddressId'])->delete();
-            $Uauszug2 = offerteAddress::where('id', $data2['auszugaddressId2'])->delete();
-            $Uauszug3 = offerteAddress::where('id', $data2['auszugaddressId3'])->delete();
-            $Ueinzug = offerteAddress::where('id', $data2['einzugaddressId'])->delete();
-            $Ueinzug2 = offerteAddress::where('id', $data2['einzugaddressId2'])->delete();
-            $Ueinzug2 = offerteAddress::where('id', $data2['einzugaddressId3'])->delete();
-            $Uumzug = OfferteUmzug::where('id', $data2['offerteUmzugId'])->delete();
-            $Ueinpack = OfferteEinpack::where('id', $data2['offerteEinpackId'])->delete();
-            $Uauspack = OfferteAuspack::where('id', $data2['offerteAuspackId'])->delete();
-            $Ureinigung = OfferteReinigung::where('id', $data2['offerteReinigungId'])->delete();
-            $Ureinigung2 = OfferteReinigung::where('id', $data2['offerteReinigung2Id'])->delete();
-            $Uentsorgung = OfferteEntsorgung::where('id', $data2['offerteEntsorgungId'])->delete();
-            $Utransport = OfferteTransport::where('id', $data2['offerteTransportId'])->delete();
-            $Ulagerung = OfferteLagerung::where('id', $data2['offerteLagerungId'])->delete();
-            $Ubasket = OfferteBasket::where('materialId', $data2['offerteMaterialId'])->delete();
-            $Umaterial = OfferteMaterial::where('id', $data2['offerteMaterialId'])->delete();
-            Task::where('offerteId', $data2['id'])->delete();
-            WorkerBasket::where('offerteID', $data2['id'])->delete();
-            OfferVerify::where('offerId', $data2['id'])->delete();
-            OfferCustomerView::where('offerId', $data2['id'])->delete();
-
-            offerte::where('mainOfferteId', $data2['id'])->delete();
             offerte::where('id', $id)->delete();
 
             return redirect()
@@ -3327,7 +3311,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue,
             'hours' => $request->reinigunghourValue,
             'extraService1' => $request->extraReinigungService1,
-            'extraService2' => $request->extraReinigungService2,
             'startDate' => $request->reinigungdate,
             'startTime' => $request->reinigungtime,
             'endDate' => $request->reinigungEnddate,
@@ -3356,7 +3339,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue2,
             'hours' => $request->reinigunghourValue2,
             'extraService1' => $request->extraReinigungService12,
-            'extraService2' => $request->extraReinigungService22,
             'startDate' => $request->reinigungdate2,
             'startTime' => $request->reinigungtime2,
             'endDate' => $request->reinigungEnddate2,
@@ -3728,7 +3710,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue,
             'hours' => $request->reinigunghourValue,
             'extraService1' => $request->extraReinigungService1,
-            'extraService2' => $request->extraReinigungService2,
             'startDate' => $request->reinigungdate,
             'startTime' => $request->reinigungtime,
             'endDate' => $request->reinigungEnddate,
@@ -3757,7 +3738,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue2,
             'hours' => $request->reinigunghourValue2,
             'extraService1' => $request->extraReinigungService12,
-            'extraService2' => $request->extraReinigungService22,
             'startDate' => $request->reinigungdate2,
             'startTime' => $request->reinigungtime2,
             'endDate' => $request->reinigungEnddate2,
@@ -4130,7 +4110,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue,
             'hours' => $request->reinigunghourValue,
             'extraService1' => $request->extraReinigungService1,
-            'extraService2' => $request->extraReinigungService2,
             'startDate' => $request->reinigungdate,
             'startTime' => $request->reinigungtime,
             'endDate' => $request->reinigungEnddate,
@@ -4159,7 +4138,6 @@ class indexController extends Controller
             'chf' => $request->reinigungchfValue2,
             'hours' => $request->reinigunghourValue2,
             'extraService1' => $request->extraReinigungService12,
-            'extraService2' => $request->extraReinigungService22,
             'startDate' => $request->reinigungdate2,
             'startTime' => $request->reinigungtime2,
             'endDate' => $request->reinigungEnddate2,

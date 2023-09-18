@@ -9,6 +9,7 @@ class AppoinmentService extends Model
 {
     
     protected $fillable = [
+        'offerId',
         'paymentType',
         'address',
         'calendarTitle',

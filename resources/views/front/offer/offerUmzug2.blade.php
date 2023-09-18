@@ -2,11 +2,11 @@
 <div class="form-group row">
     <div class="col-md-12 umzug-control">
         <label for="" class="col-form-label">Umzug</label><br>
-        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded umzug--area" style="background-color: #CBB4FF; display:none;">
+<div class="rounded umzug--area" style="background-color: #c8dff3; display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>
@@ -61,7 +61,7 @@
             
             <div class="extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" checked>  
+                <input type="checkbox" name="isExtra" id="isExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
             </div>  
 
             <div class="extra--cost--area" style="display: block;">
@@ -231,7 +231,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"> 
+            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
 
             <label class="col-form-label" for="l0">Rabatt</label>
             <input class="form-control"  name="umzugDiscount" placeholder="0"  type="number" > 
@@ -254,33 +254,33 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+            <input class="form-control"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <div class="mt-2 isKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isKostendach" id="isKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="kostendach-area" style="display: none;">
-                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="umzugTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
                 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isUmzugMTPrice" id="isUmzugMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>  
 
             <div class="mt-3 isPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                <input type="checkbox"  name="isPauschal" id="isPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
 
             <div class="pauschal-area " style="display:none;">
-                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;">
+                <input class="form-control"  name="umzugDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isUmzugFxPrice" id="isUmzugFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

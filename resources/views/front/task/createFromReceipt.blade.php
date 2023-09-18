@@ -47,13 +47,14 @@
                         @csrf
                         <div class="row p-3 mb-3">
                             <div class="col-md-4">
-                                <label class=" col-form-label" for="l0">Offertennr</label>
-                                <select name="offerteId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
+                                <label class=" col-form-label" for="l0">Quittungnnr</label>
+                                <select id="receiptUmzug" name="receiptUmzugId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
-                                    @foreach (\App\Models\offerte::all() as $k => $v)
-                                        <option class="form-control" @if($offer && $offer['id'] == $v['id']) selected @endif value="{{ $v['id'] }}">{{ $v['id'] }}</option>
+                                    @foreach (\App\Models\ReceiptUmzug::all() as $k => $v)
+                                        <option class="form-control"  @if($receipt && $receipt['id'] == $v['id']) selected @endif data-umzugHour="{{ $v['umzugHour'] }}" value="{{ $v['id'] }}">{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
+                                <small id="defaultHour" class="text-primary"></small>
                             </div>
 
                             <div class="col-md-4">
@@ -123,39 +124,84 @@
 @section('footer')
 <script>
     var say= 0;
-    var i = $(".islem_field").lenght || 0;
-    $("#addRowBtn").click(function () {
-        
-        var topitop = 0;
-        $("[id=toplam]").each(function () {
-           topitop++; 
-                         
-        });
-        
-        $(".isciadet").html(say+1+' '+'Anzahl der Arbeiter');
-        console.log(topitop+1,'ADET')
-        var newRow = 
-        '<tr class="islem_field">' +
-        '<td><select class="m-b-10 form-control isci" name="islem['+i+'][workerId]" data-toggle="select2">'+
-        '<option class="form-control" value="0"> Arbeiter auswählen </option>';
-        @foreach (\App\Models\Worker::all() as $key => $value)
-            
-        newRow+= '<option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>';  
-        @endforeach
+    var i = $(".islem_field").length || 0;
 
-        newRow+='</select></td>'+
-        '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
-        '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="1"></td>'+
-        ''+
-        '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
-        '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
-        '</tr>'
-        
-        $("#faturaData").append(newRow);
-        
-        i++;
-        say++; 
-    });
+    $(document).ready(function(){
+       
+
+       let defaultHour = $(this).find("option:selected").attr("data-umzugHour") || 0;
+       if(!isNaN(defaultHour))
+       {
+           $("#defaultHour").text('Standardstunde: '+defaultHour);
+       }
+       else{
+           defaultHour = 0;
+           $("#defaultHour").text('Standardstunde: 0');
+       }
+  
+       $("#receiptUmzug").on("change", function() {
+           defaultHour = $(this).find("option:selected").attr("data-umzugHour");
+           defaultHour = parseInt(defaultHour)
+           if(!isNaN(defaultHour))
+           {
+               $("#defaultHour").text('Standardstunde: '+defaultHour);
+           }
+           else{
+               defaultHour = 0;
+               $("#defaultHour").text('Standardstunde: 0');
+           }
+       })
+
+       var tutaring = parseFloat($("#tutar").val()).toFixed(2);
+       var toplaming = parseFloat($("#toplam").val()).toFixed(2);
+       $("#tutar").val(tutaring)
+       $("#toplam").val(toplaming)
+
+       
+       $(".urun_adet").html(say+' '+'Anzahl der Arbeiter');
+
+       $("body").on("click","#removeButton", function () {
+       say = say-1;
+       if(say==0)
+           {
+           $(".urun_adet").html('Es wurden keine Arbeitnehmer eingestellt');
+           }
+       else{
+           $(".urun_adet").html(say+' '+'Anzahl der Arbeiter');
+       }
+       
+       $(this).closest(".islem_field").remove();
+       console.log(say,'Silerken')
+       calc();
+       })
+
+       var i = $(".islem_field").length || 0;
+       $("#addRowBtn").click(function () {
+       
+       $(".urun_adet").html(say+1+' '+'Anzahl der Arbeiter');
+           var newRow = 
+           '<tr class="islem_field">' +
+           '<td><select class="m-b-10 form-control isci" name="islem['+i+'][workerId]" data-toggle="select2">'+
+           '<option class="form-control" value="0"> Arbeiter auswählen </option>';
+           @foreach (\App\Models\Worker::all() as $key => $value)
+               
+           newRow+= '<option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>';  
+           @endforeach
+
+           newRow+='</select></td>'+
+           '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
+           '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="' + defaultHour + '"></td>'+
+           ''+
+           '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
+           '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
+           '</tr>'
+           
+           $("#faturaData").append(newRow);
+           
+           i++;
+           say++; 
+       });
+   })
 
 
     $("body").on("change",".isci",function () {

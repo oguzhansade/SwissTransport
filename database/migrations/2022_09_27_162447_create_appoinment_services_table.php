@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('appoinment_services', function (Blueprint $table) {
             $table->id();
+            $table->integer('offerId')->nullable();
             $table->integer('appType')->default(2);
             $table->boolean('paymentType');// 0 ise Bar 1 ise Invoice 
             $table->string('address');

@@ -1,12 +1,12 @@
 <div class="form-group row">
     <div class="col-md-12 einpack-control">
         <label for="" class="col-form-label">Einpack</label><br>
-        <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch " data-color="#9c27b0" data-switchery="false" @if ($einpack) checked @endif >  
+        <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch " data-color="#286090" data-switchery="false" @if ($einpack) checked @endif >  
     </div>                            
 </div>
 
 
-<div class="rounded einpack--area" style="background-color: #CBB4FF;  @if($einpack == NULL) display:none;  @endif">
+<div class="rounded einpack--area" style="background-color: #C8DFF3;  @if($einpack == NULL) display:none;  @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>
@@ -65,7 +65,7 @@
             
             <div class="extra-cost-einpack mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($einpack
                 && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra') == NULL 
                 && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra1') == NULL
@@ -161,7 +161,7 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'costPrice')) 
                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'costPrice') }}" 
                 @else value="{{ 0 }}" 
@@ -207,19 +207,19 @@
             </div>
 
             <label class="col-form-label" for="l0">Geschätzte Kosten</label>
-            <input class="form-control"  name="einpackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+            <input class="form-control"  name="einpackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'defaultPrice')) 
                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'defaultPrice') }}" 
             @endif>
 
             <div class="mt-2 isEinpackKostendach">
                 <label class="col-form-label" for="l0">Kostendach</label>
-                <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isEinpackKostendach" id="isEinpackKostendach" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) checked @endif>
             </div>
 
             <div class="einpack-kostendach-area" @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) style="display: block;" @else style="display: none;" @endif >
-                <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="einpackTopPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost')) 
                     value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'topCost') }}" 
                     @else value="{{ 0 }}" 
@@ -227,25 +227,25 @@
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isEinpackMTPrice" id="isEinpackMTPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
 
             <div class="mt-3 isEinpackPauschal">
                 <label class="col-form-label" for="l0">Pauschal</label>
-                <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox"  name="isEinpackPauschal" id="isEinpackPauschal" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) checked @endif>
             </div>
 
             <div class="einpack-pauschal-area " @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) style="display: block;" @else style="display: none;" @endif>
-                <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"
+                <input class="form-control"  name="einpackDefaultPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;"
                 @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice')) 
                     value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'fixedPrice') }}" 
                 @endif>
 
                 <div class="mt-2">
                     <small class=" text-primary">manuell gesetzt</small>
-                    <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#9c27b0" data-size="small" data-switchery="false" >
+                    <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
                 </div>
             </div>
         </div>

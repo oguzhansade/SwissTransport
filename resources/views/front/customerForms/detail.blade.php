@@ -63,11 +63,11 @@
                     <div class="form-group row mt-3">
                         <div class="col-md-12 ml-md-auto btn-list">
                             @if($data['status'] == 0)
-                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.createForm', ['id' => $data['id']]) }}">Müşteriyi Kaydet</a>
+                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.createForm', ['id' => $data['id']]) }}">Kundendaten übernehmen</a>
                             @endif
                             
                             @if($data['status'] == 1)
-                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.detail', ['id' => $data['customerId']]) }}">Müşteriye Git</a>
+                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.detail', ['id' => $data['customerId']]) }}">Kunden</a>
                             @endif
                         </div>
                     </div>

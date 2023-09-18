@@ -140,6 +140,12 @@
                         aria-expanded="false">Quittungen</a>
                 </li>
             @endif
+            @if (App\Models\UserPermission::getMyControl(9))
+                <li class="nav-item " style=""><a href="#notiz-tab-bordered-1" 
+                        class="nav-link @if (session('cat') == 'Notiz') active @endif" data-toggle="tab"
+                        aria-expanded="false">Notiz</a>
+                </li>
+            @endif
 
         </ul>
         <div class="tab-content">
@@ -164,7 +170,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="contact-details-cell"><small
-                                    class="heading-font-family fw-500 text-dark">Vorname</small> <span
+                                    class="heading-font-family fw-500 text-dark">Name / Vorname</small> <span
                                     class="text-primary">{{ $data[0]['name'] }} {{ $data[0]['surname'] }}</span>
                             </div>
                             <!-- /.contact-details-cell -->
@@ -252,14 +258,6 @@
                             <!-- /.contact-details-cell -->
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="contact-details-cell"><small
-                                    class="heading-font-family fw-500 text-dark">Notiz</small> <span
-                                    class="text-primary">{{ $data[0]['note'] }}</span>
-                            </div>
-                            <!-- /.contact-details-cell -->
-                        </div>
-                        <!-- /.col-md-6 -->
                     </div>
                 </div>
 
@@ -448,10 +446,11 @@
                                                     <th>Quittungsnr</th>
                                                     <th>Quittungsart</th>
                                                     <th>Auftragstermin</th>
-                                                    <th>Quittung erstellt am</th>
+                                                    <th>Erstellt am</th>
                                                     <th>Betrag</th>
                                                     <th>Zahlungsart</th>
                                                     <th>Status</th>
+                                                    <th>DocTaken</th>
                                                     <th>Option</th>
                                                 </tr>
                                             </thead>
@@ -467,6 +466,39 @@
                         <!-- /.row -->
                     </div>
                 </div>
+            </div>
+
+            {{-- Müşteri Notu --}}
+            <!-- /.tab-pane Müşteri Profili -->
+            <div role="tabpanel" class="tab-pane"
+                id="notiz-tab-bordered-1" aria-expanded="false">
+
+                <div class="contact-details-profile ">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="mr-b-20"> Kunde : <span
+                                    class="color-color-scheme font-weight-bold">{{ $data[0]['name'] }}</span></h5>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="{{ route('customer.edit', ['id' => $data[0]['id']]) }}"
+                                class="btn btn-color-scheme d-flex justify-content-center">
+                                <i class="feather feather-edit"></i> <span class="pl-1">Kunden Bearbeiten</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <h5 class="text-primary">Notiz</h5>
+                            <div class="contact-details-cell">
+                                 <span class="text-dark"><br>{{ $data[0]['note'] }}</span>
+                            </div>
+                            <!-- /.contact-details-cell -->
+                        </div>
+                        <!-- /.col-md-6 -->
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- /.tab-content -->
@@ -488,9 +520,11 @@
 
     {{-- Makbuz --}}
     @if (App\Models\UserPermission::getMyControl(11))
+        
         <script>
             $(document).ready(function() {
                 let table = $('#makbuz').DataTable({
+                    "order": [0, 'desc'],
                     lengthMenu: [
                         [25, 100, -1],
                         [25, 100, "All"]
@@ -504,7 +538,7 @@
                     processing: true,
                     serverSide: true,
                     language: {
-                        'emptyTable': 'Görüntülenecek Veri Yok'
+                        'emptyTable': 'Keine gespeicherte Angaben'
                     },
                     ajax: {
                         type: 'POST',
@@ -518,34 +552,46 @@
                         }
                     },
                     columns: [
-
                         {
                             data: 'makbuzNo',
-                            name: 'makbuzNo'
+                            name: 'makbuzNo',
+                            width: '10%'
                         },
                         {
                             data: 'receiptType',
-                            name: 'receiptType'
+                            name: 'receiptType',
+                            width: '10%'
                         },
                         {
                             data: 'orderDate',
-                            name: 'orderDate'
+                            name: 'orderDate',
+                            width: '10%'
                         },
                         {
                             data: 'created_at',
-                            name: 'created_at'
+                            name: 'created_at',
+                            width: '12%'
                         },
                         {
                             data: 'tutar',
-                            name: 'tutar'
+                            name: 'tutar',
+                            width: '7%'
                         },
                         {
                             data: 'payType',
-                            name: 'payType'
+                            name: 'payType',
+                            width: '7%'
                         },
                         {
                             data: 'status',
-                            name: 'status'
+                            name: 'status',
+                            width: '7%'
+                        },
+                        {
+                            data: 'docTaken',
+                            name: 'docTaken',
+                            searchable: false,
+                            width: '10%',
                         },
                         {
                             data: 'option',
@@ -555,7 +601,22 @@
                             exportable: false
                         },
 
-                    ]
+                    ],
+                    
+                    "language": {
+                        "paginate": {
+                            "previous": "Vorherige",
+                            "next" : "Nächste"
+                        },
+                        "search" : "Suche",     
+                        "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                        "zeroRecords": "Nichts gefunden - es tut uns leid",
+                        "info": "Zeige Seite _PAGE_ von _PAGES_",
+                        "infoEmpty": "Keine Einträge verfügbar",
+                        "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+                
+                    },
+                    
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
@@ -578,6 +639,32 @@
 
             });
         </script>
+        <script>
+            function docTaken(id, type) {
+            if (confirm("Are you sure you want to change the docTaken?")) {
+                confirmAndChange(id, type);
+            }
+        }
+        </script>
+
+        <script>
+            function confirmAndChange(id,type){
+            let table= $('#makbuz').DataTable();
+            
+            console.log(id,type);
+                $.ajax({
+                    type:'POST',
+                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                    url: '{{ route('receipt.docTaken', ['id' => ':id', 'type' => ':type']) }}'.replace(':id', id).replace(':type', type),
+                    success: function(response) {
+                        table.draw();
+                    },
+                    error: function(xhr, status, error) {
+                        // handle error response
+                    }
+                });
+            }
+        </script>
     @endif
 
     {{-- Fatura --}}
@@ -585,6 +672,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#example4').DataTable({
+                    
                     lengthMenu: [
                         [25, 100, -1],
                         [25, 100, "All"]
@@ -598,7 +686,7 @@
                     processing: true,
                     serverSide: true,
                     language: {
-                        'emptyTable': 'Görüntülenecek Veri Yok'
+                        'emptyTable': 'Keine gespeicherte Angaben'
                     },
                     ajax: {
                         type: 'POST',
@@ -648,7 +736,20 @@
                             exportable: false
                         },
 
-                    ]
+                    ],
+                    "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
+                    },
+                    "search" : "Suche",     
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            
+                },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
@@ -677,6 +778,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#example3').DataTable({
+               
                     // En Yenisi en başta olacak şekilde sıralama
                     "order": [0, 'desc'],
                     "columnDefs": [{
@@ -690,11 +792,11 @@
                                 } else if (cellData == 'Beklemede') {
                                     
                                     $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >in Wartestellung<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >is Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
                                 } else if(cellData == 'Onaylanmadı') {
                                     $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nicht Bestätigt<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
                                     )
                                 }
 
@@ -720,7 +822,7 @@
                     processing: true,
                     serverSide: true,
                     language: {
-                        'emptyTable': 'Görüntülenecek Veri Yok'
+                        'emptyTable': 'Keine gespeicherte Angaben'
                     },
                     ajax: {
                         type: 'POST',
@@ -762,7 +864,20 @@
                             exportable: false
                         },
 
-                    ]
+                    ],
+                    "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
+                    },
+                    "search" : "Suche",     
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            
+                },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
@@ -793,6 +908,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#appointmentTable').DataTable({
+                    
                     "order": [
                         [2, 'desc']
                     ],
@@ -808,7 +924,7 @@
                     processing: true,
                     serverSide: true,
                     language: {
-                        'emptyTable': 'Görüntülenecek Veri Yok'
+                        'emptyTable': 'Keine gespeicherte Angaben'
                     },
                     ajax: {
                         type: 'POST',
@@ -843,7 +959,20 @@
                             exportable: false
                         },
 
-                    ]
+                    ],
+                    "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
+                    },
+                    "search" : "Suche",     
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+            
+                },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
