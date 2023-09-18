@@ -190,7 +190,7 @@
                                 <div class="col-md-12 umzug-control">
                                     <label for="" class="col-form-label">Umzug</label><br>
                                     <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- Umzug Alanı Kontrolü Bitiş --}}
@@ -210,7 +210,7 @@
                                         <input class="form-control" name="umzug1time" type="time">
                                     </div>
 
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
                                             <input class="form-control" name="umzug1hours" placeholder="4-5"
@@ -235,7 +235,7 @@
 
 
 
-                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
 
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
@@ -324,7 +324,7 @@
                                 <div class="col-md-12 umzug-control2">
                                     <label for="" class="col-form-label">Weitere Umzugstermine</label><br>
                                     <input type="checkbox" name="isUmzug2" id="isUmzug2" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                                 {{-- 2.Umzug Alanı Kontrolü --}}
 
@@ -341,7 +341,7 @@
                                         <input class="form-control" name="umzug2time" type="time">
                                     </div>
 
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
                                             <input class="form-control" name="umzug2hours" placeholder="4-5"
@@ -364,7 +364,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="umzug2calendarTitle"
@@ -461,7 +461,7 @@
                                             <input class="form-control" name="umzug3time" type="time">
                                         </div>
 
-                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                             <div class="col-md-3">
                                                 <label class=" col-form-label" for="l0">Dauer [h]</label>
                                                 <input class="form-control" name="umzug3hours" placeholder="4-5"
@@ -484,7 +484,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                             <div class="col-md-4">
                                                 <label class=" col-form-label" for="l0">CalendarTitle</label>
                                                 <input class="form-control" name="umzug3calendarTitle"
@@ -575,7 +575,7 @@
                                 <div class="col-md-12 einpackservice-control">
                                     <label for="" class="col-form-label">Einpackservice</label><br>
                                     <input type="checkbox" name="isEinpackservice" id="isEinpackservice"
-                                        class="js-switch" data-size="small" data-color="#9c27b0"
+                                        class="js-switch" data-size="small" data-color="#286090"
                                         data-switchery="false">
                                 </div>
                             </div>
@@ -595,7 +595,7 @@
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
                                     gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="einpacksuresi" id="einpacksuresi"
@@ -617,7 +617,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="einpackcalendarTitle"
@@ -704,7 +704,7 @@
                                 <div class="col-md-12 auspackservice-control">
                                     <label for="" class="col-form-label">Auspackservice</label><br>
                                     <input type="checkbox" name="isAuspackservice" id="isAuspackservice"
-                                        class="js-switch" data-size="small" data-color="#9c27b0"
+                                        class="js-switch" data-size="small" data-color="#286090"
                                         data-switchery="false">
                                 </div>
                             </div>
@@ -724,7 +724,7 @@
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
                                     gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="auspacksuresi" id="auspacksuresi"
@@ -746,7 +746,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="auspackcalendarTitle"
@@ -833,7 +833,7 @@
                                 <div class="col-md-12 reinigung-control">
                                     <label for="" class="col-form-label">Reinigung</label><br>
                                     <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- Reinigung Alanı Kontrolü Bitiş --}}
@@ -864,7 +864,7 @@
                                     <input class="form-control" name="reinigung1Endtime" type="time">
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigungcalendarTitle"
@@ -945,7 +945,7 @@
                                 <div class="col-md-12 reinigung2-control">
                                     <label for="" class="col-form-label">Reinigung 2</label><br>
                                     <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- 2.Reinigung Alanı Kontrolü Bitiş --}}
@@ -976,7 +976,7 @@
                                     <input class="form-control" name="reinigung2Endtime" type="time">
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="reinigung2calendarTitle"
@@ -1057,7 +1057,7 @@
                                 <div class="col-md-12 entsorgung-control">
                                     <label for="" class="col-form-label">Entsorgung</label><br>
                                     <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- Entsorgung Alanı Kontrolü Bitiş --}}
@@ -1076,7 +1076,7 @@
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
                                     gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi"
@@ -1100,7 +1100,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="entsorgungcalendarTitle"
@@ -1181,7 +1181,7 @@
                                 <div class="col-md-12 transport-control">
                                     <label for="" class="col-form-label">Transport</label><br>
                                     <input type="checkbox" name="isTransport" id="isTransport" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- Transport Alanı Kontrolü Bitiş --}}
@@ -1200,7 +1200,7 @@
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
                                     gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="transportsuresi" id="transportsuresi"
@@ -1235,7 +1235,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="transportcalendarTitle"
@@ -1316,7 +1316,7 @@
                                 <div class="col-md-12 lagerung-control">
                                     <label for="" class="col-form-label">Lagerung</label><br>
                                     <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch"
-                                        data-size="small" data-color="#9c27b0" data-switchery="false">
+                                        data-size="small" data-color="#286090" data-switchery="false">
                                 </div>
                             </div>
                             {{-- Lagerung Alanı Kontrolü Bitiş --}}
@@ -1335,7 +1335,7 @@
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
                                     gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control" name="lagerungcalendarTitle"
@@ -1606,7 +1606,7 @@
                             <div class="col-md-12 email-send">
                                 <label for="" class="col-form-label">E-Mail an Kunden</label><br>
                                 <input type="checkbox" name="isEmail" id="isEmail" class="js-switch"
-                                    data-color="#9c27b0" data-switchery="true">
+                                    data-color="#286090" data-switchery="true">
                             </div>
                         </div>
 
@@ -1628,7 +1628,7 @@
                                 <label for="" class="col-form-label">Standard Emailtext
                                     bearbeiten</label><br>
                                 <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
-                                    class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false">
+                                    class="js-switch isCustomEmail" data-color="#286090" data-switchery="false">
                             </div>
                         </div>
 

@@ -62,7 +62,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 umzug-control ">
                                     <label for="" class="col-form-label">Umzug</label><br>
-                                    <input type="checkbox" name="isUmzug" @if ($data['umzugId']) checked @endif  id="isUmzug" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isUmzug" @if ($data['umzugId']) checked @endif  id="isUmzug" class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Umzug Alanı Kontrolü Bitiş --}}
@@ -120,7 +120,7 @@
                                 {{-- 2.Umzug Alanı Kontrolü --}}
                                 <div class="col-md-12 umzug-control2">
                                     <label for="" class="col-form-label">Weitere Umzugstermine</label><br>
-                                    <input type="checkbox" name="isUmzug2" @if ($data['umzug2Id'] or $data['umzug3Id'] ) checked @endif id="isUmzug2" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isUmzug2" @if ($data['umzug2Id'] or $data['umzug3Id'] ) checked @endif id="isUmzug2" class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>
                                 
                                 {{-- 2.Umzug Alanı Kontrolü --}}
@@ -237,7 +237,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 einpackservice-control">
                                     <label for="" class="col-form-label">Einpackservice</label><br>
-                                    <input type="checkbox" name="isEinpackservice" @if ($data['einpackId']) checked @endif id="isEinpackservice" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isEinpackservice" @if ($data['einpackId']) checked @endif id="isEinpackservice" class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Einpackservice Alanı Kontrolü Bitiş --}}
@@ -299,7 +299,7 @@
                              <div class="form-group row">
                                 <div class="col-md-12 auspackservice-control">
                                     <label for="" class="col-form-label">Auspackservice</label><br>
-                                    <input type="checkbox" name="isAuspackservice" @if ($data['auspackId']) checked @endif id="isAuspackservice" class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isAuspackservice" @if ($data['auspackId']) checked @endif id="isAuspackservice" class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Auspackservice Alanı Kontrolü Bitiş --}}
@@ -360,7 +360,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 reinigung-control">
                                     <label for="" class="col-form-label">Reinigung</label><br>
-                                    <input type="checkbox" name="isReinigung" id="isReinigung" @if ($data['reinigungId']) checked @endif class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isReinigung" id="isReinigung" @if ($data['reinigungId']) checked @endif class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Reinigung Alanı Kontrolü Bitiş --}}
@@ -414,7 +414,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 reinigung2-control">
                                     <label for="" class="col-form-label">Reinigung 2</label><br>
-                                    <input type="checkbox" name="isReinigung2" id="isReinigung2"  @if ($data['reinigung2Id']) checked @endif class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isReinigung2" id="isReinigung2"  @if ($data['reinigung2Id']) checked @endif class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- 2.Reinigung Alanı Kontrolü Bitiş --}}
@@ -466,7 +466,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 entsorgung-control">
                                     <label for="" class="col-form-label">Entsorgung</label><br>
-                                    <input type="checkbox" name="isEntsorgung" id="isEntsorgung" @if ($data['entsorgungId']) checked @endif class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isEntsorgung" id="isEntsorgung" @if ($data['entsorgungId']) checked @endif class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Entsorgung Alanı Kontrolü Bitiş --}}
@@ -527,7 +527,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 transport-control">
                                     <label for="" class="col-form-label">Transport</label><br>
-                                    <input type="checkbox" name="isTransport" id="isTransport" @if ($data['transportId']) checked @endif class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isTransport" id="isTransport" @if ($data['transportId']) checked @endif class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Transport Alanı Kontrolü Bitiş --}}
@@ -597,7 +597,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 lagerung-control">
                                     <label for="" class="col-form-label">Lagerung</label><br>
-                                    <input type="checkbox" name="isLagerung" id="isLagerung" @if ($data['lagerungId']) checked @endif class="js-switch" data-size="small" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isLagerung" id="isLagerung" @if ($data['lagerungId']) checked @endif class="js-switch" data-size="small" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             {{-- Lagerung Alanı Kontrolü Bitiş --}}
@@ -639,7 +639,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch" data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch" data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
 
@@ -658,7 +658,7 @@
                                 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">STANDARD EMAILTEXT BEARBEITEN</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
                                 </div>                                                           
                             </div>
 
