@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 umzug-control">
         <label for="" class="col-form-label">Umzug</label><br>
-        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded umzug--area" style="background-color: #CBB4FF; display:none;">
+<div class="rounded umzug--area" style="background-color: #C8DFF3; display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -41,7 +41,7 @@
 
             <div class="umzug-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isUmzugExtra" id="isUmzugExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="isUmzugExtra" id="isUmzugExtra" class="js-switch " data-color="#286090" data-switchery="false" >  
             </div>  
 
             <div class="umzug-extra-cost-area" style="display: none;">
@@ -242,28 +242,28 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
-            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00"> 
+            <input class="form-control" id="umzugCost"  name="umzugCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00"> 
 
             <div class="fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isUmzugFixedPrice" id="isUmzugFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" >  
+                <input type="checkbox" name="isUmzugFixedPrice" id="isUmzugFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" >  
             </div> 
 
             <div class="fixed-price-area mt-1 mb-1" style="display: none;">
-                <input class="form-control"  name="umzugFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+                <input class="form-control"  name="umzugFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="umzugPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="umzugPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="umzugPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="umzugPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="umzugPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="umzugPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag</label>
-            <input class="form-control total-piece"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control total-piece"  name="umzugTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
         </div>
     </div>
 </div>

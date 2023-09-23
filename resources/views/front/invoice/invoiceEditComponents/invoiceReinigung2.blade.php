@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 reinigung2-control">
         <label for="" class="col-form-label">Reinigung 2</label><br>
-        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($reinigung2) checked @endif>  
+        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#286090" data-switchery="false" @if($reinigung2) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded reinigung2--area" style="background-color: #CBB4FF; @if($reinigung2 == NULL) display:none; @endif">
+<div class="rounded reinigung2--area" style="background-color: #C8DFF3; @if($reinigung2 == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -89,7 +89,7 @@
                 @if ($reinigung2 && $reinigung2['extraReinigung']) value="{{ $reinigung2['extraReinigung'] }}" @endif>
             </div>
 
-            <div class="row p-1 mt-5 mb-3 rounded" style="background-color: #8778AA;">
+            <div class="row p-1 mt-5 mb-3 rounded" style="background-color: #286090;">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Zimmer  [3.5]</label>
                     <input class="form-control" class="reinigung2FixedRoom"  name="reinigung2FixedRoom"  type="text" 
@@ -119,7 +119,7 @@
 
             <div class="reinigung2-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isReinigungExtra" id="isReinigungExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="isReinigungExtra" id="isReinigungExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($reinigung2
                 && $reinigung2['extra1'] == NULL
                 && $reinigung2['extra2'] == NULL
@@ -251,23 +251,23 @@
             </div>
             
             <label class="col-form-label mt-1 mb-2" for="l0">Preis</label>
-            <input class="form-control" id="reinigung2Cost"  name="reinigung2Cost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control" id="reinigung2Cost"  name="reinigung2Cost" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($reinigung2 && $reinigung2['reinigungCost']) value="{{ $reinigung2['reinigungCost'] }}" @else value="0.00" @endif> 
 
             <label class="col-form-label mt-5" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="reinigung2Paid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="reinigung2Paid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($reinigung2 && $reinigung2['reinigungPaid1']) value="{{ $reinigung2['reinigungPaid1'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="reinigung2Paid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="reinigung2Paid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($reinigung2 && $reinigung2['reinigungPaid2']) value="{{ $reinigung2['reinigungPaid2'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="reinigung2Paid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="reinigung2Paid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($reinigung2 && $reinigung2['reinigungPaid3']) value="{{ $reinigung2['reinigungPaid3'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Betrag</label>
-            <input class="form-control total-piece"  name="reinigung2TotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control total-piece"  name="reinigung2TotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($reinigung2 && $reinigung2['reinigungTotalPrice']) value="{{ $reinigung2['reinigungTotalPrice'] }}" @else value="0.00" @endif>
         </div>
     </div>

@@ -12,11 +12,11 @@
 <div class="form-group row">
     <div class="col-md-12 verpackungsmaterial-control">
         <label for="" class="col-form-label">Verpackungsmaterial</label><br>
-        <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial" class="js-switch " data-color="#9c27b0" data-switchery="false">  
+        <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial" class="js-switch " data-color="#286090" data-switchery="false">  
     </div>                            
 </div>
 
-<div class="rounded verpackungsmaterial--area" style="background-color: #CBB4FF;  display:none;">
+<div class="rounded verpackungsmaterial--area" style="background-color: #C8DFF3;  display:none;">
     <div class="row p-3">
         <div class="col-md-12">
             <div class="table-reponsive">

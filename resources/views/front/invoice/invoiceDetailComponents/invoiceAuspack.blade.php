@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 auspack-control">
         <label for="" class="col-form-label">Auspack</label><br>
-        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($auspack) checked @endif>  
+        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#286090" data-switchery="false" @if($auspack) checked @endif>  
     </div>                            
 </div>  
 
-<div id="auspack--area" class="rounded auspack--area" style="background-color: #CBB4FF; @if($auspack == NULL) display:none; @endif">
+<div id="auspack--area" class="rounded auspack--area" style="background-color: #C8DFF3; @if($auspack == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -46,7 +46,7 @@
 
             <div class="auspack-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($auspack
                 && $auspack['extra1'] == NULL
                 && $auspack['extra2'] == NULL
@@ -158,34 +158,34 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
-            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['auspackCost']) value="{{ $auspack['auspackCost'] }}" @else value="0.00" @endif> 
 
             <div class="auspack-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" 
                 @if($auspack && $auspack['auspackFixedCost']) checked @endif>  
             </div> 
 
             <div class="auspack-fixed-price-area mt-1 mb-1" @if($auspack && $auspack['auspackFixedCost'] == NULL) style="display: none;" @endif>
-                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
                 @if($auspack && $auspack['auspackFixedCost']) value="{{ $auspack['auspackFixedCost'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['auspackPaid1']) value="{{ $auspack['auspackPaid1'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['auspackPaid2']) value="{{ $auspack['auspackPaid2'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['auspackPaid3']) value="{{ $auspack['auspackPaid3'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Betrag</label>
-            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['auspackTotalPrice']) value="{{ $auspack['auspackTotalPrice'] }}" @else value="0.00" @endif>
         </div>
     </div>

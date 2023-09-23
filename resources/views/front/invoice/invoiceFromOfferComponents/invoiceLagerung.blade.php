@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 lagerung-control">
         <label for="" class="col-form-label">Lagerung</label><br>
-        <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($lagerung) checked @endif>  
+        <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch " data-color="#286090" data-switchery="false" @if($lagerung) checked @endif>  
     </div>                            
 </div>
 
-<div id="lagerung--area" class="rounded lagerung--area" style="background-color: #CBB4FF; @if($lagerung == NULL) display:none; @endif">
+<div id="lagerung--area" class="rounded lagerung--area" style="background-color: #C8DFF3; @if($lagerung == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <div class="row">
@@ -108,25 +108,25 @@
                     $lagerungCost = (int) $lagerungCost; // "$totalPrice" değişkenini integer'a dönüştürür
                 }
             ?>
-            <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control" id="lagerungCost"  name="lagerungCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($lagerung && $lagerung['totalPrice']) value="{{ $lagerungCost }}" @else value="0.00" @endif> 
 
             <div class="lagerung-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox" name="isLagerungFixedPrice" id="isLagerungFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" 
                 @if($lagerung && $lagerung['fixedPrice']) checked @endif>  
             </div> 
 
             <div class="lagerung-fixed-price-area mt-1 mb-1" @if($lagerung && $lagerung['fixedPrice'] == NULL) style="display: none;" @endif>
-                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+                <input class="form-control"  name="lagerungFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
                 @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="lagerungPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="lagerungPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="lagerungPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="lagerungPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag</label>
             <?php
@@ -135,7 +135,7 @@
                     $lagerungCost = (int) $lagerungCost; // "$totalPrice" değişkenini integer'a dönüştürür
                 }
             ?>
-            <input class="form-control total-piece"  name="lagerungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control total-piece"  name="lagerungTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($lagerung && $lagerung['fixedPrice']) value="{{ $lagerung['fixedPrice'] }}" @elseif($lagerung && $lagerung['totalPrice']) value="{{ $lagerungCost}}" @endif>
         </div>
     </div>

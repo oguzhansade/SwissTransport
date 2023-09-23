@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('offerId')->nullable();
             $table->string('serviceType')->nullable();
             $table->string('inputName')->nullable();
-            $table->string('oldValue')->nullable();
-            $table->string('newValue')->nullable();
+            $table->longText('oldValue')->nullable();
+            $table->longText('newValue')->nullable();
             $table->timestamps();
         });
     }

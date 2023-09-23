@@ -9,6 +9,16 @@
 <div class="rounded umzug--area" style="background-color: #c8dff3; display:none;">
     <div class="row p-3">
         <div class="col-md-6">
+            <label class=" col-form-label" for="l0">Zimmer</label>
+            <select class="form-control" class="umzugZimmer" name="umzugZimmer" id="umzugZimmer" >
+                <option value="bos">Bitte wählen</option>
+                <option value="1-1.5 Zimmer" >1-1.5 Zimmer</option>
+                <option value="2-2.5 Zimmer" >2-2.5 Zimmer</option>
+                <option value="3-3.5 Zimmer" >3-3.5 Zimmer</option>
+                <option value="4-4.5 Zimmer" >4-4.5 Zimmer</option>
+                <option value="5-5.5 Zimmer" >5-5.5 Zimmer</option>
+                <option value="6-6.5 Zimmer" >6-6.5 Zimmer</option>
+            </select>   
             <label class=" col-form-label" for="l0">Tarif</label>
             <select class="form-control" class="umzugTariff2" name="umzugTariff" id="umzugTariff" >
                 <option data-selection="bos" value>Bitte wählen</option>
@@ -290,25 +300,23 @@
 {{-- Tarife Fiyatları --}}
 <script>        
 
-    $("select[name=umzugTariff]").on("change",function () {
-        let chf = $(this).find(":selected").data("chf");
-        let ma = $(this).find(":selected").data("ma");
-        let lkw = $(this).find(":selected").data("lkw");
-        let anhanger = $(this).find(":selected").data("an");
-        let control = $(this).find(":selected").data('selection');
+    // Tarif seçimi değiştikçe işlemleri gerçekleştiren fonksiyon
+    function tariffSelector() {
+        let chf = $("select[name=umzugTariff] :selected").data("chf");
+        let ma = $("select[name=umzugTariff] :selected").data("ma");
+        let lkw = $("select[name=umzugTariff] :selected").data("lkw");
+        let anhanger = $("select[name=umzugTariff] :selected").data("an");
+        let control = $("select[name=umzugTariff] :selected").data('selection');
         let spesen = $("input[name=extra1]").val(20);
-        
-        if (control != 'bos')
-        {
-        $('.umzug-tarif-area').show(300)
-        }
-        else
-        {
-        $('input[name=umzug1chf]').val(0);
-        $('input[name=umzug1ma]').val(0);
-        $('input[name=umzug1lkw]').val(0);
-        $('input[name=umzug1anhanger]').val(0);
-        $('.umzug-tarif-area').hide(300)
+            
+        if (control != 'bos') {
+            $('.umzug-tarif-area').show(300)
+        } else {
+            $('input[name=umzug1chf]').val(0);
+            $('input[name=umzug1ma]').val(0);
+            $('input[name=umzug1lkw]').val(0);
+            $('input[name=umzug1anhanger]').val(0);
+            $('.umzug-tarif-area').hide(300)
         }
 
         $('input[name=umzug1chf]').val(chf);
@@ -317,8 +325,85 @@
         $('input[name=umzug1anhanger]').val(anhanger);
         spesen = ma * 20;
         $("input[name=extra1]").val(spesen);
+    }
+
+    $("select[name=umzugTariff]").on("change",function () {
+        tariffSelector();
     })
 
+    $("select[name=umzugZimmer]").on("change",function () {
+        let control = $(this).find(":selected").val();
+        let umzugTariffSelect = $("select[name=umzugTariff]");
+        if(control  == "1-1.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 1);
+            tariffSelector()
+            $("input[name=umzugHours]").val("3")
+        }
+        if(control  == "2-2.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 2);
+            tariffSelector()
+            $("input[name=umzugHours]").val("4-5")
+        }
+        if(control  == "3-3.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 2);
+            tariffSelector()
+            $("input[name=umzugHours]").val("5-6")
+        }
+        if(control  == "4-4.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 3);
+            tariffSelector()
+            $("input[name=umzugHours]").val("6-8")
+        }
+        if(control  == "5-5.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 6);
+            tariffSelector()
+            $("input[name=umzugHours]").val("7-9")
+        }
+        if(control  == "6-6.5 Zimmer")
+        {
+            // İkinci seçeneği (0 tabanlı index ile 1. seçenek) seçin
+            umzugTariffSelect.prop("selectedIndex", 8);
+            tariffSelector()
+            $("input[name=umzugHours]").val("9-11")
+        }
+    })
+
+    // Tarihe göre Fiyat Eklemesi
+    $("input[name=umzugausdate]").on("change", function(){
+        var selectedDate = new Date($(this).val());
+        var month = selectedDate.getMonth() + 1; // Ay indeksi 0'dan başlar, bu yüzden 1 ekliyoruz
+        
+        var valueToAdd = 0;
+
+        // Belirtilen aylarda ve tarih aralığında ise
+        if ((month === 1 || month === 2 || month === 5 || month === 7 || month === 8 || month === 11 || month === 12) &&
+            (selectedDate.getDate() >= 23 || selectedDate.getDate() <= 3)) {
+            valueToAdd += 60;
+        }
+
+        // Mart, Nisan, Haziran, Eylül ve Ekim aylarında ise
+        if ((month === 3 || month === 4 || month === 6 || month === 9 || month === 10) && 
+        (selectedDate.getDate() >= 23 || selectedDate.getDate() <= 3)){
+            valueToAdd += 90;
+        }
+
+        // Direkt olarak Tariffin içinden alınıyor chf inputundan alınırsa üst üste ekleme yapıyor
+        var dataChfValue = $("select[name=umzugTariff] :selected").data("chf"); 
+        console.log(dataChfValue,'Chf Seçilen')
+        $('input[name="umzug1chf"]').val(dataChfValue + valueToAdd);
+    });
+
+    
     $("input[name=umzug1ma]").on('change', function() {
         let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();

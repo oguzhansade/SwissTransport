@@ -1,13 +1,13 @@
 <div class="form-group row">
     <div class="col-md-12 umzug-control">
         <label for="" class="col-form-label">Umzug </label><br>
-        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#9c27b0" data-switchery="false"
+        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch " data-color="#286090" data-switchery="false"
             @if ($umzug) checked @endif>
     </div>
 </div>
 
 <div class="rounded umzug--area"
-    style="background-color: #CBB4FF; @if ($umzug == null) display:none; @endif">
+    style="background-color: #C8DFF3; @if ($umzug == null) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -56,7 +56,7 @@
 
             <div class="umzug-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isUmzugExtra" id="isUmzugExtra" class="js-switch " data-color="#9c27b0"
+                <input type="checkbox" name="isUmzugExtra" id="isUmzugExtra" class="js-switch " data-color="#286090"
                     data-switchery="false"
                     @if (
                         $umzug &&
@@ -343,40 +343,40 @@
             }
             ?>
             <input class="form-control" id="umzugCost" name="umzugCost" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($umzug && $umzug['costPrice']) value="{{ $umzugCost }}" @else value="0.00" @endif>
 
             <div class="fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
                 <input type="checkbox" name="isUmzugFixedPrice" id="isUmzugFixedPrice" class="js-switch "
-                    data-color="#9c27b0" data-size="small" data-switchery="false"
+                    data-color="#286090" data-size="small" data-switchery="false"
                     @if ($umzug && $umzug['fixedPrice']) checked @endif>
             </div>
 
             <div class="fixed-price-area mt-1 mb-1" @if ($umzug && $umzug['fixedPrice'] == null) style="display: none;" @endif>
                 <input class="form-control" name="umzugFixedPrice" placeholder="0" type="text"
-                    style="background-color: #8778aa;color:white;"
+                    style="background-color: #286090;color:white;"
                     @if ($umzug && $umzug['fixedPrice']) value="{{ $umzug['fixedPrice'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
             <input class="form-control" name="umzugPaid1" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($umzug && $umzug['umzugPaid1']) value="{{ $umzug['umzugPaid1'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Anzahlung</label>
             <input class="form-control" name="umzugPaid2" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($umzug && $umzug['umzugPaid2']) value="{{ $umzug['umzugPaid2'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
             <input class="form-control" name="umzugPaid3" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($umzug && $umzug['umzugPaid3']) value="{{ $umzug['umzugPaid3'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Betrag</label>
             <input class="form-control total-piece" name="umzugTotalPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($umzug && $umzug['fixedPrice']) value="{{ $umzug['fixedPrice'] }}" @elseif($umzug && $umzug['costPrice']) value="{{ $umzug['fixedPrice'] }}" @else value="0.00" @endif>
         </div>
     </div>

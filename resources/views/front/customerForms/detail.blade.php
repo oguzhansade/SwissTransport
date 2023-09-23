@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('header')
 <style>
-    span {
+    .bg-white span {
         font-size:1.2rem;
     }
 </style>

@@ -12,12 +12,12 @@
 <div class="form-group row">
     <div class="col-md-12 verpackungsmaterial-control">
         <label for="" class="col-form-label">Verpackungsmaterial</label><br>
-        <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial" class="js-switch " data-color="#9c27b0" data-switchery="false"
+        <input type="checkbox" name="isVerpackungsmaterial" id="isVerpackungsmaterial" class="js-switch " data-color="#286090" data-switchery="false"
         @if($material) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded verpackungsmaterial--area" style="background-color: #CBB4FF;  @if($material == NULL) display:none; @endif">
+<div class="rounded verpackungsmaterial--area" style="background-color: #C8DFF3;  @if($material == NULL) display:none; @endif">
     <div class="row p-3 islem_field">
         <div class="col-md-12">
             <div class="table-reponsive">

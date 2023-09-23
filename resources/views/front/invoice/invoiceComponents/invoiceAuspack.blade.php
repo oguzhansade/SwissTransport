@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 auspack-control">
         <label for="" class="col-form-label">Auspack</label><br>
-        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded auspack--area" style="background-color: #CBB4FF; display:none;">
+<div class="rounded auspack--area" style="background-color: #C8DFF3; display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -41,7 +41,7 @@
 
             <div class="auspack-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#286090" data-switchery="false" >  
             </div>  
 
             <div class="auspack-extra-cost-area" style="display: none;">
@@ -124,28 +124,28 @@
             </div>
             
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
-            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00"> 
+            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00"> 
 
             <div class="auspack-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" >  
+                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" >  
             </div> 
 
             <div class="auspack-fixed-price-area mt-1 mb-1" style="display: none;">
-                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag </label>
-            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 auspack-control">
         <label for="" class="col-form-label">Auspack</label><br>
-        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#9c27b0" data-switchery="false" @if($auspack) checked @endif>  
+        <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch " data-color="#286090" data-switchery="false" @if($auspack) checked @endif>  
     </div>                            
 </div>  
 
-<div id="auspack--area" class="rounded auspack--area" style="background-color: #CBB4FF; @if($auspack == NULL) display:none; @endif">
+<div id="auspack--area" class="rounded auspack--area" style="background-color: #C8DFF3; @if($auspack == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -48,7 +48,7 @@
 
             <div class="auspack-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="isAuspackExtra" id="isAuspackExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($auspack
                 && $auspack['extra'] == NULL
                 && $auspack['extra1'] == NULL
@@ -165,28 +165,28 @@
                 $auspackCost = floatval($auspackCost); // "$auspackCost" değişkenini integer'a dönüştürür
             }
             ?>
-            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['costPrice']) value="{{ $auspackCost }}" @else value="0.00" @endif> 
 
             <div class="auspack-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox" name="isAuspackFixedPrice" id="isAuspackFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" 
                 @if($auspack && $auspack['fixedPrice']) checked @endif>  
             </div> 
 
             <div class="auspack-fixed-price-area mt-1 mb-1" @if($auspack && $auspack['fixedPrice'] == NULL) style="display: none;" @endif>
-                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+                <input class="form-control"  name="auspackFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
                 @if($auspack && $auspack['fixedPrice']) value="{{ $auspack['fixedPrice'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"  value="0.00" >
+            <input class="form-control"  name="auspackPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;"  value="0.00" >
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"  value="0.00" >
+            <input class="form-control"  name="auspackPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;"  value="0.00" >
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;"  value="0.00" >
+            <input class="form-control"  name="auspackPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;"  value="0.00" >
 
             <label class="col-form-label" for="l0">Betrag</label>
             <?php
@@ -195,7 +195,7 @@
                 $auspackCost = floatval($auspackCost); // "$auspackCost" değişkenini integer'a dönüştürür
             }
             ?>
-            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control total-piece"  name="auspackTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($auspack && $auspack['fixedPrice']) value="{{ $auspack['fixedPrice'] }}" @elseif($auspack && $auspack['costPrice']) value="{{ $auspackCost }}" @else value="0.00" @endif>
         </div>
     </div>

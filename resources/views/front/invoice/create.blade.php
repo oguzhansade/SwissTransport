@@ -113,7 +113,7 @@
                             <div class="col-md-3">
                                 <label class="col-form-label" for="l0">Mahngebühr</label>
                                 <input class="form-control" name="invoiceWarningPrice" placeholder="0" type="text"
-                                    style="background-color: #8778aa;color:white;" value="0.00">
+                                    style="background-color: #286090;color:white;" value="0.00">
                             </div>
                         </div>
 
@@ -122,7 +122,7 @@
                             <div class="col-md-3">
                                 <label class="col-form-label" for="l0">Betrag Total</label>
                                 <input class="form-control" name="invoiceTotalPrice" placeholder="0" type="text"
-                                    style="background-color: #8778aa;color:white;" value="0.00">
+                                    style="background-color: #286090;color:white;" value="0.00">
                             </div>
                         </div>
 

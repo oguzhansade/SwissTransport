@@ -512,10 +512,16 @@
             isNotRequiredUmzug()
         }
     })
+    
 </script>
 
 <script>      
     $(document).ready(function(){
+        if($("div.umzug-control").hasClass("checkbox-checked"))
+    {
+        isRequiredUmzug()
+    }
+
         let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();
         spesen = ma * 20;

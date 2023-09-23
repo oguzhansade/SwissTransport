@@ -1,13 +1,13 @@
 <div class="form-group row">
     <div class="col-md-12 einpack-control">
         <label for="" class="col-form-label">Einpack</label><br>
-        <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch " data-color="#9c27b0" data-switchery="false"
+        <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch " data-color="#286090" data-switchery="false"
             @if ($einpack) checked @endif>
     </div>
 </div>
 
 <div id="einpack--area" class="rounded einpack--area"
-    style="background-color: #CBB4FF; @if ($einpack == null) display:none; @endif">
+    style="background-color: #C8DFF3; @if ($einpack == null) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -54,7 +54,7 @@
 
             <div class="einpack-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isEinpackExtra" id="isEinpackExtra" class="js-switch " data-color="#9c27b0"
+                <input type="checkbox" name="isEinpackExtra" id="isEinpackExtra" class="js-switch " data-color="#286090"
                     data-switchery="false"
                     @if (
                         $einpack &&
@@ -177,38 +177,38 @@
             }
             ?>
             <input class="form-control" id="einpackCost" name="einpackCost" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($einpack) value="{{ $einpackCost }}" @else value="0.00" @endif>
 
             <div class="einpack-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
                 <input type="checkbox" name="isEinpackFixedPrice" id="isEinpackFixedPrice" class="js-switch "
-                    data-color="#9c27b0" data-size="small" data-switchery="false"
+                    data-color="#286090" data-size="small" data-switchery="false"
                     @if ($einpack && $einpack['fixedPrice']) checked @endif>
             </div>
 
             <div class="einpack-fixed-price-area mt-1 mb-1"
                 @if ($einpack && $einpack['fixedPrice'] == null) style="display: none;" @endif>
                 <input class="form-control" name="einpackFixedPrice" placeholder="0" type="text"
-                    style="background-color: #8778aa;color:white;"
+                    style="background-color: #286090;color:white;"
                     @if ($einpack && $einpack['fixedPrice']) value="{{ $einpack['fixedPrice'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
             <input class="form-control" name="einpackPaid1" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;" value="0.00">
+                style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Anzahlung</label>
             <input class="form-control" name="einpackPaid2" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;" value="0.00">
+                style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
             <input class="form-control" name="einpackPaid3" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;" value="0.00">
+                style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag</label>
             <input class="form-control total-piece" name="einpackTotalPrice" placeholder="0" type="text"
-                style="background-color: #8778aa;color:white;"
+                style="background-color: #286090;color:white;"
                 @if ($einpack && $einpack['fixedPrice']) value="{{ $einpack['fixedPrice'] }}" @elseif($einpack && $einpack['costPrice']) value="{{ $einpack['fixedPrice'] }}" @else value="0.00" @endif>
         </div>
     </div>

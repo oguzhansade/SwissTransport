@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 reinigung-control">
         <label for="" class="col-form-label">Reinigung</label><br>
-        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#286090" data-switchery="false" >  
     </div>                            
 </div>
 
-<div class="rounded reinigung--area" style="background-color: #CBB4FF; display:none;">
+<div class="rounded reinigung--area" style="background-color: #C8DFF3; display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Datum</label>
@@ -39,7 +39,7 @@
                 <input class="form-control extraReinigung "  name="extraReinigung"  type="text" >
             </div>
 
-            <div class="row p-1 mt-5 mb-3 rounded" style="background-color: #8778AA;">
+            <div class="row p-1 mt-5 mb-3 rounded" style="background-color: #286090;">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Zimmer [3.5]</label>
                     <input class="form-control" class="reinigungFixedRoom"  name="reinigungFixedRoom"  type="text" >
@@ -65,7 +65,7 @@
 
             <div class="reinigung-extra-cost mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isReinigungExtra" id="isReinigungExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                <input type="checkbox" name="isReinigungExtra" id="isReinigungExtra" class="js-switch " data-color="#286090" data-switchery="false" >  
             </div>  
 
             <div class="reinigung-extra-cost-area" style="display: none;">
@@ -161,19 +161,19 @@
             </div>
             
             <label class="col-form-label mt-1 mb-2" for="l0">Preis</label>
-            <input class="form-control" id="reinigungCost"  name="reinigungCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00"> 
+            <input class="form-control" id="reinigungCost"  name="reinigungCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00"> 
 
             <label class="col-form-label mt-5" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="reinigungPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="reinigungPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="reinigungPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="reinigungPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="reinigungPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control"  name="reinigungPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
 
             <label class="col-form-label" for="l0">Betrag</label>
-            <input class="form-control total-piece"  name="reinigungTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" value="0.00">
+            <input class="form-control total-piece"  name="reinigungTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" value="0.00">
         </div>
     </div>
 </div>

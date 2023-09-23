@@ -1,11 +1,11 @@
 <div class="form-group row">
     <div class="col-md-12 transport-control">
         <label for="" class="col-form-label">Transport</label><br>
-        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#9c27b0" data-switchery="false"  @if($transport) checked @endif>  
+        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#286090" data-switchery="false"  @if($transport) checked @endif>  
     </div>                            
 </div>
 
-<div class="rounded transport--area" style="background-color: #CBB4FF; @if($transport == NULL) display:none; @endif">
+<div class="rounded transport--area" style="background-color: #C8DFF3; @if($transport == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <div class="row">
@@ -18,7 +18,7 @@
                     <input class="form-control" class="date"  name="transportDate"  type="date" @if($transport) value="{{ $transport['transportDate'] }}" @endif> 
                 </div>
             </div>
-            <div class="row mt-1 p-2 rounded" style="background-color: #8778aa">
+            <div class="row mt-1 p-2 rounded" style="background-color: #286090">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Pauschalpreis-Tarif</label>
                     <input class="form-control"  name="transportFixedTariff" placeholder="0"  type="number" 
@@ -67,7 +67,7 @@
 
             <div class="extra-cost-transport mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="isTransportExtra" id="isTransportExtra" class="js-switch " data-color="#9c27b0" data-switchery="false" 
+                <input type="checkbox" name="isTransportExtra" id="isTransportExtra" class="js-switch " data-color="#286090" data-switchery="false" 
                 @if($transport
                 && $transport['extraValue1'] == NULL
                 && $transport['extraValue2'] == NULL
@@ -214,34 +214,34 @@
             </div>
 
             <label class="col-form-label mt-1 " for="l0">Zwischenbetrag</label>
-            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($transport && $transport['transportCost']) value="{{ $transport['transportCost'] }}" @else value="0.00" @endif>
             
             <div class="transport-fixed-price mt-1">
                 <label for="" class="col-form-label">Pauschal</label><br>
-                <input type="checkbox" name="isTransportFixedPrice" id="isTransportFixedPrice" class="js-switch " data-color="#9c27b0" data-size="small" data-switchery="false" 
+                <input type="checkbox" name="isTransportFixedPrice" id="isTransportFixedPrice" class="js-switch " data-color="#286090" data-size="small" data-switchery="false" 
                 @if($transport && $transport['transportFixedCost']) checked @endif>  
             </div> 
 
             <div class="transport-fixed-price-area mt-1 mb-1" @if($transport && $transport['transportFixedCost'] == NULL) style="display: none;" @endif>
-                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+                <input class="form-control"  name="transportFixedPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
                 @if($transport && $transport['transportFixedCost']) value="{{ $transport['transportFixedCost'] }}" @else value="0.00" @endif>
             </div>
 
             <label class="col-form-label" for="l0">Schadenzahlung</label>
-            <input class="form-control"  name="transportPaid1" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="transportPaid1" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($transport && $transport['transportPaid1']) value="{{ $transport['transportPaid1'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Anzahlung</label>
-            <input class="form-control"  name="transportPaid2" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="transportPaid2" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($transport && $transport['transportPaid2']) value="{{ $transport['transportPaid2'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Bar Bezahlt</label>
-            <input class="form-control"  name="transportPaid3" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control"  name="transportPaid3" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($transport && $transport['transportPaid3']) value="{{ $transport['transportPaid3'] }}" @else value="0.00" @endif>
 
             <label class="col-form-label" for="l0">Betrag </label>
-            <input class="form-control total-piece"  name="transportTotalPrice" placeholder="0"  type="text" style="background-color: #8778aa;color:white;" 
+            <input class="form-control total-piece"  name="transportTotalPrice" placeholder="0"  type="text" style="background-color: #286090;color:white;" 
             @if($transport && $transport['transportTotalPrice']) value="{{ $transport['transportTotalPrice'] }}" @else value="0.00" @endif>
         </div>
     </div>
