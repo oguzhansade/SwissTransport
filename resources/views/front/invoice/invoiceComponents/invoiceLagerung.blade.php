@@ -176,7 +176,7 @@
         let lagerungExtraDiscount2 = parseFloat($('input[name=lagerungExtraDiscount2]').val()) || 0;
 
         lagerungTotalPrice = parseFloat($('input[name=lagerungTotalPrice]').val()) || 0;
-
+ 
         let lagerungPaid1 = parseFloat($('input[name=lagerungPaid1]').val()) || 0;
         let lagerungPaid2 = parseFloat($('input[name=lagerungPaid2]').val()) || 0;
 
