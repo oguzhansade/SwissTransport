@@ -339,6 +339,7 @@
                 "infoEmpty": "Keine Einträge verfügbar",
                 "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
             },
+            
             "order": [0, 'desc'],
             "columnDefs": [{
                             "className": "dt-center",
@@ -376,10 +377,9 @@
                         }
                     ],
             
-            dom: 'l<"toolbar">frtip',
+                    dom: 'Blfrtip',
             buttons: [
-                'copy', 'excel', 'pdf',{ extend: 'print',
-            footer: true } 
+                'copy', 'excel', 'pdf', 
             ],
             
             processing: true,
