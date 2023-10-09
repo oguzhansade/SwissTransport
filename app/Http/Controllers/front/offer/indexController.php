@@ -43,6 +43,44 @@ class indexController extends Controller
         return view('front.offer.index');
     }
 
+    public function dateTester(Request $request)
+    {
+        $data = offerte::where('customerId', 1)->get()->toArray();
+        $today = Carbon::now()->format('Y-m-d'); // Yeni tarih formatı ekleniyor
+        $umzugOfferteler = [];
+
+        foreach ($data as $offerte) {
+            if (isset($offerte['offerteUmzugId'])) {
+                $belirtec = 'Umzug';
+                $umzugModel = OfferteUmzug::find($offerte['offerteUmzugId']);
+                if ($umzugModel) {
+                    $tarih = $umzugModel->moveDate;
+                } else {
+                    $tarih = null; // Umzug modeli bulunamazsa tarih null olur
+                }
+            } elseif (isset($offerte['offerteTransportId'])) {
+                $belirtec = 'Transport';
+                $transportModel = OfferteTransport::find($offerte['offerteTransportId']);
+                if ($transportModel) {
+                    $tarih = $transportModel->transportDate;
+                } else {
+                    $tarih = null; // Transport modeli bulunamazsa tarih null olur
+                }
+            }
+            
+            $durum = ($tarih >= $today) ? 'Online' : 'Expired';
+    
+            $umzugOfferteler[] = [
+                'id' => $offerte['id'],
+                'belirtec' => $belirtec,
+                'deger' => isset($offerte['offerteUmzugId']) ? $offerte['offerteUmzugId'] : $offerte['offerteTransportId'],
+                'tarih' => $tarih,
+                'guncelTarih' => $today,
+                'tarihDurumu' => $durum,
+            ];
+        }
+        dd($umzugOfferteler);
+    }
     public function data(Request $request)
     {
         $customerId = $request->route('id');
@@ -3106,7 +3144,7 @@ class indexController extends Controller
             'isEinpack' => $offer['offerteEinpackId'],
             'isAuspack' => $offer['offerteAuspackId'],
             'isReinigung' => $offer['offerteReinigungId'],
-            'isReinigung2' => $offer['offerteReinigungId2'],
+            'isReinigung2' => $offer['offerteReinigung2Id'],
             'isEntsorgung' => $offer['offerteEntsorgungId'],
             'isTransport' => $offer['offerteTransportId'],
             'isLagerung' => $offer['offerteLagerungId'],

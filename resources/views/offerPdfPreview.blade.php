@@ -1103,13 +1103,7 @@
                             @else
                                 Nein
                             @endif
-                            <br>
-                            @if ($reinigung['extraService2'] == 1)
-                                Ja
-                            @else
-                                Nein
-                            @endif
-                            <br>
+                           
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">
@@ -1298,13 +1292,7 @@
                             @else
                                 Nein
                             @endif
-                            <br>
-                            @if ($reinigung2['extraService2'] == 1)
-                                Ja
-                            @else
-                                Nein
-                            @endif
-                            <br>
+                           
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">

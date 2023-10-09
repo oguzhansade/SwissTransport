@@ -218,6 +218,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/manuelAccept/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelAccept'])->name('manuelAccept');
         Route::get('/manuelReject/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelReject'])->name('manuelReject');
         Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
+        Route::get('/dateTester', [App\Http\Controllers\front\offer\indexController::class, 'dateTester'])->name('dateTester');
     });
 
     Route::group(['namespace' => 'invoice', 'as' => 'invoice.', 'prefix' => 'invoice', 'middleware' => ['PermissionControl']], function () {

@@ -792,7 +792,7 @@
                                 } else if (cellData == 'Beklemede') {
                                     
                                     $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >is Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
                                 } else if(cellData == 'Onaylanmadı') {
                                     $(td).html(

@@ -113,13 +113,10 @@ class indexController extends Controller
         // Besichtigung Filter
         if($request->appType){
             if ($request->appType == 'Nein') {
-                $table->where('appType', 0);
+                $table->whereIn('appType', [0, 2]);
             }
             else if ($request->appType == 'Gemacht') {
                 $table->where('appType', 1);
-            }
-            else if ($request->appType == 'Winscht Keine') {
-                $table->where('appType', 2);
             }
             else if ($request->appType == 'Alle')
             {

@@ -737,7 +737,7 @@
                                         <a id="createTask"  href="{{ route('receipt.showPdf',['id' => $data['id']]) }}" 
                                             class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong> 
                                         </a>
-                                        <a class="btn btn-warning btn-rounded" href="{{ route('expense.editUmzug',['id'=>$data['id']]) }}"> Aufgaben</a>
+                                        <a class="btn btn-warning btn-rounded" href="{{ route('expense.editUmzug',['id'=>$data['id']]) }}"> Aufwand</a>
                                     </div>
                                 </div>
                             </div>

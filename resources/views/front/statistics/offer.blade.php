@@ -160,7 +160,6 @@
                                             <option value="Alle">Alle</option>
                                             <option value="Nein">Nein</option>
                                             <option value="Gemacht">Gemacht</option>
-                                            <option value="Winscht Keine">Winscht Keine</option>
                                           </select>
                                         </td>
                                     </tr>
@@ -230,6 +229,7 @@
                             <thead>
                                 <tr class="text-dark">
                                     <th>OfferteNR</th>
+                                    <th>Besichtigung</th>
                                     <th>Dienstleistung</th>
                                     <th>Kunde</th>
                                     <th>Stand</th>
@@ -352,11 +352,32 @@
                                 } else if (cellData == 'Beklemede') {
                                     
                                     $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >is Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
                                 } else if(cellData == 'Onaylanmadı') {
                                     $(td).html(
                                         '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                                    )
+                                }
+
+                            }
+                        },
+                        {
+                            "className": "dt-center",
+                            "targets": 1,
+                            "createdCell": function(td, cellData, rowData, row, col) {
+                                if (cellData == 0) {
+                                    $(td).html(
+                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                                    )
+                                } else if (cellData == 1) {
+                                    
+                                    $(td).html(
+                                        '<span class="bg-custom-success px-3 py-1 text-center shadow" >Gemacht <i class="text-center feather feather-check-circle pl-1"></i></span>'
+                                    )
+                                } else if(cellData == 2) {
+                                    $(td).html(
+                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
                                     )
                                 }
 
@@ -402,6 +423,7 @@
             },
             columns: [
                 { data: 'id', name: 'id' , searchable:true},
+                { data: 'appType', name: 'appType' , searchable:true},
                 { data: 'services', name: 'services' , searchable:true},
                 { data:'customerId', name:'customerId' , searchable:true, orderable: true},
                 { data:'offerteStatus', name:'offerteStatus' , searchable:true},

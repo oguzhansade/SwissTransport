@@ -896,18 +896,18 @@
     
                 if($('input[name=isEntsorgungMTPrice]').is(":checked"))
                 {
-                    $('input[name=entsorgungTopPrice]').val();
+                    $('input[name=entsorgungTopPrice]').val() ;
                 }
                 else{
                     if(tariffChf2)
                     {
                         entTopPrice = entTotalPrice + parseFloat(tariffChf2);
-                        $('input[name=entsorgungTopPrice]').val(entTopPrice);
                     }
                     else{
                         entTopPrice = entTotalPrice + parseFloat(volumeChf);
-                        $('input[name=entsorgungTopPrice]').val(entTopPrice);
                     }
+                    
+                    !isNaN(entTopPrice) ? $('input[name=entsorgungTopPrice]').val(entTopPrice) : $('input[name=entsorgungTopPrice]').val(0);
                 }
     
                 if($('input[name=isEntsorgungFxPrice]').is(":checked"))
@@ -924,6 +924,7 @@
                         entsorgungDefaultPrice = entTotalPrice + parseFloat(volumeChf);
                         $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice);
                     }
+                    !isNaN(entsorgungDefaultPrice) ? $('input[name=entsorgungDefaultPrice]').val(entsorgungDefaultPrice) : $('input[name=entsorgungDefaultPrice]').val(0)
                 }
     
                 
