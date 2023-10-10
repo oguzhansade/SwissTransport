@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('auto:test')->everyDay();
         $schedule->command('command:lagerungmailer')->dailyAt('10:00');
+        $schedule->command('command:offertedateupdater')->dailyAt('01:00');
     }
 
     /**

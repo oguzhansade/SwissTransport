@@ -45,42 +45,71 @@ class indexController extends Controller
 
     public function dateTester(Request $request)
     {
-        $data = offerte::where('customerId', 1)->get()->toArray();
-        $today = Carbon::now()->format('Y-m-d'); // Yeni tarih formatı ekleniyor
+        $data = offerte::where('customerId', 1)
+            ->where('offerteStatus', 'Beklemede')
+            ->get(['id', 'offerteUmzugId', 'offerteTransportId', 'offerteReinigungId','offerteEntsorgungId'])
+            ->toArray();
+
+        $today = Carbon::now()->format('Y-m-d');
         $umzugOfferteler = [];
 
         foreach ($data as $offerte) {
-            if (isset($offerte['offerteUmzugId'])) {
-                $belirtec = 'Umzug';
-                $umzugModel = OfferteUmzug::find($offerte['offerteUmzugId']);
-                if ($umzugModel) {
-                    $tarih = $umzugModel->moveDate;
-                } else {
-                    $tarih = null; // Umzug modeli bulunamazsa tarih null olur
+            $models = OfferteUmzug::find($offerte['offerteUmzugId'])
+                ?? OfferteTransport::find($offerte['offerteTransportId'])
+                ?? OfferteReinigung::find($offerte['offerteReinigungId'])
+                ?? OfferteEntsorgung::find($offerte['offerteEntsorgungId']);
+
+            if ($models) {
+                $tarih = null;
+                $belirtec = null;
+                $servisId = null;
+
+                if ($models instanceof OfferteUmzug) {
+                    $belirtec = 'Umzug';
+                    $tarih = $models->moveDate;
+                    $servisId = $models->id;
+                } elseif ($models instanceof OfferteTransport) {
+                    $belirtec = 'Transport';
+                    $tarih = $models->transportDate;
+                    $servisId = $models->id;
+                } elseif ($models instanceof OfferteReinigung) {
+                    $belirtec = 'Reinigung';
+                    $tarih = $models->startDate;
+                    $servisId = $models->id;
                 }
-            } elseif (isset($offerte['offerteTransportId'])) {
-                $belirtec = 'Transport';
-                $transportModel = OfferteTransport::find($offerte['offerteTransportId']);
-                if ($transportModel) {
-                    $tarih = $transportModel->transportDate;
-                } else {
-                    $tarih = null; // Transport modeli bulunamazsa tarih null olur
+                elseif ($models instanceof OfferteEntsorgung) {
+                    $belirtec = 'Entsorgung';
+                    $tarih = $models->entsorgungDate;
+                    $servisId = $models->id;
+                }
+
+                $durum = ($tarih >= $today) ? 'Online' : 'Expired';
+
+                $umzugOfferteler[] = [
+                    'offerteId' => $offerte['id'],
+                    'servisAdi' => $belirtec,
+                    'servisId' => $servisId,
+                    'servisTarihi' => $tarih,
+                    'suankiTarih' => $today,
+                    'tarihDurumu' => $durum,
+                ];
+                
+
+            }
+
+            $expiredOfferteIds = [];
+
+            foreach ($umzugOfferteler as $offerte) {
+                if ($offerte['tarihDurumu'] === 'Expired') {
+                    $expiredOfferteIds[] = $offerte['offerteId'];
                 }
             }
-            
-            $durum = ($tarih >= $today) ? 'Online' : 'Expired';
-    
-            $umzugOfferteler[] = [
-                'id' => $offerte['id'],
-                'belirtec' => $belirtec,
-                'deger' => isset($offerte['offerteUmzugId']) ? $offerte['offerteUmzugId'] : $offerte['offerteTransportId'],
-                'tarih' => $tarih,
-                'guncelTarih' => $today,
-                'tarihDurumu' => $durum,
-            ];
+            offerte::whereIn('id', $expiredOfferteIds)->update(['offerteStatus' => 'Onaylanmadı']);
         }
-        dd($umzugOfferteler);
+
+        // dd($umzugOfferteler);
     }
+    
     public function data(Request $request)
     {
         $customerId = $request->route('id');
