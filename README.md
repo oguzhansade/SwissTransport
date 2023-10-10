@@ -41,5 +41,6 @@ public function setColorId(int $id) <br>
 <p>ssh ile bağlandığında Composer Komutu kullanabilmek için https://www.cyon.ch/support/a/composer-installieren</p>
 
 <h3>Lagerung Mailer</h3>
+<p>php artisan scheduler:work komutu ile scheduler ı sürekli çalıştırabilirsin</p>
 <p>ssh ile bağlan screen -S Scheduler(oturuma özel isim vermek için) yaz oturum başlat. php artisan schedule:work yaz terminali kapat </p>
 <p>Durdurmak İçin: screen -ls yazıp oturumlara bak kapatmak istediğin oturuma girmek için screen -r [oturum ismi] daha sonra ctrl c ile komutu durdur ve en son exit yazarak oturumu sonlandır</p>
