@@ -16978,8 +16978,9 @@ th.footable-sortable > span.fooicon {
   .dataTables_wrapper table.dataTable thead .sorting,
   .dataTables_wrapper table.dataTable thead .sorting_asc,
   .dataTables_wrapper table.dataTable thead .sorting_desc {
-    background: none;
-    position: relative; }
+    /* background: none;
+    position: relative;  */
+  }
     .dataTables_wrapper table.dataTable thead .sorting:before,
     .dataTables_wrapper table.dataTable thead .sorting_asc:before,
     .dataTables_wrapper table.dataTable thead .sorting_desc:before {
@@ -16993,12 +16994,16 @@ th.footable-sortable > span.fooicon {
               font-feature-settings: 'liga';
       font-size: 1.28571em; }
   .dataTables_wrapper table.dataTable thead .sorting_asc::before {
-    content: 'expand_less'; }
+    content: 'expand_less'; 
+    opacity: 0;
+  }
   .dataTables_wrapper table.dataTable thead .sorting_desc::before {
-    content: 'expand_more'; }
+    content: 'expand_more'; 
+    opacity: 0;
+  }
   .dataTables_wrapper table.dataTable thead .sorting::before {
     content: 'sort';
-    opacity: 0.1; }
+    opacity: 0; } 
 
 .dataTables_wrapper .dataTables_info {
   margin-top: 1.42857em; }

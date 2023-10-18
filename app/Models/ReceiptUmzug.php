@@ -53,4 +53,8 @@ class ReceiptUmzug extends Model
         'expensePrice',
         'docTaken'
     ];
+
+    public function offerte() {
+        return $this->belongsTo(offerte::class, 'offerId', 'id');
+    }
 }

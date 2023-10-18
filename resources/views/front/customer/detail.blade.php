@@ -491,7 +491,13 @@
                         <div class="col-md-12">
                             <h5 class="text-primary">Notiz</h5>
                             <div class="contact-details-cell">
-                                 <span class="text-dark"><br>{{ $data[0]['note'] }}</span>
+                                <textarea id="customerNote" class="form-control" name="" id="" cols="30" rows="10">{{ $data[0]['note'] }}</textarea>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <a href="#" class="btn btn-success" onclick="updateCustomerNote()">Erstellen</a>
+                                </div>
                             </div>
                             <!-- /.contact-details-cell -->
                         </div>
@@ -517,7 +523,35 @@
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
 
-
+    <script>
+        function updateCustomerNote()
+        {
+            var note = $('#customerNote').val();
+            if(note)
+            {
+                $.ajax({
+                    url: '{{ route('customer.updateNote', ['id' => $data[0]['id']]) }}',
+                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                    'note': note // noticeArea değeri
+                    },
+                    success: function (response) {
+                        toastr.success('KUNDENNOTIZ AKTUALISIERT')
+                    },
+                    error: function (response) {
+                        toastr.error(response,'FEHLER! KUNDENNOTIZ KONNTE NICHT AKTUALISIERT WERDEN')
+                        console.log(response,'Müşteri Notu Güncellenemedi')
+                    }
+                })
+            }
+            else{
+                toastr.error('FELD DARF NICHT LEER BLEIBEN')
+            }
+        }
+    </script>
     {{-- Makbuz --}}
     @if (App\Models\UserPermission::getMyControl(11))
         

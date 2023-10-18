@@ -23,7 +23,7 @@ class indexController extends Controller
             'zimmer'=> $formData['Anzahl_Zimmer'],
             'nachStreet' => $formData['Nach:Strasse/Nr_'],
             'nachPlz' => $formData['Nach:PLZ/Ort'],
-            'umzugDate' =>  Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d'),
+            'umzugDate' =>  $formData['Umzugsdatum'] ? Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d') : NULL,
             'type' => 'Schnellanform',
             'status' => 0
         ];
@@ -57,7 +57,7 @@ class indexController extends Controller
             'zimmer' => $formData['Anzahl_Räume'],
             'nachStreet' => $formData['Nach:Strasse/Nr_'],
             'nachPlz' => $formData['Nach:PLZ/Ort'],
-            'umzugDate' => Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d'),
+            'umzugDate' => $formData['Umzugsdatum'] ? Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d') : NULL,
             'vonEtage' => $formData['Von:Etage'],
             'nachEtage' => $formData['Nach:Etage'],
             'vonLift' => $formData['Von:Lift_vorhanden?'],
@@ -96,7 +96,7 @@ class indexController extends Controller
             'zimmer' => $formData['Anzahl_Zimmer'],
             'nachStreet' => $formData['Nach:Strasse/Nr_'],
             'nachPlz' => $formData['Nach:PLZ/Ort'],
-            'umzugDate' => Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d'),
+            'umzugDate' => $formData['Umzugsdatum'] ? Carbon::createFromFormat('d/m/Y', $formData['Umzugsdatum'])->format('Y-m-d') : NULL,
             'vonEtage' => $formData['Von:Etage'],
             'nachEtage' => $formData['Nach:Etage'],
             'vonLift' => $formData['Von:Lift_vorhanden?'],

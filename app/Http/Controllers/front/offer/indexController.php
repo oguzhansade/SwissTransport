@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\OfferMail;
 use App\Models\Company;
 use App\Models\Customer;
+use App\Models\Expense;
+use App\Models\Invoice;
 use App\Models\OfferCustomerView;
 use App\Models\OfferLogs;
 use App\Models\offerte;
@@ -25,16 +27,14 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Offers;
+use App\Models\OfferteNotes;
 use App\Models\OfferVerify;
-use App\Models\Task;
-use App\Models\WorkerBasket;
+use App\Models\ReceiptReinigung;
+use App\Models\ReceiptUmzug;
 use Carbon\Carbon;
-use Google\Service\Monitoring\Custom;
-use Illuminate\Support\Facades\App;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
+
 
 class indexController extends Controller
 {
@@ -3101,6 +3101,7 @@ class indexController extends Controller
         }
     }
 
+    
     public function delete($id)
     {
         $c = offerte::where('id', $id)->count();
@@ -3127,6 +3128,12 @@ class indexController extends Controller
             $basket = OfferteBasket::where('materialId', $data['offerteMaterialId'])->delete();
             $material = OfferteMaterial::where('id', $data['offerteMaterialId'])->delete();
             
+            OfferteNotes::where('offerId',$data['id'])->delete();
+            ReceiptUmzug::where('offerId',$data['id'])->delete();
+            ReceiptReinigung::where('offerId',$data['id'])->delete();
+            Expense::where('offerId',$data['id'])->delete();
+            OfferCustomerView::where('offerId',$data['id'])->delete();
+            OfferLogs::where('offerId',$data['id'])->delete();
             OfferVerify::where('offerId', $data['id'])->delete();
             OfferCustomerView::where('offerId', $data['id'])->delete();
 

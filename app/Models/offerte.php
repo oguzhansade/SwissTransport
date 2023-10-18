@@ -48,5 +48,15 @@ class offerte extends Model
         }
         
     }
+
+    public function receiptUmzug()
+    {
+        return $this->hasMany(ReceiptUmzug::class, 'offerId', 'id')->onDelete('cascade');;
+    }
+    public function receiptReinigung()
+    {
+        return $this->hasMany(ReceiptReinigung::class, 'offerId', 'id')->onDelete('cascade');;
+    }
+
     use HasFactory;
 }

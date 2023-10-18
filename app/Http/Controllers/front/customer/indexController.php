@@ -3,8 +3,16 @@
 namespace App\Http\Controllers\front\customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppoinmentService;
+use App\Models\Appointment;
+use App\Models\AppointmentMaterial;
 use App\Models\Customer;
 use App\Models\CustomerForm;
+use App\Models\Invoice;
+use App\Models\LagerungMailer;
+use App\Models\offerte;
+use App\Models\ReceiptReinigung;
+use App\Models\ReceiptUmzug;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
@@ -173,6 +181,26 @@ class indexController extends Controller
         }
     }
 
+    public function updateNote(Request $request){
+        $id = $request->route('id');
+        $c = Customer::where('id',$id)->count();
+        if($c !=0)
+        {
+            $update = Customer::where('id',$id)->update([
+                'note' => $request->note
+            ]);
+            if($update){
+                return response()->json(['message' => 'Müşteri Notu Güncellendi'], 200);
+            }
+            else {
+                return response()->json(['message' => 'Müşteri Notu Güncellenemedi'], 500);
+            }
+        }
+        else {
+
+        }
+    }
+
     public function update(Request $request)
     {
         $id = $request->route('id');
@@ -223,6 +251,14 @@ class indexController extends Controller
         {
             $data = Customer::where('id',$id)->get();
             Customer::where('id',$id)->delete();
+            offerte::where('customerId',$id)->delete();
+            Appointment::where('customerId',$id)->delete();
+            AppoinmentService::where('customerId',$id)->delete();
+            AppointmentMaterial::where('customerId',$id)->delete();
+            Invoice::where('customerId',$id)->delete();
+            LagerungMailer::where('customerId',$id)->delete();
+            ReceiptUmzug::where('customerId',$id)->delete();
+            ReceiptReinigung::where('customerId',$id)->delete();
             $customerForm = CustomerForm::where('customerId',$id)->count();
             if($customerForm != 0)
             {

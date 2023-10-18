@@ -55,6 +55,33 @@
             /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px
         inset; */
         }
+        .custom-modal-dialog {
+            max-width: 90%;
+            width: auto;
+        }
+
+        .custom-modal-content {
+            width: 100%;
+        }
+
+        #example {
+            width: 100%;
+        }
+
+        table.table {
+            width: 100%;
+        }
+        .dataTables_scrollBody
+        {
+        overflow-x:hidden !important;
+        overflow-y:auto !important;
+        }
+        #notizTable {
+            margin-top: 0px;
+        }
+        .dataTables_wrapper table.dataTable thead .sorting::before {
+            opacity: 0;
+         }
     </style>
 @endsection
 @section('content')
@@ -248,33 +275,170 @@
                             </tfoot>
                         </table>
                     </div>
-                    <!-- notizModal HTML -->
+
+                    <!-- Notiz Table Modal HTML -->
                     <div class="modal fade" id="notizModal" tabindex="-1" role="dialog" aria-labelledby="notizModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-dialog custom-modal-dialog" role="document">
+                        <div class="modal-content custom-modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="notizModalLabel">Notiz Bearbeiten</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                                <h5 class="modal-title " id="notizModalLabel">Notiz </h5>  
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button> 
                             </div>
                             <div class="modal-body">
-                            <!-- Modal içeriği buraya gelir -->
-                            <form id="notizForm" action="" method="POST">
-                                @csrf
-                                <textarea name="notizTextArea" class="form-control" id="notizTextArea" rows="4" cols="50"></textarea>
-                            
-                            <!-- $data->id'yi burada kullanabilirsiniz -->
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                            <button  type="submit" class="btn btn-primary">Kaydet</button>
-                            </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="h5">Kunde:</span><span id="customerName" class="ml-1 text-primary h5">Ömer Sade</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <span id="newNotizSuccess" class="bg-success text-white py-1 px-2  rounded" style="display: none;">Başarılı: Not Eklendi</span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex mb-2 ">
+                                    <div class="col-md-6">
+                                        <button onclick="tableReloader()"  class="btn btn-sm btn-primary p-1 reloadNote" >Refresh <i class="ml-1 list-icon feather feather-refresh-cw "></i></button>
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-end">
+                                        <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#addNotizModal" data-id="">Add New Notiz+</a>
+                                    </div>
+                                    <input id="offerId" type="text" value="" hidden>
+                                </div>
+                                <table id="notizTable" class="table table-striped table-responsive" width="100%">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th>#</th>
+                                            <th>OfferteNR</th>
+                                            <th>Notiz</th>
+                                            <th>Created</th>
+                                            <th>Updated</th>
+                                            <th>Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                         </div>
                     </div>
-                    
+
+                    {{-- Add New Notiz Modal --}}
+                    <div class="modal fade custom-modal mt-2" id="addNotizModal" tabindex="-1" role="dialog" aria-labelledby="addNotizModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title " id="addNotizModal">Add New Notiz </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <span id="newNotizError" class="bg-danger text-white py-1 px-2  rounded " style="display: none;">HATA: Not Eklenemedi</span>
+                                        <span id="emptyNotizError" class="bg-danger text-white py-1 px-2  rounded " style="display: none;">HATA: Not Alanı Boş Olamaz</span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex mt-2 ">
+                                    <div class="col-md-12">
+                                        <textarea  id="note" class="form-control" name="" id="" rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <a href="#" id="addNewNotiz" class="btn btn-success justify-content-end" data-id=""  onclick="addNewNotiz(this)">Erstellen</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    {{-- Notiz Edit --}}
+                    <div class="modal fade custom-modal mt-2" id="editNotizModal" tabindex="-1" role="dialog" aria-labelledby="editNotizModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title " id="editNotizModal">Edit Notiz</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span>Notiz NR #</span><span id="notizId" class="text-primary"></span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex mt-2 ">
+                                    <div class="col-md-12">
+                                        <input id="notizIdHolder" type="text" value="" hidden>
+                                        <textarea  id="editNotiz" class="form-control" name="" id="" rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <a href="#" id="addNewNotiz" class="btn btn-success justify-content-end" data-id=""  onclick="updateNotiz()">Erstellen</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    {{-- Detail Notiz --}}
+                    <div class="modal fade custom-modal mt-2" id="detailNotizModal" tabindex="-1" role="dialog" aria-labelledby="detailNotizModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title " id="detailNotizModal">Notiz Detail</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span>Notiz NR #</span><span id="notizIdDetail" class="text-primary"></span>
+                                    </div>
+                                </div>
+                                <div class="row d-flex mt-2 ">
+                                    <div class="col-md-12">
+                                        <textarea  id="detailNotiz" class="form-control" name="" id="" rows="10" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    {{-- Delete Notiz --}}
+                    <div class="modal fade custom-modal mt-2" id="deleteNotizModal" tabindex="-1" role="dialog" aria-labelledby="deleteNotizModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title " id="deleteNotizModal">Notiz Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row d-flex mt-2 ">
+                                    <div class="col-md-12">
+                                        <h5>#<span  class="text-danger"><strong id="notizIdDelete"></strong></span><h5>Nolu Notu Silmek İstediğinize Emin misiniz?</h5>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <button href="#" id="deleteNotiz" class="btn btn-danger justify-content-end" data-id="" onclick="notizDeleteVerify()">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.widget-body -->
             </div>
@@ -341,27 +505,7 @@
             },
             
             "order": [0, 'desc'],
-            "columnDefs": [{
-                            "className": "dt-center",
-                            "targets": 3,
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                if (cellData == 'Onaylandı') {
-                                    $(td).html(
-                                        '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
-                                    )
-                                } else if (cellData == 'Beklemede') {
-                                    
-                                    $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
-                                    )
-                                } else if(cellData == 'Onaylanmadı') {
-                                    $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
-                                    )
-                                }
-
-                            }
-                        },
+            "columnDefs": [
                         {
                             "className": "dt-center",
                             "targets": 1,
@@ -384,18 +528,35 @@
                             }
                         },
                         {
-                            "targets": 6,
+                            "className": "dt-center",
+                            "targets": 4,
+                            "createdCell": function(td, cellData, rowData, row, col) {
+                                if (cellData == 'Onaylandı') {
+                                    $(td).html(
+                                        '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
+                                    )
+                                } else if (cellData == 'Beklemede') {
+                                    
+                                    $(td).html(
+                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                                    )
+                                } else if(cellData == 'Onaylanmadı') {
+                                    $(td).html(
+                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                                    )
+                                }
+
+                            }
+                        },
+                        
+                        {
+                            "targets": 5,
                             "createdCell": function(td, cellData, rowData, row, col) {
                                 $(td).html(cellData);
                                 $("#gratTotalPriceDiv2").html(cellData); // gratTotalPrice sütununu div'e yazdırma
                             }
                         },
-                        {
-                            "targets": 3,
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                $(td).css('vertical-align', 'middle');
-                            }
-                        }
+                        
                     ],
             
                     dom: 'Blfrtip',
@@ -513,6 +674,7 @@
         });
     });
 </script>
+
 <script>
      $('#example').on('draw.dt', function() { 
         testajax();
@@ -530,6 +692,7 @@
      })
     
 </script>
+
 <script>
     function testajax(){
         $.ajax({
@@ -545,69 +708,268 @@
   error: function() {
     console.log('AJAX isteği başarısız oldu.');
   }
-});
+    });
     }
 </script>
-<script>
-    // Notiz düğmesine tıklanınca id'yi modal içeriğine yerleştirme
-    $(document).on('click', '.btn-info', function () {
-        
-        var id = $(this).data('id');
-        var url = '/offer/getOfferte/' + id
 
-        var formAction = '{{ route('offer.noticeUpdate', ['id' => ':id']) }}';
-        formAction = formAction.replace(':id', id);
-        $('#notizForm').attr('action', formAction);
+
+{{-- Notiz İşlemleri --}}
+<script>
+    $(document).on('click', '.notizButton', function () {
+        // reinitialise hatası için her butona tıkladığında datatable oluşturmuşsa destroy ediyoruz
+        if ($.fn.DataTable.isDataTable('#notizTable')) {
+            $('#notizTable').DataTable().destroy();
+        }
+        var offerId = $(this).data('id');
+        var customerId = $(this).data('customer');
+        var url = '/note/data/' + offerId;
+        $('#offerId').val(offerId);
+        console.log(customerId,'Müşteri ID')
 
         $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            var offerteData = response.offerte;
-
-            if (offerteData) {
-                // offerteData içinde belirli bir offertenin bütün verileri bulunuyor
-                $('#notizTextArea').val(offerteData.panelNote);
-                // Örneğin, offerteData.field1, offerteData.field2 vb. şeklinde verilere erişebilirsiniz
-            } else {
-                $('#notizTextArea').val('Veri bulunamadı');
-            }
-        },
-        error: function () {
-            $('#notizTextArea').val('Sunucu hatası');
-        }
+                url: '/note/getCustomer/' + customerId,
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                },
+                success: function (response) {
+                    var customerName = response.data.name+' '+response.data.surname;
+                    $('#customerName').text(customerName)
+                    console.log(customerName,'Müşteri ')
+                    
+                },
+                error: function (response) {
+                    $('#customerName').text('No Name')
+                    console.log(response, 'Müşteri  Hatası');
+                }
+        });
+        
+        tableDrawer(url)
+        
     });
-    // noticeUpdater fonksiyonunu çağırmadan önce id'yi bir değişkende saklayın
-    var idForNoticeUpdater = id;
 
-    $('#updateNotice').on('click', function(){
-            noticeUpdater(idForNoticeUpdater)
-        })
-    });
-  </script>
-  <script>
-    function noticeUpdater(id)
+    function tableReloader()
     {
-        var url = '/offer/noticeUpdate/' + id
-        var panelNote = $('#notizTextArea').val();
-            $.ajax({
-            url: url,
-            headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-            type: 'POST',
-            dataType: 'json',
-            data: {
-            '_token': '{{ csrf_token() }}', // CSRF token
-            'panelNote': panelNote // noticeArea değeri
-            },
-            success: function (response) {
-                
-            },
-            error: function () {
-                $('#notizTextArea').val('Sunucu hatası');
-            }
-        })
+        if ($.fn.DataTable.isDataTable('#notizTable')) {
+            var table = $('#notizTable').DataTable();
+            table.search('').draw();
+        }
+
     }
-    
-  </script>
+
+    function addNewNotiz(element) {
+        var offerId = $('#offerId').val();
+        
+        var url = '/note/create/' + offerId
+        var note = $('#note').val();
+        if(note)
+        {
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                '_token': '{{ csrf_token() }}', // CSRF token
+                'note': note // noticeArea değeri
+                },
+                success: function (response) {
+                    toastr.success('ERFOLGREICH HINZUGEFÜGT')
+                    $('#note').val('');
+                    $('#addNotizModal').modal('hide');
+                    tableReloader();
+                },
+                error: function (response) {
+                    toastr.success(response,'FEHLER! HINZUFÜGUNG NICHT MÖGLICH')
+                    console.log(response,'Add New Erstellen Error')
+                }
+            })
+        }
+        else{
+            toastr.error('FELD DARF NICHT LEER BLEIBEN')
+        }
+        
+    }
+    function tableDrawer(url)
+    {
+        let noteTable =  $('#notizTable').DataTable( {
+            lengthMenu: [[25, 100, -1], [25, 100, "All"]],
+            processing: true,
+            serverSide: true,
+            scrollCollapse: true,
+            scrollY: '50vh',
+            paging: false,
+            ajax: {
+                type:'POST',
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                url: url,
+                data: function (d) {
+                    d.startDate = $('#datepicker_from').val();
+                    d.endDate = $('#datepicker_to').val();
+                }
+            },
+            "order": [0, 'desc'],
+            columns: [
+                { data: 'id', name: 'id'},
+                { data: 'offerId', name: 'offerId'},
+                {
+                    data: 'note',
+                    name: 'note',
+                    render: function (data, type, row) {
+                        if (type === 'display' && data.length > 30) { // 50 karakter sınırı, istediğiniz uzunluğu ayarlayabilirsiniz
+                            return data.substr(0, 30) + '...';
+                        }
+                        return data;
+                    }
+                },
+                { data: 'created_at', name: 'created_at'},
+                { data: 'updated_at', name: 'updated_at'},
+                { data: 'option', name: 'option', orderable: false, searchable: false },
+            ],
+            
+        });
+        
+        jQuery.fn.DataTable.ext.type.search.string = function(data) {
+            var testd = !data ?
+                '' :
+                typeof data === 'string' ?
+                    data
+                        .replace(/i/g, 'İ')
+                        .replace(/ı/g, 'I') :
+                    data;
+            return testd;
+        };
+        $('#notizTable_filter input').keyup(function() {
+            noteTable
+                .search(
+                    jQuery.fn.DataTable.ext.type.search.string(this.value)
+                )
+                .draw();
+        });
+        $('#notizTable').css('overflow-x','hidden');
+    }
+</script>
+    {{-- Notiz Update Fonksiyonu --}}
+    <script>
+        function notizEdit(id){
+            var url = '/note/edit/' + id;
+            $('#notizIdHolder').val(id);
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                },
+                success: function (response) {
+                    var note = response.note; // response'dan note değerini alın
+                    $('#editNotiz').val(note);
+                    $('#notizId').text(response.id);
+                },
+                error: function (response) {
+                    console.log(response, 'Notice Edit Hatası');
+                }
+            });
+        }
+
+        function notizDetail(id){
+            var url = '/note/edit/' + id;
+            $('#notizIdDetail').val(id);
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                },
+                success: function (response) {
+                    var note = response.note; // response'dan note değerini alın
+                    $('#detailNotiz').val(note);
+                    $('#notizIdDetail').text(response.id);
+                },
+                error: function (response) {
+                    console.log(response, 'Notice Edit Hatası');
+                }
+            });
+        }
+
+        function notizDelete(id){
+            var url = '/note/edit/' + id;
+            $('#notizIdDelete').text(id);
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                },
+                success: function (response) {
+                    $('#notizIdDelete').text(response.id);
+                },
+                error: function (response) {
+                    console.log(response, 'Notice Edit Hatası');
+                }
+            });
+        }
+        
+        function notizDeleteVerify(id){
+            var id = $('#notizIdDelete').text();
+            var url = '/note/delete/' + id;
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                },
+                success: function (response) {
+                    toastr.success('ERFOLGREICH GELÖSCHT');
+                    $('#deleteNotizModal').modal('hide');
+                    tableReloader();
+                },
+                error: function (response) {
+                    toastr.error('FEHLER! LÖSCHUNG NICHT MÖGLICH')
+                }
+            });
+        }
+        
+        function updateNotiz(id){
+            var id = $('#notizIdHolder').val();
+            var url = '/note/edit/' + id;
+            var note = $('#editNotiz').val();
+            if(note)
+            {
+                $.ajax({
+                    url: url,
+                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                    '_token': '{{ csrf_token() }}', // CSRF token
+                    'note': note // noticeArea değeri
+                    },
+                    success: function (response) {
+                        toastr.success('NICHT ERFOLGREICH AKTUALISIERT')
+                        $('#editNotizModal').modal('hide');
+                        tableReloader();
+                    },
+                    error: function (response) {
+                        toastr.error(response,'FEHLER! AKTUALISIERUNG NICHT MÖGLICH')
+                        console.log(response,'Add New Erstellen Error')
+                    }
+                })
+            }
+            else{
+                toastr.error('FELD DARF NICHT LEER BLEIBEN')
+            }
+        }
+    </script>
+  {{-- Notiz Update Fonksiyonu --}}
+
 @endsection

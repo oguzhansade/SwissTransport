@@ -198,7 +198,7 @@ class indexController extends Controller
             return '
             <a class="btn btn-sm  btn-primary" href="'.route('offer.detail',['id'=>$data->id]).'"><i class="feather feather-eye" ></i> Offerte</a> <span class="text-primary"></span>
             <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$data->customerId]).'"><i class="feather feather-edit" ></i> Kunde</a> <span class="text-primary"></span>
-            <a class="btn btn-sm btn-info" href="#" data-toggle="modal" data-target="#notizModal" data-id="'.$data->id.'" ><i class="feather feather-edit-2"></i> Notiz</a>';
+            <a class="btn btn-sm btn-info notizButton" href="#" data-toggle="modal" data-target="#notizModal" data-customer="'.$data->customerId.'" data-id="'.$data->id.'" ><i class="feather feather-edit-2"></i> Notiz</a>';
         })
         ->rawColumns(['gratTotalPrice','totalPrice','services','option'])
         ->make(true);

@@ -78,16 +78,16 @@
                                     <div class="col-md-3">
                                         <b class="text-dark">Reinigungstermin</b>
                                         <input class="form-control" name="reinigungStartDate"  type="date" 
-                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startDate') }}" @endif>
+                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startDate') }}"  @endif>
                                         <input class="form-control mt-1" name="reinigungStartTime"  type="time" 
-                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startTime') }}" @endif>
+                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startTime') }}"  @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Abgabetermin</b>
                                         <input class="form-control" name="reinigungEndDate"  type="date" 
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endDate') }}" @endif>
                                         <input class="form-control mt-1" name="reinigungEndTime"  type="time" 
-                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endTime') }}" @endif>
+                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endTime') }}"  @endif>
                                     </div>
                                 </div>
                             </div>

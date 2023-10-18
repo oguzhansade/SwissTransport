@@ -909,7 +909,7 @@ class indexController extends Controller
             $discount = ReceiptDiscount::where('id',$data['receiptDiscountId'])->delete();
             $expense = Expense::where('quittungId','=',$id)->where('exType','=', 'Umzug')->delete();
             Task::where('receiptUmzugId', $id)->delete();
-            WorkerBasket::where('receiptUmzug', $id)->delete();
+            WorkerBasket::where('receiptUmzugId', $id)->delete();
 
             ReceiptUmzug::where('id',$id)->delete();
 

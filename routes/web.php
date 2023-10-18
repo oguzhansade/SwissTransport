@@ -148,10 +148,13 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/createForm/{id}', [App\Http\Controllers\front\customer\indexController::class, 'storeForm'])->name('storeForm');
         Route::get('/edit/{id}', [App\Http\Controllers\front\customer\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\customer\indexController::class, 'update'])->name('update');
+        Route::post('/updateNote/{id}', [App\Http\Controllers\front\customer\indexController::class, 'updateNote'])->name('updateNote');
         Route::get('/delete/{id}', [App\Http\Controllers\front\customer\indexController::class, 'delete'])->name('delete');
         Route::get('/detail/{id}', [App\Http\Controllers\front\customer\indexController::class, 'detail'])->name('detail');
         Route::post('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
         Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
+
+        
     });
 
     Route::group(['namespace' => 'customerForms', 'as' => 'customerForms.', 'prefix' => 'customerForms', 'middleware' => ['PermissionControl']], function () {
@@ -219,6 +222,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/manuelReject/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelReject'])->name('manuelReject');
         Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
         Route::get('/dateTester', [App\Http\Controllers\front\offer\indexController::class, 'dateTester'])->name('dateTester');
+        
     });
 
     Route::group(['namespace' => 'invoice', 'as' => 'invoice.', 'prefix' => 'invoice', 'middleware' => ['PermissionControl']], function () {
@@ -315,5 +319,15 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/data', [App\Http\Controllers\front\statistics\indexController::class, 'data'])->name('data');
         Route::post('/offerData', [App\Http\Controllers\front\statistics\indexController::class, 'offerData'])->name('offerData');
         Route::post('/receiptData', [App\Http\Controllers\front\statistics\indexController::class, 'receiptData'])->name('receiptData');
+    });
+    Route::group(['namespace' => 'note', 'as' => 'note.', 'prefix' => 'note', 'middleware' => ['PermissionControl']], function () {
+        Route::get('/', [App\Http\Controllers\front\note\indexController::class, 'index'])->name('index');
+        Route::get('/note', [App\Http\Controllers\front\note\indexController::class, 'note'])->name('note');
+        Route::get('/edit/{id}', [App\Http\Controllers\front\note\indexController::class, 'edit'])->name('edit');
+        Route::post('/edit/{id}', [App\Http\Controllers\front\note\indexController::class, 'update'])->name('update');
+        Route::post('/create/{offerId}', [App\Http\Controllers\front\note\indexController::class, 'store'])->name('store');
+        Route::get('/delete/{id}', [App\Http\Controllers\front\note\indexController::class, 'delete'])->name('delete');
+        Route::post('/data/{offerId}', [App\Http\Controllers\front\note\indexController::class, 'data'])->name('data');
+        Route::get('/getCustomer/{customerId}', [App\Http\Controllers\front\note\indexController::class, 'getCustomer'])->name('getCustomer');
     });
 });

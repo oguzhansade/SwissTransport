@@ -39,7 +39,11 @@ class OfferteReinigung extends Model
     static function InfoReinigung($id,$param)
     {
         $data = OfferteReinigung::where('id',$id)->first();
-        return $data[$param];
+        if($data)
+        {
+            return $data[$param];
+        }
+        
     }
 
 }
