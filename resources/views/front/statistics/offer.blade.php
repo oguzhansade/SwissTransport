@@ -577,7 +577,7 @@
                     d.typeFilter = checkedValues;
                     d.standType = $('#standType').val();
                     d.appType = $('#appType').val();
-                    d.search =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
+                    d.searchInput =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
                     return d
                 },
                 
@@ -634,15 +634,15 @@
 
         
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
-                    var testd = !data ?
-                        '' :
-                        typeof data === 'string' ?
-                        data
-                        .replace(/i/g, 'İ')
-                        .replace(/ı/g, 'I') :
-                        data;
-                    return testd;
-                };
+            var testd = !data ?
+                '' :
+                typeof data === 'string' ?
+                data
+                .replace(/i/g, 'İ')
+                .replace(/ı/g, 'I') :
+                data;
+            return testd;
+        };
         $('#example_filter input').keyup(function() {
             table
                 .search(

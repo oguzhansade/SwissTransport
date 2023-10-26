@@ -47,8 +47,8 @@ class indexController extends Controller
         $table=offerte::query();
         $totalPrice = 0; // Initialize the total price variable,
         $col1Sum = 0; // İlk sütunun toplamını temsil eden değişken
-        if (!empty($request->search)) {
-            $searchValue = $request->search;
+        if (!empty($request->searchInput)) {
+            $searchValue = $request->searchInput;
             $customerIds = Customer::where('name', 'like', "%$searchValue%")
                 ->orWhere('surname', 'like', "%$searchValue%")
                 ->pluck('id')
@@ -148,8 +148,8 @@ class indexController extends Controller
             {
                 $customerName = Customer::where('id',$data->customerId)->value('name');
                 $customerSurname = Customer::where('id',$data->customerId)->value('surname');
-
-                return $customerName.' '.$customerSurname;
+                $customerFullName = $customerName.' '.$customerSurname;
+                return $customerFullName;
             }
         })
         ->addColumn('offerPrices', function ($data) use (&$totalPrice, &$col1Sum) {
