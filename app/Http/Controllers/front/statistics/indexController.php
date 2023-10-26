@@ -94,6 +94,54 @@ class indexController extends Controller
             }
         }
 
+        if ($request->zimmerFilter) {
+            $zimmerFilter = $request->zimmerFilter;
+        
+            if (is_array($zimmerFilter)) {
+                if (in_array("1-1.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 4)->pluck('id');
+                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                } elseif (in_array("2-2.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
+                                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                } 
+                elseif (in_array("3-3.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
+                                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                } 
+                elseif (in_array("4-4.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 13)->pluck('id');
+                                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                }
+                elseif (in_array("5-5.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 19)->pluck('id');
+                                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                }
+                elseif (in_array("6-6.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
+                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                    $offerteUmzugIds = OfferteUmzug::where('tariff', 22)->pluck('id');
+                                        
+                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
+                }
+            }
+        }
+
         // StandType Filter
         if($request->standType) {
             if ($request->standType == 'Onaylandı') {

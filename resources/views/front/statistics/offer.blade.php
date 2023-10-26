@@ -156,22 +156,6 @@
                             <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
                                 <tbody>
                                     <tr>
-                                        {{-- <td>
-                                            <b class="test-dark">Service Type</b>
-                                            <select class="form-control" name="serviceType" id="serviceType">
-                                            <option value="Alle">Alle</option>
-                                            <option value="Umzug">Umzug</option>
-                                            <option value="Einpack">Einpack</option>
-                                            <option value="Auspack">Auspack</option>
-                                            <option value="Entsorgung">Entsorgung</option>
-                                            <option value="Reinigung">Reinigung</option>
-                                            <option value="Transport">Transport</option>
-                                            <option value="Lagerung">Lagerung</option>
-                                            <option value="Verpackungsmaterial">Verpackungsmaterial</option>
-                                          </select>
-                                        </td> --}}
-                                        
-                                        
                                         <td>
                                             <b class="test-dark">Stand</b>
                                             <select class="form-control" name="standType" id="standType">
@@ -190,9 +174,7 @@
                                           </select>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                             <div id="checkbox-container" class="col-md-10 mt-3">
@@ -225,6 +207,26 @@
                                     <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox9" name="typeFilter[]" value="Verpackungsmaterial" >
                                     <label class="form-check-label" for="checkbox9">Verpackungsmaterial</label>
                                 </td>
+                            </div>
+                            <div id="zimmer-container" class="col-md-10 mt-3">
+                                <b class="text-dark">Zimmer Filter</b><br>
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer1" name="zimmerFilter[]" value="1-1.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer1">1-1.5 Zimmer</label>
+
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer2" name="zimmerFilter[]" value="2-2.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer2">2-2.5 Zimmer</label>
+
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer3" name="zimmerFilter[]" value="3-3.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer3">3-3.5 Zimmer</label>
+
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer4" name="zimmerFilter[]" value="4-4.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer4">4-4.5 Zimmer</label>
+
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer5" name="zimmerFilter[]" value="5-5.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer5">5-5.5 Zimmer</label>
+
+                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer6" name="zimmerFilter[]" value="6-6.5 Zimmer" >
+                                <label class="form-check-label mr-1" for="zimmer6">6-6.5 Zimmer</label>
                             </div>
                             <div class="col-md-3 mt-3">
                                 <b class="text-dark">Kunde Search</b>
@@ -464,7 +466,18 @@
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
 
 
-
+<script>    
+    function openFilter() {
+ var checkboxContainer = $('#checkbox-container-2');
+ 
+ if (checkboxContainer.css('display') === 'none') {
+     checkboxContainer.show(); // 300ms içinde yukarı aç
+ } else {
+     checkboxContainer.hide();   // 300ms içinde yukarı kapat
+ }
+}
+     
+ </script>
 <script>
     let checkedValues = [];
 
@@ -486,6 +499,28 @@
                 }
             });
             
+        });
+        
+    }
+
+    let checkedZimmers = [];
+
+    function updateCheckedZimmers() {
+        const checkboxIds = [
+            'zimmer1', 'zimmer2', 'zimmer3', 'zimmer4', 
+            'zimmer5', 'zimmer6'
+        ];
+
+        checkboxIds.forEach(checkboxId => {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.addEventListener('change', () => {
+                const index = checkedZimmers.indexOf(checkbox.value);
+                if (checkbox.checked && index === -1) {
+                    checkedZimmers.push(checkbox.value);
+                } else if (!checkbox.checked && index !== -1) {
+                    checkedZimmers.splice(index, 1);
+                }
+            });
         });
         
     }
@@ -577,6 +612,7 @@
                     d.max_date = $('#end_date').val();
                     d.serviceType = $('#serviceType').val();
                     d.typeFilter = checkedValues;
+                    d.zimmerFilter = checkedZimmers;
                     d.standType = $('#standType').val();
                     d.appType = $('#appType').val();
                     d.searchInput =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
@@ -660,6 +696,11 @@
         $('#checkbox-container').on('change', function () {
                 table.draw();
                 console.log(checkedValues,'çekbox değerleri')
+        })
+
+        $('#zimmer-container').on('change', function () {
+                table.draw();
+                console.log(checkedZimmers,'zimmer değerleri')
         })
 
         $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput').on('change', function() {
