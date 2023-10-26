@@ -583,7 +583,7 @@
                 
             },
             columns: [
-                { data: 'id', name: 'id' , searchable:true},
+                { data: 'id', name: 'id'},
                 { data: 'appType', name: 'appType' , searchable:true},
                 { data: 'services', name: 'services' , searchable:true},
                 { data:'customerId', name:'customerId' , searchable:true, orderable: true},
