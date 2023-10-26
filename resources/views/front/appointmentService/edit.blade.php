@@ -80,7 +80,7 @@
                                     <input class="form-control"  name="umzug1time"  type="time" @if ($dataUmzug) value="{{ $dataUmzug['umzugTime'] }}" @endif>                                
                                 </div>
 
-                                <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control"  name="umzug1hours" placeholder="4-5"  type="text" @if ($dataUmzug) value="{{ $dataUmzug['workHours'] }}" @endif>                                
@@ -98,7 +98,7 @@
                                         <input class="form-control"  name="umzug1anhanger" placeholder="0"  type="number" @if ($dataUmzug) value="{{ $dataUmzug['anhanger'] }}" @endif>                                
                                     </div>
                                 </div>
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="umzug1calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug) value="{{ $dataUmzug['calendarTitle'] }}"  @endif>
@@ -138,7 +138,7 @@
                                         <input class="form-control"  name="umzug2time"  type="time" @if ($dataUmzug2) value="{{ $dataUmzug2['umzugTime'] }}" @endif>                                
                                     </div>
     
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
                                             <input class="form-control"  name="umzug2hours" placeholder="4-5"  type="text" @if ($dataUmzug2) value="{{ $dataUmzug2['workHours'] }}" @endif>                                
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>      
                                     
-                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control"  name="umzug2calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug2) value="{{ $dataUmzug2['calendarTitle'] }}"@endif>
@@ -189,7 +189,7 @@
                                         <input class="form-control"  name="umzug3time"  type="time" @if ($dataUmzug3) value="{{ $dataUmzug3['umzugTime'] }}" @endif>                                
                                     </div>
     
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
                                             <input class="form-control"  name="umzug3hours" placeholder="4-5"  type="text" @if ($dataUmzug3) value="{{ $dataUmzug3['workHours'] }}" @endif>                                
@@ -208,7 +208,7 @@
                                         </div>
                                     </div>     
                                     
-                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control"  name="umzug3calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataUmzug3) value="{{ $dataUmzug3['calendarTitle'] }}"@endif>
@@ -255,7 +255,7 @@
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
                                 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="einpacksuresi" id="einpacksuresi"  aria-required=""  name="einpackhours" placeholder="4-5"  type="text" @if ($dataEinpack) value="{{ $dataEinpack['workHours'] }}" @endif>                                
@@ -274,7 +274,7 @@
                                     </div>
                                 </div> 
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="einpackcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataEinpack) value="{{ $dataEinpack['calendarTitle'] }}" @endif>
@@ -317,7 +317,7 @@
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
                                 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="auspacksuresi" id="auspacksuresi" aria-required=""  name="auspackhours" placeholder="4-5"  type="text" @if ($dataAuspack) value="{{ $dataAuspack['workHours'] }}" @endif>                                
@@ -336,7 +336,7 @@
                                     </div>
                                 </div> 
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="auspackcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataAuspack) value="{{ $dataAuspack['calendarTitle'] }}" @endif>
@@ -388,7 +388,7 @@
                                     <input class="form-control"  name="reinigung1Endtime"  type="time" @if ($dataReinigung) value="{{ $dataReinigung['reinigungEndTime'] }}" @endif>                                
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="reinigungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataReinigung) value="{{ $dataReinigung['calendarTitle'] }}" @endif>
@@ -442,7 +442,7 @@
                                     <input class="form-control"  name="reinigung2Endtime"  type="time" @if ($dataReinigung2) value="{{ $dataReinigung2['reinigungEndTime'] }}" @endif>                                
                                 </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="reinigung2calendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataReinigung2) value="{{ $dataReinigung2['calendarTitle'] }}" @endif>
@@ -484,7 +484,7 @@
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
                                 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi" aria-required=""  name="entsorgunghours" placeholder="4-5"  type="text" @if ($dataEntsorgung) value="{{ $dataEntsorgung['workHours'] }}" @endif>                                
@@ -503,7 +503,7 @@
                                     </div>
                                 </div> 
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="entsorgungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataEntsorgung) value="{{ $dataEntsorgung['calendarTitle'] }}" @endif>
@@ -545,7 +545,7 @@
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
                                 
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #CBB4FF;">
+                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                     <div class="col-md-3">
                                         <label class=" col-form-label" for="l0">Dauer [h]</label>
                                         <input class="form-control" class="transportsuresi" id="transportsuresi" aria-required=""  name="transporthours" placeholder="4-5"  type="text" @if ($dataTransport) value="{{ $dataTransport['workHours'] }}" @endif>                                
@@ -573,7 +573,7 @@
                                         <input class="form-control"  name="arrival" placeholder="Arrival"  type="text" @if ($dataTransport) value="{{ $dataTransport['arrival'] }}" @endif>                                
                                     </div>
                                 </div> 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="transportcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataTransport) value="{{ $dataTransport['calendarTitle'] }}" @endif>
@@ -615,7 +615,7 @@
                                 </div>
                                 <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Tarih, umzug tarihi ile aynıysa boş bırakabilirsiniz.</div>
                                       
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #CBB4FF;">
+                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                     <div class="col-md-4">
                                         <label class=" col-form-label" for="l0">CalendarTitle</label>
                                         <input class="form-control"  name="lagerungcalendarTitle" placeholder="CalendarTitle"  type="text" @if ($dataLagerung) value="{{ $dataLagerung['calendarTitle'] }}" @endif>

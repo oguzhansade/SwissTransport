@@ -72,6 +72,7 @@
                         {{ $receipt['customerStreet'] }} <br>
                         {{ $receipt['customerAddress'] }} <br>
                         {{ $receipt['customerPhone'] }} <br>
+                        {{ $receipt['customerMail'] }} <br>
                     </td>
                     <td valign="top" style="padding-top:20px;">
                         <b>Auszugsadresse:</b><br>

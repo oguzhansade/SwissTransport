@@ -79,6 +79,7 @@
                                         <input class="form-control mt-1" name="customerStreet"  type="text" value="{{ $data['customerStreet'] }}">
                                         <input class="form-control mt-1" name="customerPostCode"  type="text" value="{{ $data['customerAddress'] }} ">
                                         <input class="form-control mt-1" name="customerPhone"  type="text" value="{{ $data['customerPhone'] }}">
+                                        <input class="form-control mt-1" name="customerMail"  type="text" value="{{ $data['customerMail'] }}">
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Auszugsadresse</b>

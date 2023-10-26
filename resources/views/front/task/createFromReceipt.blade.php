@@ -77,6 +77,7 @@
                                                 <th>Preis[h]</th>
                                                 <th>Stunde</th>
                                                 <th>Total</th>
+                                                <th>Paid</th>
                                                 <th>Löschen</th>
                                             </tr>
                                         </thead>
@@ -193,6 +194,7 @@
            '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="' + defaultHour + '"></td>'+
            ''+
            '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
+           '<td ><input type="checkbox" class="checkbox checkbox-primary" id="prePaid" name="islem['+i+'][prePaid]" value="0"></td>'+
            '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
            '</tr>'
            

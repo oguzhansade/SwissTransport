@@ -22,6 +22,10 @@ class offerteAddress extends Model
     static function InfoAdress($id,$param)
     {
         $data = offerteAddress::where('id',$id)->first();
-        return $data[$param];
+        if($data)
+        {
+            return $data[$param];
+        }
+        
     }
 }

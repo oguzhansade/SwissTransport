@@ -71,7 +71,6 @@ class indexController extends Controller
                     
                     $expense = [
                         'quittungId' => $quittungId,
-                        'offerId' => $receipt['offerId'],
                         'exType' => 'Umzug',
                         'expenseName' => $v['expense'],
                         'expenseValue' => $v['expenseValue'],

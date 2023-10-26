@@ -132,8 +132,8 @@
 
                             <div class="form-group row">
                                 <div class="col-md-12 ">
-                                    <label for="" class="col-form-label">Bemerkung (in Offerte)</label><br>
-                                    <textarea class="form-control" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>    
+                                    <label for="" class="col-form-label ">Bemerkung (in Offerte)</label><br>
+                                    <textarea class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>    
                                 </div>                            
                             </div>
 
@@ -438,6 +438,15 @@
 <script>
     tinymce.init({
       selector: 'textarea.editor',
+      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+      toolbar_mode: 'floating',
+      apply_source_formatting : true,
+      plugins: 'code',
+    });
+</script>
+<script>
+    tinymce.init({
+      selector: 'textarea.pdfNoteOfferte',
       plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
       toolbar_mode: 'floating',
       apply_source_formatting : true,

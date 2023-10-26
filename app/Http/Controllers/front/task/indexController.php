@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front\task;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use App\Models\offerte;
 use App\Models\ReceiptUmzug;
 use App\Models\Task;
@@ -55,8 +56,12 @@ class indexController extends Controller
             <a class="btn btn-sm  btn-edit" href="'.route('task.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary"></span>
             <a class="btn btn-sm  btn-danger"  href="'.route('task.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
+        ->addColumn('selector',function($table) 
+        {
+            return '<input id="deleteInput" class="form-control deleteInput text-center" onchange="onCheckBoxChange(this)" type="checkbox" value="'.$table->id.'">';
+        })
            
-        ->rawColumns(['option','delete','detail'])
+        ->rawColumns(['option','delete','detail','selector'])
         ->make(true);
 
         return $data;
@@ -96,7 +101,13 @@ class indexController extends Controller
         $taskCreate = Task::create($task);
         $taskIdBul = DB::table('tasks')->orderBy('id','DESC')->first();
         $taskId = $taskIdBul->id;
-
+        $expense = [
+            'quittungId' => $request->receiptUmzugId,
+            'exType' => 'Umzug',
+            'expenseName' => 'Arbeiter',
+            'expenseValue' => $request->taskTotalPrice,
+        ];
+        $expenseCreate = Expense::create($expense);
         if($taskCreate)
         {
             $islem = $all['islem'];
@@ -108,7 +119,7 @@ class indexController extends Controller
                     $userId = $worker['userId'];
                     $surname = $worker['surname'];
                     $name = $worker['name'];
-                    
+                   
                     $workerBasket = [
                         'receiptUmzugId' => $request->receiptUmzugId,
                         'taskId' => $taskId,
@@ -119,6 +130,7 @@ class indexController extends Controller
                         'workHour' => $v['saat'],
                         'workerHour' => 0,
                         'totalPrice' => $v['toplam'],
+                        'payStatus' => isset($v['prePaid']) ? 1 : 0
                     ];
                     
                     $create = WorkerBasket::create($workerBasket);
@@ -174,6 +186,22 @@ class indexController extends Controller
             'taskTime' => $request->taskTime,
             'taskTotalPrice' => $request->taskTotalPrice,
         ];
+        $expense = [
+            'quittungId' => $request->receiptUmzugId,
+            'exType' => 'Umzug',
+            'expenseName' => 'Arbeiter',
+            'expenseValue' => $request->taskTotalPrice,
+        ];
+        $findExpense = Expense::where('id',$request->receiptUmzugId)->count();
+        if($findExpense != 0)
+        {
+            $expenseData = Expense::where('id',$request->receiptUmzugId)->first();
+            $expenseUpdate = Expense::where('id',$expenseData['id'])->update($expense);
+        }
+        else {
+            $expenseCreate = Expense::create($expense);
+        }
+        
         
         $taskUpdate = Task::where('id',$id)->update($task);
         if($taskUpdate && $all['islem'])
@@ -199,6 +227,7 @@ class indexController extends Controller
                         'workerPrice' => $v['tutar'],
                         'workHour' => $v['saat'],
                         'totalPrice' => $v['toplam'],
+                        'payStatus' => isset($v['prePaid']) ? 1 : 0
                     ];
                     
                     $update = WorkerBasket::create($workerBasket);
@@ -216,9 +245,6 @@ class indexController extends Controller
           
     }
  
-        
-    
-
     public function delete($id)
     {
 
@@ -232,6 +258,19 @@ class indexController extends Controller
         }
         else {
             return redirect()->back()->with('status2','HATA:Görev Silinemedi');
+        }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->taskIds;
+
+        if(!empty($ids)) {
+            $bulkTask = Task::whereIn('id',$ids)->delete();
+            $bulkWorkerBasket = WorkerBasket::whereIn('taskId',$ids)->delete();
+            return response()->json(['message' => 'Seçilen tasklar başarıyla silindi.']);
+        } else {
+            return response()->json(['message' => 'Silinecek tasklar belirtilmedi.'],400);
         }
     }
 }

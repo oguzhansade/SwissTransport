@@ -148,8 +148,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Ansatz  [CHF]</b>
-                                        <input class="form-control" name="reinigungChf"  type="text" 
-                                        @if ($offer['offerteUmzugId']) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'chf') }}" @endif>
+                                        <input class="form-control" name="reinigungChf"  type="text">
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Total  [CHF]</b>

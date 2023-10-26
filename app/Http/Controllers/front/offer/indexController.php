@@ -3131,7 +3131,6 @@ class indexController extends Controller
             OfferteNotes::where('offerId',$data['id'])->delete();
             ReceiptUmzug::where('offerId',$data['id'])->delete();
             ReceiptReinigung::where('offerId',$data['id'])->delete();
-            Expense::where('offerId',$data['id'])->delete();
             OfferCustomerView::where('offerId',$data['id'])->delete();
             OfferLogs::where('offerId',$data['id'])->delete();
             OfferVerify::where('offerId', $data['id'])->delete();

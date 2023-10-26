@@ -24,14 +24,21 @@
 
 
 <div class="widget-list mt-3">
+    
     <div class="row">
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
+                <div class="row">
+                    <div class="col-md-12 p-3">
+                        <button onclick="testajax()" class="btn btn-danger">Toplu Sil</button>
+                    </div>
+                </div>
                 <!-- /.widget-heading -->
                 <div class="widget-body clearfix">
                     <table id="admintask" class="table table-striped table-responsive">
                         <thead>
                             <tr class="text-dark">
+                                <th><input type="checkbox" id="selectAll" class="selectAll" name="selectAll"></th>
                                 <th>Quittungnnr</th>
                                 <th>Aufgaben Am</th>
                                 <th>Erstellt Am</th>
@@ -65,9 +72,67 @@
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
 
 <script>
+const selectedValues = [];
+
+// "Select All" checkbox'ını seçin
+const selectAllCheckbox = document.querySelector('.selectAll');
+
+// "Select All" checkbox'ının değişiklik olayını dinleyin
+selectAllCheckbox.addEventListener('change', function() {
+  const selectAllChecked = selectAllCheckbox.checked;
+
+  // "deleteInput" sınıfına sahip tüm checkbox'ları seçin
+  const deleteInputCheckboxes = document.querySelectorAll('.deleteInput');
+
+  // Diğer tüm "deleteInput" checkbox'larını "Select All" checkbox'ına göre işaretleyin (checked yapın)
+  deleteInputCheckboxes.forEach(checkbox => {
+    checkbox.checked = selectAllChecked;
+
+    // Checkbox'ın value değerini diziye ekleyin veya çıkarın
+    if (selectAllChecked) {
+      selectedValues.push(checkbox.value);
+    } else {
+      const index = selectedValues.indexOf(checkbox.value);
+      if (index > -1) {
+        selectedValues.splice(index, 1);
+      }
+    }
+  });
+
+  console.log(selectedValues, "Dizi Değeri");
+});
+
+</script>
+
+<script>
+    
+    function onCheckBoxChange(checkbox) {
+        if (checkbox.checked) {
+            // Checkbox seçildiğinde yapılacak işlem
+            console.log(`Input ${checkbox.value} seçildi.`);
+            // Checkbox'ın değerini diziye ekleyin
+            selectedValues.push(checkbox.value);
+
+            console.log(selectedValues,"Dizi Değeri")
+            // İşlemlerinizi buraya ekleyin
+        } else {
+            // Checkbox seçimi kaldırıldığında yapılacak işlem
+            console.log(`Input ${checkbox.value} seçimi kaldırıldı.`);
+
+            // Checkbox'ın değerini diziden kaldırın
+            const index = selectedValues.indexOf(checkbox.value);
+            if (index > -1) {
+            selectedValues.splice(index, 1);
+            }
+
+            console.log(selectedValues,"Dizi Değeri")
+            // İşlemlerinizi buraya ekleyin
+        }
+    }
+</script>
+
+<script>
     $(document).ready(function() {
-
-
         let table =  $('#admintask').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',                                 
@@ -94,6 +159,7 @@
                 }
             },
             columns: [
+                { data: 'selector', name: 'selector' , orderable:false, searchable:false},
                 { data: 'receiptUmzugId', name: 'receiptUmzugId' },
                 { data: 'taskDate', name: 'taskDate' },
                 { data: 'created_at', name:'created_at' },
@@ -135,5 +201,37 @@
 
     });
 </script>
+<script>
+   function testajax() {
+        // Göndermek istediğiniz dizi
+        var ids = selectedValues; // selectedValues dizisini kullan
 
+        $.ajax({
+            type: 'POST',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            url: '{{ route('task.bulkDelete') }}',
+            data: { taskIds: ids }, // Diziyi "ids" adıyla gönderin
+            success: function(response) {
+                console.log('AJAX isteği başarılı tasklar silindi')
+                toastr.success('Tasks deleted')
+                tableReloader();
+            },
+            error: function() {
+                console.log('AJAX isteği başarısız oldu.');
+                toastr.error('Tasks cannot deleted')
+            }
+        });
+    }
+
+</script>
+
+<script>
+    function tableReloader()
+    {
+        if ($.fn.DataTable.isDataTable('#admintask')) {
+            var table = $('#admintask').DataTable();
+            table.search('').draw();
+        }
+    }
+</script>
 @endsection

@@ -124,6 +124,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/edit/{id}', [App\Http\Controllers\front\task\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\task\indexController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [App\Http\Controllers\front\task\indexController::class, 'delete'])->name('delete');
+        Route::post('/bulkDelete', [App\Http\Controllers\front\task\indexController::class, 'bulkDelete'])->name('bulkDelete');
         Route::post('/data', [App\Http\Controllers\front\task\indexController::class, 'data'])->name('data');
         Route::get('/detail/{id}', [App\Http\Controllers\front\task\indexController::class, 'detail'])->name('detail');
     });

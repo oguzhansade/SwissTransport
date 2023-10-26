@@ -19,6 +19,7 @@ class ReceiptUmzug extends Model
         'customerStreet',
         'customerAddress',
         'customerPhone',
+        'customerMail',
         'auszugId1',
         'auszugId2',
         'auszugId3',

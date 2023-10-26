@@ -1,18 +1,9 @@
 @extends('layouts.app')
-@section('header')
-    <style>
-        .prePaidBox {
-            width: 1.5em;
-            height: 1.5em;
-        }
-        
-    </style>
-@endsection
 @section('content')
-
+@section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5">Aufgaben Anschauen</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5">Neue Aufgaben Erfassen</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
@@ -47,33 +38,32 @@
     </div>
 @endif
 
-<div  class="widget-list " >
+<div class="widget-list">
     <div class="row">
         <div class="col-md-12 widget-holder task-area">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form id="taskFormDetail" action="{{ route('task.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('task.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row p-3 mb-3">
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Offertennr</label>
-                                <select name="receiptUmzugId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
+                                <select name="offerteId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
                                     @foreach (\App\Models\ReceiptUmzug::all() as $k => $v)
-                                        <option class="form-control" value="{{ $v['id'] }}"
-                                        @if($data['receiptUmzugId'] == $v['id']) selected @endif>{{ $v['id'] }}</option>
+                                        <option class="form-control" @if($receipt && $receipt['id'] == $v['id']) selected @endif value="{{ $v['id'] }}">{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
                             </div>
 
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Aufgaben Am</label>
-                                <input class="form-control" class="date"  name="taskDate"  type="date" required value="{{ $data['taskDate'] }}"> 
+                                <input class="form-control" class="date"  name="taskDate"  type="date" required> 
                             </div>
 
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Aufgaben Stunde</label>
-                                <input class="form-control" class="time"  name="taskTime"  type="time" required value="{{ $data['taskTime'] }}"> 
+                                <input class="form-control" class="time"  name="taskTime"  type="time" required> 
                             </div>
                         </div>
                         <div class="row p-3">
@@ -85,46 +75,17 @@
                                                 <th>Aufgaben Name</th>
                                                 <th>Preis[h]</th>
                                                 <th>Stunde</th>
-                                                {{-- <th>Saat(Arbeiter)</th> --}}
                                                 <th>Total</th>
-                                                <th>Paid</th>
                                                 <th>Löschen</th>
                                             </tr>
                                         </thead>
-
-                                        <tbody>
-                                            @if($data)
-                                            {{-- Kaç Ürün Varsa O kadar Tekrarlanacak --}}
-                                            @foreach ($basket as $a => $b)
-                                            <tr class="islem_field"> 
-                                                <td><select class="m-b-10 form-control isci" name="islem[{{ $a }}][workerId]" data-toggle="select2">
-                                                <option class="form-control" value="0"> Arbeiter auswählen </option>;
-                                                @foreach (\App\Models\Worker::all() as $key => $value)
-                                                <option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}"
-                                                @if($b['workerId'] == $value['id']) selected @endif>{{ $value['name'] }} {{ $value['surname'] }}</option> 
-                                                @endforeach
-                                        
-                                                </select></td>
-                                                <td><input type="text" class="form-control" id="tutar" name="islem[{{ $a }}][tutar]" value="{{ $b['workerPrice'] }}" ></td>
-                                                <td><input type="text" class="form-control" id="saat" name="islem[{{ $a }}][saat]" value="{{ $b['workHour'] }}"></td>
-                                                {{-- <td>
-                                                    <input type="text" class="form-control" id="tutar" name="islem[{{ $a }}][isciSaat]" value="{{ $b['workerHour'] }}" >
-                                                    <i ><small class="text-primary">Vom Arbeiter eingegebene Stunden</small></i>
-                                                </td> --}}
-                                                <td><input type="text" class="form-control" id="toplam" name="islem[{{ $a }}][toplam]" value="{{ $b['totalPrice'] }}" @if($b['payStatus'] == 1) style="background-color: seagreen; color:white;" @endif></td>
-                                                <td ><input type="checkbox" class="checkbox checkbox-primary prePaidBox" id="prePaid" name="islem[{{ $a }}][prePaid]" value="0" @if($b['payStatus'] == 1) checked @endif></td>
-                                                <td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>
-                                                </tr>
-                                            @endforeach
-                                            @endif
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3  d-flex justify-content-right align-items-center text-center text-white ">
-                            <div class="col-md-12 ">
-                                <span id="urun_adet"  class="h5 urun_adet p-3 rounded " style="color:white;box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;"></span>
+                        <div class="row  d-flex justify-content-center align-items-center text-center">
+                            <div class="col-md-12">
+                                <span id="isciadet"  class="h5 isciadet">Sie haben noch keine Mitarbeiter hinzugefügt</span>
                             </div>
                         </div>
                         <div class="row p-3">
@@ -137,7 +98,7 @@
                         <div class="row p-3">
                             <div class="col-md-6">
                                 <label class="col-form-label" for="l0">Total</label>
-                                <input class="form-control ara_toplam" name="taskTotalPrice" type="text" value="{{ $data['taskTotalPrice'] }}">
+                                <input class="form-control ara_toplam" name="taskTotalPrice" type="text" value="0">
                             </div>
                         </div>
 
@@ -161,65 +122,40 @@
 
 @section('footer')
 <script>
-    
-</script>
-<script>
-    
-    var say = {{ App\Models\WorkerBasket::getBasket($data['id'])->count()}}
-    $(document).ready(function(){
-        $("#taskFormDetail :input").prop("disabled", true);
-
-        var tutaring = parseFloat($("#tutar").val()).toFixed(2);
-        var toplaming = parseFloat($("#toplam").val()).toFixed(2);
-        $("#tutar").val(tutaring)
-        $("#toplam").val(toplaming)
-
+    var say= 0;
+    var i = $(".islem_field").length || 0;
+    $("#addRowBtn").click(function () {
         
-        $(".urun_adet").html(say+' '+'Anzahl der Arbeiter');
-
-        $("body").on("click","#removeButton", function () {
-        say = say-1;
-        if(say==0)
-            {
-            $(".urun_adet").html('Es wurden keine Arbeitnehmer eingestellt');
-            }
-        else{
-            $(".urun_adet").html(say+' '+'Anzahl der Arbeiter');
-        }
-        
-        $(this).closest(".islem_field").remove();
-        console.log(say,'Silerken')
-        calc();
-        })
-
-        var i = $(".islem_field").lenght || 0;
-        $("#addRowBtn").click(function () {
-        
-        $(".urun_adet").html(say+1+' '+'Anzahl der Arbeiter');
-            var newRow = 
-            '<tr class="islem_field">' +
-            '<td><select class="m-b-10 form-control isci" name="islem['+i+'][workerId]" data-toggle="select2">'+
-            '<option class="form-control" value="0"> Arbeiter auswählen </option>';
-            @foreach (\App\Models\Worker::all() as $key => $value)
-                
-            newRow+= '<option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>';  
-            @endforeach
-
-            newRow+='</select></td>'+
-            '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
-            '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="1"></td>'+
-            ''+
-            '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
-            '<td ><input type="checkbox" class="checkbox checkbox-primary" id="prePaid" name="islem['+i+'][prePaid]" value="0"></td>'+
-            '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
-            '</tr>'
-            
-            $("#faturaData").append(newRow);
-            
-            i++;
-            say++; 
+        var topitop = 0;
+        $("[id=toplam]").each(function () {
+           topitop++; 
+                         
         });
-    })
+        
+        $(".isciadet").html(say+1+' '+'Anzahl der Arbeiter');
+        console.log(topitop+1,'ADET')
+        var newRow = 
+        '<tr class="islem_field">' +
+        '<td><select class="m-b-10 form-control isci" name="islem['+i+'][workerId]" data-toggle="select2">'+
+        '<option class="form-control" value="0"> Arbeiter auswählen </option>';
+        @foreach (\App\Models\Worker::all() as $key => $value)
+            
+        newRow+= '<option class="form-control" data-fiyat="{{ $value['workPrice'] }}" data-name="{{ $value['name'] }} {{ $value['surname'] }}"  value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>';  
+        @endforeach
+
+        newRow+='</select></td>'+
+        '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
+        '<td><input type="text" class="form-control" id="saat" name="islem['+i+'][saat]" value="1"></td>'+
+        ''+
+        '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
+        '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
+        '</tr>'
+        
+        $("#faturaData").append(newRow);
+        
+        i++;
+        say++; 
+    });
 
 
     $("body").on("change",".isci",function () {
@@ -242,10 +178,17 @@
         calc()
     })
 
+    $("body").on("click","#removeButton", function () {
+        say = say-1;
+        $(".isciadet").html(say+' '+'Anzahl der Arbeiter');
+        $(this).closest(".islem_field").remove();
+        console.log(say,'Silerken')
+        calc();
+    })
 
     $("body").on("click","#removeAllButton", function () {
         say = 0;
-        $(".urun_adet").html('Es wurden keine Arbeitnehmer eingestellt');
+        $(".isciadet").html(say+' '+'Anzahl der Arbeiter');
         
         $("[id=toplam]").each(function () {
             $(this).closest(".islem_field").remove();

@@ -71,7 +71,7 @@
                                     </div>                            
                                 </div>
 
-                                <div class="form-group row p-3" style="background-color:#c3a7f5;">
+                                <div class="form-group row p-3" style="background-color:#C8DFF3;">
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftraggeber</b>
                                         <input class="form-control" name="customerGender"  type="text" value="{{ $data['customerGender'] }}">
@@ -314,7 +314,7 @@
                             </div>
 
                             {{-- Maliyetler Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3 p-3 rounded" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3 p-3 rounded" style="background-color: #C8DFF3;">
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
@@ -354,7 +354,7 @@
                             </div>
 
                             {{-- Ödeme Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark" style="background-color: #C8DFF3;">
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <strong class="text-underline h5 text-dark "><b>Zahlung</b></strong>
@@ -384,20 +384,20 @@
                             </div>
 
                             {{-- İmza Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark" style="background-color: #C8DFF3;">
                                 <div class="form-group row d-flex justify-content-right">
                                     <div class="col-md-5">
                                         <strong class=" h5 text-dark "><b>Kundenname für Unterschriftsfeld</b></strong>
                                         <input class="form-control" name="signatureName" placeholder="Müşteri Adı"  type="text" value="{{ $data['signerName'] }}">
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
 
                             {{-- Mail Alanı --}}
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >  
                                 </div>                            
                             </div>
                             
@@ -409,7 +409,7 @@
     
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
                                 </div>   
                             </div>
 

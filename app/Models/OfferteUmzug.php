@@ -50,12 +50,18 @@ class OfferteUmzug extends Model
     static function InfoUmzug($id,$param)
     {
         $data = OfferteUmzug::where('id',$id)->first();
-        return $data[$param];
+        if($data) {
+            return $data[$param];
+        }
+        
     }
 
     static function getHour($id)
     {
         $data = OfferteUmzug::where('id',$id)->first();
-        return $data['moveHours'];
+        if($data) {
+            return $data['moveHours'];
+        }
+        
     }
 }

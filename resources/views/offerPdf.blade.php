@@ -2022,7 +2022,9 @@
 
                     <tr style="width:100%;">
                         <td colspan="4" align="left"  style="padding-top:5px;">
-                            {{ $offer['offerteNote'] }}
+                            <?php 
+                                echo $offer['offerteNote'];
+                            ?>
                         </td>
                     </tr>
                 </table>

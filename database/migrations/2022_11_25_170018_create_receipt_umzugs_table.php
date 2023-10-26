@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('customerStreet')->nullable();
             $table->string('customerAddress')->nullable();
             $table->string('customerPhone')->nullable();
+            $table->string('customerMail')->nullable();
             $table->integer('auszugId1')->nullable();
             $table->integer('auszugId2')->nullable();
             $table->integer('auszugId3')->nullable();
