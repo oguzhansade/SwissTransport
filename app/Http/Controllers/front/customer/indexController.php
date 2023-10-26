@@ -134,6 +134,44 @@ class indexController extends Controller
             $table->whereDate('created_at', '<=', $request->max_date);
         }
 
+        if ($request->serviceFilter) {
+            $serviceFilter = $request->serviceFilter;
+        
+            if (is_array($serviceFilter)) {
+                if (in_array("Offerte", $serviceFilter)) {
+                    // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
+                    $offerteCustomerIds = Offerte::pluck('customerId');
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereIn('id', $offerteCustomerIds);
+                } 
+                if (in_array("Quittung", $serviceFilter)) {
+                    // Quittung'a sahip olan müşterilerin customerId'lerini alalım
+                    $receiptUmzugCustomer = ReceiptUmzug::pluck('customerId');
+                    $receiptReinigungCustomer = ReceiptReinigung::pluck('customerId');
+
+                    // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
+                    $allCustomerIds = array_merge($receiptUmzugCustomer->toArray(), $receiptReinigungCustomer->toArray());
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereIn('id', $allCustomerIds);
+                }
+
+                if (in_array("Termine", $serviceFilter)) {
+                    // Termine'e sahip olan müşterilerin customerId'lerini alalım
+                    $appCustomer = Appointment::pluck('customerId');
+                    $appServiceCustomer = AppoinmentService::pluck('customerId');
+                    $appMaterialCustomer = AppointmentMaterial::pluck('customerId');
+                    
+                    // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
+                    $allCustomerIds = array_merge($appCustomer->toArray(), $appServiceCustomer->toArray(), $appMaterialCustomer->toArray());
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereIn('id', $allCustomerIds);
+                }
+            } 
+        }
+
         // Select total price
        
         $data=DataTables::of($table)

@@ -485,7 +485,9 @@
                     checkedValues.splice(index, 1);
                 }
             });
+            
         });
+        
     }
 
     $(document).ready(function() {

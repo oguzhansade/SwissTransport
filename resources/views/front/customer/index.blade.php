@@ -44,6 +44,26 @@
                                     <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                                     <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                 </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="checkbox-container" class="col-md-10 mt-3">
+                        <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b class="text-dark">Services</b><br>
+                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
+                                        <label class="form-check-label mr-1" for="checkbox1">Offerte</label>
+        
+                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Termine" >
+                                        <label class="form-check-label mr-1" for="checkbox2">Termine</label>
+        
+                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Quittung" >
+                                        <label class="form-check-label mr-1" for="checkbox3">Quittung</label>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -90,6 +110,29 @@
 
 
 <script>
+
+let checkedValues = [];
+
+    function updateCheckedValues() {
+        const checkboxIds = [
+            'checkbox1', 'checkbox2', 'checkbox3'
+        ];
+
+        checkboxIds.forEach(checkboxId => {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.addEventListener('change', () => {
+                const index = checkedValues.indexOf(checkbox.value);
+                if (checkbox.checked && index === -1) {
+                    checkedValues.push(checkbox.value);
+                } else if (!checkbox.checked && index !== -1) {
+                    checkedValues.splice(index, 1);
+                }
+            });
+            
+        });
+        
+    }
+
     $(document).ready(function() {
         let table =  $('#example').DataTable( {
             "language": {
@@ -120,6 +163,7 @@
                 data: function (d) {
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
+                    d.serviceFilter = checkedValues;
                     return d
                 }
             },
@@ -151,6 +195,11 @@
                 )
                 .draw();
         });
+
+        $('#checkbox-container').on('change', function () {
+                table.draw();
+                console.log(checkedValues,'çekbox değerleri Müşteri')
+        })
 
         $('#start_date, #end_date').on('change', function() {
             table.draw();
