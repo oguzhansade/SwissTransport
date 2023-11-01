@@ -47,6 +47,8 @@ class indexController extends Controller
         $table=offerte::query();
         $totalPrice = 0; // Initialize the total price variable,
         $col1Sum = 0; // İlk sütunun toplamını temsil eden değişken
+
+        // Customer Search Filter
         if (!empty($request->searchInput)) {
             $searchValue = $request->searchInput;
             $customerIds = Customer::where('name', 'like', "%$searchValue%")
@@ -57,7 +59,33 @@ class indexController extends Controller
             $table->whereIn('customerId', $customerIds);
         }
 
-        
+        // Contact Person Filter
+        if($request->contactPersonInput)
+        {
+            $table->where('contactPerson', 'like', "%$request->contactPersonInput%");
+        }
+
+        // Umzugdate Filter (Transport ve Entsorgung da eklenebilir koraya sor)
+        if($request->umzugmin_date) {
+            $minDate = $request->umzugmin_date;
+            if($table->whereNotNull('offerteUmzugId'))
+            {
+                $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '>=', $minDate)->pluck('id');
+
+                $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+            }
+        }
+
+        if($request->umzugmax_date) {
+            $maxDate = $request->umzugmax_date;
+            if($table->whereNotNull('offerteUmzugId'))
+            {
+                $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '<=', $maxDate)->pluck('id');
+
+                $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+            }
+        }
+
         // Minimum date filter
         if($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
@@ -68,6 +96,7 @@ class indexController extends Controller
             $table->whereDate('created_at', '<=', $request->max_date);
         }
 
+        // Service type filter
         if ($request->typeFilter) {
             $typeFilter = $request->typeFilter;
         
@@ -94,6 +123,7 @@ class indexController extends Controller
             }
         }
 
+        // Umzug zimmer filter
         if ($request->zimmerFilter) {
             $zimmerFilter = $request->zimmerFilter;
         

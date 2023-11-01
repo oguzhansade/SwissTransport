@@ -147,10 +147,17 @@
                                         <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                                         <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                     </tr>
-                                   <tr>
                                     
-                                   </tr>
-                                   
+                                </tbody>
+                            </table>
+                            <table  border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td><b class="test-dark">Umzugsdatum</b></td>
+                                        <td><input class="form-control" type="date" id="umzugstart_date" name="umzugmin_date"></td>
+                                        <td><b class="test-dark">bis</b></td>
+                                        <td><input class="form-control" type="date" id="umzugend_date" name="umzugmax_date"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
@@ -228,9 +235,24 @@
                                 <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedZimmers()" id="zimmer6" name="zimmerFilter[]" value="6-6.5 Zimmer" >
                                 <label class="form-check-label mr-1" for="zimmer6">6-6.5 Zimmer</label>
                             </div>
-                            <div class="col-md-3 mt-3">
-                                <b class="text-dark">Kunde Search</b>
-                                        <input class="form-control" type="text" id="searchInput" name="searchInput">
+                            <div class="row">
+                                <div class="col-md-3 mt-3">
+                                    <b class="text-dark">Kunde Search</b>
+                                            <input class="form-control" type="text" id="searchInput" name="searchInput">
+                                </div>
+                                {{-- <div class="col-md-3 mt-3">
+                                    <b class="text-dark">Kontakt Person</b><br>
+                                    <select class="form-control" name="contactPersonFilter" id="">
+                                        <option value="Alle">Alle</option>
+                                        @foreach (\App\Models\ContactPerson::all() as $key=>$value )
+                                            <option value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>
+                                        @endforeach
+                                    </select>        
+                                </div> --}}
+                                <div class="col-md-3 mt-3">
+                                    <b class="text-dark">Kontakt Person Search</b><br>
+                                    <input class="form-control" type="text" id="contactPersonSearch" name="contactPersonSearch">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-2 ">
@@ -610,12 +632,15 @@
                 data: function (d) {
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
+                    d.umzugmin_date = $('#umzugstart_date').val();
+                    d.umzugmax_date = $('#umzugend_date').val();
                     d.serviceType = $('#serviceType').val();
                     d.typeFilter = checkedValues;
                     d.zimmerFilter = checkedZimmers;
                     d.standType = $('#standType').val();
                     d.appType = $('#appType').val();
                     d.searchInput =  $('#searchInput').val(); // Müşteri adı veya soyadı arama değeri
+                    d.contactPersonInput = $('#contactPersonSearch').val();
                     return d
                 },
                 
@@ -703,7 +728,10 @@
                 console.log(checkedZimmers,'zimmer değerleri')
         })
 
-        $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput').on('change', function() {
+        $('#contactPersonSearch').keyup(function(){
+            table.draw();
+        })
+        $('#start_date, #end_date, #umzugstart_date, #umzugend_date, #serviceType, #standType,#appType,#searchInput').on('change', function() {
             table.draw();
         });
         $('#reset').on('click', function() {
