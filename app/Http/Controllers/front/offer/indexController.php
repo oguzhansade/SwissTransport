@@ -32,6 +32,7 @@ use App\Models\OfferVerify;
 use App\Models\ReceiptReinigung;
 use App\Models\ReceiptUmzug;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -994,13 +995,15 @@ class indexController extends Controller
                     $serviceType = $value['serviceType'];
                     $offerId = $value['offerId'];
                     $inputName = $value['inputName'];
-                    
+                    $userName = Auth::user()->name;
+
                     $offerLog = [
                         'offerId' => $offerId,
                         'serviceType' => $serviceType,
                         'inputName' => $inputName,
                         'oldValue' => $oldValue,
                         'newValue' => $newValue,
+                        'userName' => $userName
                     ];
                     OfferLogs::create($offerLog);
                     $changedData = [];
@@ -1068,13 +1071,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1159,13 +1164,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1245,13 +1252,15 @@ class indexController extends Controller
                     $serviceType = $value['serviceType'];
                     $offerId = $value['offerId'];
                     $inputName = $value['inputName'];
-                    
+                    $userName = Auth::user()->name;
+
                     $offerLog = [
                         'offerId' => $offerId,
                         'serviceType' => $serviceType,
                         'inputName' => $inputName,
                         'oldValue' => $oldValue,
                         'newValue' => $newValue,
+                        'userName' => $userName
                     ];
                     OfferLogs::create($offerLog);
                     $changedData = [];
@@ -1334,13 +1343,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1425,13 +1436,15 @@ class indexController extends Controller
                     $serviceType = $value['serviceType'];
                     $offerId = $value['offerId'];
                     $inputName = $value['inputName'];
-                    
+                    $userName = Auth::user()->name;
+
                     $offerLog = [
                         'offerId' => $offerId,
                         'serviceType' => $serviceType,
                         'inputName' => $inputName,
                         'oldValue' => $oldValue,
                         'newValue' => $newValue,
+                        'userName' => $userName
                     ];
                     OfferLogs::create($offerLog);
                     $changedData = [];
@@ -1569,13 +1582,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName,
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1717,13 +1732,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1852,13 +1869,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -1993,13 +2012,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -2137,13 +2158,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -2283,13 +2306,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -2447,13 +2472,15 @@ class indexController extends Controller
                     $serviceType = $value['serviceType'];
                     $offerId = $value['offerId'];
                     $inputName = $value['inputName'];
-                    
+                    $userName = Auth::user()->name;
+
                     $offerLog = [
                         'offerId' => $offerId,
                         'serviceType' => $serviceType,
                         'inputName' => $inputName,
                         'oldValue' => $oldValue,
                         'newValue' => $newValue,
+                        'userName' => $userName
                     ];
                     OfferLogs::create($offerLog);
                     $changedData = [];
@@ -2575,13 +2602,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -2669,13 +2698,15 @@ class indexController extends Controller
                         $serviceType = $value['serviceType'];
                         $offerId = $value['offerId'];
                         $inputName = $value['inputName'];
-                        
+                        $userName = Auth::user()->name;
+
                         $offerLog = [
                             'offerId' => $offerId,
                             'serviceType' => $serviceType,
                             'inputName' => $inputName,
                             'oldValue' => $oldValue,
                             'newValue' => $newValue,
+                            'userName' => $userName
                         ];
                         OfferLogs::create($offerLog);
                         $changedData = [];
@@ -2782,7 +2813,10 @@ class indexController extends Controller
                 continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
             }
             if ($attribute === 'panelNote') {
-                continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
+                continue; // inputName 'panelNote' ise döngünün bir sonraki iterasyonuna geç
+            }
+            if ($attribute === 'offerPrice') {
+                continue; // inputName 'offerPrice' ise döngünün bir sonraki iterasyonuna geç
             }
 
             $attributeMappings = array(
@@ -2830,13 +2864,15 @@ class indexController extends Controller
                 $serviceType = $value['serviceType'];
                 $offerId = $value['offerId'];
                 $inputName = $value['inputName'];
-                
+                $userName = Auth::user()->name;
+
                 $offerLog = [
                     'offerId' => $offerId,
                     'serviceType' => $serviceType,
                     'inputName' => $inputName,
                     'oldValue' => $oldValue,
                     'newValue' => $newValue,
+                    'userName' => $userName
                 ];
                 OfferLogs::create($offerLog);
                 $changedData = [];

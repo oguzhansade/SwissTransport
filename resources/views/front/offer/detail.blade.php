@@ -320,7 +320,7 @@
                     @foreach ($logs->reverse() as $key => $value )
                             <div class="card card-body">
                                 @if($value['oldValue'] && $value['newValue'])
-                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki <span class="text-primary">
+                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki <span class="text-primary">
                                 {{ $value['inputName'] }}
                                     </span>, <span class="text-danger">
                                         @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
@@ -372,7 +372,7 @@
                                         @endif
                                     </span> olarak değiştirildi. </span>
                                 @elseif (empty($value['oldValue']) && !empty($value['newValue']))
-                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
                                     @if (strpos($value['inputName'], 'Adresse') !== false 
                                     || strpos($value['inputName'], 'Umzug') !== false
                                     || strpos($value['inputName'], 'Einpack') !== false
@@ -389,7 +389,7 @@
                                     @endif
                                     
                                 @elseif (empty($value['newValue']) && !empty($value['oldValue']))
-                                Log- {{ $key }} : <span > <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
                                     @if (strpos($value['inputName'], 'Adresse') !== false
                                     || strpos($value['inputName'], 'Umzug') !== false
                                     || strpos($value['inputName'], 'Einpack') !== false

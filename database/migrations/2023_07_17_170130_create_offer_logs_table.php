@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('inputName')->nullable();
             $table->longText('oldValue')->nullable();
             $table->longText('newValue')->nullable();
+            $table->string('userName')->nullable();
             $table->timestamps();
         });
     }

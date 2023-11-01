@@ -13,6 +13,7 @@ class OfferLogs extends Model
         'inputName',
         'oldValue',
         'newValue',
+        'userName'
     ];
     use HasFactory;
 }
