@@ -255,6 +255,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-2 ">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:1rem">
@@ -270,6 +271,10 @@
                                     <tr>
                                         <td><span>Offerte</span></td>
                                         <td>: <span id="filteredOfferte"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Bestätigung</span></td>
+                                        <td>: <span id="percentBestatig"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -688,8 +693,10 @@
                         $('#nonFilteredTotal').text(nfFormattedTotal);
                     }
                 }
-               
+                let bestatigPercent = (rsTot.filteredBestatig / rsTot.recordsFiltered)*100;
+                bestatigPercent = bestatigPercent.toFixed(2);
                 $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
+                $('#percentBestatig').text('%'+bestatigPercent);
             }    
  
             
@@ -737,10 +744,13 @@
         $('#reset').on('click', function() {
             $('#start_date').val('');
             $('#end_date').val('');
+            $('#umzugstart_date').val('');
+            $('#umzugend_date').val('');
             $('#serviceType').val('Alle');
             $('#standType').val('Alle');
             $('#appType').val('Alle');
             $('#searchInput').val('');
+            $('#contactPersonSearch').val('');
             table.draw();
         });
     });

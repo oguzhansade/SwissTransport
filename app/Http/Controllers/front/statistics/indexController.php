@@ -201,7 +201,7 @@ class indexController extends Controller
 
             }
         }
-        
+       
         $data=DataTables::of($table)
         
         // Servisler
@@ -285,6 +285,7 @@ class indexController extends Controller
         $renderedData['filteredTotal'] = $table->sum('offerPrice');
         $renderedData['nonFilteredTotal'] = $totalPrice;
         $renderedData['totalOfferte'] = $totalOfferte;
+        $renderedData['filteredBestatig'] = $table->where('offerteStatus', 'Onaylandı')->count();
         return response()->json($renderedData);
         
         // $renderedData = $data;
