@@ -147,7 +147,6 @@
                                         <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                                         <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
                             <table  border="0" class="text-dark" cellspacing="5" cellpadding="5">

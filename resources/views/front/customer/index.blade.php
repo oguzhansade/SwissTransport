@@ -56,12 +56,21 @@
                                         <b class="text-dark">Services</b><br>
                                         <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
                                         <label class="form-check-label mr-1" for="checkbox1">Offerte</label>
+                                        
+                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
+                                        <label class="form-check-label mr-1" for="checkbox2">Nicht Offerte</label>
+
+                                        <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
+                                        <label class="form-check-label ml-3 mr-1" for="checkbox3">Termine</label>
         
-                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Termine" >
-                                        <label class="form-check-label mr-1" for="checkbox2">Termine</label>
-        
-                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Quittung" >
-                                        <label class="form-check-label mr-1" for="checkbox3">Quittung</label>
+                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
+                                        <label class="form-check-label mr-1" for="checkbox4">Nicht Termine</label>
+
+                                        <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
+                                        <label class="form-check-label ml-3 mr-1" for="checkbox5">Quittung</label>
+
+                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
+                                        <label class="form-check-label mr-1" for="checkbox6">Nicht Quittung</label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,7 +124,7 @@ let checkedValues = [];
 
     function updateCheckedValues() {
         const checkboxIds = [
-            'checkbox1', 'checkbox2', 'checkbox3'
+            'checkbox1', 'checkbox2', 'checkbox3' ,'checkbox4', 'checkbox5' , 'checkbox6'
         ];
 
         checkboxIds.forEach(checkboxId => {

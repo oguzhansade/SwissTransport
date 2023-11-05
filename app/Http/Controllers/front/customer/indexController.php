@@ -145,6 +145,13 @@ class indexController extends Controller
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereIn('id', $offerteCustomerIds);
                 } 
+                if (in_array("Nicht Offerte", $serviceFilter)) {
+                    // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
+                    $offerteCustomerIds = Offerte::pluck('customerId');
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereNotIn('id', $offerteCustomerIds);
+                } 
                 if (in_array("Quittung", $serviceFilter)) {
                     // Quittung'a sahip olan müşterilerin customerId'lerini alalım
                     $receiptUmzugCustomer = ReceiptUmzug::pluck('customerId');
@@ -155,6 +162,18 @@ class indexController extends Controller
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereIn('id', $allCustomerIds);
+                }
+
+                if (in_array("Nicht Quittung", $serviceFilter)) {
+                    // Quittung'a sahip olan müşterilerin customerId'lerini alalım
+                    $receiptUmzugCustomer = ReceiptUmzug::pluck('customerId');
+                    $receiptReinigungCustomer = ReceiptReinigung::pluck('customerId');
+
+                    // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
+                    $allCustomerIds = array_merge($receiptUmzugCustomer->toArray(), $receiptReinigungCustomer->toArray());
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereNotIn('id', $allCustomerIds);
                 }
 
                 if (in_array("Termine", $serviceFilter)) {
@@ -168,6 +187,18 @@ class indexController extends Controller
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereIn('id', $allCustomerIds);
+                }
+                if (in_array("Nicht Termine", $serviceFilter)) {
+                    // Termine'e sahip olan müşterilerin customerId'lerini alalım
+                    $appCustomer = Appointment::pluck('customerId');
+                    $appServiceCustomer = AppoinmentService::pluck('customerId');
+                    $appMaterialCustomer = AppointmentMaterial::pluck('customerId');
+                    
+                    // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
+                    $allCustomerIds = array_merge($appCustomer->toArray(), $appServiceCustomer->toArray(), $appMaterialCustomer->toArray());
+
+                    // Tabloyu customerId'ye göre filtreleyelim
+                    $table->whereNotIn('id', $allCustomerIds);
                 }
             } 
         }
