@@ -143,7 +143,10 @@
             @if (App\Models\UserPermission::getMyControl(9))
                 <li class="nav-item " style=""><a href="#notiz-tab-bordered-1" 
                         class="nav-link @if (session('cat') == 'Notiz') active @endif" data-toggle="tab"
-                        aria-expanded="false">Notiz</a>
+                        aria-expanded="false"> Notiz  @if (strlen($data[0]['note']) < 1)
+                        <span class="badge badge-pill badge-warning" style="border-radius: 100%">!</span>
+                    @endif</a>
+                        
                 </li>
             @endif
 
@@ -487,9 +490,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        
                         <div class="col-md-12">
-                            <h5 class="text-primary">Notiz</h5>
+                            <h5 class="text-primary"></h5>
                             <div class="contact-details-cell">
                                 <textarea id="customerNote" class="form-control" name="" id="" cols="30" rows="10">{{ $data[0]['note'] }}</textarea>
                                 
