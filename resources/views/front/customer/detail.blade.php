@@ -143,8 +143,8 @@
             @if (App\Models\UserPermission::getMyControl(9))
                 <li class="nav-item " style=""><a href="#notiz-tab-bordered-1" 
                         class="nav-link @if (session('cat') == 'Notiz') active @endif" data-toggle="tab"
-                        aria-expanded="false"> Notiz  @if (strlen($data[0]['note']) < 1)
-                        <span class="badge badge-pill badge-warning" style="border-radius: 100%">!</span>
+                        aria-expanded="false"> Notiz  @if (strlen($data[0]['note']) > 1)
+                        <span class="badge badge-pill badge-success" style="border-radius: 100%">✓</span>
                     @endif</a>
                         
                 </li>
