@@ -147,7 +147,7 @@
                 <div class="widget-heading clearfix">
                         <div class="row">
                             <div class="col-md-12 d-flex">
-                                <h5>Termine Table</h5>
+                                <h5>Termine Table </h5>
                             </div>
                         </div>
                 </div>

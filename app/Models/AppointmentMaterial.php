@@ -16,7 +16,8 @@ class AppointmentMaterial extends Model
         'address',
         'calendarTitle',
         'calendarContent',
-        'customerId'
+        'customerId',
+        'expired'
     ];
 
     use HasFactory;

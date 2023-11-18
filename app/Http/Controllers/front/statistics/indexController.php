@@ -38,7 +38,30 @@ class indexController extends Controller
     }
     public function termine()
     {
+       // AppointmentMaterial Modelinden tüm verileri çek
+       $appMaterials = AppointmentMaterial::all();
+                    
+       // Şu anki tarih
+       $currentDate = now();
+
+       
+       // Her bir AppointmentMaterial öğesini kontrol et
+       foreach ($appMaterials as $appMaterial) {
+           // AppointmentMaterial'in tarihine 4 hafta ekleyerek son tarihi bul
+           $expirationDate = Carbon::createFromFormat('Y-m-d', $appMaterial->meetingDate)->addWeeks(4);
+
+           // Eğer şu anki tarih, expirationDate'den büyükse
+           if ($appMaterial->deliveryType == 0 && $currentDate > $expirationDate  ) {
+               // expired değerini 1 olarak güncelle
+               $appMaterial->update(['expired' => 1]);
+           }
+           else {
+            $appMaterial->update(['expired' => 0]);
+           }
+       }
+
         return view ('front.statistics.termine');
+       
     }
     public function offerData(Request $request)
     {
@@ -346,6 +369,8 @@ class indexController extends Controller
             }
             elseif($request->appType == '2')
             {
+                  
+                    
                 foreach ($table2Data as $k => $v) {
                     $customer = Customer::where('id',$v->customerId)->first();
                     $app = AppointmentMaterial::where('id',$v->id)->first();
@@ -437,7 +462,7 @@ class indexController extends Controller
                     <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
                 }
                 else {
-                    return '<span class="btn btn-sm btn-success">Lieferung</span>';
+                    return 'Lieferung';
                 }
                
             }

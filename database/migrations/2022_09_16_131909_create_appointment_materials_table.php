@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('calendarTitle')->nullable();
             $table->string('calendarContent')->nullable();
             $table->integer('customerId');
+            $table->boolean('expired')->default(0);// 0 ise Sorun Yok 1 ise Abholung Yapılmamış ve Gerekli 
             $table->timestamps();
         });
     }
