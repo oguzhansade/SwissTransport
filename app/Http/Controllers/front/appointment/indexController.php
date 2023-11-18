@@ -622,6 +622,7 @@ class indexController extends Controller
 
 
         $data = DataTables::of($array)
+        
             ->addColumn('option', function ($array) {
                 switch ($array['appType']) {
                     case ('Besichtigung');

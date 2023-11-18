@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front\statistics;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppointmentMaterial;
 use App\Models\Customer;
 use App\Models\offerte;
 use App\Models\OfferteAuspack;
@@ -25,6 +26,7 @@ class indexController extends Controller
     public function index()
     {
         return view ('front.statistics.index');
+
     }
     public function offer()
     {
@@ -33,6 +35,10 @@ class indexController extends Controller
     public function receipt()
     {
         return view ('front.statistics.receipt');
+    }
+    public function termine()
+    {
+        return view ('front.statistics.termine');
     }
     public function offerData(Request $request)
     {
@@ -293,6 +299,91 @@ class indexController extends Controller
         // return json_decode($renderedData->original, true);
             
 
+    }
+
+    public function termineData(Request $request)
+    {
+        $table = DB::table('appointments')->get()->toArray();
+        $table2 = DB::table('appointment_materials')->get()->toArray();
+        $table3 = DB::table('appoinment_services')->get()->toArray();
+
+        $array = [];
+        $i = 0;
+
+        if ($table) {
+            foreach ($table as $k => $v) {
+                $customer = Customer::where('id',$v->customerId)->first();
+                $array[$i]["aid"] = $i + 1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 1 ? 'Besichtigung' : '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["customerId"] = $v->customerId;
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                $i++;
+            }
+        }
+
+        if ($table2) {
+            foreach ($table2 as $k => $v) {
+                $customer = Customer::where('id',$v->customerId)->first();
+                $array[$i]["aid"] = $i + 1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 3 ? 'Lieferung' : '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["customerId"] = $v->customerId;
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                $i++;
+            }
+        }
+
+        if ($table3) {
+            foreach ($table3 as $k => $v) {
+                $customer = Customer::where('id',$v->customerId)->first('name');
+                $array[$i]["aid"] = $i + 1;
+                $array[$i]["id"] = $v->id;
+                $array[$i]["appType"] = 3 ? 'Auftragsbestätigung' : '*';
+                $array[$i]["adres"] = $v->address;
+                $array[$i]["customerId"] = $v->customerId;
+                $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                $i++;
+            }
+        }
+
+        $data=DataTables::of($array)
+
+        ->editColumn('customerId', function ($array) {
+            if($array['customerId'])
+            {
+                $customerName = Customer::where('id',$array['customerId'])->value('name');
+                $customerSurname = Customer::where('id',$array['customerId'])->value('surname');
+                $customerFullName = $customerName.' '.$customerSurname;
+                return $customerFullName;
+            }
+        })
+        ->addColumn('option', function ($array) {
+            switch ($array['appType']) {
+                case ('Besichtigung');
+                    return '
+                <a class="btn btn-sm  btn-primary" href="' . route('appointment.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i>Termine</a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-edit" href="' . route('customer.detail', ['id' => $array['customerId']]) . '"><i class="feather feather-edit" ></i>Kunde</a>';
+                    break;
+                case ('Auftragsbestätigung');
+                    return '
+                <a class="btn btn-sm  btn-primary" href="' . route('appointmentService.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i>Termine</a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-edit" href="' . route('customer.detail', ['id' => $array['customerId']]) . '"><i class="feather feather-edit" ></i>Kunde</a>';
+                    break;
+                case ('Lieferung');
+                    return '
+                <a class="btn btn-sm  btn-primary" href="' . route('appointmentMaterial.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i>Termine</a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-edit" href="' . route('customer.detail', ['id' => $array['customerId']]) . '"><i class="feather feather-edit" ></i> Kunde</a>';
+                    break;
+            }
+        })
+        ->rawColumns(['option'])
+        ->make(true);
+
+        $renderedData = (array)$data->original;
+        return response()->json($renderedData);
     }
 
     public function receiptData(Request $request)

@@ -140,14 +140,14 @@ class indexController extends Controller
             if (is_array($serviceFilter)) {
                 if (in_array("Offerte", $serviceFilter)) {
                     // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
-                    $offerteCustomerIds = Offerte::pluck('customerId');
+                    $offerteCustomerIds = offerte::pluck('customerId');
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereIn('id', $offerteCustomerIds);
                 } 
                 if (in_array("Nicht Offerte", $serviceFilter)) {
                     // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
-                    $offerteCustomerIds = Offerte::pluck('customerId');
+                    $offerteCustomerIds = offerte::pluck('customerId');
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereNotIn('id', $offerteCustomerIds);
@@ -215,6 +215,27 @@ class indexController extends Controller
                 return "Company";
             }
         })
+        ->addColumn('offerteFilter', function($table){
+            // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
+            $offerte = offerte::where('customerId',$table->id)->count();
+        
+            if($offerte > 0){
+                if($offerte > 1)
+                {
+                    return '<span id="offerteBadge" class="badge badge-success">Offerte ✓✓</span>
+                    <div class="info-tooltip" id="infoTooltip">Mehrere Angebote vorhanden</div>
+                    ';
+                }
+                else {
+                    return '<span id="offerteBadge" class="badge badge-success">Offerte ✓</span>
+                    <div class="info-tooltip" id="infoTooltip">Angebot vorhanden</div>';
+                }
+            }
+            else {
+                return '<span id="offerteBadge" class="badge badge-warning">Offerte !</span>
+                <div class="info-tooltip" id="infoTooltip">Kein Angebot</div>';
+            }
+        })
         ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
         ->addColumn('option',function($table) 
         {
@@ -223,7 +244,7 @@ class indexController extends Controller
             <a class="btn btn-sm  btn-edit" href="'.route('customer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
             <a class="btn btn-sm  btn-danger"  href="'.route('customer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
-        ->rawColumns(['publicname','option'])
+        ->rawColumns(['publicname','option','offerteFilter'])
         ->make(true);
 
         

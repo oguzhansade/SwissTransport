@@ -1,6 +1,23 @@
 @extends('layouts.app')
 @section('header')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        #infoTooltip {
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    border-radius: 5px;
+    color:white;
+    font-size:12px;
+    padding: 3px;
+    z-index: 1;
+}
+
+#offerteBadge:hover + #infoTooltip {
+    display: block;
+}
+    </style>
 @endsection
 @section('content')
  <!-- Page Title Area -->
@@ -55,22 +72,22 @@
                                     <td>
                                         <b class="text-dark">Services</b><br>
                                         <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
-                                        <label class="form-check-label mr-1" for="checkbox1">Offerte</label>
+                                        <label class="form-check-label mr-1" for="checkbox1">OFFERIERT</label>
                                         
                                         / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
-                                        <label class="form-check-label mr-1" for="checkbox2">Nicht Offerte</label>
+                                        <label class="form-check-label mr-1" for="checkbox2">Nicht OFFERIERT</label>
 
                                         <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
-                                        <label class="form-check-label ml-3 mr-1" for="checkbox3">Termine</label>
+                                        <label class="form-check-label ml-3 mr-1" for="checkbox3">TERMINIERT</label>
         
                                         / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
-                                        <label class="form-check-label mr-1" for="checkbox4">Nicht Termine</label>
+                                        <label class="form-check-label mr-1" for="checkbox4">Nicht TERMINIERT</label>
 
                                         <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
-                                        <label class="form-check-label ml-3 mr-1" for="checkbox5">Quittung</label>
+                                        <label class="form-check-label ml-3 mr-1" for="checkbox5">QUITTUNG</label>
 
                                         / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
-                                        <label class="form-check-label mr-1" for="checkbox6">Nicht Quittung</label>
+                                        <label class="form-check-label mr-1" for="checkbox6">Nicht QUITTUNG</label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -80,6 +97,7 @@
                         <table id="example" class="table table-striped table-responsive">
                             <thead>
                                 <tr class="text-dark">
+                                    <th>#</th>
                                     <th>Nachname</th>
                                     <th>Vorname</th>
                                     <th>Email</th>
@@ -157,7 +175,7 @@ let checkedValues = [];
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
             
                 },
-            "order" : [[4,'desc']], 
+            "order" : [[5,'desc']], 
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',
             buttons: [
@@ -177,6 +195,7 @@ let checkedValues = [];
                 }
             },
             columns: [
+                { data: 'offerteFilter', name: 'offerteFilter' , searchable:false ,orderable:false},
                 { data: 'name', name: 'name' , searchable:true},
                 { data: 'surname', name: 'surname' , searchable:true},
                 { data:'email', name:'email' , searchable:true},
