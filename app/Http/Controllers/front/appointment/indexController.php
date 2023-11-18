@@ -612,7 +612,7 @@ class indexController extends Controller
 
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 3 ? 'Auftragsbestätigung' : '*';
+                $array[$i]["appType"] = 2 ? 'Auftragsbestätigung' : '*';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
@@ -622,7 +622,6 @@ class indexController extends Controller
 
 
         $data = DataTables::of($array)
-        
             ->addColumn('option', function ($array) {
                 switch ($array['appType']) {
                     case ('Besichtigung');

@@ -303,52 +303,119 @@ class indexController extends Controller
 
     public function termineData(Request $request)
     {
-        $table = DB::table('appointments')->get()->toArray();
-        $table2 = DB::table('appointment_materials')->get()->toArray();
-        $table3 = DB::table('appoinment_services')->get()->toArray();
+        $table = DB::table('appointments');
+        $table2 = DB::table('appointment_materials');
+        $table3 = DB::table('appoinment_services');
 
         $array = [];
         $i = 0;
 
-        if ($table) {
-            foreach ($table as $k => $v) {
+        
+        // Minimum date filter
+        if ($request->min_date) {
+            $table->whereDate('created_at', '>=', $request->min_date);
+            $table2->whereDate('created_at', '>=', $request->min_date);
+            $table3->whereDate('created_at', '>=', $request->min_date);
+        }
+
+        // Maximum date filter
+        if ($request->max_date) {
+            $table->whereDate('created_at', '<=', $request->max_date);
+            $table2->whereDate('created_at', '<=', $request->max_date);
+            $table3->whereDate('created_at', '<=', $request->max_date);
+        }
+
+        $tableData = $table->get()->toArray();
+        $table2Data = $table2->get()->toArray();
+        $table3Data = $table3->get()->toArray();
+
+        if($request->appType)
+        {
+            if($request->appType == '1')
+            {
+                foreach ($tableData as $k => $v) {
+                    $customer = Customer::where('id',$v->customerId)->first();
+                    $array[$i]["aid"] = $i + 1;
+                    $array[$i]["id"] = $v->id;
+                    $array[$i]["appType"] ='Besichtigung';
+                    $array[$i]["adres"] = $v->address;
+                    $array[$i]["customerId"] = $v->customerId;
+                    $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                    $i++;
+                }
+            }
+            elseif($request->appType == '2')
+            {
+                foreach ($table2Data as $k => $v) {
+                    $customer = Customer::where('id',$v->customerId)->first();
+                    $app = AppointmentMaterial::where('id',$v->id)->first();
+                    $appStatus = $app['expired'];
+                    $array[$i]["aid"] = $i + 1;
+                    $array[$i]["id"] = $v->id;
+                    $array[$i]["appType"] = 'Lieferung';
+                    $array[$i]["adres"] = $v->address;
+                    $array[$i]["customerId"] = $v->customerId;
+                    $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                    $i++;
+                }
+            }
+            elseif($request->appType == '3'){
+                foreach ($table3Data as $k => $v) {
+                    $customer = Customer::where('id',$v->customerId)->first('name');
+                    $array[$i]["aid"] = $i + 1;
+                    $array[$i]["id"] = $v->id;
+                    $array[$i]["appType"] ='Auftragsbestätigung';
+                    $array[$i]["adres"] = $v->address;
+                    $array[$i]["customerId"] = $v->customerId;
+                    $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
+                    $i++;
+                }
+            }
+            else{
+            
+            foreach ($tableData as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first();
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 1 ? 'Besichtigung' : '*';
+                $array[$i]["appType"] ='Besichtigung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
-        }
+       
 
-        if ($table2) {
-            foreach ($table2 as $k => $v) {
+        
+            foreach ($table2Data as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first();
+                $app = AppointmentMaterial::where('id',$v->id)->first();
+                $appStatus = $app['expired'];
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 3 ? 'Lieferung' : '*';
+                $array[$i]["appType"] = 'Lieferung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
-        }
+        
 
-        if ($table3) {
-            foreach ($table3 as $k => $v) {
+        
+            foreach ($table3Data as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first('name');
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 3 ? 'Auftragsbestätigung' : '*';
+                $array[$i]["appType"] ='Auftragsbestätigung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
+        
+            }
         }
-
+        
+        
         $data=DataTables::of($array)
 
         ->editColumn('customerId', function ($array) {
@@ -358,6 +425,27 @@ class indexController extends Controller
                 $customerSurname = Customer::where('id',$array['customerId'])->value('surname');
                 $customerFullName = $customerName.' '.$customerSurname;
                 return $customerFullName;
+            }
+        })
+        ->editColumn('appType', function ($array) {
+            if($array['appType'] == 'Lieferung')
+            {
+                $app = AppointmentMaterial::where('id',$array['id'])->first();
+                $appStatus = $app['expired'];
+                if($appStatus == 1) {
+                    return '<span id="termineBadge" class="badge badge-warning">Lieferung</span>
+                    <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
+                }
+                else {
+                    return '<span class="btn btn-sm btn-success">Lieferung</span>';
+                }
+               
+            }
+            if($array['appType'] == 'Besichtigung') {
+                return 'Besichtigung';
+            }
+            if($array['appType'] == 'Auftragsbestätigung') {
+                return 'Auftragsbestätigung';
             }
         })
         ->addColumn('option', function ($array) {
@@ -379,7 +467,7 @@ class indexController extends Controller
                     break;
             }
         })
-        ->rawColumns(['option'])
+        ->rawColumns(['option','appType'])
         ->make(true);
 
         $renderedData = (array)$data->original;

@@ -82,6 +82,23 @@
         .dataTables_wrapper table.dataTable thead .sorting::before {
             opacity: 0;
          }
+
+         
+        #infoTooltip {
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    border-radius: 5px;
+    color:white;
+    font-size:12px;
+    padding: 3px;
+    z-index: 1;
+}
+
+#termineBadge:hover + #infoTooltip {
+    display: block;
+}
+    
     </style>
 @endsection
 @section('content')
@@ -149,26 +166,17 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <table  border="0" class="text-dark" cellspacing="5" cellpadding="5">
-                                <tbody>
-                                    <tr>
-                                        <td><b class="test-dark">Umzugsdatum</b></td>
-                                        <td><input class="form-control" type="date" id="umzugstart_date" name="umzugmin_date"></td>
-                                        <td><b class="test-dark">bis</b></td>
-                                        <td><input class="form-control" type="date" id="umzugend_date" name="umzugmax_date"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            
                             <table border="0" class="text-dark mt-3" cellspacing="5" cellpadding="5" >
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <b class="test-dark">Stand</b>
-                                            <select class="form-control" name="standType" id="standType">
+                                            <b class="test-dark">AppType</b>
+                                            <select class="form-control" name="appType" id="appType">
                                             <option value="Alle">Alle</option>
-                                            <option value="Beklemede">Wartet Auf Kunde</option>
-                                            <option value="Onaylandı">Bestätigung</option>
-                                            <option value="Onaylanmadı">Abgesagt</option>
+                                            <option value="1">Besichtigung</option>
+                                            <option value="3">Auftragsbestätigung</option>
+                                            <option value="2">Lieferung</option>
                                           </select>
                                         </td>
                                     </tr>
@@ -274,6 +282,7 @@
                 data: function(d) {
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
+                    d.appType = $('#appType').val();
                 }
             },
             columns: [
@@ -324,7 +333,6 @@
             $('#start_date').val('');
             $('#end_date').val('');
             $('#serviceType').val('Alle');
-            $('#standType').val('Alle');
             $('#appType').val('Alle');
             $('#searchInput').val('');
             table.draw();
