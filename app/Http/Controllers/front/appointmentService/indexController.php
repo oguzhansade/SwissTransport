@@ -28,6 +28,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Spatie\GoogleCalendar\Event;
+use Illuminate\Support\Facades\Log;
 
 class indexController extends Controller
 {
@@ -788,113 +789,192 @@ class indexController extends Controller
             LagerungService::where('id', $data['lagerungId'])->delete();
 
             $calendarUmzug = Calendar::where('serviceId', $data['umzugId'])->first();
-            if ($calendarUmzug) {
-                $event = Event::find($calendarUmzug['eventId']);
-                if ($event) {
-                    $event->delete($calendarUmzug['eventId']);
-                    Calendar::where('serviceId', $data['umzugId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['umzugId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarUmzug && $calendarUmzug['eventId']) {
+                try {
+                    if ($event = Event::find($calendarUmzug['eventId'])) {
+                        $event->delete($calendarUmzug['eventId']);
+                        Calendar::where('serviceId', $data['umzugId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['umzugId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
-
 
             $calendarUmzug2 = Calendar::where('serviceId', $data['umzug2Id'])->first();
-            if ($calendarUmzug2) {
-                $event = Event::find($calendarUmzug2['eventId']);
-                if ($event) {
-                    $event->delete($calendarUmzug2['eventId']);
-                    Calendar::where('serviceId', $data['umzug2Id'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['umzug2Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarUmzug2 && $calendarUmzug2['eventId']) {
+                try {
+                    if ($event = Event::find($calendarUmzug2['eventId'])) {
+                        $event->delete($calendarUmzug2['eventId']);
+                        Calendar::where('serviceId', $data['umzug2Id'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['umzug2Id'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
-
+            
             $calendarUmzug3 = Calendar::where('serviceId', $data['umzug3Id'])->first();
-            if ($calendarUmzug3) {
-                $event = Event::find($calendarUmzug3['eventId']);
-                if ($event) {
-                    $event->delete($calendarUmzug3['eventId']);
-                    Calendar::where('serviceId', $data['umzug3Id'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['umzug3Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarUmzug3 && $calendarUmzug3['eventId']) {
+                try {
+                    if ($event = Event::find($calendarUmzug3['eventId'])) {
+                        $event->delete($calendarUmzug3['eventId']);
+                        Calendar::where('serviceId', $data['umzug3Id'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['umzug3Id'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
 
             $calendarEinpack = Calendar::where('serviceId', $data['einpackId'])->first();
-            if ($calendarEinpack) {
-                $event = Event::find($calendarEinpack['eventId']);
-                if ($event) {
-                    $event->delete($calendarEinpack['eventId']);
-                    Calendar::where('serviceId', $data['einpackId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['einpackId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarEinpack && $calendarEinpack['eventId']) {
+                try {
+                    if ($event = Event::find($calendarEinpack['eventId'])) {
+                        $event->delete($calendarEinpack['eventId']);
+                        Calendar::where('serviceId', $data['einpackId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['einpackId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
-
+           
             $calendarAuspack = Calendar::where('serviceId', $data['auspackId'])->first();
-            if ($calendarAuspack) {
-                $event = Event::find($calendarAuspack['eventId']);
-                if ($event) {
-                    $event->delete($calendarAuspack['eventId']);
-                    Calendar::where('serviceId', $data['auspackId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['auspackId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarAuspack && $calendarAuspack['eventId']) {
+                try {
+                    if ($event = Event::find($calendarAuspack['eventId'])) {
+                        $event->delete($calendarAuspack['eventId']);
+                        Calendar::where('serviceId', $data['auspackId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['auspackId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
 
             $calendarReinigung = Calendar::where('serviceId', $data['reinigungId'])->first();
-            if ($calendarReinigung) {
-                $event = Event::find($calendarReinigung['eventId']);
-                if ($event) {
-                    $event->delete($calendarReinigung['eventId']);
-                    Calendar::where('serviceId', $data['reinigungId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['reinigungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarReinigung && $calendarReinigung['eventId']) {
+                try {
+                    if ($event = Event::find($calendarReinigung['eventId'])) {
+                        $event->delete($calendarReinigung['eventId']);
+                        Calendar::where('serviceId', $data['reinigungId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['reinigungId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
-
+           
             $calendarReinigung2 = Calendar::where('serviceId', $data['reinigung2Id'])->first();
-            if ($calendarReinigung2) {
-                $event = Event::find($calendarReinigung2['eventId']);
-                if ($event) {
-                    $event->delete($calendarReinigung2['eventId']);
-                    Calendar::where('serviceId', $data['reinigung2Id'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['reinigung2Id'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarReinigung2 && $calendarReinigung2['eventId']) {
+                try {
+                    if ($event = Event::find($calendarReinigung2['eventId'])) {
+                        $event->delete($calendarReinigung2['eventId']);
+                        Calendar::where('serviceId', $data['reinigung2Id'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['reinigung2Id'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
 
             $calendarEntsorgung = Calendar::where('serviceId', $data['entsorgungId'])->first();
-            if ($calendarEntsorgung) {
-                $event = Event::find($calendarEntsorgung['eventId']);
-                if ($event) {
-                    $event->delete($calendarEntsorgung['eventId']);
-                    Calendar::where('serviceId', $data['entsorgungId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['entsorgungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarEntsorgung && $calendarEntsorgung['eventId']) {
+                try {
+                    if ($event = Event::find($calendarEntsorgung['eventId'])) {
+                        $event->delete($calendarEntsorgung['eventId']);
+                        Calendar::where('serviceId', $data['entsorgungId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['entsorgungId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
 
             $calendarTransport = Calendar::where('serviceId', $data['transportId'])->first();
-            if ($calendarTransport) {
-                $event = Event::find($calendarTransport['eventId']);
-                if ($event) {
-                    $event->delete($calendarTransport['eventId']);
-                    Calendar::where('serviceId', $data['transportId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['transportId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarTransport && $calendarTransport['eventId']) {
+                try {
+                    if ($event = Event::find($calendarTransport['eventId'])) {
+                        $event->delete($calendarTransport['eventId']);
+                        Calendar::where('serviceId', $data['transportId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['transportId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
-
+           
             $calendarLagerung = Calendar::where('serviceId', $data['lagerungId'])->first();
-            if ($calendarLagerung) {
-                $event = Event::find($calendarLagerung['eventId']);
-                if ($event) {
-                    $event->delete($calendarLagerung['eventId']);
-                    Calendar::where('serviceId', $data['lagerungId'])->delete();
-                } else {
-                    Calendar::where('serviceId', $data['lagerungId'])->delete(); // Event Google Takvim Üzerinden Elle Silinmişse
+            if ($calendarLagerung && $calendarLagerung['eventId']) {
+                try {
+                    if ($event = Event::find($calendarLagerung['eventId'])) {
+                        $event->delete($calendarLagerung['eventId']);
+                        Calendar::where('serviceId', $data['lagerungId'])->delete();
+                    } else {
+                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
+                    }
+                } catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $data['lagerungId'])->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
                 }
             }
 

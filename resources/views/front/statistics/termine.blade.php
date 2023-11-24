@@ -185,7 +185,7 @@
                            
                         </div>
                         
-                        <div class="col-md-2 ">
+                        {{-- <div class="col-md-2 ">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:1rem">
                                     <tr>
@@ -207,7 +207,7 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="mt-3">
                         <table id="termineTable" class="table table-striped table-responsive">
