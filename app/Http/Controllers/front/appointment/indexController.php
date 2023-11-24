@@ -466,9 +466,9 @@ class indexController extends Controller
         $all = NULL;
         switch ($cekboks) {
             case (1);
-                $sub = 'Auftragbestätigung Swiss Transporte';
+                $sub = 'Besichtigung Swiss Transporte';
                 $all = Appointment::create($appointment);
-                $AppointmentIdBul = DB::table('appointments')->orderBy('id', 'DESC')->first(); // Son Eklenen Lagerung un id'si
+                $AppointmentIdBul = DB::table('appointments')->orderBy('id', 'DESC')->first(); // Son Eklenen Besichtigung un id'si
                 $appDateArray = [];
                 $appDateArray[$ADC]['serviceId'] = $AppointmentIdBul->id;
                 $appDateArray[$ADC]['date'] = $appointment['date'];
@@ -482,8 +482,6 @@ class indexController extends Controller
                 $appDateArray[$ADC]['colorId'] = $request->calendarBescColor;
                 $ADC++;
                 $appointmentDate =  $appDateArray;
-
-
                 $randevuTipi = 'Besichtigung';
                 break;
             case (2);
@@ -491,10 +489,9 @@ class indexController extends Controller
                 $randevuTipi = 'Auftragsbestätigung';
                 $appointmentDate = $appDateArray;
                 $all = AppoinmentService::create($appointmentService);
-
                 break;
             case (3);
-                $sub = 'Auftragbestätigung Swiss Transporte';
+                $sub = 'Lieferung Swiss Transporte';
                 $all = AppointmentMaterial::create($appointmentMaterial);
                 $AppointmentMaterialIdBul = DB::table('appointment_materials')->orderBy('id', 'DESC')->first(); // Son Eklenen Lieferung un id'si
 
@@ -532,13 +529,9 @@ class indexController extends Controller
             'randevuTipi' => $randevuTipi,
         ];
 
-
-
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
-
-
 
         if ($all) {
             $mailSuccess = '';
@@ -595,7 +588,7 @@ class indexController extends Controller
             foreach ($table2 as $k => $v) {
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 3 ? 'Lieferung' : '*';
+                $array[$i]["appType"] = $v->deliveryType == 1 ? 'Abholung' : 'Lieferung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
@@ -641,6 +634,12 @@ class indexController extends Controller
                     <a class="btn btn-sm  btn-primary" href="' . route('appointmentMaterial.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
                     <a class="btn btn-sm  btn-edit" href="' . route('appointmentMaterial.edit', ['id' => $array['id']]) . '"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
                     <a class="btn btn-sm  btn-danger"  href="' . route('appointmentMaterial.delete', ['id' => $array['id']]) . '"><i class="feather feather-trash-2" ></i></a>';
+                        break;
+                        case ('Abholung');
+                        return '
+                    <a class="btn btn-sm  btn-primary" href="' . route('appointmentMaterial.detailAbholung', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-edit" href="' . route('appointmentMaterial.editAbholung', ['id' => $array['id']]) . '"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+                    <a class="btn btn-sm  btn-danger"  href="' . route('appointmentMaterial.deleteAbholung', ['id' => $array['id']]) . '"><i class="feather feather-trash-2" ></i></a>';
                         break;
                 }
             })

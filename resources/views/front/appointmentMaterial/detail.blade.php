@@ -82,7 +82,7 @@
                                         </label>
                                     </div>
     
-                                    <div class="radiobox">
+                                    <div class="radiobox @if ($data['deliveryType'] == 0) d-none @endif">
                                         <label>
                                             <input type="radio" class="deliveryType"  name="deliveryType" value="1" @if ($data['deliveryType'] == 1) checked @endif> <span class="label-text">Abholung</span>
                                         </label>
@@ -170,6 +170,13 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+
+                                    @if($data['abholungId'])
+                                        <a href="{{ route('appointmentMaterial.detailAbholung',['id' => $data['abholungId']]) }}" class="btn btn-warning btn-rounded text-white">Abholung Detail</a>
+                                    @else
+                                        <a href="{{ route('appointmentMaterial.createAbholung',['lieferungId' => $data['id']]) }}" class="btn btn-warning btn-rounded text-white">Abholung Create</a>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

@@ -6,10 +6,10 @@
 @endsection
 
 @section('content')
-@section('sidebarType') sidebar-collapse @endsection
+
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5">Termin Bearbeiten - Lieferung</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5">Termin Anschauen - Lieferung (Abholung)</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
@@ -32,7 +32,16 @@
             </div>
         </div>
     </div>
+@endif
 
+@if (session("status2"))
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                {{ session("status2") }}
+            </div>
+        </div>
+    </div>
 @endif
 
 <div class="widget-list">
@@ -44,7 +53,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <p><form id="myform" name="myForm" action="{{ route('appointmentMaterial.update',['id' => $data['id']]) }}"  method="POST" enctype="multipart/form-data"></p>
+                    <p><form id="appMaterial" name="myForm" action=""  method="POST" enctype="multipart/form-data"></p>
                        @csrf
                         <div class="deliverable--area">
                             <div class="form-group row " >
@@ -55,21 +64,15 @@
                                             <input type="radio" class="deliverable"  name="deliverable" value="0" @if ($data['deliverable'] == 0) checked @endif > <span class="label-text">Verpackungsmaterial</span>
                                         </label>
                                     </div>
-    
-                                    <div class="radiobox">
-                                        <label>
-                                            <input type="radio" class="deliverable"  name="deliverable" value="1" @if ($data['deliverable'] == 1) checked @endif> <span class="label-text">Schlossatelier</span>
-                                        </label>
-                                    </div>
                                 </div> 
                             </div>
 
                             <div class="form-group row deliveryType--area" @if ($data['deliverable'] == 1) style="display: none;" @endif>
                                 <div class="col-md-12">
                                     <label for="" class="col-form-label">Lieferungsart</label>
-                                    <div class="radiobox">
+                                    <div class="radiobox @if ($data['deliveryType'] == 0) d-none @endif">
                                         <label>
-                                            <input type="radio" class="deliveryType"  name="deliveryType" value="0" @if ($data['deliveryType'] == 0) checked @endif > <span class="label-text">Lieferung</span>
+                                            <input type="radio" class="deliveryType"  name="deliveryType" value="1" @if ($data['deliveryType'] == 1) checked @endif> <span class="label-text">Abholung</span>
                                         </label>
                                     </div>
                                 </div> 
@@ -154,7 +157,8 @@
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <button class="btn btn-primary btn-rounded" type="submit"><b>Erstellen</b></button>
+                                    <a href="{{ route('appointmentMaterial.editAbholung',['id' => $data['id']]) }}" class="btn btn-warning btn-rounded text-white"><b>Bearbeiten</b></a>
                                 </div>
                             </div>
                         </div>
@@ -170,118 +174,12 @@
 @endsection
 
 @section('footer')
-<script>
-    function bescFunc(){
-        let bescTitle = $('input[name=calendarTitle]').val();
-        var valueQq = 3;
-        let AppserviceName = '';
-        if (valueQq == 1)
-        {
-            AppserviceName = 'Bes.';
-        }
-        if(valueQq == 3)
-        {
-            AppserviceName = 'Liefe.';
-        }
-        
-        let Appgender = '';
-        let AppgenderType = '{{ $data2['gender'] }}';
-        if(AppgenderType == 'male')
-        {
-            Appgender = 'Herr'
-        }
-        else{
-            Appgender = 'Frau'
-        }
-        let Appname = '{{ $data2['name'] }}';
-        let Appsurname = '{{ $data2['surname'] }}';
-        let Appmobile = '{{ $data2['mobile'] }}';
-        let ApppostCode = '{{ $data2['postCode'] }}';
-        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
 
-        if(bescnewTitle !== bescTitle) { // only update if the new title is different
-            $('input[name=calendarTitle]').val(bescnewTitle);
-            bescTitle = bescnewTitle; // save the new title
-        }
-        console.log(valueQq,'VBALL')
-    }
+<script> 
 
-    $(document).ready(function(){
-        bescFunc()
-    })
-</script>
-{{-- TinyMce Email Format Ayarları --}}
-<script>
-    //TinyMce Ayarları 
-    tinymce.init({
-        selector: 'textarea.editor',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
-    });
-    
-    let dateArray3 = [];
-    var tarih1 = $('input[name=meetingDate]').val();
-    
-    if (tarih1 != null || tarih1 != undefined) {
-        dateArray3.push({
-            name: '<b>Lieferung:</b> ',
-            date: tarih1
-        })
-    }
-    
-    eventChanges();
-    $("body").on("change", ".widget-body", function() {
-        eventChanges();
-    });
-    function momentConvertValue(value){
-        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
-    }
-    function momentConvertTimeValue(value){
-        moment.locale('de');
-        return moment(value, "HH:mm:ss").format("HH:mm");
-    }
-    function eventChanges() {
-        tinymce.execCommand("mceRepaint");
-        $("body").on("change", ".widget-body", function() {
-            let dateArray3 = [];
-                var tarih1 = $('input[name=meetingDate]').val();
-                var saat1 = $('input[name=meetingHour1]').val();
-                var saat2 = $('input[name=meetingHour2]').val();
-                dateArray3.some(function(entry) {
-                    if (entry.name == "<b>Lieferung:</b> ") {
-                        found = entry;
-                        dateArray.splice(found);
-                    }
-                });
-                if(tarih1!=""){
-                    dateArray3.push({
-                    name: '<b>Lieferung:</b> ',
-                    date: momentConvertValue(tarih1),
-                    time1: saat1,
-                    time2: saat2,
-                    })
-                }
-                var requestDate = "";
-                for (var i = 0; i <= dateArray3.length - 1; i++) {
-                    if(dateArray3[i].time1 && !dateArray3[i].time2)
-                    {
-                        requestDate +=  dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'Uhr'+ "<br>";
-                    }
-                    else if(dateArray3[i].time1 && dateArray3[i].time2)
-                    {
-                        requestDate += dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'-'+' '+dateArray3[i].time2+' '+'Uhr'+ "<br>";
-                    }
-                    else{
-                        requestDate += dateArray3[i].date + "<br>";
-                    }
-                    
-                }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
-                tinymce.execCommand("mceRepaint");
-            });
-    }
+$(document).ready( function(){
+    $("#appMaterial :input").prop("disabled", true);
+});   
 </script>
 
 <script>       
@@ -338,6 +236,18 @@
         }
     });
 </script>
+
+<script>
+    tinymce.init({
+      selector: 'textarea.editor',
+      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+      toolbar_mode: 'floating',
+      apply_source_formatting : true,
+      plugins: 'code',
+    });
+</script>
+
+
 
 @endsection
 

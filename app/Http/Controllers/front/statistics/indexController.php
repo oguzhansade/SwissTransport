@@ -51,7 +51,7 @@ class indexController extends Controller
            $expirationDate = Carbon::createFromFormat('Y-m-d', $appMaterial->meetingDate)->addWeeks(4);
 
            // Eğer şu anki tarih, expirationDate'den büyükse
-           if ($appMaterial->deliveryType == 0 && $currentDate > $expirationDate  ) {
+           if ($appMaterial->deliveryType == 0 && $currentDate > $expirationDate && $appMaterial->abholungId == NULL ) {
                // expired değerini 1 olarak güncelle
                $appMaterial->update(['expired' => 1]);
            }
@@ -457,9 +457,12 @@ class indexController extends Controller
             {
                 $app = AppointmentMaterial::where('id',$array['id'])->first();
                 $appStatus = $app['expired'];
-                if($appStatus == 1) {
+                if($appStatus == 1 && $app['deliveryType'] == 0) {
                     return '<span id="termineBadge" class="badge badge-warning">Lieferung</span>
                     <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
+                }
+                else if($app['deliveryType'] == 1) {
+                    return 'Abholung';
                 }
                 else {
                     return 'Lieferung';
@@ -490,6 +493,11 @@ class indexController extends Controller
                 <a class="btn btn-sm  btn-primary" href="' . route('appointmentMaterial.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i>Termine</a> <span class="text-primary">|</span>
                 <a class="btn btn-sm  btn-edit" href="' . route('customer.detail', ['id' => $array['customerId']]) . '"><i class="feather feather-edit" ></i> Kunde</a>';
                     break;
+                case ('Abholung');
+                return '
+            <a class="btn btn-sm  btn-primary" href="' . route('appointmentMaterial.detailAbholung', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i>Termine</a> <span class="text-primary">|</span>
+            <a class="btn btn-sm  btn-edit" href="' . route('customer.detail', ['id' => $array['customerId']]) . '"><i class="feather feather-edit" ></i> Kunde</a>';
+                break;
             }
         })
         ->rawColumns(['option','appType'])

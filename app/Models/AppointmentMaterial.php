@@ -10,6 +10,7 @@ class AppointmentMaterial extends Model
     protected $fillable = [
         'deliverable',
         'deliveryType',
+        'abholungId',
         'meetingDate',
         'meetingHour1',
         'meetingHour2',

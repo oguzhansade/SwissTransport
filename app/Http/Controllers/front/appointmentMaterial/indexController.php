@@ -42,6 +42,163 @@ class indexController extends Controller
         }
     }
 
+
+    public function createAbholung($lieferungId)
+    {
+        $c = AppointmentMaterial::where('deliveryType', 0)
+            ->where('id', $lieferungId)
+            ->count();
+
+        if($c != 0)
+        {
+            $data = AppointmentMaterial::where('id', $lieferungId)->first();
+            $data2 = Customer::where('id', $data['customerId'])->first();
+            return view('front.appointmentMaterial.createAbholung', ['data' => $data, 'data2' => $data2]);
+        }
+        
+    }
+
+    public function detailAbholung($id)
+    {
+        $c = AppointmentMaterial::where('deliveryType', 1)
+            ->where('id', $id)
+            ->count();
+
+        if($c != 0)
+        {
+            $data = AppointmentMaterial::where('id', $id)->first();
+            $data2 = Customer::where('id', $data['customerId'])->first();
+            return view('front.appointmentMaterial.detailAbholung', ['data' => $data, 'data2' => $data2]);
+        }
+    }
+
+    public function editAbholung($id)
+    {
+        $c = AppointmentMaterial::where('deliveryType', 1)
+            ->where('id', $id)
+            ->count();
+
+        if($c != 0)
+        {
+            $data = AppointmentMaterial::where('id', $id)->first();
+            $data2 = Customer::where('id', $data['customerId'])->first();
+            return view('front.appointmentMaterial.editAbholung', ['data' => $data, 'data2' => $data2]);
+        }
+    }
+
+    public function updateAbholung(Request $request)
+    {
+        $abholungId = $request->route('id');
+        $c = AppointmentMaterial::where('id',$abholungId)->count();
+
+        if($c != 0)
+        {
+            $abholung = AppointmentMaterial::where('id',$abholungId)->first();
+            $customerId = $abholung['customerId'];
+
+            // Teslimat Randevusu
+            $appointmentMaterial = [
+                'deliverable' => $request->deliverable,
+                'deliveryType' => $request->deliveryType,
+                'meetingDate' => $request->meetingDate,
+                'meetingHour1' => $request->meetingHour1,
+                'meetingHour2' => $request->meetingHour2,
+                'address' => $request->address,
+                'calendarTitle' => $request->calendarTitle,
+                'calendarContent' => $request->calendarContent,
+            ];
+
+            $all = AppointmentMaterial::where('id',$abholungId)->update($appointmentMaterial);
+        }
+
+        if ($all) {
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Abholung Updated!')
+                ->with('cat', 'Termine')
+                ->withInput()
+                ->with('keep_status', true);
+        } else {
+            return redirect()->back()->with('status-err', 'Fehler: Termin konnte nicht hinzugefügt werden, E-Mail konnte nicht gesendet werden.');
+        }
+    }
+
+    public function deleteAbholung($id)
+    {
+        $c = AppointmentMaterial::where('id',$id)->count();
+        $abholung = AppointmentMaterial::where('id',$id)->first();
+        $customer = Customer::where('id',$abholung['customerId'])->first();
+        $customerId = $customer['id'];
+        if($c != 0)
+        {
+
+            $abholungDelete = AppointmentMaterial::where('id',$id)->delete();
+            $lieferungUpdate = AppointmentMaterial::where('deliveryType',0)->where('abholungId',$id)->update([
+                'abholungId' => NULL
+            ]);
+        }
+        if($abholungDelete)
+        {
+            return redirect()
+            ->route('customer.detail',['id' => $customerId])
+            ->with('status', 'Abholund Deleted')
+            ->with('cat','Termine')
+            ->withInput()
+            ->with('keep_status',true);
+        }
+    }
+
+    public function storeAbholung(Request $request)
+    {
+        $lieferungId = $request->route('lieferungId');
+        
+        $c = AppointmentMaterial::where('deliveryType',0)
+        ->where('id',$lieferungId)->count();
+        
+        $lieferung = AppointmentMaterial::where('deliveryType',0)->where('id',$lieferungId)->first();
+        
+        $customerId = $lieferung['customerId'];
+        $customer = Customer::where('id',$customerId)->first();
+        
+
+       if($c != 0)
+       {
+          // Teslimat Randevusu
+        $appointmentMaterial = [
+            'deliverable' => $request->deliverable,
+            'deliveryType' => $request->deliveryType,
+            'meetingDate' => $request->meetingDate,
+            'meetingHour1' => $request->meetingHour1,
+            'meetingHour2' => $request->meetingHour2,
+            'address' => $request->address,
+            'calendarTitle' => $request->calendarTitle,
+            'calendarContent' => $request->calendarContent,
+            'customerId' => $customer['id']
+        ];
+
+        $all = AppointmentMaterial::create($appointmentMaterial);
+        $AppointmentMaterialIdBul = DB::table('appointment_materials')->orderBy('id', 'DESC')->first(); // Son Eklenen Lieferung un id'si
+
+        $lieferungUpdate = AppointmentMaterial::where('deliveryType',0)->where('id',$lieferungId)->update([
+            'abholungId' => $AppointmentMaterialIdBul->id
+        ]);
+
+       }
+
+
+        if ($all && $lieferungUpdate) {
+            
+            return redirect()
+                ->route('customer.detail', ['id' => $customerId])
+                ->with('status', 'Abholung Created!')
+                ->with('cat', 'Termine')
+                ->withInput()
+                ->with('keep_status', true);
+        } else {
+            return redirect()->back()->with('status-err', 'Fehler: Termin konnte nicht hinzugefügt werden, E-Mail konnte nicht gesendet werden.');
+        }
+    }
+
     public function detail(Request $request)
     {
         $id = $request->route('id');
@@ -155,8 +312,6 @@ class indexController extends Controller
             }
         }
     }
-
-
 
     public function delete($id)
     {

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('appType')->default(3);
             $table->integer('deliverable'); //0 sa Ambalaj Malzemesi 1 se Kale Stüdyosu
             $table->integer('deliveryType')->nullable();//0 sa teslimat 1 se almak
+            $table->integer('abholungId')->nullable();
             $table->date('meetingDate')->nullable();
             $table->time('meetingHour1')->nullable();
             $table->time('meetingHour2')->nullable();

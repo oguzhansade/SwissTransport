@@ -180,11 +180,17 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
     Route::group(['namespace' => 'appointmentMaterial', 'as' => 'appointmentMaterial.', 'prefix' => 'appointmentMaterial', 'middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'index'])->name('index');
         Route::get('/create/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'create'])->name('create');
+        Route::get('/createAbholung/{lieferungId}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'createAbholung'])->name('createAbholung');
+        Route::post('/createAbholung/{lieferungId}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'storeAbholung'])->name('storeAbholung');
         Route::post('/create/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'update'])->name('update');
+        Route::get('/editAbholung/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'editAbholung'])->name('editAbholung');
+        Route::post('/editAbholung/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'updateAbholung'])->name('updateAbholung');
         Route::get('/delete/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'delete'])->name('delete');
+        Route::get('/deleteAbholung/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'deleteAbholung'])->name('deleteAbholung');
         Route::get('/detail/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'detail'])->name('detail');
+        Route::get('/detailAbholung/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'detailAbholung'])->name('detailAbholung');
         Route::post('/data/{id}', [App\Http\Controllers\front\appointmentMaterial\indexController::class, 'data'])->name('data');
     });
 
