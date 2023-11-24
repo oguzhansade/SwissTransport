@@ -1544,13 +1544,6 @@
                                                 value="0" checked> <span class="label-text">Lieferung</span>
                                         </label>
                                     </div>
-
-                                    <div class="radiobox">
-                                        <label>
-                                            <input type="radio" class="deliveryType" name="deliveryType"
-                                                value="1"> <span class="label-text">Abholung</span>
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
 
