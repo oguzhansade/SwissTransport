@@ -673,6 +673,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <a href="{{ route('appointmentService.edit',['id' => $data['id']]) }}" class="btn btn-info btn-rounded"><b>Bearbeiten</b></a>
                                 </div>
                             </div>
                         </div>

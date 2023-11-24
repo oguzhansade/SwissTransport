@@ -67,11 +67,7 @@
                                     </label>
                                 </div>
                             </div> 
-
-                                                    
                         </div>
-
-                        
 
                             <div class="form-group row">
                                 <div class="col-md-4">
@@ -90,8 +86,6 @@
                                 </div>
                             </div>
 
-                            
-
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
@@ -105,7 +99,6 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
@@ -113,7 +106,6 @@
                                 </div>                            
                             </div>
                             
-
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
@@ -143,6 +135,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <a href="{{ route('appointment.edit',['id' => $data['id']]) }}" class="btn btn-info btn-rounded"><b>Bearbeiten</b></a>
                                 </div>
                             </div>
                         </div>

@@ -170,11 +170,11 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
-
+                                        <a href="{{ route('appointmentMaterial.edit',['id' => $data['id']]) }}" class="btn btn-info btn-rounded text-white"><b>Bearbeiten</b></a>
                                     @if($data['abholungId'])
-                                        <a href="{{ route('appointmentMaterial.detailAbholung',['id' => $data['abholungId']]) }}" class="btn btn-warning btn-rounded text-white">Abholung Detail</a>
+                                        <a href="{{ route('appointmentMaterial.detailAbholung',['id' => $data['abholungId']]) }}" class="btn btn-warning btn-rounded text-white"><b>Abholung Detail</b></a>
                                     @else
-                                        <a href="{{ route('appointmentMaterial.createAbholung',['lieferungId' => $data['id']]) }}" class="btn btn-warning btn-rounded text-white">Abholung Create</a>
+                                        <a href="{{ route('appointmentMaterial.createAbholung',['lieferungId' => $data['id']]) }}" class="btn btn-warning btn-rounded text-white"><b>Abholung Create</b></a>
                                     @endif
                                     
                                 </div>
