@@ -563,6 +563,29 @@ class indexController extends Controller
 
     public function data(Request $request)
     {
+
+        // AppointmentMaterial Modelinden tüm verileri çek
+       $appMaterials = AppointmentMaterial::all();
+                    
+       // Şu anki tarih
+       $currentDate = now();
+
+       
+       // Her bir AppointmentMaterial öğesini kontrol et
+       foreach ($appMaterials as $appMaterial) {
+           // AppointmentMaterial'in tarihine 4 hafta ekleyerek son tarihi bul
+           $expirationDate = Carbon::createFromFormat('Y-m-d', $appMaterial->meetingDate)->addWeeks(4);
+
+           // Eğer şu anki tarih, expirationDate'den büyükse
+           if ($appMaterial->deliveryType == 0 && $currentDate > $expirationDate && $appMaterial->abholungId == NULL ) {
+               // expired değerini 1 olarak güncelle
+               $appMaterial->update(['expired' => 1]);
+           }
+           else {
+            $appMaterial->update(['expired' => 0]);
+           }
+       }
+       
         $appType = $request->get('appType');
 
         $array = [];
@@ -575,7 +598,7 @@ class indexController extends Controller
             foreach ($table as $k => $v) {
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 1 ? 'Besichtigung' : '*';
+                $array[$i]["appType"] ='Besichtigung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
 
@@ -588,7 +611,7 @@ class indexController extends Controller
             foreach ($table2 as $k => $v) {
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = $v->deliveryType == 1 ? 'Abholung' : 'Lieferung';
+                $array[$i]["appType"] = 'Lieferung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
@@ -605,7 +628,7 @@ class indexController extends Controller
 
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 2 ? 'Auftragsbestätigung' : '*';
+                $array[$i]["appType"] ='Auftragsbestätigung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;

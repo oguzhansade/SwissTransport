@@ -19,6 +19,7 @@ use Illuminate\Support\Arr;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 
 class indexController extends Controller
@@ -323,16 +324,24 @@ class indexController extends Controller
 
         if ($c != 0) {
             $data = AppointmentMaterial::where('id', $id)->get();
-
             $calendarLiefe = Calendar::where('serviceId', $id)->first();
             if ($calendarLiefe) {
-                $event = Event::find($calendarLiefe['eventId']);
-                if ($event) {
-                    $event->delete($calendarLiefe['eventId']);
-                    Calendar::where('serviceId', $id)->delete();
-                } else {
-                    Calendar::where('serviceId', $id)->delete();
+                try{ 
+                    $event = Event::find($calendarLiefe['eventId']);
+                    if ($event) {
+                        $event->delete($calendarLiefe['eventId']);
+                        Calendar::where('serviceId', $id)->delete();
+                    }
                 }
+                catch (\Exception $e) {
+                    if (strpos($e->getMessage(), 'Not Found') !== false) {
+                        Calendar::where('serviceId', $id)->delete();
+                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
+                    } else {
+                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
+                    }
+                }
+                
             }
             $abholungDelete = AppointmentMaterial::where('id',$appointment['abholungId'])->delete();
             $lieferungDelete = AppointmentMaterial::where('id', $id)->delete();
