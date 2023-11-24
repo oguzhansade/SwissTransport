@@ -39,7 +39,6 @@ class calendarHelper
                 
             }
         }
-       
         
         $event->location = $location;
         $event->description = $comment;
@@ -55,8 +54,5 @@ class calendarHelper
             'eventId' => $eventId,
         ];
         Calendar::create($eventInfo);
-       
-        
-        
     }
 }

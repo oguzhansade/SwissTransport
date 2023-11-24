@@ -334,14 +334,14 @@ class indexController extends Controller
                     Calendar::where('serviceId', $id)->delete();
                 }
             }
-            AppointmentMaterial::where('id', $id)->delete();
+            $abholungDelete = AppointmentMaterial::where('id',$appointment['abholungId'])->delete();
+            $lieferungDelete = AppointmentMaterial::where('id', $id)->delete();
             return redirect()
                 ->route('customer.detail', ['id' => $customer['id']])
-                ->with('status', 'Onay Randevusu Başarıyla Silindi')
+                ->with('status', 'Liefertermin wurde erfolgreich gelöscht.')
                 ->with('cat', 'Termine')
                 ->withInput()
                 ->with('keep_status', true);
-            return redirect()->back()->with('status', 'Liefertermin wurde erfolgreich gelöscht.');
         } else {
             return redirect('/');
         }

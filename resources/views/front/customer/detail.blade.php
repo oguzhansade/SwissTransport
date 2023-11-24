@@ -75,6 +75,21 @@
             /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px
         inset; */
         }
+
+        #infoTooltip {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            border-radius: 5px;
+            color:white;
+            font-size:12px;
+            padding: 3px;
+            z-index: 1;
+        }
+
+        #termineBadge:hover + #infoTooltip {
+            display: block;
+        }
     </style>
 @endsection
 @section('content')

@@ -613,8 +613,33 @@ class indexController extends Controller
             }
         }
 
+        
 
         $data = DataTables::of($array)
+        ->editColumn('appType', function ($array) {
+            if($array['appType'] == 'Lieferung')
+            {
+                $app = AppointmentMaterial::where('id',$array['id'])->first();
+                $appStatus = $app['expired'];
+                if($appStatus == 1 && $app['deliveryType'] == 0) {
+                    return '<span id="termineBadge" class="badge badge-warning">Lieferung</span>
+                    <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
+                }
+                else if($app['deliveryType'] == 1) {
+                    return 'Abholung';
+                }
+                else {
+                    return 'Lieferung';
+                }
+               
+            }
+            if($array['appType'] == 'Besichtigung') {
+                return 'Besichtigung';
+            }
+            if($array['appType'] == 'Auftragsbestätigung') {
+                return 'Auftragsbestätigung';
+            }
+        })
             ->addColumn('option', function ($array) {
                 switch ($array['appType']) {
                     case ('Besichtigung');
@@ -644,7 +669,7 @@ class indexController extends Controller
                 }
             })
 
-            ->rawColumns(['option'])
+            ->rawColumns(['option','appType'])
             ->make(true);
 
 

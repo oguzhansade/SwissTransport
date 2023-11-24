@@ -85,19 +85,19 @@
 
          
         #infoTooltip {
-    display: none;
-    position: absolute;
-    background-color: #000000;
-    border-radius: 5px;
-    color:white;
-    font-size:12px;
-    padding: 3px;
-    z-index: 1;
-}
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            border-radius: 5px;
+            color:white;
+            font-size:12px;
+            padding: 3px;
+            z-index: 1;
+        }
 
-#termineBadge:hover + #infoTooltip {
-    display: block;
-}
+        #termineBadge:hover + #infoTooltip {
+            display: block;
+        }
     
     </style>
 @endsection
