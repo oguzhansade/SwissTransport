@@ -131,7 +131,7 @@
                            @endif
                         </a>
                         <br><small class="hide-menu text-primary">
-                            @if (App\Models\UserPermission::getMyControl(4))
+                            @if (Auth::user()->permName == 'worker')
                                 Worker
                             @else
                             Admin

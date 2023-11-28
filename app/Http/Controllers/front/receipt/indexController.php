@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -544,18 +545,20 @@ class indexController extends Controller
             {
                 case('Umzug');
                     return '
-                    <a class="btn btn-sm  btn-primary" href="'.route('receipt.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> 
-                    <a class="btn btn-sm  btn-edit" href="'.route('receipt.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> 
-                    <a class="btn btn-sm  btn-warning" href="'.route('expense.editUmzug',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
-                    <a class="btn btn-sm  btn-danger"  href="'.route('receipt.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
+                    <a class="btn btn-sm  btn-primary" href="'.route('receipt.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a> 
+                    <a class="btn btn-sm  btn-edit" href="'.route('receipt.edit',['id'=>$array['id']]).'"><i class="feather feather-edit"></i></a>'
+                    . (Auth::user()->permName == 'superAdmin' ? '<a class="btn btn-sm  btn-warning" href="'.route('expense.editUmzug',['id'=>$array['id']]).'"><i class="feather feather-info"></i></a>' : '<span></span>')
+                    . '<a class="btn btn-sm  btn-danger"  href="'.route('receipt.delete',['id'=>$array['id']]).'" style="margin-left:3px;"><i class="feather feather-trash-2"></i></a>';
                 break;
+
                 case('Reinigung');
                     return '
-                    <a class="btn btn-sm  btn-primary" href="'.route('receiptReinigung.detail',['id'=>$array['id']]).'"><i class="feather feather-eye" ></i></a> 
-                    <a class="btn btn-sm  btn-edit" href="'.route('receiptReinigung.edit',['id'=>$array['id']]).'"><i class="feather feather-edit" ></i></a> 
-                    <a class="btn btn-sm  btn-warning" href="'.route('expense.editReinigung',['id'=>$array['id']]).'"><i class="feather feather-info" ></i></a>
-                    <a class="btn btn-sm  btn-danger"  href="'.route('receiptReinigung.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
+                    <a class="btn btn-sm  btn-primary" href="'.route('receiptReinigung.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a> 
+                    <a class="btn btn-sm  btn-edit" href="'.route('receiptReinigung.edit',['id'=>$array['id']]).'"><i class="feather feather-edit"></i></a>'
+                    . (Auth::user()->permName == 'superAdmin' ? '<a class="btn btn-sm btn-warning" href="'.route('expense.editReinigung',['id'=>$array['id']]).'"><i class="feather feather-info"></i></a>' : '<span></span>')
+                    . '<a class="btn btn-sm  btn-danger"  href="'.route('receiptReinigung.delete',['id'=>$array['id']]).'" style="margin-left:3px;" ><i class="feather feather-trash-2" ></i></a>';
                 break;
+
             }
         })
         ->addColumn('docTaken', function ($array) {

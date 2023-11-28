@@ -12,7 +12,7 @@ class indexController extends Controller
 {
     public function index()
     {
-        if (UserPermission::getMyControl(4))
+        if (Auth::user()->permName == 'worker')
         {
             $gorevSayisi = WorkerBasket::where('userId',Auth::id())->count();
             return view ('front.workerPanel.index',['gorevSayisi' => $gorevSayisi]);

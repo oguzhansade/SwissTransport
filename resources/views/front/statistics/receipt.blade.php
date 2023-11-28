@@ -106,78 +106,81 @@
                         
                         
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-2 ">
-                            <div class="p-3 text-white bg-primary shadow-custom">
-                                <table style="font-size:1rem">
-                                    <tr>
-                                        <td><span>Toplam Ciro</span></td>
-                                        <td>: <span id="filteredTotal"></span></td>
-                                    </tr>
-                                </table>
+                    <div class="row mt-3 @if (!in_array(Auth::user()->permName, ['superAdmin'])) d-flex justify-content-end @endif">
+                        @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                            <div class="col-md-2 ">
+                                <div class="p-3 text-white bg-primary shadow-custom">
+                                    <table style="font-size:0.85rem">
+                                        <tr>
+                                            <td><span>Toplam Ciro</span></td>
+                                            <td>: <span id="filteredTotal"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                       
-                        <div class="col-md-2 ">
-                            <div class="p-3 text-white bg-primary shadow-custom">
-                                <h6 class="m-0" style="border-bottom: 1px solid white;">Giderler</h6>
-                                <table class="mt-2" style="font-size:1rem">
-                                    <tr>
-                                        <td><span>Möbellift Miete</span></td>
-                                        <td>: <span id="mobeExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Lieferwagen Miete</span></td>
-                                        <td>: <span id="liefeExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Schutzmaterial</span></td>
-                                        <td>: <span id="schutzExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Schaden</span></td>
-                                        <td>: <span id="schadenExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Busse</span></td>
-                                        <td>: <span id="busseExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Entgegenkommen</span></td>
-                                        <td>: <span id="entExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Mitarbeiter</span></td>
-                                        <td>: <span id="arbeExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Diesel</span></td>
-                                        <td>: <span id="dieExpense">-</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Other</span></td>
-                                        <td>: <span id="otherExpense">-</span></td>
-                                    </tr>
-                                    <tr style="border-top:1px solid white;">
-                                        <td><span>Total</span></td>
-                                        <td>: <span id="giderler"></span></td>
-                                    </tr>
-                                </table>
+                        
+                            <div class="col-md-2">
+                                <div class="p-3 text-white bg-primary shadow-custom">
+                                    <h6 class="m-0" style="border-bottom: 1px solid white;">Giderler</h6>
+                                    <table class="mt-2" style="font-size:0.85rem">
+                                        <tr>
+                                            <td><span>Möbellift Miete</span></td>
+                                            <td>: <span id="mobeExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Lieferwagen Miete</span></td>
+                                            <td>: <span id="liefeExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Schutzmaterial</span></td>
+                                            <td>: <span id="schutzExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Schaden</span></td>
+                                            <td>: <span id="schadenExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Busse</span></td>
+                                            <td>: <span id="busseExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Entgegenkommen</span></td>
+                                            <td>: <span id="entExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Mitarbeiter</span></td>
+                                            <td>: <span id="arbeExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Diesel</span></td>
+                                            <td>: <span id="dieExpense">-</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Other</span></td>
+                                            <td>: <span id="otherExpense">-</span></td>
+                                        </tr>
+                                        <tr style="border-top:1px solid white;">
+                                            <td><span>Total</span></td>
+                                            <td>: <span id="giderler"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2 ">
-                            <div class="p-3 text-white bg-primary shadow-custom">
-                                <table style="font-size:1rem">
-                                    <tr>
-                                        <td><span>Kar</span></td>
-                                        <td>: <span id="profit"></span></td>
-                                    </tr>
-                                </table>
+                            <div class="col-md-2 ">
+                                <div class="p-3 text-white bg-primary shadow-custom">
+                                    <table style="font-size:0.85rem">
+                                        <tr>
+                                            <td><span>Kar</span></td>
+                                            <td>: <span id="profit"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2 ">
+                        @endif
+                        
+                        <div class="col-md-2">
                             <div class="p-3 text-white bg-primary shadow-custom">
-                                <table style="font-size:1rem">
+                                <table style="font-size:0.85rem">
                                     <tr>
                                         <td><span>Quittung</span></td>
                                         <td>: <span id="filteredQuittung"></span></td>
@@ -194,9 +197,11 @@
                                     <th>Offerte</th>
                                     <th>Kunde</th>
                                     <th>Auftragstermin</th>
-                                    <th>Ciro</th>
-                                    <th>Giderler</th>
-                                    <th>Kar</th>
+                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                        <th>Ciro</th>
+                                        <th>Giderler</th>
+                                        <th>Kar</th>
+                                    @endif
                                     <th>Option</th>
                                 </tr>
                             </thead>
@@ -232,6 +237,27 @@
 
 <script>
     $(document).ready(function() {
+        const userPerm = "{{ Auth::user()->permName }}";
+        console.log(userPerm);
+
+        let columns = [
+            { data: 'makbuzNo', name: 'makbuzNo' },
+            { data: 'offerId', name: 'offerId' },
+            { data: 'customer', name: 'customer' },
+            { data: 'created_at',name: 'created_at' },
+            { data: 'option',name: 'detail',orderable: false,searchable: false,exportable: false },
+
+        ];
+
+        // Eğer kullanıcı superAdmin ise 'docTaken' sütununu ekle
+        if (userPerm.includes('superAdmin')) {
+            columns.splice(-1, 0, 
+            { data: 'tutar', name: 'tutar' },
+            { data: 'expensePrice', name: 'expensePrice' },
+            { data: 'profit', name: 'profit' },
+            );
+        }
+
         let table = $('#makbuz').DataTable({
             lengthMenu: [
                 [25, 100, -1],
@@ -260,18 +286,8 @@
                     d.max_date = $('#end_date').val();
                 }
             },
-            columns: [
-
-                {data: 'makbuzNo', name: 'makbuzNo'},
-                {data: 'offerId', name: 'offerId'},
-                { data: 'customer', name: 'customer'},
-                { data: 'created_at',name: 'created_at'},
-                {data: 'tutar',name: 'tutar'},
-                {data: 'expensePrice',name: 'expensePrice'},
-                {data: 'profit',name: 'profit'},
-                {data: 'option',name: 'detail',orderable: false,searchable: false,exportable: false},
-
-            ],
+            columns: columns,
+            
             "language": {
                 "paginate": {
                     "previous": "Vorherige",

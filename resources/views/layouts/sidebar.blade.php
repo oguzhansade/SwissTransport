@@ -1,6 +1,6 @@
 <nav class="sidebar-nav">
     <ul class="nav in side-menu">
-        @if (App\Models\UserPermission::getMyControl(0))
+        @if (Auth::user()->permName == 'superAdmin')
         <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Firma</span>
@@ -14,7 +14,7 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(1))
+        @if (Auth::user()->permName == 'superAdmin')
         <li class="menu-item-has-children" style="display:none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-user"></i> <span class="hide-menu">Benutzer</span>
@@ -28,10 +28,10 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(2))
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
-                <i class="list-icon feather feather-award"></i> <span class="hide-menu">Kunden</span>
+                <i class="list-icon feather feather-award"></i> <span class="hide-menu">Kunden </span>
             </a>
             <ul class="list-unstyled sub-menu">
                 <li><a href="{{ route('customer.index') }}">Kundenliste</a>
@@ -42,8 +42,8 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(2))
-        <li class="menu-item-has-children" style="display:none;">
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
+        <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 
                 <i class="list-icon feather feather-box"></i> <span class="hide-menu">Produkte</span>
@@ -57,7 +57,7 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(2))
+        @if (Auth::user()->permName == 'superAdmin')
         <li class="menu-item-has-children" style="display: none;">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-clipboard"></i> <span class="hide-menu">Tarif</span>
@@ -71,7 +71,7 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(3))
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef']))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-users"></i> <span class="hide-menu">Arbeiter</span>
@@ -85,7 +85,7 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(3))
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-users"></i> <span class="hide-menu">Statistiken</span>
@@ -99,7 +99,7 @@
         @endif
 
 
-        @if (App\Models\UserPermission::getMyControl(3))
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef']))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-list"></i> <span class="hide-menu">Aufgaben</span>
@@ -113,7 +113,7 @@
         </li>
         @endif
 
-        @if (App\Models\UserPermission::getMyControl(3))
+        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef']))
         <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-phone"></i> <span class="hide-menu">ContactPerson</span>
@@ -128,7 +128,7 @@
         @endif
 
         {{-- İŞÇİ PANELİ MENÜSÜ --}}
-        @if (App\Models\UserPermission::getMyControl(4)) 
+        @if (Auth::user()->permName == 'worker') 
         <li class="menu-item">
             <a href="{{ route('workerPanel.task',  ['id' => Auth::id()]) }}">
                 <i class="list-icon feather feather-list"></i> <span class="hide-menu">Aufgaben</span>

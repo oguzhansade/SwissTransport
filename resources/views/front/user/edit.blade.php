@@ -59,18 +59,22 @@
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label class="col-form-label" >Genehmigung</label>
+                                                <label class="col-form-label" >Genehmigung </label>
                                             </div>
-                                            @foreach ( \Illuminate\Support\Facades\Config::get('app.permissions') as $k => $v )
-                                                @if($k == 4 && $v == 'workerPanel')@continue; @endif
-                                                <div class="col-md-4 ">                                                    
-                                                    <div class="checkbox checkbox-rounded checkbox-primary">
-                                                        <label class="checkbox-checked">
-                                                            <input @if(App\Models\UserPermission::getControl($data[0]['id'], $k)) checked @endif type="checkbox" name="permission[]"  value="{{ $k }}"> <span class="label-text">{{ $v }}</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                            <div class="radiobox colors">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="superAdmin" @if($data[0]['permName'] == 'superAdmin') checked @endif> 
+                                                    <span class="label-text pl-4 ml-1 col-form-label default" >Super Admin</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="chef" @if($data[0]['permName'] == 'chef') checked @endif> 
+                                                    <span class="label-text pl-4 ml-1 col-form-label default" >Chef</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="officer" @if($data[0]['permName'] == 'officer') checked @endif> 
+                                                    <span class="label-text pl-4 ml-1 col-form-label default" >Officer</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 

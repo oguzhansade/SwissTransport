@@ -36,6 +36,8 @@
                         <thead>
                             <tr class="text-dark">
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -89,6 +91,8 @@
             },
             columns: [
                 { data: 'name', name: 'name'},
+                { data: 'email', name: 'email'},
+                { data: 'permName', name: 'permName'},
                 { data: 'option', name: 'option', orderable: false, searchable: false },
 
             ]

@@ -258,22 +258,25 @@
                         <div class="col-md-2 ">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:1rem">
+                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
                                     <tr>
                                         <td><span>Gefiltert</span></td>
                                         <td>: <span id="filteredTotal"></span></td>
-                                
                                     </tr>
+
                                     <tr>
                                         <td><span>Ungefiltert</span></td>
                                         <td>: <span id="nonFilteredTotal"></span></td>
                                     </tr>
-                                    <tr>
-                                        <td><span>Offerte</span></td>
-                                        <td>: <span id="filteredOfferte"></span></td>
-                                    </tr>
+
                                     <tr>
                                         <td><span>Bestätigung</span></td>
                                         <td>: <span id="percentBestatig"></span></td>
+                                    </tr>
+                                    @endif
+                                    <tr>
+                                        <td><span>Offerte</span></td>
+                                        <td>: <span id="filteredOfferte"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -288,7 +291,9 @@
                                     <th>Dienstleistung</th>
                                     <th>Kunde</th>
                                     <th>Stand</th>
-                                    <th>Esimated Income</th>
+                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                        <th>Esimated Income</th>
+                                    @endif
                                     <th>Datum</th>
                                     {{-- <th>GratTotal</th> --}}
                                     <th>Option</th>
@@ -552,6 +557,25 @@
     }
 
     $(document).ready(function() {
+        const userPerm = "{{ Auth::user()->permName }}";
+        console.log(userPerm);
+        let columns = [
+                { data: 'id', name: 'id'},
+                { data: 'appType', name: 'appType' , searchable:true},
+                { data: 'services', name: 'services' , searchable:true},
+                { data:'customerId', name:'customerId' , searchable:true, orderable: true},
+                { data:'offerteStatus', name:'offerteStatus' , searchable:true},
+                { data:'created_at',name:'created_at', searchable:true},
+                { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
+        ];
+        // Eğer kullanıcı superAdmin ise 'docTaken' sütununu ekle
+        if (userPerm.includes('superAdmin')) {
+            columns.splice(-2, 0, {
+                data: 'offerPrice',
+                name: 'offerPrice',
+                searchable: false,
+            });
+        }
         let table =  $('#example').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             "language": {
@@ -569,60 +593,58 @@
             
             "order": [0, 'desc'],
             "columnDefs": [
-                        {
-                            "className": "dt-center",
-                            "targets": 1,
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                if (cellData == 0) {
-                                    $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
-                                    )
-                                } else if (cellData == 1) {
-                                    
-                                    $(td).html(
-                                        '<span class="bg-custom-success px-3 py-1 text-center shadow" >Gemacht <i class="text-center feather feather-check-circle pl-1"></i></span>'
-                                    )
-                                } else if(cellData == 2) {
-                                    $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
-                                    )
-                                }
-
-                            }
-                        },
-                        {
-                            "className": "dt-center",
-                            "targets": 4,
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                if (cellData == 'Onaylandı') {
-                                    $(td).html(
-                                        '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
-                                    )
-                                } else if (cellData == 'Beklemede') {
-                                    
-                                    $(td).html(
-                                        '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
-                                    )
-                                } else if(cellData == 'Onaylanmadı') {
-                                    $(td).html(
-                                        '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
-                                    )
-                                }
-
-                            }
-                        },
+                {
+                    "className": "dt-center",
+                    "targets": 1,
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        if (cellData == 0) {
+                            $(td).html(
+                                '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                            )
+                        } else if (cellData == 1) {
+                            
+                            $(td).html(
+                                '<span class="bg-custom-success px-3 py-1 text-center shadow" >Gemacht <i class="text-center feather feather-check-circle pl-1"></i></span>'
+                            )
+                        } else if(cellData == 2) {
+                            $(td).html(
+                                '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                            )
+                        }
+                    }
+                },
+                {
+                    "className": "dt-center",
+                    "targets": 4,
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        if (cellData == 'Onaylandı') {
+                            $(td).html(
+                                '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
+                            )
+                        } else if (cellData == 'Beklemede') {
+                            
+                            $(td).html(
+                                '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
+                            )
+                        } else if(cellData == 'Onaylanmadı') {
+                            $(td).html(
+                                '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Abgesagt<i class="text-center feather feather-x-circle pl-1"></i></span>'
+                            )
+                        }
+                    }
+                },
+                
+                {
+                    "targets": 5,
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        $(td).html(cellData);
+                        $("#gratTotalPriceDiv2").html(cellData); // gratTotalPrice sütununu div'e yazdırma
+                    }
+                },
                         
-                        {
-                            "targets": 5,
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                $(td).html(cellData);
-                                $("#gratTotalPriceDiv2").html(cellData); // gratTotalPrice sütununu div'e yazdırma
-                            }
-                        },
-                        
-                    ],
+            ],
             
-                    dom: 'Blfrtip',
+            dom: 'Blfrtip',
             buttons: [
                 'copy', 'excel', 'pdf', 
             ],
@@ -649,16 +671,8 @@
                 },
                 
             },
-            columns: [
-                { data: 'id', name: 'id'},
-                { data: 'appType', name: 'appType' , searchable:true},
-                { data: 'services', name: 'services' , searchable:true},
-                { data:'customerId', name:'customerId' , searchable:true, orderable: true},
-                { data:'offerteStatus', name:'offerteStatus' , searchable:true},
-                { data:'offerPrice',name:'offerPrice', searchable:false},
-                { data:'created_at',name:'created_at', searchable:true},
-                { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
-            ],
+            columns: columns,
+            
 
             "footerCallback": function ( row, data, start, end, display ) {
                 var rsTot = table.ajax.json();    
@@ -697,10 +711,7 @@
                 $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
                 $('#percentBestatig').text('%'+bestatigPercent);
             }    
- 
-            
         });
-
         
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?
@@ -765,12 +776,9 @@
             if(!isNaN(offertePrice)){
                 total += offertePrice;
             }
-
-            
         });
         $('#gratTotalPriceDiv').text(total);
      })
-    
 </script>
 
 <script>

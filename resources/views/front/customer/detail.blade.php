@@ -128,34 +128,34 @@
         @if (session('cat') != 'Offerte' && session('cat') != 'Termine' && session('cat') != 'Rechnung' && session('cat') != 'Quittung') active @endif" data-toggle="tab"
                     aria-expanded="true">Profil</a>
             </li>
-            @if (App\Models\UserPermission::getMyControl(9))
+            @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
                 <li class="nav-item" style=""><a href="#offer-tab-bordered-1"
                         class="nav-link @if (session('cat') == 'Offerte') active @endif" data-toggle="tab"
                         aria-expanded="false">Offerte</a>
                 </li>
             @endif
 
-            @if (App\Models\UserPermission::getMyControl(6))
+            @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
                 <li class="nav-item" style=""><a href="#appointment-tab-bordered-1"
                         class="nav-link @if (session('cat') == 'Termine') active @endif" data-toggle="tab"
                         aria-expanded="false">Termine</a>
                 </li>
             @endif
 
-            @if (App\Models\UserPermission::getMyControl(10))
+            @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
                 <li class="nav-item " style=""><a href="#fatura-tab-bordered-1" 
                         class="nav-link @if (session('cat') == 'Rechnung') active @endif" data-toggle="tab"
                         aria-expanded="false">Rechnungen</a>
                 </li>
             @endif
 
-            @if (App\Models\UserPermission::getMyControl(11))
+            @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
                 <li class="nav-item " style=""><a href="#makbuz-tab-bordered-1" 
                         class="nav-link @if (session('cat') == 'Quittung') active @endif" data-toggle="tab"
                         aria-expanded="false">Quittungen</a>
                 </li>
             @endif
-            @if (App\Models\UserPermission::getMyControl(9))
+            @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
                 <li class="nav-item " style=""><a href="#notiz-tab-bordered-1" 
                         class="nav-link @if (session('cat') == 'Notiz') active @endif" data-toggle="tab"
                         aria-expanded="false"> Notiz  @if (strlen($data[0]['note']) > 1)
@@ -468,7 +468,9 @@
                                                     <th>Betrag</th>
                                                     <th>Zahlungsart</th>
                                                     <th>Status</th>
+                                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
                                                     <th>DocTaken</th>
+                                                    @endif
                                                     <th>Option</th>
                                                 </tr>
                                             </thead>
@@ -570,10 +572,67 @@
         }
     </script>
     {{-- Makbuz --}}
-    @if (App\Models\UserPermission::getMyControl(11))
-        
+    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <script>
             $(document).ready(function() {
+                const userPerm = "{{ Auth::user()->permName }}";
+                console.log(userPerm);
+            
+                let columns = [
+                    {
+                        data: 'makbuzNo',
+                        name: 'makbuzNo',
+                        width: '10%'
+                    },
+                    {
+                        data: 'receiptType',
+                        name: 'receiptType',
+                        width: '10%'
+                    },
+                    {
+                        data: 'orderDate',
+                        name: 'orderDate',
+                        width: '10%'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        width: '12%'
+                    },
+                    {
+                        data: 'tutar',
+                        name: 'tutar',
+                        width: '7%'
+                    },
+                    {
+                        data: 'payType',
+                        name: 'payType',
+                        width: '7%'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        width: '7%'
+                    },
+                    {
+                        data: 'option',
+                        name: 'detail',
+                        orderable: false,
+                        searchable: false,
+                        exportable: false
+                    }
+                ];
+            
+                // Eğer kullanıcı superAdmin ise 'docTaken' sütununu ekle
+                if (userPerm.includes('superAdmin')) {
+                    columns.splice(-1, 0, {
+                    data: 'docTaken',
+                    name: 'docTaken',
+                    searchable: false,
+                    width: '10%',
+                });
+                }
+            
                 let table = $('#makbuz').DataTable({
                     "order": [0, 'desc'],
                     lengthMenu: [
@@ -602,58 +661,7 @@
                             d.endDate = $('#datepicker_to').val();
                         }
                     },
-                    columns: [
-                        {
-                            data: 'makbuzNo',
-                            name: 'makbuzNo',
-                            width: '10%'
-                        },
-                        {
-                            data: 'receiptType',
-                            name: 'receiptType',
-                            width: '10%'
-                        },
-                        {
-                            data: 'orderDate',
-                            name: 'orderDate',
-                            width: '10%'
-                        },
-                        {
-                            data: 'created_at',
-                            name: 'created_at',
-                            width: '12%'
-                        },
-                        {
-                            data: 'tutar',
-                            name: 'tutar',
-                            width: '7%'
-                        },
-                        {
-                            data: 'payType',
-                            name: 'payType',
-                            width: '7%'
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            width: '7%'
-                        },
-                        {
-                            data: 'docTaken',
-                            name: 'docTaken',
-                            searchable: false,
-                            width: '10%',
-                        },
-                        {
-                            data: 'option',
-                            name: 'detail',
-                            orderable: false,
-                            searchable: false,
-                            exportable: false
-                        },
-
-                    ],
-                    
+                    columns: columns,
                     "language": {
                         "paginate": {
                             "previous": "Vorherige",
@@ -665,10 +673,9 @@
                         "info": "Zeige Seite _PAGE_ von _PAGES_",
                         "infoEmpty": "Keine Einträge verfügbar",
                         "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-                
                     },
-                    
                 });
+            
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
                         '' :
@@ -679,6 +686,7 @@
                         data;
                     return testd;
                 };
+            
                 $('#example_filter input').keyup(function() {
                     table
                         .search(
@@ -686,10 +694,9 @@
                         )
                         .draw();
                 });
-
-
             });
-        </script>
+            </script>
+            
         <script>
             function docTaken(id, type) {
             if (confirm("Are you sure you want to change the docTaken?")) {
@@ -719,7 +726,7 @@
     @endif
 
     {{-- Fatura --}}
-    @if (App\Models\UserPermission::getMyControl(10))
+    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <script>
             $(document).ready(function() {
                 let table = $('#example4').DataTable({
@@ -825,7 +832,7 @@
     @endif
 
     {{-- Teklifler --}}
-    @if (App\Models\UserPermission::getMyControl(9))
+    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <script>
             $(document).ready(function() {
                 let table = $('#example3').DataTable({
@@ -955,7 +962,7 @@
 
 
     {{-- Randevular --}}
-    @if (App\Models\UserPermission::getMyControl(6))
+    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
         <script>
             $(document).ready(function() {
                 let table = $('#appointmentTable').DataTable({

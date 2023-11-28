@@ -611,7 +611,7 @@ class indexController extends Controller
             foreach ($table2 as $k => $v) {
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
-                $array[$i]["appType"] = 'Lieferung';
+                $array[$i]["appType"] = $v->deliveryType == 0 ? 'Lieferung' : 'Abholung';
                 $array[$i]["adres"] = $v->address;
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
@@ -648,13 +648,15 @@ class indexController extends Controller
                     return '<span id="termineBadge" class="badge badge-warning">Lieferung</span>
                     <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
                 }
-                else if($app['deliveryType'] == 1) {
-                    return 'Abholung';
-                }
+                
                 else {
                     return 'Lieferung';
                 }
                
+            }
+            if($array['appType'] == 'Abholung')
+            {
+                return 'Abholung';
             }
             if($array['appType'] == 'Besichtigung') {
                 return 'Besichtigung';

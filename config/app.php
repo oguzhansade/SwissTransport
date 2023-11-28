@@ -4,22 +4,14 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+   
+
+    // app.php dosyanız içinde 'permissions' dizisini güncelleyin
     'permissions' => [
-        'company', // 0
-        'user', // 1
-        'customer', // 2
-        'worker', // 3
-        'workerPanel', // 4 Numaralı Yetki Özel İşçi Yetkisi Kullanıcı Ekleme ve Düzenleme Sayfasında Gözükmez (İşçi Paneli İçin)
-        'task', // 5
-        'appointment', // 6
-        'appointmentMaterial', // 7
-        'appointmentService', // 8
-        'offer', // 9
-        'invoice', // 10
-        'receipt', // 11
-        'receiptReinigung', //12
-        'product',
-        'tariff'
+        'superAdmin' => ['company', 'contactPerson', 'user', 'worker', 'task','customer','customerForms', 'appointment', 'appointmentMaterial', 'appointmentService', 'offer', 'invoice', 'receipt', 'receiptReinigung', 'product', 'expense', 'tariff', 'statistics', 'note'], // superAdmin
+        'chef' => ['contactPerson', 'worker', 'task','customer','customerForms', 'appointment', 'appointmentMaterial', 'appointmentService', 'offer', 'invoice', 'receipt', 'receiptReinigung', 'product', 'expense', 'statistics', 'note'], // chef
+        'officer' => ['company','customer','customerForms', 'appointment', 'appointmentMaterial', 'appointmentService', 'offer', 'invoice', 'receipt', 'receiptReinigung', 'product', 'expense', 'statistics', 'note'], // officer
+        'worker' => ['workerPanel'] // worker
     ],
      
     /*

@@ -10,7 +10,7 @@ class UserPermission extends Model
 {
     protected $guarded = [];
     use HasFactory;
-
+    
     static function getControl($userId,$permissionId)
     {
         $c = UserPermission::where('userId',$userId)->where('permissionId', $permissionId)->count();

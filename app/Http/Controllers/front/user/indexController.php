@@ -35,32 +35,30 @@ class indexController extends Controller
         $c = User::where ('email', $all['email'])->count();
         if($c == 0){
 
-        $permission = (isset($all['permission'])) ? $all['permission'] : [];
-        unset($all['permission']);
-        $all['password'] = Hash::make($all['password']);
-        $create = User::create($all);
+            // $permission = (isset($all['permission'])) ? $all['permission'] : [];
+            // unset($all['permission']);
+            $all['password'] = Hash::make($all['password']);
+            $create = User::create($all);
 
-        if($create)
-        {
-            if(count($permission)!=0)
+            if($create)
             {
-                foreach ($permission as $k => $v)
-                {
-                    UserPermission::create(['userId' => $create -> id, 'permissionId' => $v]);
-                }
+                // if(count($permission)!=0)
+                // {
+                //     foreach ($permission as $k => $v)
+                //     {
+                //         UserPermission::create(['userId' => $create -> id, 'permissionId' => $v]);
+                //     }
+                // }
+                
+                return redirect()->back()->with('status','Kullanıcı Başarıyla Eklendi');
             }
-            
-            return redirect()->back()->with('status','Kullanıcı Başarıyla Eklendi');
-        }
-        else {
-            return redirect()->back()->with('status','Hata:Kullanıcı Eklenemedi');
-        }
+            else {
+                return redirect()->back()->with('status','Hata:Kullanıcı Eklenemedi');
+            }
 
-    }
-        
-    else {
-        return redirect()->back()->with('status','Email Sistemde Mevcut');
-    }
+        }else {
+                return redirect()->back()->with('status','Email Sistemde Mevcut');
+            }
     }
 
     public function edit($id)
@@ -96,17 +94,17 @@ class indexController extends Controller
                 $all['password'] = Hash::make($all['password']);
             }
 
-            $permission = (isset($all['permission'])) ? $all['permission'] : [];
+            // $permission = (isset($all['permission'])) ? $all['permission'] : [];
 
-            UserPermission::where('userId',$id)->delete();
-            if(count($permission)!=0)
-            {
-                foreach($permission as $k => $v)
-                {
-                    UserPermission::create(['userId' => $id, 'permissionId' => $v]);
-                }
-            }
-            unset($all['permission']);
+            // UserPermission::where('userId',$id)->delete();
+            // if(count($permission)!=0)
+            // {
+            //     foreach($permission as $k => $v)
+            //     {
+            //         UserPermission::create(['userId' => $id, 'permissionId' => $v]);
+            //     }
+            // }
+            // unset($all['permission']);
 
 
             $data = User::where('id',$id)->get();
@@ -162,7 +160,7 @@ class indexController extends Controller
 
     public function data(Request $request)
     {
-        $table=User::where('permName',NULL)->get();
+        $table = User::whereNull('permName')->orWhere('permName', '!=', 'worker')->get();
         $data=DataTables::of($table)
 
         ->addColumn('option',function($table) 

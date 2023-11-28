@@ -39,7 +39,7 @@
                     <div class="col-md-12 widget-holder">
                         <div class="widget-bg">
                             <div class="widget-body clearfix">
-                                <form action="{{ route('user.store') }}" autocomplete="off" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('user.store') }}" autocomplete="off" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                                     @csrf
                                     
                                     <div class="form-group row">
@@ -63,18 +63,21 @@
                                             <div class="col-md-12">
                                                 <label class="col-form-label" >Genehmigung</label>
                                             </div>
-                                            @foreach ( \Illuminate\Support\Facades\Config::get('app.permissions') as $k => $v )
-                                                @if($k == 4 && $v == 'workerPanel')@continue; @endif
-                                                <div class="col-md-4 ">                                                    
-                                                    <div class="checkbox checkbox-rounded checkbox-primary">
-                                                        <label class="checkbox-checked">
-                                                            <input type="checkbox" name="permission[]"  value="{{ $k }}"> <span class="label-text">{{ $v }}</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                            <div class="radiobox colors text-dark font-weight-bold">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="superAdmin"> 
+                                                    <span class="label-text pl-4 ml-2 col-form-label default">SuperAdmin</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="chef"> 
+                                                    <span class="label-text pl-4 ml-2 col-form-label default">Chef</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="permName" value="officer" checked> 
+                                                    <span class="label-text pl-4 ml-2 col-form-label default " >Officer</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        
                                     </div>
 
                                     <div class="form-actions">

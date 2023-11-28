@@ -144,9 +144,7 @@
     }
 </style>
 @endsection
-@if (App\Models\UserPermission::getMyControl(4))
 
-@endif
 
 
 @extends('layouts.app')
@@ -154,7 +152,7 @@
 <!-- Page Title Area -->
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5">@if (App\Models\UserPermission::getMyControl(4)) Worker Panel @else Admin Panel @endif</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5">@if (Auth::user()->permName == 'worker') Worker Panel @else Admin Panel @endif</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
@@ -171,7 +169,7 @@
 <!-- Different data widgets ============ -->
 <!-- =================================== -->
 
-@if (App\Models\UserPermission::getMyControl(4))
+@if (Auth::user()->permName == 'worker')
 
 <div class="container">
     <div class="row">

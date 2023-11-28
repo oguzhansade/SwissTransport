@@ -209,6 +209,9 @@
                             </div>
                         </div> --}}
                     </div>
+                    <div class="row">
+                        
+                    </div>
                     <div class="mt-3">
                         <table id="termineTable" class="table table-striped table-responsive">
                             <thead>
