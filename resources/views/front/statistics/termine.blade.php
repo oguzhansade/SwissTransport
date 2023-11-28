@@ -182,36 +182,20 @@
                                     </tr>
                                 </tbody>
                             </table>
-                           
                         </div>
                         
-                        {{-- <div class="col-md-2 ">
+                        <div class="col-md-2">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:1rem">
                                     <tr>
-                                        <td><span>Gefiltert</span></td>
-                                        <td>: <span id="filteredTotal"></span></td>
-                                
-                                    </tr>
-                                    <tr>
-                                        <td><span>Ungefiltert</span></td>
-                                        <td>: <span id="nonFilteredTotal"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Offerte</span></td>
-                                        <td>: <span id="filteredOfferte"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Bestätigung</span></td>
-                                        <td>: <span id="percentBestatig"></span></td>
+                                        <td><span>Termine</span></td>
+                                        <td>: <span id="filteredQuittung"></span></td>
                                     </tr>
                                 </table>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
-                    <div class="row">
-                        
-                    </div>
+                    
                     <div class="mt-3">
                         <table id="termineTable" class="table table-striped table-responsive">
                             <thead>
@@ -310,6 +294,16 @@
                 "infoEmpty": "Keine Einträge verfügbar",
                 "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
             },
+
+            "footerCallback": function ( row, data, start, end, display ) {
+                var rsTot = table.ajax.json();    
+                var api = this.api(), data;
+                console.log(rsTot)
+                
+                
+                
+                $('#filteredQuittung').text(rsTot.recordsFiltered + '/' + rsTot.totalTermine);
+            }   
         });
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?

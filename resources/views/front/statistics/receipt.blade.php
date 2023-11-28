@@ -103,8 +103,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        
                     </div>
                     <div class="row mt-3 @if (!in_array(Auth::user()->permName, ['superAdmin'])) d-flex justify-content-end @endif">
                         @if (in_array(Auth::user()->permName, ['superAdmin'])) 

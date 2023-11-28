@@ -333,7 +333,7 @@ class indexController extends Controller
         $array = [];
         $i = 0;
 
-        
+        $totalRecords = $table->count() + $table2->count() + $table3->count();
         // Minimum date filter
         if ($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
@@ -351,7 +351,7 @@ class indexController extends Controller
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
         $table3Data = $table3->get()->toArray();
-
+        
         if($request->appType)
         {
             if($request->appType == '1')
@@ -504,6 +504,7 @@ class indexController extends Controller
         ->make(true);
 
         $renderedData = (array)$data->original;
+        $renderedData['totalTermine'] = $totalRecords;
         return response()->json($renderedData);
     }
 
