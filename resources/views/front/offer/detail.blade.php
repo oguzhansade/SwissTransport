@@ -268,7 +268,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
-                                    @if (App\Models\UserPermission::getMyControl(6)) 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer'])) 
                                     <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
                                         class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong> 
                                     </a>
@@ -278,21 +278,17 @@
                                         class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong> 
                                     </a>
 
-                                    @if (App\Models\UserPermission::getMyControl(11)) 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer'])) 
                                     <a href="#" class="btn btn-success btn-rounded text-white" data-toggle="modal" data-target="#receiptModal"> <strong>Quittung erstellen</strong> 
                                     </a>
                                     @endif
 
-                                    @if (App\Models\UserPermission::getMyControl(10))
+                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
                                     <a id="createInvoice"  href="{{ route('invoice.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
                                         class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong> 
                                     </a>
                                     @endif
-                                    {{-- @if (App\Models\UserPermission::getMyControl(5))
-                                    <a id="createTask"  href="{{ route('task.createFromOffer',['id' => $data['id']]) }}" 
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Aufgabe erstellen</strong> 
-                                    </a>
-                                    @endif --}}
+                                    
                                     <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}" 
                                         class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong> 
                                     </a>

@@ -57,15 +57,9 @@ Route::get('/view-clear', function() {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
 
-    // if (App\Models\UserPermission::getMyControl(4))
-    // {
-    //     Route::get('/', [App\Http\Controllers\front\workerPanel\indexController::class, 'index'])->name('index');
-    // }
-    
     Route::group(['namespace' => 'home', 'as' => 'home.'], function () {
         Route::get('/', [App\Http\Controllers\front\home\indexController::class, 'index'])->name('index');
     });

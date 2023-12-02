@@ -19,10 +19,7 @@ class PermissionControl
      */
     public function handle(Request $request, Closure $next)
     {
-        // $prefix = str_replace('/','',request()->route()->getPrefix());
-        // $index = array_search($prefix,Config::get('app.permissions'));
-        // if(!UserPermission::getMyControl($index)){return redirect('/');}
-        // return $next($request);
+        
         $userRole = Auth::user()->permName;
         $prefix = str_replace('/', '', $request->route()->getPrefix());
         $categories = Config::get('app.permissions');

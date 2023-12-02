@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front\appointmentService;
 
 use App\Helper\calendarEditHelper;
 use App\Helper\calendarHelper;
+use App\Helper\calendarDeleteHelper;
 use App\Helper\calendarUpdate;
 use App\Http\Controllers\Controller;
 use App\Mail\CompanyMail;
@@ -777,6 +778,21 @@ class indexController extends Controller
         if ($c != 0) {
             $data = AppoinmentService::where('id', $id)->first();
             $customerId = $data['customerId'];
+            
+            $serviceTypes = ['umzug','umzug 2','umzug 3','einpack','auspack', 'reinigung', 'reinigung 2', 'entsorgung', 'transport' ,'lagerung'];
+            // Düzeltme: serviceId'yi oluştururken boşlukları kaldırın ve küçük harfe çevirin
+            
+            foreach ($serviceTypes as $serviceType) {
+                $serviceId = strtolower(str_replace(' ', '', $serviceType)) . 'Id';
+                $calendar = Calendar::where('serviceId', $data[$serviceId])
+                    ->where('serviceType', ucfirst($serviceType))
+                    ->first();
+
+                if ($calendar) {
+                    calendarDeleteHelper::companyMaildelete($calendar['eventId']);
+                }
+            }
+
             UmzugService::where('id', $data['umzugId'])->delete();
             UmzugService::where('id', $data['umzug2Id'])->delete();
             UmzugService::where('id', $data['umzug3Id'])->delete();
@@ -787,197 +803,6 @@ class indexController extends Controller
             EntsorgungService::where('id', $data['entsorgungId'])->delete();
             TransportService::where('id', $data['transportId'])->delete();
             LagerungService::where('id', $data['lagerungId'])->delete();
-
-            $calendarUmzug = Calendar::where('serviceId', $data['umzugId'])->first();
-            if ($calendarUmzug && $calendarUmzug['eventId']) {
-                try {
-                    if ($event = Event::find($calendarUmzug['eventId'])) {
-                        $event->delete($calendarUmzug['eventId']);
-                        Calendar::where('serviceId', $data['umzugId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['umzugId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
-            $calendarUmzug2 = Calendar::where('serviceId', $data['umzug2Id'])->first();
-            if ($calendarUmzug2 && $calendarUmzug2['eventId']) {
-                try {
-                    if ($event = Event::find($calendarUmzug2['eventId'])) {
-                        $event->delete($calendarUmzug2['eventId']);
-                        Calendar::where('serviceId', $data['umzug2Id'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['umzug2Id'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-            
-            $calendarUmzug3 = Calendar::where('serviceId', $data['umzug3Id'])->first();
-            if ($calendarUmzug3 && $calendarUmzug3['eventId']) {
-                try {
-                    if ($event = Event::find($calendarUmzug3['eventId'])) {
-                        $event->delete($calendarUmzug3['eventId']);
-                        Calendar::where('serviceId', $data['umzug3Id'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['umzug3Id'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
-            $calendarEinpack = Calendar::where('serviceId', $data['einpackId'])->first();
-            if ($calendarEinpack && $calendarEinpack['eventId']) {
-                try {
-                    if ($event = Event::find($calendarEinpack['eventId'])) {
-                        $event->delete($calendarEinpack['eventId']);
-                        Calendar::where('serviceId', $data['einpackId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['einpackId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-           
-            $calendarAuspack = Calendar::where('serviceId', $data['auspackId'])->first();
-            if ($calendarAuspack && $calendarAuspack['eventId']) {
-                try {
-                    if ($event = Event::find($calendarAuspack['eventId'])) {
-                        $event->delete($calendarAuspack['eventId']);
-                        Calendar::where('serviceId', $data['auspackId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['auspackId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
-            $calendarReinigung = Calendar::where('serviceId', $data['reinigungId'])->first();
-            if ($calendarReinigung && $calendarReinigung['eventId']) {
-                try {
-                    if ($event = Event::find($calendarReinigung['eventId'])) {
-                        $event->delete($calendarReinigung['eventId']);
-                        Calendar::where('serviceId', $data['reinigungId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['reinigungId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-           
-            $calendarReinigung2 = Calendar::where('serviceId', $data['reinigung2Id'])->first();
-            if ($calendarReinigung2 && $calendarReinigung2['eventId']) {
-                try {
-                    if ($event = Event::find($calendarReinigung2['eventId'])) {
-                        $event->delete($calendarReinigung2['eventId']);
-                        Calendar::where('serviceId', $data['reinigung2Id'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['reinigung2Id'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
-            $calendarEntsorgung = Calendar::where('serviceId', $data['entsorgungId'])->first();
-            if ($calendarEntsorgung && $calendarEntsorgung['eventId']) {
-                try {
-                    if ($event = Event::find($calendarEntsorgung['eventId'])) {
-                        $event->delete($calendarEntsorgung['eventId']);
-                        Calendar::where('serviceId', $data['entsorgungId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['entsorgungId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
-            $calendarTransport = Calendar::where('serviceId', $data['transportId'])->first();
-            if ($calendarTransport && $calendarTransport['eventId']) {
-                try {
-                    if ($event = Event::find($calendarTransport['eventId'])) {
-                        $event->delete($calendarTransport['eventId']);
-                        Calendar::where('serviceId', $data['transportId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['transportId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-           
-            $calendarLagerung = Calendar::where('serviceId', $data['lagerungId'])->first();
-            if ($calendarLagerung && $calendarLagerung['eventId']) {
-                try {
-                    if ($event = Event::find($calendarLagerung['eventId'])) {
-                        $event->delete($calendarLagerung['eventId']);
-                        Calendar::where('serviceId', $data['lagerungId'])->delete();
-                    } else {
-                        Log::info('Google Calendar Event not found, might be manually deleted. (TRY)');
-                    }
-                } catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $data['lagerungId'])->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-            }
-
 
             AppoinmentService::where('id', $id)->delete();
             return redirect()
