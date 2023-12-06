@@ -602,6 +602,7 @@ class indexController extends Controller
                 $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
                 $array[$i]["payType"] = $v->payType;
                 $array[$i]["status"] = $v->status;
+                $array[$i]["docTaken"] = $v->docTaken;
                 $i++;
             }
         }
@@ -621,6 +622,7 @@ class indexController extends Controller
                 $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
                 $array[$i]["payType"] = $v->payType;
                 $array[$i]["status"] = $v->status;
+                $array[$i]["docTaken"] = $v->docTaken;
                 $i++;
             }
         }
@@ -643,8 +645,22 @@ class indexController extends Controller
                         break;
                 }
             })
+
+            ->addColumn('docTaken', function ($array) {
             
-            ->rawColumns(['option'])
+            
+                if($array['docTaken'] == 1)
+                {
+                    return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Taken</button>', $array['id'], $array['receiptType']);
+                }
+                else {
+                    return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Untaken</button>', $array['id'], $array['receiptType']);
+                }
+               
+               
+            })
+            
+            ->rawColumns(['option','docTaken'])
             ->make(true);
 
 

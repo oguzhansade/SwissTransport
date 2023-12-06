@@ -199,6 +199,7 @@
                                         <th>Ciro</th>
                                         <th>Giderler</th>
                                         <th>Kar</th>
+                                        <th>docTaken</th>
                                     @endif
                                     <th>Option</th>
                                 </tr>
@@ -253,6 +254,7 @@
             { data: 'tutar', name: 'tutar' },
             { data: 'expensePrice', name: 'expensePrice' },
             { data: 'profit', name: 'profit' },
+            { data: 'docTaken', name: 'docTaken', searchable: false, width: '10%',}
             );
         }
 
@@ -391,6 +393,32 @@
         });
 
     });
+</script>
+<script>
+    function docTaken(id, type) {
+    if (confirm("Are you sure you want to change the docTaken?")) {
+        confirmAndChange(id, type);
+    }
+}
+</script>
+
+<script>
+    function confirmAndChange(id,type){
+    let table= $('#makbuz').DataTable();
+    
+    console.log(id,type);
+        $.ajax({
+            type:'POST',
+            headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+            url: '{{ route('receipt.docTaken', ['id' => ':id', 'type' => ':type']) }}'.replace(':id', id).replace(':type', type),
+            success: function(response) {
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                // handle error response
+            }
+        });
+    }
 </script>
 <script>
      $('#example').on('draw.dt', function() { 
