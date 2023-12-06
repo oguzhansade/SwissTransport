@@ -94,6 +94,7 @@ class indexController extends Controller
             $table->where('contactPerson', 'like', "%$request->contactPersonInput%");
         }
 
+        
         // Umzugdate Filter (Transport ve Entsorgung da eklenebilir koraya sor)
         if($request->umzugmin_date) {
             $minDate = $request->umzugmin_date;
@@ -533,9 +534,26 @@ class indexController extends Controller
             $table2->whereDate('created_at', '<=', $request->max_date);
         }
 
+        if ($request->docTakenFilter) {
+            $docTakenFilter = $request->docTakenFilter;
+            if (is_array($docTakenFilter)) {
+                if (in_array("Taken", $docTakenFilter)) {
+                    // Tabloyu docTaken değerine göre filtreleyelim
+                    $table->whereIn('docTaken', [1]);
+                    $table2->whereIn('docTaken', [1]);
+                }
+                if (in_array("Untaken", $docTakenFilter)) {
+                    // Tabloyu docTaken değerine göre filtreleyelim
+                    $table->whereIn('docTaken', [0]);
+                    $table2->whereIn('docTaken', [0]);
+                }
+            }
+        }
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
        
+        
+        
         
         $MobeTotal = 0;
         $LiefTotal = 0;

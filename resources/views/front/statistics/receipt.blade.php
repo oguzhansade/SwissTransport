@@ -104,6 +104,7 @@
                             </table>
                         </div>
                     </div>
+                    
                     <div class="row mt-3 @if (!in_array(Auth::user()->permName, ['superAdmin'])) d-flex justify-content-end @endif">
                         @if (in_array(Auth::user()->permName, ['superAdmin'])) 
                             <div class="col-md-2 ">
@@ -187,6 +188,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-3 @if (!in_array(Auth::user()->permName, ['superAdmin'])) d-none @endif">
+                        <div id="checkbox-container" class="col-md-10 mt-3">
+                            <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b class="text-dark">Doc Taken</b><br>
+                                            <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="docTakenFilter[]" value="Taken" >
+                                            <label class="form-check-label mr-1" for="checkbox1">TAKEN</label>
+                                            
+                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="docTakenFilter[]" value="Untaken" >
+                                            <label class="form-check-label mr-1" for="checkbox2">UNTAKEN</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="mt-3">
                         <table id="makbuz" class="table table-striped table-responsive">
                             <thead>
@@ -235,6 +254,25 @@
 
 
 <script>
+    let checkedValues = [];
+
+function updateCheckedValues() {
+    const checkboxIds = [ 'checkbox1', 'checkbox2' ];
+
+    checkboxIds.forEach(checkboxId => {
+        const checkbox = document.getElementById(checkboxId);
+        checkbox.addEventListener('change', () => {
+            const index = checkedValues.indexOf(checkbox.value);
+            if (checkbox.checked && index === -1) {
+                checkedValues.push(checkbox.value);
+            } else if (!checkbox.checked && index !== -1) {
+                checkedValues.splice(index, 1);
+            }
+        });
+        
+    });
+    
+}
     $(document).ready(function() {
         const userPerm = "{{ Auth::user()->permName }}";
         console.log(userPerm);
@@ -284,6 +322,8 @@
                 data: function(d) {
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
+                    d.docTakenFilter = checkedValues;
+                    return d
                 }
             },
             columns: columns,
@@ -378,8 +418,9 @@
                 )
                 .draw();
         });
+      
 
-        $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput').on('change', function() {
+        $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput,#checkbox-container').on('change', function() {
             table.draw();
         });
         $('#reset').on('click', function() {
