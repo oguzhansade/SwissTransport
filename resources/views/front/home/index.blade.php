@@ -113,14 +113,14 @@
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: #8253eb;
+        background: #337AB6;
         border: 0;
         border-radius: 0;
         color: #fff !important;
     }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        background: #6125e6;
+        background: #286090;
         border: 0;
         color: #fff !important;
     }
