@@ -14,6 +14,7 @@ class calendarHelper
         $event = new Event;
         $event->name = $title;
         $appType = NULL;
+        
         if($serviceName == 'Lieferung')
         {
             $appType = 3;
@@ -45,7 +46,7 @@ class calendarHelper
         $event->setColorId($colorId);
         $etkinlik = $event->save();
         $eventId = $etkinlik->id;
-        
+       
         $eventInfo = 
         [
             'appType' => $appType,

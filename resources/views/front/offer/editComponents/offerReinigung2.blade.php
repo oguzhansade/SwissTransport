@@ -27,11 +27,11 @@
             </select>
 
             <label class="col-form-label" for="l0">Manuelle Eingabe (Reinigungsart)</label>
-            <input class="form-control" class="extraReinigung2"  name="extraReinigung2"  type="text" 
+            <input class="form-control" class="extraReinigung2"  name="extraReinigung2"  type="text" maxlength="255"
             @if($reinigung2) 
                 value="{{ \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraReinigung') }}"
             @endif>
-
+            <small class="mb-3 text-primary"><i>Maximal 255 Zeichen</i></small><br>
             
             <label class="col-form-label" for="l0">Tarif (Pauschal)</label>
             <select class="form-control" class="reinigungFixedPrice2" name="reinigungFixedPrice2" id="reinigungFixedPrice2" >
