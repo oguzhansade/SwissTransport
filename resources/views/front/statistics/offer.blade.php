@@ -693,22 +693,35 @@
                     }, 0 );
         
                 $( api.column( 4 ).footer() ).html(ent);
-                if(rsTot.filteredTotal)
-                {
-                    let filteredTotal = rsTot.filteredTotal;
-                    let formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
-                    $('#filteredTotal').text(formattedTotal);
 
-                    if(rsTot.nonFilteredTotal)
-                    {
-                        let nonFilteredTotal = rsTot.nonFilteredTotal;
-                        let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
-                        $('#nonFilteredTotal').text(nfFormattedTotal);
-                    }
+                // Filtered Total Price
+                let formattedTotal = 0;
+                let filteredTotal = rsTot.filteredTotal ? rsTot.filteredTotal : 0;
+                
+                formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+                $('#filteredTotal').text(formattedTotal);
+
+                // NonFiltered Total Price
+                if(rsTot.nonFilteredTotal)
+                {
+                    let nonFilteredTotal = rsTot.nonFilteredTotal;
+                    let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
+                    $('#nonFilteredTotal').text(nfFormattedTotal);
                 }
+
+                // Bestatig Yüzdeliği
                 let bestatigPercent = (rsTot.filteredBestatig / rsTot.recordsFiltered)*100;
                 bestatigPercent = bestatigPercent.toFixed(2);
-                $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.totalOfferte);
+                if(isNaN(bestatigPercent) || bestatigPercent == null)
+                {
+                    bestatigPercent = 0
+                }
+                if(isNaN(rsTot.totalOfferte) || rsTot.totalOfferte == null)
+                {
+                    rsTot.totalOfferte = 0;
+                }
+
+                $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.dateBasedFilter + '/' + rsTot.totalOfferte);
                 $('#percentBestatig').text('%'+bestatigPercent);
             }    
         });

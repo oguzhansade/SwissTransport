@@ -100,7 +100,8 @@ class indexController extends Controller
             if($table->whereNotNull('offerteUmzugId'))
             {
                 $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '>=', $minDate)->pluck('id');
-                $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+                $offerteUmzugs = $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+                $dateBasedFilter = $offerteUmzugs->count();
 
             }
         }
@@ -110,18 +111,21 @@ class indexController extends Controller
             if($table->whereNotNull('offerteUmzugId'))
             {
                 $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '<=', $maxDate)->pluck('id');
-                $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+                $offerteUmzugs = $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+                $dateBasedFilter = $offerteUmzugs->count();
             }
         }
 
         // Minimum date filter
         if($request->min_date) {
-            $table->whereDate('created_at', '>=', $request->min_date);
+            $dateFilteredOfferte = $table->whereDate('created_at', '>=', $request->min_date);
+            $dateBasedFilter = $dateFilteredOfferte->count();
         }
         
         // Maximum date filter
         if($request->max_date) {
-            $table->whereDate('created_at', '<=', $request->max_date);
+            $dateFilteredOfferte = $table->whereDate('created_at', '<=', $request->max_date);
+            $dateBasedFilter = $dateFilteredOfferte->count();
         }
 
         // Service type filter
@@ -313,6 +317,7 @@ class indexController extends Controller
         $renderedData['filteredTotal'] = $table->sum('offerPrice');
         $renderedData['nonFilteredTotal'] = $totalPrice;
         $renderedData['totalOfferte'] = $totalOfferte;
+        $renderedData['dateBasedFilter'] = $dateBasedFilter;
         $renderedData['filteredBestatig'] = $table->where('offerteStatus', 'Onaylandı')->count();
         return response()->json($renderedData);
         
