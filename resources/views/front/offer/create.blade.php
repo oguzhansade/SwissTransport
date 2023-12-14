@@ -65,7 +65,7 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form id="offerForm" action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-12">
@@ -332,7 +332,17 @@
 @endsection
 
 @section('footer')
+
+
 <script>
+    $('form').submit(function() {
+      formLoading()
+      return true;
+    });
+</script>
+<script>
+
+    
     $("form").submit(function(event) {
         let checkMobile = phoneValidation();
         let checkMaterial = materialValidation();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\front\appointment;
 
 use App\Helper\calendarEditHelper;
 use App\Helper\calendarHelper;
+use App\Helper\calendarDeleteHelper;
+
 use App\Http\Controllers\Controller;
 use App\Mail\InformationMail;
 use App\Mail\CompanyMail;
@@ -838,7 +840,8 @@ class indexController extends Controller
             if ($calendarBesc) {
                 $event = Event::find($calendarBesc['eventId']);
                 if ($event) {
-                    $event->delete($calendarBesc['eventId']);
+                    
+                    calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
                     Calendar::where('serviceId', $id)->delete();
                 } else {
                     Calendar::where('serviceId', $id)->delete();

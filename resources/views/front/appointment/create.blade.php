@@ -2,7 +2,6 @@
 @section('header')
     <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         
@@ -87,6 +86,7 @@
         .tomato:after {
             background: #d60000!important;
         }
+        
     </style>
 @endsection
 @section('content')
@@ -132,6 +132,7 @@
 @endif
 
 <div class="widget-list">
+    
     <div class="row">
         <div class="col-md-12">
             <strong class="h5 mr-1"> <b>Kunde:</b> </strong> <span class="h5 text-primary ">
@@ -140,226 +141,604 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    <p>
-                    <form id="myform" name="myForm" action="{{ route('appointment.store', ['id' => $data['id']]) }}"
-                        method="POST" enctype="multipart/form-data">
-                        </p>
-                        @csrf
-
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label for="" class="col-form-label">Art</label>
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" class="appointment-type" name="appType" value="1"
-                                            checked> <span class="label-text">Besichtigung</span>
-                                    </label>
-                                </div>
-
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" class="appointment-type" name="appType" value="2">
-                                        <span class="label-text">Auftragsbestätigung</span>
-                                    </label>
-                                </div>
-
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" class="appointment-type" name="appType" value="3">
-                                        <span class="label-text">Lieferung</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    
                         
-                        
-                        {{-- Onay Alanı Başlangıç --}}
-                        <div class="confirmation--area" style="display:none;">
+                        <form id="myform" name="myForm" action="{{ route('appointment.store', ['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group row">
-                                <div class="col-md-12 ">
-                                    <label for="" class="col-form-label">Payment Type</label><br>
-                                    <select class="form-control" name="paymentType" id="paymentType">
-                                        <option value="0">Bar</option>
-                                        <option value="1">Rechnung</option>
-                                    </select>
+                                <div class="col-md-12">
+                                    <label for="" class="col-form-label">Art</label>
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" class="appointment-type" name="appType" value="1"
+                                                checked> <span class="label-text">Besichtigung</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" class="appointment-type" name="appType" value="2">
+                                            <span class="label-text">Auftragsbestätigung</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" class="appointment-type" name="appType" value="3">
+                                            <span class="label-text">Lieferung</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-
-                            {{-- Umzug Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 umzug-control">
-                                    <label for="" class="col-form-label">Umzug</label><br>
-                                    <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
+                            
+                            
+                            {{-- Onay Alanı Başlangıç --}}
+                            <div class="confirmation--area" style="display:none;">
+                                <div class="form-group row">
+                                    <div class="col-md-12 ">
+                                        <label for="" class="col-form-label">Payment Type</label><br>
+                                        <select class="form-control" name="paymentType" id="paymentType">
+                                            <option value="0">Bar</option>
+                                            <option value="1">Rechnung</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            {{-- Umzug Alanı Kontrolü Bitiş --}}
 
-                            {{-- Umzug Alanı --}}
-                            <div class="form-group row umzug--area" style="display: none;">
-                                {{-- 1.Umzug Alanı Başlangıç --}}
-                                <div class="form-group row umzug-area">
+                                {{-- Umzug Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 umzug-control">
+                                        <label for="" class="col-form-label">Umzug</label><br>
+                                        <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
+                                    </div>
+                                </div>
+                                {{-- Umzug Alanı Kontrolü Bitiş --}}
+
+                                {{-- Umzug Alanı --}}
+                                <div class="form-group row umzug--area" style="display: none;">
+                                    {{-- 1.Umzug Alanı Başlangıç --}}
+                                    <div class="form-group row umzug-area">
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin Am</label>
+                                            <input class="form-control" class="date" id="umzug1date" name="umzug1date"
+                                                type="date">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
+                                            <input class="form-control" name="umzug1time" type="time">
+                                        </div>
+
+                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                                <input class="form-control" name="umzug1hours" placeholder="4-5"
+                                                    type="text">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">MA</label>
+                                                <input class="form-control" name="umzug1ma" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">LKW</label>
+                                                <input class="form-control" name="umzug1lkw" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Anhänger</label>
+                                                <input class="form-control" name="umzug1anhanger" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                        </div>
+
+                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                                <input class="form-control" name="umzug1calendarTitle"
+                                                    placeholder="CalendarTitle" type="text"
+                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarComment</label>
+                                                <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
+                                                    placeholder="CalendarComment"></textarea>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                                <input class="form-control" name="umzug1calendarLocation"
+                                                    placeholder="CalendarLocation" type="text"
+                                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                            </div> 
+                                            
+                                            <div class="radiobox colors">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="calendarUmzugColor" value="15"
+                                                        > <span
+                                                        class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzugColor" value="1"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzugColor" value="2"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzugColor" value="3"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzugColor" value="4"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzugColor" value="5"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="6"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="7"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="8"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="9"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="10" checked="checked"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzugColor" value="11"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    {{-- 1.Umzug Alanı Bitiş --}}
+
+                                    {{-- 2.Umzug Alanı Kontrolü --}}
+                                    <div class="col-md-12 umzug-control2">
+                                        <label for="" class="col-form-label">Weitere Umzugstermine</label><br>
+                                        <input type="checkbox" name="isUmzug2" id="isUmzug2" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
+                                    </div>
+                                    {{-- 2.Umzug Alanı Kontrolü --}}
+
+                                    {{-- 2.Umzug Alanı Başlangıç --}}
+                                    <div class="form-group row w-100 umzug--area2" style="display: none;">
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin 2 Am</label>
+                                            <input class="form-control" class="date" id="umzug2date" name="umzug2date"
+                                                type="date">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">Umzugstermin 2 Stunde</label>
+                                            <input class="form-control" name="umzug2time" type="time">
+                                        </div>
+
+                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                                <input class="form-control" name="umzug2hours" placeholder="4-5"
+                                                    type="text">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">MA</label>
+                                                <input class="form-control" name="umzug2ma" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">LKW</label>
+                                                <input class="form-control" name="umzug2lkw" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" col-form-label" for="l0">Anhänger</label>
+                                                <input class="form-control" name="umzug2anhanger" placeholder="0"
+                                                    type="number">
+                                            </div>
+                                        </div>
+
+                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                                <input class="form-control" name="umzug2calendarTitle"
+                                                    placeholder="CalendarTitle" type="text"
+                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarComment</label>
+                                                <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1"
+                                                    placeholder="CalendarComment"></textarea>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                                <input class="form-control" name="umzug2calendarLocation"
+                                                    placeholder="CalendarLocation" type="text"
+                                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                            </div> 
+                                            
+                                            <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                                <label class="mt-1 ">
+                                                    <input type="radio" class=""  name="calendarUmzug2Color" value="15"
+                                                        > <span
+                                                        class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="1"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="2"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="3"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="4"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                                </label>
+                                                <label class="mt-1 ">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="5"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="6"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="7"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="8"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="9"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="10" checked="checked"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                                </label>
+                                                <label class="mt-1 red">
+                                                    <input type="radio"  name="calendarUmzug2Color" value="11"> <span
+                                                        class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- 2.Umzug Alanı Bitiş --}}
+
+                                    {{-- 3.Umzug Alanı Başlangıç --}}
+                                    <div class="form-group row w-100 umzug--area2" style="display: none;">
+                                        <div class="form-group row umzug--area3 w-100">
+                                            <div class="col-md-6">
+                                                <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
+                                                <input class="form-control" class="date" name="umzug3date"
+                                                    type="date">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label class=" col-form-label" for="l0">Umzugstermin 3
+                                                    Stunde</label>
+                                                <input class="form-control" name="umzug3time" type="time">
+                                            </div>
+
+                                            <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                                <div class="col-md-3">
+                                                    <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                                    <input class="form-control" name="umzug3hours" placeholder="4-5"
+                                                        type="text">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class=" col-form-label" for="l0">MA</label>
+                                                    <input class="form-control" name="umzug3ma" placeholder="0"
+                                                        type="number">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class=" col-form-label" for="l0">LKW</label>
+                                                    <input class="form-control" name="umzug3lkw" placeholder="0"
+                                                        type="number">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class=" col-form-label" for="l0">Anhänger</label>
+                                                    <input class="form-control" name="umzug3anhanger" placeholder="0"
+                                                        type="number">
+                                                </div>
+                                            </div>
+
+                                            <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                                <div class="col-md-4">
+                                                    <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                                    <input class="form-control" name="umzug3calendarTitle"
+                                                        placeholder="CalendarTitle" type="text"
+                                                        value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class=" col-form-label" for="l0">CalendarComment</label>
+                                                    <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
+                                                        placeholder="CalendarComment"></textarea>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                                    <input class="form-control" name="umzug3calendarLocation"
+                                                        placeholder="CalendarLocation" type="text"
+                                                        value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                                </div>
+                                            </div>
+                                            <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                                <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                                    <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                                </div> 
+                                                
+                                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                                    <label class="mt-1 ">
+                                                        <input type="radio" class=""  name="calendarUmzug3Color" value="15"
+                                                            > <span
+                                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                                    </label>
+                                                    <label class="mt-1 ">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="1"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                                    </label>
+                                                    <label class="mt-1 ">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="2"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                                    </label>
+                                                    <label class="mt-1 ">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="3"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                                    </label>
+                                                    <label class="mt-1 ">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="4"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                                    </label>
+                                                    <label class="mt-1 ">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="5"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="6"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="7"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="8"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="9"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="10" checked="checked"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                                    </label>
+                                                    <label class="mt-1 red">
+                                                        <input type="radio"  name="calendarUmzug3Color" value="11"> <span
+                                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- 3.Umzug Alanı Bitiş --}}
+                                </div>
+                                {{-- Umzug Alanı Bitiş --}}
+
+
+
+                                {{-- Einpackservice Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 einpackservice-control">
+                                        <label for="" class="col-form-label">Einpackservice</label><br>
+                                        <input type="checkbox" name="isEinpackservice" id="isEinpackservice"
+                                            class="js-switch" data-size="small" data-color="#286090"
+                                            data-switchery="false">
+                                    </div>
+                                </div>
+                                {{-- Einpackservice Alanı Kontrolü Bitiş --}}
+
+                                {{-- Einpackservice Alanı Başlangıç --}}
+                                <div class="form-group row einpackservice--area" style="display: none; ">
                                     <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin Am</label>
-                                        <input class="form-control" class="date" id="umzug1date" name="umzug1date"
-                                            type="date">
+                                        <label class=" col-form-label" for="l0">Packtermin Am</label>
+                                        <input class="form-control" class="date" name="einpackdate" type="date">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin Stunde</label>
-                                        <input class="form-control" name="umzug1time" type="time">
+                                        <label class=" col-form-label" for="l0">Packtermin Stunde</label>
+                                        <input class="form-control" name="einpacktime" type="time">
                                     </div>
+                                    <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                    <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control" name="umzug1hours" placeholder="4-5"
-                                                type="text">
+                                            <input class="form-control" class="einpacksuresi" id="einpacksuresi"
+                                                aria-required="" name="einpackhours" placeholder="4-5" type="text">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control" name="umzug1ma" placeholder="0"
-                                                type="number">
+                                            <input class="form-control" name="einpackma" placeholder="0" type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control" name="umzug1lkw" placeholder="0"
+                                            <input class="form-control" name="einpacklkw" placeholder="0"
                                                 type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Anhänger</label>
-                                            <input class="form-control" name="umzug1anhanger" placeholder="0"
+                                            <input class="form-control" name="einpackanhanger" placeholder="0"
                                                 type="number">
                                         </div>
                                     </div>
 
-
-
                                     <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                            <input class="form-control" name="umzug1calendarTitle"
+                                            <input class="form-control" name="einpackcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
                                                 value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarComment</label>
-                                            <textarea class="form-control" name="umzug1calendarComment" id="" cols="30" rows="1"
+                                            <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1"
                                                 placeholder="CalendarComment"></textarea>
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                            <input class="form-control" name="umzug1calendarLocation"
+                                            <input class="form-control" name="einpackcalendarLocation"
                                                 placeholder="CalendarLocation" type="text"
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
-
                                     </div>
-
                                     <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                                             <label class=" col-form-label " ><strong>CalendarColors</strong></label>
                                         </div> 
                                         
-                                        <div class="radiobox colors">
+                                        <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                             <label class="mt-1 ">
-                                                <input type="radio" class=""  name="calendarUmzugColor" value="15"
-                                                    > <span
+                                                <input type="radio" class=""  name="calendarEinpackColor" value="15"
+                                                > <span
                                                     class="label-text pl-4 ml-1 col-form-label default">Default</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzugColor" value="1"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="1"> <span
                                                     class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzugColor" value="2"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="2"> <span
                                                     class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzugColor" value="3"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="3"> <span
                                                     class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzugColor" value="4"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="4"> <span
                                                     class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzugColor" value="5"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="5"> <span
                                                     class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="6"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="6"> <span
                                                     class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="7"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="7"> <span
                                                     class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="8"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="8"> <span
                                                     class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="9"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="9"> <span
                                                     class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="10" checked="checked"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="10" checked="checked"> <span
                                                     class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzugColor" value="11"> <span
+                                                <input type="radio"  name="calendarEinpackColor" value="11"> <span
                                                     class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
                                             </label>
                                         </div>
                                     </div>
-
                                 </div>
-                                {{-- 1.Umzug Alanı Bitiş --}}
+                                {{-- Einpackservice Alanı Bitiş --}}
 
-                                {{-- 2.Umzug Alanı Kontrolü --}}
-                                <div class="col-md-12 umzug-control2">
-                                    <label for="" class="col-form-label">Weitere Umzugstermine</label><br>
-                                    <input type="checkbox" name="isUmzug2" id="isUmzug2" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
+
+                                {{-- Auspackservice Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 auspackservice-control">
+                                        <label for="" class="col-form-label">Auspackservice</label><br>
+                                        <input type="checkbox" name="isAuspackservice" id="isAuspackservice"
+                                            class="js-switch" data-size="small" data-color="#286090"
+                                            data-switchery="false">
+                                    </div>
                                 </div>
-                                {{-- 2.Umzug Alanı Kontrolü --}}
+                                {{-- Auspackservice Alanı Kontrolü Bitiş --}}
 
-                                {{-- 2.Umzug Alanı Başlangıç --}}
-                                <div class="form-group row w-100 umzug--area2" style="display: none;">
+                                {{-- Auspackservice Alanı Başlangıç --}}
+                                <div class="form-group row auspackservice--area" style="display: none; ">
                                     <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin 2 Am</label>
-                                        <input class="form-control" class="date" id="umzug2date" name="umzug2date"
-                                            type="date">
+                                        <label class=" col-form-label" for="l0">Packtermin Am</label>
+                                        <input class="form-control" class="date" name="auspackdate" type="date">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">Umzugstermin 2 Stunde</label>
-                                        <input class="form-control" name="umzug2time" type="time">
+                                        <label class=" col-form-label" for="l0">Packtermin Stunde</label>
+                                        <input class="form-control" name="auspacktime" type="time">
                                     </div>
+                                    <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
 
-                                    <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                    <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                            <input class="form-control" name="umzug2hours" placeholder="4-5"
-                                                type="text">
+                                            <input class="form-control" class="auspacksuresi" id="auspacksuresi"
+                                                aria-required="" name="auspackhours" placeholder="4-5" type="text">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">MA</label>
-                                            <input class="form-control" name="umzug2ma" placeholder="0"
-                                                type="number">
+                                            <input class="form-control" name="auspackma" placeholder="0" type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">LKW</label>
-                                            <input class="form-control" name="umzug2lkw" placeholder="0"
+                                            <input class="form-control" name="auspacklkw" placeholder="0"
                                                 type="number">
                                         </div>
                                         <div class="col-md-3">
                                             <label class=" col-form-label" for="l0">Anhänger</label>
-                                            <input class="form-control" name="umzug2anhanger" placeholder="0"
+                                            <input class="form-control" name="auspackanhanger" placeholder="0"
                                                 type="number">
                                         </div>
                                     </div>
@@ -367,20 +746,20 @@
                                     <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                            <input class="form-control" name="umzug2calendarTitle"
+                                            <input class="form-control" name="auspackcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
                                                 value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarComment</label>
-                                            <textarea class="form-control" name="umzug2calendarComment" id="" cols="30" rows="1"
+                                            <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1"
                                                 placeholder="CalendarComment"></textarea>
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                            <input class="form-control" name="umzug2calendarLocation"
+                                            <input class="form-control" name="auspackcalendarLocation"
                                                 placeholder="CalendarLocation" type="text"
                                                 value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
@@ -393,1255 +772,875 @@
                                         
                                         <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                             <label class="mt-1 ">
-                                                <input type="radio" class=""  name="calendarUmzug2Color" value="15"
+                                                <input type="radio" class=""  name="calendarAuspackColor" value="15"
                                                     > <span
                                                     class="label-text pl-4 ml-1 col-form-label default">Default</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzug2Color" value="1"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="1"> <span
                                                     class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzug2Color" value="2"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="2"> <span
                                                     class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzug2Color" value="3"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="3"> <span
                                                     class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzug2Color" value="4"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="4"> <span
                                                     class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
                                             </label>
                                             <label class="mt-1 ">
-                                                <input type="radio"  name="calendarUmzug2Color" value="5"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="5"> <span
                                                     class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="6"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="6"> <span
                                                     class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="7"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="7"> <span
                                                     class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="8"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="8"> <span
                                                     class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="9"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="9"> <span
                                                     class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="10" checked="checked"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="10"  checked="checked"> <span
                                                     class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                             </label>
                                             <label class="mt-1 red">
-                                                <input type="radio"  name="calendarUmzug2Color" value="11"> <span
+                                                <input type="radio"  name="calendarAuspackColor" value="11"> <span
                                                     class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- 2.Umzug Alanı Bitiş --}}
+                                {{-- Auspackservice Alanı Bitiş --}}
 
-                                {{-- 3.Umzug Alanı Başlangıç --}}
-                                <div class="form-group row w-100 umzug--area2" style="display: none;">
-                                    <div class="form-group row umzug--area3 w-100">
-                                        <div class="col-md-6">
-                                            <label class=" col-form-label" for="l0">Umzugstermin 3 Am</label>
-                                            <input class="form-control" class="date" name="umzug3date"
-                                                type="date">
+                                {{-- Reinigung Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 reinigung-control">
+                                        <label for="" class="col-form-label">Reinigung</label><br>
+                                        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
+                                    </div>
+                                </div>
+                                {{-- Reinigung Alanı Kontrolü Bitiş --}}
+
+                                {{-- Reinigung Alanı Başlangıç --}}
+                                <div class="form-group row reinigung--area" style="display: none; ">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Reinigungstermin Am</label>
+                                        <input class="form-control" class="date" name="reinigung1Startdate"
+                                            type="date">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Reinigungstermin Stunde</label>
+                                        <input class="form-control" name="reinigung1Starttime" type="time">
+                                    </div>
+                                    <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Abgabetermin</label>
+                                        <input class="form-control" class="date" name="reinigung1Enddate"
+                                            type="date">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
+                                        <input class="form-control" name="reinigung1Endtime" type="time">
+                                    </div>
+
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="reinigungcalendarTitle"
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <label class=" col-form-label" for="l0">Umzugstermin 3
-                                                Stunde</label>
-                                            <input class="form-control" name="umzug3time" type="time">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
                                         </div>
 
-                                        <div class="w-100 row rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                            <div class="col-md-3">
-                                                <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                                <input class="form-control" name="umzug3hours" placeholder="4-5"
-                                                    type="text">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label class=" col-form-label" for="l0">MA</label>
-                                                <input class="form-control" name="umzug3ma" placeholder="0"
-                                                    type="number">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label class=" col-form-label" for="l0">LKW</label>
-                                                <input class="form-control" name="umzug3lkw" placeholder="0"
-                                                    type="number">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label class=" col-form-label" for="l0">Anhänger</label>
-                                                <input class="form-control" name="umzug3anhanger" placeholder="0"
-                                                    type="number">
-                                            </div>
-                                        </div>
-
-                                        <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                            <div class="col-md-4">
-                                                <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                                <input class="form-control" name="umzug3calendarTitle"
-                                                    placeholder="CalendarTitle" type="text"
-                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <label class=" col-form-label" for="l0">CalendarComment</label>
-                                                <textarea class="form-control" name="umzug3calendarComment" id="" cols="30" rows="1"
-                                                    placeholder="CalendarComment"></textarea>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                                <input class="form-control" name="umzug3calendarLocation"
-                                                    placeholder="CalendarLocation" type="text"
-                                                    value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                            </div>
-                                        </div>
-                                        <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
-                                            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                                <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                            </div> 
-                                            
-                                            <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                                <label class="mt-1 ">
-                                                    <input type="radio" class=""  name="calendarUmzug3Color" value="15"
-                                                        > <span
-                                                        class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                                </label>
-                                                <label class="mt-1 ">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="1"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                                </label>
-                                                <label class="mt-1 ">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="2"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                                </label>
-                                                <label class="mt-1 ">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="3"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                                </label>
-                                                <label class="mt-1 ">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="4"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                                </label>
-                                                <label class="mt-1 ">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="5"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="6"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="7"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="8"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="9"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="10" checked="checked"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                                </label>
-                                                <label class="mt-1 red">
-                                                    <input type="radio"  name="calendarUmzug3Color" value="11"> <span
-                                                        class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                                </label>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="reinigungcalendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
                                         </div>
                                     </div>
-                                </div>
-                                {{-- 3.Umzug Alanı Bitiş --}}
-                            </div>
-                            {{-- Umzug Alanı Bitiş --}}
 
-
-
-                            {{-- Einpackservice Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 einpackservice-control">
-                                    <label for="" class="col-form-label">Einpackservice</label><br>
-                                    <input type="checkbox" name="isEinpackservice" id="isEinpackservice"
-                                        class="js-switch" data-size="small" data-color="#286090"
-                                        data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Einpackservice Alanı Kontrolü Bitiş --}}
-
-                            {{-- Einpackservice Alanı Başlangıç --}}
-                            <div class="form-group row einpackservice--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Packtermin Am</label>
-                                    <input class="form-control" class="date" name="einpackdate" type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Packtermin Stunde</label>
-                                    <input class="form-control" name="einpacktime" type="time">
-                                </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="einpacksuresi" id="einpacksuresi"
-                                            aria-required="" name="einpackhours" placeholder="4-5" type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control" name="einpackma" placeholder="0" type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control" name="einpacklkw" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control" name="einpackanhanger" placeholder="0"
-                                            type="number">
-                                    </div>
-                                </div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="einpackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="einpackcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="einpackcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                    </div>
-                                </div>
-                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                    </div> 
-                                    
                                     <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                         <label class="mt-1 ">
-                                            <input type="radio" class=""  name="calendarEinpackColor" value="15"
-                                               > <span
+                                            <input type="radio" class=""  name="calendarReinigungColor" value="15"
+                                            > <span
                                                 class="label-text pl-4 ml-1 col-form-label default">Default</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarEinpackColor" value="1"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="1"> <span
                                                 class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarEinpackColor" value="2"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="2"> <span
                                                 class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarEinpackColor" value="3"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="3"> <span
                                                 class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarEinpackColor" value="4"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="4"> <span
                                                 class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarEinpackColor" value="5"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="5"> <span
                                                 class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="6"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="6"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="7"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="7"> <span
                                                 class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="8"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="8"> <span
                                                 class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="9"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="9"> <span
                                                 class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="10" checked="checked"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="10" checked="checked"> <span
                                                 class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarEinpackColor" value="11"> <span
+                                            <input type="radio"  name="calendarReinigungColor" value="11"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- Einpackservice Alanı Bitiş --}}
+                                {{-- Reinigung Alanı Bitiş --}}
 
-
-                            {{-- Auspackservice Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 auspackservice-control">
-                                    <label for="" class="col-form-label">Auspackservice</label><br>
-                                    <input type="checkbox" name="isAuspackservice" id="isAuspackservice"
-                                        class="js-switch" data-size="small" data-color="#286090"
-                                        data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Auspackservice Alanı Kontrolü Bitiş --}}
-
-                            {{-- Auspackservice Alanı Başlangıç --}}
-                            <div class="form-group row auspackservice--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Packtermin Am</label>
-                                    <input class="form-control" class="date" name="auspackdate" type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Packtermin Stunde</label>
-                                    <input class="form-control" name="auspacktime" type="time">
-                                </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="auspacksuresi" id="auspacksuresi"
-                                            aria-required="" name="auspackhours" placeholder="4-5" type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control" name="auspackma" placeholder="0" type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control" name="auspacklkw" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control" name="auspackanhanger" placeholder="0"
-                                            type="number">
+                                {{-- 2.Reinigung Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 reinigung2-control">
+                                        <label for="" class="col-form-label">Reinigung 2</label><br>
+                                        <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
                                     </div>
                                 </div>
+                                {{-- 2.Reinigung Alanı Kontrolü Bitiş --}}
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="auspackcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                {{-- 2.Reinigung Alanı Başlangıç --}}
+                                <div class="form-group row reinigung2--area" style="display: none; ">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Reinigungstermin 2 Am</label>
+                                        <input class="form-control" class="date" name="reinigung2Startdate"
+                                            type="date">
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="auspackcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Reinigungstermin 2 Stunde</label>
+                                        <input class="form-control" name="reinigung2Starttime" type="time">
+                                    </div>
+                                    <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Abgabetermin </label>
+                                        <input class="form-control" class="date" name="reinigung2Enddate"
+                                            type="date">
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="auspackcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
+                                        <input class="form-control" name="reinigung2Endtime" type="time">
                                     </div>
-                                </div>
 
-                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                    </div> 
-                                    
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="reinigung2calendarTitle"
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="reinigung2calendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                         <label class="mt-1 ">
-                                            <input type="radio" class=""  name="calendarAuspackColor" value="15"
+                                            <input type="radio" class=""  name="calendarReinigung2Color" value="15"
                                                 > <span
                                                 class="label-text pl-4 ml-1 col-form-label default">Default</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarAuspackColor" value="1"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="1"> <span
                                                 class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarAuspackColor" value="2"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="2"> <span
                                                 class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarAuspackColor" value="3"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="3"> <span
                                                 class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarAuspackColor" value="4"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="4"> <span
                                                 class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarAuspackColor" value="5"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="5"> <span
                                                 class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="6"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="6"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="7"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="7"> <span
                                                 class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="8"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="8"> <span
                                                 class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="9"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="9"> <span
                                                 class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="10"  checked="checked"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="10"  checked="checked"> <span
                                                 class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarAuspackColor" value="11"> <span
+                                            <input type="radio"  name="calendarReinigung2Color" value="11"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- Auspackservice Alanı Bitiş --}}
+                                {{-- 2.Reinigung Alanı Bitiş --}}
 
-                            {{-- Reinigung Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 reinigung-control">
-                                    <label for="" class="col-form-label">Reinigung</label><br>
-                                    <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Reinigung Alanı Kontrolü Bitiş --}}
-
-                            {{-- Reinigung Alanı Başlangıç --}}
-                            <div class="form-group row reinigung--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Reinigungstermin Am</label>
-                                    <input class="form-control" class="date" name="reinigung1Startdate"
-                                        type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Reinigungstermin Stunde</label>
-                                    <input class="form-control" name="reinigung1Starttime" type="time">
-                                </div>
-                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Abgabetermin</label>
-                                    <input class="form-control" class="date" name="reinigung1Enddate"
-                                        type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
-                                    <input class="form-control" name="reinigung1Endtime" type="time">
-                                </div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="reinigungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="reinigungcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="reinigungcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                {{-- Entsorgung Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 entsorgung-control">
+                                        <label for="" class="col-form-label">Entsorgung</label><br>
+                                        <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
                                     </div>
                                 </div>
+                                {{-- Entsorgung Alanı Kontrolü Bitiş --}}
 
-                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                    <label class="mt-1 ">
-                                        <input type="radio" class=""  name="calendarReinigungColor" value="15"
-                                           > <span
-                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigungColor" value="1"> <span
-                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigungColor" value="2"> <span
-                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigungColor" value="3"> <span
-                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigungColor" value="4"> <span
-                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigungColor" value="5"> <span
-                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="6"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="7"> <span
-                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="8"> <span
-                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="9"> <span
-                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="10" checked="checked"> <span
-                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigungColor" value="11"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                    </label>
-                                </div>
-                            </div>
-                            {{-- Reinigung Alanı Bitiş --}}
-
-                            {{-- 2.Reinigung Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 reinigung2-control">
-                                    <label for="" class="col-form-label">Reinigung 2</label><br>
-                                    <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- 2.Reinigung Alanı Kontrolü Bitiş --}}
-
-                            {{-- 2.Reinigung Alanı Başlangıç --}}
-                            <div class="form-group row reinigung2--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Reinigungstermin 2 Am</label>
-                                    <input class="form-control" class="date" name="reinigung2Startdate"
-                                        type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Reinigungstermin 2 Stunde</label>
-                                    <input class="form-control" name="reinigung2Starttime" type="time">
-                                </div>
-                                <div class="row w-100 mb-2  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Abgabetermin </label>
-                                    <input class="form-control" class="date" name="reinigung2Enddate"
-                                        type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Abgabetermin Stunde</label>
-                                    <input class="form-control" name="reinigung2Endtime" type="time">
-                                </div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="reinigung2calendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="reinigung2calendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="reinigung2calendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                    <label class="mt-1 ">
-                                        <input type="radio" class=""  name="calendarReinigung2Color" value="15"
-                                            > <span
-                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigung2Color" value="1"> <span
-                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigung2Color" value="2"> <span
-                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigung2Color" value="3"> <span
-                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigung2Color" value="4"> <span
-                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarReinigung2Color" value="5"> <span
-                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="6"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="7"> <span
-                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="8"> <span
-                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="9"> <span
-                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="10"  checked="checked"> <span
-                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarReinigung2Color" value="11"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                    </label>
-                                </div>
-                            </div>
-                            {{-- 2.Reinigung Alanı Bitiş --}}
-
-                            {{-- Entsorgung Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 entsorgung-control">
-                                    <label for="" class="col-form-label">Entsorgung</label><br>
-                                    <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Entsorgung Alanı Kontrolü Bitiş --}}
-
-                            {{-- Entsorgung Alanı Başlangıç --}}
-                            <div class="form-group row entsorgung--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Entsorgungstermin Am</label>
-                                    <input class="form-control" class="date" name="entsorgungdate" type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Entsorgungstermin Stunde</label>
-                                    <input class="form-control" name="entsorgungtime" type="time">
-                                </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi"
-                                            aria-required="" name="entsorgunghours" placeholder="4-5"
-                                            type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control" name="entsorgungma" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control" name="entsorgunglkw" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control" name="entsorgunganhanger" placeholder="0"
-                                            type="number">
-                                    </div>
-                                </div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="entsorgungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="entsorgungcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                    <label class="mt-1 ">
-                                        <input type="radio" class=""  name="calendarEntsorgungColor" value="15"
-                                            > <span
-                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="1"> <span
-                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="2"> <span
-                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="3"> <span
-                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="4"> <span
-                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="5"> <span
-                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="6"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="7"> <span
-                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="8"> <span
-                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="9"> <span
-                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="10" checked="checked"> <span
-                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarEntsorgungColor" value="11"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                    </label>
-                                </div>
-                            </div>
-                            {{-- Entsorgung Alanı Bitiş --}}
-
-                            {{-- Transport Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 transport-control">
-                                    <label for="" class="col-form-label">Transport</label><br>
-                                    <input type="checkbox" name="isTransport" id="isTransport" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Transport Alanı Kontrolü Bitiş --}}
-
-                            {{-- Transport Alanı Başlangıç --}}
-                            <div class="form-group row transport--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Transport Am</label>
-                                    <input class="form-control" class="date" name="transportdate" type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Transport Stunde</label>
-                                    <input class="form-control" name="transporttime" type="time">
-                                </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Dauer [h]</label>
-                                        <input class="form-control" class="transportsuresi" id="transportsuresi"
-                                            aria-required="" name="transporthours" placeholder="4-5" type="text">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">MA</label>
-                                        <input class="form-control" name="transportma" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">LKW</label>
-                                        <input class="form-control" name="transportlkw" placeholder="0"
-                                            type="number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class=" col-form-label" for="l0">Anhänger</label>
-                                        <input class="form-control" name="transportanhanger" placeholder="0"
-                                            type="number">
+                                {{-- Entsorgung Alanı Başlangıç --}}
+                                <div class="form-group row entsorgung--area" style="display: none; ">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Entsorgungstermin Am</label>
+                                        <input class="form-control" class="date" name="entsorgungdate" type="date">
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">von</label>
-                                        <input class="form-control" name="destination" placeholder="Destination"
-                                            type="text">
+                                        <label class=" col-form-label" for="l0">Entsorgungstermin Stunde</label>
+                                        <input class="form-control" name="entsorgungtime" type="time">
+                                    </div>
+                                    <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
+
+                                    <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                            <input class="form-control" class="entsorgungsuresi" id="entsorgungsuresi"
+                                                aria-required="" name="entsorgunghours" placeholder="4-5"
+                                                type="text">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">MA</label>
+                                            <input class="form-control" name="entsorgungma" placeholder="0"
+                                                type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">LKW</label>
+                                            <input class="form-control" name="entsorgunglkw" placeholder="0"
+                                                type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Anhänger</label>
+                                            <input class="form-control" name="entsorgunganhanger" placeholder="0"
+                                                type="number">
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label class=" col-form-label" for="l0">nach</label>
-                                        <input class="form-control" name="arrival" placeholder="Arrival"
-                                            type="text">
-                                    </div>
-                                </div>
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="entsorgungcalendarTitle"
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        </div>
 
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="transportcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                    </div>
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="entsorgungcalendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
+                                        </div>
 
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="transportcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                    <label class="mt-1 ">
-                                        <input type="radio" class=""  name="calendarTransportColor" value="15"
-                                            > <span
-                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarTransportColor" value="1"> <span
-                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarTransportColor" value="2"> <span
-                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarTransportColor" value="3"> <span
-                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarTransportColor" value="4"> <span
-                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarTransportColor" value="5"> <span
-                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="6"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="7"> <span
-                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="8"> <span
-                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="9"> <span
-                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="10" checked="checked"> <span
-                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarTransportColor" value="11"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                    </label>
-                                </div>
-                            </div>
-                            {{-- Transport Alanı Bitiş --}}
-
-                            {{-- Lagerung Alanı Kontrolü --}}
-                            <div class="form-group row">
-                                <div class="col-md-12 lagerung-control">
-                                    <label for="" class="col-form-label">Lagerung</label><br>
-                                    <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch"
-                                        data-size="small" data-color="#286090" data-switchery="false">
-                                </div>
-                            </div>
-                            {{-- Lagerung Alanı Kontrolü Bitiş --}}
-
-                            {{-- Lagerung Alanı Başlangıç --}}
-                            <div class="form-group row lagerung--area" style="display: none; ">
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Lagerung Am</label>
-                                    <input class="form-control" class="date" name="lagerungdate" type="date">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class=" col-form-label" for="l0">Lagerung Stunde</label>
-                                    <input class="form-control" name="lagerungtime" type="time">
-                                </div>
-                                <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
-                                    gleiches Datum wie Umzug, dann leer lassen.</div>
-
-                                <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarTitle</label>
-                                        <input class="form-control" name="lagerungcalendarTitle"
-                                            placeholder="CalendarTitle" type="text"
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="entsorgungcalendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarComment</label>
-                                        <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1"
-                                            placeholder="CalendarComment"></textarea>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label class=" col-form-label" for="l0">CalendarLocation</label>
-                                        <input class="form-control" name="lagerungcalendarLocation"
-                                            placeholder="CalendarLocation" type="text"
-                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
-                                    <label class="mt-1 ">
-                                        <input type="radio" class=""  name="calendarLagerungColor" value="15"
-                                            > <span
-                                            class="label-text pl-4 ml-1 col-form-label default">Default</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarLagerungColor" value="1"> <span
-                                            class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarLagerungColor" value="2"> <span
-                                            class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarLagerungColor" value="3"> <span
-                                            class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarLagerungColor" value="4"> <span
-                                            class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
-                                    </label>
-                                    <label class="mt-1 ">
-                                        <input type="radio"  name="calendarLagerungColor" value="5"> <span
-                                            class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="6"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="7"> <span
-                                            class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="8"> <span
-                                            class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="9"> <span
-                                            class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="10" checked="checked"> <span
-                                            class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
-                                    </label>
-                                    <label class="mt-1 red">
-                                        <input type="radio"  name="calendarLagerungColor" value="11"> <span
-                                            class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
-                                    </label>
-                                </div>
-                            </div>
-                            {{-- Transport Alanı Bitiş --}}
-                        </div>
-                        {{-- Onay Alanı Bitiş --}}
-
-                        <div class="deliverable--area" style="display: none;">
-                            <div class="form-group row ">
-                                <div class="col-md-12">
-                                    <label for="" class="col-form-label">Lieferobjekt</label>
-                                    <div class="radiobox">
-                                        <label>
-                                            <input type="radio" class="deliverable" name="deliverable"
-                                                value="0" checked> <span
-                                                class="label-text">Verpackungsmaterial</span>
-                                        </label>
-                                    </div>
-
-                                    <div class="radiobox">
-                                        <label>
-                                            <input type="radio" class="deliverable" name="deliverable"
-                                                value="1"> <span class="label-text">Schlossatelier</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row deliveryType--area">
-                                <div class="col-md-12">
-                                    <label for="" class="col-form-label">Lieferungsart</label>
-                                    <div class="radiobox">
-                                        <label>
-                                            <input type="radio" class="deliveryType" name="deliveryType"
-                                                value="0" checked> <span class="label-text">Lieferung</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label class=" col-form-label" for="l0">Termin</label>
-                                    <input class="form-control" id="teslimatDate" name="meetingDate" type="date"
-                                        value="">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label class=" col-form-label" for="l0">Zwischen</label>
-                                    <input class="form-control" name="meetingHour1" type="time">
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label class=" col-form-label" for="l0">bis</label>
-                                    <input class="form-control" name="meetingHour2" type="time">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row contactType--area">
-                            <div class="col-md-12">
-                                <label for="" class="col-form-label">Besichtigungsort</label>
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" name="contactType" value="0" checked> <span
-                                            class="label-text">Beim Kunden</span>
-                                    </label>
-                                </div>
-
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" name="contactType" value="1"> <span
-                                            class="label-text">Per Telefon</span>
-                                    </label>
-                                </div>
-
-                                <div class="radiobox">
-                                    <label>
-                                        <input type="radio" name="contactType" value="2"> <span
-                                            class="label-text">Andere</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="wo--area">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Wo</label>
-                                    <input class="form-control" name="address" type="text"
-                                        value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }}, {{ $data['country'] }}"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row dateHour--area">
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0">Datum</label>
-                                <input class="form-control" class="date" id="datepicker" name="date"
-                                    type="date">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0">Stunde</label>
-                                <input class="form-control" name="time" type="time">
-                            </div>
-                        </div>
-
-                        <div class="calendar--area">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle" type="text" required
-                                        value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
-                                </div>
-                                
-                                <div class="col-md-12">
-                                    <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="besc-color-area">
-                            <div class="row">
-                                <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
-                                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                                        <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                    </div> 
-                                    
-                                    <div class="radiobox colors">
+                                    <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                         <label class="mt-1 ">
-                                            <input type="radio" class=""  name="calendarBescColor" value="15"
+                                            <input type="radio" class=""  name="calendarEntsorgungColor" value="15"
                                                 > <span
                                                 class="label-text pl-4 ml-1 col-form-label default">Default</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarBescColor" value="1"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="1"> <span
                                                 class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarBescColor" value="2"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="2"> <span
                                                 class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarBescColor" value="3"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="3"> <span
                                                 class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarBescColor" value="4"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="4"> <span
                                                 class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
                                         </label>
                                         <label class="mt-1 ">
-                                            <input type="radio"  name="calendarBescColor" value="5"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="5"> <span
                                                 class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="6"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="6"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="7"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="7"> <span
                                                 class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="8"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="8"> <span
                                                 class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="9"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="9"> <span
                                                 class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="10" checked="checked"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="10" checked="checked"> <span
                                                 class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
                                         </label>
                                         <label class="mt-1 red">
-                                            <input type="radio"  name="calendarBescColor" value="11"> <span
+                                            <input type="radio"  name="calendarEntsorgungColor" value="11"> <span
                                                 class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
                                         </label>
                                     </div>
                                 </div>
+                                {{-- Entsorgung Alanı Bitiş --}}
+
+                                {{-- Transport Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 transport-control">
+                                        <label for="" class="col-form-label">Transport</label><br>
+                                        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
+                                    </div>
+                                </div>
+                                {{-- Transport Alanı Kontrolü Bitiş --}}
+
+                                {{-- Transport Alanı Başlangıç --}}
+                                <div class="form-group row transport--area" style="display: none; ">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Transport Am</label>
+                                        <input class="form-control" class="date" name="transportdate" type="date">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Transport Stunde</label>
+                                        <input class="form-control" name="transporttime" type="time">
+                                    </div>
+                                    <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
+
+                                    <div class="w-100 row rounded p-1 mt-3" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Dauer [h]</label>
+                                            <input class="form-control" class="transportsuresi" id="transportsuresi"
+                                                aria-required="" name="transporthours" placeholder="4-5" type="text">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">MA</label>
+                                            <input class="form-control" name="transportma" placeholder="0"
+                                                type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">LKW</label>
+                                            <input class="form-control" name="transportlkw" placeholder="0"
+                                                type="number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class=" col-form-label" for="l0">Anhänger</label>
+                                            <input class="form-control" name="transportanhanger" placeholder="0"
+                                                type="number">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">von</label>
+                                            <input class="form-control" name="destination" placeholder="Destination"
+                                                type="text">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class=" col-form-label" for="l0">nach</label>
+                                            <input class="form-control" name="arrival" placeholder="Arrival"
+                                                type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="transportcalendarTitle"
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="transportcalendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="transportcalendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarTransportColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarTransportColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarTransportColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {{-- Transport Alanı Bitiş --}}
+
+                                {{-- Lagerung Alanı Kontrolü --}}
+                                <div class="form-group row">
+                                    <div class="col-md-12 lagerung-control">
+                                        <label for="" class="col-form-label">Lagerung</label><br>
+                                        <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch"
+                                            data-size="small" data-color="#286090" data-switchery="false">
+                                    </div>
+                                </div>
+                                {{-- Lagerung Alanı Kontrolü Bitiş --}}
+
+                                {{-- Lagerung Alanı Başlangıç --}}
+                                <div class="form-group row lagerung--area" style="display: none; ">
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Lagerung Am</label>
+                                        <input class="form-control" class="date" name="lagerungdate" type="date">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class=" col-form-label" for="l0">Lagerung Stunde</label>
+                                        <input class="form-control" name="lagerungtime" type="time">
+                                    </div>
+                                    <div class="row w-100  mt-1 pl-1 text-primary" style="font-style: italic;">Falls
+                                        gleiches Datum wie Umzug, dann leer lassen.</div>
+
+                                    <div class="row w-100 rounded p-1 mt-1" style="background-color:  #C8DFF3;">
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarTitle</label>
+                                            <input class="form-control" name="lagerungcalendarTitle"
+                                                placeholder="CalendarTitle" type="text"
+                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarComment</label>
+                                            <textarea class="form-control" name="lagerungcalendarComment" id="" cols="30" rows="1"
+                                                placeholder="CalendarComment"></textarea>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class=" col-form-label" for="l0">CalendarLocation</label>
+                                            <input class="form-control" name="lagerungcalendarLocation"
+                                                placeholder="CalendarLocation" type="text"
+                                                value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }} , {{ $data['country'] }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
+                                        <label class="mt-1 ">
+                                            <input type="radio" class=""  name="calendarLagerungColor" value="15"
+                                                > <span
+                                                class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="1"> <span
+                                                class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="2"> <span
+                                                class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="3"> <span
+                                                class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="4"> <span
+                                                class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                        </label>
+                                        <label class="mt-1 ">
+                                            <input type="radio"  name="calendarLagerungColor" value="5"> <span
+                                                class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="6"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="7"> <span
+                                                class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="8"> <span
+                                                class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="9"> <span
+                                                class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="10" checked="checked"> <span
+                                                class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                        </label>
+                                        <label class="mt-1 red">
+                                            <input type="radio"  name="calendarLagerungColor" value="11"> <span
+                                                class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {{-- Transport Alanı Bitiş --}}
                             </div>
-                           
-                        </div>
+                            {{-- Onay Alanı Bitiş --}}
 
-                        <div class="form-group row">
-                            <div class="col-md-12 email-send">
-                                <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                <input type="checkbox" name="isEmail" id="isEmail" class="js-switch"
-                                    data-color="#286090" data-switchery="true">
-                            </div>
-                        </div>
+                            <div class="deliverable--area" style="display: none;">
+                                <div class="form-group row ">
+                                    <div class="col-md-12">
+                                        <label for="" class="col-form-label">Lieferobjekt</label>
+                                        <div class="radiobox">
+                                            <label>
+                                                <input type="radio" class="deliverable" name="deliverable"
+                                                    value="0" checked> <span
+                                                    class="label-text">Verpackungsmaterial</span>
+                                            </label>
+                                        </div>
 
-                        <div class="row form-group email--area" style="display: none;">
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                <input class="form-control" name="email" type="text"
-                                    value="{{ $data['email'] }}">
-                            </div>
+                                        <div class="radiobox">
+                                            <label>
+                                                <input type="radio" class="deliverable" name="deliverable"
+                                                    value="1"> <span class="label-text">Schlossatelier</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="col-md-12">
-                                <label class=" col-form-label" for="l0">Email Kommentar</label>
+                                <div class="form-group row deliveryType--area">
+                                    <div class="col-md-12">
+                                        <label for="" class="col-form-label">Lieferungsart</label>
+                                        <div class="radiobox">
+                                            <label>
+                                                <input type="radio" class="deliveryType" name="deliveryType"
+                                                    value="0" checked> <span class="label-text">Lieferung</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>
-                            </div>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">Termin</label>
+                                        <input class="form-control" id="teslimatDate" name="meetingDate" type="date"
+                                            value="">
+                                    </div>
 
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">Zwischen</label>
+                                        <input class="form-control" name="meetingHour1" type="time">
+                                    </div>
 
-                            <div class="col-md-12 email-format">
-                                <label for="" class="col-form-label">Standard Emailtext
-                                    bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
-                                    class="js-switch isCustomEmail" data-color="#286090" data-switchery="false">
-                            </div>
-                        </div>
-
-                        <div class="row form-group email--format" style="display: none;">
-                            <div class="col-md-12 mt-3">
-
-                                <textarea class="editor" id="customEmail" name="customEmail" cols="30" rows="10">
-                                             {{-- @include('../../email',['date' => '']) --}}
-                                    </textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <div class="form-group row">
-                                <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <div class="col-md-4">
+                                        <label class=" col-form-label" for="l0">bis</label>
+                                        <input class="form-control" name="meetingHour2" type="time">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="form-group row contactType--area">
+                                <div class="col-md-12">
+                                    <label for="" class="col-form-label">Besichtigungsort</label>
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" name="contactType" value="0" checked> <span
+                                                class="label-text">Beim Kunden</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" name="contactType" value="1"> <span
+                                                class="label-text">Per Telefon</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radiobox">
+                                        <label>
+                                            <input type="radio" name="contactType" value="2"> <span
+                                                class="label-text">Andere</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="wo--area">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label class=" col-form-label" for="l0">Wo</label>
+                                        <input class="form-control" name="address" type="text"
+                                            value="{{ $data['street'] }} , {{ $data['postCode'] }} , {{ $data['Ort'] }}, {{ $data['country'] }}"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row dateHour--area">
+                                <div class="col-md-6">
+                                    <label class=" col-form-label" for="l0">Datum</label>
+                                    <input class="form-control" class="date" id="datepicker" name="date"
+                                        type="date">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class=" col-form-label" for="l0">Stunde</label>
+                                    <input class="form-control" name="time" type="time">
+                                </div>
+                            </div>
+
+                            <div class="calendar--area">
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
+                                        <input class="form-control" name="calendarTitle" type="text" required
+                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <label class=" col-form-label" for="l0">Kalender Kommentar</label>
+                                        <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="besc-color-area">
+                                <div class="row">
+                                    <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                            <label class=" col-form-label " ><strong>CalendarColors</strong></label>
+                                        </div> 
+                                        
+                                        <div class="radiobox colors">
+                                            <label class="mt-1 ">
+                                                <input type="radio" class=""  name="calendarBescColor" value="15"
+                                                    > <span
+                                                    class="label-text pl-4 ml-1 col-form-label default">Default</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarBescColor" value="1"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label lavender">Lavender</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarBescColor" value="2"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label sage">Sage</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarBescColor" value="3"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label grape">Grape</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarBescColor" value="4"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label flamingo">Flamingo</span>
+                                            </label>
+                                            <label class="mt-1 ">
+                                                <input type="radio"  name="calendarBescColor" value="5"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label banana">Banana</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="6"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tangerine">Tangerine</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="7"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label peacock">Peacock</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="8"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label graphite">Graphite</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="9"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label blueberry">Blueberry</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="10" checked="checked"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label basil">Basil</span>
+                                            </label>
+                                            <label class="mt-1 red">
+                                                <input type="radio"  name="calendarBescColor" value="11"> <span
+                                                    class="label-text pl-4 ml-1 col-form-label tomato">Tomato</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12 email-send">
+                                    <label for="" class="col-form-label">E-Mail an Kunden</label><br>
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch"
+                                        data-color="#286090" data-switchery="true">
+                                </div>
+                            </div>
+
+                            <div class="row form-group email--area" style="display: none;">
+                                <div class="col-md-12">
+                                    <label class=" col-form-label" for="l0">E-Mail Adresse</label>
+                                    <input class="form-control" name="email" type="text"
+                                        value="{{ $data['email'] }}">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class=" col-form-label" for="l0">Email Kommentar</label>
+
+                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>
+                                </div>
+
+
+                                <div class="col-md-12 email-format">
+                                    <label for="" class="col-form-label">Standard Emailtext
+                                        bearbeiten</label><br>
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail"
+                                        class="js-switch isCustomEmail" data-color="#286090" data-switchery="false">
+                                </div>
+                            </div>
+
+                            <div class="row form-group email--format" style="display: none;">
+                                <div class="col-md-12 mt-3">
+
+                                    <textarea class="editor" id="customEmail" name="customEmail" cols="30" rows="10">
+                                                {{-- @include('../../email',['date' => '']) --}}
+                                        </textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <div class="form-group row">
+                                    <div class="col-md-12 ml-md-auto btn-list">
+                                        <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -1652,6 +1651,14 @@
 
 @section('footer')
 {{-- Onay Alanı Ayarları --}}
+
+<script>
+    $('form').submit(function() {
+      formLoading()
+      return true;
+    });
+</script>
+
 <script>
     var umzugbutton = $("div.umzug-control");
     var umzugbutton2 = $("div.umzug-control2");

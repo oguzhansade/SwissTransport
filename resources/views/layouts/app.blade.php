@@ -40,6 +40,66 @@
             border-color:#0464cc;
         }
     </style>
+    <style>
+          .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5); /* Opaklık değerini buradan ayarlayabilirsiniz */
+    }
+        #loading-body{
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 10;
+        }
+        #loadingIndicator {
+            
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            background-color: white;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            text-align: center;
+            z-index: 11;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            padding-top:20px;
+            padding-bottom:20px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .logo-loading-collapse {
+            max-width: 100%;
+            height: auto;
+            
+            z-index: 12;
+            animation: pulse 1.5s infinite;
+        }
+   </style>
     @yield('header')
 </head>
 
@@ -153,6 +213,11 @@
             </aside>
         <!-- /.site-sidebar -->
         <main class="main-wrapper clearfix">
+            <div id="loading-body" >
+                <div id="loadingIndicator" >
+                    <img class="logo-loading-collapse" alt="" src="{{ asset('assets/demo/logo-collapse.png') }}">
+                </div>
+            </div>
             @yield('content')
         </main>
         <!-- /.main-wrappper -->
@@ -188,8 +253,70 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+    <script>
+        function formLoading() {
+            
+            // Sayfanın başına git
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'slow');
+
+            // Loading mesajını göster
+            $('#loading-body').show();
+            
+            // Form elemanlarını devre dışı bırak
+            $('form :input').prop('readonly', true);
+            toastr.options.onShown = function () {
+                var toastrType = $('.toast').last().hasClass('toast-success') ? 'success' : 'error';
+                console.log('Toastr type is:', toastrType);
+
+                // Do something based on the toastr type
+                if (toastrType === 'error') {
+                console.log('tost hatalı');
+                $('#loading-body').hide();
+                } else if (toastrType === 'success') {
+                console.log('tost başarılı');
+                }
+
+                // Reset onShown
+                toastr.options.onShown = function () {};
+            };
+            
+        }
+    </script>
+    <script>
+
+        $(document).on('click', '.btn-danger', function(e) {
+            var href = $(this).attr('href');
+            if(href.includes("delete"))
+            {
+                formLoading();
+            }
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            // Check toastr type onShown
+            toastr.options.onShown = function () {
+                var toastrType = $('.toast').last().hasClass('toast-success') ? 'success' : 'error';
+                console.log('Toastr type is:', toastrType);
+
+                // Do something based on the toastr type
+                if (toastrType === 'success') {
+                console.log('tost başarılı');
+                } else if (toastrType === 'error') {
+                console.log('tost hata verdi');
+                }
+
+                // Reset onShown
+                toastr.options.onShown = function () {};
+            };
+        })
+    </script>
+    
+    
     @yield('footer')
+
+    
 </body>
-
-
 </html>

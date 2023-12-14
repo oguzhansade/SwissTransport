@@ -76,6 +76,7 @@ class indexController extends Controller
         $table=offerte::query();
         $totalPrice = 0; // Initialize the total price variable,
         $col1Sum = 0; // İlk sütunun toplamını temsil eden değişken
+        $dateBasedFilter = 0;
 
         // Customer Search Filter
         if (!empty($request->searchInput)) {
@@ -94,15 +95,13 @@ class indexController extends Controller
             $table->where('contactPerson', 'like', "%$request->contactPersonInput%");
         }
 
-        
-        // Umzugdate Filter (Transport ve Entsorgung da eklenebilir koraya sor)
         if($request->umzugmin_date) {
             $minDate = $request->umzugmin_date;
             if($table->whereNotNull('offerteUmzugId'))
             {
                 $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '>=', $minDate)->pluck('id');
-
                 $table->whereIn('offerteUmzugId',$offerteUmzugIds);
+
             }
         }
 
@@ -111,7 +110,6 @@ class indexController extends Controller
             if($table->whereNotNull('offerteUmzugId'))
             {
                 $offerteUmzugIds = OfferteUmzug::whereDate('moveDate', '<=', $maxDate)->pluck('id');
-
                 $table->whereIn('offerteUmzugId',$offerteUmzugIds);
             }
         }
