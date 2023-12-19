@@ -148,6 +148,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/detail/{id}', [App\Http\Controllers\front\customer\indexController::class, 'detail'])->name('detail');
         Route::post('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
         Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
+        Route::get('/reminderTest', [App\Http\Controllers\front\customer\indexController::class, 'reminderTest'])->name('reminderTest');
 
         
     });

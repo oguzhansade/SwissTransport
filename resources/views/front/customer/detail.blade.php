@@ -527,6 +527,8 @@
             </div>
         </div>
         <!-- /.tab-content -->
+
+        {{-- <a href="{{ route('customer.reminderTest') }}">ReminderTest</a> --}}
     </div>
 @endsection
 

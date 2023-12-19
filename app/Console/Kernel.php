@@ -19,6 +19,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('auto:test')->everyDay();
         $schedule->command('command:lagerungmailer')->dailyAt('10:00');
         $schedule->command('command:offertedateupdater')->dailyAt('01:00');
+        $schedule->command('command:beforeoneweekoffermailer')->dailyAt('11:00');
+        $schedule->command('command:monthlyoffermailer')->dailyAt('11:00');
+        $schedule->command('command:twoweeksoffermailer')->dailyAt('11:00');
     }
 
     /**

@@ -44,7 +44,7 @@
         type="text/css">
     <link rel="stylesheet" type="text/css" href="https://www.provenexpert.com/css/widget_landing.css"
         media="screen,print">
-
+       
     <style>
         .bg-container {
             background-color: white;
@@ -109,9 +109,19 @@
                 /* veya istediğiniz boyut */
             }
         }
-    </style>
+        
 
+
+    </style>
+    {{-- dil --}}
+    <style>
+        .goog-te-menu-value span img {
+            vertical-align: middle;
+        }
+    </style>
 </head>
+
+
 
 <body onload="resizeDiv()">
     <div class="container-fluid ">
@@ -122,6 +132,7 @@
             </div>
 
         </div>
+       
         <div class="row">
             <div class="col-md-12  p-0 banner draw" style="position: relative;z-index: 3;">
                 <img src="{{ asset('assets/img/umzugsfirma-zuerich.jpg') }}" width="1920" height="450"
@@ -132,6 +143,11 @@
     </div>
 
     <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12 d-flex justify-content-center align-items-center">
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
         <div class="row mt-3">
             <div class="col-md-12 mt-5 ">
                 <div id="pewl" class="p-3 block"></div>
@@ -1942,8 +1958,7 @@
             var lineHeight = 7.5; // varsayılan satır yüksekliği
             var maxHeight = numLines * lineHeight;
             div.style.maxHeight = maxHeight + "px";
-            console.log(numLines, 'satır Sayısı')
-            console.log(maxHeight, 'Max Yükseklik')
+            
         }
     </script>
     <script>
@@ -2049,6 +2064,28 @@
 
         console.log(array)
     </script>
+    {{-- Dil Plugin i --}}
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'de,en,fr,it',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+            gaTrack: true,
+            gaId: 'YOUR_ANALYTICS_TRACKING_ID', // Replace 'YOUR_ANALYTICS_TRACKING_ID' with your Google Analytics Tracking ID (if using)
+            multilanguagePage: true,
+            isDropdown: true,
+            language: 'en',
+            controlFlag: true,
+            controlFlagUI: {
+              renderInline: false
+            }
+          }, 'google_translate_element');
+        }
+    </script>
+        
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 
 </html>
