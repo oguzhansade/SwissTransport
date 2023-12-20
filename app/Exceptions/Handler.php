@@ -64,6 +64,6 @@ class Handler extends ExceptionHandler
     private function sendErrorEmail(Exception $exception)
     {
         // E-posta gönderme işlemini burada gerçekleştirin.
-        // Mail::to('projehatalari@gmail.com')->send(new ErrorMail($exception));
+        Mail::to('projehatalari@gmail.com')->send(new ErrorMail($exception));
     }
 }

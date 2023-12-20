@@ -491,6 +491,12 @@ class indexController extends Controller
                 $randevuTipi = 'Auftragsbestätigung';
                 $appointmentDate = $appDateArray;
                 $all = AppoinmentService::create($appointmentService);
+                if($offerId)
+                {
+                    $offerUpdater = offerte::where('id',$offerId)->update([
+                        'offerteStatus' => 'Onaylandı'
+                    ]);
+                }
                 break;
             case (3);
                 $sub = 'Lieferung Swiss Transporte';
