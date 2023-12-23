@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\OfferMail;
 use App\Models\Company;
 use App\Models\Customer;
-use App\Models\Expense;
+use App\Models\CustomEmail;
 use App\Models\Invoice;
 use App\Models\OfferCustomerView;
 use App\Models\OfferLogs;
@@ -867,6 +867,11 @@ class indexController extends Controller
 
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
+            $customEmailDB = [
+                'offerId' => $offerteId,
+                'content' => $customEmail,
+            ];
+            CustomEmail::create($customEmailDB);
         }
 
         if ($create) {
@@ -893,13 +898,15 @@ class indexController extends Controller
         if ($id != 0) {
 
             $data = offerte::where('id', $id)->first();
+            $customEmailData = CustomEmail::where('offerId',$id)->first();
             // dd($data);
             $customer = Customer::where('id', $data['customerId'])->first();
             return view(
                 'front.offer.edit',
                 [
                     'data' => $data,
-                    'customer' => $customer
+                    'customer' => $customer,
+                    'customEmail' => $customEmailData
                 ]
             );
         }
@@ -2795,7 +2802,6 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Beklemede'
         ];
 
         $offerte = offerte::find($id);
@@ -3048,6 +3054,18 @@ class indexController extends Controller
         
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
+            $customMail = CustomEmail::where('offerId',$id)->first();
+            $customEmailDB = [
+                'offerId' => $id,
+                'content' => $customEmail,
+            ];
+            if($customMail)
+            {
+                CustomEmail::where('offerId',$id)->update($customEmailDB);
+            }
+            else {
+                CustomEmail::create($customEmailDB);
+            }
         }
 
         if ($offerte->save()) {
@@ -3171,7 +3189,7 @@ class indexController extends Controller
             OfferLogs::where('offerId',$data['id'])->delete();
             OfferVerify::where('offerId', $data['id'])->delete();
             OfferCustomerView::where('offerId', $data['id'])->delete();
-
+            CustomEmail::where('offerId',$data['id'])->delete();
             offerte::where('id', $id)->delete();
 
             return redirect()

@@ -119,7 +119,7 @@ class beforeOneWeekOfferMailer extends Command
                         'sub' => 'Vorbereitung und Details für Ihren Umzug mit der Swiss Transporte GmbH',
                         'companyName' => $companyName,
                         'offerte' => $offerte,
-                        'umzugDate' => $umzugDate->format('d-m-Y'),
+                        'umzugDate' => $umzugDate->addDays(7)->format('d-m-Y'),
                         'umzugTime' => $mailParseTime
                     ];
     

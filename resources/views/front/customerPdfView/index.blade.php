@@ -2068,15 +2068,15 @@
     <script type="text/javascript">
         function googleTranslateElementInit() {
           new google.translate.TranslateElement({
-            pageLanguage: 'en',
+            pageLanguage: 'de',
             includedLanguages: 'de,en,fr,it',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
+            autoDisplay: true,
             gaTrack: true,
             gaId: 'YOUR_ANALYTICS_TRACKING_ID', // Replace 'YOUR_ANALYTICS_TRACKING_ID' with your Google Analytics Tracking ID (if using)
             multilanguagePage: true,
             isDropdown: true,
-            language: 'en',
+            language: 'de',
             controlFlag: true,
             controlFlagUI: {
               renderInline: false

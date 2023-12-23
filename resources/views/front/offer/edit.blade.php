@@ -209,7 +209,10 @@
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                        @include('../../offerMailHeader',['data2' => $data,'appType' => $data['appType']])
+                                        @if($customEmail) {{ $customEmail['content'] }} 
+                                            @else 
+                                                @include('../../offerMailHeader',['data2' => $data,'appType' => $data['appType']])  
+                                        @endif
                                     </textarea>
                                 </div>
                             </div>
