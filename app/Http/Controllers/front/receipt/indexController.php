@@ -564,10 +564,10 @@ class indexController extends Controller
             
             if($array['docTaken'] == 1)
             {
-                return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Taken</button>', $array['id'], $array['receiptType']);
+                return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Ja</button>', $array['id'], $array['receiptType']);
             }
             else {
-                return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Untaken</button>', $array['id'], $array['receiptType']);
+                return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Nein</button>', $array['id'], $array['receiptType']);
             }
            
            
