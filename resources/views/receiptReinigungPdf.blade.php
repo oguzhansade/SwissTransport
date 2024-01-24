@@ -142,7 +142,7 @@
                                 Aufwand:
                             </td>
                             <td colspan="2">
-                                @if ( $receipt['reinigungHours'] ) {{ $receipt['reinigungHours'] }} @else _____ @endif h â
+                                @if ( $receipt['reinigungHours'] ) {{ $receipt['reinigungHours'] }} @else _____ @endif h á
                                 @if ( $receipt['reinigungChf'] ) CHF {{ $receipt['reinigungChf'] }} @else CHF_______ @endif
                             </td>
                             <td>@if ( $receipt['reinigungPrice'] ) CHF {{ $receipt['reinigungPrice'] }} @else CHF_______ @endif</td>
@@ -191,7 +191,7 @@
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ></td>
                         <td colspan="2">
-                             7.7% MwSt <br><br>
+                             8.1% MwSt <br><br>
                         </td>
                         <td >
                             CHF_____<br><br>

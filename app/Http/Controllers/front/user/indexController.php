@@ -165,10 +165,17 @@ class indexController extends Controller
 
         ->addColumn('option',function($table) 
         {
-            return '
-            <a class="btn btn-sm  btn-edit" href="'.route('user.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+            
+            if($table->name == 'Developer')
+            {
+                return '<span class="dev-badge">Developer</span>';
+            }
+            else {
+                return '
+            <a class="btn btn-sm  btn-edit" href="'.route('user.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a>
             <a class="btn btn-sm  btn-danger"  href="'.route('user.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>
             ';
+            }
         })
         ->rawColumns(['option'])
         ->make(true);

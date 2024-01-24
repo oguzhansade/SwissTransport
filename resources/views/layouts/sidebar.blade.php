@@ -92,7 +92,7 @@
             </a>
             <ul class="list-unstyled sub-menu">
                 <li><a href="{{ route('statistics.offer') }}">Offerte Stats</a></li>
-                <li><a href="{{ route('statistics.receipt') }}">Receipt Stats</a></li>
+                <li><a href="{{ route('statistics.receipt') }}">Quittung Stats</a></li>
                 <li><a href="{{ route('statistics.termine') }}">Termine Stats</a></li>
             </ul>
         </li>

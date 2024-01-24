@@ -1,9 +1,18 @@
 @extends('layouts.app')
+@section('header')
+
+<style>
+    select[readonly]
+{
+    pointer-events: none;
+}
+</style>
+@endsection
 @section('content')
 @section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
     <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5"> Edit Umzug</h6>
+        <h6 class="page-title-heading mr-0 mr-r-5">Spesen Bearbeiten</h6>
     </div>
     <!-- /.page-title-left -->
     <div class="page-title-right d-none d-sm-inline-flex">
@@ -45,10 +54,6 @@
                 <div class="widget-body clearfix">
                     <form action="{{ route('expense.updateUmzug',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row p-3 mb-3">
-
-                            
-                        </div>
                         <div class="row p-3">
                             <div class="col-md-12">
                                 <div class="table-reponsive">
@@ -62,20 +67,30 @@
                                         </thead>
                                         <tbody>
                                             @if($data && $expense)
-
+                                            
+                                            
                                             {{-- Kaç Ürün Varsa O kadar Tekrarlanacak --}}
                                             @foreach ($expense as $a => $b)
-                                            <tr class="islem_field">
-                                                <td><select class="form-control expense"  name="islem[{{ $a }}][expense]">
-                                                <option class="form-control" value="0"> Bitte wählen </option>
-                                                @foreach ($expenseList as $key => $value)
-                                                    <option class="form-control" value="{{ $value }}" @if($b['expenseName'] == $value) selected @endif>{{ $value }}</option>  
-                                                @endforeach
-                                                </select></td>
-                                                <td><input type="text" class="form-control expenseValue" id="tutar" name="islem[{{ $a }}][expenseValue]" value="{{ $b['expenseValue'] }}"></td>
-                                                <td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>
-                                            </tr>
+                                                <tr class="islem_field" >
+                                                    <td><select class="form-control expense "  name="islem[{{ $a }}][expense]" @if($b['expenseName'] == 'Arbeiter') readonly @endif>
+                                                    <option class="form-control" value="0"> Bitte wählen </option>
+                                                    @foreach ($expenseList as $key => $value)
+                                                            <option class="form-control" value="{{ $value }}" @if($b['expenseName'] == $value) selected @endif >{{ $value }}</option>  
+                                                    @endforeach
+                                                    </select></td>
+                                                    <td><input type="text" class="form-control expenseValue" id="tutar" name="islem[{{ $a }}][expenseValue]" value="{{ $b['expenseValue'] }}" @if($b['expenseName'] == 'Arbeiter') readonly @endif></td>
+                                                    <td>
+                                                        @if($b['expenseName'] == 'Arbeiter')
+                                                        <a class="btn btn-edit" href="{{ route('task.edit',['id'=>$task['id']]) }}" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"><i class="feather feather-edit"></i></a>
+                                                        @else
+                                                        <button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button>
+                                                        @endif
+                                                        
+                                                    </td>
+                                                </tr>
                                             @endforeach
+
+                                            
                                             @endif
                                         </tbody>
                                     </table>
@@ -93,24 +108,17 @@
                         <div class="row p-3">
                             <div class="col-md-6">
                                 <label class="col-form-label" for="l0">Total</label>
-                                <input class="form-control ara_toplam" name="totalExpense" type="text" value="{{ $data['expensePrice'] }}">
+                                <input id="totalExpense" class="form-control ara_toplam" name="totalExpense" type="text" value="{{ $data['expensePrice'] }}">
                             </div>
                         </div>
 
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                    <button id="erstellenButton" class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
                                 </div>
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <a id="createTask" href="{{ route('expense.deleteUmzug',['id' => $data['id']]) }}"
-                                        class = "btn btn-rounded text-white"
-                                        style="background-color: #E6614F;"
-                                        onMouseOver="this.style.backgroundColor='#E1432E';"
-                                        onMouseOut="this.style.backgroundColor='#E6614F';"
-                                        target="_blank">
-                                        <strong>Löschen Sie alle Ausgaben</strong>
-                                     </a>
+                                    <button id="allesLoeschenButton" class="btn btn-danger btn-rounded" type="submit">Alles Löschen</button>
                                 </div>
                             </div>
                         </div>
@@ -126,9 +134,29 @@
 @endsection
 
 @section('footer')
-
 <script>
-    
+    $(document).ready(function() {
+        // Erstellen button click event
+        $('#erstellenButton').on('click', function() {
+            // Set the form action to the updateUmzug route
+            $('form').attr('action', '{{ route("expense.updateUmzug", ["id" => $data["id"]]) }}');
+        });
+
+        // Alles Löschen button click event
+        $('#allesLoeschenButton').on('click', function() {
+            // Set the form action to the deleteUmzug route
+            removeAll()
+            $('form').attr('action', '{{ route("expense.deleteUmzug", ["id" => $data["id"]]) }}');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        calc();
+        let totalExpense = $("#totalExpense").val();
+        console.log($("#arbeiterPrice").val())
+        
+    })
     var i = $(".islem_field").length || 0;
 
     console.log(i);
@@ -152,7 +180,9 @@
         '<td><select class="m-b-10 form-control expense" name="islem['+i+'][expense]" data-toggle="select2">'+
         '<option class="form-control" value="0"> Bitte Wahlen </option>';
         giderler.forEach(function(gider, index) {
-            newRow += '<option class="form-control" data-fiyat="" data-name="" value="' + gider + '">' + gider + '</option>';  
+            if (gider !== "Arbeiter") {
+                newRow += '<option class="form-control" data-fiyat="" data-name="" value="' + gider + '">' + gider + '</option>';
+            }
         });
         //value="' + defaultHour + '"
         newRow+='</select></td>'+
@@ -234,22 +264,34 @@
         $(this).closest(".islem_field").remove();
         calc();
     })
+    function removeAll()
+    {
+        let expenseNameToRemove = "Arbeiter";
 
-    $("body").on("click","#removeAllButton", function () {
         $("[id=tutar]").each(function () {
-            $(this).closest(".islem_field").remove();
+            let expenseName = $(this).closest('.islem_field').find('.expense').find(":selected").val();
+
+            if (expenseName !== expenseNameToRemove) {
+                $(this).closest(".islem_field").remove();
+            }
         });
-        
+
         calc();
-    })
+    }
+    $("body").on("click", "#removeAllButton", function () {
+        removeAll()
+    });
 
     
 
     function calc() {
         var ara_toplam = 0;
+        var arbeiterValue = 0;
         $("[id=tutar]").each(function () {
            ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());          
         });
+        arbeiterValue = parseFloat($("#arbeiterPrice").val());
+        // ara_toplam += arbeiterValue;
         $(".ara_toplam").val(ara_toplam.toFixed(2));
     }
 </script>

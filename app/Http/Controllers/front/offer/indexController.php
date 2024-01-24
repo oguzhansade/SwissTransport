@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Offers;
 use App\Models\OfferteNotes;
 use App\Models\OfferVerify;
 use App\Models\ReceiptReinigung;
@@ -35,6 +34,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 
 class indexController extends Controller
@@ -189,26 +190,75 @@ class indexController extends Controller
 
     public function sendSms(Request $request)
     {
+            // $customerId = $request->route('id');
+            // $customer = Customer::where('id',$customerId)->first();
+            
+            // $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+            // $client = new \Vonage\Client($basic);
 
-        $this->middleware('throttle:1,1');
+            // $number = $request->mobile;
+            // $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
+            // $content ='Ihr Angebot wurde erstellt From Swiss';
+            // $staticContent2 = ' '.Company::InfoCompany('name');
+           
+            // if($request->isCustomSMS)
+            // {
+            //     $content = $request->customSMS;
+            //     $response = $client->sms()->send(
+            //         new \Vonage\SMS\Message\SMS('905449757797', 'Swiss Transporte GmbH', 'Test')
+            //     );
+            // }
+            // else{
+            //     $response = $client->sms()->send(
+            //         new \Vonage\SMS\Message\SMS('905449757797', BRAND_NAME, 'A text message sent using the swiss SMS API')
+            //     );
+            // }
 
-        $customerId = $request->route('id');
-        $customer = Customer::where('id', $customerId)->first();
+        
+        // $apiKey = "07fc1e6c";
+        // $apiSecret = "J4i0Q5bZDupy1zIa";
+        // $toNumber = '905449757797'; // TO_NUMBER yerine gerçek bir numara ekleyin
+        // $brandName = 'B8PR6LX'; // BRAND_NAME yerine gerçek bir marka adı ekleyin
+
+        // // Vonage API'ye istek yapmak için Laravel HTTP Client'ı kullanalım
+        // $response = Http::post('https://rest.nexmo.com/sms/json', [
+        //     'api_key' => $apiKey,
+        //     'api_secret' => $apiSecret,
+        //     'to' => $toNumber,
+        //     'from' => $brandName,
+        //     'text' => 'A text message sent using the Nexmo SMS API qqq',
+        // ]);
+
+        // // Vonage'dan gelen yanıtı kontrol edelim
+        // $message = json_decode($response->body())->messages[0];
+
+        // if ($message->status == 0) {
+        //     Log::info("The message was sent successfully");
+        //     echo "The message was sent successfully\n";
+        // } else {
+        //     Log::error("The message failed with status: " . $message->status);
+        //     echo "The message failed with status: " . $message->status . "\n";
+        // }
+
+        // $customerId = $request->route('id');
+        // $customer = Customer::where('id', $customerId)->first();
 
         $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
         $client = new \Vonage\Client($basic);
 
-        $number = $request->mobile;
-        $staticContent = 'Herr' . ' ' . $customer['name'] . ' ' . $customer['surname'] . ',' . ' ';
-        $content = 'Ihr Angebot wurde erstellt From Swiss';
-        $staticContent2 = ' ' . Company::InfoCompany('name');
-
-       
         $response = $client->sms()->send(
-            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+            new \Vonage\SMS\Message\SMS("41763995002", "SwissGmbH", 'A text message sent using the Nexmo SMS API ')
         );
         
-        return response()->json(['success' => true]);
+        $message = $response->current();
+        
+        if ($message->getStatus() == 0) {
+            echo "The message was sent successfully\n";
+        } else {
+            echo "The message failed with status: " . $message->getStatus() . "\n";
+        }
+
+       
     }
 
     public function store(Request $request)
@@ -711,32 +761,32 @@ class indexController extends Controller
         ]);
 
         // SMS
-            if ($request->isSMS) {
-                function sms(Request $request)
-                {
-                    $customerId = $request->route('id');
-                    $customer = Customer::where('id', $customerId)->first();
+            // if ($request->isSMS) {
+            //     function sms(Request $request)
+            //     {
+            //         $customerId = $request->route('id');
+            //         $customer = Customer::where('id', $customerId)->first();
 
-                    $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
-                    $client = new \Vonage\Client($basic);
+            //         $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
+            //         $client = new \Vonage\Client($basic);
 
-                    $number = $request->mobile;
-                    $staticContent = 'Herr' . ' ' . $customer['name'] . ' ' . $customer['surname'] . ',' . ' ';
-                    $content = 'Ihr Angebot wurde erstellt From Swiss';
-                    $staticContent2 = ' ' . Company::InfoCompany('name');
+            //         $number = $request->mobile;
+            //         $staticContent = 'Herr' . ' ' . $customer['name'] . ' ' . $customer['surname'] . ',' . ' ';
+            //         $content = 'Ihr Angebot wurde erstellt From Swiss';
+            //         $staticContent2 = ' ' . Company::InfoCompany('name');
 
-                    if ($request->isCustomSMS) {
-                        $content = $request->customSMS;
-                        $response = $client->sms()->send(
-                            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
-                        );
-                    } else {
-                        $response = $client->sms()->send(
-                            new \Vonage\SMS\Message\SMS('905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
-                        );
-                    }
-                }
-            }
+            //         if ($request->isCustomSMS) {
+            //             $content = $request->customSMS;
+            //             $response = $client->sms()->send(
+            //                 new \Vonage\SMS\Message\SMS('+905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+            //             );
+            //         } else {
+            //             $response = $client->sms()->send(
+            //                 new \Vonage\SMS\Message\SMS('+905449757797', 'BRAND_NAME', $staticContent . $content . $staticContent2)
+            //             );
+            //         }
+            //     }
+            // }
         // SMS
 
         $sub = 'Ihr Angebot';

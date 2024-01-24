@@ -91,6 +91,135 @@
             display: block;
         }
     </style>
+
+    <style>
+        /* DataTables
+                ========================*/
+        .dataTables_wrapper label {
+            font-weight: normal;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            padding: 0.35714em 0.71429em;
+            border: 0.0625rem solid #eee;
+            border-radius: 0.125rem;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: #03a9f3!important;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            margin: 1.07143em auto;
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            padding: 0.21429em 0.5em;
+        }
+
+        .dataTables_wrapper table.dataTable {
+            border: 0.0625rem solid #eee;
+            margin-top: 1.42857em;
+        }
+
+        .dataTables_wrapper table.dataTable thead th {
+            border-color: #eef1f2;
+        }
+
+        .dataTables_wrapper table.dataTable th,
+        .dataTables_wrapper table.dataTable td {
+            padding: 1.07143em 1.42857em;
+        }
+
+        .dataTables_wrapper table.dataTable tfoot th {
+            border-top: 0.0625rem solid #eee;
+        }
+
+        .dataTables_wrapper table.dataTable thead th {
+            border-top: 0;
+        }
+
+        .dataTables_wrapper table.dataTable thead .sorting,
+        .dataTables_wrapper table.dataTable thead .sorting_asc,
+        .dataTables_wrapper table.dataTable thead .sorting_desc {
+            background: none;
+            position: relative;
+        }
+
+        .dataTables_wrapper table.dataTable thead .sorting:before,
+        .dataTables_wrapper table.dataTable thead .sorting_asc:before,
+        .dataTables_wrapper table.dataTable thead .sorting_desc:before {
+            position: absolute;
+            top: 50%;
+            right: 0.71429em;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            font-family: "Material Icons";
+            -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+            font-size: 1.28571em;
+        }
+
+        .dataTables_wrapper table.dataTable thead .sorting_asc::before {
+            content: 'expand_less';
+        }
+
+        .dataTables_wrapper table.dataTable thead .sorting_desc::before {
+            content: 'expand_more';
+        }
+
+        .dataTables_wrapper table.dataTable thead .sorting::before {
+            content: 'sort';
+            opacity: 0.1;
+        }
+
+        .dataTables_wrapper .dataTables_info {
+            margin-top: 1.42857em;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 2.14286em;
+            padding: 0;
+            border: 0.0625rem solid #eee;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            border: 0;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: none;
+            border: 0;
+            color: #999 !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #337AB6;
+            border: 0;
+            border-radius: 0;
+            color: #fff !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background: #286090;
+            border: 0;
+            color: #fff !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.next,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+            border: 0;
+        }
+    </style>
 @endsection
 @section('content')
     @if (session('status'))
@@ -529,6 +658,7 @@
         <!-- /.tab-content -->
 
         {{-- <a href="{{ route('customer.reminderTest') }}">ReminderTest</a> --}}
+        <a href="{{ route('offer.sendSms') }}">SMSTESTER</a>
     </div>
 @endsection
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\ReceiptReinigung;
 use App\Models\ReceiptUmzug;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class indexController extends Controller
@@ -15,6 +16,7 @@ class indexController extends Controller
         $receipt = ReceiptUmzug::where('id',$id)->first();
         $expenses = Expense::where('quittungId',$id)->count();
         $expense = Expense::where('quittungId',$id)->get();
+        $task = Task::where('receiptUmzugId',$receipt['id'])->first();
         $expenseArray =  [
             'Möbellift Miete',
             'Lieferwagen Miete',
@@ -27,9 +29,9 @@ class indexController extends Controller
             'Other'
         ];
         if($expenses > 0){
-            return view('front.expense.editUmzug',['data'=>$receipt,'expense' => $expense,'expenseList' => $expenseArray]);
+            return view('front.expense.editUmzug',['data'=>$receipt,'expense' => $expense,'expenseList' => $expenseArray,'task'=> $task]);
         }
-        return view('front.expense.editUmzug',['data'=>$receipt,'expense' => $expense]);
+        return view('front.expense.editUmzug',['data'=>$receipt,'expense' => $expense,'task' => $task]);
     }
 
     public function editReinigung($id)
@@ -103,38 +105,37 @@ class indexController extends Controller
     public function updateUmzug(Request $request)
     {
         $id = request()->route('id');
-        $receipt = ReceiptUmzug::where('id',$id)->first();
+        $receipt = ReceiptUmzug::where('id', $id)->first();
         $all = $request->except('_token');
 
         $exType = 'Umzug';
-        if($receipt && $all['islem'])
-        {
-            
+        if ($receipt && $all['islem']) {
+
             $islem = $all['islem'];
             unset($all['islem']);
-            if(count($islem) !=0) {
-                Expense::where('quittungId','=',$id)->where('exType','=', 'Umzug')->where('offerId', '=', $receipt['offerId'])->delete();
-                foreach($islem as $k => $v)
-                {
-                    $quittungId =  $id;
-                    
+
+            if (count($islem) != 0) {
+                Expense::where('quittungId', '=', $id)->where('exType', '=', 'Umzug')->delete();
+
+                foreach ($islem as $k => $v) {
+                    $quittungId = $id; // Her iterasyonda $quittungId değerini yeniden ata
+
                     $expense = [
-                        'quittungId' => $quittungId,
-                        'offerId' => $receipt['offerId'],
-                        'exType' => 'Umzug',
-                        'expenseName' => $v['expense'],
-                        'expenseValue' => $v['expenseValue'],
+                        'quittungId'    => $quittungId,
+                        'offerId'       => $receipt['offerId'],
+                        'exType'        => 'Umzug',
+                        'expenseName'   => $v['expense'],
+                        'expenseValue'  => $v['expenseValue'],
                     ];
-                    
+
                     $update = Expense::create($expense);
-                    
                 }
             }
-                
+
             $receiptUpdate = [
                 'expensePrice' => $request->totalExpense
             ];
-            $receiptUpdater = ReceiptUmzug::where('id',$id)->update($receiptUpdate);
+            $receiptUpdater = ReceiptUmzug::where('id', $id)->update($receiptUpdate);
         }
         
         if($receiptUpdater)
@@ -204,7 +205,15 @@ class indexController extends Controller
     {
         $id = request()->route('id');
         $receipt = ReceiptUmzug::where('id',$id)->first();
-        $delete = Expense::where('quittungId','=',$id)->where('exType','=','Umzug')->delete();
+
+        
+
+        $delete = Expense::where('quittungId','=',$id)
+        ->where('exType','=','Umzug')
+        ->where('expenseName', '!=', 'Arbeiter')
+        ->delete();
+        
+        
         $receiptUpdate = [
             'expensePrice' => $request->totalExpense
         ];

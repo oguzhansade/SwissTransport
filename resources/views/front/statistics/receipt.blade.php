@@ -111,7 +111,7 @@
                                 <div class="p-3 text-white bg-primary shadow-custom">
                                     <table style="font-size:0.85rem">
                                         <tr>
-                                            <td><span>Toplam Ciro</span></td>
+                                            <td><span>Umsatz</span></td>
                                             <td>: <span id="filteredTotal"></span></td>
                                         </tr>
                                     </table>
@@ -120,7 +120,7 @@
                         
                             <div class="col-md-2">
                                 <div class="p-3 text-white bg-primary shadow-custom">
-                                    <h6 class="m-0" style="border-bottom: 1px solid white;">Giderler</h6>
+                                    <h6 class="m-0" style="border-bottom: 1px solid white;">Ausgaben</h6>
                                     <table class="mt-2" style="font-size:0.85rem">
                                         <tr>
                                             <td><span>Möbellift Miete</span></td>
@@ -169,7 +169,7 @@
                                 <div class="p-3 text-white bg-primary shadow-custom">
                                     <table style="font-size:0.85rem">
                                         <tr>
-                                            <td><span>Kar</span></td>
+                                            <td><span>Gewinn</span></td>
                                             <td>: <span id="profit"></span></td>
                                         </tr>
                                     </table>
@@ -194,12 +194,12 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <b class="text-dark">Doc Taken</b><br>
+                                            <b class="text-dark">Quittung Erhalten</b><br>
                                             <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="docTakenFilter[]" value="Taken" >
-                                            <label class="form-check-label mr-1" for="checkbox1">TAKEN</label>
+                                            <label class="form-check-label mr-1" for="checkbox1">JA</label>
                                             
                                             / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="docTakenFilter[]" value="Untaken" >
-                                            <label class="form-check-label mr-1" for="checkbox2">UNTAKEN</label>
+                                            <label class="form-check-label mr-1" for="checkbox2">NEIN</label>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -212,13 +212,14 @@
                                 <tr class="text-dark">
                                     <th>Quittungsnr</th>
                                     <th>Offerte</th>
-                                    <th>Kunde</th>
+                                    <th>Vorname</th>
+                                    <th>Nachname</th>
                                     <th>Auftragstermin</th>
                                     @if (in_array(Auth::user()->permName, ['superAdmin'])) 
-                                        <th>Ciro</th>
-                                        <th>Giderler</th>
-                                        <th>Kar</th>
-                                        <th>docTaken</th>
+                                        <th>Umsatz</th>
+                                        <th>Ausgaben</th>
+                                        <th>Gewinn</th>
+                                        <th>Quittung Erhalten</th>
                                     @endif
                                     <th>Option</th>
                                 </tr>
@@ -281,6 +282,7 @@ function updateCheckedValues() {
             { data: 'makbuzNo', name: 'makbuzNo' },
             { data: 'offerId', name: 'offerId' },
             { data: 'customer', name: 'customer' },
+            { data: 'customerSurname', name: 'customerSurname' },
             { data: 'created_at',name: 'created_at' },
             { data: 'option',name: 'detail',orderable: false,searchable: false,exportable: false },
 

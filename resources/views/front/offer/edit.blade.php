@@ -125,7 +125,7 @@
                             <div class="form-group row d-none">
                                 <div class="col-md-5">
                                     <label for="" class="col-form-label">Esimated Income</label><br>
-                                    <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #286090">
+                                    <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #286090" readonly>
                                 </div>                            
                             </div>
                             

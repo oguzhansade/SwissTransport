@@ -110,7 +110,7 @@
                     <tr valign="top" style="width:100%;">
                         <td >Aufwand:</td>
                         <td colspan="2" >
-                            @if ( $receipt['umzugHour'] ) {{ $receipt['umzugHour'] }} @else _____ @endif h â 
+                            @if ( $receipt['umzugHour'] ) {{ $receipt['umzugHour'] }} @else _____ @endif h á 
                             @if ( $receipt['umzugChf'] ) CHF {{ $receipt['umzugChf'] }} @else CHF_______ @endif <br><br>
                             Spesen <br><br>
                             Anfahrt / Rückfahrt <br><br>
@@ -128,7 +128,7 @@
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td >Entsorgung:</td>
                         <td colspan="2">
-                            @if ( $receipt['entsorgungVolume'] ) {{ $receipt['entsorgungVolume'] }} @else _____ @endif m3 â 
+                            @if ( $receipt['entsorgungVolume'] ) {{ $receipt['entsorgungVolume'] }} @else _____ @endif m3 á 
                             @if ( $receipt['entsorgungChf'] ) CHF {{ $receipt['entsorgungChf'] }} @else CHF_______ @endif <br><br>
                             Aufwand an der Entsorgungsstelle<br><br>
                         </td>
@@ -206,7 +206,7 @@
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ></td>
                         <td colspan="2">
-                             7.7% MwSt <br><br>
+                             8.1% MwSt <br><br>
                         </td>
                         <td >
                             CHF_____<br><br>

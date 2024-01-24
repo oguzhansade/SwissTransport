@@ -74,7 +74,7 @@
 
             <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
             <input class="form-control" class="date"  name="umzugroadChf"  type="number" 
-                @if($umzug) 
+                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'arrivalReturn')) 
                         value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'arrivalReturn') }}"
                         @else value="0"
                 @endif
@@ -699,7 +699,7 @@
             {
                 $('input[name=umzugCost]').val('')
             }
-           
+            
             console.log(umzugCostLeft)
             
         })  

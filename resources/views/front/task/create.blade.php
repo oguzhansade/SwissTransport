@@ -57,10 +57,10 @@
                         <div class="row p-3 mb-3">
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Quittung(Standart)</label>
-                                <select id="receiptUmzug" name="receiptUmzugId" class="m-b-10 form-control" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
+                                <select id="receiptUmzug" name="receiptUmzugId" class="m-b-10 form-control quittungId" data-placeholder="Bitte Wahlen" data-toggle="select2" required>
                                     <option class="form-control" value="">Bitte Wahlen</option>
                                     @foreach (\App\Models\ReceiptUmzug::all() as $k => $v)
-                                        <option class="form-control" data-receiptUmzugId="{{ $v['id'] }}" data-umzugHour="{{ $v['umzugHour'] }}" value="{{ $v['id'] }}">{{ $v['id'] }}</option>
+                                        <option class="form-control" data-receiptUmzugId="{{ $v['id'] }}" data-umzugHour="{{ $v['umzugHour'] }}" data-quittungDate="{{ $v['orderDate'] }}" data-quittungTime="{{ $v['orderTime'] }}" value="{{ $v['id'] }}">{{ $v['id'] }}</option>
                                     @endforeach
                                 </select>   
                                 <small id="defaultHour" class="text-primary">Standardstunde: 0</small>
@@ -68,12 +68,12 @@
 
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Aufgaben Am</label>
-                                <input class="form-control" class="date"  name="taskDate"  type="date" required> 
+                                <input id="taskDate" class="form-control" class="date"  name="taskDate"  type="date" required> 
                             </div>
 
                             <div class="col-md-4">
                                 <label class=" col-form-label" for="l0">Aufgaben Stunde</label>
-                                <input class="form-control" class="time"  name="taskTime"  type="time" required> 
+                                <input id="taskTime" class="form-control" class="time"  name="taskTime"  type="time" required> 
                             </div>
                         </div>
                         <div class="row p-3">
@@ -132,6 +132,8 @@
 @endsection
 
 @section('footer')
+
+
 <script>
     
     var say= 0;
@@ -149,7 +151,17 @@
 
     $("#receiptUmzug").on("change", function() {
         defaultHour = $(this).find("option:selected").attr("data-umzugHour");
-        defaultHour = parseInt(defaultHour)
+        defaultHour = parseInt(defaultHour);
+
+        // Seçilen öğenin data-quittungDate özelliğini al
+        var selectedQuittungDate = $(this).find("option:selected").attr("data-quittungDate");
+        $("#taskDate").val(selectedQuittungDate);
+
+        // Seçilen öğenin data-quittungTime özelliğini al
+        var selectedQuittungTime = $(this).find("option:selected").attr("data-quittungTime");
+        $("#taskTime").val(selectedQuittungTime);
+
+        
         if(!isNaN(defaultHour))
         {
             $("#defaultHour").text('Standardstunde: '+defaultHour);
@@ -158,6 +170,10 @@
             defaultHour = 0;
             $("#defaultHour").text('Standardstunde: 0');
         }
+
+        
+
+        
     })
 
     $("#addRowBtn").click(function () {
@@ -196,15 +212,15 @@
     });
 
     $("body").on("change", ".prePaidBox", function() {
-    console.log('CHECKKKKK');
-    var closestTotal = $(this).closest(".prePaidBox").find(".customToplam");
-        var ct = $(this).closest(".prePaidBox").find(".customToplam");
-    if ($(this).is(":checked")) {
-        ct.css("background-color", "green");
-    } else {
-        ct.css("background-color", "red");
-    }
-});
+        console.log('CHECKKKKK');
+        var closestTotal = $(this).closest(".prePaidBox").find(".customToplam");
+            var ct = $(this).closest(".prePaidBox").find(".customToplam");
+        if ($(this).is(":checked")) {
+            ct.css("background-color", "green");
+        } else {
+            ct.css("background-color", "red");
+        }
+    });
 
     $("body").on("change",".isci",function () {
         var fiyat = $(this).find(":selected").data("fiyat");

@@ -18,7 +18,7 @@
     }
 
     .dataTables_wrapper .dataTables_filter input:focus {
-        border-color: #03a9f3;
+        border-color: #03a9f3!important;
     }
 
     .dataTables_wrapper .dataTables_length {

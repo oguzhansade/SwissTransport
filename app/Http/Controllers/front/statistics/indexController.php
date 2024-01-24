@@ -554,9 +554,6 @@ class indexController extends Controller
         }
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
-       
-        
-        
         
         $MobeTotal = 0;
         $LiefTotal = 0;
@@ -573,8 +570,6 @@ class indexController extends Controller
             'Reinigung' => $table2Data,
         ];
         
-        
-
         foreach ($expenseTypes as $exType => $data) {
             foreach ($data as $record) {
                 $expenses = DB::table('expenses')
@@ -616,6 +611,7 @@ class indexController extends Controller
                 $array[$i]["receiptType"] = 'Umzug';
                 $array[$i]["offerId"] = $v->offerId;
                 $array[$i]["customer"] = Customer::where('id',$v->customerId)->value('name');
+                $array[$i]["customerSurname"] = Customer::where('id',$v->customerId)->value('surname');
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
                 $array[$i]["tutar"] = $v->totalPrice;
@@ -636,6 +632,7 @@ class indexController extends Controller
                 $array[$i]["receiptType"] = 'Reinigung';
                 $array[$i]["offerId"] = $v->offerId;
                 $array[$i]["customer"] = Customer::where('id',$v->customerId)->value('name');
+                $array[$i]["customerSurname"] = Customer::where('id',$v->customerId)->value('surname');
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["expensePrice"] = $v->expensePrice ? $v->expensePrice : 0;
                 $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
@@ -672,10 +669,10 @@ class indexController extends Controller
             
                 if($array['docTaken'] == 1)
                 {
-                    return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Taken</button>', $array['id'], $array['receiptType']);
+                    return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Ja</button>', $array['id'], $array['receiptType']);
                 }
                 else {
-                    return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Untaken</button>', $array['id'], $array['receiptType']);
+                    return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Nein</button>', $array['id'], $array['receiptType']);
                 }
                
                

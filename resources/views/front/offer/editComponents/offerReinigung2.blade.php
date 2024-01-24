@@ -101,11 +101,11 @@
                     <div class="radiobox">                                                
                         <label class="text-dark">
                             <input type="radio" class="extraReinigungService12"  name="extraReinigungService12" value="1" 
-                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService1') == 1) checked @endif> <span class="label-text">Ja</span>
+                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService1') == "1") checked @endif> <span class="label-text">Ja</span>
                         </label>
                         <label class="text-dark ml-1">
                             <input type="radio"  class="extraReinigungService12"  name="extraReinigungService12" value="0"
-                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService1') == 0) checked @endif> <span class="label-text">Nein</span>
+                            @if($reinigung2 && \App\Models\OfferteReinigung::InfoReinigung($reinigung2,'extraService1') == "0") checked @endif> <span class="label-text">Nein</span>
                         </label>
                     </div>                                        
                 </div>                            

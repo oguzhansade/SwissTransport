@@ -28,6 +28,7 @@
     <script data-pace-options='{ "ajax": false, "selectors": [ "img" ]}' src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
     <style>
         .btn-edit {
             background-color: #007BFF;
@@ -39,16 +40,30 @@
             color:white;
             border-color:#0464cc;
         }
+        .dev-badge{
+            display: inline-block;
+        padding: 0.4em 0.4em;
+        font-size: 90%;
+        font-weight: 400;
+        line-height: 1;
+        color:white;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        background-color:#007BFF;
+        cursor: pointer;
+        }
     </style>
     <style>
-          .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.5); /* Opaklık değerini buradan ayarlayabilirsiniz */
-    }
+        .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Opaklık değerini buradan ayarlayabilirsiniz */
+        }
         #loading-body{
             display: none;
             flex-direction: column;
@@ -100,6 +115,8 @@
             animation: pulse 1.5s infinite;
         }
    </style>
+
+    
     @yield('header')
 </head>
 
@@ -253,6 +270,8 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
     <script>
         function formLoading() {
             
@@ -274,6 +293,7 @@
                 if (toastrType === 'error') {
                 console.log('tost hatalı');
                 $('#loading-body').hide();
+                $('form :input').prop('readonly', false);
                 } else if (toastrType === 'success') {
                 console.log('tost başarılı');
                 }

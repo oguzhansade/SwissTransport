@@ -4,7 +4,6 @@ namespace App\Http\Controllers\front\task;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
-use App\Models\offerte;
 use App\Models\ReceiptUmzug;
 use App\Models\Task;
 use App\Models\Worker;
@@ -13,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class indexController extends Controller
 {
@@ -56,12 +56,18 @@ class indexController extends Controller
             <a class="btn btn-sm  btn-edit" href="'.route('task.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary"></span>
             <a class="btn btn-sm  btn-danger"  href="'.route('task.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
         })
+        ->addColumn('expense',function($table){
+           
+            $expenseId = $table->receiptUmzugId;
+            return '<a class="btn btn-sm  btn-warning" href="'.route('expense.editUmzug',['id'=>$expenseId]).'" style="margin-right:4px;"><i class="feather feather-info"></i></a>';
+           
+        })
         ->addColumn('selector',function($table) 
         {
             return '<input id="deleteInput" class="form-control deleteInput text-center" onchange="onCheckBoxChange(this)" type="checkbox" value="'.$table->id.'">';
         })
            
-        ->rawColumns(['option','delete','detail','selector'])
+        ->rawColumns(['option','delete','detail','selector','expense'])
         ->make(true);
 
         return $data;
@@ -192,11 +198,11 @@ class indexController extends Controller
             'expenseName' => 'Arbeiter',
             'expenseValue' => $request->taskTotalPrice,
         ];
-        $findExpense = Expense::where('id',$request->receiptUmzugId)->count();
+        $findExpense = Expense::where('quittungId',$request->receiptUmzugId)->where('expenseName','Arbeiter')->count();
         if($findExpense != 0)
         {
-            $expenseData = Expense::where('id',$request->receiptUmzugId)->first();
-            $expenseUpdate = Expense::where('id',$expenseData['id'])->update($expense);
+            $expenseData = Expense::where('quittungId',$request->receiptUmzugId)->where('expenseName','Arbeiter')->delete();
+            $expenseCreate = Expense::create($expense);
         }
         else {
             $expenseCreate = Expense::create($expense);
@@ -251,9 +257,10 @@ class indexController extends Controller
         $c = Task::where('id',$id)->count();
         if($c !=0)
         {
-            $data = Task::where('id',$id)->get();
+            $data = Task::where('id',$id)->first();
             Task::where('id',$id)->delete();
             WorkerBasket::where('taskId','=',$id)->delete();
+            Expense::where('quittungId',$data['receiptUmzugId'])->where('expenseName','Arbeiter')->where('expenseValue',$data['taskTotalPrice'])->delete();
             return redirect()->back()->with('status','Görev Silindi');
         }
         else {

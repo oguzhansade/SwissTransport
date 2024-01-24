@@ -670,7 +670,7 @@
                 @if ($offer['kostenExkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -678,7 +678,7 @@
                 @if ($offer['kostenInkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -686,7 +686,7 @@
                 @if ($offer['kostenFrei'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -845,7 +845,7 @@
                 @if ($offer['kostenExkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -853,7 +853,7 @@
                 @if ($offer['kostenInkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -861,7 +861,7 @@
                 @if ($offer['kostenFrei'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -1004,7 +1004,7 @@
                 @if ($offer['kostenExkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -1012,7 +1012,7 @@
                 @if ($offer['kostenInkl'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -1020,7 +1020,7 @@
                 @if ($offer['kostenFrei'])
                     <tr>
                         <td colspan="2">
-                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                            <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                         </td>
                     </tr>
                 @endif
@@ -1203,7 +1203,7 @@
             @if ($offer['kostenExkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1211,7 +1211,7 @@
             @if ($offer['kostenInkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1219,7 +1219,7 @@
             @if ($offer['kostenFrei'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1398,7 +1398,7 @@
             @if ($offer['kostenExkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1406,7 +1406,7 @@
             @if ($offer['kostenInkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1414,7 +1414,7 @@
             @if ($offer['kostenFrei'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1573,7 +1573,7 @@
             @if ($offer['kostenExkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1581,7 +1581,7 @@
             @if ($offer['kostenInkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1589,7 +1589,7 @@
             @if ($offer['kostenFrei'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1783,7 +1783,7 @@
             @if ($offer['kostenExkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1791,7 +1791,7 @@
             @if ($offer['kostenInkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1799,7 +1799,7 @@
             @if ($offer['kostenFrei'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1896,7 +1896,7 @@
             @if ($offer['kostenExkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1904,7 +1904,7 @@
             @if ($offer['kostenInkl'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -1912,7 +1912,7 @@
             @if ($offer['kostenFrei'])
                 <tr>
                     <td colspan="2">
-                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                        <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                     </td>
                 </tr>
             @endif
@@ -2002,7 +2002,7 @@
                     @if ($offer['kostenExkl'])
                         <tr>
                             <td colspan="2">
-                                <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 7.7%MwSt.</span>
+                                <span style="font-size:8px;">Unsere Preise verstehen sich exkl. 8.1%MwSt.</span>
                             </td>
                         </tr>
                     @endif
@@ -2010,7 +2010,7 @@
                     @if ($offer['kostenInkl'])
                         <tr>
                             <td colspan="2">
-                                <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 7.7%MwSt.</span>
+                                <span style="font-size:8px;">Unsere Preise verstehen sich inkl. 8.1%MwSt.</span>
                             </td>
                         </tr>
                     @endif
@@ -2018,7 +2018,7 @@
                     @if ($offer['kostenFrei'])
                         <tr>
                             <td colspan="2">
-                                <span style="font-size:8px;">Unsere Preise verstehen sich frei. 7.7%MwSt.</span>
+                                <span style="font-size:8px;">Unsere Preise verstehen sich frei. 8.1%MwSt.</span>
                             </td>
                         </tr>
                     @endif

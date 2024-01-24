@@ -43,7 +43,11 @@
                                 <th>Aufgaben Am</th>
                                 <th>Erstellt Am</th>
                                 <th>Totalt</th>
+                                @if (Auth::user()->permName == 'superAdmin' || Auth::user()->permName == 'chef') 
+                                    <th>Quittung Spesens</th>
+                                @endif
                                 <th>Option</th>
+                                
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -133,6 +137,20 @@ selectAllCheckbox.addEventListener('change', function() {
 
 <script>
     $(document).ready(function() {
+        const userPerm = "{{ Auth::user()->permName }}";
+        console.log(userPerm);
+        let columns = [
+            { data: 'selector', name: 'selector' , orderable:false, searchable:false},
+            { data: 'receiptUmzugId', name: 'receiptUmzugId' },
+            { data: 'taskDate', name: 'taskDate' },
+            { data: 'created_at', name:'created_at' },
+            { data: 'taskTotalPrice', name: 'taskTotalPrice' },
+            { data: 'option', name: 'option', orderable: false, searchable: false },
+        ]
+
+        if (userPerm.includes('superAdmin') || userPerm.includes('chef')) {
+            columns.splice(-1, 0, { data: 'expense', name: 'expense', searchable: false, width: '10%' });
+        }
         let table =  $('#admintask').DataTable( {
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',                                 
@@ -158,15 +176,8 @@ selectAllCheckbox.addEventListener('change', function() {
                     d.endDate = $('#datepicker_to').val();
                 }
             },
-            columns: [
-                { data: 'selector', name: 'selector' , orderable:false, searchable:false},
-                { data: 'receiptUmzugId', name: 'receiptUmzugId' },
-                { data: 'taskDate', name: 'taskDate' },
-                { data: 'created_at', name:'created_at' },
-                { data: 'taskTotalPrice', name: 'taskTotalPrice' },
-                { data: 'option', name: 'option', orderable: false, searchable: false },
+            columns: columns,
 
-            ],
             "language": {
                 "paginate": {
                     "previous": "Vorherige",

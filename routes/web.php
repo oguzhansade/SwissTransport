@@ -224,6 +224,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/manuelReject/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelReject'])->name('manuelReject');
         Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
         Route::get('/dateTester', [App\Http\Controllers\front\offer\indexController::class, 'dateTester'])->name('dateTester');
+        Route::get('/sendSms', [App\Http\Controllers\front\offer\indexController::class, 'sendSms'])->name('sendSms');
         
     });
 
@@ -296,7 +297,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/editReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'editReinigung'])->name('editReinigung');
         Route::post('/editReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'updateReinigung'])->name('updateReinigung');
         Route::post('/create', [App\Http\Controllers\front\expense\indexController::class, 'store'])->name('store');
-        Route::get('/deleteUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'deleteUmzug'])->name('deleteUmzug');
+        Route::post('/deleteUmzug/{id}', [App\Http\Controllers\front\expense\indexController::class, 'deleteUmzug'])->name('deleteUmzug');
         Route::get('/deleteReinigung/{id}', [App\Http\Controllers\front\expense\indexController::class, 'deleteReinigung'])->name('deleteReinigung');
         Route::post('/data', [App\Http\Controllers\front\expense\indexController::class, 'data'])->name('data');
     });

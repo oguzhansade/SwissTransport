@@ -53,6 +53,11 @@ class Handler extends ExceptionHandler
 
     public function report(Throwable $exception)
     {
+        // Belirli bir hata türünü atlamak için kontrol ekleyin
+        if ($exception instanceof \Symfony\Component\Console\Exception\RuntimeException) {
+            return;
+        }
+
         // Hata kaydını e-posta ile göndermek istediğiniz koşulu burada kontrol edebilirsiniz.
         if ($this->shouldReport($exception)) {
             $this->sendErrorEmail($exception);

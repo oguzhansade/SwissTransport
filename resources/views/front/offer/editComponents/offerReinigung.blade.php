@@ -98,15 +98,15 @@
             
             <div class=" row">
                 <div class="col-md-12">
-                    <label for="" class="col-form-label">Dübellöcher zuspachteln</label>  
+                    <label for="" class="col-form-label">Dübellöcher zuspachteln </label>  
                     <div class="radiobox">                                                
                         <label class="text-dark">
                             <input type="radio" class="extraReinigungService1"  name="extraReinigungService1" value="1" 
-                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService1') == 1) checked @endif> <span class="label-text">Ja</span>
+                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService1') == "1") checked @endif> <span class="label-text">Ja</span>
                         </label>
                         <label class="text-dark ml-1">
                             <input type="radio"  class="extraReinigungService1"  name="extraReinigungService1" value="0"
-                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService2') == 0) checked @endif> <span class="label-text">Nein</span>
+                            @if($reinigung && \App\Models\OfferteReinigung::InfoReinigung($reinigung,'extraService2') == "0") checked @endif> <span class="label-text">Nein</span>
                         </label>
                     </div>                                        
                 </div>                            
