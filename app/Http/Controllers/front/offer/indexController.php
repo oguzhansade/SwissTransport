@@ -893,7 +893,10 @@ class indexController extends Controller
             cursor: pointer;"
             ' . '>' . 'Offerte Ablehnen' . '</a>';
         $offerMailFooter = view('offerMailFooter');
-
+        $reinigungPdf = 'dontsend';
+        if($offerReinigungId){
+            $reinigungPdf = 'send';
+        }
         $emailData = [
             'appType' => $offer['appType'],
             'offerteNumber' => $offerteId,
@@ -909,6 +912,7 @@ class indexController extends Controller
             'isCustomEmailSend' => $isCustomEmailSend,
             'customEmailContent' => $customEmail,
             'pdf' => $pdf,
+            'isReinigungPdf' => $reinigungPdf,
             'token' => $oToken,
             'token2' => $zToken,
             'customLinks' => $customLinks,
@@ -3080,6 +3084,11 @@ class indexController extends Controller
         ' . '>' . 'Offerte Ablehnen' . '</a>';
         $offerMailFooter = view('offerMailFooter'); 
 
+        $reinigungPdf = 'dontsend';
+        if($offerReinigungId){
+            $reinigungPdf = 'send';
+        }
+
         $emailData = [
             'appType' => $offer['appType'],
             'offerteNumber' => $id,
@@ -3095,6 +3104,7 @@ class indexController extends Controller
             'isCustomEmailSend' => $isCustomEmailSend,
             'customEmailContent' => $customEmail,
             'pdf' => $pdf,
+            'isReinigungPdf' => $reinigungPdf,
             'token' => $oToken,
             'token2' => $zToken,
             'customLinks' => $customLinks,
