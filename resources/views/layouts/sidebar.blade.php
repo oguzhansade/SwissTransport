@@ -1,7 +1,7 @@
 <nav class="sidebar-nav">
     <ul class="nav in side-menu">
         @if (Auth::user()->permName == 'superAdmin')
-        <li class="menu-item-has-children" style="display:none;">
+        <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Firma</span>
             </a>
@@ -15,7 +15,7 @@
         @endif
 
         @if (Auth::user()->permName == 'superAdmin')
-        <li class="menu-item-has-children" style="display:none;">
+        <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-user"></i> <span class="hide-menu">Benutzer</span>
             </a>
