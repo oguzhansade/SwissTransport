@@ -541,6 +541,8 @@ class indexController extends Controller
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
 
+        $offerteLink = 'https://swisstransport-crm.ch/offer/detail/'.$offerId;
+        $offerteLink2 = '<a href="' . $offerteLink . '">Offerte</a>';
         if ($all) {
             $mailSuccess = '';
             if ($isEmailSend) {
@@ -553,7 +555,7 @@ class indexController extends Controller
                 $endDate = $item['endDate'] . ' ' . $item['endTime'];
                 $location = $item['calendarLocation'];
                 $title = $item['calendarTitle'];
-                $comment =  $item['calendarComment'];
+                $comment =  $item['calendarComment'].'<br>'.$offerteLink.'<br>';
                 $serviceId = $item['serviceId'];
                 $colorId = $item['colorId'];
                 calendarHelper::companyMail($item['serviceName'], $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
@@ -789,7 +791,7 @@ class indexController extends Controller
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
-
+        
 
         if ($c != 0) {
 
