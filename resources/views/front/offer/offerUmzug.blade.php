@@ -102,16 +102,44 @@
     
         <div class="col-md-6">
                 <h5 class="font-weight-bold">Einzugsadresse / Entladeadresse</h5>
-                <label class=" col-form-label" for="l0">Strasse</label>
-                <input class="form-control" name="einStreet1"  type="text"  >
+                <label class=" col-form-label" for="l0">Strasse </label>
+                <input class="form-control" name="einStreet1"  type="text"  @if($formData && $formData['nachStreet']) value="{{ $formData['nachStreet'] }}" @endif>
                 <div class="row">
+
+                    @php
+                        
+                            if($formData && $formData['nachPlz'])
+                            {
+                                $fullPlz = $formData['nachPlz'];
+                                $wordCount = str_word_count($fullPlz);
+                                $lastSpaceIndex = strrpos($fullPlz, ' ');
+
+                                $plz = '';
+                                $ort = '';
+
+                                // Eğer boşluk varsa ayrıştırma işlemini gerçekleştir
+                                if ($lastSpaceIndex !== false) {
+                                    $plz = substr($fullPlz, 0, $lastSpaceIndex);
+                                    $ort = substr($fullPlz, $lastSpaceIndex + 1);
+                                } else {
+                                    // Boşluk yoksa direkt olarak $data['vonPlz'] yi plz'ye atayın
+                                    $plz = $fullPlz;
+                                }
+                            }
+                            else {
+                                $plz = '';
+                                $ort = '';
+                            }
+                        
+                    @endphp
+
                     <div class="col-md-5">
                         <label class=" col-form-label" for="l0">PLZ</label>
-                        <input class="form-control" name="einPostcode1"  type="text"  >
+                        <input class="form-control" name="einPostcode1"  type="text"  value="{{ $plz }}">
                     </div> 
                     <div class="col-md-7">
                         <label class=" col-form-label" for="l0">Ort</label>
-                        <input class="form-control" name="einCity1"  type="text"  >
+                        <input class="form-control" name="einCity1"  type="text"  value="{{ $ort }}">
                     </div>  
                 </div> 
                 

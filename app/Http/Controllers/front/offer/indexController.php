@@ -28,6 +28,7 @@ use Illuminate\Support\Arr;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\OfferteNotes;
 use App\Models\OfferVerify;
+use App\Models\CustomerForm;
 use App\Models\ReceiptReinigung;
 use App\Models\ReceiptUmzug;
 use Carbon\Carbon;
@@ -158,7 +159,8 @@ class indexController extends Controller
     public function create($id)
     {
         $data = Customer::where('id', $id)->first();
-        return view('front.offer.create', ['data' => $data]);
+        $formData = CustomerForm::where('customerId',$id)->first();
+        return view('front.offer.create', ['data' => $data,'formData' => $formData]);
     }
 
     public function getOfferte($id)

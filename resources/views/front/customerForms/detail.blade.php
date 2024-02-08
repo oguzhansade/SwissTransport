@@ -57,6 +57,16 @@
                             <td><span class="text-primary">Von Plz:</span></td>
                             <td><span>{{ $data['vonPlz'] }}</span></td>
                         </tr>
+
+                        <tr>
+                            <td><span class="text-primary">Nach Strasse:</span></td>
+                            <td><span>{{ $data['nachStreet'] }}</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><span class="text-primary">Nach PLZ:</span></td>
+                            <td><span>{{ $data['nachPlz'] }}</span></td>
+                        </tr>
                     </table>
                     
                     

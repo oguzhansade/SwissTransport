@@ -58,7 +58,7 @@
         @endif
 
         @if (Auth::user()->permName == 'superAdmin')
-        <li class="menu-item-has-children" style="display: none;">
+        <li class="menu-item-has-children">
             <a href="javascript:void(0);">
                 <i class="list-icon feather feather-clipboard"></i> <span class="hide-menu">Tarif</span>
             </a>
