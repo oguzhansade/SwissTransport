@@ -130,15 +130,15 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="formFile" class="form-label">Logo-Expand</label>
-                                    <img class="img-responsive " alt="" src="{{ asset('assets/demo/logo-expand.png') }}" >
-                                    <input class="form-control" type="file" id="formFile" name="logoExpand">
+                                    <img class="img-fluid" alt="" src="{{ asset('assets/demo/logo-expand.png') }}" style="margin-bottom:15px;" width="300">
+                                    <input class="form-control" type="file" id="formFile" name="logoExpand" >
                                     <small>Dosya PNG formatında olmalı boyutu (300x100)</small>
                                 </div>
                                
                                 <div class="col-md-6 ">
                                     <label for="formFile" class="form-label">Logo-Collapse</label><br>
-                                    <img class="img-responsive " alt="" src="{{ asset('assets/demo/logo-collapse.png') }}" style="margin-top:30px">
-                                    <input class="form-control " type="file" id="formFile" name="logoCollapse" style="margin-top:30px">    
+                                    <img class="img-fluid" alt="" src="{{ asset('assets/demo/logo-collapse.png') }}" style="margin-bottom:42px;"  width="40">
+                                    <input class="form-control " type="file" id="formFile" name="logoCollapse" >    
                                     <small>Dosya PNG formatında olmalı boyutu (40x40)</small>                         
                                 </div>
                                 
