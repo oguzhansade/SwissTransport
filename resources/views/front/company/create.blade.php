@@ -94,58 +94,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12 mb-5" style="border-bottom: 2px solid #6931E7">
-                                <h3>E-Mail-Informationen des Unternehmens</h3>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0" >Host</label>
-                                <input class="form-control" name="host"  type="text" required>                                
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0">Port</label>
-                                <input class="form-control"  name="port"  type="text" required>                                
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0" >SSL</label>
-                                <input class="form-control" name="ssl"  type="checkbox" >                                
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class=" col-form-label" for="l0">Username</label>
-                                <input class="form-control"  name="username"  type="text" required>                                
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label class=" col-form-label" for="l0" >Password</label>
-                                <input class="form-control" name="password"  type="text" required>                                
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class=" col-form-label" for="l0">Display Name</label>
-                                <input class="form-control"  name="display_name"  type="text" required>                                
-                            </div>
-
-                            
-                            <div class="col-md-4">
-                                <label class=" col-form-label" for="l0">Reply Address</label>
-                                <input class="form-control"  name="reply_address"  type="text" required>                                
-                            </div>
-                        </div>
-
-
-
-
-
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">

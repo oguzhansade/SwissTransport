@@ -7,7 +7,7 @@ class fileUpload
     static function logoExpand($file)
     {
         try {
-            $dosyaAdi = 'test-expand.'.$file->getClientOriginalExtension();
+            $dosyaAdi = 'logo-expand.'.$file->getClientOriginalExtension();
             $file->move(public_path('assets/demo'), $dosyaAdi);
     
             return 'Başarılı'; // Yükleme başarılı olduğunda true döndür
@@ -21,7 +21,7 @@ class fileUpload
     static function logoCollapse($file)
     {
         try {
-            $dosyaAdi = 'test-collapse.'.$file->getClientOriginalExtension();
+            $dosyaAdi = 'logo-collapse.'.$file->getClientOriginalExtension();
             $file->move(public_path('assets/demo'), $dosyaAdi);
     
             return 'Başarılı'; // Yükleme başarılı olduğunda true döndür

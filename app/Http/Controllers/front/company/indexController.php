@@ -122,7 +122,7 @@ class indexController extends Controller
         $c = Company::where('id',$id)->count();
         if($c !=0)
         {
-            $data = Company::where('id',$id)->get();
+            $data = Company::where('id',$id)->first();
             $data2 = EmailConfiguration::where('companyId',$id)->get();
             return view ('front.company.edit', ['data' => $data ,'data2' => $data2]);
         }
@@ -135,8 +135,19 @@ class indexController extends Controller
         if($c !=0)
         {
             $all = $request->except('_token');
-            $data = Company::where('id',$id)->get();
-            $data2 = EmailConfiguration::where('companyId',$id)->get();
+
+             // Dosyanın var olup olmadığını kontrol edin
+             if ($request->logoExpand) {
+                $file = $request->logoExpand;
+                // Dosyayı yükleyin ve sonucu kontrol edin
+                $fileUpload = fileUpload::logoExpand($file);
+            }
+
+            if($request->logoCollapse) {
+                $fileCollapse = $request->logoCollapse;
+                $fileCollapseUpload = fileUpload::logoCollapse($fileCollapse);
+            }
+           
 
             $update = Company::where('id',$id)->update([
                 'name' => $request->name,
@@ -148,20 +159,12 @@ class indexController extends Controller
                 'contact_person' => $request->contact_person,
                 'email' => $request->email,
                 'website' => $request->website,
-            ]);
-
-            $update2 = EmailConfiguration::where('companyId',$id)->update([
-                'host' => $request->host,
-                'port' => $request->port,
-                'ssl' => $request->ssl ? '1' : '0',
-                'username' => $request->username,
-                'password' => $request->password,
-                'display_name' => $request->display_name,
-                'reply_address' => $request->reply_address,
+                'crmPrimaryColor' => $request->crmPrimaryColor,
+                'crmSecondaryColor' => $request->crmSecondaryColor,
+                'pdfPrimaryColor' => $request->pdfPrimaryColor
             ]);
 
             
-
             if($update) {
                 return redirect()->back()->with('status','Firma wurde bearbeitet.');
             }
