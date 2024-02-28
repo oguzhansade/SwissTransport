@@ -14,7 +14,9 @@ ssh hywefuza@s108.cyon.net
 <ol>
 <li>git clone yapmak için loginde şifre yerine personal Access token kullan</li>
 <li>env güncellemeyi unutma db bağlantısı vs.</li>
-<li>composer install</li>
+<li>composer install </li>
+<li>Google Calendar Ayarları Rengini Ayarla (<a href="#renk-rehberi">Renk için tıkla</a>)</li>
+<li>ÖNEMLİ** .gittignore'a public/assets/demo ve public/assets/img klasörlerini ekle(Muhtemelen buraya kadar yeterli)</li>
 <li>npm install</li>
 <li>composer require laravel/ui --dev</li>
 <li>php artisan ui vue --auth</li>
@@ -28,7 +30,7 @@ ssh hywefuza@s108.cyon.net
 <h3>Login Sorunu</h3>
 <p>Login Sorunu için https://www.mertbuldur.com/laravel-login-icin-md5-nasil-kullanilir ya da Hash::make() kullan</p>
 
-<h3>Calendar Renk</h3>
+<h3 id="renk-rehberi">Calendar Renk</h3>
 <p>Calendar Renk setColorId() metodu eksik bunun için;<br>
 vendor>spatie>laravel-google-calendar>src>Event.php ye git <br>
 setSourceProperty metodunun altına aşşağıdaki metodu ekle <br><br>
