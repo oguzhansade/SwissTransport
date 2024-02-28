@@ -12,7 +12,8 @@ ssh hywefuza@s108.cyon.net
 <h1>Kurulum Adımları</h1>
 
 <ol>
-<li>git clone yapmak için loginde şifre yerine personal Access token kullan
+<li>git clone yapmak için loginde şifre yerine personal Access token kullan</li>
+<li>env güncellemeyi unutma db bağlantısı vs.</li>
 <li>composer install</li>
 <li>npm install</li>
 <li>composer require laravel/ui --dev</li>
