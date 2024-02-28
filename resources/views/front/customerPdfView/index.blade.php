@@ -56,7 +56,13 @@
         }
 
         .text-primary {
-            color: #FF1F1F !important;
+            
+            color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}!important;
+            
+        }
+
+        .bg-preview-primary {
+            background: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}!important;
         }
 
         .bg-offer {
@@ -155,7 +161,7 @@
         </div>
         <div class="row d-flex p-0 justify-content-start mt-5">
             <div class="col-md-12 d-flex justify-content-start">
-                <span class="h4 px-3 py-1  text-white b-shadow rounded" style="background-color: #FF1F1F">Offerte: <span
+                <span class="h4 px-3 py-1  text-white b-shadow rounded bg-preview-primary" >Offerte: <span
                         class="custom-font">{{ $offer['id'] }}</span> </span>
             </div>
         </div>
@@ -190,7 +196,7 @@
                             <div class="col-md-12 umzug-control">
                                 <label for="" class="col-form-label">Umzug</label><br>
                                 <input type="checkbox" name="isUmzug" id="isUmzug" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -388,7 +394,7 @@
                             <div class="col-md-12 einpack-control">
                                 <label for="" class="col-form-label">Einpack</label><br>
                                 <input type="checkbox" name="isEinpack" id="isEinpack" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -548,7 +554,7 @@
                             <div class="col-md-12 auspack-control">
                                 <label for="" class="col-form-label">Auspack</label><br>
                                 <input type="checkbox" name="isAuspack" id="isAuspack" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -711,7 +717,7 @@
                             <div class="col-md-12 reinigung-control">
                                 <label for="" class="col-form-label">Reinigung</label><br>
                                 <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -914,7 +920,7 @@
                             <div class="col-md-12 reinigung2-control">
                                 <label for="" class="col-form-label">Reinigung 2</label><br>
                                 <input type="checkbox" name="isReinigung2" id="isReinigung2" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -1119,7 +1125,7 @@
                             <div class="col-md-12 entsorgung-control">
                                 <label for="" class="col-form-label">Entsorgung</label><br>
                                 <input type="checkbox" name="isEntsorgung" id="isEntsorgung" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -1272,7 +1278,7 @@
                             <div class="col-md-12 transport-control">
                                 <label for="" class="col-form-label">Transport</label><br>
                                 <input type="checkbox" name="isTransport" id="isTransport" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -1504,7 +1510,7 @@
                             <div class="col-md-12 lagerung-control">
                                 <label for="" class="col-form-label">Lagerung</label><br>
                                 <input type="checkbox" name="isLagerung" id="isLagerung" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -1610,7 +1616,7 @@
                             <div class="col-md-12 material-control">
                                 <label for="" class="col-form-label">Material</label><br>
                                 <input type="checkbox" name="isMaterial" id="isMaterial" class="js-switch "
-                                    data-color="#FF1F1F" data-switchery="false" checked>
+                                    data-color="{{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}" data-switchery="false" checked>
                             </div>
                         </div>
 
@@ -1720,8 +1726,8 @@
                     style="top:20px;">
                     <div class="row mt-1">
 
-                        <div class="col-md-12  text-white py-2 rounded-custom-2 mb-1 d-flex justify-content-center align-items-center"
-                            style="background-color: #FF1F1F;margin-top:-10px!important;">
+                        <div class="col-md-12  text-white py-2 rounded-custom-2 mb-1 d-flex justify-content-center align-items-center bg-preview-primary"
+                            style="margin-top:-10px!important;">
                             <b class=" text-white custom-font" style="font-size:20px;">Angebotsübersicht</b><br><br>
                         </div>
 
@@ -1894,8 +1900,7 @@
                                                         <input class="btn btn-success btn-rounded " type="submit"
                                                             value=" Annehmen "
                                                             formaction="{{ URL::to('/verifyoffer', ['token' => $oToken]) }}">
-                                                        <input class="btn btn-rounded text-white"
-                                                            style="background-color: #FF1F1F" type="submit"
+                                                        <input class="btn btn-rounded text-white bg-preview-primary" type="submit"
                                                             value=" Ablehnen"
                                                             formaction="{{ URL::to('/rejectoffer', ['token' => $oToken]) }}">
                                                     </div>
