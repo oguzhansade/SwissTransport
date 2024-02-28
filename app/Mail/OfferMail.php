@@ -40,6 +40,7 @@ class OfferMail extends Mailable
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
                 ->attach(asset('assets/demo/AGB.pdf'))
+                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
             }
             else {
@@ -49,7 +50,9 @@ class OfferMail extends Mailable
                 ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'));
+                
             }
         }
         else
@@ -61,6 +64,7 @@ class OfferMail extends Mailable
                 ->from($this->data['from'],$this->data['companyName'])
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'))
                 ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
             }
@@ -70,6 +74,7 @@ class OfferMail extends Mailable
                 ->from($this->data['from'],$this->data['companyName'])
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'));
             }
             
