@@ -10,8 +10,6 @@
                 </li>
                 <li><a href="{{ route('company.create') }}">Neue Firma Erfassen</a>
                 </li>
-                <li><a href="{{ route('company.options') }}">Ayarlar</a>
-                </li>
             </ul>
         </li>
         @endif
