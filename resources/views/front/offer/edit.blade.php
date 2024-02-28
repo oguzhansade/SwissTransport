@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="col-md-6 customContactPerson" style="display:block;">
                                     <label class=" col-form-label" for="l0">Kontaktperson (Freitext)</label>
-                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="Swiss Transport Team" @else value="{{ $data['contactPerson'] }}" @endif>  
+                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="{{ \App\Models\Company::InfoCompany('name') }} Team" @else value="{{ $data['contactPerson'] }}" @endif>  
                                 </div>                            
                             </div>
 

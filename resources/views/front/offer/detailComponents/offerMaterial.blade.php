@@ -16,7 +16,7 @@
     </div>                            
 </div>
 
-<div class="rounded verpackungsmaterial--area" style="background-color: #C8DFF3; @if($material == NULL) display:none; @endif">
+<div class="rounded verpackungsmaterial--area bg-service-primary" style=" @if($material == NULL) display:none; @endif">
     <div class="row p-3 islem_field">
         <div class="col-md-12">
             <div class="table-reponsive">

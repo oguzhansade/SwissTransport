@@ -5,7 +5,7 @@
     </div>                            
 </div>
 
-<div class="rounded transport--area" style="background-color: #C8DFF3;
+<div class="rounded transport--area bg-service-primary" style="
 @if ($transport == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">

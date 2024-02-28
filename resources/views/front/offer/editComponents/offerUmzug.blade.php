@@ -1,6 +1,6 @@
 
 
-<div class="rounded" style="background-color: #C8DFF3">
+<div class="rounded bg-service-primary" >
     <div class=" row p-3"  > 
         {{-- Offerte Umzug Sol --}}
         <div class="col-md-6">

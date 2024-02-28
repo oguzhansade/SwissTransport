@@ -7,6 +7,8 @@ use App\Models\Company;
 use App\Models\EmailConfiguration;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Config;
+use App\Helper\fileUpload;
 
 class indexController extends Controller
 {
@@ -20,6 +22,46 @@ class indexController extends Controller
         return view('front.company.create');
     }
 
+    public function options(Request $request)
+    {
+        $company = Company::first();
+        return view('front.company.options',['company' => $company]);
+    }
+    public function updateOptions(Request $request)
+    {
+        
+        // Dosyanın var olup olmadığını kontrol edin
+        if ($request->logoExpand) {
+            $file = $request->logoExpand;
+            // Dosyayı yükleyin ve sonucu kontrol edin
+            $fileUpload = fileUpload::logoExpand($file);
+        }
+        
+        if($request->logoCollapse) {
+            $fileCollapse = $request->logoCollapse;
+            $fileCollapseUpload = fileUpload::logoCollapse($fileCollapse);
+        }
+
+        $colors = [
+            'crmPrimaryColor' => $request->crmPrimaryColor,
+            'crmSecondaryColor' => $request->crmSecondaryColor,
+            'pdfPrimaryColor' => $request->pdfPrimaryColor
+        ];
+
+       
+        $update = Company::first()->update($colors);
+        
+        if($update)
+        { 
+                      
+            return redirect()->back()->with('status','Firma Stil Renkleri Düzenlendi');
+        }
+        else {
+            return redirect()->back()->with('status','Hata: Firma Stil Renkleri Düzenlenemedi');
+        }
+        
+    }
+    
     public function store(Request $request)
     {
         
@@ -117,6 +159,8 @@ class indexController extends Controller
                 'display_name' => $request->display_name,
                 'reply_address' => $request->reply_address,
             ]);
+
+            
 
             if($update) {
                 return redirect()->back()->with('status','Firma wurde bearbeitet.');

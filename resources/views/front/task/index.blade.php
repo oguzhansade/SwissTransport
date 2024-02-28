@@ -30,7 +30,8 @@
             <div class="widget-bg">
                 <div class="row">
                     <div class="col-md-12 p-3">
-                        <button onclick="testajax()" class="btn btn-danger">Toplu Sil</button>
+                        {{-- style="background-color: {{ config('app.primary_color') }}" --}}
+                        <button onclick="testajax()" class="btn btn-danger" >Toplu Sil</button>
                     </div>
                 </div>
                 <!-- /.widget-heading -->

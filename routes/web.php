@@ -72,6 +72,8 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/edit/{id}', [App\Http\Controllers\front\company\indexController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [App\Http\Controllers\front\company\indexController::class, 'delete'])->name('delete');
         Route::post('/data', [App\Http\Controllers\front\company\indexController::class, 'data'])->name('data');
+        Route::get('/options', [App\Http\Controllers\front\company\indexController::class, 'options'])->name('options');
+        Route::post('/updateOptions', [App\Http\Controllers\front\company\indexController::class, 'updateOptions'])->name('updateOptions');
     });
 
     Route::group(['namespace' => 'contactPerson', 'as' => 'contactPerson.', 'prefix' => 'contactPerson','middleware' => ['PermissionControl']], function () {

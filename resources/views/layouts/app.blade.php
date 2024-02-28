@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/demo/logo-collapse.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pace.css') }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Swiss Transport</title>
+    <title>{{ \App\Models\Company::InfoCompany('name') }}</title>
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600|Roboto:400" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/vendors/material-icons/material-icons.css') }}" rel="stylesheet" type="text/css">
@@ -30,6 +30,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     
     <style>
+        /* Header Rengi */
+        .navbar {
+            background: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }};
+        }
+
+        .bg-primary {
+            background: {{ App\Models\Company::InfoCompany('crmSecondaryColor') }}
+        }
+        
+        .bg-service-primary{
+            background: {{ App\Models\Company::InfoCompany('crmSecondaryColor') }}
+        }
+        /* Footer Rengi */
+        .footer {
+            background: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }} ;
+        }
+
+        /* Sol Menü icon renkleri */
+        .sidebar-nav .list-icon {
+            color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important ;
+        }
+
+        /* Sol menü açılır menüdeki link renkleri */
+        .menu-item-has-children .sub-menu a{
+            color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important;
+        }
+
+        /* Loading icon rengi */
+        .pace-activity::before {
+            border-right-color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }};
+        }
+        .pace-activity::after {
+            border-left-color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }};
+        }
+
+        /* Breadcrumb rengi */
+        .breadcrumb > .active {
+            color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }};
+        }
+
+        .text-primary {
+            color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important;
+        }
+        .dropdown .ripple:hover{
+            filter: brightness(90%)!important;
+        }
+       .sidebar-toggle .ripple:hover{
+        filter: brightness(90%)!important;
+       }
+       .sidebar-toggle .ripple{
+            background-color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important;
+        }
+        .dropdown .ripple{
+            background-color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important;
+        }
+
+        
+
         .btn-edit {
             background-color: #007BFF;
             color:white;
@@ -124,9 +182,9 @@
     @if (Auth::user())
     <div id="wrapper" class="wrapper">
         <!-- HEADER & TOP NAVIGATION -->
-        <nav class="navbar">
+        <nav class="navbar" >
             <!-- Logo Area -->
-            <div class="navbar-header">
+            <div class="navbar-header" >
                 <a href="/" class="navbar-brand">
                     <img class="logo-expand" alt="" src="{{ asset('assets/demo/logo-expand.png') }}">
                     <img class="logo-collapse" alt="" src="{{ asset('assets/demo/logo-collapse.png') }}">
@@ -244,7 +302,8 @@
 
     <!-- /.content-wrapper -->
     <!-- FOOTER -->
-    <footer class="footer"><span class="heading-font-family">Copyright @ {{ date("Y") }} </span>
+    {{-- style="background-color: red;" --}}
+    <footer class="footer" ><span class="heading-font-family">Copyright @ {{ date("Y") }} </span>
     </footer>
     </div>
     <!--/ #wrapper -->

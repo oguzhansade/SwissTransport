@@ -75,13 +75,13 @@
                     </table>
                 </td>
                 <td align="right" >
-                    <a href="https://www.swisstransport.ch/" target="_blank"><img style="padding:0px;" src="{{ asset('assets/demo/swiss-logo.png') }}" width="300" /></a>
+                    <a href="{{ App\Models\Company::InfoCompany('website') }}" target="_blank"><img style="padding:0px;" src="{{ asset('assets/demo/logo-expand.png') }}" width="300" /></a>
                 </td>
             </tr>
         </table>
     </header>
     <footer>
-        <p style="font-size:9px;">Swiss Transport GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731 96 59 | info@swisstransport.ch | www.swisstransport.ch | CHE-478.905.969</p>
+        <p style="font-size:9px;">{{ App\Models\Company::InfoCompany('name') }} | {{ App\Models\Company::InfoCompany('street') }} | CH-{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }} | Telefon: {{ App\Models\Company::InfoCompany('phone') }} | {{ App\Models\Company::InfoCompany('email') }} | {{ App\Models\Company::InfoCompany('website') }}</p>
     </footer>
     <main>
         <div class="teklif-boyutu">
@@ -341,9 +341,9 @@
                             <div style="padding-top: 10px;">
                                 <span><b style="font-size:8px!important;line-height:8px;padding-top:10px;">Konto / Zahlbar an</b></span><br>
                                 <span>CH53 3000 0001 1563 8103 1</span><br>
-                                <span>Swiss Transport GmbH</span><br>
-                                <span>Trockenloostrasse 37</span><br>
-                                <span>8105 Regensdorf</span><br>
+                                <span>{{ App\Models\Company::InfoCompany('name') }}</span><br>
+                                <span>{{ App\Models\Company::InfoCompany('street') }}</span><br>
+                                <span>{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }}</span><br>
                             </div>
     
                             <div style="padding-top:10px!important;">
@@ -396,9 +396,9 @@
                                         <div style="font-size:12px;padding-left:20px;">
                                             <span><b style="font-size:10px!important;line-height:10px;padding-top:30px;">Konto / Zahlbar an</b></span><br>
                                             <span style="font-size:12px!important;line-height:10px;">CH53 3000 0001 1563 8103 1</span><br>
-                                            <span style="font-size:12px!important;line-height:10px;">Swiss Transporte GmbH</span><br>
-                                            <span style="font-size:12px!important;line-height:10px;">Trockenloostrasse 37</span><br>
-                                            <span style="font-size:12px!important;line-height:10px;">8105 Regensdorf</span><br>
+                                            <span style="font-size:12px!important;line-height:10px;">{{ App\Models\Company::InfoCompany('name') }}</span><br>
+                                            <span style="font-size:12px!important;line-height:10px;">{{ App\Models\Company::InfoCompany('street') }}</span><br>
+                                            <span style="font-size:12px!important;line-height:10px;">{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }}</span><br>
                                         </div>
                 
                                         <div style="padding-top:10px!important;padding-left:20px;">

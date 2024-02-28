@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/demo/logo-collapse.png') }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Login - Swiss Transport CRM</title>
+    <title>Login - {{ \App\Models\Company::InfoCompany('name') }}</title>
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600|Roboto:400" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/vendors/material-icons/material-icons.css') }}" rel="stylesheet" type="text/css">

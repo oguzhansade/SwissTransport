@@ -5,7 +5,7 @@
     </div>                            
 </div>
 
-<div class="rounded reinigung2--area" style="background-color: #C8DFF3; @if($reinigung2 == NULL) display:none; @endif">
+<div class="rounded reinigung2--area bg-service-primary" style="@if($reinigung2 == NULL) display:none; @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Reinigungsart</label>

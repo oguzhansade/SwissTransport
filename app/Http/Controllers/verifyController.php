@@ -30,7 +30,7 @@ class verifyController extends Controller
                 offerte::where('id',$verifyOffer['offerId'])->update($verify);
 
                 $data["email"] = Company::InfoCompany('email');
-                $data["title"] = "Swiss Transport AG - Offerten Bestätigung";
+                $data["title"] = Company::InfoCompany('name')." - Offerten Bestätigung";
                 $data["offertenumber"] = $offer['id'];
                 $data["kundenumber"] = $customer['id'];
                 $data["kunde"] = $customer['name']." ".$customer['surname'];
@@ -72,7 +72,7 @@ class verifyController extends Controller
                 offerte::where('id',$verifyOffer['offerId'])->update($verify);
 
                 $data["email"] = Company::InfoCompany('email');
-                $data["title"] = "Swiss Transport AG - Offerte abgelehnt";
+                $data["title"] = Company::InfoCompany('name')." - Offerte abgelehnt";
                 $data["offertenumber"] = $offer['id'];
                 $data["kundenumber"] = $customer['id'];
                 $data["kunde"] = $customer['name']." ".$customer['surname'];

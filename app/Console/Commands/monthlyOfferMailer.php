@@ -108,14 +108,15 @@ class monthlyOfferMailer extends Command
                 }
                 // 1 ay sonrasını kontrol et
                 $afterOneMonth = $umzugDate->addMonth();
-                
+                $company = Company::first();
+                $companyName = $company['name']; 
                 // Carbon::now() == $oneMonthAfter eğer böyle yazsaydık saatinde uyuşması gerekirdi o yüzden isSameDay kullandık
                 if (Carbon::now()->isSameDay($afterOneMonth)) {
                     $emailData = [
                         'mailType' => 'afterOneMonth',
                         'customer' => $customer,
                         'from' => $from,
-                        'sub' => 'Profitieren Sie von unserem Kunden-werben-Kunden Programm bei Swiss Transporte GmbH!',
+                        'sub' => 'Profitieren Sie von unserem Kunden-werben-Kunden Programm bei '.Company::InfoCompany('name'),
                         'companyName' => $companyName,
                         'offerte' => $offerte,
                         'umzugDate' => $umzugDate->format('d-m-Y'),

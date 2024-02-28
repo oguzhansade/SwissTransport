@@ -47,14 +47,14 @@
             <table style="width: 100%;">
                 <tr  style="padding-top:0px;width: 100%;" >
                     <td align="left" >
-                        <a href="https://www.swisstransport.ch/" target="_blank"><img style="padding:0px;" src="{{ asset('assets/demo/swiss-logo.png') }}" width="300" /></a>
+                        <a href="{{ App\Models\Company::InfoCompany('website') }}" target="_blank"><img style="padding:0px;" src="{{ asset('assets/demo/logo-expand.png') }}" width="300" /></a>
                     </td>
                 </tr>
             </table>
         </header>
     </header>
     <footer>
-        <p style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731 96 58 | info@swisstransport.ch | www.swisstransport.ch</p>
+        <span style="font-size:9px;">{{ App\Models\Company::InfoCompany('name') }} | {{ App\Models\Company::InfoCompany('street') }} | CH-{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }} | Telefon: {{ App\Models\Company::InfoCompany('phone') }} | {{ App\Models\Company::InfoCompany('email') }} | {{ App\Models\Company::InfoCompany('website') }}</span>
     </footer>
     <main>
         <div class="teklif-boyutu">

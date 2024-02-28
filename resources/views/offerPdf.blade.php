@@ -122,14 +122,14 @@
         }
 
         .text-primary {
-            color: #CE0000 !important;
+            color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }} !important;
         }
 
         .custom-heading-bar {
-            background-color: #D10D0C;
             padding: 3px;
             color: white;
             border-radius: 0px 120px 120px 0px;
+            background-color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }};
         }
     </style>
 
@@ -160,15 +160,14 @@
                     </table>
                 </td>
                 <td align="right">
-                    <a href="https://www.swisstransport.ch/" target="_blank"><img style="padding:0px;"
-                            src="{{ asset('assets/demo/swiss-logo.png') }}" width="300" /></a>
+                    <a href="{{ App\Models\Company::InfoCompany('website') }}" target="_blank"><img style="padding:0px;"
+                            src="{{ asset('assets/demo/logo-expand.png') }}" width="300" /></a>
                 </td>
             </tr>
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731
-            96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
+        <span style="font-size:9px;">{{ App\Models\Company::InfoCompany('name') }} | {{ App\Models\Company::InfoCompany('street') }} | CH-{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }} | Telefon: {{ App\Models\Company::InfoCompany('phone') }} | {{ App\Models\Company::InfoCompany('email') }} | {{ App\Models\Company::InfoCompany('website') }}</span>
     </footer>
 
     <main>
@@ -177,7 +176,7 @@
                 <tr style="width:100%;">
                     <td class="pt-3" colspan="2">
                         {{-- Müşteri Bilgileri --}}
-                        <span style="color:#D10D0C;font-size:9px;">Auftraggeber:</span><br>
+                        <span class="text-primary" style="font-size:9px;">Auftraggeber:</span><br>
                         @if ($customer['companyName'])
                             {{ $customer['companyName'] }} <br>
                         @endif
@@ -193,9 +192,9 @@
                     </td>
                     <td class="pt-3" valign="top" align="right" colspan="2">
                        
-                        <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
+                        <span class="text-primary" style="font-size:9px;">Ihr Kundenberater:</span><br>
                         @if ($offer['contactPerson'] == 'Bitte wählen' || $offer['contactPerson'] == 'Swiss Transport Team' || $offer['contactPerson'] == 0 || $offer['contactPerson'] == NULL)
-                            Swiss Transport Team
+                        {{ App\Models\Company::InfoCompany('name') }} Team
                         @else
                             {{ $offer['contactPerson'] }}
                         @endif <br>
@@ -217,7 +216,7 @@
                 </tr>
                 <tr style="width:100%;">
                     <td colspan="2" class="py-1 ">
-                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: {{ $offer->id }}
+                        <b class="text-primary" style="font-size:15px;">Offerte Nr: {{ $offer->id }}
                         </b>
                     </td>
                     <td colspan="2" align="right">
@@ -486,7 +485,7 @@
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
-                                Swiss Transport
+                            {{ App\Models\Company::InfoCompany('name') }}
                             @else
                                 
                             @endif
@@ -634,12 +633,12 @@
                 @if ($umzug['fixedPrice'])
                     <tr>
                         <td align="left" valign="top">Pauschal:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
+                        <td><span class="text-primary"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
                     </tr>
                     @else
                     <tr>
                         <td align="left" valign="top">Geschätzte Kosten:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
+                        <td><span class="text-primary"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -647,7 +646,7 @@
                 @if ($umzug['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
+                        <td><span class="text-primary" ><b>{{ $umzug['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -817,19 +816,19 @@
                 @if($einpack['fixedPrice'])
                 <tr>
                     <td align="left" valign="top">Pauschal:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $einpack['fixedPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $einpack['fixedPrice'] }} CHF</b></span></td>
                 </tr>
                 @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
                 @endif
 
                 @if ($einpack['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
+                        <td><span class="text-primary"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -983,19 +982,19 @@
                 @if($auspack['fixedPrice'])
                 <tr>
                     <td align="left" valign="top">Pauschal:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $auspack['fixedPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $auspack['fixedPrice'] }} CHF</b></span></td>
                 </tr>
                 @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
                 @endif
 
                 @if ($auspack['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
+                        <td><span class="text-primary"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -1189,7 +1188,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
+                <td><span class="text-primary"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1378,7 +1377,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
+                <td><span class="text-primary"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1540,14 +1539,14 @@
             @if($entsorgung['defaultPrice'])
                 <tr>
                     <td align="left" valign="top"> Kosten: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
                 </tr>
             @endif
 
             @if($entsorgung['fixedPrice'])
                 <tr>
                     <td align="left" valign="top"> Pauschal: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1750,13 +1749,13 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
+                <td><span class="text-primary"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($transport['topCost'] != null)
                 <tr>
                     <td align="left" valign="top"> Kostendach: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
+                    <td><span class="text-primary"><b>{{ $transport['topCost'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1866,12 +1865,12 @@
 
             <tr>
                 <td align="left" valign="top"> Kosten: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
+                <td><span class="text-primary"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             <tr>
                 <td align="left" valign="top"> Pauschal: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
+                <td><span class="text-primary"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1975,8 +1974,7 @@
 
                     <tr>
                         <td style="font-weight: bold;">Total:</td>
-                        <td align="left" colspan="4"><span
-                                style="color:#D10D0C;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
+                        <td align="left" colspan="4"><span class="text-primary" style="font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
                         </td>
                     </tr>
 

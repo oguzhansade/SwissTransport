@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Swiss Transport - Offerte ({{ $offer['id'] }})</title>
+    <title>{{ App\Models\Company::InfoCompany('name') }} - Offerte ({{ $offer['id'] }})</title>
     <!-- CSS only -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/pace.css') }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Swiss Transport</title>
+    <title>{{ App\Models\Company::InfoCompany('name') }}</title>
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600|Roboto:400" rel="stylesheet"
         type="text/css">
@@ -127,8 +127,8 @@
     <div class="container-fluid ">
         <div class="row shadow ">
             <div class="col-md-12 p-3  d-flex justify-content-center b-shadow " style="position: relative;z-index: 5;">
-                <a href="https://www.swisstransport.ch/"><img class="logo-expand" alt="" width="300"
-                        src="{{ asset('assets/demo/swiss-logo.png') }}"></a>
+                <a href="{{ App\Models\Company::InfoCompany('website') }}"><img class="logo-expand" alt="" width="300"
+                        src="{{ asset('assets/demo/logo-expand.png') }}"></a>
             </div>
 
         </div>
@@ -249,7 +249,7 @@
                                     @if ($umzug['montage'] == 0)
                                         Kunde
                                     @else
-                                        Swiss Transport
+                                    {{ App\Models\Company::InfoCompany('name') }}
                                     @endif
                                 </div>
 

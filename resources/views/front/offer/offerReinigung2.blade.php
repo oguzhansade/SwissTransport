@@ -1,5 +1,5 @@
 
-<div class="rounded reinigung2--area" style="background-color: #c8dff3;display:none;">
+<div class="rounded reinigung2--area bg-service-primary" style="display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Reinigungsart</label>

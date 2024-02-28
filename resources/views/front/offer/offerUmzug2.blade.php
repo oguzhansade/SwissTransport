@@ -6,7 +6,7 @@
     </div>                            
 </div>
 
-<div class="rounded umzug--area" style="background-color: #c8dff3; display:none;">
+<div class="rounded umzug--area bg-service-primary" style=" display:none;">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Zimmer</label>

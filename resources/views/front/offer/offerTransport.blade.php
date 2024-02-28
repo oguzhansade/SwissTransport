@@ -5,7 +5,7 @@
     </div>                            
 </div>
 
-<div class="rounded transport--area" style="background-color: #c8dff3;display:none;">
+<div class="rounded transport--area bg-service-primary" style="display:none;">
     <div class="row p-3">
         <div class="col-md-6">
 

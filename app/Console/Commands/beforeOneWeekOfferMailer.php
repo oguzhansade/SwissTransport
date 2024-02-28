@@ -106,7 +106,7 @@ class beforeOneWeekOfferMailer extends Command
                 if (!$umzugDate) {
                     continue;
                 }
-    
+                
                 // 1 hafta öncesi kontrol et
                 $oneWeekBefore = $umzugDate->subDays(7);
                 
@@ -116,7 +116,7 @@ class beforeOneWeekOfferMailer extends Command
                         'mailType' => 'beforeOneWeek',
                         'customer' => $customer,
                         'from' => $from,
-                        'sub' => 'Vorbereitung und Details für Ihren Umzug mit der Swiss Transporte GmbH',
+                        'sub' => 'Vorbereitung und Details für Ihren Umzug mit der '.Company::InfoCompany('name'),
                         'companyName' => $companyName,
                         'offerte' => $offerte,
                         'umzugDate' => $umzugDate->addDays(7)->format('d-m-Y'),

@@ -160,15 +160,14 @@
                     </table>
                 </td>
                 <td align="right">
-                    <a href="https://www.swisstransport.ch/" target="_blank"><img style="padding:0px;"
-                            src="{{ asset('assets/demo/swiss-logo.png') }}" width="300" /></a>
+                    <a href="{{ App\Models\Company::InfoCompany('website') }}" target="_blank"><img style="padding:0px;"
+                            src="{{ asset('assets/demo/logo-expand.png') }}" width="300" /></a>
                 </td>
             </tr>
         </table>
     </header>
     <footer>
-        <span style="font-size:9px;">Swiss Transporte GmbH | Trockenloostrasse 37 | CH-8105 Regensdorf | Telefon: 044 731
-            96 58 | info@swisstransport.ch | www.swisstransport.ch</span>
+        <span style="font-size:9px;">{{ App\Models\Company::InfoCompany('name') }} | {{ App\Models\Company::InfoCompany('street') }} | CH-{{ App\Models\Company::InfoCompany('post_code') }} {{ App\Models\Company::InfoCompany('city') }} | Telefon: {{ App\Models\Company::InfoCompany('phone') }} | {{ App\Models\Company::InfoCompany('email') }} | {{ App\Models\Company::InfoCompany('website') }}</span>
     </footer>
 
     <main>
@@ -195,7 +194,7 @@
                         @if ($offer['contactPerson'])
                             <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
                             @if ($offer['contactPerson'] == 'Bitte wählen')
-                                Swiss Transport Team
+                            {{ \App\Models\Company::InfoCompany('name') }} Team
                             @else
                                 {{ $offer['contactPerson'] }}
                             @endif <br>
@@ -487,7 +486,7 @@
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
-                                Swiss Transport
+                            {{ \App\Models\Company::InfoCompany('name') }}
                             @else
                                 
                             @endif

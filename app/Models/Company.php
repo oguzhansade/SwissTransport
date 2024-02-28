@@ -18,6 +18,9 @@ class Company extends Model
         'email' ,
         'google-email',
         'website',
+        'crmPrimaryColor',
+        'crmSecondaryColor',
+        'pdfPrimaryColor'
     ];
     use HasFactory;
 

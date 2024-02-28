@@ -97,7 +97,7 @@
                             </div>
 
                             {{-- Offerte Einpack Alanı --}}
-                            <div class="rounded einpack--area" style="background-color: #c8dff3; display:none;">
+                            <div class="rounded einpack--area bg-service-primary" style=" display:none;">
                                 @include('front.offer.offerEinpack')
                             </div>
                             {{-- Offerte Einpack Alanı --}}
@@ -112,7 +112,7 @@
                             </div>
 
                             {{-- Offerte Auspack Alanı --}}
-                            <div class="rounded auspack--area" style="background-color: #c8dff3; display:none;">
+                            <div class="rounded auspack--area bg-service-primary" style="display:none;">
                                 @include('front.offer.offerAuspack')
                             </div>
                             {{-- Offerte Auspack Alanı --}}
@@ -163,7 +163,7 @@
                             </div>
 
                             {{-- Offerte Material Alanı --}}
-                            <div class="rounded verpackungsmaterial--area" style="background-color: #c8dff3;display:none;">
+                            <div class="rounded verpackungsmaterial--area bg-service-primary" style="display:none;">
                                 @include('front.offer.offerMaterial')
                             </div>
                             {{-- Offerte Material Alanı --}}

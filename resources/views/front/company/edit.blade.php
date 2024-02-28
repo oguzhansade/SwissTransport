@@ -96,6 +96,14 @@
 
                         <div class="row">
                             <div class="col-md-12 mb-5" style="border-bottom: 2px solid #6931E7">
+                                <h3>Stiller</h3>
+                            </div>
+                        </div>
+                        
+                        
+
+                        <div class="row">
+                            <div class="col-md-12 mb-5" style="border-bottom: 2px solid #6931E7">
                                 <h3>E-Mail-Informationen des Unternehmens</h3>
                             </div>
                         </div>

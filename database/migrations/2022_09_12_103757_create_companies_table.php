@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('email');
             $table->string('google-email')->nullable();
             $table->string('website');
+            $table->string('crmPrimaryColor')->default('#2A6698');
+            $table->string('crmSecondaryColor')->default('#C8DFF3');
+            $table->string('pdfPrimaryColor')->default('#D10D0C');
             $table->timestamps();
         });
     }

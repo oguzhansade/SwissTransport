@@ -468,7 +468,7 @@ class indexController extends Controller
         $all = NULL;
         switch ($cekboks) {
             case (1);
-                $sub = 'Besichtigung Swiss Transporte';
+                $sub = 'Besichtigung '.Company::InfoCompany('name');
                 $all = Appointment::create($appointment);
                 $AppointmentIdBul = DB::table('appointments')->orderBy('id', 'DESC')->first(); // Son Eklenen Besichtigung un id'si
                 $appDateArray = [];
@@ -487,7 +487,7 @@ class indexController extends Controller
                 $randevuTipi = 'Besichtigung';
                 break;
             case (2);
-                $sub = 'Auftragbestätigung Swiss Transporte';
+                $sub = 'Auftragbestätigung '.Company::InfoCompany('name');
                 $randevuTipi = 'Auftragsbestätigung';
                 $appointmentDate = $appDateArray;
                 $all = AppoinmentService::create($appointmentService);
@@ -499,7 +499,7 @@ class indexController extends Controller
                 }
                 break;
             case (3);
-                $sub = 'Lieferung Swiss Transporte';
+                $sub = 'Lieferung '.Company::InfoCompany('name');
                 $all = AppointmentMaterial::create($appointmentMaterial);
                 $AppointmentMaterialIdBul = DB::table('appointment_materials')->orderBy('id', 'DESC')->first(); // Son Eklenen Lieferung un id'si
 
@@ -541,7 +541,7 @@ class indexController extends Controller
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
 
-        $offerteLink = 'https://swisstransport-crm.ch/offer/detail/'.$offerId;
+        $offerteLink = config('app.url').'offer/detail/'.$offerId;
         $offerteLink2 = '<a href="' . $offerteLink . '">Offerte</a>';
         if ($all) {
             $mailSuccess = '';
@@ -767,7 +767,7 @@ class indexController extends Controller
         $ADC++;
 
 
-        $sub = 'Terminbestätigung Swiss Transport';
+        $sub = 'Terminbestätigung '.Company::InfoCompany('name');
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $randevuTipi = 'Besichtigung';

@@ -20,9 +20,10 @@
     <a href="https://www.swisstransport-crm.ch/offer/detail/{{ $offertenumber }}">Ansicht</a>
     <br> <br>
     <div class="footer">
+        <br><br>
         <div>Freundliche Grüsse</div>
-        <div><strong>Ihr Swiss Transport Team</strong></div> <br><br>
-        <div><img src="https://www.swisstransport-crm.ch/public/assets/demo/swiss-logo.png" width="200" /></div><br>
+        <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>
+        <div><img src="{{ asset('assets/demo/logo-expand.png') }}" width="200" /></div><br>
         <div><strong>{{ \App\Models\Company::InfoCompany('name') }}</strong></div>
         <div>{{ \App\Models\Company::InfoCompany('street') }}</div>
         <div>CH-{{ \App\Models\Company::InfoCompany('post_code') }} {{ \App\Models\Company::InfoCompany('city') }}</div> <br>

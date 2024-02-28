@@ -17,77 +17,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         $userId = DB::table('users')->insertGetId([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
-            'permName' => NULL,
+            'name' => 'Developer',
+            'email' => 'dev@swisstransport.com',
+            'password' => Hash::make('camdalio1983'),
+            'permName' => 'superAdmin',
         ]);
-
-        // User Permissions
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 0,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 1,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 2,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 3,
-            ]);
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 5,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 6,
-            ]);
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 7,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 8,
-            ]);
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 9,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 10,
-            ]);
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 11,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 12,
-            ]);
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 13,
-            ]);
-
-            DB::table('user_permissions')->insert([
-                'userId' => $userId,
-                'permissionId' => 14,
-            ]);
 
         $companyId = DB::table('companies')->insertGetId([
             'name' => 'Example Company',
@@ -99,17 +33,11 @@ class UserSeeder extends Seeder
             'contact_person' => 'John Doe',
             'email' => 'example@example.com',
             'website' => 'https://www.google.com/',
+            'crmPrimaryColor' => '#286090',
+            'crmSecondaryColor' => '#C8DFF3',
+            'pdfPrimaryColor' => '#D10D0C'
         ]);
 
-        DB::table('email_configurations')->insert([
-            'companyId' => $companyId,
-            'host' => 'localhost',
-            'port' => 485,
-            'ssl' => 0,
-            'username' => 'example',
-            'password' => 'password',
-            'display_name' => 'firma',
-            'reply_address' => 'info@example.com'
-        ]);
+        
     }
 }

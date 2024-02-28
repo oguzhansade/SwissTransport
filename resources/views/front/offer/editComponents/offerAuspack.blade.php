@@ -6,7 +6,7 @@
     </div>                            
 </div>
 
-<div class="rounded auspack--area" style="background-color: #C8DFF3; @if($auspack == NULL) display:none;  @endif">
+<div class="rounded auspack--area bg-service-primary" style=" @if($auspack == NULL) display:none;  @endif">
     <div class="row p-3">
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Tarif</label>

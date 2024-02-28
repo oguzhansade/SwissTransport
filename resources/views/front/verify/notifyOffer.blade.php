@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Swiss Transport - Angebotsbestätigung</title>
+    <title>{{ \App\Models\Company::InfoCompany('name') }} - Angebotsbestätigung</title>
     <!-- CSS only -->
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="{{ asset('assets/css/pace.css') }}">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>Swiss Transport</title>
+<title>{{ \App\Models\Company::InfoCompany('name') }}</title>
 <!-- CSS -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600|Roboto:400" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/vendors/material-icons/material-icons.css') }}" rel="stylesheet" type="text/css">
@@ -52,7 +52,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 p-3 mt-3 d-flex justify-content-center">
-                <img class="logo-expand" alt="" width="350" src="{{ asset('assets/demo/swiss-logo.png') }}">
+                <img class="logo-expand" alt="" width="350" src="{{ asset('assets/demo/logo-expand.png') }}">
             </div>
             <div class="row d-flex p-0 justify-content-start" >
                 <div class="col-md-12 d-flex justify-content-start">
