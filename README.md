@@ -16,7 +16,11 @@ ssh hywefuza@s108.cyon.net
 <li>env güncellemeyi unutma db bağlantısı vs.</li>
 <li>composer install </li>
 <li>Google Calendar Ayarları Rengini Ayarla (<a href="#renk-rehberi">Renk için tıkla</a>)</li>
-<li>ÖNEMLİ** .gittignore'a public/assets/demo ve public/assets/img klasörlerini ekle(Muhtemelen buraya kadar yeterli)</li>
+<li>ÖNEMLİ** .gittignore'a public/assets/demo ve public/assets/img klasörlerini ekle</li>
+</ol>
+<hr>
+<h3>Opsiyonel Ekstra Kurulum adımları</h3>
+<ol>
 <li>npm install</li>
 <li>composer require laravel/ui --dev</li>
 <li>php artisan ui vue --auth</li>
