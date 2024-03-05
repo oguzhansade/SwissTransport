@@ -19,6 +19,9 @@ return new class extends Migration
             $table->time('reinigungStartTime')->nullable();
             $table->date('reinigungEndDate')->nullable();
             $table->time('reinigungEndTime')->nullable();
+            $table->string('calendarTitle')->nullable();
+            $table->longText('calendarComment')->nullable();
+            $table->string('calendarLocation')->nullable();
             $table->timestamps();
         });
     }
