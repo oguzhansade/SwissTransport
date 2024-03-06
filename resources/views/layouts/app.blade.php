@@ -186,8 +186,8 @@
             <!-- Logo Area -->
             <div class="navbar-header" >
                 <a href="/" class="navbar-brand">
-                    <img class="logo-expand" alt="" src="{{ asset('assets/demo/logo-expand.png') }}">
-                    <img class="logo-collapse" alt="" src="{{ asset('assets/demo/logo-collapse.png') }}">
+                    <img class="logo-expand p-1" alt="" src="{{ asset('assets/demo/logo-expand.png') }}">
+                    <img class="logo-collapse p-1" alt="" src="{{ asset('assets/demo/logo-collapse.png') }}">
                     <!-- <p>BonVue</p> -->
                 </a>
             </div>
