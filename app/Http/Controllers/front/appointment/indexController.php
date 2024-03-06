@@ -846,14 +846,7 @@ class indexController extends Controller
             $data = Appointment::where('id', $id)->get();
             $calendarBesc = Calendar::where('serviceId', $id)->first();
             if ($calendarBesc) {
-                $event = Event::find($calendarBesc['eventId']);
-                if ($event) {
-                    
-                    calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
-                    Calendar::where('serviceId', $id)->delete();
-                } else {
-                    Calendar::where('serviceId', $id)->delete();
-                }
+                calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
             }
             Appointment::where('id', $id)->delete();
             return redirect()
