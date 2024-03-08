@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ort')->nullable();
             $table->string('plz')->nullable();
             $table->string('land')->nullable();
+            $table->string('status')->default('Açık')->nullable();
             $table->dateTime('expiryDate')->nullable();
             $table->integer('umzugId')->nullable();
             $table->integer('einpackId')->nullable();

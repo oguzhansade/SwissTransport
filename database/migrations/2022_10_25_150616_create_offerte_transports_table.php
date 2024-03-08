@@ -41,13 +41,13 @@ return new class extends Migration
             $table->string('extraCostText7')->nullable();
             $table->integer('extraCostValue7')->nullable();
             $table->string('totalPrice')->nullable();
-            $table->integer('discount')->default(0)->default(0);
+            $table->integer('discount')->default(0)->nullable();
             $table->integer('discountPercent')->nullable();
-            $table->integer('compromiser')->default(0)->default(0);
+            $table->integer('compromiser')->default(0)->nullable();
             $table->string('extraDiscountText')->nullable();
-            $table->integer('extraDiscountValue')->default(0);
+            $table->integer('extraDiscountValue')->default(0)->nullable();;
             $table->string('extraDiscountText2')->nullable();
-            $table->integer('extraDiscountValue2')->default(0);
+            $table->integer('extraDiscountValue2')->default(0)->nullable();;
             $table->string('defaultPrice')->nullable();
             $table->integer('topCost')->nullable();
             $table->integer('fixedPrice')->nullable();

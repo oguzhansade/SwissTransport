@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('source1')->nullable();
             $table->string('source2')->nullable();
             $table->string('email');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('mobile');
             $table->longText('note')->nullable();
             $table->timestamps();

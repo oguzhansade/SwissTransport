@@ -314,9 +314,6 @@
                                     <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview"
                                         formtarget="_blank"
                                         formaction="{{ route('offer.offerPdfPreview', ['id' => $data['id']]) }}">
-                                    <input class="btn btn-info btn-rounded" type="submit" value="TEST PDF"
-                                        formtarget="_blank"
-                                        formaction="{{ route('offer.offerPdfPreviewTest', ['id' => $data['id']]) }}">
                                 </div>
                             </div>
                         </div>
@@ -477,7 +474,7 @@
         contactPerson()
         esimatedIncome();
     })
-
+    var defaultContactPerson = @json(App\Models\Company::InfoCompany('name'));
     $("body").on("change",".componentArea",function(){
         esimatedIncome()
     })
@@ -487,7 +484,7 @@
             $(".customContactPerson").hide(300)
         } else {
             $(".customContactPerson").show(300)
-            $("input[name=customContactPerson]").val('Swiss Transport Team')
+            $("input[name=customContactPerson]").val(defaultContactPerson + ' ' + 'Team')
         }
     }
 
@@ -592,13 +589,14 @@
         $("input[name=offerteEsimatedIncome]").val(esimatedIncome);
     }
 
+    
     console.log($('select[name=contactPerson]').val(), 'contact')
     $('select[name=contactPerson]').on('change', function() {
         if ($('select[name=contactPerson]').val() != 'Bitte wählen') {
             $(".customContactPerson").hide(300)
         } else {
             $(".customContactPerson").show(300)
-            $("input[name=customContactPerson]").val('Swiss Transport Team')
+            $("input[name=customContactPerson]").val(defaultContactPerson+ ' ' + 'Team')
         }
     })
 </script>
