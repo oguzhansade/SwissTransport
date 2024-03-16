@@ -28,7 +28,7 @@
         </div>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -66,13 +66,12 @@
                                     <select class="form-control" name="appOfferType" id="appOfferType">
                                         <option value="0" @if($data['appType'] == 0) selected @endif>Nein</option>
                                         <option value="1" @if($data['appType'] == 1) selected @endif>Gemacht</option>
-                                        <option value="2" @if($data['appType'] == 2) selected @endif>Wünscht keine</option>
-                                    </select> 
-                                </div>                            
+                                    </select>
+                                </div>
                             </div>
 
-                            
-                        
+
+
                             <div class="componentArea">
                                 {{-- Offerte Umzug  Alanı --}}
                                 @include('front.offer.editComponents.offerUmzug',[
@@ -84,7 +83,7 @@
                                     'einzug3' => $data['einzugaddressId3'],
                                     ])
                             {{-- Offerte Umzug Alanı --}}
-                            
+
                             {{-- Offerte Umzug 2 Alanı --}}
                                 @include('front.offer.editComponents.offerUmzug2',['umzug' => $data['offerteUmzugId']])
                             {{-- Offerte Umzug 2 Alanı --}}
@@ -126,41 +125,41 @@
                                 <div class="col-md-5">
                                     <label for="" class="col-form-label">Esimated Income</label><br>
                                     <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #286090" readonly>
-                                </div>                            
+                                </div>
                             </div>
-                            
+
 
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label ">Bemerkung (in Offerte)</label><br>
-                                    <textarea class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>    
-                                </div>                            
+                                    <textarea class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Notiz (<u>Nicht</u> in Offerte)</label><br>
-                                    <textarea  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>    
-                                </div>                            
+                                    <textarea  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>
+                                </div>
                             </div>
 
                             <div class="col-md-12  p-3 rounded" style="background-color: #eae9ec;">
-                                <label class="col-form-label" >Zusätzliche Merkmale</label>                                                   
-                                <div class="col-md-12 ">                                                    
+                                <label class="col-form-label" >Zusätzliche Merkmale</label>
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
                                             <input type="checkbox" name="kdvType"  value="1" @if($data['kostenInkl'] == 1) checked @endif> <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
                                             <input type="checkbox" name="kdvType1"  value="1" @if($data['kostenExkl'] == 1) checked @endif> <span class="label-text text-dark"><strong> Kosten exkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
                                             <input type="checkbox" name="kdvType3"  value="1" @if($data['kostenFrei'] == 1) checked @endif> <span class="label-text text-dark "><strong>Kostenfrei MwSt.</strong></span>
@@ -177,41 +176,41 @@
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
                                         <option value=" {{ $value['name'] .' '. $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].' '.$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
-                                    </select> 
+                                    </select>
                                 </div>
                                 <div class="col-md-6 customContactPerson" style="display:block;">
                                     <label class=" col-form-label" for="l0">Kontaktperson (Freitext)</label>
-                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="{{ \App\Models\Company::InfoCompany('name') }} Team" @else value="{{ $data['contactPerson'] }}" @endif>  
-                                </div>                            
+                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="{{ \App\Models\Company::InfoCompany('name') }} Team" @else value="{{ $data['contactPerson'] }}" @endif>
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false"  >  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false"  >
+                                </div>
                             </div>
-                            
+
 
                             <div class="row form-group email--area" style="display: block;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse </label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $customer['email']  }}" >                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $customer['email']  }}" >
+                                </div>
+
 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                        @if($customEmail) {{ $customEmail['content'] }} 
-                                            @else 
-                                                @include('../../offerMailHeader',['data2' => $data,'appType' => $data['appType']])  
+                                        @if($customEmail) {{ $customEmail['content'] }}
+                                            @else
+                                                @include('../../offerMailHeader',['data2' => $data,'appType' => $data['appType']])
                                         @endif
                                     </textarea>
                                 </div>
@@ -220,14 +219,14 @@
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">
                                     <label for="" class="col-form-label">SMS an Kunden</label><br>
-                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="col-md-12 sms-format">
                                 <label for="" class="col-form-label">Standard SMStext bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#286090" data-switchery="false" >   
-                            </div>  
+                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#286090" data-switchery="false" >
+                            </div>
 
                             <div class="row form-group sms-format-area" style="display: none;">
                                 <div class="col-md-12 mt-3">
@@ -279,7 +278,7 @@
     $("body").on("change",".componentArea",function(){
         esimatedIncome()
     })
-    
+
     function contactPerson() {
         if($('select[name=contactPerson]').val() != 'Bitte wählen')
         {
@@ -330,7 +329,7 @@
                 einpack = parseFloat(einpack);
             }
         }else{einpack = 0}
-        
+
         if (auspack) {
             if(auspack.includes("-")) {
                 auspack = priceSplitter(auspack);
@@ -387,11 +386,11 @@
             }
         }else{material = 0}
 
-        esimatedIncome = 
-        parseFloat(umzug) + 
-        parseFloat(einpack) + 
-        parseFloat(auspack) + 
-        parseFloat(reinigung) + 
+        esimatedIncome =
+        parseFloat(umzug) +
+        parseFloat(einpack) +
+        parseFloat(auspack) +
+        parseFloat(reinigung) +
         parseFloat(reinigung2) +
         parseFloat(entsorgung) +
         parseFloat(transport) +
@@ -400,7 +399,7 @@
         $("input[name=offerteEsimatedIncome]").val(esimatedIncome.toFixed(2));
     }
 </script>
-<script>       
+<script>
     var morebutton = $("div.email-send");
     var morebutton10 = $("div.verpackungsmaterial-control");
 
@@ -465,21 +464,21 @@
         case '0':
                 // TODO: bu bölüm blade import değil api olarak kullanılacak
                 tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");  
+                tinymce.execCommand("mceRepaint");
             break;
         case '1':
             // TODO: bu bölüm blade import değil api olarak kullanılacak
                 tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '1'])`);
-                tinymce.execCommand("mceRepaint"); 
+                tinymce.execCommand("mceRepaint");
             break;
         case '2':
             // TODO: bu bölüm blade import değil api olarak kullanılacak
                 tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '2'])`);
-                tinymce.execCommand("mceRepaint"); 
+                tinymce.execCommand("mceRepaint");
             break;
         default:
                 tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");  
+                tinymce.execCommand("mceRepaint");
         }
    })
 </script>
