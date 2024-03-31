@@ -35,7 +35,7 @@ Route::get('/route-cache', function() {
 Route::get('/config-cache', function() {
  	Artisan::call('config:cache');
  	return 'Config cache has been cleared';
-}); 
+});
 
 // Clear view cache:
 Route::get('/view-clear', function() {
@@ -51,7 +51,7 @@ Route::get('/view-clear', function() {
         Route::post('/rejectoffer/{token}', [App\Http\Controllers\verifyController::class, 'rejectOffer'])->name('rejectOffer');
         Route::get('/viewPdf/{token}', [App\Http\Controllers\customerViewController::class, 'customerOfferView'])->name('customerOfferView');
         Route::get('/showPdf/{token}', [App\Http\Controllers\customerViewController::class, 'showPdf'])->name('showPdf');
-        
+
 // });
 
 
@@ -152,13 +152,17 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
         Route::get('/reminderTest', [App\Http\Controllers\front\customer\indexController::class, 'reminderTest'])->name('reminderTest');
 
-        
+
     });
 
     Route::group(['namespace' => 'customerForms', 'as' => 'customerForms.', 'prefix' => 'customerForms','middleware' => ['PermissionControl']], function () {
         Route::post('/data', [App\Http\Controllers\front\customerForms\indexController::class, 'data'])->name('data');
         Route::get('/data', [App\Http\Controllers\front\customerForms\indexController::class, 'data'])->name('data');
         Route::get('/detail/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'detail'])->name('detail');
+        Route::get('/assign/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'assign'])->name('assign');
+        Route::post('/assignCustomer/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'assignCustomer'])->name('assignCustomer');
+        Route::get('/unAssignCustomer/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'unAssignCustomer'])->name('unAssignCustomer');
+        Route::get('/delete/{id}', [App\Http\Controllers\front\customerForms\indexController::class, 'delete'])->name('delete');
     });
 
     Route::group(['namespace' => 'appointment', 'as' => 'appointment.', 'prefix' => 'appointment','middleware' => ['PermissionControl']], function () {
@@ -227,7 +231,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
         Route::get('/dateTester', [App\Http\Controllers\front\offer\indexController::class, 'dateTester'])->name('dateTester');
         Route::get('/sendSms', [App\Http\Controllers\front\offer\indexController::class, 'sendSms'])->name('sendSms');
-        
+
     });
 
     Route::group(['namespace' => 'invoice', 'as' => 'invoice.', 'prefix' => 'invoice','middleware' => ['PermissionControl']], function () {

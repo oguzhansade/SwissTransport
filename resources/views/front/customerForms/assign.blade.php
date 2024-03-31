@@ -8,26 +8,6 @@
 @endsection
 @section('content')
 
-@if (session("status"))
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="alert alert-success">
-                {{ session("status") }}
-            </div>
-        </div>
-    </div>
-    @endif
-
-    @if (session("status2"))
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="alert alert-danger">
-                    {{ session("status2") }}
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="container-fluid">
         <div class="row d-flex justify-content-between">
             <div class="col-md-10">
@@ -40,7 +20,7 @@
         </div>
         <div class="bg-white rounded-pill shadow-lg p-3 ">
             <div class="row">
-                <div class="col-md-12 text-dark">
+                <div class="col-md-6 text-dark">
                     <table>
                         @php
                             $fullName = $data['customerName'];
@@ -88,26 +68,33 @@
                             <td><span>{{ $data['nachPlz'] }}</span></td>
                         </tr>
                     </table>
-
-
-                    <div class="form-group row mt-3">
-                        <div class="col-md-12 ml-md-auto btn-list">
-                            @if($data['status'] == 0)
-                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.createForm', ['id' => $data['id']]) }}">Kundendaten übernehmen</a>
-                            @endif
-
-                            @if($data['status'] == 1)
-                            <a class="btn btn-primary btn-rounded" href="{{ route('customer.detail', ['id' => $data['customerId']]) }}">Kunden</a>
-                            @endif
-
-                            @if (in_array(Auth::user()->permName, ['superAdmin']))
-                                or
-                                <a class="btn btn-primary btn-rounded ml-1" href="{{ route('customerForms.assign', ['id' => $data['id']]) }}">Assign Customer</a>
-                                @endif
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="col-md-6">
+                    <form action="{{ route('customerForms.assignCustomer',['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-md-4">
+                            <label for="customer">Kundenliste</label>
+                            <select id="customer" name="customer" class="m-b-10 form-control quittungId" data-placeholder="Kunde auswählen" data-toggle="select2" required>
+                                <option class="form-control" value="">Kunde auswählen</option>
+                                @foreach ($customers as $k => $v)
+                                    <option class="form-control"  value="{{ $v['id'] }}" @if($data['customerId'] == $v['id']) selected @endif>{{ $v['name'] }} {{ $v['surname'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-actions mt-3">
+                            <div class="form-group row">
+                                <div class="col-md-12 ml-md-auto btn-list">
+                                    <button class="btn btn-primary btn-rounded" type="submit"> @if($data['customerId']) Reassign @else Assign @endif</button>
+
+                                    @if($data['customerId']) <br><a class="btn btn-warning btn-rounded" href="{{ route('customerForms.unAssignCustomer', ['id' => $data['id']]) }}">Unassign Customer</a> @endif
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

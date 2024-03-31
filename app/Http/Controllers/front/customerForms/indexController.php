@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomerForm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Customer;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class indexController extends Controller
@@ -27,19 +30,19 @@ class indexController extends Controller
             'type' => 'Schnellanform',
             'status' => 0
         ];
-        
+
         $create = CustomerForm::create($schnellanForm);
 
         // $fileContents = json_encode($formData);
         // $filePath = storage_path('app/public/schnellanForm.txt'); // Dosyanın tam yolu
-    
+
         // if (!file_exists($filePath)) {
         //     touch($filePath); // Dosyayı oluştur
         //     chmod($filePath, 0666); // Yazma izinlerini ayarla
         // }
-    
+
         // file_put_contents($filePath, $fileContents);
-    
+
         // // İşlem sonucunu döndür
         return response()->json(['message' => 'FormCraft verileri başarıyla alındı ve dosyaya yazıldı.']);
     }
@@ -66,19 +69,19 @@ class indexController extends Controller
             'type' => 'Firmenform',
             'status' => 0
         ];
-        
+
         $create = CustomerForm::create($firmenForm);
 
         // $fileContents = json_encode($formData);
         // $filePath = storage_path('app/public/firmenForm.txt'); // Dosyanın tam yolu
-    
+
         // if (!file_exists($filePath)) {
         //     touch($filePath); // Dosyayı oluştur
         //     chmod($filePath, 0666); // Yazma izinlerini ayarla
         // }
-    
+
         // file_put_contents($filePath, $fileContents);
-    
+
         // // İşlem sonucunu döndür
         return response()->json(['message' => 'FormCraft verileri başarıyla alındı ve dosyaya yazıldı.']);
     }
@@ -105,36 +108,36 @@ class indexController extends Controller
             'type' => 'Privatform',
             'status' => 0
         ];
-        
+
         $create = CustomerForm::create($privatForm);
 
         // $fileContents = json_encode($formData);
         // $filePath = storage_path('app/public/privatForm.txt'); // Dosyanın tam yolu
-    
+
         // if (!file_exists($filePath)) {
         //     touch($filePath); // Dosyayı oluştur
         //     chmod($filePath, 0666); // Yazma izinlerini ayarla
         // }
-    
+
         // file_put_contents($filePath, $fileContents);
-    
+
         // // İşlem sonucunu döndür
         return response()->json(['message' => 'FormCraft verileri başarıyla alındı ve dosyaya yazıldı.']);
     }
     public function data(Request $request)
     {
-        
+
             $table=CustomerForm::query();
             if($request->min_date) {
                 $table->whereDate('created_at', '>=', $request->min_date);
             }
-            
+
             // Maximum date filter
             if($request->max_date) {
                 $table->whereDate('created_at', '<=', $request->max_date);
             }
             $data=DataTables::of($table)
-            
+
             ->editColumn('created_at', function ($data) {
                 $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y');
                 return $formatedDate;
@@ -147,7 +150,7 @@ class indexController extends Controller
                 else {
                     return '<button type="button" class="btn btn-sm btn-success">Registriert</button>';
                 }
-                
+
             })
             ->editColumn('type', function ($data) {
                 if($data->type == 'Privatform')
@@ -164,17 +167,25 @@ class indexController extends Controller
                     return 'Reinigung kunde';
                 }
             })
-    
-            ->addColumn('option',function($table) 
+
+            ->addColumn('option',function($table)
             {
-                return '
-                <a class="btn btn-sm  btn-detail" href="'.route('customerForms.detail',['id'=>$table->id]).'">Detail</a> ';
+
+
+                if(Auth::user()->permName == 'superAdmin')
+                {
+                    return '<a class="btn btn-sm  btn-detail" href="'.route('customerForms.detail',['id'=>$table->id]).'">Detail</a>
+                    <a class="btn btn-sm  btn-danger" href="'.route('customerForms.delete',['id'=>$table->id]).'">Delete</a>';
+                }
+                else  {
+                    return '<a class="btn btn-sm  btn-detail" href="'.route('customerForms.detail',['id'=>$table->id]).'">Detail</a> ';
+                }
             })
             ->rawColumns(['option','status'])
             ->make(true);
-    
+
             return $data;
-        
+
     }
 
     public function detail(Request $request)
@@ -182,5 +193,75 @@ class indexController extends Controller
         $id = $request->route('id');
         $data = CustomerForm::where('id',$id)->first();
         return view('front.customerForms.detail', ['data' => $data]);
+    }
+
+    public function assign(Request $request)
+    {
+        $id = $request->route('id');
+        $data = CustomerForm::where('id',$id)->first();
+        $customers = Customer::all();
+
+        return view('front.customerForms.assign', ['data' => $data, 'customers' => $customers]);
+    }
+
+    public function assignCustomer(Request $request)
+    {
+        $id = $request->route('id');
+        $customerId = $request->get('customer');
+
+        $formUpdate = CustomerForm::where('id',$id)->update([
+            'status' => 1,
+            'customerId' => $customerId
+        ]);
+
+        if($formUpdate){
+            return redirect()
+                ->route('customerForms.detail', ['id' => $id])
+                ->with('status', 'Der Kunde wurde erfolgreich zugewiesen');
+        }
+        else {
+            return redirect()
+                ->route('customerForms.detail', ['id' => $customerId])
+                ->with('status2', 'Fehler: Der Kunde konnte nicht zugewiesen werden.');
+        }
+    }
+
+    public function unAssignCustomer(Request $request)
+    {
+        $id = $request->route('id');
+        $customerId = $request->get('customer');
+
+        $formUpdate = CustomerForm::where('id',$id)->update([
+            'status' => 0,
+            'customerId' => NULL
+        ]);
+
+        if($formUpdate){
+            return redirect()
+                ->route('customerForms.detail', ['id' => $id])
+                ->with('status', 'Mitarbeiterzuweisung erfolgreich entfernt');
+        }
+        else {
+            return redirect()
+                ->route('customerForms.detail', ['id' => $customerId])
+                ->with('status2', 'Fehler: Mitarbeiterzuweisung konnte nicht entfernt werden.');
+        }
+    }
+
+    public function delete ($id)
+    {
+        $c = CustomerForm::where('id',$id)->count();
+        if($c !=0)
+        {
+            $data = CustomerForm::where('id',$id)->first();
+
+
+            CustomerForm::where('id',$id)->delete();
+
+            return redirect()->back()->with('status','Das Formular wurde erfolgreich gelöscht.');
+        }
+        else {
+            return redirect('/');
+        }
     }
 }
