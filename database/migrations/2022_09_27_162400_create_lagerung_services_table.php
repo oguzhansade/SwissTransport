@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->date('lagerungDate')->nullable();
             $table->time('lagerungTime')->nullable();
+            $table->string('calendarTitle')->nullable();
+            $table->longText('calendarComment')->nullable();
+            $table->string('calendarLocation')->nullable();
             $table->timestamps();
         });
     }
