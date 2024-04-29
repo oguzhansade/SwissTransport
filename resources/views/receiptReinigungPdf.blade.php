@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <style>
         *{ font-family: Arial, Helvetica, sans-serif !important;
-            font-size:12px; 
+            font-size:12px;
             line-height: 12px;
             }
             @page {
@@ -22,13 +22,13 @@
                 text-align: center;
                 padding: 0px;
                 line-height: 12px;
-                
+
             }
 
             footer {
-                position: fixed; 
-                bottom: -80px; 
-                left: 0px; 
+                position: fixed;
+                bottom: -80px;
+                left: 0px;
                 right: 0px;
                 border-top:black 1px solid;
                 /** Extra personal styles **/
@@ -39,9 +39,9 @@
             }
     </style>
     @include('bootstrap')
-    
+
 </head>
-<body> 
+<body>
     <header>
         <header >
             <table style="width: 100%;">
@@ -59,19 +59,20 @@
     <main>
         <div class="teklif-boyutu">
             <table border="0" style="width:100%;" >
-    
+
                 <tr style="width: 100%;margin-top:20px;">
                     <td colspan="4" align="left"><h1><b style="font-size:18px;">Quittung / Rechnung</b></h1></td>
                 </tr>
-    
+
                 <tr style="width:100%;margin-top:20px;">
                     <td valign="top" style="padding-top:20px;">
                         <b>Auftraggeber:</b><br>
                         {{ $receipt['customerGender'] }} <br>
                         {{ $receipt['customerName'] }} <br>
                         {{ $receipt['customerStreet'] }} <br>
-                        {{ $receipt['customerAddress'] }} <br>
+                        {{ $receipt['customerAddress'] }} / {{ App\Models\Customer::getCustomer($receipt['customerId'],'Ort') }}<br>
                         {{ $receipt['customerPhone'] }} <br>
+                        {{ App\Models\Customer::getCustomer($receipt['customerId'],'email') }}<br>
                     </td>
                     <td valign="top" style="padding-top:20px;">
                         <b>Reinigungsadresse:</b><br>
@@ -84,7 +85,7 @@
                         {{ date('d.m.Y', strtotime($receipt['reinigungDate'])) }},
                         @endif
                         @if($receipt['reinigungTime']) {{ date('H:i', strtotime($receipt['reinigungTime'])) }} Uhr @endif
-                        
+
                     </td>
                     <td valign="top" style="padding-top:20px;">
                         <b>Abgabetermin:</b><br>
@@ -95,24 +96,24 @@
                     </td>
                 </tr>
             </table>
-    
+
             <div style="border:1px solid black;margin-top:20px;">
                 <table  style="padding:10px;width:100%;">
-    
+
                     {{-- Reinigung --}}
                     <tr valign="top" style="width: 100%;">
                         <td>
                             <b>{{ $receipt['reinigungType'] }} </b>
                         </td>
                         <td colspan="2" align="left">
-                            
+
                         </td>
                         <td>
-                            {{ $receipt['reinigungExtraText'] }} 
+                            {{ $receipt['reinigungExtraText'] }}
                         </td>
                     </tr> <br>
-    
-                    @if($receipt['extraReinigung']) 
+
+                    @if($receipt['extraReinigung'])
                         <tr valign="top" style="width: 100%;">
                             <td>
                                 Leistungen:
@@ -123,20 +124,20 @@
                             <td></td>
                         </tr>
                     @endif
-    
-                    @if($receipt['fixedPrice']) 
+
+                    @if($receipt['fixedPrice'])
                         <tr valign="top" style="width: 100%;">
                             <td>
                                 Preis:
                             </td>
                             <td colspan="2">
-                                
+
                             </td>
                             <td>CHF {{ $receipt['fixedPrice'] }}</td>
                         </tr>
-    
+
                         @else
-    
+
                         <tr valign="top" style="width: 100%;">
                             <td>
                                 Aufwand:
@@ -148,7 +149,7 @@
                             <td>@if ( $receipt['reinigungPrice'] ) CHF {{ $receipt['reinigungPrice'] }} @else CHF_______ @endif</td>
                         </tr> <br>
                     @endif
-                    
+
                     {{-- Ekstralar --}}
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td>Zuschläge:</td>
@@ -171,7 +172,7 @@
                             @if ( $receiptExtra['extra7'] ) CHF {{ $receiptExtra['extra7'] }} @else CHF_______ @endif <br><br>
                         </td>
                     </tr>
-    
+
                     {{-- Discountlar --}}
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td >Abzüge:</td>
@@ -186,7 +187,7 @@
                             @if ( $receiptDiscount['discount3'] ) CHF {{ $receiptDiscount['discount3'] }} @else CHF_______ @endif <br><br>
                         </td>
                     </tr>
-                    
+
                     @if ( $receipt['withoutTax'] )
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ></td>
@@ -207,7 +208,7 @@
                             <td></td>
                         </tr>
                     @endif
-    
+
                     @if($receipt['fixedPrice'])
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Pauschal:</b></td>
@@ -235,10 +236,10 @@
                             <b>CHF {{ $receipt['totalPrice'] }}</b><br><br>
                         </td>
                     </tr>
-                    
+
                 </table>
             </div>
-    
+
             @if($receipt['inBar'] || $receipt['inRechnung'])
                 <div style="margin-top:20px;">
                     <b>Zahlung: @if ($receipt['inBar']) Bar @elseif($receipt['inRechnung']) Rechnung @elseif($receipt['inBar'] && $receipt['inRechnung']) Bar & Rechnung @endif</b><br><br>
