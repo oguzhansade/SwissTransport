@@ -40,12 +40,12 @@
         @elseif($data)
             {
             @if ($data['gender'] == 'male')
-                Sehr geehrter Herr 
+                Sehr geehrter Herr
             @else
                 Sehr geehrte Frau
             @endif
-            
-            {{ $data['surname'] }} 
+
+            {{ $data['surname'] }}
             }
             @endif
 
@@ -64,7 +64,7 @@
 
             Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
             Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
-            Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+            Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
             </div>
             @elseif ($AppTypeC == 'Auftragsbestätigung')
                 <div>
@@ -76,23 +76,22 @@
                 {{ $date }}<br>
                 <br /> <br /><br />
                 <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
-                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
                 </div>
                 </div>
                 <br /> <br />
             @elseif($AppTypeC == 'Lieferung')
-            <div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
+            <div>
                 <br />
-                <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
+                <div>Gerne bestätigen wir Ihnen den Liefertermin wie folgt:</div>
                 <br />
                 <br />
                 <b>{{ $date }}</b><br><br>
 
 
-                Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
-                Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
-                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
-                </div>
+                Sollten Sie oder eine beauftragte Person die Sendung nicht persönlich in Empfang nehmen können, stellen wir diese an der angegebenen Adresse vor die Wohnungstüre.
+                Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
+            </div>
         @endif
         <div class="footer">
             <br><br>

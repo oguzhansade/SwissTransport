@@ -44,7 +44,7 @@
         type="text/css">
     <link rel="stylesheet" type="text/css" href="https://www.provenexpert.com/css/widget_landing.css"
         media="screen,print">
-       
+
     <style>
         .bg-container {
             background-color: white;
@@ -56,9 +56,9 @@
         }
 
         .text-primary {
-            
+
             color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}!important;
-            
+
         }
 
         .bg-preview-primary {
@@ -115,7 +115,7 @@
                 /* veya istediğiniz boyut */
             }
         }
-        
+
 
 
     </style>
@@ -138,7 +138,7 @@
             </div>
 
         </div>
-       
+
         <div class="row">
             <div class="col-md-12  p-0 banner draw" style="position: relative;z-index: 3;">
                 <img src="{{ asset('assets/img/umzugsfirma-zuerich.jpg') }}" width="1920" height="450"
@@ -1164,38 +1164,56 @@
 
                             <div class="row mt-3">
                                 <div class="col-md-6">
-                                    Tarif
+                                    @if ($entsorgung['tariff'])
+                                    <b>Tarif</b>
+                                    @else
+                                    <b>Entsorgungstarif</b>
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['ma'] }} Mitarbeiter mit {{ $entsorgung['lkw'] }} Lieferwagen
-                                    @if ($entsorgung['anhanger'])
-                                        und {{ $entsorgung['anhanger'] }} Anhänger
-                                    @endif à CHF {{ $entsorgung['chf'] }}.- / Stunde
+                                    @if ($entsorgung['tariff'])
+                                        {{ $entsorgung['ma'] }} Mitarbeiter mit {{ $entsorgung['lkw'] }} Lieferwagen
+                                        @if ($entsorgung['anhanger'])
+                                            und {{ $entsorgung['anhanger'] }} Anhänger
+                                        @endif à CHF {{ $entsorgung['chf'] }}.- / Stunde
+                                    @endif
+
+                                    @if ($entsorgung['volume'])
+                                        CHF {{ $entsorgung['volumeCHF'] }}.- pro m3
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
-                                    Anfahrt/Rückfahrt
+                                   <b>Anfahrt/Rückfahrt</b>
                                 </div>
                                 <div class="col-md-6">
                                     {{ $entsorgung['arrivalReturn'] }} CHF
                                 </div>
 
                                 <div class="col-md-6">
-                                    Geschätzter Arbeitsaufwand
+
+                                    @if ($entsorgung['fixedCost'])
+                                    <b>Entsorgungsaufwand</b>
+                                    @else
+                                    <b>Geschätzter Arbeitsaufwand</b>
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['hour'] }} Std
+                                    @if ($entsorgung['fixedCost'])
+                                        {{ $entsorgung['fixedCost'] }} CHF - pauschal (Aufwand an der Entsorgungsstelle)
+                                        @else {{ $entsorgung['hour'] }} Std
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
-                                    Geschätztes Volumen
+                                    <b>Geschätztes Volumen</b>
                                 </div>
                                 <div class="col-md-6">
                                     {{ $entsorgung['volume'] }} m³
                                 </div>
 
                                 <div class="col-md-6">
-                                    Zusatzkosten
+                                    <b>Zusatzkosten</b>
                                 </div>
                                 <div class="col-md-6">
                                     @if ($entsorgung['entsorgungExtra1'])
@@ -1203,16 +1221,16 @@
                                     @endif
                                     @if ($entsorgung['extraCostValue1'])
                                         @if ($entsorgung['extraCostText1'])
-                                            {{ $entsorgung['extraCostText1'] }}
+                                            <b>{{ $entsorgung['extraCostText1'] }}</b>
                                         @else
-                                            Freier Text 1
+                                            <b>Freier Text 1</b>
                                         @endif {{ $entsorgung['extraCostValue1'] }} CHF
                                     @endif
                                     @if ($entsorgung['extraCostValue2'])
                                         @if ($entsorgung['extraCostText2'])
-                                            {{ $entsorgung['extraCostText2'] }}
+                                            <b>{{ $entsorgung['extraCostText2'] }}</b>
                                         @else
-                                            Freier Text 2
+                                            <b>Freier Text 2</b>
                                         @endif {{ $entsorgung['extraCostValue2'] }} CHF
                                     @endif
                                 </div>
@@ -1415,7 +1433,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <span class="text-primary"> <strong>
-                                        @if($transport['fixedChf'] != 0) 
+                                        @if($transport['fixedChf'] != 0)
                                         {{ $transport['fixedChf'] }} CHF
                                         @else {{ $transport['totalPrice'] }} CHF
                                         @endif
@@ -1963,7 +1981,7 @@
             var lineHeight = 7.5; // varsayılan satır yüksekliği
             var maxHeight = numLines * lineHeight;
             div.style.maxHeight = maxHeight + "px";
-            
+
         }
     </script>
     <script>
@@ -2089,7 +2107,7 @@
           }, 'google_translate_element');
         }
     </script>
-        
+
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 

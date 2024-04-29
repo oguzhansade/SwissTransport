@@ -4,7 +4,7 @@
         referrerpolicy="origin"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
-        
+
         .default:before{
             border-color: #039be5!important;
         }
@@ -17,14 +17,14 @@
         .lavender:after {
             background: #7986CB!important;
         }
-        
+
         .sage:before{
             border-color: #33b679!important;
         }
         .sage:after {
             background: #33b679!important;
         }
-       
+
         .grape:before{
             border-color: #8e24aa!important;
         }
@@ -86,7 +86,7 @@
         .tomato:after {
             background: #d60000!important;
         }
-        
+
     </style>
 @endsection
 @section('content')
@@ -132,7 +132,7 @@
 @endif
 
 <div class="widget-list">
-    
+
     <div class="row">
         <div class="col-md-12">
             <strong class="h5 mr-1"> <b>Kunde:</b> </strong> <span class="h5 text-primary ">
@@ -141,8 +141,8 @@
         <div class="col-md-12 widget-holder">
             <div class="widget-bg">
                 <div class="widget-body clearfix">
-                    
-                        
+
+
                         <form id="myform" name="myForm" action="{{ route('appointment.store', ['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
@@ -170,8 +170,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
                             {{-- Onay Alanı Başlangıç --}}
                             <div class="confirmation--area" style="display:none;">
                                 <div class="form-group row">
@@ -259,8 +259,8 @@
                                         <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                             <div class="col-md-12 d-flex justify-content-center align-items-center">
                                                 <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                            </div> 
-                                            
+                                            </div>
+
                                             <div class="radiobox colors">
                                                 <label class="mt-1 ">
                                                     <input type="radio" class=""  name="calendarUmzugColor" value="15"
@@ -386,8 +386,8 @@
                                         <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                             <div class="col-md-12 d-flex justify-content-center align-items-center">
                                                 <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                            </div> 
-                                            
+                                            </div>
+
                                             <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                                 <label class="mt-1 ">
                                                     <input type="radio" class=""  name="calendarUmzug2Color" value="15"
@@ -505,8 +505,8 @@
                                             <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                                                     <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                                </div> 
-                                                
+                                                </div>
+
                                                 <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                                     <label class="mt-1 ">
                                                         <input type="radio" class=""  name="calendarUmzug3Color" value="15"
@@ -638,8 +638,8 @@
                                     <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                                             <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                        </div> 
-                                        
+                                        </div>
+
                                         <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                             <label class="mt-1 ">
                                                 <input type="radio" class=""  name="calendarEinpackColor" value="15"
@@ -768,8 +768,8 @@
                                     <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                                             <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                        </div> 
-                                        
+                                        </div>
+
                                         <div class="col-md-12 radiobox colors d-flex justify-content-center align-items-center">
                                             <label class="mt-1 ">
                                                 <input type="radio" class=""  name="calendarAuspackColor" value="15"
@@ -1521,7 +1521,7 @@
                                         <input class="form-control" name="calendarTitle" type="text" required
                                             value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <label class=" col-form-label" for="l0">Kalender Kommentar</label>
                                         <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10"></textarea>
@@ -1534,8 +1534,8 @@
                                     <div class="row w-100 rounded p-1 mt-1 d-flex justify-content-center align-items-center">
                                         <div class="col-md-12 d-flex justify-content-center align-items-center">
                                             <label class=" col-form-label " ><strong>CalendarColors</strong></label>
-                                        </div> 
-                                        
+                                        </div>
+
                                         <div class="radiobox colors">
                                             <label class="mt-1 ">
                                                 <input type="radio" class=""  name="calendarBescColor" value="15"
@@ -1589,7 +1589,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             </div>
 
                             <div class="form-group row">
@@ -1630,7 +1630,7 @@
                                         </textarea>
                                 </div>
                             </div>
-                            
+
                             <div class="form-actions">
                                 <div class="form-group row">
                                     <div class="col-md-12 ml-md-auto btn-list">
@@ -1639,8 +1639,8 @@
                                 </div>
                             </div>
                         </form>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -2401,7 +2401,7 @@
 
 {{-- TinyMce Email Format Ayarları --}}
 <script>
-    //TinyMce Ayarları 
+    //TinyMce Ayarları
     tinymce.init({
         selector: 'textarea.editor',
         plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
@@ -2754,6 +2754,8 @@
                 tinymce.execCommand("mceRepaint");
             });
         }
+
+        console.log(valueZ, 'AppType')
     }
 </script>
 @endsection
