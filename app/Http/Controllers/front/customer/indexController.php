@@ -128,6 +128,37 @@ class indexController extends Controller
         }
     }
 
+    public function offerlessCustomers (Request $request) {
+
+        $today = Carbon::today();
+
+        $offerteCustomerIds = offerte::pluck('customerId');
+
+        $offerteCustomers = Customer::whereNotIn('id', $offerteCustomerIds)->get();
+
+        $array = [];
+        $i = 0;
+
+        foreach ($offerteCustomers as $customer) {
+            $array[$i]["aid"] = $i + 1;
+            $array[$i]["id"] = $customer->id;
+            $array[$i]["customerName"] = $customer->name.' '.$customer->surname;
+            $array[$i]["dayDiff"] = $today->diffInDays($customer->created_at);
+            $i++;
+        }
+
+
+        $data = DataTables::of($array)
+        ->addColumn('option', function ($array) {
+            return '
+                    <a class="btn btn-sm  btn-primary" href="' . route('customer.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i></a>';
+        })
+        ->rawColumns(['option','appType'])
+            ->make(true);
+
+        return $data;
+    }
+
     public function create()
     {
         return view ('front.customer.create');
@@ -228,7 +259,6 @@ class indexController extends Controller
         $totalPrice = 0; // Initialize the total price variable,
 
         // Minimum date filter
-
         if($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
         }
@@ -455,8 +485,6 @@ class indexController extends Controller
             }
         }
     }
-
-
 
     public function delete($id)
     {

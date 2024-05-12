@@ -186,11 +186,7 @@
 <h3>Willkommen im Admin-Panel Datenschutz: {{ \Carbon\Carbon::now() }}</h3>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Potentielle Kunden</h1>
-        </div>
-    </div>
+
 
     @if (session("status"))
     <div class="row mt-3">
@@ -212,8 +208,43 @@
         </div>
     @endif
 
-    <div class="row">
+    <div class="row mt-5">
+        @if (in_array(Auth::user()->permName, ['superAdmin']))
+        <div class="col-md-12 mb-3 widget-holder">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="h4"><strong>Angebotslose Kunden</strong></span>
+                </div>
+            </div>
+            <div class="widget-bg">
+                <div class="widget-heading clearfix">
+                    <h5>Kundenliste</h5>
+                </div>
+
+                <!-- /.widget-heading -->
+                <div class="widget-body clearfix">
+                    <table id="offerlessCustomers" class="table table-striped table-responsive">
+                        <thead>
+                            <tr class="text-dark">
+                                <th>Name</th>
+                                <th>Days</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <!-- /.widget-body -->
+            </div>
+            <!-- /.widget-bg -->
+        </div>
+        @endif
         <div class="col-md-12 widget-holder">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="h4"><strong>Potentielle Kunden</strong></span>
+                </div>
+            </div>
             <div class="widget-bg">
                 <div class="widget-heading clearfix">
                     <h5>Kandidatenliste</h5>
@@ -227,8 +258,6 @@
                             <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                             <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                         </tr>
-
-
                     </tbody>
                 </table>
                 <!-- /.widget-heading -->
@@ -367,29 +396,86 @@
         });
     </script>
 
-    {{-- <script>
-        function statusChanger(id, type) {
-            if (confirm("Are you sure you want to change the status?")) {
-                confirmAndChange(id, type);
-            }
-        }
-    </script>
+    {{-- Offertesiz Müşteriler --}}
     <script>
-        function confirmAndChange(id,type){
-        let table= $('#example').DataTable();
-
-            console.log(id,type);
-                $.ajax({
-                    type:'POST',
-                    headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                    url: '{{ route('offerList.statusChanger', ['id' => ':id', 'type' => ':type']) }}'.replace(':id', id).replace(':type', type),
-                    success: function(response) {
-                    table.draw();
+        $(document).ready(function() {
+            let table = $('#offerlessCustomers').DataTable({
+                "language": {
+                    "paginate": {
+                        "previous": "Vorherige",
+                        "next" : "Nächste"
                     },
-                    error: function(xhr, status, error) {
-                        // handle error response
+                    "search" : "Suche",
+                    "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
+                    "zeroRecords": "Nichts gefunden - es tut uns leid",
+                    "info": "Zeige Seite _PAGE_ von _PAGES_",
+                    "infoEmpty": "Keine Einträge verfügbar",
+                    "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
+
+                },
+                "order": [2, 'desc'],
+                lengthMenu: [
+                    [25, 100, -1],
+                    [25, 100, "All"]
+                ],
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    url: '{{ route('customer.offerlessCustomers') }}',
+                    data: function(d) {
+                        d.min_date = $('#start_date').val();
+                        d.max_date = $('#end_date').val();
+                        return d
                     }
-                });
-            }
-    </script> --}}
+                },
+                columns: [{
+                        data: 'customerName',
+                        name: 'customerName'
+                    },
+                    {
+                        data: 'dayDiff',
+                        name: 'dayDiff'
+                    },
+                    {
+                        data: 'option',
+                        name: 'option',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+
+            });
+            jQuery.fn.DataTable.ext.type.search.string = function(data) {
+                var testd = !data ?
+                    '' :
+                    typeof data === 'string' ?
+                    data
+                    .replace(/i/g, 'İ')
+                    .replace(/ı/g, 'I') :
+                    data;
+                return testd;
+            };
+            $('#example_filter input').keyup(function() {
+                table
+                    .search(
+                        jQuery.fn.DataTable.ext.type.search.string(this.value)
+                    )
+                    .draw();
+            });
+
+            $('#start_date, #end_date').on('change', function() {
+                table.draw();
+            });
+
+            $('#reset').on('click', function() {
+                $('#start_date').val('');
+                $('#end_date').val('');
+                table.draw();
+            });
+        });
+    </script>
 @endsection

@@ -56,7 +56,7 @@ class indexController extends Controller
     public function store(Request $request)
     {
 
-        
+
         $customerId = $request->route('id');
         $cekboks = $request->get('appType');
         $deliveryAble = $request->get('deliverable');
@@ -89,7 +89,7 @@ class indexController extends Controller
 
         if ($cekboks == 2) {
             // Servis ekleme Alanı
-            // Umzug Ekleme Alanı     
+            // Umzug Ekleme Alanı
             $isUmzug = $request->get('isUmzug');
             $isUmzug2 = $request->get('isUmzug2');
             $isUmzug3 = $request->get('umzug3date');
@@ -576,11 +576,11 @@ class indexController extends Controller
 
         // AppointmentMaterial Modelinden tüm verileri çek
        $appMaterials = AppointmentMaterial::all();
-                    
+
        // Şu anki tarih
        $currentDate = now();
 
-       
+
        // Her bir AppointmentMaterial öğesini kontrol et
        foreach ($appMaterials as $appMaterial) {
            // AppointmentMaterial'in tarihine 4 hafta ekleyerek son tarihi bul
@@ -595,7 +595,7 @@ class indexController extends Controller
             $appMaterial->update(['expired' => 0]);
            }
        }
-       
+
         $appType = $request->get('appType');
 
         $array = [];
@@ -635,7 +635,6 @@ class indexController extends Controller
             $j = 0;
             $tableService = AppoinmentService::where('customerId', $customerId)->get()->toArray();
             foreach ($table3 as $k => $v) {
-
                 $array[$i]["aid"] = $i + 1;
                 $array[$i]["id"] = $v->id;
                 $array[$i]["appType"] ='Auftragsbestätigung';
@@ -646,7 +645,7 @@ class indexController extends Controller
             }
         }
 
-        
+
 
         $data = DataTables::of($array)
         ->editColumn('appType', function ($array) {
@@ -658,11 +657,11 @@ class indexController extends Controller
                     return '<span id="termineBadge" class="badge badge-warning">Lieferung</span>
                     <div class="info-tooltip" id="infoTooltip">Kein Abholung</div>';
                 }
-                
+
                 else {
                     return 'Lieferung';
                 }
-               
+
             }
             if($array['appType'] == 'Abholung')
             {
@@ -791,7 +790,7 @@ class indexController extends Controller
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
         }
-        
+
 
         if ($c != 0) {
 
