@@ -50,6 +50,7 @@ return new class extends Migration
             $table->float('invoicePrice')->nullable();
             $table->float('expensePrice')->nullable();
             $table->string('signerName')->nullable();
+            $table->longText('signature')->nullable();
             $table->integer('docTaken')->default(0);
             $table->timestamps();
         });

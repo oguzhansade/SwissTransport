@@ -43,6 +43,7 @@ class ReceiptReinigung extends Model
         'cashPrice',
         'invoicePrice',
         'signerName',
+        'signature',
         'docTaken'
     ];
 

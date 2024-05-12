@@ -25,7 +25,7 @@
         </ol>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -66,11 +66,11 @@
                                     <select class="form-control" name="status" id="status">
                                         <option value="Offen" @if($data['status'] == 'Offen') selected @endif>Offen</option>
                                         <option value="Abgeschlossen" @if($data['status'] == 'Abgeschlossen') selected @endif>Abgeschlossen</option>
-                                    </select> 
-                                </div>                            
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="form-group row p-3" style="background-color:#c3a7f5;">
+                            <div class="form-group row p-3 bg-service-primary" >
                                 <div class="col-md-3">
                                     <b class="text-dark">Auftraggeber</b>
                                     <input class="form-control" name="customerGender"  type="text" value="{{ $data['customerGender'] }}">
@@ -155,12 +155,12 @@
                                     <strong class="text-underline h5 text-dark "><b>Zuschläge</b></strong>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addCost1Text" placeholder="Text"  type="text" 
+                                    <input class="form-control" name="addCost1Text" placeholder="Text"  type="text"
                                     @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1'))
-                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1Text') }}" 
+                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1Text') }}"
                                     @endif>
                                 </div>
                                 <div class="col-md-5">
@@ -170,10 +170,10 @@
                                     @endif>
                                 </div>
                             </div>
-                        
+
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addCost2Text" placeholder="Text"  type="text" 
+                                    <input class="form-control" name="addCost2Text" placeholder="Text"  type="text"
                                     @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra2'))
                                     value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra2Text') }}"
                                     @endif>
@@ -185,10 +185,10 @@
                                         @endif>
                                 </div>
                             </div>
-                        
+
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addCost3Text" placeholder="Text"  type="text" 
+                                    <input class="form-control" name="addCost3Text" placeholder="Text"  type="text"
                                     @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3'))
                                     value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3Text') }}"
                                     @endif>
@@ -196,11 +196,11 @@
                                 <div class="col-md-5">
                                     <input class="form-control ek" name="addCost3" placeholder="[CHF]"  type="text"
                                     @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3'))
-                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3') }}" 
+                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3') }}"
                                     @endif>
                                 </div>
                             </div>
-                        
+
                             <div class="form-group row">
                                 <div class="col-md-7">
                                     <input class="form-control" name="addCost4Text" placeholder="Text"  type="text"
@@ -215,7 +215,7 @@
                                         @endif>
                                 </div>
                             </div>
-                        
+
                             <div class="form-group row">
                                 <div class="col-md-7">
                                     <input class="form-control" name="addCost5Text" placeholder="Text"  type="text"
@@ -226,7 +226,7 @@
                                 <div class="col-md-5">
                                     <input class="form-control ek" name="addCost5" placeholder="[CHF]"  type="text"
                                     @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5'))
-                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5') }}" 
+                                    value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5') }}"
                                     @endif>
                                 </div>
                             </div>
@@ -269,7 +269,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text" 
+                                    <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text"
                                     @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount1'))
                                     value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount1Text') }}"
                                     @endif>
@@ -281,26 +281,26 @@
                                         @endif>
                                 </div>
                             </div>
-                        
+
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text" 
-                                    @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2')) 
+                                    <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text"
+                                    @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2'))
                                     value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2Text') }}"
                                     @endif>
                                 </div>
                                 <div class="col-md-5">
                                     <input class="form-control ekc" name="addDiscount2" placeholder="[CHF]"  type="text"
-                                    @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2')) 
+                                    @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2'))
                                     value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2') }}"
                                     @endif>
                                 </div>
                             </div>
-                    
+
                             {{-- Ekstra Custom Kesinti --}}
                             <div class="form-group row">
                                 <div class="col-md-7">
-                                    <input class="form-control" name="addDiscount3Text" placeholder="Text"  type="text" 
+                                    <input class="form-control" name="addDiscount3Text" placeholder="Text"  type="text"
                                     @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount3'))
                                     value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount3Text') }}" @endif>
                                 </div>
@@ -313,38 +313,38 @@
                         </div>
 
                         {{-- Maliyetler Alanı --}}
-                        <div id="maliyetAlanı" class="mt-3 p-3 rounded" style="background-color: #c3a7f5;">
+                        <div id="maliyetAlanı" class="mt-3 p-3 rounded bg-service-primary">
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
                                 </div>
                             </div>
-                             
+
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <b class="text-dark">Total  [CHF]</b>
                                     <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text" value="{{ $data['totalPrice'] }}">
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
-                                            <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif> 
+                                            <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif>
                                             <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
-                                            <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif> 
+                                            <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif>
                                             <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
-                                            <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif> 
+                                            <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif>
                                             <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
                                         </label>
                                     </div>
@@ -353,7 +353,7 @@
                         </div>
 
                         {{-- Ödeme Alanı --}}
-                        <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark" style="background-color: #c3a7f5;">
+                        <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark bg-service-primary">
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <strong class="text-underline h5 text-dark "><b>Zahlung</b></strong>
@@ -364,7 +364,7 @@
                                 <div class="col-md-6">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
-                                            <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif> 
+                                            <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif>
                                             <span class="label-text text-dark"><strong>In Bar</strong></span>
                                         </label>
                                     </div>
@@ -373,7 +373,7 @@
                                 <div class="col-md-6">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
-                                            <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif> 
+                                            <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif>
                                             <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                         </label>
                                     </div>
@@ -383,7 +383,7 @@
                         </div>
 
                         {{-- İmza Alanı --}}
-                        <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark" style="background-color: #c3a7f5;">
+                        <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark bg-service-primary">
                             <div class="form-group row d-flex justify-content-right">
                                 <div class="col-md-5">
                                     <strong class=" h5 text-dark "><b>Kundenname für Unterschriftsfeld</b></strong>
@@ -396,20 +396,20 @@
                         <div class="form-group row">
                             <div class="col-md-12 email-send">
                                 <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
-                            </div>                            
+                                <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#9c27b0" data-switchery="false" >
+                            </div>
                         </div>
-                        
+
                         <div class="row form-group email--area" style="display: none;">
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">                                
-                            </div>  
+                                <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">
+                            </div>
 
                             <div class="col-md-12 email-format">
                                 <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >   
-                            </div>   
+                                <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#9c27b0" data-switchery="false" >
+                            </div>
                         </div>
 
                         <div class="row form-group email--format" style="display: none;">
@@ -425,16 +425,52 @@
                                     <div class="col-md-12 ml-md-auto btn-list">
                                         <button class="btn btn-primary btn-rounded" type="submit">Kaydet</button>
                                         <a class="btn btn-info btn-rounded" href="{{ route('receiptReinigung.edit',['id'=>$data['id']]) }}"> <strong>Bearbeiten</strong> </a>
-                                        
-                                        <a id="createTask"  href="{{ route('receiptReinigung.showPdf',['id' => $data['id']]) }}" 
-                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong> 
+
+                                        <a id="createTask"  href="{{ route('receiptReinigung.showPdf',['id' => $data['id']]) }}"
+                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong>
                                         </a>
 
-                                        <a class="btn btn-warning btn-rounded" href="{{ route('expense.editReinigung',['id'=>$data['id']]) }}"> Aufwand</a>
+                                        <a class="btn  btn-success btn-rounded" href="#" data-toggle="modal" data-target="#addSignatureModal" data-id=""><strong>Unterschrift</strong></a>
                                     </div>
                                 </div>
                             </div>
                     </form>
+
+                    {{-- Add Signature Modal --}}
+                    <div class="modal fade custom-modal mt-2" id="addSignatureModal" tabindex="-1" role="dialog" aria-labelledby="addSignatureModal" aria-hidden="true" >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content " style="background-color: #F5F7FA">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title " id="addSignatureModal">Signature Area </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" >
+                                    <div class="row d-flex mt-2 " >
+                                        <div class="col-md-12 ">
+                                            @if($data['signature'])
+                                            <span class="text-primary">Signature:</span>
+                                            <div class="col-md-3 bg-white mb-3">
+                                                <img src="{{ $data['signature'] }}" width="150" alt="Signature Image">
+                                            </div>
+                                            @endif
+                                            <canvas id="signature-pad" class="signature-pad bg-white" width="500" height="200"></canvas>
+                                            <input id="signatureData" type="hidden" name="signature_image">
+                                            <input id="receiptType" type="hidden" value="{{ $data['receiptType'] }}">
+                                            <input id="receiptId" type="hidden" value="{{ $data['id'] }}">
+                                            <button class="btn btn-sm btn-danger" onclick="signatureClear()">Clear</button>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12 d-flex justify-content-center">
+                                            <a href="#" id="addNewNotiz" class="btn btn-success justify-content-end" data-id=""  onclick="saveSignature(this)">@if($data['signature']) Aktualisieren @else Erstellen @endif</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.widget-body -->
             </div>
@@ -446,6 +482,67 @@
 @endsection
 
 @section('footer')
+{{-- İmza İşemleri --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+<script>
+    var canvas = document.getElementById('signature-pad');
+    var signaturePad = new SignaturePad(canvas);
+    var type = $('#receiptType').val();
+    var id = $('#receiptId').val();
+    // optional settings
+    signaturePad.minWidth = 1;
+    signaturePad.maxWidth = 3;
+
+    // Clear the canvas on click
+    document.querySelector('button[type="submit"]').addEventListener('click', function() {
+        document.querySelector('input[name="signature_image"]').value = signaturePad.toDataURL();
+        signaturePad.clear();
+    });
+
+    function signatureClear()
+    {
+        signaturePad.clear();
+    }
+
+    function saveSignature(element) {
+        console.log(type,'tip',id, 'id');
+        var url = '{{ route('receipt.signatureSave', ['id' => $data['id'],'type' => $data['receiptType']]) }}'
+        console.log(url);
+        var signature = signaturePad.toDataURL();
+        if(signature)
+        {
+            $.ajax({
+                url: url,
+                headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                '_token': '{{ csrf_token() }}', // CSRF token
+                'signature': signature // signature değeri
+                },
+                success: function (response) {
+                    toastr.success('Quittung erfolgreich signiert. Seite wird neu geladen. Bitte warten...')
+                    signaturePad.clear();
+                    $('#addSignatureModal').modal('hide');
+                    setTimeout(function(){
+                        location.reload(); // 3 saniye sonra sayfayı yenile
+                    }, 3000); // 3 saniye = 3000 milisaniye
+                },
+                error: function (response) {
+                    toastr.error(response,'HATA! Quittung konnte nicht unterschrieben werden.')
+                    console.log(response,'Add New Erstellen Error')
+                }
+            })
+        }
+        else{
+            toastr.error('No Signature')
+        }
+    }
+
+</script>
+
+
+
 {{-- Hesaplamalar --}}
 <script>
     $(document).ready(function(){
@@ -456,9 +553,9 @@
     $("body").on("change",".makbuz-alanı",function () {
         calc()
     })
-        
+
     function calc(){
-            
+
             let reinigungHour = parseFloat($("input[name=reinigungHour]").val());
             let reinigungChf = parseFloat($("input[name=reinigungChf]").val());
             let reinigungCost = 0;
@@ -471,7 +568,7 @@
             else{
                 $("input[name=reinigungCost]").val('');
             }
-            
+
             let reinigungFixedChf = $("input[name=reinigungFixedChf]").val() ? parseFloat($("input[name=reinigungFixedChf]").val()) : 0 ;
             let ekler= 0;
             let kesintiler = 0;
@@ -506,7 +603,7 @@
     }
 </script>
 
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

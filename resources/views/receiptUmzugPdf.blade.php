@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <style>
         *{ font-family: Arial, Helvetica, sans-serif !important;
-            font-size:12px; 
+            font-size:12px;
             line-height: 12px;
             }
             @page {
@@ -22,13 +22,13 @@
                 text-align: center;
                 padding: 0px;
                 line-height: 12px;
-                
+
             }
 
             footer {
-                position: fixed; 
-                bottom: -80px; 
-                left: 0px; 
+                position: fixed;
+                bottom: -80px;
+                left: 0px;
                 right: 0px;
                 border-top:black 1px solid;
                 /** Extra personal styles **/
@@ -39,9 +39,9 @@
             }
     </style>
     @include('bootstrap')
-    
+
 </head>
-<body> 
+<body>
     <header>
         <header >
             <table style="width: 100%;">
@@ -59,11 +59,11 @@
     <main>
         <div class="teklif-boyutu">
             <table border="0" style="width:100%;" >
-    
+
                 <tr style="width: 100%;margin-top:20px;">
                     <td colspan="4" align="left"><h1><b style="font-size:18px;">Quittung / Rechnung</b></h1></td>
                 </tr>
-    
+
                 <tr style="width:100%;">
                     <td valign="top" style="padding-top:20px;">
                         <b>Auftraggeber:</b><br>
@@ -98,19 +98,19 @@
                         {{ date('d.m.Y', strtotime($receipt['orderDate'])) }},
                         @endif
                         @if($receipt['orderTime']) {{ date('H:i', strtotime($receipt['orderTime'])) }} Uhr @endif
-                        
+
                     </td>
                 </tr>
             </table>
-    
+
             <div style="border:1px solid black;margin-top:20px;">
                 <table  style="padding:10px;width:100%;">
-    
+
                     {{-- Umzug --}}
                     <tr valign="top" style="width:100%;">
                         <td >Aufwand:</td>
                         <td colspan="2" >
-                            @if ( $receipt['umzugHour'] ) {{ $receipt['umzugHour'] }} @else _____ @endif h á 
+                            @if ( $receipt['umzugHour'] ) {{ $receipt['umzugHour'] }} @else _____ @endif h á
                             @if ( $receipt['umzugChf'] ) CHF {{ $receipt['umzugChf'] }} @else CHF_______ @endif <br><br>
                             Spesen <br><br>
                             Anfahrt / Rückfahrt <br><br>
@@ -123,12 +123,12 @@
                             @if ( $receipt['materialPrice'] ) CHF {{ $receipt['materialPrice'] }} @else CHF_______ @endif<br><br>
                         </td>
                     </tr>
-    
+
                     {{-- Entsorgung --}}
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td >Entsorgung:</td>
                         <td colspan="2">
-                            @if ( $receipt['entsorgungVolume'] ) {{ $receipt['entsorgungVolume'] }} @else _____ @endif m3 á 
+                            @if ( $receipt['entsorgungVolume'] ) {{ $receipt['entsorgungVolume'] }} @else _____ @endif m3 á
                             @if ( $receipt['entsorgungChf'] ) CHF {{ $receipt['entsorgungChf'] }} @else CHF_______ @endif <br><br>
                             Aufwand an der Entsorgungsstelle<br><br>
                         </td>
@@ -137,13 +137,13 @@
                             @if ( $receipt['entsorgungFixedChf'] ) CHF {{ $receipt['entsorgungFixedChf'] }} @else CHF_______ @endif<br><br>
                         </td>
                     </tr>
-    
+
                     {{-- Ekstralar --}}
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td >Zuschläge:</td>
                         <td colspan="2">
-                            @if ( $receiptExtra['extra1Text'] ) {{ $receiptExtra['extra1Text'] }} <br><br>@endif 
-                            @if ( $receiptExtra['extra2Text'] ) {{ $receiptExtra['extra2Text'] }} <br><br>@endif 
+                            @if ( $receiptExtra['extra1Text'] ) {{ $receiptExtra['extra1Text'] }} <br><br>@endif
+                            @if ( $receiptExtra['extra2Text'] ) {{ $receiptExtra['extra2Text'] }} <br><br>@endif
                             @if ( $receiptExtra['extra3Text'] ) {{ $receiptExtra['extra3Text'] }} <br><br>@endif
                             @if ( $receiptExtra['extra4Text'] ) {{ $receiptExtra['extra4Text'] }} <br><br>@endif
                             @if ( $receiptExtra['extra5Text'] ) {{ $receiptExtra['extra5Text'] }} <br><br>@endif
@@ -160,31 +160,31 @@
                             @if ( $receiptExtra['extra16Text'] ) {{ $receiptExtra['extra16Text'] }} @else ______________________ @endif<br><br>
                         </td>
                         <td >
-                            @if ( $receiptExtra['extra1'] ) CHF {{ $receiptExtra['extra1'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra2'] ) CHF {{ $receiptExtra['extra2'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra3'] ) CHF {{ $receiptExtra['extra3'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra4'] ) CHF {{ $receiptExtra['extra4'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra5'] ) CHF {{ $receiptExtra['extra5'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra6'] ) CHF {{ $receiptExtra['extra6'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra7'] ) CHF {{ $receiptExtra['extra7'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra8'] ) CHF {{ $receiptExtra['extra8'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra9'] ) CHF {{ $receiptExtra['extra9'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra10'] ) CHF {{ $receiptExtra['extra10'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra11'] ) CHF {{ $receiptExtra['extra11'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra12'] ) CHF {{ $receiptExtra['extra12'] }}<br><br>@endif 
-                            @if ( $receiptExtra['extra13'] ) CHF {{ $receiptExtra['extra13'] }}<br><br>@endif 
+                            @if ( $receiptExtra['extra1'] ) CHF {{ $receiptExtra['extra1'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra2'] ) CHF {{ $receiptExtra['extra2'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra3'] ) CHF {{ $receiptExtra['extra3'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra4'] ) CHF {{ $receiptExtra['extra4'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra5'] ) CHF {{ $receiptExtra['extra5'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra6'] ) CHF {{ $receiptExtra['extra6'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra7'] ) CHF {{ $receiptExtra['extra7'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra8'] ) CHF {{ $receiptExtra['extra8'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra9'] ) CHF {{ $receiptExtra['extra9'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra10'] ) CHF {{ $receiptExtra['extra10'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra11'] ) CHF {{ $receiptExtra['extra11'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra12'] ) CHF {{ $receiptExtra['extra12'] }}<br><br>@endif
+                            @if ( $receiptExtra['extra13'] ) CHF {{ $receiptExtra['extra13'] }}<br><br>@endif
                             @if ( $receiptExtra['extra14'] ) CHF {{ $receiptExtra['extra14'] }} @else CHF_______ @endif <br><br>
                             @if ( $receiptExtra['extra15'] ) CHF {{ $receiptExtra['extra15'] }} @else CHF_______ @endif <br><br>
                             @if ( $receiptExtra['extra16'] ) CHF {{ $receiptExtra['extra16'] }} @else CHF_______ @endif <br><br>
                         </td>
                     </tr>
-    
+
                     {{-- Discountlar --}}
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td >Abzüge:</td>
                         <td colspan="2">
-                            @if ( $receiptDiscount['discount1Text'] ) {{ $receiptDiscount['discount1Text'] }} <br><br>@endif 
-                            @if ( $receiptDiscount['discount2Text'] ) {{ $receiptDiscount['discount2Text'] }} <br><br>@endif 
+                            @if ( $receiptDiscount['discount1Text'] ) {{ $receiptDiscount['discount1Text'] }} <br><br>@endif
+                            @if ( $receiptDiscount['discount2Text'] ) {{ $receiptDiscount['discount2Text'] }} <br><br>@endif
                             @if ( $receiptDiscount['discount3Text'] ) {{ $receiptDiscount['discount3Text'] }} <br><br>@endif
                             @if ( $receiptDiscount['discount4Text'] ) {{ $receiptDiscount['discount4Text'] }} <br><br>@endif
                             @if ( $receiptDiscount['discount5Text'] ) {{ $receiptDiscount['discount5Text'] }} @else ______________________ @endif<br><br>
@@ -192,16 +192,16 @@
                             @if ( $receiptDiscount['discount7Text'] ) {{ $receiptDiscount['discount7Text'] }} @else ______________________ @endif<br><br>
                         </td>
                         <td >
-                            @if ( $receiptDiscount['discount1'] ) CHF {{ $receiptDiscount['discount1'] }}<br><br>@endif 
-                            @if ( $receiptDiscount['discount2'] ) CHF {{ $receiptDiscount['discount2'] }}<br><br>@endif 
-                            @if ( $receiptDiscount['discount3'] ) CHF {{ $receiptDiscount['discount3'] }}<br><br>@endif 
-                            @if ( $receiptDiscount['discount4'] ) CHF {{ $receiptDiscount['discount4'] }}<br><br>@endif 
+                            @if ( $receiptDiscount['discount1'] ) CHF {{ $receiptDiscount['discount1'] }}<br><br>@endif
+                            @if ( $receiptDiscount['discount2'] ) CHF {{ $receiptDiscount['discount2'] }}<br><br>@endif
+                            @if ( $receiptDiscount['discount3'] ) CHF {{ $receiptDiscount['discount3'] }}<br><br>@endif
+                            @if ( $receiptDiscount['discount4'] ) CHF {{ $receiptDiscount['discount4'] }}<br><br>@endif
                             @if ( $receiptDiscount['discount5'] ) CHF {{ $receiptDiscount['discount5'] }} @else CHF_______ @endif <br><br>
                             @if ( $receiptDiscount['discount6'] ) CHF {{ $receiptDiscount['discount6'] }} @else CHF_______ @endif <br><br>
                             @if ( $receiptDiscount['discount7'] ) CHF {{ $receiptDiscount['discount7'] }} @else CHF_______ @endif <br><br>
                         </td>
                     </tr>
-                    
+
                     @if ( $receipt['withoutTax'] )
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ></td>
@@ -223,7 +223,7 @@
                             <td></td>
                         </tr>
                     @endif
-    
+
                     {{-- @if($receipt['fixedPrice'])
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Pauschal:</b></td>
@@ -243,7 +243,7 @@
                         </td>
                     </tr>
                     @endif --}}
-                    
+
                     {{-- <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Total Kosten:</b></td>
                         <td colspan="2"></td>
@@ -261,7 +261,7 @@
                     </tr> --}}
                 </table>
             </div>
-    
+
             @if($receipt['inBar'] || $receipt['inRechnung'])
                 <div style="margin-top:20px;">
                     <b>Zahlung: @if ($receipt['inBar']) Bar @elseif($receipt['inRechnung']) Rechnung @elseif($receipt['inBar'] && $receipt['inRechnung']) Bar & Rechnung @endif</b><br><br>
@@ -279,11 +279,15 @@
                 <tr style="width:100%;margin-top:30px;padding-left:5px;">
                     <td align="left" style="padding-top: 50px;">________________</td>
                     <td align="left" colspan="2" style="padding-top: 50px;">________________</td>
-                    <td align="left" style="padding-top: 50px;">________________</td>
+                    @if ($receipt['signature'])
+                    <td align="left" style="padding-top: 10px;"><img src="{{ $receipt['signature'] }}" width="150" alt="Signature Image"></td>
+                        @else
+                        <td align="left" style="padding-top: 50px;">________________</td>
+                    @endif
                 </tr>
             </table>
         </div>
     </main>
-   
+
 </body>
 </html>

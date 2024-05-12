@@ -24,6 +24,8 @@ use App\Mail\CustomerReminder;
 use App\Models\OfferteEntsorgung;
 use App\Models\OfferteReinigung;
 use App\Models\OfferteTransport;
+use Illuminate\Support\Facades\Auth;
+
 
 class indexController extends Controller
 {
@@ -31,6 +33,7 @@ class indexController extends Controller
     {
         return view('front.customer.index');
     }
+
     public function reminderTest(){
         $offertes = Offerte::where('customerId', 1)
             ->where('offerteStatus', 'Onaylandı')
@@ -41,10 +44,10 @@ class indexController extends Controller
                 $customer = Customer::find($offerte->customerId);
                 $from = Company::InfoCompany('email');
                 $companyName = Company::InfoCompany('name');
-    
+
                 if ($offerte->offerteUmzugId) {
                     $umzugService = OfferteUmzug::find($offerte->offerteUmzugId);
-    
+
                     // Check if both offerteUmzugId and moveDate are present
                     if ($umzugService && $umzugService->moveDate) {
                         $umzugDate = Carbon::parse($umzugService->moveDate);
@@ -55,10 +58,10 @@ class indexController extends Controller
                         $mailParseTime = null;
                     }
                 }
-    
+
                 if (!$umzugDate && $offerte->offerteTransportId) {
                     $transportService = OfferteTransport::find($offerte->offerteTransportId);
-                    
+
                     // Check if both offerteUmzugId and moveDate are present
                     if ($transportService && $transportService->moveDate) {
                         $umzugDate = Carbon::parse($transportService->transportDate);
@@ -72,7 +75,7 @@ class indexController extends Controller
 
                 if (!$umzugDate && $offerte->offerteReinigungId) {
                     $reinigungService = OfferteReinigung::find($offerte->offerteReinigungId);
-                    
+
                     // Check if both offerteUmzugId and moveDate are present
                     if ($reinigungService && $reinigungService->startDate) {
                         $umzugDate = Carbon::parse($reinigungService->startDate);
@@ -86,7 +89,7 @@ class indexController extends Controller
 
                 if (!$umzugDate && $offerte->offerteEntsorgungId) {
                     $entsorgungService = OfferteEntsorgung::find($offerte->offerteEntsorgungId);
-                    
+
                     // Check if both offerteUmzugId and moveDate are present
                     if ($entsorgungService && $entsorgungService->entsorgungDate) {
                         $umzugDate = Carbon::parse($entsorgungService->entsorgungDate);
@@ -97,15 +100,15 @@ class indexController extends Controller
                         $mailParseTime = null;
                     }
                 }
-    
+
                 // If both offerteUmzugId and moveDate are null, skip this iteration
                 if (!$umzugDate) {
                     continue;
                 }
-    
+
                 // 1 hafta öncesi kontrol et
                 $oneWeekBefore = $umzugDate->subDays(7);
-                
+
                 // Carbon::now() == $twoWeeksAfter eğer böyle yazsaydık saatinde uyuşması gerekirdi o yüzden isSameDay kullandık
                 if (Carbon::now()->isSameDay($oneWeekBefore)) {
                     $emailData = [
@@ -118,18 +121,18 @@ class indexController extends Controller
                         'umzugDate' => $umzugDate->addDays(7)->format('d-m-Y'),
                         'umzugTime' => $mailParseTime
                     ];
-    
+
                     Mail::to($customer->email)->send(new CustomerReminder($emailData));
                 }
             }
         }
     }
-    
-    
+
     public function create()
     {
         return view ('front.customer.create');
     }
+
     public function createForm($id)
     {
         $c = CustomerForm::where('id',$id)->count();
@@ -138,8 +141,9 @@ class indexController extends Controller
             $data = CustomerForm::where('id',$id)->first();
             return view ('front.customer.createForm', ['data' => $data]);
         }
-        
+
     }
+
     public function storeForm(Request $request)
     {
         $all = $request->except('_token');
@@ -171,8 +175,8 @@ class indexController extends Controller
             'customerId' => $customerId
         ]);
         if($create && $formUpdate)
-        {   
-            
+        {
+
             $data = Customer::where('id',$create->id)->get();
             //return redirect()->back()->with('status','Müşteri Başarıyla Eklendi');
             return view ('front.customer.detail', ['id' => $create->id , 'data' => $data]);
@@ -180,12 +184,12 @@ class indexController extends Controller
         else {
             return redirect()->back()->with('status','Fehler: Kunde konnte nicht hinzugefügt werden.');
         }
-        
+
     }
 
     public function store(Request $request)
     {
-        
+
         $all = $request->except('_token');
         $customer = [
             'name' => $request->name,
@@ -208,7 +212,7 @@ class indexController extends Controller
 
         $create = Customer::create($customer);
         if($create)
-        {   
+        {
             $data = Customer::where('id',$create->id)->get();
             //return redirect()->back()->with('status','Müşteri Başarıyla Eklendi');
             return view ('front.customer.detail', ['id' => $create->id , 'data' => $data]);
@@ -228,15 +232,27 @@ class indexController extends Controller
         if($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
         }
-        
+
         // Maximum date filter
         if($request->max_date) {
             $table->whereDate('created_at', '<=', $request->max_date);
         }
 
+        // Tekrar eden e-posta adreslerini filtreleme
+        if ($request->duplicateFilter == 1) {
+            $duplicateEmails = Customer::select('email')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('email')
+            ->having('count', '>', 1)
+            ->pluck('email')
+            ->sort(); // E-posta adreslerini alfabetik olarak sıralar
+
+             $table->whereIn('email', $duplicateEmails);
+        }
+
         if ($request->serviceFilter) {
             $serviceFilter = $request->serviceFilter;
-        
+
             if (is_array($serviceFilter)) {
                 if (in_array("Offerte", $serviceFilter)) {
                     // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
@@ -244,14 +260,14 @@ class indexController extends Controller
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereIn('id', $offerteCustomerIds);
-                } 
+                }
                 if (in_array("Nicht Offerte", $serviceFilter)) {
                     // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
                     $offerteCustomerIds = offerte::pluck('customerId');
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereNotIn('id', $offerteCustomerIds);
-                } 
+                }
                 if (in_array("Quittung", $serviceFilter)) {
                     // Quittung'a sahip olan müşterilerin customerId'lerini alalım
                     $receiptUmzugCustomer = ReceiptUmzug::pluck('customerId');
@@ -281,7 +297,7 @@ class indexController extends Controller
                     $appCustomer = Appointment::pluck('customerId');
                     $appServiceCustomer = AppoinmentService::pluck('customerId');
                     $appMaterialCustomer = AppointmentMaterial::pluck('customerId');
-                    
+
                     // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
                     $allCustomerIds = array_merge($appCustomer->toArray(), $appServiceCustomer->toArray(), $appMaterialCustomer->toArray());
 
@@ -293,20 +309,20 @@ class indexController extends Controller
                     $appCustomer = Appointment::pluck('customerId');
                     $appServiceCustomer = AppoinmentService::pluck('customerId');
                     $appMaterialCustomer = AppointmentMaterial::pluck('customerId');
-                    
+
                     // Müşteri ID'lerini birleştirerek tek bir dizi elde edelim
                     $allCustomerIds = array_merge($appCustomer->toArray(), $appServiceCustomer->toArray(), $appMaterialCustomer->toArray());
 
                     // Tabloyu customerId'ye göre filtreleyelim
                     $table->whereNotIn('id', $allCustomerIds);
                 }
-            } 
+            }
         }
 
         // Select total price
-       
+
         $data=DataTables::of($table)
-        
+
         ->editColumn('customerType',function ($table) {
             if($table->customerType == 0) {
                 return "Kunde";
@@ -318,7 +334,7 @@ class indexController extends Controller
         ->addColumn('offerteFilter', function($table){
             // Offerte'ye sahip olan müşterilerin customerId'lerini alalım
             $offerte = offerte::where('customerId',$table->id)->count();
-        
+
             if($offerte > 0){
                 if($offerte > 1)
                 {
@@ -337,17 +353,26 @@ class indexController extends Controller
             }
         })
         ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
-        ->addColumn('option',function($table) 
+        ->addColumn('option',function($table)
         {
-            return '
-            <a class="btn btn-sm  btn-primary" href="'.route('customer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
-            <a class="btn btn-sm  btn-edit" href="'.route('customer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
-            <a class="btn btn-sm  btn-danger"  href="'.route('customer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
+            if(Auth::user()->permName == 'superAdmin')
+            {
+                return '
+                <a class="btn btn-sm  btn-primary" href="'.route('customer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-edit" href="'.route('customer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-danger"  href="'.route('customer.delete',['id'=>$table->id]).'"><i class="feather feather-trash-2" ></i></a>';
+            }
+            else {
+                return '
+                <a class="btn btn-sm  btn-primary" href="'.route('customer.detail',['id'=>$table->id]).'"><i class="feather feather-eye" ></i></a> <span class="text-primary">|</span>
+                <a class="btn btn-sm  btn-edit" href="'.route('customer.edit',['id'=>$table->id]).'"><i class="feather feather-edit" ></i></a> <span class="text-primary">|</span>';
+            }
+
         })
         ->rawColumns(['publicname','option','offerteFilter'])
         ->make(true);
 
-        
+
         return $data;
     }
 
@@ -413,11 +438,11 @@ class indexController extends Controller
                 'note' => $request->note,
                 'companyName' => $request->companyName,
                 'contactPerson' => $request->contactPerson,
-    
+
             ];
 
             $update = Customer::where('id',$id)->update($customer);
-            if($update) 
+            if($update)
             {
                 return redirect()
                 ->route('customer.detail', ['id' => $id])
@@ -457,7 +482,7 @@ class indexController extends Controller
                     'customerId' => NULL
                 ]);
             }
-            
+
             return redirect()->back();
         }
         else {

@@ -265,6 +265,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/createReinigung/{id}/{customer}', [App\Http\Controllers\front\receipt\indexController::class, 'createReinigung'])->name('createReinigung');
         Route::post('/docTaken/{id}/{type}', [App\Http\Controllers\front\receipt\indexController::class, 'docTaken'])->name('docTaken');
         Route::post('/data/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'data'])->name('data');
+        Route::post('/signatureSave/{type}/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'signatureSave'])->name('signatureSave');
     });
 
     Route::group(['namespace' => 'receiptReinigung', 'as' => 'receiptReinigung.', 'prefix' => 'receiptReinigung','middleware' => ['PermissionControl']], function () {

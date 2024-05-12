@@ -227,8 +227,8 @@
                             <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                             <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                         </tr>
-                       
-                       
+
+
                     </tbody>
                 </table>
                 <!-- /.widget-heading -->
@@ -277,13 +277,13 @@
                         "previous": "Vorherige",
                         "next" : "Nächste"
                     },
-                    "search" : "Suche",     
+                    "search" : "Suche",
                     "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                     "zeroRecords": "Nichts gefunden - es tut uns leid",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Einträge verfügbar",
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-            
+
                 },
                 "order": [4, 'desc'],
                 lengthMenu: [
@@ -377,7 +377,7 @@
     <script>
         function confirmAndChange(id,type){
         let table= $('#example').DataTable();
-        
+
             console.log(id,type);
                 $.ajax({
                     type:'POST',

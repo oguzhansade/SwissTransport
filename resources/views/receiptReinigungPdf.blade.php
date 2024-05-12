@@ -257,7 +257,11 @@
                 <tr style="width:100%;margin-top:30px;padding-left:5px;">
                     <td align="left" style="padding-top: 50px;">________________</td>
                     <td align="left" colspan="2" style="padding-top: 50px;">________________</td>
-                    <td align="left" style="padding-top: 50px;">________________</td>
+                    @if ($receipt['signature'])
+                    <td align="left" style="padding-top: 10px;"><img src="{{ $receipt['signature'] }}" width="150" alt="Signature Image"></td>
+                        @else
+                        <td align="left" style="padding-top: 50px;">________________</td>
+                    @endif
                 </tr>
             </table>
         </div>

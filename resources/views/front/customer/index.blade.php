@@ -19,8 +19,12 @@
         }
     </style>
 
-   
+
 <style>
+
+    .duplicate-row {
+        background-color: #ffcccc; /* Örnek bir arka plan rengi */
+    }
     /* DataTables
             ========================*/
     .dataTables_wrapper label {
@@ -191,38 +195,50 @@
                                     <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
                                     <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                 </tr>
-                               
+
                             </tbody>
                         </table>
                     </div>
-                    <div id="checkbox-container" class="col-md-10 mt-3">
-                        <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <b class="text-dark">Services</b><br>
-                                        <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
-                                        <label class="form-check-label mr-1" for="checkbox1">OFFERIERT</label>
-                                        
-                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
-                                        <label class="form-check-label mr-1" for="checkbox2">Nicht OFFERIERT</label>
+                    <div class="row">
+                        <div id="checkbox-container" class="col-md-12 mt-3">
+                            <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b class="text-dark">Services</b><br>
+                                            <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
+                                            <label class="form-check-label mr-1" for="checkbox1">OFFERIERT</label>
 
-                                        <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
-                                        <label class="form-check-label ml-3 mr-1" for="checkbox3">TERMINIERT</label>
-        
-                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
-                                        <label class="form-check-label mr-1" for="checkbox4">Nicht TERMINIERT</label>
+                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
+                                            <label class="form-check-label mr-1" for="checkbox2">Nicht OFFERIERT</label>
 
-                                        <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
-                                        <label class="form-check-label ml-3 mr-1" for="checkbox5">QUITTUNG</label>
+                                            <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
+                                            <label class="form-check-label ml-3 mr-1" for="checkbox3">TERMINIERT</label>
 
-                                        / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
-                                        <label class="form-check-label mr-1" for="checkbox6">Nicht QUITTUNG</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
+                                            <label class="form-check-label mr-1" for="checkbox4">Nicht TERMINIERT</label>
+
+                                            <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
+                                            <label class="form-check-label ml-3 mr-1" for="checkbox5">QUITTUNG</label>
+
+                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
+                                            <label class="form-check-label mr-1" for="checkbox6">Nicht QUITTUNG</label>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <hr>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <input class="ml-1"  type="checkbox"  id="duplicateFilter" name="duplicateFilter" value="test">
+                            <label class="form-check-label px-1" for="duplicateFilter">Duplicate Kunden</label>
+                        </div>
+                    </div>
+
                     <div class="mt-3">
                         <table id="example" class="table table-striped table-responsive">
                             <thead>
@@ -239,7 +255,6 @@
                             <tbody></tbody>
                         </table>
                     </div>
-                    
                 </div>
                 <!-- /.widget-body -->
             </div>
@@ -267,8 +282,7 @@
 
 
 <script>
-
-let checkedValues = [];
+    let checkedValues = [];
 
     function updateCheckedValues() {
         const checkboxIds = [
@@ -285,9 +299,9 @@ let checkedValues = [];
                     checkedValues.splice(index, 1);
                 }
             });
-            
+
         });
-        
+
     }
 
     $(document).ready(function() {
@@ -297,19 +311,18 @@ let checkedValues = [];
                         "previous": "Vorherige",
                         "next" : "Nächste"
                     },
-                    "search" : "Suche",     
+                    "search" : "Suche",
                     "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                     "zeroRecords": "Nichts gefunden - es tut uns leid",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Einträge verfügbar",
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-            
                 },
-            "order" : [[5,'desc']], 
+            "order" : [[5,'desc']],
             lengthMenu: [[25, 100, -1], [25, 100, "All"]],
             dom: 'Blfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 
+                'copy', 'excel', 'pdf',
             ],
             processing: true,
             serverSide: true,
@@ -321,6 +334,7 @@ let checkedValues = [];
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
                     d.serviceFilter = checkedValues;
+                    d.duplicateFilter = $('#duplicateFilter').is(":checked") ? 1 : 0;
                     return d
                 }
             },
@@ -334,7 +348,7 @@ let checkedValues = [];
                 { data: 'option', name: 'option', orderable: false, searchable: false ,exportable:false},
             ],
         });
-        
+
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?
                 '' :
@@ -367,8 +381,15 @@ let checkedValues = [];
             $('#end_date').val('');
             table.draw();
         });
-    
-        
+
+        $('#duplicateFilter').on('change', function() {
+
+            if ($(this).is(":checked")) {
+                table.order([[3, 'asc']]).draw();
+            } else {
+                table.order([[5, 'desc']]).draw();
+            }
+        });
     });
 </script>
 

@@ -51,6 +51,7 @@ class ReceiptUmzug extends Model
         'cashPrice',
         'invoicePrice',
         'signerName',
+        'signature',
         'expensePrice',
         'docTaken'
     ];

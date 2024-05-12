@@ -34,7 +34,7 @@ class indexController extends Controller
         $data = Customer::where('id',$customer)->first();
         return view('front.receipt.create',['offer'=>$offer,'data'=>$data]);
     }
-    
+
     public function edit(Request $request)
     {
         $id = $request->route('id');
@@ -111,7 +111,7 @@ class indexController extends Controller
                 $auszug1 = DB::table('receipt_addresses')->where('addressType' ,'=', 0)->orderBy('id','DESC')->first();
                 $auszugId1 = $auszug1->id;
             }
-            
+
 
             if($auszugId2)
             {
@@ -262,7 +262,7 @@ class indexController extends Controller
                 'extra15Text' => $request->addCost15Text,
                 'extra15' => $request->addCost15,
                 'extra16Text' => $request->addCost16Text,
-                'extra16' => $request->addCost16, 
+                'extra16' => $request->addCost16,
             ];
             ReceiptExtra::where('id',$receiptExtraId)->update($extra);
          }
@@ -300,7 +300,7 @@ class indexController extends Controller
                 'extra15Text' => $request->addCost15Text,
                 'extra15' => $request->addCost15,
                 'extra16Text' => $request->addCost16Text,
-                'extra16' => $request->addCost16, 
+                'extra16' => $request->addCost16,
             ];
 
             ReceiptExtra::create($extra);
@@ -445,7 +445,7 @@ class indexController extends Controller
 
         $pdf = Pdf::loadView('receiptUmzugPdf', $pdfData);
         $pdf->setPaper('A4');
-        
+
         $emailData = [
             'receiptNumber' => $id,
             'name' => $customer,
@@ -473,7 +473,7 @@ class indexController extends Controller
             {
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
                 $mailSuccess = ', E-Mail und Beleg erfolgreich gesendet';
-            } 
+            }
             return redirect()
                 ->route('customer.detail', ['id' => $d['customerId']])
                 ->with('status','Beleg erfolgreich bearbeitet.'.' '.'Belegnummer:'.' '.$id.$mailSuccess)
@@ -485,6 +485,7 @@ class indexController extends Controller
             return redirect()->back()->with('status','Fehler: Beleg konnte nicht bearbeitet werden');
         }
     }
+
     public function data(Request $request)
     {
         $receiptType = $request->get('receiptType');
@@ -493,7 +494,7 @@ class indexController extends Controller
         $i = 0;
 
         $customerId = $request->route('id');
-        
+
         $table=DB::table('receipt_umzugs')->where('customerId','=', $customerId)->get()->toArray();
         if($table)
         {
@@ -538,13 +539,13 @@ class indexController extends Controller
         ->editColumn('tutar', function($array) {
             return 'CHF'.' '.$array['tutar'];
         })
-        ->addColumn('option',function($array) 
+        ->addColumn('option',function($array)
         {
             switch($array['receiptType'])
             {
                 case('Umzug');
                     return '
-                    <a class="btn btn-sm  btn-primary" href="'.route('receipt.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a> 
+                    <a class="btn btn-sm  btn-primary" href="'.route('receipt.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a>
                     <a class="btn btn-sm  btn-edit" href="'.route('receipt.edit',['id'=>$array['id']]).'"><i class="feather feather-edit"></i></a>'
                     . ((Auth::user()->permName == 'superAdmin' || Auth::user()->permName == 'chef') ? '<a class="btn btn-sm  btn-warning" href="'.route('expense.editUmzug',['id'=>$array['id']]).'" style="margin-right:4px;"><i class="feather feather-info"></i></a>' : '<span style="margin-left:3px;"></span>')
                     . '<a class="btn btn-sm  btn-danger"  href="'.route('receipt.delete',['id'=>$array['id']]).'" ><i class="feather feather-trash-2"></i></a>';
@@ -552,7 +553,7 @@ class indexController extends Controller
 
                 case('Reinigung');
                     return '
-                    <a class="btn btn-sm  btn-primary" href="'.route('receiptReinigung.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a> 
+                    <a class="btn btn-sm  btn-primary" href="'.route('receiptReinigung.detail',['id'=>$array['id']]).'"><i class="feather feather-eye"></i></a>
                     <a class="btn btn-sm  btn-edit" href="'.route('receiptReinigung.edit',['id'=>$array['id']]).'"><i class="feather feather-edit"></i></a>
                     <a class="btn btn-sm  btn-danger"  href="'.route('receiptReinigung.delete',['id'=>$array['id']]).'"><i class="feather feather-trash-2" ></i></a>';
                 break;
@@ -560,8 +561,8 @@ class indexController extends Controller
             }
         })
         ->addColumn('docTaken', function ($array) {
-            
-            
+
+
             if($array['docTaken'] == 1)
             {
                 return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Ja</button>', $array['id'], $array['receiptType']);
@@ -569,8 +570,8 @@ class indexController extends Controller
             else {
                 return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Nein</button>', $array['id'], $array['receiptType']);
             }
-           
-           
+
+
         })
         ->rawColumns(['option','docTaken'])
         ->make(true);
@@ -615,6 +616,7 @@ class indexController extends Controller
                 break;
         }
     }
+
     public function storeStandart(Request $request)
     {
         $auszugId1 = NULL;
@@ -740,7 +742,7 @@ class indexController extends Controller
                 'extra15Text' => $request->addCost15Text,
                 'extra15' => $request->addCost15,
                 'extra16Text' => $request->addCost16Text,
-                'extra16' => $request->addCost16, 
+                'extra16' => $request->addCost16,
             ];
             ReceiptExtra::create($extra);
             $extraIdBul = DB::table('receipt_extras')->orderBy('id','DESC')->first();
@@ -818,11 +820,11 @@ class indexController extends Controller
         $receiptStandartIdBul = DB::table('receipt_umzugs')->orderBy('id','DESC')->first();
         $receiptStandartId = $receiptStandartIdBul->id;
 
-        
+
         $sub = 'Ihre Quittung wurde erstellt';
         $from = Company::InfoCompany('email'); // gösterilen mail.
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
-        $customer=DB::table('customers')->where('id','=', $customerId)->value('name'); 
+        $customer=DB::table('customers')->where('id','=', $customerId)->value('name');
         $gender=DB::table('customers')->where('id','=', $customerId)->value('gender');// Customer Name
         $customerSurname=DB::table('customers')->where('id','=', $customerId)->value('surname');
 
@@ -881,7 +883,7 @@ class indexController extends Controller
             {
                 Mail::to($emailData['email'])->send(new ReceiptStandartMail($emailData));
                 $mailSuccess = ', E-Mail und Beleg erfolgreich versendet';
-            } 
+            }
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status','Beleg erfolgreich erstellt.'.' '.'Belegnummer:'.' '.$receiptStandartId.$mailSuccess)
@@ -891,6 +893,25 @@ class indexController extends Controller
         }
         else {
             return redirect()->back()->with('status','Fehler: Beleg konnte nicht erstellt werden');
+        }
+    }
+
+    public function signatureSave(Request $request)
+    {
+        $type = $request->route('type');
+        $id = $request->route('id');
+        $signature = ['signature' => $request->signature];
+        if($type == '0')
+        {
+            $signatureSave = ReceiptUmzug::where('id',$id)->update($signature);
+        }
+        else {
+            $signatureSave = ReceiptReinigung::where('id',$id)->update($signature);
+        }
+
+        if($signatureSave)
+        {
+            return true;
         }
     }
 
@@ -922,7 +943,7 @@ class indexController extends Controller
             return redirect('/');
         }
     }
-    
+
     public function showPdf($id)
     {
         $receiptUmzug = ReceiptUmzug::where('id',$id)->first();
