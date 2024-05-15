@@ -3,7 +3,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <style>
         .bg-custom-success {
             color: white;
@@ -165,6 +165,7 @@
                                         <td>
                                             <b class="test-dark">Stand</b>
                                             <select class="form-control" name="standType" id="standType">
+                                            <option value>Bitte Wahlen</option>
                                             <option value="Alle">Alle</option>
                                             <option value="Beklemede">Wartet Auf Kunde</option>
                                             <option value="Onaylandı">Bestätigung</option>
@@ -174,13 +175,14 @@
                                         <td>
                                             <b class="test-dark">Besichtigung</b>
                                             <select class="form-control" name="appType" id="appType">
+                                                <option value>Bitte Wahlen</option>
                                             <option value="Alle">Alle</option>
                                             <option value="Nein">Nein</option>
                                             <option value="Gemacht">Gemacht</option>
                                           </select>
                                         </td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                             <div id="checkbox-container" class="col-md-10 mt-3">
@@ -246,7 +248,7 @@
                                         @foreach (\App\Models\ContactPerson::all() as $key=>$value )
                                             <option value="{{ $value['id'] }}">{{ $value['name'] }} {{ $value['surname'] }}</option>
                                         @endforeach
-                                    </select>        
+                                    </select>
                                 </div> --}}
                                 <div class="col-md-3 mt-3">
                                     <b class="text-dark">Kontakt Person Search</b><br>
@@ -254,11 +256,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-2 ">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:1rem">
-                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin']))
                                     <tr>
                                         <td><span>Gefiltert</span></td>
                                         <td>: <span id="filteredTotal"></span></td>
@@ -272,6 +274,11 @@
                                     <tr>
                                         <td><span>Bestätigung</span></td>
                                         <td>: <span id="percentBestatig"></span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><span>Filtered</span></td>
+                                        <td>: <span id="percentFiltered"></span></td>
                                     </tr>
                                     @endif
                                     <tr>
@@ -291,7 +298,7 @@
                                     <th>Dienstleistung</th>
                                     <th>Kunde</th>
                                     <th>Stand</th>
-                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin']))
                                         <th>Esimated Income</th>
                                     @endif
                                     <th>Datum</th>
@@ -314,10 +321,10 @@
                         <div class="modal-dialog custom-modal-dialog" role="document">
                         <div class="modal-content custom-modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title " id="notizModalLabel">Notiz </h5>  
+                                <h5 class="modal-title " id="notizModalLabel">Notiz </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
-                                </button> 
+                                </button>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -497,25 +504,25 @@
 <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
 
 
-<script>    
+<script>
     function openFilter() {
  var checkboxContainer = $('#checkbox-container-2');
- 
+
  if (checkboxContainer.css('display') === 'none') {
      checkboxContainer.show(); // 300ms içinde yukarı aç
  } else {
      checkboxContainer.hide();   // 300ms içinde yukarı kapat
  }
 }
-     
+
  </script>
 <script>
     let checkedValues = [];
 
     function updateCheckedValues() {
         const checkboxIds = [
-            'checkbox1', 'checkbox2', 'checkbox3', 'checkbox4', 
-            'checkbox5', 'checkbox6', 'checkbox7', 'checkbox8', 
+            'checkbox1', 'checkbox2', 'checkbox3', 'checkbox4',
+            'checkbox5', 'checkbox6', 'checkbox7', 'checkbox8',
             'checkbox9'
         ];
 
@@ -529,16 +536,16 @@
                     checkedValues.splice(index, 1);
                 }
             });
-            
+
         });
-        
+
     }
 
     let checkedZimmers = [];
 
     function updateCheckedZimmers() {
         const checkboxIds = [
-            'zimmer1', 'zimmer2', 'zimmer3', 'zimmer4', 
+            'zimmer1', 'zimmer2', 'zimmer3', 'zimmer4',
             'zimmer5', 'zimmer6'
         ];
 
@@ -553,7 +560,7 @@
                 }
             });
         });
-        
+
     }
 
     $(document).ready(function() {
@@ -583,14 +590,14 @@
                     "previous": "Vorherige",
                     "next" : "Nächste"
                 },
-                "search" : "Suche",     
+                "search" : "Suche",
                 "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                 "zeroRecords": "Nichts gefunden - es tut uns leid",
                 "info": "Zeige Seite _PAGE_ von _PAGES_",
                 "infoEmpty": "Keine Einträge verfügbar",
                 "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
             },
-            
+
             "order": [0, 'desc'],
             "columnDefs": [
                 {
@@ -602,7 +609,7 @@
                                 '<span class="bg-custom-danger px-3 py-1 text-center shadow" >Nein<i class="text-center feather feather-x-circle pl-1"></i></span>'
                             )
                         } else if (cellData == 1) {
-                            
+
                             $(td).html(
                                 '<span class="bg-custom-success px-3 py-1 text-center shadow" >Gemacht <i class="text-center feather feather-check-circle pl-1"></i></span>'
                             )
@@ -622,7 +629,7 @@
                                 '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
                             )
                         } else if (cellData == 'Beklemede') {
-                            
+
                             $(td).html(
                                 '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                             )
@@ -633,7 +640,7 @@
                         }
                     }
                 },
-                
+
                 {
                     "targets": 5,
                     "createdCell": function(td, cellData, rowData, row, col) {
@@ -641,14 +648,14 @@
                         $("#gratTotalPriceDiv2").html(cellData); // gratTotalPrice sütununu div'e yazdırma
                     }
                 },
-                        
+
             ],
-            
+
             dom: 'Blfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 
+                'copy', 'excel', 'pdf',
             ],
-            
+
             processing: true,
             serverSide: true,
             ajax: {
@@ -669,13 +676,13 @@
                     d.contactPersonInput = $('#contactPersonSearch').val();
                     return d
                 },
-                
+
             },
             columns: columns,
-            
+
 
             "footerCallback": function ( row, data, start, end, display ) {
-                var rsTot = table.ajax.json();    
+                var rsTot = table.ajax.json();
                 var api = this.api(), data;
                 console.log(rsTot)
                 var intVal = function ( i ) {
@@ -684,20 +691,20 @@
                         typeof i === 'number' ?
                             i : 0;
                 };
- 
+
                 ent = api
                     .column( 4 )
                     .data()
                     .reduce( function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0 );
-        
+
                 $( api.column( 4 ).footer() ).html(ent);
 
                 // Filtered Total Price
                 let formattedTotal = 0;
                 let filteredTotal = rsTot.filteredTotal ? rsTot.filteredTotal : 0;
-                
+
                 formattedTotal = filteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
                 $('#filteredTotal').text(formattedTotal);
 
@@ -708,6 +715,21 @@
                     let nfFormattedTotal = nonFilteredTotal.toLocaleString('de-CH', { style: 'currency', currency: 'CHF' });
                     $('#nonFilteredTotal').text(nfFormattedTotal);
                 }
+                let filteredPercent = 0;
+
+                if(rsTot.filteredStandCount)
+                {
+                    filteredPercent = (rsTot.filteredStandCount / rsTot.bescBasedFilter)*100;
+                }
+                else if(rsTot.bescBasedFilter && rsTot.filteredStandCount == 0){
+                    filteredPercent = (rsTot.bescBasedFilter / rsTot.dateBasedFilter)*100;
+                }
+                else if(rsTot.dateBasedFilter && rsTot.bescBasedFilter == 0)
+                {
+                    filteredPercent = (rsTot.dateBasedFilter / rsTot.totalOfferte)*100;
+                }
+                filteredPercent = filteredPercent.toFixed(2);
+
 
                 // Bestatig Yüzdeliği
                 let bestatigPercent = (rsTot.filteredBestatig / rsTot.recordsFiltered)*100;
@@ -721,11 +743,25 @@
                     rsTot.totalOfferte = 0;
                 }
 
-                $('#filteredOfferte').text(rsTot.recordsFiltered + '/' + rsTot.dateBasedFilter + '/' + rsTot.totalOfferte);
+                let dateInputCount = 0;
+                let bescInputCount = 0;
+                let standInputCount = 0;
+
+                $('#start_date').change(function() {
+                    dateInputCount = rsTot.recordsFiltered;
+                    console.log(dateInputCount, 'tarihInputu');
+                });
+                $('#appType').on('change', function(){
+                    standInputCount = rsTot.recordsFiltered;
+                    console.log(standInputCount,'StandInputu')
+                })
+
+                $('#filteredOfferte').text( rsTot.filteredStandCount + '/' + rsTot.bescBasedFilter + '/'+ rsTot.dateBasedFilter + '/' + rsTot.totalOfferte);
                 $('#percentBestatig').text('%'+bestatigPercent);
-            }    
+                $('#percentFiltered').text('%'+filteredPercent);
+            }
         });
-        
+
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?
                 '' :
@@ -780,7 +816,7 @@
 </script>
 
 <script>
-     $('#example').on('draw.dt', function() { 
+     $('#example').on('draw.dt', function() {
         testajax();
         let total= 0;
         $('#example tbody tr').each(function() {
@@ -839,16 +875,16 @@
                     var customerName = response.data.name+' '+response.data.surname;
                     $('#customerName').text(customerName)
                     console.log(customerName,'Müşteri ')
-                    
+
                 },
                 error: function (response) {
                     $('#customerName').text('No Name')
                     console.log(response, 'Müşteri  Hatası');
                 }
         });
-        
+
         tableDrawer(url)
-        
+
     });
 
     function tableReloader()
@@ -862,7 +898,7 @@
 
     function addNewNotiz(element) {
         var offerId = $('#offerId').val();
-        
+
         var url = '/note/create/' + offerId
         var note = $('#note').val();
         if(note)
@@ -891,7 +927,7 @@
         else{
             toastr.error('FELD DARF NICHT LEER BLEIBEN')
         }
-        
+
     }
     function tableDrawer(url)
     {
@@ -929,9 +965,9 @@
                 { data: 'updated_at', name: 'updated_at'},
                 { data: 'option', name: 'option', orderable: false, searchable: false },
             ],
-            
+
         });
-        
+
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?
                 '' :
@@ -1017,7 +1053,7 @@
                 }
             });
         }
-        
+
         function notizDeleteVerify(id){
             var id = $('#notizIdDelete').text();
             var url = '/note/delete/' + id;
@@ -1039,7 +1075,7 @@
                 }
             });
         }
-        
+
         function updateNotiz(id){
             var id = $('#notizIdHolder').val();
             var url = '/note/edit/' + id;

@@ -40,11 +40,11 @@ class indexController extends Controller
     {
        // AppointmentMaterial Modelinden tüm verileri çek
        $appMaterials = AppointmentMaterial::all();
-                    
+
        // Şu anki tarih
        $currentDate = now();
 
-       
+
        // Her bir AppointmentMaterial öğesini kontrol et
        foreach ($appMaterials as $appMaterial) {
            // AppointmentMaterial'in tarihine 4 hafta ekleyerek son tarihi bul
@@ -61,11 +61,11 @@ class indexController extends Controller
        }
 
         return view ('front.statistics.termine');
-       
+
     }
     public function offerData(Request $request)
     {
-      
+
         // Datatabledaki Esimated Income Fonksiyonu
         function getPriceFromParts($price) {
             $priceParts = explode('-', $price);
@@ -77,6 +77,8 @@ class indexController extends Controller
         $totalPrice = 0; // Initialize the total price variable,
         $col1Sum = 0; // İlk sütunun toplamını temsil eden değişken
         $dateBasedFilter = 0;
+        $filteredStandCount = 0;
+        $filteredCount = 0;
 
         // Customer Search Filter
         if (!empty($request->searchInput)) {
@@ -85,7 +87,7 @@ class indexController extends Controller
                 ->orWhere('surname', 'like', "%$searchValue%")
                 ->pluck('id')
                 ->toArray();
-        
+
             $table->whereIn('customerId', $customerIds);
         }
 
@@ -121,7 +123,7 @@ class indexController extends Controller
             $dateFilteredOfferte = $table->whereDate('created_at', '>=', $request->min_date);
             $dateBasedFilter = $dateFilteredOfferte->count();
         }
-        
+
         // Maximum date filter
         if($request->max_date) {
             $dateFilteredOfferte = $table->whereDate('created_at', '<=', $request->max_date);
@@ -131,7 +133,7 @@ class indexController extends Controller
         // Service type filter
         if ($request->typeFilter) {
             $typeFilter = $request->typeFilter;
-        
+
             if (is_array($typeFilter)) {
                 if (in_array("Umzug", $typeFilter)) {
                     $table->whereNotNull('offerteUmzugId');
@@ -158,87 +160,102 @@ class indexController extends Controller
         // Umzug zimmer filter
         if ($request->zimmerFilter) {
             $zimmerFilter = $request->zimmerFilter;
-        
+
             if (is_array($zimmerFilter)) {
                 if (in_array("1-1.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 4)->pluck('id');
-                        
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
                 } elseif (in_array("2-2.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
-                                        
+
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                } 
+                }
                 elseif (in_array("3-3.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
-                                        
+
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                } 
+                }
                 elseif (in_array("4-4.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 13)->pluck('id');
-                                        
+
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
                 }
                 elseif (in_array("5-5.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 19)->pluck('id');
-                                        
+
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
                 }
                 elseif (in_array("6-6.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
                     // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
                     $offerteUmzugIds = OfferteUmzug::where('tariff', 22)->pluck('id');
-                                        
+
                     // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
                     $table->whereIn('offerteUmzugId', $offerteUmzugIds);
                 }
             }
         }
 
-        // StandType Filter
-        if($request->standType) {
-            if ($request->standType == 'Onaylandı') {
-                $table->where('offerteStatus', 'Onaylandı');
-            }
-            else if ($request->standType == 'Onaylanmadı') {
-                $table->where('offerteStatus', 'Onaylanmadı');
-            }
-            else if ($request->standType == 'Beklemede') {
-                $table->where('offerteStatus', 'Beklemede');
-            }
-            else if ($request->standType == 'Alle') {
-                
-            }
-        }
+
+
+
 
         // Besichtigung Filter
-        if($request->appType){
+        // Filtrelenmiş veri sayısını tutacak değişkeni tanımlayın
+
+
+        // Besichtigung Filter
+        if ($request->appType) {
             if ($request->appType == 'Nein') {
-                $table->whereIn('appType', [0, 2]);
+                $filteredData = $table->whereIn('appType', [0, 2]); // Filtrelenmiş veri setini al
+                $filteredCount = $filteredData->count(); // Filtrelenmiş veri sayısını al
             }
             else if ($request->appType == 'Gemacht') {
-                $table->where('appType', 1);
+                $filteredData = $table->where('appType', 1); // Filtrelenmiş veri setini al
+                $filteredCount = $filteredData->count(); // Filtrelenmiş veri sayısını al
             }
-            else if ($request->appType == 'Alle')
-            {
-
+            else if ($request->appType == 'Alle') {
+                // Tüm veri setini almak istiyorsanız burada bir işlem yapabilirsiniz
+                $filteredData = $table; // Tüm veri setini al
+                $filteredCount = $filteredData->count(); // Filtrelenmiş veri sayısını al
             }
         }
-       
+
+        // StandType Filter
+
+        if($request->standType) {
+            if ($request->standType == 'Onaylandı') {
+                $filteredStandData = $table->where('offerteStatus', 'Onaylandı');
+                $filteredStandCount = $filteredStandData->count();
+            }
+            else if ($request->standType == 'Onaylanmadı') {
+                $filteredStandData = $table->where('offerteStatus', 'Onaylanmadı');
+                $filteredStandCount = $filteredStandData->count();
+            }
+            else if ($request->standType == 'Beklemede') {
+                $filteredStandData = $table->where('offerteStatus', 'Beklemede');
+                $filteredStandCount = $filteredStandData->count();
+            }
+            else if ($request->standType == 'Alle') {
+                $filteredStandData = $table->get();
+                $filteredStandCount = $filteredStandData->count();
+            }
+        }
+
         $data=DataTables::of($table)
-        
+
         // Servisler
         ->addColumn('services', function ($data) {
-                
+
             $services = collect([
                 $data->offerteUmzugId ? 'Umzug' : NULL,
                 $data->offerteEinpackId ? 'Einpack' : NULL,
@@ -265,7 +282,7 @@ class indexController extends Controller
         ->addColumn('offerPrices', function ($data) use (&$totalPrice, &$col1Sum) {
             // Burası Önemli Sakın Silme
             $offerPrice = 0;
-            
+
             // Get the default prices for all of the services.
             $defaultPrices = [
                 'offerteUmzug' => OfferteUmzug::where('id', $data['offerteUmzugId'])->value('defaultPrice'),
@@ -299,11 +316,11 @@ class indexController extends Controller
             $totalOfferte = $data->count();
             return $totalPrice;
         })
-        
-        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
-        ->addColumn('option',function($data) 
 
-        
+        ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d-m-Y'); return $formatedDate; })
+        ->addColumn('option',function($data)
+
+
         {
             return '
             <a class="btn btn-sm  btn-primary" href="'.route('offer.detail',['id'=>$data->id]).'"><i class="feather feather-eye" ></i> Offerte</a> <span class="text-primary"></span>
@@ -318,13 +335,15 @@ class indexController extends Controller
         $renderedData['nonFilteredTotal'] = $totalPrice;
         $renderedData['totalOfferte'] = $totalOfferte;
         $renderedData['dateBasedFilter'] = $dateBasedFilter;
+        $renderedData['bescBasedFilter'] = $filteredCount;
+        $renderedData['filteredStandCount'] = $filteredStandCount;
         $renderedData['filteredBestatig'] = $table->where('offerteStatus', 'Onaylandı')->count();
         return response()->json($renderedData);
-        
+
         // $renderedData = $data;
         // dd($renderedData);
         // return json_decode($renderedData->original, true);
-            
+
 
     }
 
@@ -355,7 +374,7 @@ class indexController extends Controller
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
         $table3Data = $table3->get()->toArray();
-        
+
         if($request->appType)
         {
             if($request->appType == '1')
@@ -373,8 +392,8 @@ class indexController extends Controller
             }
             elseif($request->appType == '2')
             {
-                  
-                    
+
+
                 foreach ($table2Data as $k => $v) {
                     $customer = Customer::where('id',$v->customerId)->first();
                     $app = AppointmentMaterial::where('id',$v->id)->first();
@@ -401,7 +420,7 @@ class indexController extends Controller
                 }
             }
             else{
-            
+
             foreach ($tableData as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first();
                 $array[$i]["aid"] = $i + 1;
@@ -412,9 +431,9 @@ class indexController extends Controller
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
-       
 
-        
+
+
             foreach ($table2Data as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first();
                 $app = AppointmentMaterial::where('id',$v->id)->first();
@@ -427,9 +446,9 @@ class indexController extends Controller
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
-        
 
-        
+
+
             foreach ($table3Data as $k => $v) {
                 $customer = Customer::where('id',$v->customerId)->first('name');
                 $array[$i]["aid"] = $i + 1;
@@ -440,11 +459,11 @@ class indexController extends Controller
                 $array[$i]["tarih"] = date('d-m-Y H:i:s', strtotime($v->created_at));
                 $i++;
             }
-        
+
             }
         }
-        
-        
+
+
         $data=DataTables::of($array)
 
         ->editColumn('customerId', function ($array) {
@@ -471,7 +490,7 @@ class indexController extends Controller
                 else {
                     return 'Lieferung';
                 }
-               
+
             }
             if($array['appType'] == 'Besichtigung') {
                 return 'Besichtigung';
@@ -554,7 +573,7 @@ class indexController extends Controller
         }
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
-        
+
         $MobeTotal = 0;
         $LiefTotal = 0;
         $SchuTotal = 0;
@@ -569,14 +588,14 @@ class indexController extends Controller
             'Umzug' => $tableData,
             'Reinigung' => $table2Data,
         ];
-        
+
         foreach ($expenseTypes as $exType => $data) {
             foreach ($data as $record) {
                 $expenses = DB::table('expenses')
                     ->where('quittungId', $record->id)
                     ->where('exType', $exType)
                     ->get();
-        
+
                 foreach ($expenses as $expense) {
                     if ($expense->expenseName === 'Möbellift Miete') {
                         $MobeTotal += $expense->expenseValue;
@@ -597,12 +616,12 @@ class indexController extends Controller
                     }elseif ($expense->expenseName === 'Other') {
                         $OtheTotal += $expense->expenseValue;
                     }
-                    
+
                 }
             }
         }
-        
-       
+
+
         if ($tableData) {
             foreach ($tableData as $k => $v) {
                 $array[$i]["aid"] = $i + 1;
@@ -644,29 +663,29 @@ class indexController extends Controller
                 $i++;
             }
         }
-       
-        
-       
+
+
+
         $data = DataTables::of($array)
-       
+
             ->addColumn('option', function ($array) {
                 switch ($array['receiptType']) {
                     case ('Umzug');
                         return '
-                            <a class="btn btn-sm  btn-primary" href="' . route('receipt.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a> 
+                            <a class="btn btn-sm  btn-primary" href="' . route('receipt.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a>
                             <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$array['customerId']]).'"><i class="feather feather-edit" ></i> Kunde</a> ';
                         break;
                     case ('Reinigung');
                         return '
-                            <a class="btn btn-sm  btn-primary" href="' . route('receiptReinigung.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a> 
+                            <a class="btn btn-sm  btn-primary" href="' . route('receiptReinigung.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i> Quittung</a>
                             <a class="btn btn-sm  btn-edit" href="'.route('customer.detail',['id'=>$array['customerId']]).'"><i class="feather feather-edit" ></i> Kunde</a> ';
                         break;
                 }
             })
 
             ->addColumn('docTaken', function ($array) {
-            
-            
+
+
                 if($array['docTaken'] == 1)
                 {
                     return sprintf('<button class="btn btn-sm btn-success " onClick="docTaken(%d, \'%s\')">Ja</button>', $array['id'], $array['receiptType']);
@@ -674,10 +693,10 @@ class indexController extends Controller
                 else {
                     return sprintf('<button class="btn btn-sm btn-danger " onClick="docTaken(%d, \'%s\')">Nein</button>', $array['id'], $array['receiptType']);
                 }
-               
-               
+
+
             })
-            
+
             ->rawColumns(['option','docTaken'])
             ->make(true);
 
