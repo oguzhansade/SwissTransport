@@ -25,7 +25,7 @@
         </div> --}}
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -67,15 +67,15 @@
                                         </thead>
                                         <tbody>
                                             @if($data && $expense)
-                                            
-                                            
+
+
                                             {{-- Kaç Ürün Varsa O kadar Tekrarlanacak --}}
                                             @foreach ($expense as $a => $b)
                                                 <tr class="islem_field" >
                                                     <td><select class="form-control expense "  name="islem[{{ $a }}][expense]" @if($b['expenseName'] == 'Arbeiter') readonly @endif>
                                                     <option class="form-control" value="0"> Bitte wählen </option>
                                                     @foreach ($expenseList as $key => $value)
-                                                            <option class="form-control" value="{{ $value }}" @if($b['expenseName'] == $value) selected @endif >{{ $value }}</option>  
+                                                            <option class="form-control" value="{{ $value }}" @if($b['expenseName'] == $value) selected @endif >{{ $value }}</option>
                                                     @endforeach
                                                     </select></td>
                                                     <td><input type="text" class="form-control expenseValue" id="tutar" name="islem[{{ $a }}][expenseValue]" value="{{ $b['expenseValue'] }}" @if($b['expenseName'] == 'Arbeiter') readonly @endif></td>
@@ -85,26 +85,26 @@
                                                         @else
                                                         <button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button>
                                                         @endif
-                                                        
+
                                                     </td>
                                                 </tr>
                                             @endforeach
 
-                                            
+
                                             @endif
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row p-3">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <button type="button" id="addRowBtn" class="box-shadow btn-rounded btn btn-primary " style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"> <i class="feather feather-plus "></i> Aufgaben hinzufügen</button>
                                 <button type="button" id="removeAllButton" class="btn-rounded btn btn-danger ml-1" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">Alles löschen</button>
                             </div>
                         </div>
-                        
+
                         <div class="row p-3">
                             <div class="col-md-6">
                                 <label class="col-form-label" for="l0">Total</label>
@@ -135,7 +135,10 @@
 
 @section('footer')
 <script>
-    $(document).ready(function() {
+    let deleteAllAction = 0;
+    $(document).ready(function(){
+
+
         // Erstellen button click event
         $('#erstellenButton').on('click', function() {
             // Set the form action to the updateUmzug route
@@ -146,16 +149,15 @@
         $('#allesLoeschenButton').on('click', function() {
             // Set the form action to the deleteUmzug route
             removeAll()
+            deleteAllAction = 1;
             $('form').attr('action', '{{ route("expense.deleteUmzug", ["id" => $data["id"]]) }}');
         });
-    });
-</script>
-<script>
-    $(document).ready(function(){
+
         calc();
         let totalExpense = $("#totalExpense").val();
-        console.log($("#arbeiterPrice").val())
-        
+        console.log($("#arbeiterPrice").val(), 'İşçi Ücreti')
+        console.log(deleteAllAction,'Hepsini Sill Aksiyonu')
+
     })
     var i = $(".islem_field").length || 0;
 
@@ -175,7 +177,7 @@
         $('input[name=totalExpense]').val('');
     })
     $("#addRowBtn").click(function () {
-        var newRow = 
+        var newRow =
         '<tr class="islem_field">' +
         '<td><select class="m-b-10 form-control expense" name="islem['+i+'][expense]" data-toggle="select2">'+
         '<option class="form-control" value="0"> Bitte Wahlen </option>';
@@ -189,27 +191,27 @@
         '<td><input type="text" class="form-control expenseValue" id="tutar" name="islem['+i+'][expenseValue]" value="0" ></td>'+
         '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
         '</tr>'
-        
+
         $("#faturaData").append(newRow);
-        
+
         i++;
     });
 
     $("form").submit(function(event) {
         let checkMaterial = expenseValidation();
-        
+
         if (!checkMaterial) {
             console.log('Material Validasyon False')
             return false;
         }
-        
+
     })
 
     function expenseValidation() {
-       
+
        let isValid = true;
        $("body").on("change",".islem_field", function (){
-        
+
     })
     $('.islem_field').each(function(index) {
         let expenseName = $(this).closest('.islem_field').find('.expense').find(":selected").val();
@@ -219,7 +221,7 @@
                 'border-color', 'red')
             toastr.error('Sparname fehlt', 'Fehler!');
             isValid = false;
-            
+
             console.log(index,'İndex')
             return false;
 
@@ -242,13 +244,16 @@
         }
     });
 
-       if ($('.expense').length === 0) { // ürün yoksa
-           toastr.error('Sie haben keine Ausgaben hinzugefügt', 'Fehler!');
-           isValid = false;
-           console.log(isValid, 'Urun Sayısı')
-           return false; // işlemi durdur
-       }
-       
+        if ($('.expense').length === 0) { // ürün yoksa
+            if(deleteAllAction === 0)
+            {
+                toastr.error('Sie haben keine Ausgaben hinzugefügt', 'Fehler!');
+                isValid = false;
+                console.log(isValid, 'Urun Sayısı')
+                return false; // işlemi durdur
+            }
+        }
+
        return isValid;
    }
 
@@ -282,13 +287,13 @@
         removeAll()
     });
 
-    
+
 
     function calc() {
         var ara_toplam = 0;
         var arbeiterValue = 0;
         $("[id=tutar]").each(function () {
-           ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());          
+           ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());
         });
         arbeiterValue = parseFloat($("#arbeiterPrice").val());
         // ara_toplam += arbeiterValue;
