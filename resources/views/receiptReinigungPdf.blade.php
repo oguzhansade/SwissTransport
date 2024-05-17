@@ -214,7 +214,7 @@
                         <td ><b>Pauschal:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['fixedPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
                     </tr>
                     @endif
@@ -224,7 +224,7 @@
                         <td ><b>Kostendach:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['topPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
                     </tr>
                     @endif
@@ -233,7 +233,7 @@
                         <td ><b>Total Kosten:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['totalPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
                     </tr>
 
