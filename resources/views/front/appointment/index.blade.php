@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('header')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
-@endsection
 @section('content')
  <!-- Page Title Area -->
  <div class="row page-title clearfix">

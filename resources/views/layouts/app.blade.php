@@ -28,7 +28,8 @@
     <script data-pace-options='{ "ajax": false, "selectors": [ "img" ]}' src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
+    <script src="https://cdn.tiny.cloud/1/ql3lhg7rtp9k9q9htlq8sid0vwf9f7etr31vvewajx4tnjlr/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <style>
         /* Header Rengi */
         .navbar {
@@ -38,7 +39,7 @@
         .bg-primary {
             background: {{ App\Models\Company::InfoCompany('crmSecondaryColor') }}
         }
-        
+
         .bg-service-primary{
             background: {{ App\Models\Company::InfoCompany('crmSecondaryColor') }}
         }
@@ -86,7 +87,7 @@
             background-color: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }}!important;
         }
 
-        
+
 
         .btn-edit {
             background-color: #007BFF;
@@ -136,7 +137,7 @@
             z-index: 10;
         }
         #loadingIndicator {
-            
+
             position: fixed;
             top: 50%;
             left: 50%;
@@ -168,13 +169,13 @@
         .logo-loading-collapse {
             max-width: 100%;
             height: auto;
-            
+
             z-index: 12;
             animation: pulse 1.5s infinite;
         }
    </style>
 
-    
+
     @yield('header')
 </head>
 
@@ -261,8 +262,8 @@
                         <a href="" class="hide-menu mt-3 mb-0 side-user-heading fw-500">
                            @if (Auth::user())
                             {{ Auth::user()->name }}
-                           
-                               
+
+
                            @endif
                         </a>
                         <br><small class="hide-menu text-primary">
@@ -279,11 +280,11 @@
             <!-- /.side-user -->
             <!-- Sidebar Menu -->
             @if (Auth::user())
-            
+
             @endif
             @include('layouts.sidebar')
             <!-- /.sidebar-nav -->
-            
+
             <!-- /.nav-contact-info -->
             </aside>
         <!-- /.site-sidebar -->
@@ -333,7 +334,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
     <script>
         function formLoading() {
-            
+
             // Sayfanın başına git
             $('html, body').animate({
                 scrollTop: 0
@@ -341,7 +342,7 @@
 
             // Loading mesajını göster
             $('#loading-body').show();
-            
+
             // Form elemanlarını devre dışı bırak
             $('form :input').prop('readonly', true);
             toastr.options.onShown = function () {
@@ -360,7 +361,7 @@
                 // Reset onShown
                 toastr.options.onShown = function () {};
             };
-            
+
         }
     </script>
     <script>
@@ -392,10 +393,10 @@
             };
         })
     </script>
-    
-    
+
+
     @yield('footer')
 
-    
+
 </body>
 </html>

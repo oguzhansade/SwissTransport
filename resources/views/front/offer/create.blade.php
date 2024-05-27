@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+
     <style>
         .checkbox .label-text:after {
             border-color: #999494;
@@ -174,7 +173,7 @@
                             <div class="col-md-5">
                                 <label for="" class="col-form-label">Esimated Income</label><br>
                                 <input class="form-control text-white" type="text" name="offerteEsimatedIncome" style="background-color: #8778AA">
-                            </div>                            
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -339,7 +338,7 @@
 </script>
 <script>
 
-    
+
     $("form").submit(function(event) {
         let checkMobile = phoneValidation();
         let checkMaterial = materialValidation();
@@ -433,11 +432,11 @@
                 return false; // Form gönderimini durdur
 
             }
-            
+
                 console.log("Telefon numarası doğru formatlıdır. Ülke kodu: " + countryCode);
                 console.log("Telefon numarası doğru formatlıdır. Alan kodu: " + areaCode);
                 console.log("Telefon numarası doğru formatlıdır. Numara: " + phoneNumber);
-            
+
 
 
         }
@@ -478,7 +477,7 @@
     $("body").on("change",".componentArea",function(){
         esimatedIncome()
     })
-    
+
     function contactPerson() {
         if ($('select[name=contactPerson]').val() != 'Bitte wählen') {
             $(".customContactPerson").hide(300)
@@ -519,7 +518,7 @@
                 einpack = parseFloat(einpack);
             }
         }else{einpack = 0}
-        
+
         if (auspack) {
             if(auspack.includes("-")) {
                 auspack = priceSplitter(auspack);
@@ -576,11 +575,11 @@
             }
         }else{material = 0}
 
-        esimatedIncome = 
-        parseFloat(umzug) + 
-        parseFloat(einpack) + 
-        parseFloat(auspack) + 
-        parseFloat(reinigung) + 
+        esimatedIncome =
+        parseFloat(umzug) +
+        parseFloat(einpack) +
+        parseFloat(auspack) +
+        parseFloat(reinigung) +
         parseFloat(reinigung2) +
         parseFloat(entsorgung) +
         parseFloat(transport) +
@@ -589,7 +588,7 @@
         $("input[name=offerteEsimatedIncome]").val(esimatedIncome);
     }
 
-    
+
     console.log($('select[name=contactPerson]').val(), 'contact')
     $('select[name=contactPerson]').on('change', function() {
         if ($('select[name=contactPerson]').val() != 'Bitte wählen') {

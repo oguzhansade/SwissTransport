@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
-   
+
 
     // app.php dosyanız içinde 'permissions' dizisini güncelleyin
     'permissions' => [
@@ -13,8 +13,8 @@ return [
         'officer' => ['company','customer','customerForms', 'appointment', 'appointmentMaterial', 'appointmentService', 'offer', 'invoice', 'receipt', 'receiptReinigung', 'product', 'expense', 'statistics', 'note'], // officer
         'worker' => ['workerPanel'] // worker
     ],
-     
-    
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

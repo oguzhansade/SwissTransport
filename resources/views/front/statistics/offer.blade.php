@@ -728,6 +728,15 @@
                 {
                     filteredPercent = (rsTot.dateBasedFilter / rsTot.totalOfferte)*100;
                 }
+                else if(rsTot.filteredServiceCount && rsTot.filteredStandCount)
+                {
+                    filteredPercent = (rsTot.filteredServiceCount / rsTot.filteredStandCount)*100;
+                }
+                else if(rsTot.filteredZimmerCount && rsTot.filteredServiceCount)
+                {
+                    filteredPercent = (rsTot.filteredZimmerCount / rsTot.filteredServiceCount)*100
+                }
+
                 filteredPercent = filteredPercent.toFixed(2);
 
 
@@ -756,7 +765,7 @@
                     console.log(standInputCount,'StandInputu')
                 })
 
-                $('#filteredOfferte').text( rsTot.filteredStandCount + '/' + rsTot.bescBasedFilter + '/'+ rsTot.dateBasedFilter + '/' + rsTot.totalOfferte);
+                $('#filteredOfferte').text( rsTot.filteredZimmerCount + '/' + rsTot.filteredServiceCount + '/' + rsTot.filteredStandCount + '/' + rsTot.bescBasedFilter + '/'+ rsTot.dateBasedFilter + '/' + rsTot.totalOfferte);
                 $('#percentBestatig').text('%'+bestatigPercent);
                 $('#percentFiltered').text('%'+filteredPercent);
             }

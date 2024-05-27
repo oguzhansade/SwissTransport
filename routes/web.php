@@ -76,6 +76,8 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/updateOptions', [App\Http\Controllers\front\company\indexController::class, 'updateOptions'])->name('updateOptions');
     });
 
+
+
     Route::group(['namespace' => 'contactPerson', 'as' => 'contactPerson.', 'prefix' => 'contactPerson','middleware' => ['PermissionControl']], function () {
         Route::get('/', [App\Http\Controllers\front\contactPerson\indexController::class, 'index'])->name('index');
         Route::get('/create', [App\Http\Controllers\front\contactPerson\indexController::class, 'create'])->name('create');
@@ -267,6 +269,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/docTaken/{id}/{type}', [App\Http\Controllers\front\receipt\indexController::class, 'docTaken'])->name('docTaken');
         Route::post('/data/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'data'])->name('data');
         Route::post('/signatureSave/{type}/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'signatureSave'])->name('signatureSave');
+        Route::get('/bexio/{customerId}', [App\Http\Controllers\front\bexio\indexController::class, 'searchCustomer'])->name('searchCustomer');
     });
 
     Route::group(['namespace' => 'receiptReinigung', 'as' => 'receiptReinigung.', 'prefix' => 'receiptReinigung','middleware' => ['PermissionControl']], function () {

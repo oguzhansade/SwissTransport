@@ -79,7 +79,8 @@ class indexController extends Controller
         $dateBasedFilter = 0;
         $filteredStandCount = 0;
         $filteredCount = 0;
-
+        $filteredServiceCount = 0;
+        $filteredZimmerCount = 0;
         // Customer Search Filter
         if (!empty($request->searchInput)) {
             $searchValue = $request->searchInput;
@@ -130,89 +131,45 @@ class indexController extends Controller
             $dateBasedFilter = $dateFilteredOfferte->count();
         }
 
-        // Service type filter
-        if ($request->typeFilter) {
-            $typeFilter = $request->typeFilter;
 
-            if (is_array($typeFilter)) {
-                if (in_array("Umzug", $typeFilter)) {
-                    $table->whereNotNull('offerteUmzugId');
-                } elseif (in_array("Einpack", $typeFilter)) {
-                    $table->whereNotNull('offerteEinpackId');
-                } elseif (in_array("Auspack", $typeFilter)) {
-                    $table->whereNotNull('offerteAuspackId');
-                } elseif (in_array("Entsorgung", $typeFilter)) {
-                    $table->whereNotNull('offerteEntsorgungId');
-                } elseif (in_array("Reinigung", $typeFilter)) {
-                    $table->whereNotNull('offerteReinigungId');
-                } elseif (in_array("Transport", $typeFilter)) {
-                    $table->whereNotNull('offerteTransportId');
-                } elseif (in_array("Lagerung", $typeFilter)) {
-                    $table->whereNotNull('offerteLagerungId');
-                } elseif (in_array("Verpackungsmaterial", $typeFilter)) {
-                    $table->whereNotNull('offerteMaterialId');
-                }
-            } else {
-                $table->where('zimmer', $typeFilter);
-            }
-        }
 
         // Umzug zimmer filter
         if ($request->zimmerFilter) {
             $zimmerFilter = $request->zimmerFilter;
 
             if (is_array($zimmerFilter)) {
-                if (in_array("1-1.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 4)->pluck('id');
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                } elseif (in_array("2-2.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
-
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                }
-                elseif (in_array("3-3.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
-
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                }
-                elseif (in_array("4-4.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 13)->pluck('id');
-
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                }
-                elseif (in_array("5-5.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 19)->pluck('id');
-
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                }
-                elseif (in_array("6-6.5 Zimmer", $zimmerFilter) &&  $table->whereNotNull('offerteUmzugId')) {
-                    // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
-                    $offerteUmzugIds = OfferteUmzug::where('tariff', 22)->pluck('id');
-
-                    // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
-                    $table->whereIn('offerteUmzugId', $offerteUmzugIds);
-                }
+                $ZimmerCounter = $table->where(function($query) use ($zimmerFilter) {
+                    foreach ($zimmerFilter as $filter) {
+                        if ($filter == "1-1.5 Zimmer") {
+                            // Önce OfferteUmzug modelinden "tariff" değeri 4 olan verilerin "id" değerlerini çek
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 4)->pluck('id');
+                            // Ardından Offerte modelini filtrele ve uygun "offerteUmzugId" ile eşleşenleri seç
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        } elseif ($filter == "2-2.5 Zimmer") {
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        } elseif ($filter == "3-3.5 Zimmer") {
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 7)->pluck('id');
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        } elseif ($filter == "4-4.5 Zimmer") {
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 13)->pluck('id');
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        } elseif ($filter == "5-5.5 Zimmer") {
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 19)->pluck('id');
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        } elseif ($filter == "6-6.5 Zimmer") {
+                            $offerteUmzugIds = OfferteUmzug::where('tariff', 22)->pluck('id');
+                            $query->orWhereIn('offerteUmzugId', $offerteUmzugIds);
+                        }
+                    }
+                });
             }
+
+            $filteredZimmerCount = $ZimmerCounter->count();
         }
-
-
-
-
 
         // Besichtigung Filter
         // Filtrelenmiş veri sayısını tutacak değişkeni tanımlayın
-
-
         // Besichtigung Filter
         if ($request->appType) {
             if ($request->appType == 'Nein') {
@@ -249,6 +206,39 @@ class indexController extends Controller
                 $filteredStandData = $table->get();
                 $filteredStandCount = $filteredStandData->count();
             }
+        }
+
+        // Service type filter
+        if ($request->typeFilter) {
+            $typeFilter = $request->typeFilter;
+
+            if (is_array($typeFilter)) {
+                $tableType = $table->where(function($query) use ($typeFilter) {
+                    foreach ($typeFilter as $filter) {
+                        if ($filter == "Umzug") {
+                            $query->orWhereNotNull('offerteUmzugId');
+                        } elseif ($filter == "Einpack") {
+                            $query->orWhereNotNull('offerteEinpackId');
+                        } elseif ($filter == "Auspack") {
+                            $query->orWhereNotNull('offerteAuspackId');
+                        } elseif ($filter == "Entsorgung") {
+                            $query->orWhereNotNull('offerteEntsorgungId');
+                        } elseif ($filter == "Reinigung") {
+                            $query->orWhereNotNull('offerteReinigungId');
+                        } elseif ($filter == "Transport") {
+                            $query->orWhereNotNull('offerteTransportId');
+                        } elseif ($filter == "Lagerung") {
+                            $query->orWhereNotNull('offerteLagerungId');
+                        } elseif ($filter == "Verpackungsmaterial") {
+                            $query->orWhereNotNull('offerteMaterialId');
+                        }
+                    }
+                });
+            } else {
+                $table->where('zimmer', $typeFilter);
+            }
+
+            $filteredServiceCount = $tableType->count();
         }
 
         $data=DataTables::of($table)
@@ -337,6 +327,8 @@ class indexController extends Controller
         $renderedData['dateBasedFilter'] = $dateBasedFilter;
         $renderedData['bescBasedFilter'] = $filteredCount;
         $renderedData['filteredStandCount'] = $filteredStandCount;
+        $renderedData['filteredServiceCount'] = $filteredServiceCount;
+        $renderedData['filteredZimmerCount'] = $filteredZimmerCount;
         $renderedData['filteredBestatig'] = $table->where('offerteStatus', 'Onaylandı')->count();
         return response()->json($renderedData);
 

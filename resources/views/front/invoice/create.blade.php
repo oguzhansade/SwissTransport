@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('header')
-    <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
     <style>
         .checkbox .label-text:after {
             border-color: #999494;
@@ -154,7 +152,7 @@
                         </div>
 
                         {{-- Rechnung Address Area --}}
-                        
+
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <h5><strong>Rechnung Adresse</strong></h5>
@@ -173,7 +171,7 @@
                         <div class="row form-group">
                             <div class="col-md-3">
                                 <label for="" class="col-form-label"> Ort</label><br>
-                                <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort "  value="{{ $data['Ort'] }}" required> 
+                                <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort "  value="{{ $data['Ort'] }}" required>
                             </div>
                             <div class="col-md-2">
                                 <label for="" class="col-form-label"> Land</label><br>
@@ -330,7 +328,7 @@
                 console.log(isValid,'Urun Sayısı')
                 return false; // işlemi durdur
             }
-            
+
         }
         return isValid;
     }

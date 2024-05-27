@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -25,7 +25,7 @@
         </ol>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -57,14 +57,14 @@
                                         <span class="h5 font-weight-bold text-dark">Quittungsart: </span> <span class="h5 ml-3 font-weight-bold text-primary">Standart: Umzug / Entsorgung</span>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row p-3 bg-service-primary">
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftraggeber</b>
                                         <input class="form-control" name="customerGender"  type="text" @if ($data['gender'] == "male")
                                             value="Herr" @else value="Frau"
                                         @endif>
-                                        
+
                                         <input class="form-control mt-1" name="customerName"  type="text" value="{{ $data['surname'] }} {{ $data['name'] }}">
                                         <input class="form-control mt-1" name="customerStreet"  type="text" value="{{ $data['street'] }}">
                                         <input class="form-control mt-1" name="customerPostCode"  type="text" value="CH-{{ $data['postCode'] }} {{ $data['country'] }}">
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Auszugsadresse</b>
-                                        <input class="form-control" name="aus1Street"  type="text" placeholder="Adr1: Strasse/Nr." 
+                                        <input class="form-control" name="aus1Street"  type="text" placeholder="Adr1: Strasse/Nr."
                                         @if ($offer['auszugaddressId']) value="{{  \App\Models\offerteAddress::InfoAdress($offer['auszugaddressId'],'street')  }}" @endif>
                                         <input class="form-control mt-1" name="aus1PostCode"  type="text" placeholder="Adr1: Ort"
                                         @if ($offer['auszugaddressId']) value="CH-{{  \App\Models\offerteAddress::InfoAdress($offer['auszugaddressId'],'postCode')  }} {{ \App\Models\offerteAddress::InfoAdress($offer['auszugaddressId'],'city')  }}" @endif>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Einzugsadresse</b>
-                                        <input class="form-control" name="ein1Street"  type="text" placeholder="Adr1: Strasse/Nr." 
+                                        <input class="form-control" name="ein1Street"  type="text" placeholder="Adr1: Strasse/Nr."
                                         @if ($offer['einzugaddressId']) value="{{  \App\Models\offerteAddress::InfoAdress($offer['einzugaddressId'],'street')  }}" @endif>
                                         <input class="form-control mt-1" name="ein1PostCode"  type="text" placeholder="Adr1: Ort"
                                         @if ($offer['einzugaddressId']) value="CH-{{  \App\Models\offerteAddress::InfoAdress($offer['einzugaddressId'],'postCode')  }} {{ \App\Models\offerteAddress::InfoAdress($offer['einzugaddressId'],'city')  }}" @endif>
@@ -103,9 +103,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftragstermin</b>
-                                        <input class="form-control" name="umzugDate"  type="date" 
+                                        <input class="form-control" name="umzugDate"  type="date"
                                         @if ($offer['offerteUmzugId']) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveDate') }}" @endif>
-                                        <input class="form-control mt-1" name="umzugTime"  type="time" 
+                                        <input class="form-control mt-1" name="umzugTime"  type="time"
                                         @if ($offer['offerteUmzugId']) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'moveTime') }}" @endif>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Aufwand</b></strong>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Dauer [h]</b>
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Ansatz  [CHF]</b>
-                                        <input class="form-control" name="umzugChf"  type="text" 
+                                        <input class="form-control" name="umzugChf"  type="text"
                                         @if ($offer['offerteUmzugId']) value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'chf') }}" @endif>
                                     </div>
                                     <div class="col-md-4">
@@ -134,7 +134,7 @@
                                         <input class="form-control" name="umzugCost"  type="text">
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Spesen</b>
@@ -161,7 +161,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Entsorgung</b></strong>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Volume  [m3]</b>
@@ -169,7 +169,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Ansatz  [CHF]</b>
-                                        <input class="form-control" name="entsorgungRate"  type="text" 
+                                        <input class="form-control" name="entsorgungRate"  type="text"
                                         @if ($offer['offerteEntsorgungId']) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'volumeCHF') }}" @endif>
                                     </div>
                                     <div class="col-md-4">
@@ -177,7 +177,7 @@
                                         <input class="form-control" name="entsorgungCost"  type="text">
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Aufwand an der Entsorgungsstelle</b>
@@ -186,7 +186,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {{-- Ek Ücretler --}}
                             <div id="ekucretAlanı" class="mt-3">
                                 <div class="form-group row">
@@ -195,10 +195,10 @@
                                     </div>
                                 </div>
 
-                                 
+
                                 <div class="form-group row">
                                     <div class="col-md-7">
-                                        <input class="form-control" name="addCost1Text" placeholder="Text"  type="text" 
+                                        <input class="form-control" name="addCost1Text" placeholder="Text"  type="text"
                                         @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra1'))
                                         value="Klavier"
                                         @endif>
@@ -210,14 +210,14 @@
                                             @endif>
                                     </div>
                                 </div>
-                                
-                                
-                                
+
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addCost2Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addCost2Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra2'))
-                                            value="Klavier" 
+                                            value="Klavier"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -227,12 +227,12 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
-                                
-                                
+
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addCost3Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addCost3Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra3'))
                                             value="Möbellift"
                                             @endif>
@@ -240,18 +240,18 @@
                                         <div class="col-md-5">
                                             <input class="form-control ek" name="addCost3" placeholder="[CHF]"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra3'))
-                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra3') }}" 
+                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra3') }}"
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost4Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra4'))
-                                            value="Möbellift" 
+                                            value="Möbellift"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -261,9 +261,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost5Text" placeholder="Text"  type="text"
@@ -274,13 +274,13 @@
                                         <div class="col-md-5">
                                             <input class="form-control ek" name="addCost5" placeholder="[CHF]"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra5'))
-                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra5') }}" 
+                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extra5') }}"
                                             @endif>
                                         </div>
                                     </div>
-                               
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost6Text" placeholder="Text"  type="text"
@@ -295,9 +295,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost7Text" placeholder="Text"  type="text"
@@ -312,9 +312,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                               
 
-                               
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost8Text" placeholder="Text"  type="text"
@@ -329,9 +329,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost9Text" placeholder="Text"  type="text"
@@ -346,9 +346,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost10Text" placeholder="Text"  type="text"
@@ -363,14 +363,14 @@
                                            @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost11Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'customCostPrice1'))
-                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'customCostName1') }}" 
+                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'customCostName1') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -380,9 +380,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost12Text" placeholder="Text"  type="text"
@@ -397,9 +397,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost13Text" placeholder="Text"  type="text"
@@ -414,14 +414,14 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost14Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraCostValue2'))
-                                            value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraCostText2') }}" 
+                                            value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraCostText2') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -431,7 +431,7 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
+
 
                                 {{-- Ekstra Custom Harcama --}}
                                 <div class="form-group row">
@@ -461,46 +461,46 @@
                                     </div>
                                 </div>
 
-                                
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text" 
-                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount')) 
+                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount'))
                                             value="Rabatt"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
                                             <input class="form-control ekc" name="addDiscount1" placeholder="[CHF]"  type="text"
-                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount')) 
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount'))
                                              value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'discount') }}"
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text" 
-                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser')) 
+                                            <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text"
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser'))
                                             value="ENTGEGENKOMMEN"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
                                             <input class="form-control ekc" name="addDiscount2" placeholder="[CHF]"  type="text"
-                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser')) 
+                                            @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser'))
                                             value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'compromiser') }}"
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount3Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteUmzugId'] && \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extraCostPrice'))
-                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extraCostName') }}" 
+                                            value="{{ \App\Models\OfferteUmzug::InfoUmzug($offer['offerteUmzugId'],'extraCostName') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -510,31 +510,31 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount4Text" placeholder="Text"  type="text" 
-                                            @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount')) 
+                                            <input class="form-control" name="addDiscount4Text" placeholder="Text"  type="text"
+                                            @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount'))
                                             value="Rabatt"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
                                             <input class="form-control ekc" name="addDiscount4" placeholder="[CHF]"  type="text"
-                                            @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount')) 
+                                            @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount'))
                                              value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'discount') }}"
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount5Text" placeholder="Text"  type="text"
                                             @if ($offer['offerteEntsorgungId'] && \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraDiscountPrice'))
-                                            value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraDiscountText') }}" 
+                                            value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($offer['offerteEntsorgungId'],'extraDiscountText') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -544,7 +544,7 @@
                                             @endif>
                                         </div>
                                     </div>
-                               
+
 
                                 {{-- Ekstra Custom Kesinti --}}
                                 <div class="form-group row">
@@ -574,7 +574,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
                                     </div>
                                 </div>
-                                 
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Pauschal</b>
@@ -598,21 +598,21 @@
                                         <b class="text-dark">Total  [CHF]</b>
                                         <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text">
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="withTax"  value="1"> <span class="label-text text-dark"><strong> Kosten inkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
                                                 <input type="checkbox" name="withoutTax"  value="1" checked> <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
                                                 <input type="checkbox" name="freeTax"  value="1"> <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
@@ -665,20 +665,20 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
-                            
+
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $data['email']  }}">                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $data['email']  }}">
+                                </div>
+
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten </label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
@@ -717,9 +717,9 @@
     $("body").on("change",".makbuz-alanı",function () {
         calc()
     })
-        
+
     function calc(){
-            
+
             let umzugHour = parseFloat($("input[name=umzugHour]").val());
             let umzugChf = parseFloat($("input[name=umzugChf]").val());
             let umzugCost = 0;
@@ -779,7 +779,7 @@
                 $("input[name=totalCost]").val(costFix);
             }
             else{
-                
+
                 if($("input[name=umzugCost]").val())
                 {
                     umzugCost = parseFloat($("input[name=umzugCost]").val());
@@ -794,8 +794,8 @@
                 else {
                     entsorgungCost = 0;
                 }
-                
-                
+
+
                 totalCost = umzugCost + umzugSpesenCost + umzugRoadChf + umzugPackCost + entsorgungCost + entsorgungFixed + ekler - kesintiler;
                 totalCost = totalCost.toFixed(2);
                 $("input[name=totalCost]").val(totalCost);
@@ -803,7 +803,7 @@
     }
 </script>
 
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

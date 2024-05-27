@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -25,7 +25,7 @@
         </ol>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -57,14 +57,14 @@
                                         <span class="h5 font-weight-bold text-dark">Quittungsart: </span> <span class="h5 ml-3 font-weight-bold text-primary">Reinigung</span>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row p-3" style="background-color:#c3a7f5;">
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftraggeber</b>
                                         <input class="form-control" name="customerGender"  type="text" @if ($data['gender'] == "male")
                                             value="Herr" @else value="Frau"
                                         @endif>
-                                        
+
                                         <input class="form-control mt-1" name="customerName"  type="text" value="{{ $data['surname'] }} {{ $data['name'] }}">
                                         <input class="form-control mt-1" name="customerStreet"  type="text" value="{{ $data['street'] }}">
                                         <input class="form-control mt-1" name="customerPostCode"  type="text" value="CH-{{ $data['postCode'] }} {{ $data['country'] }}">
@@ -77,16 +77,16 @@
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Reinigungstermin</b>
-                                        <input class="form-control" name="reinigungStartDate"  type="date" 
+                                        <input class="form-control" name="reinigungStartDate"  type="date"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startDate') }}"  @endif>
-                                        <input class="form-control mt-1" name="reinigungStartTime"  type="time" 
+                                        <input class="form-control mt-1" name="reinigungStartTime"  type="time"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'startTime') }}"  @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Abgabetermin</b>
-                                        <input class="form-control" name="reinigungEndDate"  type="date" 
+                                        <input class="form-control" name="reinigungEndDate"  type="date"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endDate') }}" @endif>
-                                        <input class="form-control mt-1" name="reinigungEndTime"  type="time" 
+                                        <input class="form-control mt-1" name="reinigungEndTime"  type="time"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'endTime') }}"  @endif>
                                     </div>
                                 </div>
@@ -99,24 +99,24 @@
                                         <strong class="text-underline h5 text-dark "><b>Tarif</b></strong>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-7">
                                         <b class="text-dark">Reinigungsart-Text</b>
-                                        <input class="form-control" name="reinigungType"  type="text" 
+                                        <input class="form-control" name="reinigungType"  type="text"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'reinigungType') }}" @endif>
                                     </div>
                                     <div class="col-md-5">
                                         <b class="text-dark">Zusatztext (Bsp. Zimmer-Anzahl)</b>
-                                        <?php 
+                                        <?php
                                         $reiningungFixedTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff');
                                         if ($offer['offerteReinigungId'] && $reiningungFixedTariffId) {
                                             $reinigungZimmer = \App\Models\Tariff::InfoTariff($reiningungFixedTariffId);
                                             $reinigungZimmer2 = $reinigungZimmer ? explode('à', $reinigungZimmer)[0] : '';
                                         }
-                                        
+
                                         ?>
-                                        <input class="form-control" name="reinigungExText"  type="text" 
+                                        <input class="form-control" name="reinigungExText"  type="text"
                                         @if ($offer['offerteReinigungId'] && $reiningungFixedTariffId)
                                         value="{{ $reinigungZimmer2 }}">
                                         @endif
@@ -126,7 +126,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Optional: Leistungen (für Teilreinigung oder Baureinigungsleistungen)</b>
-                                        <input class="form-control" name="extraReinigung"  type="text" 
+                                        <input class="form-control" name="extraReinigung"  type="text"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extraReinigung') }}" @endif>
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Pauschaltarif</b>
-                                        <input class="form-control" name="reinigungFixedChf"  type="text" 
+                                        <input class="form-control" name="reinigungFixedChf"  type="text"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariffPrice') }}" @endif>
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
                                 </div>
                             </div>
 
-                            
+
                             {{-- Ek Ücretler --}}
                             <div id="ekucretAlanı" class="mt-3">
                                 <div class="form-group row">
@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
 
-                                @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extra1')) 
+                                @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extra1'))
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost1Text" placeholder="Text"  type="text" value="Hochdruckreiniger">
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                 @endif
-                                
+
                                 @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extra2'))
                                     <div class="form-group row">
                                         <div class="col-md-7">
@@ -189,7 +189,7 @@
                                         </div>
                                     </div>
                                 @endif
-                                
+
                                 @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extra3'))
                                     <div class="form-group row">
                                         <div class="col-md-7">
@@ -257,10 +257,10 @@
                                     </div>
                                 </div>
 
-                                @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'discount')) 
+                                @if ($offer['offerteReinigungId'] && \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'discount'))
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text"
                                             value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'discountText') }}" >
                                         </div>
                                         <div class="col-md-5">
@@ -298,27 +298,27 @@
                                         <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
                                     </div>
                                 </div>
-                                 
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Total  [CHF]</b>
                                         <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text">
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="withTax"  value="1"> <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
                                                 <input type="checkbox" name="withoutTax"  value="1" checked> <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
                                                 <input type="checkbox" name="freeTax"  value="1"> <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
@@ -371,20 +371,20 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
-                            
+
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $data['email']  }}">                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $data['email']  }}">
+                                </div>
+
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
@@ -423,9 +423,9 @@
     $("body").on("change",".makbuz-alanı",function () {
         calc()
     })
-        
+
     function calc(){
-            
+
             let reinigungHour = parseFloat($("input[name=reinigungHour]").val());
             let reinigungChf = parseFloat($("input[name=reinigungChf]").val());
             let reinigungCost = 0;
@@ -438,7 +438,7 @@
             else{
                 $("input[name=reinigungCost]").val('');
             }
-            
+
             let reinigungFixedChf = $("input[name=reinigungFixedChf]").val() ? parseFloat($("input[name=reinigungFixedChf]").val()) : 0 ;
             let ekler= 0;
             let kesintiler = 0;
@@ -473,7 +473,7 @@
     }
 </script>
 
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

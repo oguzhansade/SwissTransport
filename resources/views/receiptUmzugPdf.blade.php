@@ -224,12 +224,12 @@
                         </tr>
                     @endif
 
-                    {{-- @if($receipt['fixedPrice'])
+                    @if($receipt['fixedPrice'])
                     <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Pauschal:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['fixedPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
                     </tr>
                     @endif
@@ -239,18 +239,18 @@
                         <td ><b>Kostendach:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['topPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
                     </tr>
-                    @endif --}}
+                    @endif
 
-                    {{-- <tr valign="top" style="width:100%;margin-top:20px;">
+                    <tr valign="top" style="width:100%;margin-top:20px;">
                         <td ><b>Total Kosten:</b></td>
                         <td colspan="2"></td>
                         <td>
-                            <b>CHF {{ $receipt['totalPrice'] }}</b><br><br>
+                            <b>CHF_____</b><br><br>
                         </td>
-                    </tr> --}}
+                    </tr>
 
                     {{-- <tr valign="top" style="width:100%;margin-top:20px;">
                         <td style="font-size:8px;">Alle Kosten sind inkl. MwSt.</td>

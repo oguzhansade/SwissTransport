@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
 

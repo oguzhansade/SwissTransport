@@ -2,8 +2,6 @@
 @extends('layouts.app')
 
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -38,7 +36,7 @@
         </div>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -79,8 +77,8 @@
                                         <td><span class="h5 font-weight-bold text-dark"> <strong>Stand:</strong> </span></td>
                                         <td>
                                             <span class="h5 ml-3 font-weight-bold text-primary">
-                                                @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Bestätigt 
-                                                @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt  
+                                                @if($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylandı') Bestätigt
+                                                @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Onaylanmadı') Nicht Bestätigt
                                                 @elseif($data['offerteStatus']  &&  $data['offerteStatus']  == 'Beklemede') in Wartestellung
                                                 @endif
                                             </span>
@@ -96,9 +94,9 @@
                                     </tr>
                                 </table>
                             </div>
-                           
+
                         </div>
-                      
+
 
                         <div class="form-group row">
                             <div class="col-md-12">
@@ -106,12 +104,12 @@
                                 <select class="form-control" name="appOfferType" id="appOfferType">
                                     <option value="0" @if($data['appType'] == 0 || 2) selected @endif>Nein</option>
                                     <option value="1" @if($data['appType'] == 1) selected @endif>Gemacht</option>
-                                </select> 
-                            </div>                            
+                                </select>
+                            </div>
                         </div>
 
-                            
-                        
+
+
                             {{-- Offerte Umzug  Alanı --}}
                                 @include('front.offer.detailComponents.offerUmzug',[
                                     'auszug1' => $data['auszugaddressId'],
@@ -122,7 +120,7 @@
                                     'einzug3' => $data['einzugaddressId3'],
                                     ])
                             {{-- Offerte Umzug Alanı --}}
-                            
+
                             {{-- Offerte Umzug 2 Alanı --}}
                                 @include('front.offer.detailComponents.offerUmzug2',['umzug' => $data['offerteUmzugId']])
                             {{-- Offerte Umzug 2 Alanı --}}
@@ -159,39 +157,39 @@
                                 @include('front.offer.detailComponents.offerMaterial',['material' => $data['offerteMaterialId']])
                             {{-- Offerte Material Alanı --}}
 
-                            
+
 
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Bemerkung (in Offerte)</label><br>
-                                    <textarea class="form-control" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>    
-                                </div>                            
+                                    <textarea class="form-control" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Notiz (<u>Nicht</u> in Offerte)</label><br>
-                                    <textarea  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>    
-                                </div>                            
+                                    <textarea  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>
+                                </div>
                             </div>
 
                             <div class="col-md-12  p-3 rounded" style="background-color: #eae9ec;">
-                                <label class="col-form-label" >Zusätzliche Merkmale</label>                                                   
-                                <div class="col-md-12 ">                                                    
+                                <label class="col-form-label" >Zusätzliche Merkmale</label>
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
                                             <input type="checkbox" name="kdvType"  value="1" @if($data['kostenInkl'] == 1) checked @endif> <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
                                             <input type="checkbox" name="kdvType1"  value="1" @if($data['kostenExkl'] == 1) checked @endif> <span class="label-text text-dark"><strong> Kosten exkl. MwSt.</strong></span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">                                                    
+                                <div class="col-md-12 ">
                                     <div class="checkbox checkbox-rounded checkbox-primary">
                                         <label class="">
                                             <input type="checkbox" name="kdvType3"  value="1" @if($data['kostenFrei'] == 1) checked @endif> <span class="label-text text-dark "><strong>Kostenfrei MwSt.</strong></span>
@@ -208,33 +206,33 @@
                                         @foreach (\App\Models\ContactPerson::all() as $key => $value)
                                         <option value=" {{ $value['name'] }} {{ $value['surname'] }}" @if ($data['contactPerson'] == $value['name'].$value['surname']) selected @endif>{{ $value['name']  }} {{ $value['surname'] }}</option>
                                         @endforeach
-                                    </select> 
+                                    </select>
                                 </div>
                                 <div class="col-md-6 customContactPerson" style="display:block;">
                                     <label class=" col-form-label" for="l0">Kontaktperson (Freitext)</label>
-                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="{{ \App\Models\Company::InfoCompany('name') }} Team" @else value="{{ $data['contactPerson'] }}" @endif>  
-                                </div>                            
+                                    <input class="form-control" name="customContactPerson"  type="text"@if($data['contactPerson'] == 'Bitte wählen') value="{{ \App\Models\Company::InfoCompany('name') }} Team" @else value="{{ $data['contactPerson'] }}" @endif>
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" checked>  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" checked>
+                                </div>
                             </div>
-                            
+
 
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse </label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $customer['email']  }}">                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $customer['email']  }}">
+                                </div>
+
 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
@@ -248,14 +246,14 @@
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">
                                     <label for="" class="col-form-label">SMS an Kunden</label><br>
-                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="col-md-12 sms-format mb-3">
                                 <label for="" class="col-form-label">Standard SMStext bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#286090" data-switchery="false" >   
-                            </div>  
+                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#286090" data-switchery="false" >
+                            </div>
 
                             <div class="row form-group sms-format-area" style="display: none;">
                                 <div class="col-md-12 mt-3">
@@ -268,31 +266,31 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
                                     <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
-                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer'])) 
-                                    <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong> 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
+                                    <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
+                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong>
                                     </a>
                                     @endif
 
-                                    <a id="createapp"  href="{{ route('offer.edit',['id' => $data['id']]) }}" 
-                                        class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong> 
+                                    <a id="createapp"  href="{{ route('offer.edit',['id' => $data['id']]) }}"
+                                        class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong>
                                     </a>
 
-                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer'])) 
-                                    <a href="#" class="btn btn-success btn-rounded text-white" data-toggle="modal" data-target="#receiptModal"> <strong>Quittung erstellen</strong> 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
+                                    <a href="#" class="btn btn-success btn-rounded text-white" data-toggle="modal" data-target="#receiptModal"> <strong>Quittung erstellen</strong>
                                     </a>
                                     @endif
 
                                     @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
-                                    <a id="createInvoice"  href="{{ route('invoice.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong> 
+                                    <a id="createInvoice"  href="{{ route('invoice.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
+                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong>
                                     </a>
                                     @endif
-                                    
-                                    <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}" 
-                                        class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong> 
+
+                                    <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}"
+                                        class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong>
                                     </a>
-                                    
+
                                     </div>
                                 </div>
                             </div>
@@ -309,9 +307,9 @@
                   Logs
                 </a>
               </p>
-              
+
               <div class="collapse" id="collapseExample">
-                
+
                 @if(count($logs) > 0)
                     @foreach ($logs->reverse() as $key => $value )
                             <div class="card card-body">
@@ -321,8 +319,8 @@
                                     </span>, <span class="text-danger">
                                         @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
                                         {{ App\Models\Tariff::InfoTariff($value['oldValue']) }}
-                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '1') 
-                                        Bitte Wahlen 
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '1')
+                                        Bitte Wahlen
                                         @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '2')
                                         Kunde
                                         @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['oldValue'] == '3')
@@ -345,8 +343,8 @@
                                     </span>' den <span class="text-success">
                                         @if($value['inputName'] == 'TARIF' || $value['inputName'] == 'TARIF (PAUSCHAL)' || $value['inputName'] == 'TARIF (STUNDENANSATZ)')
                                         {{ App\Models\Tariff::InfoTariff($value['newValue']) }}
-                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '1') 
-                                        Bitte Wahlen 
+                                        @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '1')
+                                        Bitte Wahlen
                                         @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '2')
                                         Kunde
                                         @elseif($value['serviceType'] == 'Umzug' && $value['inputName'] == 'AB- UND AUFBAU' && $value['newValue'] == '3')
@@ -368,8 +366,8 @@
                                         @endif
                                     </span> olarak değiştirildi. </span>
                                 @elseif (empty($value['oldValue']) && !empty($value['newValue']))
-                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
-                                    @if (strpos($value['inputName'], 'Adresse') !== false 
+                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki
+                                    @if (strpos($value['inputName'], 'Adresse') !== false
                                     || strpos($value['inputName'], 'Umzug') !== false
                                     || strpos($value['inputName'], 'Einpack') !== false
                                     || strpos($value['inputName'], 'Auspack') !== false
@@ -383,9 +381,9 @@
                                     @else
                                         <span class="text-success">{{ $value['inputName'] }}[{{ $value['newValue'] }}]</span>, Eklendi
                                     @endif
-                                    
+
                                 @elseif (empty($value['newValue']) && !empty($value['oldValue']))
-                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki 
+                                Log- {{ $key }} : <span > <span class="text-primary"><b>{{ $value['userName'] }}</b>  </span> Tarafından <span class="text-primary">{{ $value['created_at'] }}</span> tarihinde <span class="text-primary">{{ $value['serviceType'] }}</span> içindeki
                                     @if (strpos($value['inputName'], 'Adresse') !== false
                                     || strpos($value['inputName'], 'Umzug') !== false
                                     || strpos($value['inputName'], 'Einpack') !== false
@@ -407,12 +405,12 @@
                 <div class="card card-body">
                     Keine Änderung vorgenommen
                 </div>
-                    
+
                 @endif
               </div>
-              
-              
-              
+
+
+
         </div>
         <div class="modal fade" id="receiptModal" tabindex="-1" role="dialog" aria-labelledby="receiptModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document" >
@@ -431,11 +429,11 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12">
-                            <a id="createUmzug" href="{{ route('receipt.createStandart',['id' => $data['id'],'customer' => $data['customerId']]) }}" 
+                            <a id="createUmzug" href="{{ route('receipt.createStandart',['id' => $data['id'],'customer' => $data['customerId']]) }}"
                                 class="btn btn-primary btn-rounded text-white">Standart: Umzug/Entsorgung/Transport</a>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <a id="createReinigung1" href="{{ route('receiptReinigung.createReinigung',['id' => $data['id'],'customer' => $data['customerId']]) }}" class="btn btn-info btn-rounded text-white" >Reinigung</a>
@@ -484,20 +482,20 @@
     // document.getElementById('manuelAccept').onclick = function(event) {
     //   // Varsayılan davranışı engelle
     //   event.preventDefault();
-  
+
     //   // Kullanıcıya bir "confirm" mesajı göster
     //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'Bestätigt' ändern?");
-  
+
     //   // Kullanıcının seçimine göre işlem yap
     //   if (confirmResult) {
     //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
     //     window.location.href = this.href;
     //   } else {
-        
+
     //   }
     // };
 
-   
+
     $("#manuelAccept").click(function(e) {
         e.preventDefault(); // Öntanımlı tıklama işlemini engeller
 
@@ -505,7 +503,7 @@
         $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
         $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Bestätigt</strong> ändern?");
     });
-    
+
     $("#manuelReject").click(function(e) {
         e.preventDefault(); // Öntanımlı tıklama işlemini engeller
 
@@ -513,7 +511,7 @@
         $("#offerteStatusChangerButton").attr("href", newHref); // href değerini değiştirir
         $("#offerteStatusChangerText").html("Möchten Sie den Status des Angebots in <strong class='text-primary'>Abgesagt</strong> ändern?");
     });
-    
+
     $("#manuelDefault").click(function(e) {
         e.preventDefault(); // Öntanımlı tıklama işlemini engeller
 
@@ -526,16 +524,16 @@
     // document.getElementById('manuelReject').onclick = function(event) {
     //   // Varsayılan davranışı engelle
     //   event.preventDefault();
-  
+
     //   // Kullanıcıya bir "confirm" mesajı göster
     //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'Nicht bestätigt' ändern?");
-  
+
     //   // Kullanıcının seçimine göre işlem yap
     //   if (confirmResult) {
     //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
     //     window.location.href = this.href;
     //   } else {
-        
+
     //   }
     // };
 
@@ -543,16 +541,16 @@
     // document.getElementById('manuelDefault').onclick = function(event) {
     //   // Varsayılan davranışı engelle
     //   event.preventDefault();
-  
+
     //   // Kullanıcıya bir "confirm" mesajı göster
     //   var confirmResult = confirm("Möchten Sie den Status des Angebots in 'In Wartestellung' ändern?");
-  
+
     //   // Kullanıcının seçimine göre işlem yap
     //   if (confirmResult) {
     //     // Evet'e tıklandığında linkin orijinal URL'ine yönlendir
     //     window.location.href = this.href;
     //   } else {
-        
+
     //   }
     // };
 </script>
@@ -570,7 +568,7 @@ $(function() {
             location.href = this.href;
         }
         else{
-            if (window.confirm("Sie haben keine Reinigung offeriert. Sie können zwar eine Quittung erstellen, aber die Daten müssen Sie selbst eingeben. Fortfahren?")) 
+            if (window.confirm("Sie haben keine Reinigung offeriert. Sie können zwar eine Quittung erstellen, aber die Daten müssen Sie selbst eingeben. Fortfahren?"))
             {
             location.href = this.href;
             }
@@ -589,7 +587,7 @@ $(function() {
             location.href = this.href;
         }
         else{
-            if (window.confirm("Sie haben keine Reinigung 2 offeriert. Sie können zwar eine Quittung erstellen, aber die Daten müssen Sie selbst eingeben. Fortfahren?")) 
+            if (window.confirm("Sie haben keine Reinigung 2 offeriert. Sie können zwar eine Quittung erstellen, aber die Daten müssen Sie selbst eingeben. Fortfahren?"))
             {
             location.href = this.href;
             }
@@ -605,7 +603,7 @@ $(function() {
         e.preventDefault();
         if(status == "Onaylanmadı" || "Beklemede")
         {
-            if (window.confirm("Noch NICHT bestätigt durch den Kunden, möchten Sie trotzdem einen Termin erstellen?")) 
+            if (window.confirm("Noch NICHT bestätigt durch den Kunden, möchten Sie trotzdem einen Termin erstellen?"))
             {
             location.href = this.href;
             }
@@ -613,7 +611,7 @@ $(function() {
         else{
             location.href = this.href;
         }
-        
+
     });
 });
 
@@ -640,16 +638,16 @@ $(function() {
         $(".customContactPerson").show(300)
         }
     })
-    
+
 </script>
-<script>       
+<script>
     var morebutton = $("div.email-send");
     var morebutton10 = $("div.verpackungsmaterial-control");
 
     morebutton10.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
-            
+
             $(".verpackungsmaterial--area").show(700);
         }
         else{
@@ -681,15 +679,7 @@ $(function() {
     })
 </script>
 
-<script>
-    tinymce.init({
-      selector: 'textarea.editor',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
-</script>
+
 
 @yield('offerFooterAusDetail')
 @yield('offerFooterEinDetail')

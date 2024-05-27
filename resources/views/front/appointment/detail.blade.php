@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
-@section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="https://camdalio.test/tinymce.min.js" referrerpolicy="origin"></script>
-@endsection
+
 
 @section('content')
 
@@ -22,7 +19,7 @@
         </div> --}}
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -54,73 +51,73 @@
                                         <input type="radio"   name="contactType" value="0" @if ($data['contactType'] == 0) checked @endif> <span class="label-text">Beim Kunden</span>
                                     </label>
                                 </div>
-    
+
                                 <div class="radiobox">
                                     <label>
                                         <input type="radio"   name="contactType" value="1" @if ($data['contactType'] == 1) checked @endif> <span class="label-text">Per Telefon</span>
                                     </label>
                                 </div>
-    
+
                                 <div class="radiobox">
                                     <label>
                                         <input type="radio"   name="contactType" value="2" @if ($data['contactType'] == 2) checked @endif> <span class="label-text">Andere</span>
                                     </label>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Wo</label>
-                                    <input class="form-control" name="address"  type="text" value="{{   $data['address']  }} " required>                                
+                                    <input class="form-control" name="address"  type="text" value="{{   $data['address']  }} " required>
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Datum</label>
-                                    <input class="form-control" class="date" id="datepicker"  name="date"  type="date" required value="{{   $data['date']  }}">                                
+                                    <input class="form-control" class="date" id="datepicker"  name="date"  type="date" required value="{{   $data['date']  }}">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Stunde</label>
-                                    <input class="form-control"  name="time"  type="time" required value="{{   $data['time']  }}">                                
+                                    <input class="form-control"  name="time"  type="time" required value="{{   $data['time']  }}">
                                 </div>
                             </div>
 
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle"  type="text" required value="{{   $data['calendarTitle']  }}">                                
+                                    <input class="form-control" name="calendarTitle"  type="text" required value="{{   $data['calendarTitle']  }}">
                                 </div>
 
-    
+
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10">{{$data['calendarContent']}}</textarea>                                
+                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10">{{$data['calendarContent']}}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
-                            
+
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">
+                                </div>
+
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Email Kommentar</label>
-                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>                                
+                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>
                                 </div>
 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
@@ -151,7 +148,7 @@
 @endsection
 
 @section('footer')
-<script> 
+<script>
 
 $("#appForm1 :input").prop("disabled", true);
 

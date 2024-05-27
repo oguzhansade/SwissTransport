@@ -2,7 +2,6 @@
 @extends('layouts.app')
 
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -743,6 +742,10 @@
                                         <a class="btn btn-warning btn-rounded" href="{{ route('expense.editUmzug',['id'=>$data['id']]) }}"> <strong>Aufwand</strong></a>
                                         @endif
 
+                                        @if (in_array(Auth::user()->permName, ['superAdmin']))
+                                        <a class="btn btn-dark btn-rounded" href="{{ route('receipt.searchCustomer',['customerId'=>$data['customerId']]) }}"> <strong>Bexio (Development)</strong></a>
+                                        @endif
+
                                         <a class="btn  btn-success btn-rounded" href="#" data-toggle="modal" data-target="#addSignatureModal" data-id=""><strong>Unterschrift</strong></a>
                                     </div>
                                 </div>
@@ -978,15 +981,6 @@
     })
 </script>
 
-<script>
-    tinymce.init({
-      selector: 'textarea.editor',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
-</script>
 
 
 @endsection

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('header')
-    <script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
     <style>
         .checkbox .label-text:after {
             border-color: #999494;
@@ -64,8 +62,8 @@
                                     <select class="form-control" name="status" id="status">
                                         <option value="Bezahlt" @if($data['status'] == 'Bezahlt') selected @endif>Bezahlt</option>
                                         <option value="Nicht Bezahlt" @if($data['status'] == 'Nicht Bezahlt') selected @endif>Nicht Bezahlt</option>
-                                    </select> 
-                                </div>                            
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="row border-bottom mb-2">
@@ -77,11 +75,11 @@
                                             <span class="label-text">In 7 Tagen</span>
                                         </label>
                                         <label class="text-dark ml-1">
-                                            <input type="radio" class="payCondition" name="payCondition" value="2" @if($data['payCondition'] == 2) checked @endif> 
+                                            <input type="radio" class="payCondition" name="payCondition" value="2" @if($data['payCondition'] == 2) checked @endif>
                                             <span class="label-text">In 14 Tagen</span>
                                         </label>
                                         <label class="text-dark ml-1">
-                                            <input type="radio" class="payCondition" name="payCondition" value="3" @if($data['payCondition'] == 3) checked @endif> 
+                                            <input type="radio" class="payCondition" name="payCondition" value="3" @if($data['payCondition'] == 3) checked @endif>
                                             <span class="label-text">In 31 Tagen</span>
                                         </label>
                                     </div>
@@ -128,7 +126,7 @@
                                 <div class="col-md-3">
                                     <label class="col-form-label" for="l0">Mahngebühr</label>
                                     <input class="form-control" name="invoiceWarningPrice" placeholder="0" type="text"
-                                        style="background-color: #286090;color:white;" 
+                                        style="background-color: #286090;color:white;"
                                         @if($data['warningPrice']) value="{{ $data['warningPrice'] }}" @else value="0.00" @endif>
                                 </div>
                             </div>
@@ -138,7 +136,7 @@
                                 <div class="col-md-3">
                                     <label class="col-form-label" for="l0">Betrag Total</label>
                                     <input class="form-control" name="invoiceTotalPrice" placeholder="0" type="text"
-                                        style="background-color: #286090;color:white;" 
+                                        style="background-color: #286090;color:white;"
                                         @if($data['totalPrice']) value="{{ $data['totalPrice'] }}" @else value="0.00" @endif>
                                 </div>
                             </div>
@@ -192,7 +190,7 @@
                                 <div class="col-md-3">
                                     <label for="" class="col-form-label"> Ort</label><br>
                                     <input type="text" class="form-control" name="invoiceOrt" placeholder="Ort"   required
-                                    @if($data['ort']) value="{{ $data['ort']  }}" @else value="{{ $customer['Ort']  }}" @endif> 
+                                    @if($data['ort']) value="{{ $data['ort']  }}" @else value="{{ $customer['Ort']  }}" @endif>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="" class="col-form-label"> Land</label><br>
@@ -236,14 +234,14 @@
                             <div class="form-group row">
                                 <div class="col-md-12 sms-send">
                                     <label for="" class="col-form-label">SMS an Kunden</label><br>
-                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#9c27b0" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isSMS" id="isSMS" class="js-switch " data-color="#9c27b0" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="col-md-12 sms-format">
                                 <label for="" class="col-form-label">Standard SMStext bearbeiten</label><br>
-                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#9c27b0" data-switchery="false" >   
-                            </div>  
+                                <input type="checkbox" name="isCustomSMS" id="isCustomSMS" class="js-switch isCustomSMS" data-color="#9c27b0" data-switchery="false" >
+                            </div>
 
                             <div class="row form-group sms-format-area" style="display: none;">
                                 <div class="col-md-12 mt-3">
@@ -336,7 +334,7 @@
                 console.log(isValid,'Urun Sayısı')
                 return false; // işlemi durdur
             }
-            
+
         }
         return isValid;
     }

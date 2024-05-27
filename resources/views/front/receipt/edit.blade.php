@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 <style>
     .checkbox .label-text:after {
         border-color: #999494;
@@ -25,7 +25,7 @@
         </ol>
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -58,7 +58,7 @@
                                         <span class="text-dark"><i>Quittung erstellt am: </i> <i class="pl-4">{{ $data['created_at'] }}</i></span>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-1 align-self-center">
                                         <b class="text-dark h5 font-weight-bolder">Status:</b>
@@ -67,10 +67,10 @@
                                         <select class="form-control" name="status" id="status">
                                             <option value="Offen" @if($data['status'] == 'Offen') selected @endif>Offen</option>
                                             <option value="Abgeschlossen" @if($data['status'] == 'Abgeschlossen') selected @endif>Abgeschlossen</option>
-                                        </select> 
-                                    </div>                            
+                                        </select>
+                                    </div>
                                 </div>
-                                
+
                                 <div class="form-group row p-3 bg-service-primary" >
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftraggeber</b>
@@ -83,51 +83,51 @@
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Auszugsadresse</b>
-                                        <input class="form-control" name="aus1Street"  type="text" placeholder="Adr1: Strasse/Nr." 
-                                        @if ($data['auszugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line1')) 
+                                        <input class="form-control" name="aus1Street"  type="text" placeholder="Adr1: Strasse/Nr."
+                                        @if ($data['auszugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line1')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="aus1PostCode"  type="text" placeholder="Adr1: Ort"
-                                        @if ($data['auszugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line2')) 
+                                        @if ($data['auszugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId1'],'line2')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="aus2Street"  type="text" placeholder="Adr2: Strasse/Nr."
-                                        @if ($data['auszugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line1')) 
+                                        @if ($data['auszugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line1') }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="aus2PostCode"  type="text" placeholder="Adr2: Ort"
-                                        @if ($data['auszugId2'] &&  \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line2')) 
+                                        @if ($data['auszugId2'] &&  \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId2'],'line2')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="aus3Street"  type="text" placeholder="Adr3: Strasse/Nr."
-                                        @if ($data['auszugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line1')) 
+                                        @if ($data['auszugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line1')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="aus3PostCode"  type="text" placeholder="Adr3: Ort"
-                                        @if ($data['auszugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line2')) 
+                                        @if ($data['auszugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['auszugId3'],'line2')  }}" @else value="" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Einzugsadresse</b>
-                                        <input class="form-control" name="ein1Street"  type="text" placeholder="Adr1: Strasse/Nr." 
-                                        @if ($data['einzugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line1')) 
+                                        <input class="form-control" name="ein1Street"  type="text" placeholder="Adr1: Strasse/Nr."
+                                        @if ($data['einzugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line1')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="ein1PostCode"  type="text" placeholder="Adr1: Ort"
-                                        @if ($data['einzugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line2')) 
+                                        @if ($data['einzugId1'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId1'],'line2')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="ein2Street"  type="text" placeholder="Adr2: Strasse/Nr."
-                                        @if ($data['einzugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line1')) 
+                                        @if ($data['einzugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line1')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="ein2PostCode"  type="text" placeholder="Adr2: Ort"
-                                        @if ($data['einzugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line2')) 
+                                        @if ($data['einzugId2'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId2'],'line2')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="ein3Street"  type="text" placeholder="Adr3: Strasse/Nr."
-                                        @if ($data['einzugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line1')) 
+                                        @if ($data['einzugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line1'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line1')  }}" @else value="" @endif>
                                         <input class="form-control mt-1" name="ein3PostCode"  type="text" placeholder="Adr3: Ort"
-                                        @if ($data['einzugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line2')) 
+                                        @if ($data['einzugId3'] && \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line2'))
                                         value="{{  \App\Models\ReceiptAddress::InfoAddress($data['einzugId3'],'line2')  }}" @else value="" @endif>
                                     </div>
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftragstermin</b>
-                                        <input class="form-control" name="umzugDate"  type="date" 
+                                        <input class="form-control" name="umzugDate"  type="date"
                                         value="{{ $data['orderDate'] }}" >
-                                        <input class="form-control mt-1" name="umzugTime"  type="time" 
+                                        <input class="form-control mt-1" name="umzugTime"  type="time"
                                         value="{{ $data['orderTime'] }}">
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Aufwand</b></strong>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Dauer  [h]</b>
@@ -155,7 +155,7 @@
                                         <input class="form-control" name="umzugCost"  type="text" value="{{ $data['umzugTotalChf'] }}">
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Spesen</b>
@@ -179,7 +179,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Entsorgung</b></strong>
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Volume  [m3]</b>
@@ -194,7 +194,7 @@
                                         <input class="form-control" name="entsorgungCost"  type="text" value="{{ $data['entsorgungTotalChf'] }}">
                                     </div>
                                 </div>
-    
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Aufwand an der Entsorgungsstelle</b>
@@ -202,7 +202,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {{-- Ek Ücretler --}}
                             <div id="ekucretAlanı" class="mt-3">
                                 <div class="form-group row">
@@ -211,12 +211,12 @@
                                     </div>
                                 </div>
 
-                                
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addCost1Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addCost1Text" placeholder="Text"  type="text"
                                             @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1'))
-                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1Text') }}" 
+                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra1Text') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -226,12 +226,12 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
-                                
-                                
+
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addCost2Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addCost2Text" placeholder="Text"  type="text"
                                             @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra2'))
                                             value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra2Text') }}"
                                             @endif>
@@ -243,12 +243,12 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
-                                
-                                
+
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addCost3Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addCost3Text" placeholder="Text"  type="text"
                                             @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3'))
                                             value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3Text') }}"
                                             @endif>
@@ -256,13 +256,13 @@
                                         <div class="col-md-5">
                                             <input class="form-control ek" name="addCost3" placeholder="[CHF]"  type="text"
                                             @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3'))
-                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3') }}" 
+                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra3') }}"
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost4Text" placeholder="Text"  type="text"
@@ -277,9 +277,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost5Text" placeholder="Text"  type="text"
@@ -290,13 +290,13 @@
                                         <div class="col-md-5">
                                             <input class="form-control ek" name="addCost5" placeholder="[CHF]"  type="text"
                                             @if ($data['receiptExtraId'] && \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5'))
-                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5') }}" 
+                                            value="{{ \App\Models\ReceiptExtra::InfoExtra($data['receiptExtraId'],'extra5') }}"
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost6Text" placeholder="Text"  type="text"
@@ -311,9 +311,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                               
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost7Text" placeholder="Text"  type="text"
@@ -328,9 +328,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost8Text" placeholder="Text"  type="text"
@@ -345,9 +345,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost9Text" placeholder="Text"  type="text"
@@ -362,9 +362,9 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost10Text" placeholder="Text"  type="text"
@@ -379,9 +379,9 @@
                                            @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost11Text" placeholder="Text"  type="text"
@@ -396,9 +396,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost12Text" placeholder="Text"  type="text"
@@ -413,9 +413,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                               
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost13Text" placeholder="Text"  type="text"
@@ -430,9 +430,9 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addCost14Text" placeholder="Text"  type="text"
@@ -447,7 +447,7 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
+
 
                                 {{-- Ekstra Custom Harcama --}}
                                 <div class="form-group row">
@@ -485,10 +485,10 @@
                                     </div>
                                 </div>
 
-                                 
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addDiscount1Text" placeholder="Text"  type="text"
                                             @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount1'))
                                             value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount1Text') }}"
                                             @endif>
@@ -500,31 +500,31 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text" 
-                                            @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2')) 
+                                            <input class="form-control" name="addDiscount2Text" placeholder="Text"  type="text"
+                                            @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2'))
                                             value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2Text') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
                                             <input class="form-control ekc" name="addDiscount2" placeholder="[CHF]"  type="text"
-                                            @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2')) 
+                                            @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2'))
                                             value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount2') }}"
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount3Text" placeholder="Text"  type="text"
                                             @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount3'))
-                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount3Text') }}" 
+                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount3Text') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -534,14 +534,14 @@
                                             @endif>
                                         </div>
                                     </div>
-                                
 
-                                 
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
-                                            <input class="form-control" name="addDiscount4Text" placeholder="Text"  type="text" 
+                                            <input class="form-control" name="addDiscount4Text" placeholder="Text"  type="text"
                                             @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount4'))
-                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount4Text') }}" 
+                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount4Text') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -551,14 +551,14 @@
                                              @endif>
                                         </div>
                                     </div>
-                                
 
-                                
+
+
                                     <div class="form-group row">
                                         <div class="col-md-7">
                                             <input class="form-control" name="addDiscount5Text" placeholder="Text"  type="text"
                                             @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount5'))
-                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount5Text') }}" 
+                                            value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount5Text') }}"
                                             @endif>
                                         </div>
                                         <div class="col-md-5">
@@ -568,12 +568,12 @@
                                             @endif>
                                         </div>
                                     </div>
-                               
+
 
                                 {{-- Ekstra Custom Kesinti --}}
                                 <div class="form-group row">
                                     <div class="col-md-7">
-                                        <input class="form-control" name="addDiscount6Text" placeholder="Text"  type="text" 
+                                        <input class="form-control" name="addDiscount6Text" placeholder="Text"  type="text"
                                         @if ($data['receiptDiscountId'] && \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount6'))
                                         value="{{ \App\Models\ReceiptDiscount::InfoDiscount($data['receiptDiscountId'],'discount6Text') }}" @endif>
                                     </div>
@@ -606,7 +606,7 @@
                                         <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
                                     </div>
                                 </div>
-                                 
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Pauschal</b>
@@ -627,26 +627,26 @@
                                         <b class="text-dark">Total  [CHF]</b>
                                         <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text" value="{{ $data['totalPrice'] }}">
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif> 
+                                                <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif>
                                                 <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
-                                                <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif> 
+                                                <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif>
                                                 <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">                                                    
+                                    <div class="col-md-12 ">
                                         <div class="checkbox checkbox-rounded checkbox-primary">
                                             <label class="">
-                                                <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif> 
+                                                <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif>
                                                 <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
                                             </label>
                                         </div>
@@ -666,7 +666,7 @@
                                     <div class="col-md-6">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif> 
+                                                <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif>
                                                 <span class="label-text text-dark"><strong>In Bar</strong></span>
                                             </label>
                                         </div>
@@ -675,7 +675,7 @@
                                     <div class="col-md-6">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif> 
+                                                <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif>
                                                 <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                             </label>
                                         </div>
@@ -699,20 +699,20 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >  
-                                </div>                            
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
-                            
+
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse</label>
-                                    <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">                                
-                                </div>  
-    
+                                    <input class="form-control" name="email"  type="text" value="{{   $data2['email']  }}">
+                                </div>
+
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
-                                </div>   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
+                                </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
@@ -729,8 +729,8 @@
                                         <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
                                         <a class="btn btn-info btn-rounded" href="{{ route('receipt.edit',['id'=>$data['id']]) }}"> Bearbeiten</a>
 
-                                        <a id="createTask"  href="{{ route('receipt.showPdf',['id' => $data['id']]) }}" 
-                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong> 
+                                        <a id="createTask"  href="{{ route('receipt.showPdf',['id' => $data['id']]) }}"
+                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#ff0000"> <strong>Ausdrucken</strong>
                                         </a>
                                     </div>
                                 </div>
@@ -756,9 +756,9 @@
     $("body").on("change",".makbuz-alanı",function () {
         calc()
     })
-        
+
     function calc(){
-            
+
             let umzugHour = parseFloat($("input[name=umzugHour]").val());
             let umzugChf = parseFloat($("input[name=umzugChf]").val());
             let umzugCost = 0;
@@ -818,7 +818,7 @@
                 $("input[name=totalCost]").val(costFix);
             }
             else{
-                
+
                 if($("input[name=umzugCost]").val())
                 {
                     umzugCost = parseFloat($("input[name=umzugCost]").val());
@@ -833,8 +833,8 @@
                 else {
                     entsorgungCost = 0;
                 }
-                
-                
+
+
                 totalCost = umzugCost + umzugSpesenCost + umzugRoadChf + umzugPackCost + entsorgungCost + entsorgungFixed + ekler - kesintiler;
                 totalCost = totalCost.toFixed(2);
                 $("input[name=totalCost]").val(totalCost);
@@ -842,7 +842,7 @@
     }
 </script>
 
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

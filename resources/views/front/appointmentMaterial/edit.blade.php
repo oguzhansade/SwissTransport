@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('header')
-<script src="https://cdn.tiny.cloud/1/qa7zzv3hb9nmr5ary4ucaw8bbt8744dzibxuf6hdomgsuchu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
-@endsection
-
 @section('content')
 @section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
@@ -22,7 +17,7 @@
         </div> --}}
     </div>
     <!-- /.page-title-right -->
-</div> 
+</div>
 
 @if (session("status"))
     <div class="row mt-3">
@@ -55,13 +50,13 @@
                                             <input type="radio" class="deliverable"  name="deliverable" value="0" @if ($data['deliverable'] == 0) checked @endif > <span class="label-text">Verpackungsmaterial</span>
                                         </label>
                                     </div>
-    
+
                                     <div class="radiobox">
                                         <label>
                                             <input type="radio" class="deliverable"  name="deliverable" value="1" @if ($data['deliverable'] == 1) checked @endif> <span class="label-text">Schlossatelier</span>
                                         </label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             <div class="form-group row deliveryType--area" @if ($data['deliverable'] == 1) style="display: none;" @endif>
@@ -72,85 +67,85 @@
                                             <input type="radio" class="deliveryType"  name="deliveryType" value="0" @if ($data['deliveryType'] == 0) checked @endif > <span class="label-text">Lieferung</span>
                                         </label>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">Termin</label>
-                                    <input class="form-control" id="meetingDate" name="meetingDate"  type="date" value="{{ $data['meetingDate'] }}" >                                
+                                    <input class="form-control" id="meetingDate" name="meetingDate"  type="date" value="{{ $data['meetingDate'] }}" >
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">zwischen</label>
-                                    <input class="form-control"  name="meetingHour1"  type="time" value="{{ $data['meetingHour1'] }}">                                
+                                    <input class="form-control"  name="meetingHour1"  type="time" value="{{ $data['meetingHour1'] }}">
                                 </div>
-    
+
                                 <div class="col-md-4">
                                     <label class=" col-form-label" for="l0">bis</label>
-                                    <input class="form-control"  name="meetingHour2"  type="time" value="{{ $data['meetingHour2'] }}">                                
+                                    <input class="form-control"  name="meetingHour2"  type="time" value="{{ $data['meetingHour2'] }}">
                                 </div>
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label class=" col-form-label" for="l0">Wo</label>
-                                <input class="form-control" name="address"  type="text" value="{{   $data['address'] }}" required>                                
+                                <input class="form-control" name="address"  type="text" value="{{   $data['address'] }}" required>
                             </div>
                         </div>
 
-                            
+
 
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
-                                    <input class="form-control" name="calendarTitle"  type="text" value="{{   $data['calendarTitle'] }}">                                
-                                </div>                                   
+                                    <input class="form-control" name="calendarTitle"  type="text" value="{{   $data['calendarTitle'] }}">
+                                </div>
 
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Kalender Kommentar</label>
-                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10">{{   $data['calendarContent'] }}</textarea>                                
+                                    <textarea class="form-control" name="calendarContent" id="" cols="30" rows="10">{{   $data['calendarContent'] }}</textarea>
                                 </div>
                             </div>
 
-                            
+
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
 
                                     <input type="checkbox" name="isEmail"  class="js-switch " data-color="#286090" data-switchery="false" >
-                                    
 
-                                </div>                            
+
+                                </div>
                             </div>
 
                             <div class="row form-group email--area" style="display: none;">
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">E-Mail Adresse </label>
-                                    <input class="form-control" name="email"  type="text" value="{{ $data2['email'] }}" >                                
+                                    <input class="form-control" name="email"  type="text" value="{{ $data2['email'] }}" >
                                 </div>
-    
+
                                 <div class="col-md-12">
                                     <label class=" col-form-label" for="l0">Email Kommentar</label>
-                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>                                
+                                    <textarea class="form-control" name="emailContent" id="" cols="30" rows="10"></textarea>
                                 </div>
 
                                 <div class="col-md-12 email-format">
                                     <label for="" class="col-form-label">Standard Emailtext bearbeiten</label><br>
-                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >   
+                                    <input type="checkbox" name="isCustomEmail" id="isCustomEmail" class="js-switch isCustomEmail" data-color="#286090" data-switchery="false" >
                                 </div>
                             </div>
 
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
                                     <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                            
+
                                     </textarea>
                                 </div>
                             </div>
-                            
+
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
@@ -183,7 +178,7 @@
         {
             AppserviceName = 'Liefe.';
         }
-        
+
         let Appgender = '';
         let AppgenderType = '{{ $data2['gender'] }}';
         if(AppgenderType == 'male')
@@ -212,7 +207,7 @@
 </script>
 {{-- TinyMce Email Format Ayarları --}}
 <script>
-    //TinyMce Ayarları 
+    //TinyMce Ayarları
     tinymce.init({
         selector: 'textarea.editor',
         plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
@@ -220,17 +215,17 @@
         apply_source_formatting: true,
         plugins: 'code',
     });
-    
+
     let dateArray3 = [];
     var tarih1 = $('input[name=meetingDate]').val();
-    
+
     if (tarih1 != null || tarih1 != undefined) {
         dateArray3.push({
             name: '<b>Lieferung:</b> ',
             date: tarih1
         })
     }
-    
+
     eventChanges();
     $("body").on("change", ".widget-body", function() {
         eventChanges();
@@ -276,7 +271,7 @@
                     else{
                         requestDate += dateArray3[i].date + "<br>";
                     }
-                    
+
                 }
                 tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
                 tinymce.execCommand("mceRepaint");
@@ -284,7 +279,7 @@
     }
 </script>
 
-<script>       
+<script>
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))
