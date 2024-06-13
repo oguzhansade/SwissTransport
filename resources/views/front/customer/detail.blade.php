@@ -15,6 +15,7 @@
         .back-button {
             cursor: pointer;
             border-radius: 35px !important;
+            box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
         }
 
         .shadow-custom {
@@ -253,7 +254,7 @@
         <ul class="nav nav-tabs contact-details-tab">
 
             <li class="nav-item" style=""><a href="#profile-tab-bordered-1"
-                    class="nav-link 
+                    class="nav-link
         @if (session('cat') != 'Offerte' && session('cat') != 'Termine' && session('cat') != 'Rechnung' && session('cat') != 'Quittung') active @endif" data-toggle="tab"
                     aria-expanded="true">Profil</a>
             </li>
@@ -272,25 +273,25 @@
             @endif
 
             @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
-                <li class="nav-item " style=""><a href="#fatura-tab-bordered-1" 
+                <li class="nav-item " style=""><a href="#fatura-tab-bordered-1"
                         class="nav-link @if (session('cat') == 'Rechnung') active @endif" data-toggle="tab"
                         aria-expanded="false">Rechnungen</a>
                 </li>
             @endif
 
             @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
-                <li class="nav-item " style=""><a href="#makbuz-tab-bordered-1" 
+                <li class="nav-item " style=""><a href="#makbuz-tab-bordered-1"
                         class="nav-link @if (session('cat') == 'Quittung') active @endif" data-toggle="tab"
                         aria-expanded="false">Quittungen</a>
                 </li>
             @endif
             @if (in_array(Auth::user()->permName, ['superAdmin', 'chef', 'officer']))
-                <li class="nav-item " style=""><a href="#notiz-tab-bordered-1" 
+                <li class="nav-item " style=""><a href="#notiz-tab-bordered-1"
                         class="nav-link @if (session('cat') == 'Notiz') active @endif" data-toggle="tab"
                         aria-expanded="false"> Notiz  @if (strlen($data[0]['note']) > 1)
                         <span class="badge badge-pill badge-success" style="border-radius: 100%">✓</span>
                     @endif</a>
-                        
+
                 </li>
             @endif
 
@@ -597,7 +598,7 @@
                                                     <th>Betrag</th>
                                                     <th>Zahlungsart</th>
                                                     <th>Status</th>
-                                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                                    @if (in_array(Auth::user()->permName, ['superAdmin']))
                                                     <th>Quittung Erhalten</th>
                                                     @endif
                                                     <th>Option</th>
@@ -640,7 +641,7 @@
                             <h5 class="text-primary"></h5>
                             <div class="contact-details-cell">
                                 <textarea id="customerNote" class="form-control" name="" id="" cols="30" rows="10">{{ $data[0]['note'] }}</textarea>
-                                
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12 d-flex justify-content-center">
@@ -709,7 +710,7 @@
             $(document).ready(function() {
                 const userPerm = "{{ Auth::user()->permName }}";
                 console.log(userPerm);
-            
+
                 let columns = [
                     {
                         data: 'makbuzNo',
@@ -754,7 +755,7 @@
                         exportable: false
                     }
                 ];
-            
+
                 // Eğer kullanıcı superAdmin ise 'docTaken' sütununu ekle
                 if (userPerm.includes('superAdmin')) {
                     columns.splice(-1, 0, {
@@ -764,7 +765,7 @@
                     width: '10%',
                 });
                 }
-            
+
                 let table = $('#makbuz').DataTable({
                     "order": [0, 'desc'],
                     lengthMenu: [
@@ -799,7 +800,7 @@
                             "previous": "Vorherige",
                             "next" : "Nächste"
                         },
-                        "search" : "Suche",     
+                        "search" : "Suche",
                         "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                         "zeroRecords": "Nichts gefunden - es tut uns leid",
                         "info": "Zeige Seite _PAGE_ von _PAGES_",
@@ -807,7 +808,7 @@
                         "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
                     },
                 });
-            
+
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
                     var testd = !data ?
                         '' :
@@ -818,7 +819,7 @@
                         data;
                     return testd;
                 };
-            
+
                 $('#example_filter input').keyup(function() {
                     table
                         .search(
@@ -828,7 +829,7 @@
                 });
             });
             </script>
-            
+
         <script>
             function docTaken(id, type) {
             if (confirm("Are you sure you want to change the docTaken?")) {
@@ -840,7 +841,7 @@
         <script>
             function confirmAndChange(id,type){
             let table= $('#makbuz').DataTable();
-            
+
             console.log(id,type);
                 $.ajax({
                     type:'POST',
@@ -862,7 +863,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#example4').DataTable({
-                    
+
                     lengthMenu: [
                         [25, 100, -1],
                         [25, 100, "All"]
@@ -932,13 +933,13 @@
                         "previous": "Vorherige",
                         "next" : "Nächste"
                     },
-                    "search" : "Suche",     
+                    "search" : "Suche",
                     "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                     "zeroRecords": "Nichts gefunden - es tut uns leid",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Einträge verfügbar",
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-            
+
                 },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
@@ -968,7 +969,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#example3').DataTable({
-               
+
                     // En Yenisi en başta olacak şekilde sıralama
                     "order": [0, 'desc'],
                     "columnDefs": [{
@@ -980,7 +981,7 @@
                                         '<span class="bg-custom-success px-3 py-1 text-center shadow" >Bestätigt <i class="text-center feather feather-check-circle pl-1"></i></span>'
                                     )
                                 } else if (cellData == 'Beklemede') {
-                                    
+
                                     $(td).html(
                                         '<span class="bg-custom-warning px-3 py-1 text-center shadow" >Offen<i class="text-center feather feather-alert-circle pl-1"></i></span>'
                                     )
@@ -1060,13 +1061,13 @@
                         "previous": "Vorherige",
                         "next" : "Nächste"
                     },
-                    "search" : "Suche",     
+                    "search" : "Suche",
                     "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                     "zeroRecords": "Nichts gefunden - es tut uns leid",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Einträge verfügbar",
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-            
+
                 },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {
@@ -1098,7 +1099,7 @@
         <script>
             $(document).ready(function() {
                 let table = $('#appointmentTable').DataTable({
-                    
+
                     "order": [
                         [2, 'desc']
                     ],
@@ -1155,13 +1156,13 @@
                         "previous": "Vorherige",
                         "next" : "Nächste"
                     },
-                    "search" : "Suche",     
+                    "search" : "Suche",
                     "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                     "zeroRecords": "Nichts gefunden - es tut uns leid",
                     "info": "Zeige Seite _PAGE_ von _PAGES_",
                     "infoEmpty": "Keine Einträge verfügbar",
                     "infoFiltered": "(aus insgesamt _MAX_ Einträgen gefiltert)",
-            
+
                 },
                 });
                 jQuery.fn.DataTable.ext.type.search.string = function(data) {

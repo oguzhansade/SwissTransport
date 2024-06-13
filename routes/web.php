@@ -269,7 +269,10 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/docTaken/{id}/{type}', [App\Http\Controllers\front\receipt\indexController::class, 'docTaken'])->name('docTaken');
         Route::post('/data/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'data'])->name('data');
         Route::post('/signatureSave/{type}/{id}', [App\Http\Controllers\front\receipt\indexController::class, 'signatureSave'])->name('signatureSave');
-        Route::get('/bexio/{customerId}', [App\Http\Controllers\front\bexio\indexController::class, 'searchCustomer'])->name('searchCustomer');
+        Route::get('/bexioSearchCustomer/{customerId}/{receiptId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioSearchCustomer'])->name('bexioSearchCustomer');
+        Route::post('/bexioStoreCustomer/{customerId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioStoreCustomer'])->name('bexioStoreCustomer');
+        Route::get('/bexioCreateInvoice/{customerId}/{receiptId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioCreateInvoice'])->name('bexioCreateInvoice');
+        Route::get('/bexioSendInvoice/{customerId}/{receiptId}/{invoiceId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioSendInvoice'])->name('bexioSendInvoice');
     });
 
     Route::group(['namespace' => 'receiptReinigung', 'as' => 'receiptReinigung.', 'prefix' => 'receiptReinigung','middleware' => ['PermissionControl']], function () {

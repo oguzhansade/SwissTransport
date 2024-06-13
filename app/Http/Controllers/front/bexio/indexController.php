@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\front\bexio;
 
+use App\Helper\bexioHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Google\Service\CustomSearchAPI\Search;
@@ -13,8 +14,48 @@ use Illuminate\Support\Facades\Http;
 
 class indexController extends Controller
 {
-    public function searchCustomer(Request $request)
+    public function bexioSearchCustomer(Request $request)
     {
+        $customerId = $request->route('customerId');
+        $receiptId = $request->route('receiptId');
+        $result = bexioHelper::bexioInitiate($customerId,$receiptId);
+
+        return  $result;
+    }
+
+
+    public function bexioStoreCustomer(Request $request)
+    {
+        $customerInputs = $request->except('_token');
+        $customerStore = bexioHelper::bexioCustomerStore($customerInputs);
+        return $customerStore;
+    }
+
+    public function bexioCreateInvoice(Request $request)
+    {
+        $customerId = $request->route('customerId');
+        $receiptId = $request->route('receiptId');
+        $createInvoice = bexioHelper::bexioStoreInvoice($customerId,$receiptId);
+        return $createInvoice;
+
+
+    }
+
+    public function bexioSendInvoice(Request $request)
+    {
+        $customerId = $request->route('customerId'); //CRMDEKİ id yi çekmeliyiz
+        $receiptId = $request->route('receiptId');
+        $invoiceId = $request->route('invoiceId');
+        $sendInvoice = bexioHelper::bexioSendInvoice($customerId,$receiptId,$invoiceId);
+        return $sendInvoice;
+
+
+    }
+
+    public function bexioHelper(Request $request)
+    {
+
+
         $customerId = $request->route('customerId');
         $customer = Customer::where('id',$customerId)->first();
         $bexioToken= 'Bearer '.env('BEXIO_TOKEN');
@@ -95,6 +136,40 @@ class indexController extends Controller
                 return response()->json(['error' => $e->getMessage()], 500);
             }
         } else {
+            $request_body = '{
+                "contact_type_id": 2,
+                "name_1": "Camdali",
+                "name_2": "Koray",
+                "salutation_id": 1,
+                "address": "Smith Street 22",
+                "postcode": 8004,
+                "city": "Zurich",
+                "country_id": 1,
+                "mail": "camdalikoray@gmail.com",
+                "mail_second": "",
+                "phone_fixed": "",
+                "phone_fixed_second": "",
+                "phone_mobile": "76 399 50 02",
+                "fax": "",
+                "url": "",
+                "skype_name": "",
+                "remarks": "",
+                "contact_group_ids": "1,2",
+                "user_id": 1,
+                "owner_id": 1
+            }';
+            $url = 'https://api.bexio.com/2.0/contact';
+
+            try {
+                $response = $client->request('POST', $url, [
+                    'headers' => $headers,
+                    'body' => $request_body,
+                ]);
+
+                return $response->getBody()->getContents();
+            } catch (BadResponseException $e) {
+                return $e->getMessage();
+            }
             // $result boşsa yapılacak işlemler
             return "Result is empty.";
         }
@@ -105,9 +180,6 @@ class indexController extends Controller
             // Hata durumunda isteği işle
             return $e->getMessage();
         }
-
-
     }
-
 
 }

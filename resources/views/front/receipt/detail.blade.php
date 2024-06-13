@@ -743,7 +743,7 @@
                                         @endif
 
                                         @if (in_array(Auth::user()->permName, ['superAdmin']))
-                                        <a class="btn btn-dark btn-rounded" href="{{ route('receipt.searchCustomer',['customerId'=>$data['customerId']]) }}"> <strong>Bexio (Development)</strong></a>
+                                        <a class="btn btn-dark btn-rounded" href="{{ route('receipt.bexioSearchCustomer',['customerId'=>$data['customerId'],'receiptId' => $data['id']]) }}"> <strong>Bexio (Development)</strong></a>
                                         @endif
 
                                         <a class="btn  btn-success btn-rounded" href="#" data-toggle="modal" data-target="#addSignatureModal" data-id=""><strong>Unterschrift</strong></a>
