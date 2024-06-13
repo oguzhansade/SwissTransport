@@ -3,7 +3,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <style>
         .bg-custom-success {
             color: white;
@@ -104,9 +104,9 @@
                             </table>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-3 @if (!in_array(Auth::user()->permName, ['superAdmin'])) d-flex justify-content-end @endif">
-                        @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                        @if (in_array(Auth::user()->permName, ['superAdmin']))
                             <div class="col-md-2 ">
                                 <div class="p-3 text-white bg-primary shadow-custom">
                                     <table style="font-size:0.85rem">
@@ -117,7 +117,7 @@
                                     </table>
                                 </div>
                             </div>
-                        
+
                             <div class="col-md-2">
                                 <div class="p-3 text-white bg-primary shadow-custom">
                                     <h6 class="m-0" style="border-bottom: 1px solid white;">Ausgaben</h6>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                         @endif
-                        
+
                         <div class="col-md-2">
                             <div class="p-3 text-white bg-primary shadow-custom">
                                 <table style="font-size:0.85rem">
@@ -197,9 +197,18 @@
                                             <b class="text-dark">Quittung Erhalten</b><br>
                                             <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="docTakenFilter[]" value="Taken" >
                                             <label class="form-check-label mr-1" for="checkbox1">JA</label>
-                                            
+
                                             / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="docTakenFilter[]" value="Untaken" >
                                             <label class="form-check-label mr-1" for="checkbox2">NEIN</label>
+                                        </td>
+
+                                        <td class="pl-3">
+                                            <b class="text-dark">Quittung Type</b><br>
+                                            <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedTypeValues()" id="quittungTypeFilter1" name="quittungTypeFilter[]" value="Umzug" >
+                                            <label class="form-check-label mr-1" for="quittungTypeFilter1">UMZUG</label>
+
+                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedTypeValues()" id="quittungTypeFilter2" name="quittungTypeFilter[]" value="Reinigung" >
+                                            <label class="form-check-label mr-1" for="quittungTypeFilter2">REINIGUNG</label>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -215,7 +224,7 @@
                                     <th>Vorname</th>
                                     <th>Nachname</th>
                                     <th>Auftragstermin</th>
-                                    @if (in_array(Auth::user()->permName, ['superAdmin'])) 
+                                    @if (in_array(Auth::user()->permName, ['superAdmin']))
                                         <th>Umsatz</th>
                                         <th>Ausgaben</th>
                                         <th>Gewinn</th>
@@ -227,7 +236,7 @@
                             <tbody></tbody>
                         </table>
                     </div>
-                    
+
                 </div>
                 <!-- /.widget-body -->
             </div>
@@ -256,24 +265,43 @@
 
 <script>
     let checkedValues = [];
+    let checkedTypeValues = [];
 
-function updateCheckedValues() {
-    const checkboxIds = [ 'checkbox1', 'checkbox2' ];
+    function updateCheckedValues() {
+        const checkboxIds = [ 'checkbox1', 'checkbox2' ];
 
-    checkboxIds.forEach(checkboxId => {
-        const checkbox = document.getElementById(checkboxId);
-        checkbox.addEventListener('change', () => {
-            const index = checkedValues.indexOf(checkbox.value);
-            if (checkbox.checked && index === -1) {
-                checkedValues.push(checkbox.value);
-            } else if (!checkbox.checked && index !== -1) {
-                checkedValues.splice(index, 1);
-            }
+        checkboxIds.forEach(checkboxId => {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.addEventListener('change', () => {
+                const index = checkedValues.indexOf(checkbox.value);
+                if (checkbox.checked && index === -1) {
+                    checkedValues.push(checkbox.value);
+                } else if (!checkbox.checked && index !== -1) {
+                    checkedValues.splice(index, 1);
+                }
+            });
+
         });
-        
-    });
-    
-}
+    }
+
+
+    function updateCheckedTypeValues() {
+        const checkboxIds = [ 'quittungTypeFilter1', 'quittungTypeFilter2' ];
+
+        checkboxIds.forEach(checkboxId => {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.addEventListener('change', () => {
+                const index = checkedTypeValues.indexOf(checkbox.value);
+                if (checkbox.checked && index === -1) {
+                    checkedTypeValues.push(checkbox.value);
+                } else if (!checkbox.checked && index !== -1) {
+                    checkedTypeValues.splice(index, 1);
+                }
+            });
+        });
+    }
+
+
     $(document).ready(function() {
         const userPerm = "{{ Auth::user()->permName }}";
         console.log(userPerm);
@@ -290,7 +318,7 @@ function updateCheckedValues() {
 
         // Eğer kullanıcı superAdmin ise 'docTaken' sütununu ekle
         if (userPerm.includes('superAdmin')) {
-            columns.splice(-1, 0, 
+            columns.splice(-1, 0,
             { data: 'tutar', name: 'tutar' },
             { data: 'expensePrice', name: 'expensePrice' },
             { data: 'profit', name: 'profit' },
@@ -303,7 +331,7 @@ function updateCheckedValues() {
                 [25, 100, -1],
                 [25, 100, "All"]
             ],
-            
+
             dom: 'Blfrtip',
             buttons: [
                 'copy',
@@ -325,17 +353,18 @@ function updateCheckedValues() {
                     d.min_date = $('#start_date').val();
                     d.max_date = $('#end_date').val();
                     d.docTakenFilter = checkedValues;
+                    d.quittungTypeFilter = checkedTypeValues;
                     return d
                 }
             },
             columns: columns,
-            
+
             "language": {
                 "paginate": {
                     "previous": "Vorherige",
                     "next" : "Nächste"
                 },
-                "search" : "Suche",     
+                "search" : "Suche",
                 "lengthMenu": "_MENU_ Einträge pro Seite anzeigen",
                 "zeroRecords": "Nichts gefunden - es tut uns leid",
                 "info": "Zeige Seite _PAGE_ von _PAGES_",
@@ -344,11 +373,11 @@ function updateCheckedValues() {
             },
 
             "footerCallback": function ( row, data, start, end, display ) {
-                var rsTot = table.ajax.json();    
+                var rsTot = table.ajax.json();
                 var api = this.api(), data;
                 console.log(rsTot)
-                
-                
+
+
                 if(rsTot.total)
                 {
                     let total = rsTot.total;
@@ -401,7 +430,7 @@ function updateCheckedValues() {
                     $('#profit').text(formattedProfit)
                 }
                 $('#filteredQuittung').text(rsTot.recordsFiltered + '/' + rsTot.totalQuittung);
-            }   
+            }
         });
         jQuery.fn.DataTable.ext.type.search.string = function(data) {
             var testd = !data ?
@@ -420,9 +449,9 @@ function updateCheckedValues() {
                 )
                 .draw();
         });
-      
 
-        $('#start_date, #end_date, #serviceType, #standType,#appType,#searchInput,#checkbox-container').on('change', function() {
+
+        $('#start_date, #end_date, #quittungTypeFilter1, #quittungTypeFilter2,#searchInput,#checkbox-container').on('change', function() {
             table.draw();
         });
         $('#reset').on('click', function() {
@@ -448,7 +477,7 @@ function updateCheckedValues() {
 <script>
     function confirmAndChange(id,type){
     let table= $('#makbuz').DataTable();
-    
+
     console.log(id,type);
         $.ajax({
             type:'POST',
@@ -464,7 +493,7 @@ function updateCheckedValues() {
     }
 </script>
 <script>
-     $('#example').on('draw.dt', function() { 
+     $('#example').on('draw.dt', function() {
         testajax();
         let total= 0;
         $('#example tbody tr').each(function() {
@@ -474,11 +503,11 @@ function updateCheckedValues() {
                 total += offertePrice;
             }
 
-            
+
         });
         $('#gratTotalPriceDiv').text(total);
      })
-    
+
 </script>
 
 @endsection

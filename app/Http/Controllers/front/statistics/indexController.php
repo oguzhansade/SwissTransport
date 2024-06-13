@@ -536,6 +536,7 @@ class indexController extends Controller
         $table2 = DB::table('receipt_reinigungs');
 
         $totalRecords = $table->count() + $table2->count();
+
         // Minimum date filter
         if ($request->min_date) {
             $table->whereDate('created_at', '>=', $request->min_date);
@@ -548,6 +549,7 @@ class indexController extends Controller
             $table2->whereDate('created_at', '<=', $request->max_date);
         }
 
+        // Quittung Doctaken Filter (docTaken based Filter)
         if ($request->docTakenFilter) {
             $docTakenFilter = $request->docTakenFilter;
             if (is_array($docTakenFilter)) {
@@ -563,6 +565,25 @@ class indexController extends Controller
                 }
             }
         }
+
+        // Quittung Type Filter (receiptType Based Filter)
+        if($request->quittungTypeFilter) {
+            $quittungTypeFilter = $request->quittungTypeFilter;
+            if (is_array($quittungTypeFilter)) {
+                if (in_array("Umzug", $quittungTypeFilter)) {
+                    // Tabloyu Quittung Tip değerine göre filtreleyelim
+                    $table->whereIn('receiptType', [0]);
+                    $table2->whereIn('receiptType', [0]);
+                }
+                if (in_array("Reinigung", $quittungTypeFilter)) {
+                    // Tabloyu Quittung Tip değerine göre filtreleyelim
+                    $table->whereIn('receiptType', [1]);
+                    $table2->whereIn('receiptType', [1]);
+                }
+            }
+        }
+
+
         $tableData = $table->get()->toArray();
         $table2Data = $table2->get()->toArray();
 
