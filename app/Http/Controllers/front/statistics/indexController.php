@@ -645,7 +645,7 @@ class indexController extends Controller
                 $array[$i]["customer"] = Customer::where('id',$v->customerId)->value('name');
                 $array[$i]["customerSurname"] = Customer::where('id',$v->customerId)->value('surname');
                 $array[$i]["customerId"] = $v->customerId;
-                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["date"] = date('d-m-Y', strtotime($v->orderDate));
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["expensePrice"] =  $v->expensePrice ? $v->expensePrice : 0;
                 $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
@@ -667,7 +667,7 @@ class indexController extends Controller
                 $array[$i]["customerSurname"] = Customer::where('id',$v->customerId)->value('surname');
                 $array[$i]["customerId"] = $v->customerId;
                 $array[$i]["expensePrice"] = $v->expensePrice ? $v->expensePrice : 0;
-                $array[$i]["created_at"] = date('d-m-Y', strtotime($v->created_at));
+                $array[$i]["date"] = date('d-m-Y', strtotime($v->reinigungDate));
                 $array[$i]["tutar"] = $v->totalPrice;
                 $array[$i]["profit"] = $v->totalPrice - $v->expensePrice;
                 $array[$i]["payType"] = $v->payType;

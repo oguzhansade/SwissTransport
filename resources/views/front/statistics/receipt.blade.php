@@ -311,7 +311,7 @@
             { data: 'offerId', name: 'offerId' },
             { data: 'customer', name: 'customer' },
             { data: 'customerSurname', name: 'customerSurname' },
-            { data: 'created_at',name: 'created_at' },
+            { data: 'date',name: 'date' },
             { data: 'option',name: 'detail',orderable: false,searchable: false,exportable: false },
 
         ];
@@ -450,10 +450,10 @@
                 .draw();
         });
 
-
         $('#start_date, #end_date, #quittungTypeFilter1, #quittungTypeFilter2,#searchInput,#checkbox-container').on('change', function() {
             table.draw();
         });
+
         $('#reset').on('click', function() {
             $('#start_date').val('');
             $('#end_date').val('');
@@ -468,10 +468,10 @@
 </script>
 <script>
     function docTaken(id, type) {
-    if (confirm("Are you sure you want to change the docTaken?")) {
-        confirmAndChange(id, type);
+        if (confirm("Are you sure you want to change the docTaken?")) {
+            confirmAndChange(id, type);
+        }
     }
-}
 </script>
 
 <script>
