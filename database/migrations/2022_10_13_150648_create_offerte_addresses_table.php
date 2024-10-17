@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('buildType')->nullable();
             $table->string('floor')->nullable();
             $table->string('lift')->nullable(); // 0 sa yok 1 se var
+            $table->integer('parkPlatz')->nullable(); // 0 sa yok 1 se var
             $table->timestamps();
         });
     }

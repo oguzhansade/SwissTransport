@@ -304,6 +304,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType1,
                 'floor' => $request->ausFloorType1,
                 'lift' => $request->isAusLift1,
+                'parkPlatz' => $request->isAusParkplatz1,
                 'addressType' => 0
             ];
 
@@ -321,6 +322,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType2,
                 'floor' => $request->ausFloorType2,
                 'lift' => $request->isAusLift2,
+                'parkPlatz' => $request->isAusParkplatz2,
                 'addressType' => 0
             ];
 
@@ -338,6 +340,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType3,
                 'floor' => $request->ausFloorType3,
                 'lift' => $request->isAusLift3,
+                'parkPlatz' => $request->isAusParkplatz3,
                 'addressType' => 0
             ];
 
@@ -356,6 +359,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
                 'lift' => $request->isEinLift1,
+                'parkPlatz' => $request->isEinParkplatz1,
                 'addressType' => 1
             ];
 
@@ -374,6 +378,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType2,
                 'floor' => $request->einFloorType2,
                 'lift' => $request->isEinLift2,
+                'parkPlatz' => $request->isEinParkplatz2,
                 'addressType' => 1
             ];
 
@@ -391,6 +396,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
                 'lift' => $request->isEinLift3,
+                'parkPlatz' => $request->isEinParkplatz3,
                 'addressType' => 1
             ];
 
@@ -1013,6 +1019,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType1,
                 'floor' => $request->ausFloorType1,
                 'lift' => $request->isAusLift1,
+                'parkPlatz' => $request->isAusParkplatz1,
                 'addressType' => 0
             ];
             // offerteAddress::where('id', $AusId)->update($mainAusAdress);
@@ -1088,6 +1095,7 @@ class indexController extends Controller
                     'buildType' => $request->ausBuildType2,
                     'floor' => $request->ausFloorType2,
                     'lift' => $request->isAusLift2,
+                    'parkPlatz' => $request->isAusParkplatz2,
                     'addressType' => 0
                 ];
 
@@ -1159,6 +1167,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType2,
                 'floor' => $request->ausFloorType2,
                 'lift' => $request->isAusLift2,
+                'parkPlatz' => $request->isAusParkplatz2,
                 'addressType' => 0
             ];
 
@@ -1182,6 +1191,7 @@ class indexController extends Controller
                     'buildType' => $request->ausBuildType3,
                     'floor' => $request->ausFloorType3,
                     'lift' => $request->isAusLift3,
+                    'parkPlatz' => $request->isAusParkplatz3,
                     'addressType' => 0
                 ];
 
@@ -1252,6 +1262,7 @@ class indexController extends Controller
                 'buildType' => $request->ausBuildType3,
                 'floor' => $request->ausFloorType3,
                 'lift' => $request->isAusLift3,
+                'parkPlatz' => $request->isAusParkplatz1,
                 'addressType' => 0
             ];
 
@@ -1270,6 +1281,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
                 'lift' => $request->isEinLift1,
+                'parkPlatz' => $request->isEinParkplatz1,
                 'addressType' => 1
             ];
             // offerteAddress::where('id', $EinId)->update($mainEinAdress);
@@ -1339,6 +1351,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType1,
                 'floor' => $request->einFloorType1,
                 'lift' => $request->isEinLift1,
+                'parkPlatz' => $request->isEinParkplatz1,
                 'addressType' => 1
             ];
 
@@ -1361,6 +1374,7 @@ class indexController extends Controller
                     'buildType' => $request->einBuildType2,
                     'floor' => $request->einFloorType2,
                     'lift' => $request->isEinLift2,
+                    'parkPlatz' => $request->isEinParkplatz2,
                     'addressType' => 1
                 ];
                 // offerteAddress::where('id', $EinId2)->update($mainEinAdress);
@@ -1431,6 +1445,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType2,
                 'floor' => $request->einFloorType2,
                 'lift' => $request->isEinLift2,
+                'parkPlatz' => $request->isEinParkplatz2,
                 'addressType' => 1
             ];
 
@@ -1453,6 +1468,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
                 'lift' => $request->isEinLift3,
+                'parkPlatz' => $request->isEinParkplatz3,
                 'addressType' => 1
             ];
 
@@ -1524,6 +1540,7 @@ class indexController extends Controller
                 'buildType' => $request->einBuildType3,
                 'floor' => $request->einFloorType3,
                 'lift' => $request->isEinLift3,
+                'parkPlatz' => $request->isEinParkplatz3,
                 'addressType' => 1
             ];
 
@@ -3339,6 +3356,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType1,
             'floor' => $request->ausFloorType1,
             'lift' => $request->isAusLift1,
+            'parkPlatz' => $request->isAusParkplatz1,
             'addressType' => 0
         ];
 
@@ -3350,6 +3368,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType2,
             'floor' => $request->ausFloorType2,
             'lift' => $request->isAusLift2,
+            'parkPlatz' => $request->isAusParkplatz2,
             'addressType' => 0
         ];
 
@@ -3361,6 +3380,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType3,
             'floor' => $request->ausFloorType3,
             'lift' => $request->isAusLift3,
+            'parkPlatz' => $request->isAusParkplatz3,
             'addressType' => 0
         ];
 
@@ -3374,6 +3394,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType1,
             'floor' => $request->einFloorType1,
             'lift' => $request->isEinLift1,
+            'parkPlatz' => $request->isEinParkplatz1,
             'addressType' => 1
         ];
 
@@ -3385,6 +3406,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType2,
             'floor' => $request->einFloorType2,
             'lift' => $request->isEinLift2,
+            'parkPlatz' => $request->isEinParkplatz2,
             'addressType' => 1
         ];
 
@@ -3396,6 +3418,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType3,
             'floor' => $request->einFloorType3,
             'lift' => $request->isEinLift3,
+            'parkPlatz' => $request->isEinParkplatz3,
             'addressType' => 1
         ];
 
@@ -3739,6 +3762,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType1,
             'floor' => $request->ausFloorType1,
             'lift' => $request->isAusLift1,
+            'parkPlatz' => $request->isAusParkplatz1,
             'addressType' => 0
         ];
 
@@ -3750,6 +3774,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType2,
             'floor' => $request->ausFloorType2,
             'lift' => $request->isAusLift2,
+            'parkPlatz' => $request->isAusParkplatz2,
             'addressType' => 0
         ];
 
@@ -3761,6 +3786,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType3,
             'floor' => $request->ausFloorType3,
             'lift' => $request->isAusLift3,
+            'parkPlatz' => $request->isAusParkplatz3,
             'addressType' => 0
         ];
 
@@ -3774,6 +3800,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType1,
             'floor' => $request->einFloorType1,
             'lift' => $request->isEinLift1,
+            'parkPlatz' => $request->isEinParkplatz1,
             'addressType' => 1
         ];
 
@@ -3785,6 +3812,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType2,
             'floor' => $request->einFloorType2,
             'lift' => $request->isEinLift2,
+            'parkPlatz' => $request->isEinParkplatz2,
             'addressType' => 1
         ];
 
@@ -3796,6 +3824,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType3,
             'floor' => $request->einFloorType3,
             'lift' => $request->isEinLift3,
+            'parkPlatz' => $request->isEinParkplatz3,
             'addressType' => 1
         ];
 
@@ -4139,6 +4168,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType1,
             'floor' => $request->ausFloorType1,
             'lift' => $request->isAusLift1,
+            'parkPlatz' => $request->isAusParkplatz1,
             'addressType' => 0
         ];
 
@@ -4150,6 +4180,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType2,
             'floor' => $request->ausFloorType2,
             'lift' => $request->isAusLift2,
+            'parkPlatz' => $request->isAusParkplatz2,
             'addressType' => 0
         ];
 
@@ -4161,6 +4192,7 @@ class indexController extends Controller
             'buildType' => $request->ausBuildType3,
             'floor' => $request->ausFloorType3,
             'lift' => $request->isAusLift3,
+            'parkPlatz' => $request->isAusParkplatz3,
             'addressType' => 0
         ];
 
@@ -4174,6 +4206,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType1,
             'floor' => $request->einFloorType1,
             'lift' => $request->isEinLift1,
+            'parkPlatz' => $request->isEinParkplatz1,
             'addressType' => 1
         ];
 
@@ -4185,6 +4218,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType2,
             'floor' => $request->einFloorType2,
             'lift' => $request->isEinLift2,
+            'parkPlatz' => $request->isEinParkplatz2,
             'addressType' => 1
         ];
 
@@ -4196,6 +4230,7 @@ class indexController extends Controller
             'buildType' => $request->einBuildType3,
             'floor' => $request->einFloorType3,
             'lift' => $request->isEinLift3,
+            'parkPlatz' => $request->isEinParkplatz3,
             'addressType' => 1
         ];
 

@@ -15,7 +15,8 @@ class offerteAddress extends Model
         'country',
         'buildType',
         'floor',
-        'lift'
+        'lift',
+        'parkPlatz'
     ];
     use HasFactory;
 
@@ -26,6 +27,6 @@ class offerteAddress extends Model
         {
             return $data[$param];
         }
-        
+
     }
 }

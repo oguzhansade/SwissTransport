@@ -1,7 +1,7 @@
 
 
 <div class="rounded bg-service-primary">
-    <div class=" row p-3"  > 
+    <div class=" row p-3"  >
         {{-- Offerte Umzug Sol --}}
         <div class="col-md-6">
             <h5 class="font-weight-bold">Hauptadresse [Auszug/Reinigung/Beladeort]</h5>
@@ -11,13 +11,13 @@
                 <div class="col-md-5 ">
                     <label class=" col-form-label" for="l0">PLZ</label>
                     <input class="form-control" name="ausPostcode1"  type="text" @if ($auszug1) value="{{   \App\Models\offerteAddress::InfoAdress($auszug1,'postCode')  }}" @endif >
-                </div> 
+                </div>
                 <div class="col-md-7">
                     <label class=" col-form-label" for="l0">Ort</label>
                     <input class="form-control" name="ausCity1"  type="text" @if ($auszug1) value="{{ \App\Models\offerteAddress::InfoAdress($auszug1,'city')}}" @endif >
-                </div>  
-            </div> 
-            
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <label for="" class="col-form-label">Land</label><br>
@@ -28,19 +28,19 @@
                         <option value="Österreich" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Österreich') selected @endif>Österreich</option>
                         <option value="Italien" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Italien') selected @endif>Italien</option>
                         <option value="Frankreich" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                    </select> 
+                    </select>
 
                     <div class="mt-1 isAusCustomLand1">
                         <label class="col-form-label" for="l0">Custom Land</label>
-                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
+                        <input type="checkbox"  name="isAusCustomLand1" id="isAusCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                         @if (
                             $auszug1 &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Fürstentum Liechtenstein' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich' 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'
                         )
                         checked
                         @else
@@ -48,15 +48,15 @@
                         @endif
                         >
                     </div>
-                    <div class="custom-aus-land-area-1" 
+                    <div class="custom-aus-land-area-1"
                     @if (
                          $auszug1 &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Schweiz' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Fürstentum Liechtenstein' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich' 
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'
                         )
                         style="display:block;"
                         @else
@@ -65,9 +65,9 @@
                     >
                         <input class="form-control" type="text" name="ausCustomLand1" @if($auszug1 && \App\Models\offerteAddress::InfoAdress($auszug1,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug1,'country') }}" @endif>
                     </div>
-                </div> 
+                </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <label for="" class="col-form-label">Gebäude</label><br>
@@ -78,10 +78,10 @@
                         <option value="RFH" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'buildType') == 'RFH') selected @endif>RFH</option>
                         <option value="Geschäft/Büro" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                         <option value="Lagerhaus" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                    </select> 
-                </div> 
+                    </select>
+                </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <label for="" class="col-form-label">Etage</label><br>
@@ -101,32 +101,46 @@
                         <option value="UG" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'floor') == 'UG') selected @endif>UG</option>
                         <option value="EG" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'floor') == 'EG') selected @endif>EG</option>
                         <option value="Hochparterre" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                    </select> 
-                </div> 
-            </div> 
-            
+                    </select>
+                </div>
+            </div>
+
             <div class=" row">
                 <div class="col-md-12">
-                    <label for="" class="col-form-label">Lift:</label>  
-                    <div class="radiobox">                                                
+                    <label for="" class="col-form-label">Lift:</label>
+                    <div class="radiobox">
                         <label class="text-dark">
                             <input type="radio" class="offerte-type"  name="isAusLift1" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug1,'lift') == 1) checked @endif > <span class="label-text">Ja</span>
                         </label>
                         <label class="text-dark ml-1">
                             <input type="radio"  class="offerte-type"  name="isAusLift1" value="0" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'lift') == 0) checked @endif> <span class="label-text">Nein</span>
                         </label>
-                    </div>                                        
-                </div>                            
+                    </div>
+                </div>
             </div>
-    
+
+            <div class=" row">
+                <div class="col-md-12">
+                    <label for="" class="col-form-label">Parkplatz:</label>
+                    <div class="radiobox">
+                        <label class="text-dark">
+                            <input type="radio" class="offerte-type"  name="isAusParkplatz1" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug1,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
+                        </label>
+                        <label class="text-dark ml-1">
+                            <input type="radio"  class="offerte-type"  name="isAusParkplatz1" value="0" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'parkPlatz') == 0) checked @endif> <span class="label-text">Nein</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group row ">
                 <div class="col-md-12 offer-auszug-2 ">
                     <label for="" class="col-form-label">2. Auszugsadresse</label><br>
-                    <input type="checkbox" name="isofferAuszug2" id="isofferAuszug2" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug2) checked @endif>  
-                </div>                            
+                    <input type="checkbox" name="isofferAuszug2" id="isofferAuszug2" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug2) checked @endif>
+                </div>
             </div>
         </div>
-    
+
         <div class="col-md-6">
                 <h5 class="font-weight-bold">Einzugsadresse / Entladeadresse</h5>
                 <label class=" col-form-label" for="l0">Strasse</label>
@@ -135,13 +149,13 @@
                     <div class="col-md-5">
                         <label class=" col-form-label" for="l0">PLZ</label>
                         <input class="form-control" name="einPostcode1"  type="text"  @if ($einzug1) value="{{   \App\Models\offerteAddress::InfoAdress($einzug1,'postCode')  }}" @endif >
-                    </div> 
+                    </div>
                     <div class="col-md-7">
                         <label class=" col-form-label" for="l0">Ort</label>
                         <input class="form-control" name="einCity1"  type="text"  @if ($einzug1) value="{{   \App\Models\offerteAddress::InfoAdress($einzug1,'city')  }}" @endif>
-                    </div>  
-                </div> 
-                
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Land</label><br>
@@ -152,19 +166,19 @@
                             <option value="Österreich" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                        </select> 
+                        </select>
 
                         <div class="mt-1 isEinCustomLand1">
                             <label class="col-form-label" for="l0">Custom Land</label>
-                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
+                            <input type="checkbox"  name="isEinCustomLand1" id="isEinCustomLand1" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                             @if (
                                 $einzug1 &&
-                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Fürstentum Liechtenstein' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' 
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich'
                             )
                             checked
                             @else
@@ -174,12 +188,12 @@
                         </div>
                         <div class="custom-ein-land-area-1" @if (
                         $einzug1 &&
-                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Schweiz' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Fürstentum Liechtenstein' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' 
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich'
                         )
                         style="display:block;"
                         @else
@@ -187,9 +201,9 @@
                         @endif >
                             <input class="form-control" type="text" name="einCustomLand1" @if($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug1,'country') }}" @endif>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Gebäude</label><br>
@@ -200,10 +214,10 @@
                             <option value="RFH" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'buildType') == 'RFH') selected @endif>RFH</option>
                             <option value="Geschäft/Büro" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                             <option value="Lagerhaus" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                        </select> 
-                    </div> 
+                        </select>
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Etage</label><br>
@@ -223,37 +237,51 @@
                             <option value="UG" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'floor') == 'UG') selected @endif>UG</option>
                             <option value="EG" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'floor') == 'EG') selected @endif>EG</option>
                             <option value="Hochparterre" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                        </select> 
-                    </div> 
-                </div> 
-                
+                        </select>
+                    </div>
+                </div>
+
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Lift:</label>  
-                        <div class="radiobox">                                                
+                        <label for="" class="col-form-label">Lift:</label>
+                        <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-lift2"  name="isEinLift1" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'lift') == 1) checked @endif> <span class="label-text">Ja</span>
                             </label>
                             <label class="text-dark ml-1">
                                 <input type="radio"  class="offerte-lift2"  name="isEinLift1" value="0" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'lift') == 0) checked @elseif ($einzug1 == NULL) checked @endif > <span class="label-text">Nein</span>
                             </label>
-                        </div>                                        
-                    </div>                            
+                        </div>
+                    </div>
                 </div>
-    
+
+                <div class=" row">
+                    <div class="col-md-12">
+                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <div class="radiobox">
+                            <label class="text-dark">
+                                <input type="radio" class="offerte-parkPlatz1"  name="isEinParktplatz1" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>
+                            </label>
+                            <label class="text-dark ml-1">
+                                <input type="radio"  class="offerte-parkPlatz1"  name="isEinParktplatz1" value="0" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'parkPlatz') == 0) checked @elseif ($einzug1 == NULL) checked @endif > <span class="label-text">Nein</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <div class="col-md-12 offer-einzug-2">
                         <label for="" class="col-form-label">2. Einzugsadresse</label><br>
-                        <input type="checkbox" name="isofferEinzug2" id="isofferEinzug2" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug2) checked @endif>  
-                    </div>                            
+                        <input type="checkbox" name="isofferEinzug2" id="isofferEinzug2" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug2) checked @endif>
+                    </div>
                 </div>
             </div>
         </div>
-    
-    
-    
+
+
+
         {{-- 2.Kısım --}}
-        <div class="form-group row mt-0 p-3 mb-0" > 
+        <div class="form-group row mt-0 p-3 mb-0" >
             {{-- Offerte Umzug2 Sol --}}
             <div class="col-md-6 aus-area-2" @if($auszug2 == NULL) style="display: none;" @endif >
                 <h5 class="font-weight-bold">2. Auszugsadresse</h5>
@@ -263,13 +291,13 @@
                     <div class="col-md-5 ">
                         <label class=" col-form-label" for="l0">PLZ</label>
                         <input class="form-control" name="ausPostcode2"  type="text" @if ($auszug2) value="{{  \App\Models\offerteAddress::InfoAdress($auszug2,'postCode')  }}" @endif>
-                    </div> 
+                    </div>
                     <div class="col-md-7">
                         <label class=" col-form-label" for="l0">Ort</label>
                         <input class="form-control" name="ausCity2"  type="text" @if ($auszug2) value="{{  \App\Models\offerteAddress::InfoAdress($auszug2,'city')  }}" @endif>
-                    </div>  
-                </div> 
-                
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Land</label><br>
@@ -280,34 +308,34 @@
                             <option value="Österreich" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                        </select> 
+                        </select>
 
                         <div class="mt-1 isAusCustomLand2">
                             <label class="col-form-label" for="l0">Custom Land</label>
                             <input type="checkbox"  name="isAusCustomLand2" id="isAusCustomLand2" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                             @if (
                                 $auszug2 &&
-                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Fürstentum Liechtenstein' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' 
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich'
                             )
                             checked
                             @else
                             unchecked
                             @endif >
                         </div>
-                        <div class="custom-aus-land-area-2" 
+                        <div class="custom-aus-land-area-2"
                         @if (
                         $auszug2 &&
-                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' && 
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Schweiz' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Fürstentum Liechtenstein' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' 
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich'
                         )
                         style="display:block;"
                         @else
@@ -315,9 +343,9 @@
                         @endif >
                             <input class="form-control" type="text" name="ausCustomLand2" @if($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug2,'country') }}" @endif>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Gebäude</label><br>
@@ -328,10 +356,10 @@
                             <option value="RFH" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'buildType') == 'RFH') selected @endif>RFH</option>
                             <option value="Geschäft/Büro" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                             <option value="Lagerhaus" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                        </select> 
-                    </div> 
+                        </select>
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Etage</label><br>
@@ -351,34 +379,48 @@
                             <option value="UG" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'floor') == 'UG') selected @endif>UG</option>
                             <option value="EG" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'floor') == 'EG') selected @endif>EG</option>
                             <option value="Hochparterre" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                        </select> 
-                    </div> 
-                </div> 
-                
+                        </select>
+                    </div>
+                </div>
+
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Lift:</label>  
-                        <div class="radiobox">                                                
+                        <label for="" class="col-form-label">Lift:</label>
+                        <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusLift2" value="1" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'lift') == 1) checked @endif> <span class="label-text" >Ja</span>
                             </label>
                             <label class="text-dark ml-1">
                                 <input type="radio"  class="offerte-type"  name="isAusLift2" value="0" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'lift') == 0) checked @elseif ($auszug2 == NULL) checked @endif> <span class="label-text">Nein</span>
                             </label>
-                        </div>                                        
-                    </div>                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-md-12">
+                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <div class="radiobox">
+                            <label class="text-dark">
+                                <input type="radio" class="offerte-type"  name="isAusParkplatz2" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug2,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
+                            </label>
+                            <label class="text-dark ml-1">
+                                <input type="radio"  class="offerte-type"  name="isAusParkplatz2" value="0" @if (\App\Models\offerteAddress::InfoAdress($auszug2,'parkPlatz') == 0) checked @endif> <span class="label-text">Nein</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-md-12 offer-auszug-3">
                         <label for="" class="col-form-label">3. Auszugsadresse</label><br>
-                        <input type="checkbox" name="isofferAuszug3" id="isofferAuszug3" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug3) checked @endif>  
-                    </div>                            
+                        <input type="checkbox" name="isofferAuszug3" id="isofferAuszug3" class="js-switch " data-color="#286090" data-switchery="false" @if($auszug3) checked @endif>
+                    </div>
                 </div>
-    
-              
+
+
             </div>
-        
+
             <div class="col-md-6 offset-md-6 ein-area-2 mt-0" @if($einzug2 == NULL) style="display: none;" @endif>
                     <h5 class="font-weight-bold">2. Einzugsadresse</h5>
                     <label class=" col-form-label" for="l0">Strasse</label>
@@ -387,13 +429,13 @@
                         <div class="col-md-5 p-0">
                             <label class=" col-form-label" for="l0">PLZ</label>
                             <input class="form-control" name="einPostcode2"  type="text"  @if ($einzug2) value="{{ \App\Models\offerteAddress::InfoAdress($einzug2,'postCode') }}"  @endif>
-                        </div> 
+                        </div>
                         <div class="col-md-7">
                             <label class=" col-form-label" for="l0">Ort</label>
                             <input class="form-control" name="einCity2"  type="text" @if ($einzug2) value="{{ \App\Models\offerteAddress::InfoAdress($einzug2,'city') }}"  @endif >
-                        </div>  
-                    </div> 
-                    
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Land</label><br>
@@ -404,45 +446,45 @@
                                 <option value="Österreich" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Österreich') selected @endif>Österreich</option>
                                 <option value="Italien" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                            </select> 
+                            </select>
 
                             <div class="mt-1 isEinCustomLand2">
                                 <label class="col-form-label" for="l0">Custom Land</label>
-                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
+                                <input type="checkbox"  name="isEinCustomLand2" id="isEinCustomLand2" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                                 @if (
                                 $einzug2 &&
-                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Fürstentum Liechtenstein' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' 
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich'
                             )
                             checked
                             @else
                             unchecked
                             @endif>
                             </div>
-                            <div class="custom-ein-land-area-2" 
+                            <div class="custom-ein-land-area-2"
                             @if (
                                 $einzug2 &&
-                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Schweiz' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Fürstentum Liechtenstein' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' 
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich'
                                 )
                                 style="display:block;"
                                 @else
                                 style="display:none;"
-                                @endif 
+                                @endif
                             >
                                 <input class="form-control" type="text" name="einCustomLand2" @if($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug2,'country') }}" @endif>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Gebäude</label><br>
@@ -453,10 +495,10 @@
                                 <option value="RFH" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'buildType') == 'RFH') selected @endif>RFH</option>
                                 <option value="Geschäft/Büro" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                                 <option value="Lagerhaus" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                            </select> 
-                        </div> 
+                            </select>
+                        </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Etage</label><br>
@@ -476,35 +518,49 @@
                                 <option value="UG" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'floor') == 'UG') selected @endif>UG</option>
                                 <option value="EG" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'floor') == 'EG') selected @endif>EG</option>
                                 <option value="Hochparterre" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                            </select> 
-                        </div> 
-                    </div> 
-                    
+                            </select>
+                        </div>
+                    </div>
+
                     <div class=" row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Lift:</label>  
-                            <div class="radiobox">                                                
+                            <label for="" class="col-form-label">Lift:</label>
+                            <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-lift2"  name="isEinLift2" value="1" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'lift') == 1) checked @endif> <span class="label-text" >Ja</span>
                                 </label>
                                 <label class="text-dark ml-1">
                                     <input type="radio"  class="offerte-lift2"  name="isEinLift2" value="0" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'lift') == 0) checked @elseif ($einzug2 == NULL) checked @endif > <span class="label-text" >Nein</span>
                                 </label>
-                            </div>                                        
-                        </div>                            
-                    </div>    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-md-12">
+                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <div class="radiobox">
+                                <label class="text-dark">
+                                    <input type="radio" class="offerte-parkPlatz2"  name="isEinParktplatz2" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug2,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>
+                                </label>
+                                <label class="text-dark ml-1">
+                                    <input type="radio"  class="offerte-parkPlatz2"  name="isEinParktplatz2" value="0" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug2,'parkPlatz') == 0) checked @elseif ($einzug1 == NULL) checked @endif > <span class="label-text">Nein</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-md-12 offer-einzug-3">
                             <label for="" class="col-form-label">3. Einzugsadresse</label><br>
-                            <input type="checkbox" name="isofferEinzug3" id="isofferEinzug3" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug3) checked @endif>  
-                        </div>                            
+                            <input type="checkbox" name="isofferEinzug3" id="isofferEinzug3" class="js-switch " data-color="#286090" data-switchery="false" @if($einzug3) checked @endif>
+                        </div>
                     </div>
                 </div>
         </div>
 
         {{-- 3.Kısım --}}
-        <div class="form-group row mt-0 p-3 " > 
+        <div class="form-group row mt-0 p-3 " >
             {{-- Offerte Umzug3 Sol --}}
             <div class="col-md-6 aus-area-3" @if($auszug3 == NULL) style="display: none;" @endif>
                 <h5 class="font-weight-bold">3. Auszugsadresse</h5>
@@ -514,13 +570,13 @@
                     <div class="col-md-5 ">
                         <label class=" col-form-label" for="l0">PLZ</label>
                         <input class="form-control" name="ausPostcode3"  type="text" @if ($auszug3) value="{{ \App\Models\offerteAddress::InfoAdress($auszug3,'postCode') }}"  @endif>
-                    </div> 
+                    </div>
                     <div class="col-md-7">
                         <label class=" col-form-label" for="l0">Ort</label>
                         <input class="form-control" name="ausCity3"  type="text" @if ($auszug3) value="{{ \App\Models\offerteAddress::InfoAdress($auszug3,'city') }}"  @endif>
-                    </div>  
-                </div> 
-                
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Land</label><br>
@@ -531,45 +587,45 @@
                             <option value="Österreich" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                        </select> 
+                        </select>
 
                         <div class="mt-1 isAusCustomLand3">
                             <label class="col-form-label" for="l0">Custom Land</label>
-                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
+                            <input type="checkbox"  name="isAusCustomLand3" id="isAusCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                             @if (
                                 $auszug3 &&
-                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Fürstentum Liechtenstein' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' 
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich'
                             )
                             checked
                             @else
                             unchecked
                             @endif>
                         </div>
-                        <div class="custom-aus-land-area-3" 
+                        <div class="custom-aus-land-area-3"
                         @if (
                                 $auszug3 &&
-                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Schweiz' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Fürstentum Liechtenstein' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' 
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich'
                                 )
                                 style="display:block;"
                                 @else
                                 style="display:none;"
-                                @endif 
+                                @endif
                         >
                             <input class="form-control" type="text" name="ausCustomLand3" @if($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($auszug3,'country') }}" @endif>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Gebäude</label><br>
@@ -580,10 +636,10 @@
                                 <option value="RFH" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'buildType') == 'RFH') selected @endif>RFH</option>
                                 <option value="Geschäft/Büro" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                                 <option value="Lagerhaus" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                        </select> 
-                    </div> 
+                        </select>
+                    </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="col-form-label">Etage</label><br>
@@ -603,27 +659,40 @@
                                 <option value="UG" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'floor') == 'UG') selected @endif>UG</option>
                                 <option value="EG" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'floor') == 'EG') selected @endif>EG</option>
                                 <option value="Hochparterre" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                        </select> 
-                    </div> 
-                </div> 
-                
+                        </select>
+                    </div>
+                </div>
+
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Lift:</label>  
-                        <div class="radiobox">                                                
+                        <label for="" class="col-form-label">Lift:</label>
+                        <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusLift3" value="1" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'lift') == 1) checked @endif> <span class="label-text">Ja</span>
                             </label>
                             <label class="text-dark ml-1">
                                 <input type="radio"  class="offerte-type"  name="isAusLift3" value="0" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'lift') == 0) checked @elseif ($auszug3 == NULL) checked @endif> <span class="label-text">Nein</span>
                             </label>
-                        </div>                                        
-                    </div>                            
+                        </div>
+                    </div>
                 </div>
-    
-              
+
+                <div class=" row">
+                    <div class="col-md-12">
+                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <div class="radiobox">
+                            <label class="text-dark">
+                                <input type="radio" class="offerte-type"  name="isAusParkplatz3" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug3,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
+                            </label>
+                            <label class="text-dark ml-1">
+                                <input type="radio"  class="offerte-type"  name="isAusParkplatz3" value="0" @if (\App\Models\offerteAddress::InfoAdress($auszug3,'parkPlatz') == 0) checked @endif> <span class="label-text">Nein</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        
+
             <div class="col-md-6 offset-md-6 ein-area-3" @if($einzug3 == NULL) style="display: none;" @endif>
                     <h5 class="font-weight-bold">3. Einzugsadresse</h5>
                     <label class=" col-form-label" for="l0">Strasse</label>
@@ -632,13 +701,13 @@
                         <div class="col-md-5 p-0">
                             <label class=" col-form-label" for="l0">PLZ</label>
                             <input class="form-control" name="einPostcode3"  type="text"  @if ($einzug3) value="{{ \App\Models\offerteAddress::InfoAdress($einzug3,'postCode') }}"  @endif>
-                        </div> 
+                        </div>
                         <div class="col-md-7">
                             <label class=" col-form-label" for="l0">Ort</label>
                             <input class="form-control" name="einCity3"  type="text"  @if ($einzug3) value="{{ \App\Models\offerteAddress::InfoAdress($einzug3,'city') }}"  @endif>
-                        </div>  
-                    </div> 
-                    
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Land</label><br>
@@ -649,34 +718,34 @@
                                 <option value="Österreich" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Österreich') selected @endif>Österreich</option>
                                 <option value="Italien" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
-                            </select> 
+                            </select>
 
                             <div class="mt-1 isEinCustomLand3">
                                 <label class="col-form-label" for="l0">Custom Land</label>
-                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" 
+                                <input type="checkbox"  name="isEinCustomLand3" id="isEinCustomLand3" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false"
                                 @if (
                                 $einzug3 &&
-                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' && 
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Fürstentum Liechtenstein' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' 
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich'
                             )
                             checked
                             @else
                             unchecked
                             @endif>
                             </div>
-                            <div class="custom-ein-land-area-3" 
+                            <div class="custom-ein-land-area-3"
                             @if (
                                 $einzug3 &&
-                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' && 
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Schweiz' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Fürstentum Liechtenstein' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' 
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich'
                                 )
                                 style="display:block;"
                                 @else
@@ -684,9 +753,9 @@
                                 @endif>
                                 <input class="form-control" type="text" name="einCustomLand3" @if($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country')) value="{{  \App\Models\offerteAddress::InfoAdress($einzug3,'country') }}" @endif>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Gebäude</label><br>
@@ -696,10 +765,10 @@
                                 <option value="RFH" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'buildType') == 'RFH') selected @endif>RFH</option>
                                 <option value="Geschäft/Büro" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'buildType') == 'Geschäft/Büro') selected @endif>Geschäft/Büro</option>
                                 <option value="Lagerhaus" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'buildType') == 'Lagerhaus') selected @endif>Lagerhaus</option>
-                            </select> 
-                        </div> 
+                            </select>
+                        </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="" class="col-form-label">Etage</label><br>
@@ -718,23 +787,37 @@
                                 <option value="UG" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'floor') == 'UG') selected @endif>UG</option>
                                 <option value="EG" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'floor') == 'EG') selected @endif>EG</option>
                                 <option value="Hochparterre" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'floor') == 'Hochparterre') selected @endif>Hochparterre</option>
-                            </select> 
-                        </div> 
-                    </div> 
-                    
+                            </select>
+                        </div>
+                    </div>
+
                     <div class=" row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Lift:</label>  
-                            <div class="radiobox">                                                
+                            <label for="" class="col-form-label">Lift:</label>
+                            <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-lift3"  name="isEinLift3" value="1" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'lift') == 1) checked @endif> <span class="label-text">Ja</span>
                                 </label>
                                 <label class="text-dark ml-1">
                                     <input type="radio"  class="offerte-lift3"  name="isEinLift3" value="0" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'lift') == 0) checked @elseif ($einzug3 == NULL) checked @endif > <span class="label-text">Nein</span>
                                 </label>
-                            </div>                                        
-                        </div>                            
-                    </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-md-12">
+                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <div class="radiobox">
+                                <label class="text-dark">
+                                    <input type="radio" class="offerte-parkPlatz3"  name="isEinParktplatz3" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug3,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>
+                                </label>
+                                <label class="text-dark ml-1">
+                                    <input type="radio"  class="offerte-parkPlatz3"  name="isEinParktplatz3" value="0" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug3,'parkPlatz') == 0) checked @elseif ($einzug1 == NULL) checked @endif > <span class="label-text">Nein</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
 </div>
