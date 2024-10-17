@@ -263,6 +263,10 @@
                         <td align="left" style="padding-top: 50px;">________________</td>
                     @endif
                 </tr>
+
+                <tr>
+                    <td colspan="4" align="right" style="padding-top: 110px;"><img src="{{ asset('assets/demo/swiss-twint-qr-1.png') }}" width="120" alt="twint_qr"></td>
+                </tr>
             </table>
         </div>
     </main>

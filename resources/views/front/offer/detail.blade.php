@@ -102,8 +102,10 @@
                             <div class="col-md-12">
                                 <label for="" class="col-form-label">Besichtigung</label><br>
                                 <select class="form-control" name="appOfferType" id="appOfferType">
-                                    <option value="0" @if($data['appType'] == 0 || 2) selected @endif>Nein</option>
+                                    <option value="0" @if($data['appType'] == 0) selected @endif>Nein</option>
                                     <option value="1" @if($data['appType'] == 1) selected @endif>Gemacht</option>
+                                    <option value="2" @if($data['appType'] == 2) selected @endif>Reinigung Nein</option>
+                                    <option value="3" @if($data['appType'] == 3) selected @endif>Reinigung Gemacht</option>
                                 </select>
                             </div>
                         </div>
@@ -217,7 +219,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" checked>
+                                    <input type="checkbox" name="isEmail" id="isEmail" class="js-switch " data-color="#286090" data-switchery="false" >
                                 </div>
                             </div>
 
@@ -262,39 +264,57 @@
                                 </div>
                             </div>
 
-                        <div class="form-actions">
-                            <div class="form-group row">
-                                <div class="col-md-12 ml-md-auto btn-list">
-                                    <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
-                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
-                                    <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong>
-                                    </a>
-                                    @endif
+                            <div class="form-group row ">
+                                <div class="col-md-12 campaing">
+                                    <label for="" class="col-form-label">Kampanya (UMZUG)</label><br>
+                                    <input type="checkbox" name="isCampaign" id="isCampaign" class="js-switch isCampaign" data-color="#286090" data-switchery="false" @if($data["isCampaign"]) checked @endif>
+                                </div>
+                            </div>
 
-                                    <a id="createapp"  href="{{ route('offer.edit',['id' => $data['id']]) }}"
-                                        class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong>
-                                    </a>
-
-                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
-                                    <a href="#" class="btn btn-success btn-rounded text-white" data-toggle="modal" data-target="#receiptModal"> <strong>Quittung erstellen</strong>
-                                    </a>
-                                    @endif
-
-                                    @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
-                                    <a id="createInvoice"  href="{{ route('invoice.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
-                                        class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong>
-                                    </a>
-                                    @endif
-
-                                    <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}"
-                                        class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong>
-                                    </a>
-
+                            <div class="row form-group campaign-value-area" @if($data['isCampaign'] == NULL) style="display: none;" @endif>
+                                <div class="col-md-3 ">
+                                    <div class="input-group">
+                                        <div class="input-group-addon bg-primary">
+                                          %
+                                        </div>
+                                        <input type="number" name="campaignValue" class="form-control"  placeholder="0" @if($data['isCampaign']) value="{{ $data['isCampaign'] }}" @else value="20" @endif>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="form-actions">
+                                <div class="form-group row">
+                                    <div class="col-md-12 ml-md-auto btn-list">
+                                        <button class="btn btn-primary btn-rounded" type="submit">Erstellen</button>
+                                        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
+                                        <a id="createapp"  href="{{ route('appointment.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
+                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#F0AD4E"> <strong>Auftragsbestätigung</strong>
+                                        </a>
+                                        @endif
+
+                                        <a id="createapp"  href="{{ route('offer.edit',['id' => $data['id']]) }}"
+                                            class="btn btn-info btn-rounded text-white"> <strong>Bearbeiten</strong>
+                                        </a>
+
+                                        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
+                                        <a href="#" class="btn btn-success btn-rounded text-white" data-toggle="modal" data-target="#receiptModal"> <strong>Quittung erstellen</strong>
+                                        </a>
+                                        @endif
+
+                                        @if (in_array(Auth::user()->permName, ['superAdmin', 'chef','officer']))
+                                        <a id="createInvoice"  href="{{ route('invoice.createFromOffer',['id' => $data['id'],'customer' => $data['customerId']]) }}"
+                                            class="btn btn-rounded text-white" target="_blank" style="background-color:#5BC0DE"> <strong>Rechnung erstellen</strong>
+                                        </a>
+                                        @endif
+
+                                        <a href="{{ route('offer.showPdf',['id' => $data['id']]) }}"
+                                            class="btn btn-rounded text-white" style="background-color:#ff0000" target="_blank"> <strong>Ausdrucken</strong>
+                                        </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </form>
                 <!-- /.widget-body -->
             </div>

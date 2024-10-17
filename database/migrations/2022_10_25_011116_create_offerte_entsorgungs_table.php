@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('offerte_entsorgungs', function (Blueprint $table) {
             $table->id();
-            $table->integer('volume');
-            $table->integer('volumeCHF');
+            $table->integer('volume')->nullable();
+            $table->integer('volumeCHF')->nullable();
             $table->integer('fixedCost')->nullable();
-            $table->integer('m3')->nullable();
+            $table->string('m3')->nullable();
             $table->integer('tariff')->nullable();
             $table->integer('ma')->nullable();
             $table->integer('lkw')->nullable();

@@ -163,6 +163,15 @@
                                 <tbody>
                                     <tr>
                                         <td>
+                                            <b class="test-dark">Besichtigung</b>
+                                            <select class="form-control" name="appType" id="appType">
+                                                <option value>Bitte Wahlen</option>
+                                            <option value="Alle">Alle</option>
+                                            <option value="Nein">Nein</option>
+                                            <option value="Gemacht">Gemacht</option>
+                                          </select>
+                                        </td>
+                                        <td>
                                             <b class="test-dark">Stand</b>
                                             <select class="form-control" name="standType" id="standType">
                                             <option value>Bitte Wahlen</option>
@@ -172,17 +181,7 @@
                                             <option value="Onaylanmadı">Abgesagt</option>
                                           </select>
                                         </td>
-                                        <td>
-                                            <b class="test-dark">Besichtigung</b>
-                                            <select class="form-control" name="appType" id="appType">
-                                                <option value>Bitte Wahlen</option>
-                                            <option value="Alle">Alle</option>
-                                            <option value="Nein">Nein</option>
-                                            <option value="Gemacht">Gemacht</option>
-                                          </select>
-                                        </td>
                                     </tr>
-
                                 </tbody>
                             </table>
                             <div id="checkbox-container" class="col-md-10 mt-3">

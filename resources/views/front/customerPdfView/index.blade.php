@@ -63,6 +63,7 @@
 
         .bg-preview-primary {
             background: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }}!important;
+
         }
 
         .bg-offer {
@@ -1209,7 +1210,7 @@
                                     <b>Geschätztes Volumen</b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['volume'] }} m³
+                                    {{ $entsorgung['m3'] }} m³
                                 </div>
 
                                 <div class="col-md-6">

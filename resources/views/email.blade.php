@@ -44,18 +44,18 @@
         <br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        @php 
+        @php
         Carbon\Carbon::setLocale('de');
         @endphp
         <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
         <br>
         @endforeach
         @endif
-        
-        
+
+
         <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
         Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
-        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
         </div>
         <br /> <br />
 
@@ -68,41 +68,53 @@
         <br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        @php 
+        @php
         Carbon\Carbon::setLocale('de');
         @endphp
 
         <strong>  {{ $item['serviceName'] }}:</strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr<br>
         @endforeach
         @endif
-        
+
         <br><br><br>
         <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
-        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
         </div>
         </div>
         <br /> <br />
-    @else
-        <div>Vielen Dank für Ihr Interesse an unseren Dienstleistungen. </div>
-        <br />
-        <div>Hiermit bestätigen wir Ihnen den kostenlosen und unverbindlichen <br>Besichtigungstermin wie folgt:</div>
-        <br />
-        <br />
+    @elseif($data['randevuTipi'] == 'Lieferung')
+        <div>Besten Dank für Ihre Bestellung! <br></div>
+        <div>Gerne bestätigen wir Ihnen den Liefertermin für unseren Packmaterial wie folgt: </div>
+        <br /><br />
         @if ($data['appDate'])
         @foreach ($data['appDate'] as $item)
-        @php 
+        @php
         Carbon\Carbon::setLocale('de');
         @endphp
         <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
         <br>
         @endforeach
         @endif
-        
-        <br><br>Falls Sie weitere Fragen an uns haben oder weitere Informationen benötigen, <br> können Sie sich gerne jederzeit direkt mit uns in Verbindung setzen. <br><br>
-        Wir hoffen, dass wir Ihr Interesse wecken konnten, und würden uns freuen, Sie <br> schon bald als einen unserer zufriedenen Kunden begrüssen zu können <br><br>
-        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung. 
+
+        <br>Sollten Sie oder eine beauftragte Person, die Sendung nicht persönlich in Empfang nehmen können, stellen wir diese an der angegebenen Adresse vor die Wohnungstüre.<br>
+
+        Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
         </div>
-        <br /> <br />
+        @elseif($data['randevuTipi'] == 'Abholung')
+        <div>Wir bedanken uns für Ihren Umzugsauftrag und freuen uns, dass wir Sie mit unserem Packmaterial unterstützen konnten.<br></div>
+        <div>Gerne bestätigen wir Ihnen den Liefertermin für unseren Packmaterial wie folgt: </div>
+        <br /><br />
+        @if ($data['appDate'])
+        @foreach ($data['appDate'] as $item)
+        @php
+        Carbon\Carbon::setLocale('de');
+        @endphp
+        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
+        <br>
+        @endforeach
+        @endif
+
+        <br>Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.<br>
 
 @endif
 <div class="footer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front\offer;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OfferMail;
+use App\Models\Appointment;
 use App\Models\Company;
 use App\Models\Customer;
 use App\Models\CustomEmail;
@@ -96,7 +97,7 @@ class indexController extends Controller
                     'suankiTarih' => $today,
                     'tarihDurumu' => $durum,
                 ];
-                
+
 
             }
 
@@ -112,7 +113,7 @@ class indexController extends Controller
 
         // dd($umzugOfferteler);
     }
-    
+
     public function data(Request $request)
     {
         $customerId = $request->route('id');
@@ -128,7 +129,7 @@ class indexController extends Controller
                 return $formatedDate;
             })
             ->editColumn('services', function ($data) {
-                
+
                 $services = collect([
                     $data->offerteUmzugId ? 'Umzug' : NULL,
                     $data->offerteEinpackId ? 'Einpack' : NULL,
@@ -160,16 +161,16 @@ class indexController extends Controller
     {
         $data = Customer::where('id', $id)->first();
         $formData = CustomerForm::where('customerId',$id)->first();
-        return view('front.offer.create', ['data' => $data,'formData' => $formData]);
+        $termineCount = Appointment::where('customerId',$id)->count();
+        return view('front.offer.create', ['data' => $data,'formData' => $formData,'termineCount' => $termineCount]);
     }
 
     public function getOfferte($id)
     {
         $offerte = Offerte::find($id); // Belirli bir id ile offerte verilerini çekiyoruz
-
         return response()->json(['offerte' => $offerte]);
     }
-    
+
     public function noticeUpdate(Request $request)
     {
         $id = $request->route('id');
@@ -187,14 +188,14 @@ class indexController extends Controller
         else{
             return response()->json(['success' => false]);
         }
-        
+
     }
 
     public function sendSms(Request $request)
     {
             // $customerId = $request->route('id');
             // $customer = Customer::where('id',$customerId)->first();
-            
+
             // $basic  = new \Vonage\Client\Credentials\Basic("07fc1e6c", "J4i0Q5bZDupy1zIa");
             // $client = new \Vonage\Client($basic);
 
@@ -202,7 +203,7 @@ class indexController extends Controller
             // $staticContent = 'Herr'.' '.$customer['name'].' '.$customer['surname'].','.' ';
             // $content ='Ihr Angebot wurde erstellt From Swiss';
             // $staticContent2 = ' '.Company::InfoCompany('name');
-           
+
             // if($request->isCustomSMS)
             // {
             //     $content = $request->customSMS;
@@ -216,7 +217,7 @@ class indexController extends Controller
             //     );
             // }
 
-        
+
         // $apiKey = "07fc1e6c";
         // $apiSecret = "J4i0Q5bZDupy1zIa";
         // $toNumber = '905449757797'; // TO_NUMBER yerine gerçek bir numara ekleyin
@@ -251,16 +252,16 @@ class indexController extends Controller
         $response = $client->sms()->send(
             new \Vonage\SMS\Message\SMS("41763995002", "SwissGmbH", 'A text message sent using the Nexmo SMS API ')
         );
-        
+
         $message = $response->current();
-        
+
         if ($message->getStatus() == 0) {
             echo "The message was sent successfully\n";
         } else {
             echo "The message failed with status: " . $message->getStatus() . "\n";
         }
 
-       
+
     }
 
     public function store(Request $request)
@@ -293,7 +294,7 @@ class indexController extends Controller
 
 
 
-        // Offerte Adresse    
+        // Offerte Adresse
         if ($request->ausStreet1) {
             $mainAusAdress = [
                 'street' => $request->ausStreet1,
@@ -601,7 +602,6 @@ class indexController extends Controller
                 'topCost' => $request->isEntsorgungKostendach ?  $request->entsorgungTopPrice : Null,
                 'fixedPrice' => $request->isEntsorgungPauschal ?  $request->entsorgungDefaultPrice : Null,
             ];
-
             OfferteEntsorgung::create($offerEntsorgung);
             $offerteEntsorgungIdBul = DB::table('offerte_entsorgungs')->orderBy('id', 'DESC')->first();
             $offerEntsorgungId = $offerteEntsorgungIdBul->id;
@@ -740,7 +740,8 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Beklemede'
+            'offerteStatus' => 'Beklemede',
+            'isCampaign' => $request->isCampaign ? $request->campaignValue : NULL
         ];
 
         $create = offerte::create($offerte);
@@ -797,7 +798,7 @@ class indexController extends Controller
         $customer = DB::table('customers')->where('id', '=', $customerId)->value('name'); // Customer Name
         $customerSurname = DB::table('customers')->where('id', '=', $customerId)->value('surname');
         $customerData = Customer::where('id', $customerId)->first();
-        
+
         $offer = offerte::where('id', $offerteId)->first();
         $customerData =  Customer::where('id', $customerId)->first();
         $auszug1 = offerteAddress::where('id', $AusId)->first();
@@ -1002,7 +1003,7 @@ class indexController extends Controller
         $isEmailSend = $request->get('isEmail');
         $offerteId = 0;
 
-        // Offerte Adresse    
+        // Offerte Adresse
         if ($AusId) {
             $mainAusAdress = [
                 'street' => $request->ausStreet1,
@@ -1023,7 +1024,7 @@ class indexController extends Controller
 
             $changes = $offerteAusAdress->getChanges();
 
-            
+
             foreach ($changes as $attribute => $newValue) {
                 $oldValue = $originalDataAusAdress[$attribute];
                 if ($attribute === 'updated_at') {
@@ -1048,10 +1049,10 @@ class indexController extends Controller
                     'offerId' => $request->route('id'),
                     'inputName' => $newAtt,
                 ];
-                
+
             }
 
-            
+
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -1071,7 +1072,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-            
+
         }
 
         if ($AusId2) {
@@ -1099,7 +1100,7 @@ class indexController extends Controller
 
                 $changes = $offerteAusAdress2->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataAusAdress2[$attribute];
                     if ($attribute === 'updated_at') {
@@ -1124,10 +1125,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                    
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1147,7 +1148,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($AusId2 == NULL && $request->isofferAuszug2) {
             $mainAusAdress = [
@@ -1193,7 +1194,7 @@ class indexController extends Controller
 
                 $changes = $offerteAusAdress3->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataAusAdress3[$attribute];
                     if ($attribute === 'updated_at') {
@@ -1217,10 +1218,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                    
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1240,7 +1241,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-               
+
             }
         } elseif ($AusId3 == NULL && $request->isofferAuszug3) {
             $mainAusAdress = [
@@ -1280,7 +1281,7 @@ class indexController extends Controller
 
             $changes = $offerteEinAdress->getChanges();
 
-            
+
             foreach ($changes as $attribute => $newValue) {
                 $oldValue = $originalDataEinAdress[$attribute];
                 if ($attribute === 'updated_at') {
@@ -1305,10 +1306,10 @@ class indexController extends Controller
                     'offerId' => $request->route('id'),
                     'inputName' => $newAtt,
                 ];
-                
+
             }
 
-            
+
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -1328,7 +1329,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-           
+
         } elseif ($EinId == NULL && $request->einStreet1) {
             $mainEinAdress = [
                 'street' => $request->einStreet1,
@@ -1371,7 +1372,7 @@ class indexController extends Controller
 
                 $changes = $offerteEinAdress2->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataEinAdress2[$attribute];
                     if ($attribute === 'updated_at') {
@@ -1396,10 +1397,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                    
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1419,7 +1420,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-               
+
             }
         } elseif ($EinId2 == NULL && $request->einStreet2) {
             $mainEinAdress = [
@@ -1464,7 +1465,7 @@ class indexController extends Controller
 
             $changes = $offerteEinAdress3->getChanges();
 
-            
+
             foreach ($changes as $attribute => $newValue) {
                 $oldValue = $originalDataEinAdress3[$attribute];
                 if ($attribute === 'updated_at') {
@@ -1489,10 +1490,10 @@ class indexController extends Controller
                     'offerId' => $request->route('id'),
                     'inputName' => $newAtt,
                 ];
-                
+
             }
 
-            
+
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -1512,7 +1513,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-            
+
 
         } elseif ($EinId3 == NULL && $request->einStreet3) {
             $mainEinAdress = [
@@ -1584,7 +1585,7 @@ class indexController extends Controller
 
                 $changes = $offerteUmzug->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataUmzug[$attribute];
                     if ($attribute === 'updated_at') {
@@ -1628,7 +1629,7 @@ class indexController extends Controller
                         'fixedPrice' => 'PAUSCHAL',
                     );
                     $newAtt = isset($attributeMappings[$attribute]) ? $attributeMappings[$attribute] : $attribute;
-                    
+
                     $changedData[$attribute] = [
                         'oldValue' => $oldValue,
                         'newValue' => $newValue,
@@ -1638,7 +1639,7 @@ class indexController extends Controller
                     ];
                 }
 
-               
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1658,7 +1659,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($offerUmzugId == NULL && $request->isUmzug) {
             $offerUmzug = [
@@ -1745,13 +1746,13 @@ class indexController extends Controller
 
                 $changes = $offerteEinpack->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataEinpack[$attribute];
                     if ($attribute === 'updated_at') {
                         continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
                     }
-                    
+
                     $attributeMappings = array(
                         'tariff' => 'TARIF',
                         'ma' => 'MA',
@@ -1785,10 +1786,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-              
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1808,7 +1809,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-               
+
             }
         } elseif ($offerEinpackId == NULL && $request->isEinpack) {
             $offerEinpack = [
@@ -1882,7 +1883,7 @@ class indexController extends Controller
 
                 $changes = $offerteAuspack->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataAuspack[$attribute];
                     if ($attribute === 'updated_at') {
@@ -1922,10 +1923,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -1945,7 +1946,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($offerAuspackId == NULL && $request->isAuspack) {
             $offerAuspack = [
@@ -2021,13 +2022,13 @@ class indexController extends Controller
 
                 $changes = $offerteReinigung->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataReinigung[$attribute];
                     if ($attribute === 'updated_at') {
                         continue; // inputName 'updated_at' ise döngünün bir sonraki iterasyonuna geç
                     }
-                    
+
                     $attributeMappings = array(
                         'reinigungType' => 'REINIGUNGSART',
                         'extraReinigung' => 'MANUELLE EINGABE (REINIGUNGSART)',
@@ -2065,10 +2066,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2088,7 +2089,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($offerReinigungId == NULL && $request->isReinigung) {
             $offerReinigung = [
@@ -2167,7 +2168,7 @@ class indexController extends Controller
 
                 $changes = $offerteReinigung2->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataReinigung2[$attribute];
                     if ($attribute === 'updated_at') {
@@ -2211,10 +2212,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2234,7 +2235,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($offerReinigungId2 == NULL && $request->isReinigung2) {
             $offerReinigung2 = [
@@ -2315,7 +2316,7 @@ class indexController extends Controller
 
                 $changes = $offerteEntsorgung->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataEntsorgung[$attribute];
                     if ($attribute === 'updated_at') {
@@ -2359,10 +2360,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2382,7 +2383,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
             }
         } elseif ($offerEntsorgungId == NULL && $request->isEntsorgung) {
             $offerEntsorgung = [
@@ -2471,7 +2472,7 @@ class indexController extends Controller
 
                 $changes = $offerteTransport->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataTransport[$attribute];
                     if ($attribute === 'updated_at') {
@@ -2525,10 +2526,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                 foreach ($changedData as $key => $value) {
                     $oldValue = $value['oldValue'];
                     $newValue = $value['newValue'];
@@ -2548,7 +2549,7 @@ class indexController extends Controller
                     OfferLogs::create($offerLog);
                     $changedData = [];
                 }
-                
+
             }
         } elseif ($offerTransportId == NULL && $request->isTransport) {
             $offerTransport = [
@@ -2624,7 +2625,7 @@ class indexController extends Controller
 
                 $changes = $offerteLagerung->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataLagerung[$attribute];
                     if ($attribute === 'updated_at') {
@@ -2655,10 +2656,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2678,7 +2679,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-               
+
             }
         } elseif ($offerLagerungId == NULL && $request->isLagerung) {
             $offerLagerung = [
@@ -2727,7 +2728,7 @@ class indexController extends Controller
 
                 $changes = $offerteMaterial->getChanges();
 
-                
+
                 foreach ($changes as $attribute => $newValue) {
                     $oldValue = $originalDataMaterial[$attribute];
                     if ($attribute === 'updated_at') {
@@ -2751,10 +2752,10 @@ class indexController extends Controller
                         'offerId' => $request->route('id'),
                         'inputName' => $newAtt,
                     ];
-                   
+
                 }
 
-                
+
                     foreach ($changedData as $key => $value) {
                         $oldValue = $value['oldValue'];
                         $newValue = $value['newValue'];
@@ -2774,7 +2775,7 @@ class indexController extends Controller
                         OfferLogs::create($offerLog);
                         $changedData = [];
                     }
-                
+
 
                 if ($offerteMaterial && $all['islem']) {
                     $islem = $all['islem'];
@@ -2858,6 +2859,7 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
+            'isCampaign' => $request->isCampaign ? $request->campaignValue : NULL
         ];
 
         $offerte = offerte::find($id);
@@ -2868,7 +2870,7 @@ class indexController extends Controller
 
         $changes = $offerte->getChanges();
 
-        
+
         foreach ($changes as $attribute => $newValue) {
             $oldValue = $originalData[$attribute];
             if ($attribute === 'updated_at') {
@@ -2916,10 +2918,10 @@ class indexController extends Controller
                 'offerId' => $request->route('id'),
                 'inputName' => $newAtt,
             ];
-            
+
         }
 
-        
+
             foreach ($changedData as $key => $value) {
                 $oldValue = $value['oldValue'];
                 $newValue = $value['newValue'];
@@ -2939,7 +2941,7 @@ class indexController extends Controller
                 OfferLogs::create($offerLog);
                 $changedData = [];
             }
-        
+
 
         // Teklif Onayı
         $oToken = Str::random(64);
@@ -3084,7 +3086,7 @@ class indexController extends Controller
         margin: 4px 2px;
         cursor: pointer;"
         ' . '>' . 'Offerte Ablehnen' . '</a>';
-        $offerMailFooter = view('offerMailFooter'); 
+        $offerMailFooter = view('offerMailFooter');
 
         $reinigungPdf = 'dontsend';
         if($offerReinigungId){
@@ -3113,7 +3115,7 @@ class indexController extends Controller
             'offerMailFooter' => $offerMailFooter
         ];
 
-        
+
         if ($isCustomEmailSend) {
             Arr::set($emailData, 'customEmailContent', $customEmail);
             $customMail = CustomEmail::where('offerId',$id)->first();
@@ -3182,7 +3184,7 @@ class indexController extends Controller
         else {
             return redirect()->back()->with('status-err', 'Fehler: Angebotsstatus konnte nicht aktualisiert werden.');
         }
-        
+
     }
 
     public function manuelReject (Request $request)
@@ -3208,7 +3210,7 @@ class indexController extends Controller
             'offerteStatus' => 'Beklemede'
         ];
         $offerDefault = offerte::where('id',$id)->update($offer);
-        
+
         if($offerDefault){
             return redirect()->back()->with('status', 'Angebotsstatus erfolgreich aktualisiert.');
         }
@@ -3217,7 +3219,7 @@ class indexController extends Controller
         }
     }
 
-    
+
     public function delete($id)
     {
         $c = offerte::where('id', $id)->count();
@@ -3243,7 +3245,7 @@ class indexController extends Controller
             $lagerung = OfferteLagerung::where('id', $data['offerteLagerungId'])->delete();
             $basket = OfferteBasket::where('materialId', $data['offerteMaterialId'])->delete();
             $material = OfferteMaterial::where('id', $data['offerteMaterialId'])->delete();
-            
+
             OfferteNotes::where('offerId',$data['id'])->delete();
             ReceiptUmzug::where('offerId',$data['id'])->delete();
             ReceiptReinigung::where('offerId',$data['id'])->delete();
@@ -3675,7 +3677,8 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Beklemede'
+            'offerteStatus' => 'Beklemede',
+            'isCampaign' => $request->isCampaign ? $request->campaignValue : NULL
         ];
 
         $company = Company::first();
@@ -4474,7 +4477,8 @@ class indexController extends Controller
             'kostenExkl' => $request->kdvType1,
             'kostenFrei' => $request->kdvType3,
             'contactPerson' => $contactPerson,
-            'offerteStatus' => 'Beklemede'
+            'offerteStatus' => 'Beklemede',
+            'isCampaign' => $request->isCampaign ? $request->campaignValue : NULL
         ];
 
         $company = Company::first();

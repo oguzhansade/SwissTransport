@@ -360,23 +360,32 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
-                                            <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif>
+                                            <input type="checkbox" name="payedCash"  value="1" @if($data['inBar']) checked @endif>
                                             <span class="label-text text-dark"><strong>In Bar</strong></span>
                                         </label>
                                     </div>
                                     <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['cashPrice'] }}">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="checkbox checkbox-rounded checkbox-primary " >
                                         <label class="">
-                                            <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif>
+                                            <input type="checkbox" name="payedBill"  value="1" @if($data['inRechnung']) checked @endif>
                                             <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                         </label>
                                     </div>
                                     <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['invoicePrice'] }}">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-rounded checkbox-primary " >
+                                        <label class="">
+                                            <input type="checkbox" name="inTwint"  value="1" @if($data['inTwint']) checked @endif>
+                                            <span class="label-text text-dark"><strong>In Twint</strong></span>
+                                        </label>
+                                    </div>
+                                    <input class="form-control" name="twintPrice" placeholder="CHF [Betrag]"  type="text" value="{{ $data['twintPrice'] }}">
                                 </div>
                             </div>
                         </div>

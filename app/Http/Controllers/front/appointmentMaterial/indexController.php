@@ -56,7 +56,7 @@ class indexController extends Controller
             $data2 = Customer::where('id', $data['customerId'])->first();
             return view('front.appointmentMaterial.createAbholung', ['data' => $data, 'data2' => $data2]);
         }
-        
+
     }
 
     public function detailAbholung($id)
@@ -152,15 +152,15 @@ class indexController extends Controller
     public function storeAbholung(Request $request)
     {
         $lieferungId = $request->route('lieferungId');
-        
+
         $c = AppointmentMaterial::where('deliveryType',0)
         ->where('id',$lieferungId)->count();
-        
+
         $lieferung = AppointmentMaterial::where('deliveryType',0)->where('id',$lieferungId)->first();
-        
+
         $customerId = $lieferung['customerId'];
         $customer = Customer::where('id',$customerId)->first();
-        
+
 
        if($c != 0)
        {
@@ -188,7 +188,7 @@ class indexController extends Controller
 
 
         if ($all && $lieferungUpdate) {
-            
+
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status', 'Abholung Created!')
@@ -214,7 +214,10 @@ class indexController extends Controller
 
     public function update(Request $request)
     {
+
         $id = $request->route('id');
+
+
         $c = AppointmentMaterial::where('id', $id)->count();
         $deliveryAble = $request->get('deliverable');
 
@@ -297,7 +300,7 @@ class indexController extends Controller
                     $location = $item['calendarLocation'];
                     $title = $item['calendarTitle'];
                     $comment =  $item['calendarComment'];
-                    $event = Calendar::where('serviceId', $item['serviceId'])->first();
+                    $event = Calendar::where('serviceType','Lieferung')->where('serviceId', $item['serviceId'])->first();
                     $serviceId = $item['serviceId'];
                     $colorId = $item['colorId'];
                     if ($event) {
@@ -326,7 +329,7 @@ class indexController extends Controller
             $data = AppointmentMaterial::where('id', $id)->get();
             $calendarLiefe = Calendar::where('serviceId', $id)->first();
             if ($calendarLiefe) {
-                try{ 
+                try{
                     $event = Event::find($calendarLiefe['eventId']);
                     if ($event) {
                         $event->delete($calendarLiefe['eventId']);
@@ -341,7 +344,7 @@ class indexController extends Controller
                         Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
                     }
                 }
-                
+
             }
             $abholungDelete = AppointmentMaterial::where('id',$appointment['abholungId'])->delete();
             $lieferungDelete = AppointmentMaterial::where('id', $id)->delete();

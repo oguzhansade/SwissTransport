@@ -47,13 +47,16 @@ class ReceiptUmzug extends Model
         'withoutTax',
         'freeTax',
         'inBar',
+        'inTwint',
         'inRechnung',
         'cashPrice',
         'invoicePrice',
+        'twintPrice',
         'signerName',
         'signature',
         'expensePrice',
-        'docTaken'
+        'docTaken',
+        'bexioId'
     ];
 
     public function offerte() {

@@ -34,7 +34,8 @@ class offerte extends Model
         'kostenFrei',
         'contactPerson',
         'offerteStatus',
-        'isOfferVerified'
+        'isOfferVerified',
+        'isCampaign'
     ];
 
     protected $casts = [
@@ -46,7 +47,7 @@ class offerte extends Model
             $data = offerte::where('id',$id)->first();
             return $data['offerteUmzugId'];
         }
-        
+
     }
 
     public function receiptUmzug()

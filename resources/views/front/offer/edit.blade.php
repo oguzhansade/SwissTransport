@@ -66,6 +66,8 @@
                                     <select class="form-control" name="appOfferType" id="appOfferType">
                                         <option value="0" @if($data['appType'] == 0) selected @endif>Nein</option>
                                         <option value="1" @if($data['appType'] == 1) selected @endif>Gemacht</option>
+                                        <option value="2" @if($data['appType'] == 2) selected @endif>Reinigung Nein</option>
+                                        <option value="3" @if($data['appType'] == 3) selected @endif>Reinigung Gemacht</option>
                                     </select>
                                 </div>
                             </div>
@@ -234,14 +236,33 @@
                                     <small class="text-primary"><i>Max Characters:190</i></small>
                                 </div>
                             </div>
-                        <div class="form-actions">
-                            <div class="form-group row mt-3">
-                                <div class="col-md-12 ml-md-auto btn-list">
-                                    <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.update',['id' => $data['id']]) }}">
-                                    <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview" formtarget="_blank" formaction="{{ route('offer.offerPdfPreviewEdit',['id' => $data['id']]) }}">
+
+                            <div class="form-group row ">
+                                <div class="col-md-12 campaing">
+                                    <label for="" class="col-form-label">Kampanya (UMZUG)</label><br>
+                                    <input type="checkbox" name="isCampaign" id="isCampaign" class="js-switch isCampaign" data-color="#286090" data-switchery="false" @if($data["isCampaign"]) checked @endif>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="row form-group campaign-value-area" @if($data['isCampaign'] == NULL) style="display: none;" @endif>
+                                <div class="col-md-3 ">
+                                    <div class="input-group">
+                                        <div class="input-group-addon bg-primary">
+                                          %
+                                        </div>
+                                        <input type="number" name="campaignValue" class="form-control"  placeholder="0" @if($data['isCampaign']) value="{{ $data['isCampaign'] }}" @else value="20" @endif>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <div class="form-group row mt-3">
+                                    <div class="col-md-12 ml-md-auto btn-list">
+                                        <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.update',['id' => $data['id']]) }}">
+                                        <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview" formtarget="_blank" formaction="{{ route('offer.offerPdfPreviewEdit',['id' => $data['id']]) }}">
+                                    </div>
+                                </div>
+                            </div>
                     </form>
                 </div>
                 <!-- /.widget-body -->
@@ -270,6 +291,31 @@
 </script>
 
 <script>
+
+    let serviceCheckboxes = ['#isUmzug', '#isEinpack', '#isAuspack', '#isReinigung', '#isReinigung2', '#isEntsorgung', '#isTransport', '#isLagerung', '#isVerpackungsmaterial'];
+    $("body").on("change",".componentArea",function () {
+        // Check if isReinigung is selected and no other checkboxes are selected
+        if ($('#isReinigung').is(':checked') && $(serviceCheckboxes.join(':checked,') + ':checked').length === 1 && $('#termineCount').val() > 0) {
+            console.log('sadece Reinigung termine var')
+            $('#appOfferType').val('3');
+        }
+        else if($('#isReinigung').is(':checked') && $(serviceCheckboxes.join(':checked,') + ':checked').length === 1 && $('#termineCount').val() <= 0){
+            console.log('sadece Reinigung termine yok')
+            $('#appOfferType').val('2');
+        }
+        if($('input[name=umzugTotalPrice]').val())
+        {
+            let ilkTotal = $('input[name=umzugTotalPrice]').val();
+            var prices = ilkTotal.split('-');
+
+            var lowerPrice = parseInt(prices[0], 10);
+            var upperPrice = parseInt(prices[1], 10);
+
+            console.log('Lower Price:', lowerPrice);
+            console.log('Upper Price:', upperPrice);
+        }
+    });
+
     $(document).ready(function(){
         contactPerson()
         esimatedIncome()
@@ -425,6 +471,16 @@
 </script>
 
 <script>
+
+    var campaignShowButton = $("div.campaing");
+    campaignShowButton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".campaign-value-area").show(700);
+        } else {
+            $(".campaign-value-area").hide(500);
+        }
+    })
+
     var emailFormatbutton = $("div.email-format");
     emailFormatbutton.click(function() {
     if ($(this).hasClass("checkbox-checked"))

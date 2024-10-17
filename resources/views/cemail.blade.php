@@ -30,24 +30,21 @@
 <body>
     <div>
         <div>
-                @if ($data2)
-                    @if ($data2['gender'] == 'male')
-                        Sehr geehrter Herr
-                    @else
-                        Sehr geehrte Frau
-                    @endif
-             {{ $data2['surname'] }}
-        @elseif($data)
-            {
+            @if (isset($data2) && $data2)
+            @if ($data2['gender'] == 'male')
+                Sehr geehrter Herr
+            @else
+                Sehr geehrte Frau
+            @endif
+            {{ $data2['surname'] }}
+        @elseif (isset($data) && $data)
             @if ($data['gender'] == 'male')
                 Sehr geehrter Herr
             @else
                 Sehr geehrte Frau
             @endif
-
             {{ $data['surname'] }}
-            }
-            @endif
+        @endif
 
         </div>
 
@@ -81,19 +78,22 @@
                 </div>
                 <br /> <br />
             @elseif($AppTypeC == 'Lieferung')
-            <div>
-                <br />
-                <div>Gerne bestätigen wir Ihnen den Liefertermin wie folgt:</div>
-                <br />
-                <br />
-                <b>{{ $date }}</b><br><br>
+            <div>Besten Dank für Ihre Bestellung!   </div> <br>
+            <div>Gerne bestätigen wir Ihnen den Liefertermin wie folgt: </div>
+            <br /><br />
+                <b>{{ $date }}</b><br>
+                <br>Sollten Sie oder eine beauftragte Person die Sendung nicht persönlich in Empfang nehmen können,
+                stellen wir diese an der angegebenen Adresse vor die Wohnungstüre. <br>
 
-
-                Sollten Sie oder eine beauftragte Person die Sendung nicht persönlich in Empfang nehmen können, stellen wir diese an der angegebenen Adresse vor die Wohnungstüre.
                 Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
-            </div>
+            @elseif($AppTypeC == 'Abholung')
+            <div>Wir bedanken uns für Ihren Umzugsauftrag und freuen uns, dass wir Sie mit unserem Packmaterial unterstützen konnten.</div> <br>
+            <div>Gerne bestätigen wir Ihnen den Abholtermin wie folgt:</div>
+            <br /><br />
+                <b>{{ $date }}</b><br>
+                <br>Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.<br>
         @endif
-        <div class="footer">
+
             <br><br>
             <div>Freundliche Grüsse</div>
             <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>
@@ -122,7 +122,7 @@
             <br />
             <div><span style="font-size: 11.0px;">Diese E-Mail ist ausschliesslich für den angeführten Empfänger bestimmt. Sie enthält vertrauliche Informationen. Falls Sie diese E-Mail versehentlich erhalten haben, informieren Sie bitte unverzüglich den Absender.</span></div>
             </div>
-        </div>
+
     </div>
 </body>
 

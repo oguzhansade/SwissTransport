@@ -2,7 +2,7 @@
 <html>
 
 <head>
-
+    {{-- Silinecek Sayfa --}}
     <title>Offerte Test Preview- 1</title>
     <meta charset="UTF-8">
     <style>
@@ -492,7 +492,7 @@
                             Umzugstermin:<br>
                             @if ($umzug['moveTime']) <span>Arbeitsbeginn:</span><br> @endif
                             @if ($umzug['moveDate2']) Einzugstermin:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                             @if ($umzug['montage'] == 2 || $umzug['montage'] == 3) De- und Montage: @endif
                         </td>
 
@@ -502,18 +502,18 @@
                             @else
                                 -<br>
                             @endif
-                            
+
                             @if ($umzug['moveTime']) {{ $umzug['moveTime'] }}<br> @endif
-                            
+
                             @if ($umzug['moveDate2']) {{ date('d/m/Y', strtotime($umzug['moveDate2'])) }}<br> @endif
-                            
+
                             {{ $umzug['arrivalReturn'] }} CHF<br>
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
                             {{ \App\Models\Company::InfoCompany('name') }}
                             @else
-                                
+
                             @endif
                         </td>
                         <td valign="top" colspan="3" >
@@ -731,7 +731,7 @@
                             <td valign="top" >
                                 Packtermin:<br>
                                 @if ($einpack['einpackTime']) Arbeitsbeginn <br> @endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -742,11 +742,11 @@
                                 @endif
                                 <br>
                                 @if ($einpack['einpackTime']) {{ $einpack['einpackTime'] }} <br>@endif
-                                
+
                                 {{ $einpack['arrivalReturn'] }} CHF<br>
                             </td>
 
-                            <td valign="top" colspan="2" > 
+                            <td valign="top" colspan="2" >
                                 <table border="0" >
                                     <tr style="width:100%;">
                                         <td valign="top">Geschätzter Aufwand: </td>
@@ -893,7 +893,7 @@
                             <td valign="top">
                                 Packtermin:<br>
                                 @if ($auspack['auspackTime']) Arbeitsbeginn:<br>@endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -1096,11 +1096,11 @@
                             @endif
                             <br>
                             @if ($reinigung['startTime']) {{ $reinigung['startTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['endDate']) {{ date('d/m/Y', strtotime($reinigung['endDate'])) }}<br> @endif
-                            
+
                             @if ($reinigung['endTime']) {{ $reinigung['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['extraService1'] == 1)
                                 Ja
                             @else
@@ -1295,7 +1295,7 @@
                             @if ($reinigung2['startTime']) {{ $reinigung2['startTime'] }} <br>@endif
                             @if ($reinigung2['endDate']) {{ date('d/m/Y', strtotime($reinigung2['endDate'])) }}<br>@endif
                             @if ($reinigung2['endTime']) {{ $reinigung2['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung2['extraService1'] == 1)
                                 Ja
                             @else
@@ -1473,7 +1473,7 @@
                             Entsorgungstermin:<br>
                             Geschätzter Aufwand: <br>
                             Geschätztes Volumen: <br>
-                            Anfahrt/Rückfahrt:
+                            An- oder Rückfahrt:
                         </td>
 
                         <td valign="top">
@@ -1643,7 +1643,7 @@
                         <td valign="top">
                             Transporttermin:<br>
                             @if ($transport['transportTime']) Arbeitsbeginn:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                         </td>
 
                         <td valign="top" >
@@ -1654,7 +1654,7 @@
                             @endif
                             <br>
                             @if ($transport['transportTime']) {{ $transport['transportTime'] }} <br> @endif
-                            
+
                             {{ $transport['arrivalReturn'] }} CHF <br>
                         </td>
 
@@ -1975,7 +1975,7 @@
                         <td colspan="4" style="padding-top:10px;"></td>
                     </tr>
 
-                    @if($material['discount']) 
+                    @if($material['discount'])
                         <tr>
                             <td>Reduktion:</td>
                             <td align="left" colspan="4">{{ $material['discount'] }} CHF</td>

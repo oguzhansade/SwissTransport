@@ -31,7 +31,7 @@ class indexController extends Controller
         $data = Customer::where('id',$customer)->first();
         return view('front.receipt.createReinigung2',['offer'=>$offer,'data'=>$data]);
     }
-    
+
     public function storeReinigung(Request $request)
     {
         $extraId = NULL;
@@ -113,9 +113,11 @@ class indexController extends Controller
             'withoutTax'=> $request->withoutTax,
             'freeTax'=> $request->freeTax,
             'inBar' => $request->payedCash,
+            'inTwint' => $request->inTwint,
             'inRechnung' => $request->payedBill,
             'cashPrice' => $request->payedCashCost,
             'invoicePrice' => $request->payedBillCost,
+            'twintPrice' => $request->twintPrice,
             'signerName' => $request->signatureName,
         ];
 
@@ -173,7 +175,7 @@ class indexController extends Controller
             {
                 Mail::to($emailData['email'])->send(new ReceiptReinigungMail($emailData));
                 $mailSuccess = ', E-Mail und Beleg erfolgreich versendet';
-            } 
+            }
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status','Reinigungsbeleg erfolgreich erstellt.'.' '.'Belegnummer:'.' '.$receiptReinigungId.$mailSuccess)
@@ -290,7 +292,7 @@ class indexController extends Controller
                     'discount3Text' => $request->addDiscount3Text,
                     'discount3' => $request->addDiscount3,
                 ];
-    
+
                 ReceiptDiscount::create($discount);
                 $discountIdBul = DB::table('receipt_discounts')->orderBy('id','DESC')->first();
                 $receiptDiscountId = $discountIdBul->id;
@@ -329,8 +331,10 @@ class indexController extends Controller
             'freeTax'=> $request->freeTax,
             'inBar' => $request->payedCash,
             'inRechnung' => $request->payedBill,
+            'inTwint' => $request->inTwint,
             'cashPrice' => $request->payedCashCost,
             'invoicePrice' => $request->payedBillCost,
+            'twintPrice' => $request->twintPrice,
             'signerName' => $request->signatureName,
         ];
 
@@ -385,7 +389,7 @@ class indexController extends Controller
             {
                 Mail::to($emailData['email'])->send(new ReceiptReinigungMail($emailData));
                 $mailSuccess = ', Mail ve Makbuz Başarıyla Gönderildi';
-            } 
+            }
             return redirect()->back()->with('status','Temizlik Makbuzu Başarıyla Düzenlendi.'.' '.'Makbuz NO:'.' '.$id.$mailSuccess);
             return redirect()
                 ->route('customer.detail', ['id' => $d['customerId']])

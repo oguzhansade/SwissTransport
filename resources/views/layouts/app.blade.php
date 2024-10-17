@@ -28,7 +28,9 @@
     <script data-pace-options='{ "ajax": false, "selectors": [ "img" ]}' src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/intlTelInput.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdn.tiny.cloud/1/ql3lhg7rtp9k9q9htlq8sid0vwf9f7etr31vvewajx4tnjlr/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
+
+    <script src="https://cdn.tiny.cloud/1/twsl2prz1qaco9e2st4j3e7uistmjc27ijwmb6kveo9twgk9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <style>
         /* Header Rengi */
@@ -88,6 +90,7 @@
         }
 
 
+        .note-btn-group .note-btn { color:black;}
 
         .btn-edit {
             background-color: #007BFF;
@@ -340,6 +343,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300,
+                lang: 'tr-TR', // Türkçe dil desteği için
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['black',]],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ]
+            });
+        });
+    </script>
     <script>
         function formLoading() {
 

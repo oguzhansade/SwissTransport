@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row p-3" style="background-color:#c3a7f5;">
+                                <div class="form-group row p-3 bg-service-primary">
                                     <div class="col-md-3">
                                         <b class="text-dark">Auftraggeber</b>
                                         <input class="form-control" name="customerGender"  type="text" @if ($data['gender'] == "male")
@@ -102,7 +102,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-md-7">
-                                        <b class="text-dark">Reinigungsart-Text</b>
+                                        <b class="text-dark">Reinigungsart-Text </b>
                                         <input class="form-control" name="reinigungType"  type="text"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'reinigungType') }}" @endif>
                                     </div>
@@ -110,49 +110,53 @@
                                         <b class="text-dark">Zusatztext (Bsp. Zimmer-Anzahl)</b>
                                         <?php
                                         $reiningungFixedTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariff');
-                                        if ($offer['offerteReinigungId'] && $reiningungFixedTariffId) {
+                                        $reinigungFixedPrice = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariffPrice');
+                                        if ($offer['offerteReinigungId'] && $reiningungFixedTariffId && $reinigungFixedPrice) {
                                             $reinigungZimmer = \App\Models\Tariff::InfoTariff($reiningungFixedTariffId);
                                             $reinigungZimmer2 = $reinigungZimmer ? explode('à', $reinigungZimmer)[0] : '';
                                         }
+                                        else {
+                                            $reinigungStandartTariffId = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'standartTariff');
+                                            $reinigungStandartPrice = \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'totalPrice');
+                                        }
 
                                         ?>
+
                                         <input class="form-control" name="reinigungExText"  type="text"
-                                        @if ($offer['offerteReinigungId'] && $reiningungFixedTariffId)
-                                        value="{{ $reinigungZimmer2 }}">
-                                        @endif
+                                        @if ($offer['offerteReinigungId'] && $reiningungFixedTariffId && $reinigungFixedPrice) value="{{ $reinigungZimmer2 }}" @else value="" @endif>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-md-12">
-                                        <b class="text-dark">Optional: Leistungen (für Teilreinigung oder Baureinigungsleistungen)</b>
+                                        <b class="text-dark"> Optional: Leistungen (für Teilreinigung oder Baureinigungsleistungen)</b>
                                         <input class="form-control" name="extraReinigung"  type="text"
                                         @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'extraReinigung') }}" @endif>
+                                        <small><i class="text-primary">Entweder Pauschaltarif ausfüllen oder Stundenansatz-Tarif. Falls Stundenansatz-Feld (Ansatz [CHF]) ausgefüllt ist, wird in PDF dieser angezeigt, ansonsten der Pauschaltarif:</i></small>
                                     </div>
                                 </div>
 
-                                <i class="text-primary">Entweder Pauschaltarif ausfüllen oder Stundenansatz-Tarif. Falls Stundenansatz-Feld (Ansatz [CHF]) ausgefüllt ist, wird in PDF dieser angezeigt, ansonsten der Pauschaltarif:</i>
+
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <b class="text-dark">Pauschaltarif</b>
-                                        <input class="form-control" name="reinigungFixedChf"  type="text"
-                                        @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariffPrice') }}" @endif>
+                                        <input class="form-control" name="reinigungFixedChf"  type="text" @if ($offer['offerteReinigungId']) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'fixedTariffPrice') }}" @endif>
                                     </div>
                                 </div>
 
-                                <i class="text-primary">oder:</i>
+
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <b class="text-dark">Dauer  [h]</b>
-                                        <input class="form-control" name="reinigungHour"  type="text">
+                                        <input class="form-control" name="reinigungHour"  type="text" @if ($reinigungFixedPrice == 0) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'hours') }}" @endif>
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Ansatz  [CHF]</b>
-                                        <input class="form-control" name="reinigungChf"  type="text">
+                                        <input class="form-control" name="reinigungChf"  type="text" @if ($reinigungFixedPrice == 0) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'chf') }}" @endif>
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Total  [CHF]</b>
-                                        <input class="form-control" name="reinigungCost"  type="text">
+                                        <input class="form-control" name="reinigungCost"  type="text" @if ($reinigungFixedPrice == 0) value="{{ \App\Models\OfferteReinigung::InfoReinigung($offer['offerteReinigungId'],'totalPrice') }}" @endif>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +296,7 @@
                             </div>
 
                             {{-- Maliyetler Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3 p-3 rounded" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3 p-3 rounded bg-service-primary" >
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <strong class="text-underline h5 text-dark "><b>Kosten</b></strong>
@@ -329,7 +333,7 @@
                             </div>
 
                             {{-- Ödeme Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3 p-3  rounded text-dark bg-service-primary" >
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <strong class="text-underline h5 text-dark "><b>Zahlung</b></strong>
@@ -337,7 +341,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedCash"  value="1"> <span class="label-text text-dark"><strong> In Bar</strong></span>
@@ -345,7 +349,7 @@
                                         </div>
                                         <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedBill"  value="1"> <span class="label-text text-dark"><strong>In Rechnung</strong></span>
@@ -353,11 +357,21 @@
                                         </div>
                                         <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text">
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-rounded checkbox-primary " >
+                                            <label class="">
+                                                <input type="checkbox" name="inTwint"  value="1"> <span class="label-text text-dark"><strong>In Twint</strong></span>
+                                            </label>
+                                        </div>
+                                        <input class="form-control" name="twintPrice" placeholder="CHF [Betrag]"  type="text">
+                                    </div>
+
                                 </div>
                             </div>
 
                             {{-- İmza Alanı --}}
-                            <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark" style="background-color: #c3a7f5;">
+                            <div id="maliyetAlanı" class="mt-3  pt-3 pb-2 px-2  rounded text-dark bg-service-primary" >
                                 <div class="form-group row d-flex justify-content-right">
                                     <div class="col-md-5">
                                         <strong class=" h5 text-dark "><b>Kundenname für Unterschriftsfeld</b></strong>
@@ -416,12 +430,35 @@
 @section('footer')
 {{-- Hesaplamalar --}}
 <script>
+    function updateReinigungExText() {
+    // Mevcut metni al ve 'Zimmer' kelimesinden öncesini al
+        let currentText = $('input[name=reinigungExText]').val();
+        if(currentText)
+        {
+            let Zusatztext = currentText.split('Zimmer')[0];
+
+            let Pauschaltarif = parseFloat($('input[name=reinigungFixedChf]').val());
+            let reinigungCost = parseFloat($('input[name=reinigungCost]').val());
+
+            let fullText;
+            if (Pauschaltarif > 0) {
+                fullText = Zusatztext + 'Zimmer CHF ' + Pauschaltarif;
+            } else {
+                fullText = Zusatztext + 'Zimmer CHF ' + reinigungCost;
+            }
+        }
+
+        $('input[name=reinigungExText]').val(fullText);
+    }
+
     $(document).ready(function(){
         calc()
+        updateReinigungExText();
     })
 
     $("body").on("change",".makbuz-alanı",function () {
         calc()
+        updateReinigungExText();
     })
 
     function calc(){

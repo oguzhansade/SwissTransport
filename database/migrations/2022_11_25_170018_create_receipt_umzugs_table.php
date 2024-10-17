@@ -54,12 +54,15 @@ return new class extends Migration
             $table->integer('freeTax')->nullable();
             $table->integer('inBar')->nullable();
             $table->integer('inRechnung')->nullable();
+            $table->integer('inTwint')->nullable();
             $table->float('cashPrice')->nullable();
             $table->float('invoicePrice')->nullable();
-            $table->float('expensePrice',8,2)->nullable();
+            $table->float('twintPrice')->nullable();
+            $table->float('expensePrice')->nullable();
             $table->string('signerName')->nullable();
             $table->longText('signature')->nullable();
             $table->integer('docTaken')->default(0);
+            $table->integer('bexioId')->nullable();
             $table->timestamps();
         });
     }

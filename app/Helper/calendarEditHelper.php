@@ -15,6 +15,7 @@ class calendarEditHelper
     {
 
         if ($eventId) {
+
             $event = Event::find($eventId);
             if ($serviceName == 'Lieferung') {
                 $event->update(
@@ -75,6 +76,6 @@ class calendarEditHelper
             calendarHelper::companyMail($serviceName, $date, $location, $title, $comment, $endDate, $serviceId,$colorId);
         }
     }
-        
+
     }
 

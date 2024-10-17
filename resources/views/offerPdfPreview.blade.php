@@ -122,11 +122,11 @@
         }
 
         .text-primary {
-            color: #CE0000 !important;
+            color: #C7B172 !important;
         }
 
         .custom-heading-bar {
-            background-color: #D10D0C;
+            background-color: #C7B172;
             padding: 3px;
             color: white;
             border-radius: 0px 120px 120px 0px;
@@ -176,7 +176,7 @@
                 <tr style="width:100%;">
                     <td class="pt-3" colspan="2">
                         {{-- Müşteri Bilgileri --}}
-                        <span style="color:#D10D0C;font-size:9px;">Auftraggeber:</span><br>
+                        <span style="color:#C7B172;font-size:9px;">Auftraggeber:</span><br>
                         @if ($customer['companyName'])
                             {{ $customer['companyName'] }} <br>
                         @endif
@@ -192,7 +192,7 @@
                     </td>
                     <td class="pt-3" valign="top" align="right" colspan="2">
                         @if ($offer['contactPerson'])
-                            <span style="color:#D10D0C;font-size:9px;">Ihr Kundenberater:</span><br>
+                            <span style="color:#C7B172;font-size:9px;">Ihr Kundenberater:</span><br>
                             @if ($offer['contactPerson'] == 'Bitte wählen')
                             {{ \App\Models\Company::InfoCompany('name') }} Team
                             @else
@@ -216,7 +216,7 @@
                 </tr>
                 <tr style="width:100%;">
                     <td colspan="2" class="py-1 ">
-                        <b style="font-size:15px;color:#D10D0C;">Offerte Nr: 1
+                        <b style="font-size:15px;color:#C7B172;">Offerte Nr: 1
                         </b>
                     </td>
                     <td colspan="2" align="right">
@@ -237,7 +237,7 @@
                 </tr>
 
                 {{-- Umzug Alanı --}}
-                @if ($isUmzug)
+
                     {{-- Aus ve Einler --}}
                     <tr style="width:100%;">
                         <td colspan="2" class=" custom-heading-bar">
@@ -265,7 +265,7 @@
                                 @endif <br>
                                 @if ($auszug1['postCode'])
                                     CH - {{ $auszug1['postCode'] }}
-                                    @endif 
+                                    @endif
                                     @if ($auszug1['city'])
                                         {{ $auszug1['city'] }} / {{ $auszug1['country'] }}
                                     @endif <br>
@@ -440,7 +440,7 @@
                     <tr style="width:100%;">
                         <td colspan="4" style="padding-top:15px;"></td>
                     </tr>
-
+                @if ($isUmzug)
                     <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Umzug</b>
@@ -467,7 +467,7 @@
                             Umzugstermin:<br>
                             @if ($umzug['moveTime']) <span>Arbeitsbeginn:</span><br> @endif
                             @if ($umzug['moveDate2']) Einzugstermin:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                             @if ($umzug['montage'] == 2 || $umzug['montage'] == 3) De- und Montage: @endif
                         </td>
 
@@ -477,18 +477,18 @@
                             @else
                                 -<br>
                             @endif
-                            
+
                             @if ($umzug['moveTime']) {{ $umzug['moveTime'] }}<br> @endif
-                            
+
                             @if ($umzug['moveDate2']) {{ date('d/m/Y', strtotime($umzug['moveDate2'])) }}<br> @endif
-                            
+
                             {{ $umzug['arrivalReturn'] }} CHF<br>
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
                             {{ \App\Models\Company::InfoCompany('name') }}
                             @else
-                                
+
                             @endif
                         </td>
                         <td valign="top" colspan="3" >
@@ -632,19 +632,55 @@
                 @if ($umzug['fixedPrice'])
                     <tr>
                         <td align="left" valign="top">Pauschal:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
+                        <td><span style="color:#C7B172;"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
                     </tr>
                     @else
+                    {{-- Kampanya Varsa --}}
+                    @if ($umzug['defaultPrice'] && $offer['isCampaign'] == 'on')
+                        @php
+                            // 1. Değeri alın ve explode fonksiyonunu kullanarak ayırın
+                            $prices = explode('-', $umzug['defaultPrice']);
+
+                            // 2. Ayrılmış değerleri sayısal değerlere çevirin ve işlemleri yapın
+                            if (count($prices) == 1) {
+                                // Tek fiyat durumu
+                                $lowerPrice = (int) $prices[0];
+                                $upperPrice = null;
+
+                                $calcLower = $lowerPrice * 1.25;
+                                $beforeCampaign = $calcLower;
+                            } else {
+                                // Fiyat aralığı durumu
+                                $lowerPrice = (int) $prices[0];
+                                $upperPrice = (int) $prices[1];
+
+                                $calcLower = $lowerPrice * 1.25;
+                                $calcUpper = $upperPrice * 1.25;
+
+                                $beforeCampaign = $calcLower . ' - ' . $calcUpper;
+                            }
+                        @endphp
+
+                        <tr>
+                            <td align="left" valign="top">Ungefähre Kosten ohne Kampagne:</td>
+                            <td><span class="text-primary"><b>{{ $beforeCampaign }} CHF</b></span></td>
+                        </tr>
+
+                        <tr>
+                            <td align="left" valign="top">Campaign Rabatt:</td>
+                            <td><span class="text-primary"><b>%20</b></span></td>
+                        </tr>
+                    @endif
                     <tr>
                         <td align="left" valign="top">Geschätzte Kosten:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
+                        <td><span style="color:#C7B172;"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
                 @if ($umzug['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
+                        <td><span style="color:#C7B172;"><b>{{ $umzug['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -713,7 +749,7 @@
                             <td valign="top" >
                                 Packtermin:<br>
                                 @if ($einpack['einpackTime']) Arbeitsbeginn <br> @endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -724,11 +760,11 @@
                                 @endif
                                 <br>
                                 @if ($einpack['einpackTime']) {{ $einpack['einpackTime'] }} <br>@endif
-                                
+
                                 {{ $einpack['arrivalReturn'] }} CHF<br>
                             </td>
 
-                            <td valign="top" colspan="2" > 
+                            <td valign="top" colspan="2" >
                                 <table border="0" >
                                     <tr style="width:100%;">
                                         <td valign="top">Geschätzter Aufwand: </td>
@@ -814,19 +850,19 @@
                 @if($einpack['fixedPrice'])
                 <tr>
                     <td align="left" valign="top">Pauschal:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $einpack['fixedPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $einpack['fixedPrice'] }} CHF</b></span></td>
                 </tr>
                 @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $einpack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
                 @endif
 
                 @if ($einpack['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
+                        <td><span style="color:#C7B172;"><b>{{ $einpack['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -882,7 +918,7 @@
                             <td valign="top">
                                 Packtermin:<br>
                                 @if ($auspack['auspackTime']) Arbeitsbeginn:<br>@endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -980,19 +1016,19 @@
                 @if($auspack['fixedPrice'])
                 <tr>
                     <td align="left" valign="top">Pauschal:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $auspack['fixedPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $auspack['fixedPrice'] }} CHF</b></span></td>
                 </tr>
                 @else
                 <tr>
                     <td align="left" valign="top">Geschätzte Kosten:</td>
-                    <td><span style="color:#D10D0C;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $auspack['defaultPrice'] }} CHF</b></span></td>
                 </tr>
                 @endif
-                
+
                 @if ($auspack['topCost'] != null)
                     <tr>
                         <td align="left" valign="top">Kostendach:</td>
-                        <td><span style="color:#D10D0C;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
+                        <td><span style="color:#C7B172;"><b>{{ $auspack['topCost'] }} CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -1092,17 +1128,17 @@
                             @endif
                             <br>
                             @if ($reinigung['startTime']) {{ $reinigung['startTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['endDate']) {{ date('d/m/Y', strtotime($reinigung['endDate'])) }}<br> @endif
-                            
+
                             @if ($reinigung['endTime']) {{ $reinigung['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['extraService1'] == 1)
                                 Ja
                             @else
                                 Nein
                             @endif
-                           
+
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">
@@ -1186,7 +1222,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#C7B172;"><b>{{ $reinigung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1285,13 +1321,13 @@
                             @if ($reinigung2['startTime']) {{ $reinigung2['startTime'] }} <br>@endif
                             @if ($reinigung2['endDate']) {{ date('d/m/Y', strtotime($reinigung2['endDate'])) }}<br>@endif
                             @if ($reinigung2['endTime']) {{ $reinigung2['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung2['extraService1'] == 1)
                                 Ja
                             @else
                                 Nein
                             @endif
-                           
+
                         </td>
                         <td valign="top" colspan="2">
                             <table border="0">
@@ -1375,7 +1411,7 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#C7B172;"><b>{{ $reinigung2['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1457,7 +1493,7 @@
                             @if ($entsorgung['entsorgungDate']) Entsorgungstermin:<br>@endif
                             @if ($entsorgung['hour']) Geschätzter Aufwand: <br>@endif
                             @if ($entsorgung['m3']) Geschätztes Volumen: <br>@endif
-                            @if ($entsorgung['arrivalReturn'])Anfahrt/Rückfahrt:@endif
+                            @if ($entsorgung['arrivalReturn'])An- oder Rückfahrt:@endif
                         </td>
 
                         <td valign="top">
@@ -1537,14 +1573,14 @@
             @if($entsorgung['defaultPrice'])
                 <tr>
                     <td align="left" valign="top"> Kosten: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $entsorgung['defaultPrice'] }} CHF</b></span></td>
                 </tr>
             @endif
 
             @if($entsorgung['fixedPrice'])
                 <tr>
                     <td align="left" valign="top"> Pauschal: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $entsorgung['fixedPrice'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1622,7 +1658,7 @@
                         <td valign="top">
                             Transporttermin:<br>
                             @if ($transport['transportTime']) Arbeitsbeginn:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                         </td>
 
                         <td valign="top" >
@@ -1633,7 +1669,7 @@
                             @endif
                             <br>
                             @if ($transport['transportTime']) {{ $transport['transportTime'] }} <br> @endif
-                            
+
                             {{ $transport['arrivalReturn'] }} CHF <br>
                         </td>
 
@@ -1747,13 +1783,13 @@
                         Geschätzte Kosten:
                     @endif
                 </td>
-                <td><span style="color:#D10D0C;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
+                <td><span style="color:#C7B172;"><b>{{ $transport['defaultPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($transport['topCost'] != null)
                 <tr>
                     <td align="left" valign="top"> Kostendach: </td>
-                    <td><span style="color:#D10D0C;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
+                    <td><span style="color:#C7B172;"><b>{{ $transport['topCost'] }} CHF</b></span></td>
                 </tr>
             @endif
 
@@ -1863,12 +1899,12 @@
 
             <tr>
                 <td align="left" valign="top"> Kosten: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
+                <td><span style="color:#C7B172;"><b>{{ $lagerung['totalPrice'] }} CHF</b></span></td>
             </tr>
 
             <tr>
                 <td align="left" valign="top"> Pauschal: </td>
-                <td><span style="color:#D10D0C;"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
+                <td><span style="color:#C7B172;"><b>{{ $lagerung['fixedPrice'] }} CHF</b></span></td>
             </tr>
 
             @if ($offer['kostenExkl'])
@@ -1954,7 +1990,7 @@
                         <td colspan="4" style="padding-top:10px;"></td>
                     </tr>
 
-                    @if($material['discount']) 
+                    @if($material['discount'])
                         <tr>
                             <td>Reduktion:</td>
                             <td align="left" colspan="4">{{ $material['discount'] }} CHF</td>
@@ -1973,7 +2009,7 @@
                     <tr>
                         <td style="font-weight: bold;">Total:</td>
                         <td align="left" colspan="4"><span
-                                style="color:#D10D0C;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
+                                style="color:#C7B172;font-weight: bold;">{{ $material['totalPrice'] }} CHF</span>
                         </td>
                     </tr>
 
@@ -2019,7 +2055,7 @@
 
                     <tr style="width:100%;">
                         <td colspan="4" align="left" style="padding-top:5px;">
-                            <?php 
+                            <?php
                                 echo $offer['offerteNote'];
                             ?>
                         </td>

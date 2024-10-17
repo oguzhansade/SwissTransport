@@ -621,33 +621,39 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="form-group row taxArea">
                                     <div class="col-md-12">
                                         <b class="text-dark">Total  [CHF]</b>
                                         <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text" value="{{ $data['totalPrice'] }}">
+                                        <label for="">Mwst [CHF]:</label>
+                                        <small class="text-primary"><b id="taxValue"></b></small> <br>
+                                        <label for="">Total Inkl. [CHF]:</label>
+                                        <small class="text-primary"><b id="totalWithTax"></b></small>
                                     </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary " >
-                                            <label class="">
-                                                <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif>
-                                                <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
-                                            </label>
+                                    <div class="taxType">
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary " >
+                                                <label class="">
+                                                    <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif>
+                                                    <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary">
-                                            <label class="">
-                                                <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif>
-                                                <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
-                                            </label>
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary">
+                                                <label class="">
+                                                    <input type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif>
+                                                    <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary">
-                                            <label class="">
-                                                <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif>
-                                                <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
-                                            </label>
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary">
+                                                <label class="">
+                                                    <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif>
+                                                    <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -662,23 +668,32 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedCash"  value="1" @if($data['cashPrice']) checked @endif>
+                                                <input type="checkbox" name="payedCash"  value="1" @if($data['inBar']) checked @endif>
                                                 <span class="label-text text-dark"><strong>In Bar</strong></span>
                                             </label>
                                         </div>
                                         <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['cashPrice'] }}">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
-                                                <input type="checkbox" name="payedBill"  value="1" @if($data['invoicePrice']) checked @endif>
+                                                <input type="checkbox" name="payedBill"  value="1" @if($data['inRechnung']) checked @endif>
                                                 <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                             </label>
                                         </div>
                                         <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text" value="{{ $data['invoicePrice'] }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-rounded checkbox-primary " >
+                                            <label class="">
+                                                <input type="checkbox" name="inTwint"  value="1" @if($data['inTwint']) checked @endif>
+                                                <span class="label-text text-dark"><strong>In Twint</strong></span>
+                                            </label>
+                                        </div>
+                                        <input class="form-control" name="twintPrice" placeholder="CHF [Betrag]"  type="text" value="{{ $data['twintPrice'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -800,6 +815,19 @@
 @section('footer')
 {{-- İmza İşemleri --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        let totalCHF = $("input[name=totalCost]").val();
+        let taxValue = totalCHF*(8.1/100);
+        taxValue = taxValue.toFixed(2);
+        $('#taxValue').text(taxValue);
+
+
+        let totalWithTax = parseFloat(totalCHF) + parseFloat(taxValue);
+        $('#totalWithTax').text(totalWithTax);
+    })
+</script>
 <script>
     var canvas = document.getElementById('signature-pad');
     var signaturePad = new SignaturePad(canvas);
@@ -863,124 +891,6 @@
 <script>
     $(document).ready(function(){
         $("#receiptForm :input").prop("disabled", true);
-        calc()
-    })
-
-    $("body").on("change",".makbuz-alanı",function () {
-        calc()
-    })
-
-    function calc(){
-
-            let umzugHour = parseFloat($("input[name=umzugHour]").val());
-            let umzugChf = parseFloat($("input[name=umzugChf]").val());
-            let umzugCost = 0;
-            if(umzugHour && umzugChf)
-            {
-                umzugCost = umzugHour*umzugChf;
-                umzugCost = umzugCost.toFixed(2);
-                $("input[name=umzugCost]").val(umzugCost);
-            }
-            else{
-                $("input[name=umzugCost]").val('');
-            }
-            let entsorgungVolume = parseFloat($("input[name=entsorgungVolume]").val());
-            let entsorgungRate = parseFloat($("input[name=entsorgungRate]").val());
-            let entsorgungCost =0;
-            if(entsorgungVolume && entsorgungRate)
-            {
-                entsorgungCost=entsorgungVolume*entsorgungRate;
-                entsorgungCost = entsorgungCost.toFixed(2);
-                $("input[name=entsorgungCost]").val(entsorgungCost);
-            }
-            else{
-                $("input[name=entsorgungCost]").val('');
-            }
-            let umzugSpesenCost =  $("input[name=umzugSpesenCost]").val() ? parseFloat($("input[name=umzugSpesenCost]").val()) : 0 ;
-            let umzugRoadChf = $("input[name=umzugRoadChf]").val() ? parseFloat($("input[name=umzugRoadChf]").val()) : 0 ;
-            let umzugPackCost = $("input[name=umzugPackCost]").val() ? parseFloat($("input[name=umzugPackCost]").val()) : 0 ;
-            let entsorgungFixed = $("input[name=entsorgungFixed]").val() ? parseFloat($("input[name=entsorgungFixed]").val()) : 0 ;
-            let ekler= 0;
-            let kesintiler = 0;
-
-            $(".ek").each(function() {
-                if($(this).val())
-                {
-                    ekler = parseFloat(ekler) + parseFloat($(this).val());
-                }
-            });
-            $(".ekc").each(function() {
-                if($(this).val())
-                {
-                    kesintiler = parseFloat(kesintiler) + parseFloat($(this).val());
-                }
-            });
-            let costFix = parseFloat($("input[name=costFix]").val());
-            let costHigh = parseFloat($("input[name=costHigh]").val());
-            totalCost = 0;
-
-            if(costHigh)
-            {
-                costHigh=costHigh.toFixed(2);
-                $("input[name=totalCost]").val(costHigh);
-            }
-
-            else if(costFix)
-            {
-                costFix = costFix.toFixed(2);
-                $("input[name=totalCost]").val(costFix);
-            }
-            else{
-
-                if($("input[name=umzugCost]").val())
-                {
-                    umzugCost = parseFloat($("input[name=umzugCost]").val());
-                }
-                else{
-                    umzugCost = 0;
-                }
-                if($("input[name=entsorgungCost]").val())
-                {
-                    entsorgungCost = parseFloat($("input[name=entsorgungCost]").val());
-                }
-                else {
-                    entsorgungCost = 0;
-                }
-
-
-                totalCost = umzugCost + umzugSpesenCost + umzugRoadChf + umzugPackCost + entsorgungCost + entsorgungFixed + ekler - kesintiler;
-                totalCost = totalCost.toFixed(2);
-                $("input[name=totalCost]").val(totalCost);
-            }
-    }
-</script>
-
-<script>
-    var morebutton = $("div.email-send");
-    morebutton.click(function() {
-        if ($(this).hasClass("checkbox-checked"))
-        {
-            $(".email--area").show(700);
-        }
-        else {
-            $(".email--area").hide(500);
-        }
     })
 </script>
-
-<script>
-    var emailFormatbutton = $("div.email-format");
-    emailFormatbutton.click(function() {
-    if ($(this).hasClass("checkbox-checked"))
-    {
-        $(".email--format").show(700);
-    }
-    else {
-        $(".email--format").hide(500);
-    }
-    })
-</script>
-
-
-
 @endsection

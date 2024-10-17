@@ -54,6 +54,8 @@
         .pagenum:before {
             content: counter(page);
         }
+
+
     </style>
 
     <style>
@@ -122,7 +124,7 @@
         }
 
         .text-primary {
-            color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }} !important;
+            /* color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }} !important; */
         }
 
         .custom-heading-bar {
@@ -130,6 +132,23 @@
             color: white;
             border-radius: 0px 120px 120px 0px;
             background-color: {{ App\Models\Company::InfoCompany('pdfPrimaryColor') }};
+        }
+
+
+        .strikethrough {
+            position: relative;
+            display: inline-block;
+        }
+
+        .strikethrough .line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%; /* Metnin ortasına yerleştirmek için */
+            height: 2px; /* Çizginin kalınlığı */
+            background: black; /* Çizginin rengi */
+            transform: rotate(-10deg); /* Çizgiye açı verme */
+            transform-origin: left; /* Dönüş noktasını soldan ayarlama */
         }
     </style>
 
@@ -191,7 +210,7 @@
                         {{ $customer['email'] }}
                     </td>
                     <td class="pt-3" valign="top" align="right" colspan="2">
-                       
+
                         <span class="text-primary" style="font-size:9px;">Ihr Kundenberater:</span><br>
                         @if ($offer['contactPerson'] == 'Bitte wählen' || $offer['contactPerson'] == 'Swiss Transport Team' || $offer['contactPerson'] == 0 || $offer['contactPerson'] == NULL)
                         {{ App\Models\Company::InfoCompany('name') }} Team
@@ -200,7 +219,7 @@
                         @endif <br>
                         {{ App\Models\Company::InfoCompany('email') }} <br>
                         {{ App\Models\Company::InfoCompany('phone') }}
-                        
+
 
                     </td>
                 </tr>
@@ -237,7 +256,7 @@
                 </tr>
 
                 {{-- Umzug Alanı --}}
-                @if ($isUmzug)
+
                     {{-- Aus ve Einler --}}
                     <tr style="width:100%;">
                         <td colspan="2" class=" custom-heading-bar">
@@ -440,6 +459,7 @@
                         <td colspan="4" style="padding-top:15px;"></td>
                     </tr>
 
+                @if ($isUmzug)
                     <tr style="width:100%;">
                         <td colspan="4" class="custom-heading-bar">
                             <b style="font-size:13px;">Umzug</b>
@@ -452,8 +472,27 @@
                         <td colspan="3" style="padding-top:5px;">{{ $umzug['ma'] }} Umzugsmitarbeiter mit
                             {{ $umzug['lkw'] }} Lieferwagen @if ($umzug['anhanger'])
                                 und {{ $umzug['anhanger'] }} Anhänger
-                            @endif à CHF {{ $umzug['chf'] }}.-/Stunde </td>
+                            @endif à CHF
+
+
+                            @if($offer['isCampaign'])
+                                @php
+                                    $asilFiyat = $umzug['chf'];
+                                    $indirimYuzdesi = $offer['isCampaign'];
+                                    $fakeFiyat = $asilFiyat / (1-$indirimYuzdesi/100);
+                                    $fakeFiyat = floor($fakeFiyat);
+                                @endphp
+                            <span style="text-decoration: line-through;color:red;">{{ $fakeFiyat }} </span>
+                            <strong class="text-primary "> {{ $umzug['chf'] }}</strong>
+                            @else
+                            {{ $umzug['chf'] }}
+                            @endif
+                            .-/Stunde
+                        </td>
                     </tr>
+
+
+
 
                     {{-- Boşluk Bırakma --}}
                     <tr style="width:100%;">
@@ -466,7 +505,7 @@
                             Umzugstermin:<br>
                             @if ($umzug['moveTime']) <span>Arbeitsbeginn:</span><br> @endif
                             @if ($umzug['moveDate2']) Einzugstermin:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                             @if ($umzug['montage'] == 2 || $umzug['montage'] == 3) De- und Montage: @endif
                         </td>
 
@@ -476,18 +515,18 @@
                             @else
                                 -<br>
                             @endif
-                            
+
                             @if ($umzug['moveTime']) {{ $umzug['moveTime'] }}<br> @endif
-                            
+
                             @if ($umzug['moveDate2']) {{ date('d/m/Y', strtotime($umzug['moveDate2'])) }}<br> @endif
-                            
+
                             {{ $umzug['arrivalReturn'] }} CHF<br>
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
                             {{ App\Models\Company::InfoCompany('name') }}
                             @else
-                                
+
                             @endif
                         </td>
                         <td valign="top" colspan="3" >
@@ -628,17 +667,67 @@
                     </tr>
                 @endif
 
-                
+
 
                 @if ($umzug['fixedPrice'])
-                    <tr>
-                        <td align="left" valign="top">Pauschal:</td>
-                        <td><span class="text-primary"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
-                    </tr>
+                        <tr>
+                            <td align="left" valign="top">Pauschal:</td>
+                            <td><span class="text-primary"><b>{{ $umzug['fixedPrice'] }} CHF</b></span></td>
+                        </tr>
                     @else
+
+                    {{-- Kampanya Varsa --}}
+
+                    {{-- @if ($umzug['defaultPrice'] && $offer['isCampaign'])
+                        @php
+                            $discountRate = null;
+                            // 1. Değeri alın ve explode fonksiyonunu kullanarak ayırın
+                            $prices = explode('-', $umzug['defaultPrice']);
+
+                            // 2. Ayrılmış değerleri sayısal değerlere çevirin ve işlemleri yapın
+                            if (count($prices) == 1) {
+                                // Tek fiyat durumu
+                                $lowerPrice = (int) $prices[0];
+                                $upperPrice = null;
+                                $campaignValue = $offer['isCampaign']; // Kampanya yüzdesi, örneğin 20 (yani %20 indirim)
+                                $discountRate = $campaignValue / 100; // İndirimi yüzdelik oranına çevir
+
+                                $calcLower = $lowerPrice * $discountRate;
+                                $beforeCampaign = $calcLower;
+                            } else {
+                                // Fiyat aralığı durumu
+                                $lowerPrice = (int) $prices[0];
+                                $upperPrice = (int) $prices[1];
+
+                                $calcLower = $lowerPrice * $discountRate;
+                                $calcUpper = $upperPrice *  $discountRate;
+
+                                $beforeCampaign = $calcLower . ' - ' . $calcUpper;
+                            }
+                        @endphp
+
+                        <tr>
+                            <td align="left" valign="top">Ungefähre Kosten ohne Kampagne:</td>
+                            <td><span class="text-primary"><b>{{ $beforeCampaign }} CHF</b></span></td>
+                        </tr>
+
+                        <tr>
+                            <td align="left" valign="top">Campaign Rabatt:</td>
+                            <td><span class="text-primary"><b>{{ $offer['isCampaign'] }}</b></span></td>
+                        </tr>
+                    @endif --}}
+
+                        @if($offer['isCampaign'])
+                            <tr>
+                                <td align="left" valign="top" class="campaign-rabatt">Rabatt:</td>
+                                <td><span class="text-primary"><b>%{{ $offer['isCampaign'] }} </b></span></td>
+                            </tr>
+                        @endif
+
+
                     <tr>
                         <td align="left" valign="top">Geschätzte Kosten:</td>
-                        <td><span class="text-primary"><b>{{ $umzug['defaultPrice'] }} CHF</b></span></td>
+                        <td><span class="text-primary"><b>{{ $umzug['defaultPrice'] }}  CHF</b></span></td>
                     </tr>
                 @endif
 
@@ -715,7 +804,7 @@
                             <td valign="top" >
                                 Packtermin:<br>
                                 @if ($einpack['einpackTime']) Arbeitsbeginn <br> @endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -726,11 +815,11 @@
                                 @endif
                                 <br>
                                 @if ($einpack['einpackTime']) {{ $einpack['einpackTime'] }} <br>@endif
-                                
+
                                 {{ $einpack['arrivalReturn'] }} CHF<br>
                             </td>
 
-                            <td valign="top" colspan="2" > 
+                            <td valign="top" colspan="2" >
                                 <table border="0" >
                                     <tr style="width:100%;">
                                         <td valign="top">Geschätzter Aufwand: </td>
@@ -884,7 +973,7 @@
                             <td valign="top">
                                 Packtermin:<br>
                                 @if ($auspack['auspackTime']) Arbeitsbeginn:<br>@endif
-                                Anfahrt/Rückfahrt<br>
+                                An- oder Rückfahrt<br>
                             </td>
 
                             <td valign="top" >
@@ -1094,11 +1183,11 @@
                             @endif
                             <br>
                             @if ($reinigung['startTime']) {{ $reinigung['startTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['endDate']) {{ date('d/m/Y', strtotime($reinigung['endDate'])) }}<br> @endif
-                            
+
                             @if ($reinigung['endTime']) {{ $reinigung['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung['extraService1'] == 1)
                                 Ja
                             @else
@@ -1287,7 +1376,7 @@
                             @if ($reinigung2['startTime']) {{ $reinigung2['startTime'] }} <br>@endif
                             @if ($reinigung2['endDate']) {{ date('d/m/Y', strtotime($reinigung2['endDate'])) }}<br>@endif
                             @if ($reinigung2['endTime']) {{ $reinigung2['endTime'] }} <br> @endif
-                            
+
                             @if ($reinigung2['extraService1'] == 1)
                                 Ja
                             @else
@@ -1459,7 +1548,7 @@
                             @if ($entsorgung['entsorgungDate']) Entsorgungstermin:<br>@endif
                             @if ($entsorgung['hour']) Geschätzter Aufwand: <br>@endif
                             @if ($entsorgung['m3']) Geschätztes Volumen: <br>@endif
-                            @if ($entsorgung['arrivalReturn'])Anfahrt/Rückfahrt:@endif
+                            @if ($entsorgung['arrivalReturn'])An- oder Rückfahrt:@endif
                         </td>
 
                         <td valign="top">
@@ -1624,7 +1713,7 @@
                         <td valign="top">
                             Transporttermin:<br>
                             @if ($transport['transportTime']) Arbeitsbeginn:<br>@endif
-                            Anfahrt/Rückfahrt:<br>
+                            An- oder Rückfahrt:<br>
                         </td>
 
                         <td valign="top" >
@@ -1635,7 +1724,7 @@
                             @endif
                             <br>
                             @if ($transport['transportTime']) {{ $transport['transportTime'] }} <br> @endif
-                            
+
                             {{ $transport['arrivalReturn'] }} CHF <br>
                         </td>
 
@@ -1956,7 +2045,7 @@
                         <td colspan="4" style="padding-top:10px;"></td>
                     </tr>
 
-                    @if($material['discount']) 
+                    @if($material['discount'])
                         <tr>
                             <td>Reduktion:</td>
                             <td align="left" colspan="4">{{ $material['discount'] }} CHF</td>
@@ -2020,7 +2109,7 @@
 
                     <tr style="width:100%;">
                         <td colspan="4" align="left"  style="padding-top:5px;">
-                            <?php 
+                            <?php
                                 echo $offer['offerteNote'];
                             ?>
                         </td>

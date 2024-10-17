@@ -39,9 +39,11 @@ class ReceiptReinigung extends Model
         'withoutTax',
         'freeTax',
         'inBar',
+        'inTwint',
         'inRechnung',
         'cashPrice',
         'invoicePrice',
+        'twintPrice',
         'signerName',
         'signature',
         'docTaken'

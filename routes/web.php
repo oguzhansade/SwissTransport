@@ -273,6 +273,10 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::post('/bexioStoreCustomer/{customerId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioStoreCustomer'])->name('bexioStoreCustomer');
         Route::get('/bexioCreateInvoice/{customerId}/{receiptId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioCreateInvoice'])->name('bexioCreateInvoice');
         Route::get('/bexioSendInvoice/{customerId}/{receiptId}/{invoiceId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioSendInvoice'])->name('bexioSendInvoice');
+        Route::get('/bexioKbPosition/{customerId}/{receiptId}/{invoiceId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioKbPosition'])->name('bexioKbPosition');
+        Route::get('/bexioNotification', [App\Http\Controllers\front\bexio\indexController::class, 'bexioNotification'])->name('bexioNotification');
+        Route::get('/bexioShowPdf/{invoiceId}', [App\Http\Controllers\front\bexio\indexController::class, 'bexioShowPdf'])->name('bexioShowPdf');
+        Route::get('/emptyBexioId/{id}', [App\Http\Controllers\front\bexio\indexController::class, 'emptyBexioId'])->name('emptyBexioId');
     });
 
     Route::group(['namespace' => 'receiptReinigung', 'as' => 'receiptReinigung.', 'prefix' => 'receiptReinigung','middleware' => ['PermissionControl']], function () {

@@ -69,9 +69,12 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="" class="col-form-label">Besichtigung</label><br>
+                                <input id="termineCount" type="hidden" value="{{ $termineCount }}">
                                 <select class="form-control" name="appOfferType" id="appOfferType">
                                     <option value="0" selected>Nein</option>
                                     <option value="1">Gemacht</option>
+                                    <option value="2">Reinigung Nein </option>
+                                    <option value="3">Reinigung Gemacht </option>
                                 </select>
                             </div>
                         </div>
@@ -80,7 +83,6 @@
                             {{-- Offerte Umzug  Alanı --}}
                             @include('front.offer.offerUmzug')
                             {{-- Offerte Umzug Alanı --}}
-
 
 
                             {{-- Offerte Umzug 2 Alanı --}}
@@ -179,14 +181,14 @@
                         <div class="form-group row">
                             <div class="col-md-12 ">
                                 <label for="" class="col-form-label">Bemerkung (in Offerte)</label><br>
-                                <textarea class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5"></textarea>
+                                <textarea class="form-control pdfNoteOfferte " name="offertePdfNote" id="" cols="15" rows="5"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-12 ">
                                 <label for="" class="col-form-label">Notiz (<u>nicht</u> in Offerte)</label><br>
-                                <textarea class="form-control" name="offerteNote" id="" cols="15" rows="5"></textarea>
+                                <textarea class="form-control  text-dark" name="offerteNote" id="" cols="15" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -278,6 +280,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="mobile-area" style="display:none;">
                             <div class="form-group row">
                                 <div class="col-md-12">
@@ -301,9 +305,27 @@
                                     <small class="text-primary"><i>Max Characters:190</i></small>
                                 </div>
                             </div>
+
                         </div>
 
 
+                        <div class="form-group row">
+                            <div class="col-md-12 campaing">
+                                <label for="" class="col-form-label">Kampanya (UMZUG)</label><br>
+                                <input type="checkbox" name="isCampaign" id="isCampaign" class="js-switch isCampaign" data-color="#286090" data-switchery="false" >
+                            </div>
+                        </div>
+
+                        <div class="row form-group campaign-value-area" style="display: none;">
+                            <div class="col-md-3 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon bg-primary">
+                                      %
+                                    </div>
+                                    <input type="number" name="campaignValue" class="form-control"  placeholder="0" value="20">
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-actions">
                             <div class="form-group row mt-3">
@@ -337,6 +359,19 @@
     });
 </script>
 <script>
+
+    let serviceCheckboxes = ['#isUmzug', '#isEinpack', '#isAuspack', '#isReinigung', '#isReinigung2', '#isEntsorgung', '#isTransport', '#isLagerung', '#isVerpackungsmaterial'];
+    $("body").on("change",".componentArea",function () {
+        // Check if isReinigung is selected and no other checkboxes are selected
+        if ($('#isReinigung').is(':checked') && $(serviceCheckboxes.join(':checked,') + ':checked').length === 1 && $('#termineCount').val() > 0) {
+            console.log('sadece Reinigung termine var')
+            $('#appOfferType').val('3');
+        }
+        else if($('#isReinigung').is(':checked') && $(serviceCheckboxes.join(':checked,') + ':checked').length === 1 && $('#termineCount').val() <= 0){
+            console.log('sadece Reinigung termine yok')
+            $('#appOfferType').val('2');
+        }
+    });
 
 
     $("form").submit(function(event) {
@@ -447,6 +482,15 @@
     })
 </script>
 <script>
+    var campaignShowButton = $("div.campaing");
+    campaignShowButton.click(function() {
+        if ($(this).hasClass("checkbox-checked")) {
+            $(".campaign-value-area").show(700);
+        } else {
+            $(".campaign-value-area").hide(500);
+        }
+    })
+
     var smsFormatbutton = $("div.sms-format");
     smsFormatbutton.click(function() {
         if ($(this).hasClass("checkbox-checked")) {

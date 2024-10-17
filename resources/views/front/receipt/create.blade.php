@@ -593,30 +593,41 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="form-group row taxArea">
                                     <div class="col-md-12">
                                         <b class="text-dark">Total  [CHF]</b>
-                                        <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text">
-                                    </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary " >
-                                            <label class="">
-                                                <input type="checkbox" name="withTax"  value="1"> <span class="label-text text-dark"><strong> Kosten inkl. MwSt.</strong></span>
-                                            </label>
+                                        <input class="form-control" name="totalCost" placeholder="[CHF]"  type="text" value="{{ $data['totalPrice'] }}">
+                                        <div class="mwst--area">
+                                            <label for="">Mwst [CHF]:</label>
+                                            <small class="text-primary"><b id="taxValue"></b></small> <br>
+                                            <label for="">Total Inkl. [CHF]:</label>
+                                            <small class="text-primary"><b id="totalWithTax"></b></small>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary">
-                                            <label class="">
-                                                <input type="checkbox" name="withoutTax"  value="1" checked> <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
-                                            </label>
+                                    <div class="taxType">
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary " >
+                                                <label class="">
+                                                    <input type="checkbox" name="withTax"  value="1" @if($data['withTax']) checked @endif>
+                                                    <span class="label-text text-dark"><strong>Kosten inkl. MwSt.</strong></span>
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 ">
-                                        <div class="checkbox checkbox-rounded checkbox-primary">
-                                            <label class="">
-                                                <input type="checkbox" name="freeTax"  value="1"> <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
-                                            </label>
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary">
+                                                <label class="">
+                                                    <input id="withoutTax" type="checkbox" name="withoutTax"  value="1" @if($data['withoutTax']) checked @endif checked>
+                                                    <span class="label-text text-dark"><strong>Kosten exkl. MwSt.</strong></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 ">
+                                            <div class="checkbox checkbox-rounded checkbox-primary">
+                                                <label class="">
+                                                    <input type="checkbox" name="freeTax"  value="1" @if($data['freeTax']) checked @endif>
+                                                    <span class="label-text text-dark "><strong>Kostenfrei MwSt. </strong></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -631,7 +642,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedCash"  value="1"> <span class="label-text text-dark"><strong>In Bar</strong></span>
@@ -639,13 +650,21 @@
                                         </div>
                                         <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedBill"  value="1"> <span class="label-text text-dark"><strong>In Rechnung</strong></span>
                                             </label>
                                         </div>
                                         <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="checkbox checkbox-rounded checkbox-primary " >
+                                            <label class="">
+                                                <input type="checkbox" name="inTwint"  value="1"> <span class="label-text text-dark"><strong>In Twint</strong></span>
+                                            </label>
+                                        </div>
+                                        <input class="form-control" name="twintPrice" placeholder="CHF [Betrag]"  type="text">
                                     </div>
                                 </div>
                             </div>
@@ -712,10 +731,28 @@
 <script>
     $(document).ready(function(){
         calc()
+
+        let totalCHF = $("input[name=totalCost]").val();
+        let taxValue = totalCHF*(8.1/100);
+        taxValue = taxValue.toFixed(2);
+        $('#taxValue').text(taxValue);
+
+
+        let totalWithTax = parseFloat(totalCHF) + parseFloat(taxValue);
+        $('#totalWithTax').text(totalWithTax);
     })
 
     $("body").on("change",".makbuz-alanı",function () {
         calc()
+
+        let totalCHF = $("input[name=totalCost]").val();
+        let taxValue = totalCHF*(8.1/100);
+        taxValue = taxValue.toFixed(2);
+        $('#taxValue').text(taxValue);
+
+
+        let totalWithTax = parseFloat(totalCHF) + parseFloat(taxValue);
+        $('#totalWithTax').text(totalWithTax);
     })
 
     function calc(){
@@ -804,6 +841,15 @@
 </script>
 
 <script>
+
+    $('#withoutTax').change(function() {
+        if($(this).is(':checked')) {
+            $('.mwst--area').show();
+        } else {
+            $('.mwst--area').hide();
+        }
+    });
+
     var morebutton = $("div.email-send");
     morebutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))

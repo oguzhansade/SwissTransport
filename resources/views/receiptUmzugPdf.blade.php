@@ -209,7 +209,10 @@
                              8.1% MwSt <br><br>
                         </td>
                         <td >
-                            CHF_____<br><br>
+                            <?php
+                            $tax = $receipt['totalPrice']*(8.1/100);
+                            ?>
+                             CHF {{ $tax }}<br><br>
                         </td>
                     </tr>
                     @endif
@@ -217,6 +220,16 @@
                     @if($receipt['withTax'])
                         <tr valign="top" style="width:100%;margin-top:20px;">
                             <td style="font-size:8px;">Alle Kosten sind inkl. MwSt.</td>
+                            <td colspan="2" style="font-size:8px;">
+                                MwSt.-Nummer: CHE-100.582.488
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endif
+
+                    @if($receipt['freeTax'])
+                        <tr valign="top" style="width:100%;margin-top:20px;">
+                            <td style="font-size:8px;">Alle Kostenfrei MwSt.</td>
                             <td colspan="2" style="font-size:8px;">
                                 MwSt.-Nummer: CHE-100.582.488
                             </td>
@@ -285,7 +298,14 @@
                         <td align="left" style="padding-top: 50px;">________________</td>
                     @endif
                 </tr>
+
+                <tr>
+                    <td colspan="4" align="right" style="padding-top: 50px;"><img src="{{ asset('assets/demo/swiss-twint-qr-1.png') }}" width="120" alt="twint_qr"></td>
+                </tr>
             </table>
+
+
+
         </div>
     </main>
 

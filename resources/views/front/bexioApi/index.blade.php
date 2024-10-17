@@ -9,6 +9,7 @@
     </style>
 @endsection
 @section('content')
+
  <!-- Page Title Area -->
  <div class="row page-title clearfix">
     <div class="page-title-left">
@@ -26,6 +27,34 @@
     </div>
     <!-- /.page-title-right -->
 </div>
+
+@if (session('success'))
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <i class="feather feather-check-circle" ></i> {{ session('success') }}
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <i class="feather feather-x-circle" ></i> {{ session('error') }}
+            </div>
+        </div>
+    </div>
+@endif
+
+<div class="col-md-2">
+    <a href="{{ route('receipt.detail',['id' => $receipt['id']]) }}"
+        class="h4 px-4 py-2 bg-primary text-white b-shadow  text-center d-flex align-items-center back-button rounded-custom">
+        <i class="feather feather-arrow-left align-self-center pr-1"></i>Quitttung Detail (592)</b>
+    </a>
+</div>
+
 <div class="widget-list">
     <div class="row d-flex justify-content-center ">
         <div class="col-md-12 widget-holder ">
@@ -75,6 +104,10 @@
                                     <td><strong>Phone_mobile:</strong></td>
                                     <td>{{ $customer[0]['phone_mobile'] }}</td>
                                 </tr>
+                                <tr>
+                                    <td><strong>Bexio Rechnung Id: </strong></td>
+                                    <td>{{ $receipt['bexioId'] }}</td>
+                                </tr>
                             </table>
                         </div>
 
@@ -83,13 +116,14 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        @if(count($invoice) == 0)
-                        <a class="btn btn-success btn-rounded custom-shadow" href="{{ route('receipt.bexioCreateInvoice',['customerId' => $customer[0]['id'],'receiptId' => $receipt['id']]) }}"><strong>Fatura Oluştur</strong></a>
+                        @if($receipt['bexioId'])
+                        <strong class="btn btn-success btn-rounded custom-shadow"><b>FATURA MEVCUT (ID: {{ $receipt['bexioId'] }})</b></strong>
+                        <a  class="btn bg-primary  btn-rounded custom-shadow ml-1" target="_blank" href="{{ route('receipt.bexioShowPdf',['invoiceId' => $receipt['bexioId']])}}">PDF GÖR</a>
+                        <a class="btn bg-danger  btn-rounded custom-shadow ml-1" href="{{ route('receipt.emptyBexioId',['id' => $receipt['id']])}}">ID yi Sil</a>
+
                         @else
-                        <a class="btn btn-success  btn-rounded custom-shadow" href=""><strong>Pozisyon Ekle </strong></a>
+                        <a id="faturaOlustur" class="btn btn-success btn-rounded custom-shadow" href="{{ route('receipt.bexioCreateInvoice',['customerId' => $customer[0]['id'],'receiptId' => $receipt['id']]) }}"><strong>Quit: {{ $receipt['id'] }} için Fatura Oluştur</strong></a>
                         @endif
-                        <a class="btn btn-info ml-1  btn-rounded custom-shadow" href="#"><strong>Elden Ödeme Girişi</strong></a>
-                        <a class="btn btn-warning ml-1  btn-rounded custom-shadow" href="{{ route('receipt.bexioSendInvoice',['customerId' => $customer[0]['id'],'receiptId' => $receipt['id'],'invoiceId' => $invoice[0]['id']]) }}"><strong>Müşteriye Mail Gönder</strong></a>
                     </div>
                 </div>
                 <!-- /.widget-body -->
@@ -101,6 +135,25 @@
 <!-- /.widget-list -->
 @endsection
 @section('footer')
+
+{{-- // Fatura oluştururken loading bar --}}
+<script>
+    $(document).ready(function() {
+        // Bağlantı tıklandığında 'loading-body' gösterilir
+        $('#faturaOlustur').on('click', function() {
+            $('#loading-body').show();
+        });
+
+        $('#faturaGor').on('click', function() {
+            $('#loading-body').show();
+        });
+
+        // Sayfa tamamen yüklendiğinde 'loading-body' gizlenir
+        $(window).on('load', function() {
+            $('#loading-body').hide();
+        });
+    });
+</script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

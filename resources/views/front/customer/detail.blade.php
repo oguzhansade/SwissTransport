@@ -496,6 +496,7 @@
                                         <table id="appointmentTable" class="table table-striped table-responsive">
                                             <thead>
                                                 <tr class="text-dark">
+                                                    <th>Terminennr</th>
                                                     <th>Dienstleistung</th>
                                                     <th>Wo</th>
                                                     <th>Datum</th>
@@ -659,7 +660,7 @@
         <!-- /.tab-content -->
 
         {{-- <a href="{{ route('customer.reminderTest') }}">ReminderTest</a> --}}
-        <a href="{{ route('offer.sendSms') }}">SMSTESTER</a>
+        {{-- <a href="{{ route('offer.sendSms') }}">SMSTESTER</a> --}}
     </div>
 @endsection
 
@@ -1101,7 +1102,7 @@
                 let table = $('#appointmentTable').DataTable({
 
                     "order": [
-                        [2, 'desc']
+                        [0, 'desc']
                     ],
                     lengthMenu: [
                         [25, 100, -1],
@@ -1129,6 +1130,10 @@
                         }
                     },
                     columns: [
+                        {
+                            data: 'id',
+                            name: 'id'
+                        },
 
                         {
                             data: 'appType',

@@ -41,6 +41,8 @@ return new class extends Migration
             $table->integer('kostenFrei')->nullable();
             $table->string('contactPerson')->nullable();
             $table->string('offerteStatus')->nullable();
+            $table->string('isCampaign')->nullable();
+            $table->tinyInteger('isOfferVerified')->default(0);
             $table->timestamps();
         });
     }

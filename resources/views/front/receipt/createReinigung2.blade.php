@@ -327,7 +327,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedCash"  value="1"> <span class="label-text text-dark"><strong>In Bar</strong></span>
@@ -335,7 +335,7 @@
                                         </div>
                                         <input class="form-control" name="payedCashCost" placeholder="CHF [Betrag]"  type="text">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="checkbox checkbox-rounded checkbox-primary " >
                                             <label class="">
                                                 <input type="checkbox" name="payedBill"  value="1"> <span class="label-text text-dark"><strong>In Rechnung</strong></span>
@@ -343,6 +343,15 @@
                                         </div>
                                         <input class="form-control" name="payedBillCost" placeholder="CHF [Betrag]"  type="text">
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-rounded checkbox-primary " >
+                                            <label class="">
+                                                <input type="checkbox" name="inTwint"  value="1"> <span class="label-text text-dark"><strong>In Twint</strong></span>
+                                            </label>
+                                        </div>
+                                        <input class="form-control" name="twintPrice" placeholder="CHF [Betrag]"  type="text">
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -406,12 +415,32 @@
 @section('footer')
 {{-- Hesaplamalar --}}
 <script>
+    function updateReinigungExText() {
+    // Mevcut metni al ve 'Zimmer' kelimesinden öncesini al
+        let currentText = $('input[name=reinigungExText]').val();
+        let Zusatztext = currentText.split('Zimmer')[0];
+
+        let Pauschaltarif = parseFloat($('input[name=reinigungFixedChf]').val());
+        let reinigungCost = parseFloat($('input[name=reinigungCost]').val());
+
+        let fullText;
+        if (Pauschaltarif > 0) {
+            fullText = Zusatztext + 'Zimmer CHF ' + Pauschaltarif;
+        } else {
+            fullText = Zusatztext + 'Zimmer CHF ' + reinigungCost;
+        }
+
+        $('input[name=reinigungExText]').val(fullText);
+    }
+
     $(document).ready(function(){
         calc()
+        updateReinigungExText()
     })
 
     $("body").on("change",".makbuz-alanı",function () {
         calc()
+        updateReinigungExText()
     })
 
     function calc(){

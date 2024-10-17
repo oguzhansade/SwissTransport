@@ -395,8 +395,10 @@ class indexController extends Controller
             'freeTax'=> $request->freeTax,
             'inBar' => $request->payedCash,
             'inRechnung' => $request->payedBill,
+            'inTwint' => $request->inTwint,
             'cashPrice' => $request->payedCashCost,
             'invoicePrice' => $request->payedBillCost,
+            'twintPrice' => $request->twintPrice,
             'signerName' => $request->signatureName,
         ];
 
@@ -811,8 +813,10 @@ class indexController extends Controller
             'freeTax'=> $request->freeTax,
             'inBar'=> $request->payedCash,
             'inRechnung'=> $request->payedBill,
+            'inTwint' => $request->inTwint,
             'cashPrice' => $request->payedCashCost,
             'invoicePrice' => $request->payedBillCost,
+            'twintPrice' => $request->twintPrice,
             'signerName' => $request->signatureName,
         ];
 

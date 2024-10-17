@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front\bexio;
 use App\Helper\bexioHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\ReceiptUmzug;
 use Google\Service\CustomSearchAPI\Search;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -23,6 +24,31 @@ class indexController extends Controller
         return  $result;
     }
 
+    public function bexioNotification()
+    {
+        return view('front.bexioApi.notification');
+    }
+
+    public function emptyBexioId($id)
+    {
+        $updateReceipt = ReceiptUmzug::where('id',$id)->update([
+            'bexioId' => null
+        ]);
+
+        if($updateReceipt){
+            return redirect()->back()->with('success', 'Quittung Bexio Id Boşaltıldı.');
+        }
+        else {
+            return redirect()->back()->with('error', 'HATA: Bexio Id Silinemedi.');
+        }
+    }
+
+    public function bexioShowPdf(Request $request)
+    {
+        $invoiceId = $request->route('invoiceId');
+        $showPdf = bexioHelper::bexioShowPdf($invoiceId);
+        return $showPdf;
+    }
 
     public function bexioStoreCustomer(Request $request)
     {
@@ -48,8 +74,17 @@ class indexController extends Controller
         $invoiceId = $request->route('invoiceId');
         $sendInvoice = bexioHelper::bexioSendInvoice($customerId,$receiptId,$invoiceId);
         return $sendInvoice;
+    }
 
 
+    public function bexioKbPosition(Request $request)
+    {
+        $customerId = $request->route('customerId'); //CRMDEKİ id yi çekmeliyiz
+        $receiptId = $request->route('receiptId');
+        $invoiceId = $request->route('invoiceId');
+
+        $kbPosition = bexioHelper::createKbPositionCustom($customerId,$receiptId,$invoiceId);
+        return $kbPosition;
     }
 
     public function bexioHelper(Request $request)

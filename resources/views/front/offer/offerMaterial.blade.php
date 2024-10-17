@@ -11,7 +11,7 @@
 
 <div class="row p-3">
     <div id="alert-container" class="col-md-12">
-       
+
     </div>
     <div class="col-md-12">
         <div class="table-reponsive">
@@ -53,18 +53,18 @@
             <input class="form-control indirim_yuzde" name="materialDiscountPercent" type="number" value="0" min="0">
         </div>
     </div>
-    
+
     <div class="row p-3">
         <div class="col-md-6">
             <label class="col-form-label" for="l0">Lieferung</label>
-            <input class="form-control teslimat_ucreti" name="materialShipPrice" type="number" value="0" min="0">
+            <input class="form-control teslimat_ucreti" name="materialShipPrice" type="number" value="40" min="0">
         </div>
     </div>
 
     <div class="row p-3">
         <div class="col-md-6">
             <label class="col-form-label" for="l0">Abholung</label>
-            <input class="form-control toplama_ucreti" name="materialRecievePrice" type="number" value="0" min="0">
+            <input class="form-control toplama_ucreti" name="materialRecievePrice" type="number" value="40" min="0">
         </div>
     </div>
 </div>
@@ -79,44 +79,44 @@
 
 @section('offerMaterialCreate')
 <script>
-   
+
     let say= 0;
     var i = $(".islem_field").lenght || 0;
     $("#addRowBtn").click(function () {
         var topitop = 0;
         $("[id=toplam]").each(function () {
-           topitop++; 
-                         
+           topitop++;
+
         });
         let adet = say+1;
         $(".urun_adet").html(adet+' '+'Stück Produkte');
         console.log(topitop+1,'ADET')
 
-        
-        var newRow = 
+
+        var newRow =
         '<tr class="islem_field">' +
         '<td><select class="form-control urun"  name="islem['+i+'][urunId]">'+
         '<option class="form-control" value="0"> Bitte wählen </option>';
         @foreach (\App\Models\Product::all() as $key => $value)
-            newRow+= '<option class="form-control" data-id="{{ $value['id'] }}" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';  
+            newRow+= '<option class="form-control" data-id="{{ $value['id'] }}" data-kirala="{{ $value['rentPrice'] }}" data-fiyat ="{{ $value['buyPrice']  }}" data-urunadi="{{ $value['productName'] }}"  value="{{ $value['id'] }}">{{ $value['productName'] }}</option>';
         @endforeach
         newRow+='</select></td>'+
         '<td><select class="form-control buyType"  name="islem['+i+'][buyType]">'+
-        '<option class="form-control" data-buy="0" value="0" >Bitte wählen</option>'+  
+        '<option class="form-control" data-buy="0" value="0" >Bitte wählen</option>'+
         '<option class="form-control" data-buy="1" value="1">Kaufen</option>'+
         '<option class="form-control" data-buy="2" value="2">Mieten</option>'+
         '</select></td>'+
         '<td><input type="text" class="form-control" id="tutar" name="islem['+i+'][tutar]" value="0" ></td>'+
-        
+
         '<td><input type="text" class="form-control" id="adet" name="islem['+i+'][adet]" value="1"></td>'+
         '<td><input type="text" class="form-control" id="toplam" name="islem['+i+'][toplam]" value="0"></td>'+
         '<td><button id="removeButton" type="button" class="btn btn-danger" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">X</button></td>'+
         '</tr>'
-        
+
         $(newRow).appendTo("#faturaData").find(".urun, .buyType").prop("required", true);
-        
+
         i++;
-        say++; 
+        say++;
     });
 
 
@@ -141,7 +141,7 @@
             const kirala = $islemField.find(".urun").find(":selected").data("kirala");
             let tutar = $islemField.find("#tutar").val()
 
-           
+
             switch (buyType) {
                 case 0:
                 tutar = 0;
@@ -160,7 +160,7 @@
             console.log(buyType,'BuyTypeDeğişti')
             calc()
         })
-        
+
 
         tutar = parseFloat(tutar)
         adet = parseFloat(adet)
@@ -171,7 +171,7 @@
     })
 
     $("body").on("click","#removeButton", function () {
-        
+
         say = say-1;
         $(".urun_adet").html(say+' '+'Stück Produkte');
         $(this).closest(".islem_field").remove();
@@ -180,19 +180,19 @@
     })
 
     $("body").on("click","#removeAllButton", function () {
-        
+
         say = 0;
         $(".urun_adet").html('Sie haben noch keine Produkte hinzugefügt');
-        
+
         $("[id=toplam]").each(function () {
             $(this).closest(".islem_field").remove();
         });
-        
+
         calc();
     })
 
     $("body").on("change","#faturaData input", function (){
-        
+
         var $this = $(this);
         if($this.is("#tutar, #adet, #toplam"))
         {
@@ -221,11 +221,11 @@
             }
                 toplam = adet * tutar ;
             toplam = toplam.toFixed(2);
-            
+
             $this.closest("tr").find("#toplam").val(toplam);
-            
-            
-            
+
+
+
 
         }
         calc();
@@ -237,9 +237,9 @@
         var indirimyuzde = parseFloat($(".indirim_yuzde").val());
         var teslimat_ucreti = parseFloat($(".teslimat_ucreti").val());
         var teslimalma_ucreti = parseFloat($(".toplama_ucreti").val());
-        
+
         $("[id=toplam]").each(function () {
-           ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());          
+           ara_toplam = parseFloat(ara_toplam) + parseFloat($(this).val());
         });
         ara_toplam = ara_toplam+teslimat_ucreti+teslimalma_ucreti - indirim - (ara_toplam*indirimyuzde/100)
         $(".ara_toplam").val(ara_toplam.toFixed(2));

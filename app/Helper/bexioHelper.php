@@ -2,7 +2,11 @@
 namespace App\Helper;
 
 use App\Models\Customer;
+use App\Models\ReceiptDiscount;
+use App\Models\ReceiptExtra;
 use App\Models\ReceiptUmzug;
+use Carbon\Carbon;
+use Google\Service\Docs\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Support\Facades\Http;
@@ -39,6 +43,7 @@ class bexioHelper
         // Müşteri Varsa Ya da Yoksa Koşulları
         if (count($customerSearch) != 0) {
             $invoiceSearch = self::bexioInvoiceSearch($customerSearch[0]['id']);
+
             return view('front.bexioApi.index',['customer' => $customerSearch,'receipt' => $receipt,'invoice' => $invoiceSearch]); // Bexio Anasayfası
         } else {
 
@@ -137,50 +142,229 @@ class bexioHelper
                 'body' => $request_body,
             ]);
 
-            return $response->getBody()->getContents();
+            return redirect()->back()->with('success', 'BAŞARILI: MÜŞTERİ OLUŞTURULDU.');
+            // return $response->getBody()->getContents();
         } catch (BadResponseException $e) {
-            return $e->getMessage();
+            return redirect()->back()->with('error', 'ERROR: MÜŞTERİ OLUŞTURULAMADI.');
+            // return $e->getMessage();
         }
     }
 
     // Draft Fatura Oluşturma
-    public static function bexioStoreInvoice($customerId,$receiptId)
+    public static function bexioStoreInvoice($bexioCustomerId,$receiptId,$receiptType)
     {
+        dd('Store',$receiptType);
+        $validFrom = Carbon::now()->format('Y-m-d');
+        $validTo = Carbon::now()->addDays(30)->format('Y-m-d');// Faturaya 30 gün eklemek için
         $headers = self::getBexioHeaders();
         $client = new Client();
+        $receipt = ReceiptUmzug::where('id',$receiptId )->first();
+        $crmCustomer = Customer::where('id',$receipt['customerId'])->first();
 
         $request_body = [
             "title" => "Umzug",
-            "contact_id" => $customerId,
+            "contact_id" => $bexioCustomerId,
             "user_id" => 1,
             "logopaper_id" => 1,
             "language_id" => 1,
             "bank_account_id" => 1,
             "currency_id" => 1,
             "payment_type_id" => 1,
-            "header" => "Thank you very much for your inquiry. We would be pleased to make you the following offer:",
-            "footer" => "We hope that our offer meets your expectations and will be happy to answer your questions.",
+            "header" => "Guten Tag Marcel Reichen Vielen dank für Ihr Vertrauen. Ihre Rechnung setzt sich wie folgt zusammen:", //MAİLLE GÖNDERİLEN PDFTEKİ İLK METİN
+            "footer" => "Haben Sie Fragen? Melden Sie sich bei uns, gerne sind wir für Sie da. Freundliche Grüsse Filipa Machado.", //MAİLLE GÖNDERİLEN PDFTEKİ SON METİN
             "mwst_type" => 0,
             "mwst_is_net" => true,
             "show_position_taxes" => false,
-            "is_valid_from" => "2024-06-24",
-            "is_valid_to" => "2024-07-24",
+            "is_valid_from" => $validFrom, //TODO: TARİHLER SORULACAK PDFTE: DATUM
+            "is_valid_to" => $validTo, //TODO: TARİHLER SORULACAK PDFTE: ZAHLBAR BİS:
             "template_slug" => "616547ba098cae573e7fbaa5"
         ];
 
         $url = 'https://api.bexio.com/2.0/kb_invoice';
 
         try {
+            //RECHNUNG U OLUŞTUR
             $response = $client->request('POST', $url, [
                 'headers' => $headers,
                 'json' => $request_body,
             ]);
 
-            return $response->getBody()->getContents();
+            //id yi almak için gerekli
+            $responseContent = $response->getBody()->getContents();
+            $data = json_decode($responseContent, true); // JSON verisini diziye dönüştürme
+
+            $id = $data['id'];
+
+            // CRM DEN MÜŞTERİYİ GÖNDER
+            $customerSearch = self::customerSearch($crmCustomer);
+
+
+
+            if($id)
+            {
+                $createPosition = self::createKbPositionCustom($id,$receiptId); // Pozisyonlar Ekleniyor
+                $createDiscount = self::createKbPositionDiscount($id,$receiptId); // Discountlar Ekleniyor
+                $sendMail = self::bexioSendInvoice($receiptId,$id); // Mail Gönderiliyor Mail gönderince fatura Offen oluyor BEXIO tarafında //TODO: Test Edildikten sonra aktif edilecek. (Bir checkbox koyulabilir)
+                $createPayment = self::createPayment($id,$receiptId); // Mail gönderilmeden CreatePayment oluşturamıyorsun
+                $invoiceIdRegister = ReceiptUmzug::where('id',$receiptId)->update([
+                    'bexioId' => $id
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'BAŞARILI: FATURA OLUŞTURULDU.');
+            // return redirect()->bakc('receipt.bexioNotification')->with('data','success');
+            // return view('front.bexioApi.notification',['data' => 'success','message' => '',]);
+            // return $response->getBody()->getContents();
         } catch (BadResponseException $e) {
+            return redirect()->back()->with('error', 'ERROR: FATURA OLUŞTURULAMADI.');
             // handle exception or api errors.
-            return $e->getMessage();
+            // return view('front.bexioApi.notification',['data' => 'error','message' => $e->getMessage(),]);
         }
+
+    }
+
+    // UNIT IDS
+    // Stk: 1
+    // h: 2
+    // chf :3
+    // Pauschal :5
+    // p.M : 6
+    // Kubikmeter: 7
+
+    public static function createPayment($invoiceId,$receiptId)
+    {
+
+        $headers = self::getBexioHeaders();
+        $client = self::getBexioClient();
+
+        $receipt = ReceiptUmzug::where('id',$receiptId)->first();
+        $receiptPrePayment = 0;
+
+        if (isset($receipt['cashPrice']) && $receipt['cashPrice']) {
+            $receiptPrePayment += $receipt['cashPrice'];
+        }
+
+        if (isset($receipt['twintPrice']) && $receipt['twintPrice']) {
+            $receiptPrePayment += $receipt['twintPrice'];
+        }
+
+        $request_body = [
+            'date' => Carbon::now(), // ödeme tarihi quittigung'a eklenecek veya eklenmeyecek sorulacak olmazsa bugün alınır
+            'value' =>  $receiptPrePayment, // ödeme değeri
+            'bank_account_id' => 1, // banka hesap id si genelde 1
+        ];
+
+        $url = 'https://api.bexio.com/2.0/kb_invoice/'.$invoiceId.'/payment'; // 1353 invoice id payment ise ödeme route u apinin
+
+
+        try {
+            $response = Http::withHeaders($headers)->post($url, $request_body);
+
+            print_r($response->body());
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            // handle exception or api errors.
+            print_r($e->getMessage());
+        }
+    }
+
+    // Faturayı Doldurma
+    public static function createKbPositionCustom($invoiceId,$receiptId)
+    {
+        $headers = self::getBexioHeaders();
+        $client = self::getBexioClient();
+
+        $receipt = ReceiptUmzug::where('id',$receiptId)->first();
+        $receiptExtras = ReceiptExtra::where('id',$receipt['receiptExtraId'])->first();
+
+        // Pozisyon verilerini dinamik olarak tanımlama
+        $positionsData = [
+            ["text" => "Umzug", "amount" => $receipt['umzugHour'], "unit_price" => $receipt['umzugChf'], "unit_id" => 2], // Unit id 2 olacak
+            ["text" => "Spesen", "amount" => 1, "unit_price" => $receipt['umzugCharge'], "unit_id" => 3], // Unit id boş gidecek
+            ["text" => "Anfahrt/Rückfahrt", "amount" => 1, "unit_price" => $receipt['umzugRoadChf'], "unit_id" => 3],
+            ["text" => "Verpackungsmaterial", "amount" => 1, "unit_price" => $receipt['materialPrice'], "unit_id" => 3],
+            ["text" => "Entsorgung", "amount" => $receipt['entsorgungVolume'], "unit_price" => $receipt['entsorgungChf'], "unit_id" => 7], // Unit id 6 olacak
+            ["text" => "EntsorgungAufwand", "amount" => 1, "unit_price" => $receipt['entsorgungFixedChf'], "unit_id" => 3],
+        ];
+
+        // Ekstra pozisyonlar 16 Tane olduğu için 16 tanesi kontrol ediliyor
+        for ($i = 1; $i <= 16; $i++) {
+            $extraTextKey = 'extra' . $i . 'Text';
+            $extraPriceKey = 'extra' . $i;
+
+            if (isset($receiptExtras[$extraTextKey]) && isset($receiptExtras[$extraPriceKey])) {
+                $positionsData[] = [
+                    "text" => $receiptExtras[$extraTextKey],
+                    "amount" => 1,
+                    "unit_price" => $receiptExtras[$extraPriceKey],
+                    "unit_id" => 3
+                ];
+            }
+        }
+
+        $url = 'https://api.bexio.com/2.0/kb_invoice/'.$invoiceId.'/kb_position_article';
+
+        $responses = [];
+
+        foreach ($positionsData as $position) {
+            if ($position['unit_price'] > 0) {
+                $request_body = array_merge($position, [
+                    "account_id" => 221,
+                    "tax_id" => 43,
+                    "discount_in_percent" => "0.000000",
+                    "article_id" => 6
+                ]);
+
+                try {
+                    $response = $client->request('POST', $url, [
+                        'headers' => $headers,
+                        'json' => $request_body,
+                    ]);
+                    $responses[] = $response->getBody()->getContents();
+                } catch (BadResponseException $e) {
+                    // handle exception or api errors.
+                    $responses[] = $e->getMessage();
+                }
+            }
+        }
+        return $responses;
+
+    }
+
+
+    //Fatura Discountları ekleme
+    public static function createKbPositionDiscount($invoiceId, $receiptId)
+    {
+        $headers = self::getBexioHeaders();
+        $client = new Client();
+
+        $receipt = ReceiptUmzug::where('id', $receiptId)->first();
+        $receiptDiscounts = ReceiptDiscount::where('id', $receipt['receiptDiscountId'])->first();
+
+        $url = 'https://api.bexio.com/2.0/kb_invoice/'.$invoiceId.'/kb_position_discount';
+        $responses = [];
+
+        for ($i = 1; $i <= 7; $i++) {
+            $discountTextKey = 'discount' . $i . 'Text';
+            $discountValueKey = 'discount' . $i;
+
+            if (isset($receiptDiscounts[$discountTextKey]) && isset($receiptDiscounts[$discountValueKey])) {
+                $request_body = [
+                    'text' => $receiptDiscounts[$discountTextKey],
+                    'is_percentual' => false,
+                    'value' => $receiptDiscounts[$discountValueKey],
+                ];
+
+                try {
+                    $response = Http::withHeaders($headers)->post($url, $request_body);
+                    $responses[] = $response->body();
+                } catch (\Illuminate\Http\Client\RequestException $e) {
+                    // handle exception or api errors.
+                    $responses[] = $e->getMessage();
+                }
+            }
+        }
+
+        return $responses;
     }
 
     // Fatura Arama
@@ -219,10 +403,13 @@ class bexioHelper
         }
     }
 
+
+
     // Mail Gönderme
-    public static function bexioSendInvoice($customerId,$receiptId,$invoiceId)
+    public static function bexioSendInvoice($receiptId,$invoiceId)
     {
 
+        // dd('Burası');
         $receiptCRM = ReceiptUmzug::where('id',$receiptId)->first();
         $customer = Customer::where('id',$receiptCRM['customerId'])->first();
 
@@ -231,11 +418,12 @@ class bexioHelper
 
         $requestBody = [
             "recipient_email" => $customer['email'],
-            "subject" => "test subject",
-            "message" => "Please find the document at [Network Link]",
+            "subject" => "Rechnung - Helvetia Transporte & Umzüge AG",
+            "message" => "Sehr geehrter Herr Yurdakul, <br> <br> Gerne möchten wir uns nochmals für die angenehme Zusammenarbeit bedanken. <br><br> Im Anhang finden Sie die Rechnung zu unserer Dienstleistung: [Network Link] <br><br> Sollten sich Abweichungen eingeschlichen haben, bitten wir Sie uns diese zu melden. <br><br>Für Rückfragen oder zur Klärung der Rechnung stehen wir Ihnen gerne zur Verfügung.",
             "mark_as_open" => true,
-            "attach_pdf" => true
+            "attach_pdf" => false
         ];
+
 
         $url = "https://api.bexio.com/2.0/kb_invoice/".$invoiceId."/send"; // Invoice Id Gerekli
 
@@ -252,40 +440,46 @@ class bexioHelper
         }
     }
 
-    // Faturayı Doldurma
-    public function createKbPositionCustom()
-    {
-        $headers = self::getBexioHeaders();
-        $client = self::getBexioClient();
-
-        $request_body = json_encode([
-            "amount" => "5.000000",
-            "unit_id" => 2,
-            "account_id" => 221,
-            "tax_id" => 43,
-            "text" => "3 Mitarbeiter mit 1 Lieferwagen",
-            "unit_price" => "450.000000",
-            "discount_in_percent" => "0.000000",
-            "article_id" => 6
-        ]);
-
-        $url = 'https://api.bexio.com/2.0/kb_invoice/1347/kb_position_article';
-
-        try {
-            $response = $client->request('POST', $url, [
-                'headers' => $headers,
-                'json' => $request_body,
-            ]);
-
-            return $response->getBody()->getContents();
-        } catch (BadResponseException $e) {
-            // handle exception or api errors.
-            return $e->getMessage();
-        }
-    }
-
     // Bildirim
     public static function bexioApiNotification($bildirim){
         return 'Bildirim: ' . $bildirim;
     }
+
+    // Show PDF
+    public static function bexioShowPdf($bexioInvoiceId){
+        $headers = self::getBexioHeaders();
+        $client = self::getBexioClient();
+
+        $url = 'https://api.bexio.com/2.0/kb_invoice/'.$bexioInvoiceId.'/pdf';
+
+        try {
+            // API'ye GET isteği gönderme
+            $response = $client->request('GET', $url, array(
+                'headers' => $headers,
+            ));
+
+            // Yanıt gövdesini al
+            $responseBody = $response->getBody()->getContents();
+
+            // JSON yanıtını ayrıştırma
+            $responseData = json_decode($responseBody, true);
+
+            // Base64 formatındaki içeriği çözme
+            $pdfContent = base64_decode($responseData['content']);
+
+            // Tarayıcıya PDF olarak gösterme
+            header('Content-Type: ' . $responseData['mime']);
+            header('Content-Disposition: inline; filename="' . $responseData['name'] . '"');
+            header('Content-Length: ' . strlen($pdfContent));
+
+            // PDF içeriğini göster
+            echo $pdfContent;
+            exit;
+        }
+        catch (\GuzzleHttp\Exception\BadResponseException $e) {
+            // Hata durumunda mesajı döndür
+            return $e->getMessage();
+        }
+    }
+
 }
