@@ -14,8 +14,8 @@ class calendarHelper
         $event = new Event;
         $event->name = $title;
         $appType = NULL;
-        
-        if($serviceName == 'Lieferung')
+
+        if($serviceName == 'Lieferung' || 'Abholung')
         {
             $appType = 3;
             $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
@@ -37,17 +37,17 @@ class calendarHelper
                 else {
                     $event->endDate = Carbon::parse($endDate)->timezone("Europe/Zurich");
                 }
-                
+
             }
         }
-        
+
         $event->location = $location;
         $event->description = $comment;
         $event->setColorId($colorId);
         $etkinlik = $event->save();
         $eventId = $etkinlik->id;
-       
-        $eventInfo = 
+
+        $eventInfo =
         [
             'appType' => $appType,
             'serviceType' => $serviceName,

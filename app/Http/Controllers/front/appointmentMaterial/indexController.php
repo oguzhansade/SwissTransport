@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\front\appointmentMaterial;
 
+use App\Helper\calendarDeleteHelper;
 use App\Helper\calendarEditHelper;
 use App\Helper\calendarHelper;
 use App\Http\Controllers\Controller;
@@ -92,10 +93,20 @@ class indexController extends Controller
         $abholungId = $request->route('id');
         $c = AppointmentMaterial::where('id',$abholungId)->count();
 
+        $isEmailSend = $request->get('isEmail');
+        $isCustomEmailSend = $request->get('isCustomEmail');
+        $customEmail = $request->get('customEmail');
+        $from = Company::InfoCompany('email'); // gösterilen mail.
+        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        $appDateArray = [];
+        $ADC = 0;
+        $sub = 'Abholung '.Company::InfoCompany('name');
+
         if($c != 0)
         {
             $abholung = AppointmentMaterial::where('id',$abholungId)->first();
             $customerId = $abholung['customerId'];
+            $customer = Customer::where('id',$customerId)->first();
 
             // Teslimat Randevusu
             $appointmentMaterial = [
@@ -109,10 +120,73 @@ class indexController extends Controller
                 'calendarContent' => $request->calendarContent,
             ];
 
+            if ($isCustomEmailSend) {
+                Arr::set($emailData, 'customEmailContent', $customEmail);
+            }
+
+            $offerteLink = config('app.url').'offer/detail/'.'';
+            $offerteLink2 = '<a href="' . $offerteLink . '">Offerte</a>';
+
             $all = AppointmentMaterial::where('id',$abholungId)->update($appointmentMaterial);
+
+            $appDateArray = [];
+            $appDateArray[$ADC]['serviceId'] = $abholungId;
+            $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
+            $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
+            $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
+            $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+            $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
+            $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+            $appDateArray[$ADC]['calendarLocation'] = $request->address;
+            $appDateArray[$ADC]['serviceName'] = 'Lieferung';
+            $appDateArray[$ADC]['colorId'] = '8';
+            $ADC++;
+            $randevuTipi = 'Abholung';
+
+            $emailData = [
+                'name' => $customer['name'],
+                'gender' => $customer['gender'],
+                'surname' => $customer['surname'],
+                'address' => $request->address,
+                'sub' => $sub,
+                'from' => $from,
+                'companyName' => $companyName,
+                'email' => $request->email,
+                'appDate' => $appDateArray,
+                'emailContent' => $request->emailContent,
+                'isCustomEmailSend' => $isCustomEmailSend,
+                'customEmailContent' => $customEmail,
+                'randevuTipi' => $randevuTipi,
+            ];
+
         }
 
         if ($all) {
+            $mailSuccess = '';
+            if ($isEmailSend) {
+                Mail::to($emailData['email'])->send(new InformationMail($emailData));
+                // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
+                $mailSuccess = ', Die E-Mail wurde erfolgreich gesendet.';
+            }
+
+
+            foreach ($appDateArray as $item) {
+                $fullDate = $item['date'] . ' ' . $item['time'];
+                $endDate = $item['endDate'] . ' ' . $item['endTime'];
+                $location = $item['calendarLocation'];
+                $title = $item['calendarTitle'];
+                $comment =  $item['calendarComment'];
+                $event = Calendar::where('serviceId', $item['serviceId'])->where('serviceType','Abholung')->first();
+                $serviceId = $item['serviceId'];
+                $colorId = $item['colorId'] || 8;
+                $serviceName = 'Abholung';
+                if ($event) {
+                    $eventId = $event['eventId'];
+                    calendarEditHelper::companyMailEdit($serviceName, $fullDate, $location, $title, $comment, $endDate, $serviceId, $eventId);
+                } else {
+                    calendarHelper::companyMail($serviceName, $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
+                }
+            }
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
                 ->with('status', 'Abholung Updated!')
@@ -132,7 +206,10 @@ class indexController extends Controller
         $customerId = $customer['id'];
         if($c != 0)
         {
-
+            $calendarBesc = Calendar::where('serviceId', $id)->where('serviceType','Abholung')->first();
+            if ($calendarBesc) {
+                calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
+            }
             $abholungDelete = AppointmentMaterial::where('id',$id)->delete();
             $lieferungUpdate = AppointmentMaterial::where('deliveryType',0)->where('abholungId',$id)->update([
                 'abholungId' => NULL
@@ -160,11 +237,16 @@ class indexController extends Controller
 
         $customerId = $lieferung['customerId'];
         $customer = Customer::where('id',$customerId)->first();
+        $isEmailSend = $request->get('isEmail');
+        $isCustomEmailSend = $request->get('isCustomEmail');
+        $customEmail = $request->get('customEmail');
+        $from = Company::InfoCompany('email'); // gösterilen mail.
+        $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
+        $appDateArray = [];
+        $ADC = 0;
+        $sub = 'Abholung '.Company::InfoCompany('name');
 
-
-       if($c != 0)
-       {
-          // Teslimat Randevusu
+        // Teslimat Randevusu
         $appointmentMaterial = [
             'deliverable' => $request->deliverable,
             'deliveryType' => $request->deliveryType,
@@ -177,17 +259,74 @@ class indexController extends Controller
             'customerId' => $customer['id']
         ];
 
+
+        if ($isCustomEmailSend) {
+            Arr::set($emailData, 'customEmailContent', $customEmail);
+        }
+
+        $offerteLink = config('app.url').'offer/detail/'.'';
+        $offerteLink2 = '<a href="' . $offerteLink . '">Offerte</a>';
+
+       if($c != 0){
         $all = AppointmentMaterial::create($appointmentMaterial);
         $AppointmentMaterialIdBul = DB::table('appointment_materials')->orderBy('id', 'DESC')->first(); // Son Eklenen Lieferung un id'si
 
         $lieferungUpdate = AppointmentMaterial::where('deliveryType',0)->where('id',$lieferungId)->update([
             'abholungId' => $AppointmentMaterialIdBul->id
         ]);
-
        }
 
+        $appDateArray = [];
+        $appDateArray[$ADC]['serviceId'] = $AppointmentMaterialIdBul->id;
+        $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
+        $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
+        $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
+        $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+        $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
+        $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
+        $appDateArray[$ADC]['calendarLocation'] = $request->address;
+        $appDateArray[$ADC]['serviceName'] = 'Lieferung';
+        $appDateArray[$ADC]['colorId'] = $request->calendarBescColor;
+        $ADC++;
+        $randevuTipi = 'Abholung';
+
+        $emailData = [
+            'name' => $customer['name'],
+            'gender' => $customer['gender'],
+            'surname' => $customer['surname'],
+            'address' => $request->address,
+            'sub' => $sub,
+            'from' => $from,
+            'companyName' => $companyName,
+            'email' => $request->email,
+            'appDate' => $appDateArray,
+            'emailContent' => $request->emailContent,
+            'isCustomEmailSend' => $isCustomEmailSend,
+            'customEmailContent' => $customEmail,
+            'randevuTipi' => $randevuTipi,
+        ];
 
         if ($all && $lieferungUpdate) {
+
+            $mailSuccess = '';
+            if ($isEmailSend) {
+                Mail::to($emailData['email'])->send(new InformationMail($emailData));
+                // Mail::to($from)->send(new CompanyMail($emailData)); // Firmaya Takvime Eklendi Bildirimi
+                $mailSuccess = ', Die E-Mail wurde erfolgreich gesendet.';
+            }
+
+            foreach ($appDateArray as $item) {
+                $fullDate = $item['date'] . ' ' . $item['time'];
+                $endDate = $item['endDate'] . ' ' . $item['endTime'];
+                $location = $item['calendarLocation'];
+                $title = $item['calendarTitle'];
+                $comment =  $item['calendarComment'].'<br>'.$offerteLink.'<br>';
+                $serviceId = $item['serviceId'];
+                $colorId = $item['colorId'] || 8;
+                $serviceName = 'Abholung';
+
+                calendarHelper::companyMail($serviceName, $fullDate, $location, $title, $comment, $endDate, $serviceId, $colorId);
+            }
 
             return redirect()
                 ->route('customer.detail', ['id' => $customerId])
@@ -327,27 +466,11 @@ class indexController extends Controller
 
         if ($c != 0) {
             $data = AppointmentMaterial::where('id', $id)->get();
-            $calendarLiefe = Calendar::where('serviceId', $id)->first();
-            if ($calendarLiefe) {
-                try{
-                    $event = Event::find($calendarLiefe['eventId']);
-                    if ($event) {
-                        $event->delete($calendarLiefe['eventId']);
-                        Calendar::where('serviceId', $id)->delete();
-                    }
-                }
-                catch (\Exception $e) {
-                    if (strpos($e->getMessage(), 'Not Found') !== false) {
-                        Calendar::where('serviceId', $id)->delete();
-                        Log::info('Google Calendar Event not found might be manually deleted, only Calendar model deleted. (CATCH)');
-                    } else {
-                        Log::error('Google Calendar Event Delete Error: ' . $e->getMessage());
-                    }
-                }
-
+            $calendarBesc = Calendar::where('serviceId', $id)->first();
+            if ($calendarBesc) {
+                calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
             }
-            $abholungDelete = AppointmentMaterial::where('id',$appointment['abholungId'])->delete();
-            $lieferungDelete = AppointmentMaterial::where('id', $id)->delete();
+            AppointmentMaterial::where('id', $id)->delete();
             return redirect()
                 ->route('customer.detail', ['id' => $customer['id']])
                 ->with('status', 'Liefertermin wurde erfolgreich gelöscht.')

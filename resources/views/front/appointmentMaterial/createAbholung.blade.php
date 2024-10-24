@@ -108,7 +108,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 email-send">
                                     <label for="" class="col-form-label">E-Mail an Kunden</label><br>
-                                    <input type="checkbox" name="isEmail"  class="js-switch " data-color="#286090" data-switchery="false" disabled>
+                                    <input type="checkbox" name="isEmail"  class="js-switch " data-color="#286090" data-switchery="true" >
                                 </div>
                             </div>
 
@@ -167,7 +167,7 @@
         }
         if(valueQq == 3)
         {
-            AppserviceName = 'Liefe.';
+            AppserviceName = 'Abholung.';
         }
 
         let Appgender = '';

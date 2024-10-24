@@ -71,7 +71,6 @@ class indexController extends Controller
         $companyName = Company::InfoCompany('name'); // şirket adı buraya yaz veritabanında yok çünkü.
         $customer = DB::table('customers')->where('id', '=', $customerId)->value('name'); // Customer Name
         $customerSurname = DB::table('customers')->where('id', '=', $customerId)->value('surname'); // Customer Surname
-        $appointmentDate = collect([]);
         $appDateArray = [];
         $ADC = 0;
 
@@ -423,8 +422,6 @@ class indexController extends Controller
             'calendarContent' => $request->calendarContent,
             'customerId' => $customerId
         ];
-
-
 
         // Onay Randevusu
         $appointmentService = [

@@ -15,7 +15,6 @@ class calendarEditHelper
     {
 
         if ($eventId) {
-
             $event = Event::find($eventId);
             if ($serviceName == 'Lieferung') {
                 $event->update(
@@ -30,7 +29,22 @@ class calendarEditHelper
                 );
                 $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
                 $event->endDateTime = Carbon::parse($endDate)->addHour(1)->timezone("Europe/Zurich");
-            } else {
+            }
+            elseif($serviceName == 'Abholung'){
+                $event->update(
+                    [
+                        'name' => $title,
+                        'location' => $location,
+                        'description' => $comment,
+                        'startDateTime' => Carbon::parse($date)->timezone("Europe/Zurich"),
+                        'endDateTime' => Carbon::parse($endDate)->addHour(1)->timezone("Europe/Zurich"),
+                        'colorId' => '8',
+                    ]
+                );
+                $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
+                $event->endDateTime = Carbon::parse($endDate)->addHour(1)->timezone("Europe/Zurich");
+            }
+            else {
                 if ($serviceName == 'Besichtigung') {
                     $event->update(
                         [
