@@ -8,8 +8,8 @@
     <title>{{ App\Models\Company::InfoCompany('name') }} - Offerte ({{ $offer['id'] }})</title>
     <!-- CSS only -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> --}}
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/css/pace.css') }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -128,6 +128,17 @@
     </style>
 </head>
 
+@php
+    $countryCodes = [
+        'Schweiz' => 'CH',
+        'Ausland' => 'AU',
+        'Fürstentum Liechtenstein' => 'LI',
+        'Deutschland' => 'DE',
+        'Österreich' => 'AT',
+        'Italien' => 'IT',
+        'Frankreich' => 'FR',
+    ];
+@endphp
 
 
 <body onload="resizeDiv()">
@@ -189,6 +200,240 @@
                         Wir danken Ihnen herzlich für Ihre Anfrage und freuen uns, Ihnen folgendes Angebot vorlegen zu
                         können:
                     </span>
+
+                    {{-- Adres Alanı --}}
+                        <div class="bg-container">
+                            <div class="row">
+
+                                {{-- Auszug1 Adress --}}
+                                @if($auszug1)
+                                <div class="col-md-6 ">
+                                    <h4> <strong class="text-primary">Auszug: </strong> </h4>
+                                    <table border='0'>
+                                        <tr>
+                                            <td><b>Strasse:</b></td>
+                                            <td>{{ $auszug1['street'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>PLZ/Ort:</b></td>
+                                            <td>
+                                                @php
+                                                $zipType = $countryCodes[$auszug1['country']] ?? 'CH'; // Varsayılan CH
+                                                @endphp
+                                                {{ $zipType }} - {{ $auszug1['postCode'] }} {{ $auszug1['city'] }} / {{ $auszug1['country'] }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Gebäude:</b></td>
+                                            <td>{{ $auszug1['buildType'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Etage:</b></td>
+                                            <td>{{ $auszug1['floor'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Lift:</b></td>
+                                            <td>@if($auszug1['lift'] == 1) Ja @else Nein @endif</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Parkplatz:</b></td>
+                                            <td>@if($auszug1['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @endif
+
+                                {{-- Einzug1 Adress --}}
+                                @if($einzug1)
+                                    <div class="col-md-6  border-left">
+                                        <h4> <strong class="text-primary">Einzug: </strong> </h4>
+                                        <table border='0'>
+                                            <tr>
+                                                <td><b>Strasse:</b></td>
+                                                <td>{{ $einzug1['street'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>PLZ/Ort:</b></td>
+                                                <td>
+                                                    @php
+                                                    $zipType = $countryCodes[$einzug1['country']] ?? 'CH'; // Varsayılan CH
+                                                    @endphp
+                                                    {{ $zipType }} - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} / {{ $einzug1['country'] }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Gebäude:</b></td>
+                                                <td>{{ $einzug1['buildType'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Etage:</b></td>
+                                                <td>{{ $einzug1['floor'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lift:</b></td>
+                                                <td>@if($einzug1['lift'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Parkplatz:</b></td>
+                                                <td>@if($einzug1['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endif
+
+                                {{-- Auszug2 Adress --}}
+                                @if($auszug2)
+                                    <div class="col-md-6  border-left">
+                                        <h4> <strong class="text-primary">Auszug2: </strong> </h4>
+                                        <table border='0'>
+                                            <tr>
+                                                <td><b>Strasse:</b></td>
+                                                <td>{{ $auszug2['street'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>PLZ/Ort:</b></td>
+                                                <td>
+                                                    @php
+                                                    $zipType = $countryCodes[$auszug2['country']] ?? 'CH'; // Varsayılan CH
+                                                    @endphp
+                                                    {{ $zipType }} - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} / {{ $auszug2['country'] }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Gebäude:</b></td>
+                                                <td>{{ $auszug2['buildType'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Etage:</b></td>
+                                                <td>{{ $auszug2['floor'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lift:</b></td>
+                                                <td>@if($auszug2['lift'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Parkplatz:</b></td>
+                                                <td>@if($auszug2['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endif
+
+                                {{-- Einzug2 Adress --}}
+                                @if($einzug2)
+                                    <div class="col-md-6  border-left">
+                                        <h4> <strong class="text-primary">Einzug2: </strong> </h4>
+                                        <table border='0'>
+                                            <tr>
+                                                <td><b>Strasse:</b></td>
+                                                <td>{{ $einzug2['street'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>PLZ/Ort:</b></td>
+                                                <td>
+                                                    @php
+                                                    $zipType = $countryCodes[$einzug2['country']] ?? 'CH'; // Varsayılan CH
+                                                    @endphp
+                                                    {{ $zipType }} - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} / {{ $einzug2['country'] }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Gebäude:</b></td>
+                                                <td>{{ $einzug2['buildType'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Etage:</b></td>
+                                                <td>{{ $einzug2['floor'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lift:</b></td>
+                                                <td>@if($einzug2['lift'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Parkplatz:</b></td>
+                                                <td>@if($einzug2['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endif
+
+                                {{-- Auszug3 Adress --}}
+                                @if($auszug3)
+                                    <div class="col-md-6  border-left">
+                                        <h4> <strong class="text-primary">Auszug3: </strong> </h4>
+                                        <table border='0'>
+                                            <tr>
+                                                <td><b>Strasse:</b></td>
+                                                <td>{{ $auszug3['street'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>PLZ/Ort:</b></td>
+                                                <td>
+                                                    @php
+                                                    $zipType = $countryCodes[$auszug3['country']] ?? 'CH'; // Varsayılan CH
+                                                    @endphp
+                                                    {{ $zipType }} - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} / {{ $auszug3['country'] }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Gebäude:</b></td>
+                                                <td>{{ $auszug3['buildType'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Etage:</b></td>
+                                                <td>{{ $auszug3['floor'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lift:</b></td>
+                                                <td>@if($auszug3['lift'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Parkplatz:</b></td>
+                                                <td>@if($auszug3['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endif
+
+                                {{-- Einzug3 Adress --}}
+                                @if($einzug3)
+                                    <div class="col-md-6  border-left">
+                                        <h4> <strong class="text-primary">Einzug3: </strong> </h4>
+                                        <table border='0'>
+                                            <tr>
+                                                <td><b>Strasse:</b></td>
+                                                <td>{{ $einzug3['street'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>PLZ/Ort:</b></td>
+                                                <td>
+                                                    @php
+                                                    $zipType = $countryCodes[$einzug3['country']] ?? 'CH'; // Varsayılan CH
+                                                    @endphp
+                                                    {{ $zipType }} - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} / {{ $einzug3['country'] }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Gebäude:</b></td>
+                                                <td>{{ $einzug3['buildType'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Etage:</b></td>
+                                                <td>{{ $einzug3['floor'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Lift:</b></td>
+                                                <td>@if($einzug3['lift'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Parkplatz:</b></td>
+                                                <td>@if($einzug3['parkPlatz'] == 1) Ja @else Nein @endif</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
 
                     {{-- Umzug Alanı --}}
                     @if ($isUmzug)

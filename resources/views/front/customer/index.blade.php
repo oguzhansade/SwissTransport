@@ -20,250 +20,251 @@
     </style>
 
 
-<style>
+    <style>
 
-    .duplicate-row {
-        background-color: #ffcccc; /* Örnek bir arka plan rengi */
-    }
-    /* DataTables
-            ========================*/
-    .dataTables_wrapper label {
-        font-weight: normal;
-    }
+        .duplicate-row {
+            background-color: #ffcccc; /* Örnek bir arka plan rengi */
+        }
+        /* DataTables
+                ========================*/
+        .dataTables_wrapper label {
+            font-weight: normal;
+        }
 
-    .dataTables_wrapper .dataTables_filter input {
-        padding: 0.35714em 0.71429em;
-        border: 0.0625rem solid #eee;
-        border-radius: 0.125rem;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-    }
+        .dataTables_wrapper .dataTables_filter input {
+            padding: 0.35714em 0.71429em;
+            border: 0.0625rem solid #eee;
+            border-radius: 0.125rem;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
 
-    .dataTables_wrapper .dataTables_filter input:focus {
-        border-color: #03a9f3!important;
-    }
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: #03a9f3!important;
+        }
 
-    .dataTables_wrapper .dataTables_length {
-        margin: 1.07143em auto;
-    }
+        .dataTables_wrapper .dataTables_length {
+            margin: 1.07143em auto;
+        }
 
-    .dataTables_wrapper .dataTables_length select {
-        padding: 0.21429em 0.5em;
-    }
+        .dataTables_wrapper .dataTables_length select {
+            padding: 0.21429em 0.5em;
+        }
 
-    .dataTables_wrapper table.dataTable {
-        border: 0.0625rem solid #eee;
-        margin-top: 1.42857em;
-    }
+        .dataTables_wrapper table.dataTable {
+            border: 0.0625rem solid #eee;
+            margin-top: 1.42857em;
+        }
 
-    .dataTables_wrapper table.dataTable thead th {
-        border-color: #eef1f2;
-    }
+        .dataTables_wrapper table.dataTable thead th {
+            border-color: #eef1f2;
+        }
 
-    .dataTables_wrapper table.dataTable th,
-    .dataTables_wrapper table.dataTable td {
-        padding: 1.07143em 1.42857em;
-    }
+        .dataTables_wrapper table.dataTable th,
+        .dataTables_wrapper table.dataTable td {
+            padding: 1.07143em 1.42857em;
+        }
 
-    .dataTables_wrapper table.dataTable tfoot th {
-        border-top: 0.0625rem solid #eee;
-    }
+        .dataTables_wrapper table.dataTable tfoot th {
+            border-top: 0.0625rem solid #eee;
+        }
 
-    .dataTables_wrapper table.dataTable thead th {
-        border-top: 0;
-    }
+        .dataTables_wrapper table.dataTable thead th {
+            border-top: 0;
+        }
 
-    .dataTables_wrapper table.dataTable thead .sorting,
-    .dataTables_wrapper table.dataTable thead .sorting_asc,
-    .dataTables_wrapper table.dataTable thead .sorting_desc {
-        background: none;
-        position: relative;
-    }
+        .dataTables_wrapper table.dataTable thead .sorting,
+        .dataTables_wrapper table.dataTable thead .sorting_asc,
+        .dataTables_wrapper table.dataTable thead .sorting_desc {
+            background: none;
+            position: relative;
+        }
 
-    .dataTables_wrapper table.dataTable thead .sorting:before,
-    .dataTables_wrapper table.dataTable thead .sorting_asc:before,
-    .dataTables_wrapper table.dataTable thead .sorting_desc:before {
-        position: absolute;
-        top: 50%;
-        right: 0.71429em;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        font-family: "Material Icons";
-        -webkit-font-feature-settings: 'liga';
-        font-feature-settings: 'liga';
-        font-size: 1.28571em;
-    }
+        .dataTables_wrapper table.dataTable thead .sorting:before,
+        .dataTables_wrapper table.dataTable thead .sorting_asc:before,
+        .dataTables_wrapper table.dataTable thead .sorting_desc:before {
+            position: absolute;
+            top: 50%;
+            right: 0.71429em;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            font-family: "Material Icons";
+            -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+            font-size: 1.28571em;
+        }
 
-    .dataTables_wrapper table.dataTable thead .sorting_asc::before {
-        content: 'expand_less';
-    }
+        .dataTables_wrapper table.dataTable thead .sorting_asc::before {
+            content: 'expand_less';
+        }
 
-    .dataTables_wrapper table.dataTable thead .sorting_desc::before {
-        content: 'expand_more';
-    }
+        .dataTables_wrapper table.dataTable thead .sorting_desc::before {
+            content: 'expand_more';
+        }
 
-    .dataTables_wrapper table.dataTable thead .sorting::before {
-        content: 'sort';
-        opacity: 0.1;
-    }
+        .dataTables_wrapper table.dataTable thead .sorting::before {
+            content: 'sort';
+            opacity: 0.1;
+        }
 
-    .dataTables_wrapper .dataTables_info {
-        margin-top: 1.42857em;
-    }
+        .dataTables_wrapper .dataTables_info {
+            margin-top: 1.42857em;
+        }
 
-    .dataTables_wrapper .dataTables_paginate {
-        margin-top: 2.14286em;
-        padding: 0;
-        border: 0.0625rem solid #eee;
-    }
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 2.14286em;
+            padding: 0;
+            border: 0.0625rem solid #eee;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        border: 0;
-    }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            border: 0;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-        background: none;
-        border: 0;
-        color: #999 !important;
-    }
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: none;
+            border: 0;
+            color: #999 !important;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
-        -webkit-box-shadow: none;
-        box-shadow: none;
-    }
+        .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-        background: #337AB6;
-        border: 0;
-        border-radius: 0;
-        color: #fff !important;
-    }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #337AB6;
+            border: 0;
+            border-radius: 0;
+            color: #fff !important;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        background: #286090;
-        border: 0;
-        color: #fff !important;
-    }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background: #286090;
+            border: 0;
+            color: #fff !important;
+        }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.next,
-    .dataTables_wrapper .dataTables_paginate .paginate_button.previous {
-        border: 0;
-    }
-</style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button.next,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+            border: 0;
+        }
+    </style>
 @endsection
 @section('content')
- <!-- Page Title Area -->
- <div class="row page-title clearfix">
-    <div class="page-title-left">
-        <h6 class="page-title-heading mr-0 mr-r-5">Kundenliste</h6>
+    <!-- Page Title Area -->
+    <div class="row page-title clearfix">
+        <div class="page-title-left">
+            <h6 class="page-title-heading mr-0 mr-r-5">Kundenliste</h6>
+        </div>
+        <!-- /.page-title-left -->
+        <div class="page-title-right d-none d-sm-inline-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Panel</a>
+                </li>
+                <li class="breadcrumb-item active">Kunden</li>
+            </ol>
+            {{-- <div class="d-none d-md-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-color-scheme btn-sm fs-11 fw-400 mr-l-40 pd-lr-10 mr-l-0-rtl mr-r-40-rtl hidden-xs hidden-sm ripple" target="_blank">Müşteri Listesi</a>
+            </div> --}}
+        </div>
+        <!-- /.page-title-right -->
     </div>
-    <!-- /.page-title-left -->
-    <div class="page-title-right d-none d-sm-inline-flex">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Panel</a>
-            </li>
-            <li class="breadcrumb-item active">Kunden</li>
-        </ol>
-        {{-- <div class="d-none d-md-inline-flex justify-center align-items-center"><a href="javascript: void(0);" class="btn btn-color-scheme btn-sm fs-11 fw-400 mr-l-40 pd-lr-10 mr-l-0-rtl mr-r-40-rtl hidden-xs hidden-sm ripple" target="_blank">Müşteri Listesi</a>
-        </div> --}}
-    </div>
-    <!-- /.page-title-right -->
-</div>
 
-<div class="widget-list">
-    <div class="row">
-        <div class="col-md-12 widget-holder">
-            <div class="widget-bg">
-                <div class="widget-heading clearfix">
-                        <div class="row">
-                            <div class="col-md-12 d-flex">
-                                <h5>Kundenliste</h5>
+    <div class="widget-list">
+        <div class="row">
+            <div class="col-md-12 widget-holder">
+                <div class="widget-bg">
+                    <div class="widget-heading clearfix">
+                            <div class="row">
+                                <div class="col-md-12 d-flex">
+                                    <h5>Kundenliste</h5>
+                                </div>
                             </div>
-                        </div>
-                </div>
-                <!-- /.widget-heading -->
-                <div class="widget-body clearfix">
-                    <div id="date-range">
-                        <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
-                            <tbody>
-                                <tr>
-                                    <td><b class="test-dark">Erfasst</b></td>
-                                    <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
-                                    <td><b class="test-dark">bis</b></td>
-                                    <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
-                                    <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
-                                </tr>
-
-                            </tbody>
-                        </table>
                     </div>
-                    <div class="row">
-                        <div id="checkbox-container" class="col-md-12 mt-3">
-                            <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                    <!-- /.widget-heading -->
+                    <div class="widget-body clearfix">
+                        <div id="date-range">
+                            <table border="0" class="text-dark" cellspacing="5" cellpadding="5" >
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <b class="text-dark">Services</b><br>
-                                            <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
-                                            <label class="form-check-label mr-1" for="checkbox1">OFFERIERT</label>
-
-                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
-                                            <label class="form-check-label mr-1" for="checkbox2">Nicht OFFERIERT</label>
-
-                                            <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
-                                            <label class="form-check-label ml-3 mr-1" for="checkbox3">TERMINIERT</label>
-
-                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
-                                            <label class="form-check-label mr-1" for="checkbox4">Nicht TERMINIERT</label>
-
-                                            <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
-                                            <label class="form-check-label ml-3 mr-1" for="checkbox5">QUITTUNG</label>
-
-                                            / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
-                                            <label class="form-check-label mr-1" for="checkbox6">Nicht QUITTUNG</label>
-                                        </td>
-
+                                        <td><b class="test-dark">Erfasst</b></td>
+                                        <td><input class="form-control" type="date" id="start_date" name="min_date"></td>
+                                        <td><b class="test-dark">bis</b></td>
+                                        <td><input class="form-control" type="date" id="end_date" name="max_date"></td>
+                                        <td><button id="reset" class="btn btn-danger">Zurücksetzen</button></td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <hr>
+                        <div class="row">
+                            <div id="checkbox-container" class="col-md-12 mt-3">
+                                <table border="0" class="text-dark" cellspacing="5" cellpadding="5">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <b class="text-dark">Services</b><br>
+                                                <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox1" name="serviceFilter[]" value="Offerte" >
+                                                <label class="form-check-label mr-1" for="checkbox1">OFFERIERT</label>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <input class="ml-1"  type="checkbox"  id="duplicateFilter" name="duplicateFilter" value="test">
-                            <label class="form-check-label px-1" for="duplicateFilter">Duplicate Kunden</label>
+                                                / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox2" name="serviceFilter[]" value="Nicht Offerte" >
+                                                <label class="form-check-label mr-1" for="checkbox2">Nicht OFFERIERT</label>
+
+                                                <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox3" name="serviceFilter[]" value="Termine" >
+                                                <label class="form-check-label ml-3 mr-1" for="checkbox3">TERMINIERT</label>
+
+                                                / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox4" name="serviceFilter[]" value="Nicht Termine" >
+                                                <label class="form-check-label mr-1" for="checkbox4">Nicht TERMINIERT</label>
+
+                                                <input class="form-check-input ml-3"  type="checkbox" onclick="updateCheckedValues()" id="checkbox5" name="serviceFilter[]" value="Quittung" >
+                                                <label class="form-check-label ml-3 mr-1" for="checkbox5">QUITTUNG</label>
+
+                                                / <input class="form-check-input ml-0"  type="checkbox" onclick="updateCheckedValues()" id="checkbox6" name="serviceFilter[]" value="Nicht Quittung" >
+                                                <label class="form-check-label mr-1" for="checkbox6">Nicht QUITTUNG</label>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <input class="ml-1"  type="checkbox"  id="duplicateFilter" name="duplicateFilter" value="test">
+                                <label class="form-check-label px-1" for="duplicateFilter">Duplicate Kunden</label>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <table id="example" class="table table-striped table-responsive">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th>#</th>
+                                        <th>Typ</th>
+                                        <th>Nachname</th>
+                                        <th>Vorname</th>
+                                        <th>Email</th>
+                                        <th>Mobil</th>
+                                        <th>Datum</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <div class="mt-3">
-                        <table id="example" class="table table-striped table-responsive">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th>#</th>
-                                    <th>Nachname</th>
-                                    <th>Vorname</th>
-                                    <th>Email</th>
-                                    <th>Mobil</th>
-                                    <th>Datum</th>
-                                    <th>Option</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                    <!-- /.widget-body -->
                 </div>
-                <!-- /.widget-body -->
+                <!-- /.widget-bg -->
             </div>
-            <!-- /.widget-bg -->
+            <!-- /.widget-holder -->
         </div>
-        <!-- /.widget-holder -->
+        <!-- /.row -->
     </div>
-    <!-- /.row -->
-</div>
 <!-- /.widget-list -->
 @endsection
 @section('footer')
@@ -340,6 +341,7 @@
             },
             columns: [
                 { data: 'offerteFilter', name: 'offerteFilter' , searchable:false ,orderable:false},
+                { data: 'customerType', name: 'customerType' , searchable:true},
                 { data: 'name', name: 'name' , searchable:true},
                 { data: 'surname', name: 'surname' , searchable:true},
                 { data:'email', name:'email' , searchable:true},

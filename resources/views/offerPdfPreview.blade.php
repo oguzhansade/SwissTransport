@@ -135,6 +135,18 @@
 
 </head>
 
+@php
+    $countryCodes = [
+        'Schweiz' => 'CH',
+        'Ausland' => 'AU',
+        'Fürstentum Liechtenstein' => 'LI',
+        'Deutschland' => 'DE',
+        'Österreich' => 'AT',
+        'Italien' => 'IT',
+        'Frankreich' => 'FR',
+    ];
+@endphp
+
 <body>
     <header>
         <table style="width: 100%;border-bottom:1px solid black;padding-bottom:8px;">
@@ -182,7 +194,11 @@
                         @endif
                         {{ $customer['name'] }} {{ $customer['surname'] }}<br>
                         {{ $customer['street'] }} <br>
-                        CH-{{ $customer['postCode'] }} {{ $customer['Ort'] }} @if ($customer['country'] == 'Schweiz')
+                        @php
+                            $zipType = $countryCodes[$customer['country']] ?? 'CH'; // Varsayılan CH
+                        @endphp
+                        {{ $zipType }} - {{ $customer['postCode'] }} {{ $customer['Ort'] }}
+                        @if ($customer['country'] == 'Schweiz')
                         @else
                             {{ $customer['country'] }}
                         @endif
@@ -257,14 +273,18 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 @if ($auszug1['street'])
                                     {{ $auszug1['street'] }}
                                 @endif <br>
                                 @if ($auszug1['postCode'])
-                                    CH - {{ $auszug1['postCode'] }}
+                                    @php
+                                        $zipType = $countryCodes[$auszug1['country']] ?? 'CH'; // Varsayılan CH
+                                    @endphp
+                                    {{ $zipType }} - {{ $auszug1['postCode'] }}
                                     @endif
                                     @if ($auszug1['city'])
                                         {{ $auszug1['city'] }} / {{ $auszug1['country'] }}
@@ -281,6 +301,11 @@
                                         Ja
                                     @else
                                         Nein
+                                    @endif <br>
+                                    @if ($auszug1['parkPlatz'] == 1)
+                                        Ja
+                                    @else
+                                        Nein
                                     @endif
                             </td>
                         @endif
@@ -291,16 +316,25 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 @if ($einzug1['street'])
                                     {{ $einzug1['street'] }}
                                 @endif <br>
-                                CH - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} / {{ $einzug1['country'] }} <br>
+                                @php
+                                    $zipType = $countryCodes[$einzug1['country']] ?? 'CH'; // Varsayılan CH
+                                @endphp
+                                {{ $zipType }} - {{ $einzug1['postCode'] }} {{ $einzug1['city'] }} / {{ $einzug1['country'] }} <br>
                                 {{ $einzug1['buildType'] }}<br>
                                 {{ $einzug1['floor'] }}<br>
                                 @if ($einzug1['lift'] == 1)
+                                    Ja
+                                @else
+                                    Nein
+                                @endif <br>
+                                @if ($einzug1['parkPlatz'] == 1)
                                     Ja
                                 @else
                                     Nein
@@ -336,14 +370,23 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 {{ $auszug2['street'] }} <br>
-                                CH - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} / {{ $auszug2['country'] }} <br>
+                                @php
+                                    $zipType = $countryCodes[$auszug2['country']] ?? 'CH'; // Varsayılan CH
+                                @endphp
+                                {{ $zipType }} - {{ $auszug2['postCode'] }} {{ $auszug2['city'] }} / {{ $auszug2['country'] }} <br>
                                 {{ $auszug2['buildType'] }}<br>
                                 {{ $auszug2['floor'] }}<br>
                                 @if ($auszug2['lift'] == 1)
+                                    Ja
+                                @else
+                                    Nein
+                                @endif <br>
+                                @if ($auszug2['parkPlatz'] == 1)
                                     Ja
                                 @else
                                     Nein
@@ -357,14 +400,23 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 {{ $einzug2['street'] }} <br>
-                                CH - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} / {{ $einzug2['country'] }} <br>
+                                @php
+                                    $zipType = $countryCodes[$einzug2['country']] ?? 'CH'; // Varsayılan CH
+                                @endphp
+                                {{ $zipType }} - {{ $einzug2['postCode'] }} {{ $einzug2['city'] }} / {{ $einzug2['country'] }} <br>
                                 {{ $einzug2['buildType'] }}<br>
                                 {{ $einzug2['floor'] }}<br>
                                 @if ($einzug2['lift'] == 1)
+                                    Ja
+                                @else
+                                    Nein
+                                @endif <br>
+                                @if ($einzug2['parkPlatz'] == 1)
                                     Ja
                                 @else
                                     Nein
@@ -399,14 +451,23 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 {{ $auszug3['street'] }} <br>
-                                CH - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} / {{ $auszug3['country'] }}<br>
+                                @php
+                                    $zipType = $countryCodes[$auszug3['country']] ?? 'CH'; // Varsayılan CH
+                                @endphp
+                                {{ $zipType }} - {{ $auszug3['postCode'] }} {{ $auszug3['city'] }} / {{ $auszug3['country'] }}<br>
                                 {{ $auszug3['buildType'] }}<br>
                                 {{ $auszug3['floor'] }}<br>
                                 @if ($auszug3['lift'] == 1)
+                                    Ja
+                                @else
+                                    Nein
+                                @endif <br>
+                                @if ($auszug3['parkPlatz'] == 1)
                                     Ja
                                 @else
                                     Nein
@@ -420,14 +481,23 @@
                                 PLZ / Ort: <br>
                                 Gebäude: <br>
                                 Etage: <br>
-                                Lift:
+                                Lift: <br>
+                                Parkplatz:
                             </td>
                             <td align="left">
                                 {{ $einzug3['street'] }} <br>
-                                CH - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} / {{ $einzug3['country'] }}<br>
+                                @php
+                                    $zipType = $countryCodes[$einzug3['country']] ?? 'CH'; // Varsayılan CH
+                                @endphp
+                                {{ $zipType }} - {{ $einzug3['postCode'] }} {{ $einzug3['city'] }} / {{ $einzug3['country'] }}<br>
                                 {{ $einzug3['buildType'] }}<br>
                                 {{ $einzug3['floor'] }}<br>
                                 @if ($einzug3['lift'] == 1)
+                                    Ja
+                                @else
+                                    Nein
+                                @endif <br>
+                                @if ($einzug3['parkPlatz'] == 1)
                                     Ja
                                 @else
                                     Nein

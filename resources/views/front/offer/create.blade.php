@@ -330,7 +330,7 @@
                         <div class="form-actions">
                             <div class="form-group row mt-3">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen"
+                                    <input id="submitButton" class="btn btn-primary btn-rounded" type="submit" value="Erstellen"
                                         formaction="{{ route('offer.store', ['id' => $data['id']]) }}">
                                     <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview"
                                         formtarget="_blank"
@@ -351,13 +351,23 @@
 
 @section('footer')
 
-
+{{-- // Offerte oluştururken loading bar --}}
 <script>
-    $('form').submit(function() {
-      formLoading()
-      return true;
+    $(document).ready(function() {
+        // Bağlantı tıklandığında 'loading-body' gösterilir
+        $('#submitButton').on('click', function() {
+            $('#loading-body').show();
+            console.log('PDF ON GÖSTERİM')
+        });
+
+        // Sayfa tamamen yüklendiğinde 'loading-body' gizlenir
+        $(window).on('load', function() {
+            $('#loading-body').hide();
+        });
     });
 </script>
+
+
 <script>
 
     let serviceCheckboxes = ['#isUmzug', '#isEinpack', '#isAuspack', '#isReinigung', '#isReinigung2', '#isEntsorgung', '#isTransport', '#isLagerung', '#isVerpackungsmaterial'];

@@ -21,7 +21,7 @@ class OfferMail extends Mailable
         $this->data = $data;
     }
 
-    
+
 
     /**
      * Build the message.
@@ -38,7 +38,7 @@ class OfferMail extends Mailable
                 ->from($this->data['from'],$this->data['companyName'])
                 ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                 ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
                 ->attach(asset('assets/demo/AGB.pdf'))
                 ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
@@ -49,21 +49,21 @@ class OfferMail extends Mailable
                 ->from($this->data['from'],$this->data['companyName'])
                 ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                 ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attachData($this->data['pdf']->output(), $this->data['name'].' '.$this->data['surname'].'.pdf')
                 ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'));
-                
+
             }
         }
         else
         {
-           
+
             if($this->data['isReinigungPdf'] == 'send'){
                 return $this->view('offerEmail')
                 ->subject($this->data['sub'])
                 ->from($this->data['from'],$this->data['companyName'])
                 ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
                 ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'))
                 ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
@@ -73,11 +73,11 @@ class OfferMail extends Mailable
                 ->subject($this->data['sub'])
                 ->from($this->data['from'],$this->data['companyName'])
                 ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), 'offerte-'.$this->data['offerteNumber'].'.pdf')
+                ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
                 ->attach(asset('assets/demo/Top-Bewertet.pdf'))
                 ->attach(asset('assets/demo/AGB.pdf'));
             }
-            
+
         }
         return $this->view('view.name');
     }

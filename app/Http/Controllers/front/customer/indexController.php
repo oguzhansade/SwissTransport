@@ -355,10 +355,10 @@ class indexController extends Controller
 
         ->editColumn('customerType',function ($table) {
             if($table->customerType == 0) {
-                return "Kunde";
+                return "Privatperson";
             }
             else {
-                return "Company";
+                return "Firma";
             }
         })
         ->addColumn('offerteFilter', function($table){

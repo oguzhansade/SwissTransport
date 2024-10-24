@@ -1,6 +1,6 @@
 
 
-<div class="rounded bg-service-primary">
+<div class="rounded bg-service-primary" >
     <div class=" row p-3"  >
         {{-- Offerte Umzug Sol --}}
         <div class="col-md-6">
@@ -28,6 +28,7 @@
                         <option value="Österreich" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Österreich') selected @endif>Österreich</option>
                         <option value="Italien" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Italien') selected @endif>Italien</option>
                         <option value="Frankreich" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                        <option value="Ausland" @if (\App\Models\offerteAddress::InfoAdress($auszug1,'country') == 'Ausland') selected @endif>Ausland</option>
                     </select>
 
                     <div class="mt-1 isAusCustomLand1">
@@ -40,7 +41,8 @@
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'&&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Ausland'
                         )
                         checked
                         @else
@@ -56,7 +58,8 @@
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Frankreich'&&
+                        \App\Models\offerteAddress::InfoAdress($auszug1,'country') != 'Ausland'
                         )
                         style="display:block;"
                         @else
@@ -166,6 +169,7 @@
                             <option value="Österreich" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                            <option value="Ausland" @if ( $einzug1  && \App\Models\offerteAddress::InfoAdress($einzug1,'country') == 'Ausland') selected @endif>Ausland</option>
                         </select>
 
                         <div class="mt-1 isEinCustomLand1">
@@ -178,7 +182,8 @@
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich'
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Ausland'
                             )
                             checked
                             @else
@@ -193,7 +198,8 @@
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich'
+                        \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Frankreich' &&
+                         \App\Models\offerteAddress::InfoAdress($einzug1,'country') != 'Ausland'
                         )
                         style="display:block;"
                         @else
@@ -308,6 +314,7 @@
                             <option value="Österreich" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                            <option value="Ausland" @if ($auszug2 && \App\Models\offerteAddress::InfoAdress($auszug2,'country') == 'Ausland') selected @endif>Ausland</option>
                         </select>
 
                         <div class="mt-1 isAusCustomLand2">
@@ -320,7 +327,8 @@
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich'
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Ausland'
                             )
                             checked
                             @else
@@ -335,7 +343,8 @@
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Deutschland' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Österreich' &&
                         \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Italien' &&
-                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich'
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Frankreich' &&
+                        \App\Models\offerteAddress::InfoAdress($auszug2,'country') != 'Ausland'
                         )
                         style="display:block;"
                         @else
@@ -446,6 +455,7 @@
                                 <option value="Österreich" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Österreich') selected @endif>Österreich</option>
                                 <option value="Italien" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                                <option value="Ausland" @if ($einzug2 && \App\Models\offerteAddress::InfoAdress($einzug2,'country') == 'Ausland') selected @endif>Ausland</option>
                             </select>
 
                             <div class="mt-1 isEinCustomLand2">
@@ -458,7 +468,8 @@
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich'
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' &&
+                            \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Ausland'
                             )
                             checked
                             @else
@@ -473,7 +484,8 @@
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich'
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Frankreich' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug2,'country') != 'Ausland'
                                 )
                                 style="display:block;"
                                 @else
@@ -587,6 +599,7 @@
                             <option value="Österreich" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Österreich') selected @endif>Österreich</option>
                             <option value="Italien" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Italien') selected @endif>Italien</option>
                             <option value="Frankreich" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                            <option value="Ausland" @if ($auszug3 && \App\Models\offerteAddress::InfoAdress($auszug3,'country') == 'Ausland') selected @endif>Ausland</option>
                         </select>
 
                         <div class="mt-1 isAusCustomLand3">
@@ -599,7 +612,8 @@
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich'
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' &&
+                            \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Ausland'
                             )
                             checked
                             @else
@@ -614,7 +628,8 @@
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich'
+                                \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Frankreich' &&
+                                 \App\Models\offerteAddress::InfoAdress($auszug3,'country') != 'Ausland'
                                 )
                                 style="display:block;"
                                 @else
@@ -718,6 +733,7 @@
                                 <option value="Österreich" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Österreich') selected @endif>Österreich</option>
                                 <option value="Italien" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Italien') selected @endif>Italien</option>
                                 <option value="Frankreich" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Frankreich') selected @endif>Frankreich</option>
+                                <option value="Ausland" @if ($einzug3 && \App\Models\offerteAddress::InfoAdress($einzug3,'country') == 'Ausland') selected @endif>Ausland</option>
                             </select>
 
                             <div class="mt-1 isEinCustomLand3">
@@ -730,7 +746,8 @@
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
-                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich'
+                            \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' &&
+                             \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Ausland'
                             )
                             checked
                             @else
@@ -745,7 +762,8 @@
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Deutschland' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Österreich' &&
                                 \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Italien' &&
-                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich'
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Frankreich' &&
+                                \App\Models\offerteAddress::InfoAdress($einzug3,'country') != 'Ausland'
                                 )
                                 style="display:block;"
                                 @else
@@ -821,14 +839,3 @@
                 </div>
         </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-

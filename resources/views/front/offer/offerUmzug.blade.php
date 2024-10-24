@@ -28,6 +28,7 @@
                         <option value="Österreich">Österreich</option>
                         <option value="Italien">Italien</option>
                         <option value="Frankreich">Frankreich</option>
+                        <option value="Ausland">Ausland</option>
                     </select>
 
                     <div class="mt-1 isAusCustomLand1">
