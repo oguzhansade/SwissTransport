@@ -16,7 +16,8 @@ class OfferteUmzug extends Model
         'moveDate',
         'moveTime',
         'moveDate2',
-        'arrivalReturn',
+        'arrivalGas',
+        'returnGas',
         'montage',
         'moveHours',
         'extra',
@@ -53,7 +54,7 @@ class OfferteUmzug extends Model
         if($data) {
             return $data[$param];
         }
-        
+
     }
 
     static function getHour($id)
@@ -62,6 +63,6 @@ class OfferteUmzug extends Model
         if($data) {
             return $data['moveHours'];
         }
-        
+
     }
 }

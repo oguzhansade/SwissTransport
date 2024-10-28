@@ -15,30 +15,33 @@ class calendarHelper
         $event->name = $title;
         $appType = NULL;
 
-        if($serviceName == 'Lieferung' || 'Abholung')
+        if($serviceName == 'Lieferung' || $serviceName == 'Abholung')
         {
+
             $appType = 3;
             $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
             $event->endDateTime = Carbon::parse($endDate)->addHour(1)->timezone("Europe/Zurich");
         }
+
         else{
             if($serviceName == 'Besichtigung')
             {
                 $appType = 1;
                 $event->startDateTime = Carbon::parse($date)->timezone("Europe/Zurich");
                 $event->endDateTime = Carbon::parse($endDate)->addHour(1)->timezone("Europe/Zurich");
+
             }
             else{
                 $appType = 2;
                 $event->startDate = Carbon::parse($date)->timezone("Europe/Zurich");
-                if($serviceName == 'Reinigung' || 'Reinigung 2'){
+                if($serviceName == 'Reinigung' || $serviceName == 'Reinigung 2'){
                     $event->endDate = Carbon::parse($endDate)->addDay(1)->timezone("Europe/Zurich"); // 1 gün ekledik çünkü calendar da 20-23 arası yapınca 20-22 arasını işaretliyor
                 }
                 else {
                     $event->endDate = Carbon::parse($endDate)->timezone("Europe/Zurich");
                 }
-
             }
+
         }
 
         $event->location = $location;

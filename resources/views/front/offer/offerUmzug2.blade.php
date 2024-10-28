@@ -54,8 +54,16 @@
             <label class=" col-form-label" for="l0">Einzugstermin</label>
             <input class="form-control" class="date"  name="umzugeindate"  type="date" >
 
-            <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-            <input class="form-control" class="date"  name="umzugroadChf"  type="number" value="0">
+            <div class="row">
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="umzugArrivalGas"  type="number" value="0">
+                </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="umzugReturnGas"  type="number" value="0">
+                </div>
+            </div>
 
             <label class=" col-form-label" for="l0">Ab- und Aufbau</label>
             <select class="form-control" class="umzugMontaj" name="umzugMontaj" id="umzugMontaj" >
@@ -541,7 +549,8 @@
 
             var extra12Cost = parseFloat($('input[name=extra12Cost]').val());
             var extra13Cost = parseFloat($('input[name=extra13Cost]').val());
-            var umzugTotalChf = parseFloat($('input[name=umzugroadChf]').val());
+            var umzugArrivalGas = parseFloat($('input[name=umzugArrivalGas]').val());
+            var umzugReturnGas = parseFloat($('input[name=umzugReturnGas]').val());
 
             var chf = $('input[name=umzug1chf]').val();
             var Hours = $('input[name=umzugHours]').val();
@@ -550,8 +559,8 @@
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
 
-            umzugCostLeft = chf * leftHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugTotalChf;
-            umzugCostRight = chf * rightHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugTotalChf;
+            umzugCostLeft = chf * leftHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugArrivalGas+umzugReturnGas;
+            umzugCostRight = chf * rightHour + extra1+extra2+extra3+extra4+extra5+extra6+extra7+extra8+extra9+extra10+extra11+extra12Cost+extra13Cost+umzugArrivalGas+umzugReturnGas;
 
             if(rightHour){
                 $('input[name=umzugCost]').val(umzugCostRight)

@@ -23,7 +23,8 @@ return new class extends Migration
             $table->date('moveDate')->nullable();
             $table->time('moveTime')->nullable();
             $table->date('moveDate2')->nullable();
-            $table->integer('arrivalReturn')->nullable(); // Benzin gideri
+            $table->integer('arrivalGas')->nullable(); // Benzin gideri
+            $table->integer('returnGas')->nullable(); // Benzin gideri
             $table->integer('montage')->nullable();
             $table->string('moveHours'); //İkili Olucak Front end kısmını araştır.
             $table->integer('extra')->nullable();
