@@ -11,32 +11,40 @@
         <div class="row einpack-tariffs--area" style="display: none;">
             <div class="col">
                 <label class=" col-form-label" for="l0">MA</label>
-                <input class="form-control"  name="einpack1ma" placeholder="0"  type="number" >                                
+                <input class="form-control"  name="einpack1ma" placeholder="0"  type="number" >
             </div>
             <div class="col">
                 <label class=" col-form-label" for="l0">CHF-Ansatz</label>
-                <input class="form-control"  name="einpack1chf" placeholder="0"  type="number" >                                
+                <input class="form-control"  name="einpack1chf" placeholder="0"  type="number" >
             </div>
         </div>
-        
+
         <label class=" col-form-label" for="l0">Packtermin</label>
-        <input class="form-control" class="date"  name="einpackdate"  type="date" > 
+        <input class="form-control" class="date"  name="einpackdate"  type="date" >
 
         <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
-        <input class="form-control" class="time"  name="einpacktime"  type="time" > 
+        <input class="form-control" class="time"  name="einpacktime"  type="time" >
 
-        <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-        <input class="form-control" class="date"  name="einpackroadChf"  type="number" value="0"> 
+        <div class="row">
+            <div class="col">
+                <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
+                <input class="form-control" class="date"  name="einpackArrivalGas"  type="number" value="0">
+            </div>
+            <div class="col">
+                <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
+                <input class="form-control" class="date"  name="einpackReturnGas"  type="number" value="0">
+            </div>
+        </div>
 
     </div>
     <div class="col-md-6">
         <label class="col-form-label" for="l0">Dauer [h]</label>
-        <input class="form-control"  name="einpackHours" placeholder="4-5"  type="text" >  
-        
+        <input class="form-control"  name="einpackHours" placeholder="4-5"  type="text" >
+
         <div class="extra-cost-einpack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
-        </div>  
+            <input type="checkbox" name="einpackisExtra" id="einpackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>
+        </div>
 
         <div class="einpack--extra--cost--area" style="display: block;">
 
@@ -45,28 +53,28 @@
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="einpackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
-                            </label>                   
+                                <input type="checkbox" name="einpackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <input class="form-control" name="einpackextra1" type="number" value="10">
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="einpackmasraf1"> <span class="label-text text-dark"><strong>Verpackungsmaterial</strong></span>                       
-                            </label>                   
+                                <input type="checkbox" name="einpackmasraf1"> <span class="label-text text-dark"><strong>Verpackungsmaterial</strong></span>
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <input class="form-control" name="einpackextra2" type="number" value="250">
                     </div>
-                </div>  
-  
+                </div>
+
                 <div class="row ">
                     <div class="col-md-7">
                         <input class="form-control"  name="einpackCostText1" placeholder="Freier Text"  type="text" >
@@ -86,15 +94,15 @@
                 </div>
             </div>
 
-            
-                        
+
+
         </div>
-        
+
         <label class="col-form-label mt-1 " for="l0">Kosten</label>
-        <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
+        <input class="form-control" id="einpackCost"  name="einpackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
         <label class="col-form-label" for="l0">Rabatt</label>
-        <input class="form-control"  name="einpackDiscount" placeholder="0"  type="number" > 
+        <input class="form-control"  name="einpackDiscount" placeholder="0"  type="number" >
 
         <label class="col-form-label" for="l0">Rabatt[%]</label>
         <input class="form-control"  name="einpackDiscountPercent" placeholder="0"  type="number" >
@@ -143,7 +151,7 @@
                 <input type="checkbox" name="isEinpackFxPrice" id="isEinpackFxPrice" class="js-switch mt-1" data-color="#286090" data-size="small" data-switchery="false" >
             </div>
         </div>
-       
+
     </div>
 </div>
 
@@ -227,34 +235,35 @@
         einpackCost = 0;
         var einpackTopPrice = 0;
         var einpackDefaultPrice = 0;
-        $("body").on("change",".einpack--area",function(){     
+        $("body").on("change",".einpack--area",function(){
             if ($('input[name=einpackmasraf]').is(":checked")){
-               var extra1 = parseFloat($('input[name=einpackextra1]').val());               
+               var extra1 = parseFloat($('input[name=einpackextra1]').val());
             }
             else {
                 extra1 = 0;
             }
             if ($('input[name=einpackmasraf1]').is(":checked")){
-               var extra2 = parseFloat($('input[name=einpackextra2]').val());               
+               var extra2 = parseFloat($('input[name=einpackextra2]').val());
             }
             else {
                 extra2 = 0;
             }
-            
 
-            var extra12Cost = parseFloat($('input[name=einpackCost1]').val());               
-            var extra13Cost = parseFloat($('input[name=einpackCost2]').val()); 
-            var einpackTotalChf = parseFloat($('input[name=einpackroadChf]').val());              
-            
+
+            var extra12Cost = parseFloat($('input[name=einpackCost1]').val());
+            var extra13Cost = parseFloat($('input[name=einpackCost2]').val());
+            var einpackArrivalGas = parseFloat($('input[name=einpackArrivalGas]').val());
+            var einpackReturnGas = parseFloat($('input[name=einpackReturnGas]').val());
+
             var chf = $('input[name=einpack1chf]').val();
             var Hours = $('input[name=einpackHours]').val();
             let allHours = Hours.split("-");
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
-            
-            einpackCostLeft = chf * leftHour + extra1+extra2+extra12Cost+extra13Cost+einpackTotalChf;
-            einpackCostRight = chf * rightHour + extra1+extra2+extra12Cost+extra13Cost+einpackTotalChf;
-            
+
+            einpackCostLeft = chf * leftHour + extra1+extra2+extra12Cost+extra13Cost+einpackArrivalGas+einpackReturnGas;
+            einpackCostRight = chf * rightHour + extra1+extra2+extra12Cost+extra13Cost+einpackArrivalGas+einpackReturnGas;
+
             if(rightHour){
                 $('input[name=einpackCost]').val(einpackCostRight)
             }
@@ -262,13 +271,13 @@
                 $('input[name=einpackCost]').val(einpackCostLeft)
             }
             if(leftHour && rightHour ){
-                $('input[name=einpackCost]').val(einpackCostLeft+'-'+einpackCostRight) 
+                $('input[name=einpackCost]').val(einpackCostLeft+'-'+einpackCostRight)
             }
             if(leftHour == null && rightHour == null)
             {
                 $('input[name=einpackCost]').val('')
             }
-        })  
+        })
 
         $("body").on("change",".einpack--area",function(){
             var chf = $('input[name=einpack1chf]').val();
@@ -281,7 +290,7 @@
             var discountPercent = $('input[name=einpackDiscountPercent]').val();
             var compromiser = $('input[name=einpackCompromiser]').val();
             var extraDiscount = $('input[name=einpackExtraDiscount]').val();
-            
+
             einpackTotalPriceLeft = einpackCostLeft - discount - (einpackCostLeft*discountPercent/100) - compromiser - extraDiscount;
             einpackTotalPriceRight = einpackCostRight - discount - (einpackCostRight*discountPercent/100) - compromiser - extraDiscount;
 
@@ -292,7 +301,7 @@
                 $('input[name=einpackTotalPrice]').val(einpackTotalPriceLeft)
             }
             if(leftHour && rightHour ){
-                $('input[name=einpackTotalPrice]').val(einpackTotalPriceLeft+'-'+einpackTotalPriceRight) 
+                $('input[name=einpackTotalPrice]').val(einpackTotalPriceLeft+'-'+einpackTotalPriceRight)
             }
             if(leftHour == null && rightHour == null)
             {
@@ -307,7 +316,7 @@
             let einpackTotalPrices = $('input[name=einpackTotalPrice]').val();
             einpackTotalPricesARR = einpackTotalPrices.split("-");
             let einpackTotalPrice = 0;
-            
+
             leftTotal = parseFloat(einpackTotalPricesARR[0]);
             rightTotal = parseFloat(einpackTotalPricesARR[1]);
             if(leftTotal >= rightTotal)
@@ -338,8 +347,8 @@
                 einpackDefaultPrice = einpackTotalPrice + parseFloat(chf);
             $('input[name=einpackDefaultPrice]').val(einpackDefaultPrice);
             }
-           
-        })  
+
+        })
     })
 </script>
 @endsection

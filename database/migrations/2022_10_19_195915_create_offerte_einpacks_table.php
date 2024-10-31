@@ -20,7 +20,8 @@ return new class extends Migration
             $table->integer('chf');
             $table->date('einpackDate')->nullable();
             $table->time('einpackTime')->nullable();
-            $table->integer('arrivalReturn')->nullable(); // Benzin gideri
+            $table->integer('arrivalGas')->nullable(); // Benzin gideri
+            $table->integer('returnGas')->nullable(); // Benzin gideri
             $table->string('moveHours'); //İkili Olucak Front end kısmını araştır.
             $table->integer('extra')->nullable();
             $table->integer('extra1')->nullable();

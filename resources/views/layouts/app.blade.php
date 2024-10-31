@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
 
-    <script src="https://cdn.tiny.cloud/1/twsl2prz1qaco9e2st4j3e7uistmjc27ijwmb6kveo9twgk9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/uahyyxnxqnfnc9o1hi72dmh0xvtn65ars5um69t1xufdw2g2/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <style>
         /* Header Rengi */

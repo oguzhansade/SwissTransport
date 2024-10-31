@@ -576,7 +576,7 @@
                             Umzugstermin:<br>
                             @if ($umzug['moveTime']) <span>Arbeitsbeginn:</span><br> @endif
                             @if ($umzug['moveDate2']) Einzugstermin:<br>@endif
-                            An- oder Rückfahrt:<br>
+                            Anfahrt - Rückfahrt: <br>
                             @if ($umzug['montage'] == 2 || $umzug['montage'] == 3) De- und Montage: @endif
                         </td>
 
@@ -591,7 +591,7 @@
 
                             @if ($umzug['moveDate2']) {{ date('d/m/Y', strtotime($umzug['moveDate2'])) }}<br> @endif
 
-                            {{ $umzug['arrivalReturn'] }} CHF<br>
+                            {{ $umzug['arrivalGas'] }} - {{ $umzug['returnGas'] }} CHF<br>
                             @if ($umzug['montage'] == 2)
                                 Kunde
                             @elseif($umzug['montage'] == 3)
@@ -875,7 +875,7 @@
                             <td valign="top" >
                                 Packtermin:<br>
                                 @if ($einpack['einpackTime']) Arbeitsbeginn <br> @endif
-                                An- oder Rückfahrt<br>
+                                Anfahrt - Rückfahrt:<br>
                             </td>
 
                             <td valign="top" >
@@ -887,7 +887,7 @@
                                 <br>
                                 @if ($einpack['einpackTime']) {{ $einpack['einpackTime'] }} <br>@endif
 
-                                {{ $einpack['arrivalReturn'] }} CHF<br>
+                                {{ $einpack['arrivalGas'] }} - {{ $einpack['returnGas'] }} CHF<br>
                             </td>
 
                             <td valign="top" colspan="2" >
