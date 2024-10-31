@@ -1728,7 +1728,7 @@
                         <td valign="top">
                             Transporttermin:<br>
                             @if ($transport['transportTime']) Arbeitsbeginn:<br>@endif
-                            An- oder Rückfahrt:<br>
+                            Anfahrt - Rückfahrt:<br>
                         </td>
 
                         <td valign="top" >
@@ -1740,7 +1740,7 @@
                             <br>
                             @if ($transport['transportTime']) {{ $transport['transportTime'] }} <br> @endif
 
-                            {{ $transport['arrivalReturn'] }} CHF <br>
+                            {{ $transport['arrivalGas'] }} - {{ $transport['returnGas'] }} CHF <br>
                         </td>
 
                         <td valign="top" colspan="2">

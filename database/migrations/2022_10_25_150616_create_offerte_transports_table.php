@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string('hour')->nullable();
             $table->date('transportDate')->nullable();
             $table->time('transportTime')->nullable();
-            $table->integer('arrivalReturn')->nullable();
+            $table->integer('arrivalGas')->nullable();
+            $table->integer('returnGas')->nullable();
             $table->string('extraCostText1')->nullable();
             $table->integer('extraCostValue1')->nullable();
             $table->string('extraCostText2')->nullable();

@@ -1,8 +1,8 @@
 <div class="form-group row">
     <div class="col-md-12 transport-control">
         <label for="" class="col-form-label">Transport</label><br>
-        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#286090" data-switchery="false" >  
-    </div>                            
+        <input type="checkbox" name="isTransport" id="isTransport" class="js-switch " data-color="#286090" data-switchery="false" >
+    </div>
 </div>
 
 <div class="rounded transport--area bg-service-primary" style="display:none;">
@@ -12,13 +12,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Optional: Transport-Art Text (kommt in Pdf)</label>
-                    <input class="form-control"  name="pdfText"   type="text" >    
+                    <input class="form-control"  name="pdfText"   type="text" >
                 </div>
             </div>
             <div class="row p-2 mt-1 rounded" style="background-color: #286090">
                 <div class="col-md-12">
                     <label class="col-form-label text-white" for="l0">Pauschalpreis-Tarif</label>
-                    <input class="form-control"  name="transportFixedTariff" placeholder="0"  type="number" >    
+                    <input class="form-control"  name="transportFixedTariff" placeholder="0"  type="number" >
                 </div>
             </div>
             <small class="text-primary"><i>Entweder "Pauschalpreis-Tarif" oder "Stundenansatz-Tarif" ausfüllen. Falls Pauschalpreis-Tarif gefüllt ist, wird dieser genommen.</i></small><br>
@@ -34,47 +34,55 @@
             <div class="row transport-tariffs--area p-2 mt-1 rounded" style="display: none;background-color: #286090;">
                 <div class="col">
                     <label class=" col-form-label" for="l0">MA</label>
-                    <input class="form-control"  name="transportma" placeholder="0"  type="number" >                                
+                    <input class="form-control"  name="transportma" placeholder="0"  type="number" >
                 </div>
 
                 <div class="col">
                     <label class=" col-form-label" for="l0">LKW</label>
-                    <input class="form-control"  name="transportlkw" placeholder="0"  type="number" >                                
+                    <input class="form-control"  name="transportlkw" placeholder="0"  type="number" >
                 </div>
 
                 <div class="col">
                     <label class=" col-form-label" for="l0">Anhänger</label>
-                    <input class="form-control"  name="transportanhanger" placeholder="0"  type="number" >                                
+                    <input class="form-control"  name="transportanhanger" placeholder="0"  type="number" >
                 </div>
 
                 <div class="col">
                     <label class=" col-form-label" for="l0">CHF-Ansatz</label>
-                    <input class="form-control"  name="transportchf" placeholder="0"  type="number" >                                
+                    <input class="form-control"  name="transportchf" placeholder="0"  type="number" >
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <label class=" col-form-label" for="l0">Dauer [h]</label>
-                    <input class="form-control"  name="transporthour" placeholder="4-5"  type="text" > 
+                    <input class="form-control"  name="transporthour" placeholder="4-5"  type="text" >
                 </div>
             </div>
-            
+
             <label class=" col-form-label" for="l0">Transporttermin</label>
-            <input class="form-control" class="date"  name="transportDate"  type="date" > 
+            <input class="form-control" class="date"  name="transportDate"  type="date" >
 
             <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
-            <input class="form-control" class="time"  name="transportTime"  type="time" > 
+            <input class="form-control" class="time"  name="transportTime"  type="time" >
 
-            <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-            <input class="form-control" class="date"  name="transportRoadChf"  type="number" value="0"> 
+            <div class="row">
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="transportArrivalGas"  type="number" value="0">
+                </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="transportReturnGas"  type="number" value="0">
+                </div>
+            </div>
 
         </div>
         <div class="col-md-6">
             <div class="extra-cost-transport mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
-            </div>  
+                <input type="checkbox" name="transportisExtra" id="transportisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>
+            </div>
 
             <div class="transport--extra--cost--area mt-3" style="display: block;">
 
@@ -143,15 +151,15 @@
                     </div>
                 </div>
             </div>
-            
+
             <label class="col-form-label mt-1 " for="l0">Kosten</label>
-            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
+            <input class="form-control" id="transportCost"  name="transportCost" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
             <label class="col-form-label" for="l0">Rabatt</label>
-            <input class="form-control"  name="transportDiscount" placeholder="0"  type="number" value="0"> 
+            <input class="form-control"  name="transportDiscount" placeholder="0"  type="number" value="0">
 
             <label class="col-form-label" for="l0">Rabatt[%]</label>
-            <input class="form-control"  name="transportDiscountPercent" placeholder="0"  type="number" value="0"> 
+            <input class="form-control"  name="transportDiscountPercent" placeholder="0"  type="number" value="0">
 
             <label class="col-form-label" for="l0">Entgegenkommen</label>
             <input class="form-control"  name="transportCompromiser" placeholder="0"  type="number" value="0">
@@ -214,29 +222,29 @@
 @section('offerFooterTransport')
 
 {{-- Tarife Fiyatları --}}
-<script>        
+<script>
    var morebutton8 = $("div.transport-control");
     morebutton8.click(function(){
         if($(this).hasClass("checkbox-checked"))
         {
             $(".transport--area").show(700);
-            $("input[name=transportFixedTariff]").prop('required',true);      
-            $("select[name=transportTariff]").prop('required',true); 
-            $("input[name=transporthour]").prop('required',true); 
-            $("input[name=transportma]").prop('required',true); 
-            $("input[name=transportlkw]").prop('required',true); 
-            $("input[name=transportanhanger]").prop('required',true); 
-            $("input[name=transportchf]").prop('required',true); 
+            $("input[name=transportFixedTariff]").prop('required',true);
+            $("select[name=transportTariff]").prop('required',true);
+            $("input[name=transporthour]").prop('required',true);
+            $("input[name=transportma]").prop('required',true);
+            $("input[name=transportlkw]").prop('required',true);
+            $("input[name=transportanhanger]").prop('required',true);
+            $("input[name=transportchf]").prop('required',true);
         }
         else{
             $(".transport--area").hide(500);
-            $("input[name=transportFixedTariff]").prop('required',false);      
-            $("select[name=transportTariff]").prop('required',false); 
-            $("input[name=transporthour]").prop('required',false); 
-            $("input[name=transportma]").prop('required',false); 
-            $("input[name=transportlkw]").prop('required',false); 
-            $("input[name=transportanhanger]").prop('required',false); 
-            $("input[name=transportchf]").prop('required',false); 
+            $("input[name=transportFixedTariff]").prop('required',false);
+            $("select[name=transportTariff]").prop('required',false);
+            $("input[name=transporthour]").prop('required',false);
+            $("input[name=transportma]").prop('required',false);
+            $("input[name=transportlkw]").prop('required',false);
+            $("input[name=transportanhanger]").prop('required',false);
+            $("input[name=transportchf]").prop('required',false);
         }
     })
 
@@ -268,12 +276,12 @@
     $("input[name=transportFixedTariff]").on("change",function (){
         if($("input[name=transportFixedTariff]").val())
         {
-            $("select[name=transportTariff]").prop('required',false); 
-            $("input[name=transporthour]").prop('required',false); 
-            $("input[name=transportma]").prop('required',false); 
-            $("input[name=transportlkw]").prop('required',false); 
-            $("input[name=transportanhanger]").prop('required',false); 
-            $("input[name=transportchf]").prop('required',false); 
+            $("select[name=transportTariff]").prop('required',false);
+            $("input[name=transporthour]").prop('required',false);
+            $("input[name=transportma]").prop('required',false);
+            $("input[name=transportlkw]").prop('required',false);
+            $("input[name=transportanhanger]").prop('required',false);
+            $("input[name=transportchf]").prop('required',false);
         }
     })
 
@@ -320,8 +328,10 @@
         transportCost = 0;
         var transportTopPrice = 0;
         var transportDefaultPrice = 0;
-        $("body").on("change",".transport--area",function(){            
-            var roadchf = parseFloat($('input[name=transportRoadChf]').val());
+        $("body").on("change",".transport--area",function(){
+            var arrivalGas = parseFloat($('input[name=transportArrivalGas]').val());
+            var returnGas = parseFloat($('input[name=transportReturnGas]').val());
+            var roadchf = arrivalGas + returnGas;
             var chf = parseFloat($('input[name=transportchf]').val());
             var Hours = $('input[name=transporthour]').val();
             let allHours = Hours.split("-");
@@ -349,7 +359,7 @@
                     $('input[name=transportCost]').val(transportCostLeft)
                 }
                 if(leftHour && rightHour ){
-                    $('input[name=transportCost]').val(transportCostLeft+'-'+transportCostRight) 
+                    $('input[name=transportCost]').val(transportCostLeft+'-'+transportCostRight)
                 }
                 if(leftHour == null && rightHour == null)
                 {
@@ -360,8 +370,8 @@
                 $('input[name=transportCost]').val(transportFixedTariff)
             }
            console.log(leftHour,rightHour,roadchf,chf,extra1,extra2,extra3,extra4,extra5,extra6,extra7)
-        })  
-        $("body").on("change",".transport--area",function(){      
+        })
+        $("body").on("change",".transport--area",function(){
             var transportFixedTariff = $('input[name=transportFixedTariff]').val();
             var discount = $('input[name=transportDiscount]').val();
             var discountPercent = $('input[name=transportDiscountPercent]').val();
@@ -385,7 +395,7 @@
                     $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft)
                 }
                 if(leftHour && rightHour ){
-                    $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft+'-'+transportDefaultPriceRight) 
+                    $('input[name=transportDefaultPrice]').val(transportDefaultPriceLeft+'-'+transportDefaultPriceRight)
                 }
                 if(leftHour == null && rightHour == null)
                 {
@@ -395,16 +405,16 @@
             else{
                 $('input[name=transportDefaultPrice]').val(transportFixedTariff);
             }
-            
+
         })
-        $("body").on("change",".transport--area",function(){      
+        $("body").on("change",".transport--area",function(){
             var chf = $('input[name=transportchf]').val();
             var Hours = $('input[name=transporthour]').val();
 
             let transportTotalPrices = $('input[name=transportDefaultPrice]').val();
             transportTotalPricesARR = transportTotalPrices.split("-");
             let transportTotalPrice = 0;
-            
+
             leftTotal = parseFloat(transportTotalPricesARR[0]);
             rightTotal = parseFloat(transportTotalPricesARR[1]);
             if(leftTotal >= rightTotal)
@@ -435,11 +445,11 @@
                 transportFixedPrice = transportTotalPrice + parseFloat(chf);
                 $('input[name=transportFixedPrice]').val(transportFixedPrice);
             }
-        })  
+        })
     })
 </script>
 
-    
+
 @endsection
 
 
