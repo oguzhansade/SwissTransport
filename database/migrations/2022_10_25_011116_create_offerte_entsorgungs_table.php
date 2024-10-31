@@ -27,7 +27,8 @@ return new class extends Migration
             $table->integer('hour')->nullable();
             $table->date('entsorgungDate')->nullable();
             $table->time('entsorgungTime')->nullable();
-            $table->integer('arrivalReturn')->nullable();
+            $table->integer('arrivalGas')->nullable();
+            $table->integer('returnGas')->nullable();
             $table->integer('entsorgungExtra1')->nullable();
             $table->string('extraCostText1')->nullable();
             $table->integer('extraCostValue1')->nullable();

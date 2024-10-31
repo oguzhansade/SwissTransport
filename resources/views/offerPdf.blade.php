@@ -1619,14 +1619,14 @@
                             @if ($entsorgung['entsorgungDate']) Entsorgungstermin:<br>@endif
                             @if ($entsorgung['hour']) Geschätzter Aufwand: <br>@endif
                             @if ($entsorgung['m3']) Geschätztes Volumen: <br>@endif
-                            @if ($entsorgung['arrivalReturn'])An- oder Rückfahrt:@endif
+                            @if ($entsorgung['arrivalGas'] || $entsorgung['returnGas'])Anfahrt - Rückfahrt:@endif
                         </td>
 
                         <td valign="top">
                             @if ($entsorgung['entsorgungDate']) {{ date('d/m/Y', strtotime($entsorgung['entsorgungDate'])) }} <br> @endif
                             @if ($entsorgung['hour']){{ $entsorgung['hour'] }} Stunden<br>@endif
                             @if ($entsorgung['m3']){{ $entsorgung['m3'] }} m³<br>@endif
-                            @if ($entsorgung['arrivalReturn']){{ $entsorgung['arrivalReturn'] }} CHF<br>@endif
+                            @if ($entsorgung['arrivalGas'] || $entsorgung['returnGas']){{ $entsorgung['arrivalGas'] }} - {{ $entsorgung['returnGas'] }} CHF<br>@endif
                         </td>
 
                         <td valign="top" align="right">

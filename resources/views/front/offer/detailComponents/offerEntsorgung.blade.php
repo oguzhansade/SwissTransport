@@ -103,11 +103,21 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
-                    <label class="col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-                    <input class="form-control" name="entsorgungroadChf" placeholder="0" type="number"
-                        @if ($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'arrivalReturn') != null) value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung, 'arrivalReturn') }}"
-                        @else value="{{ 0 }}" @endif>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="entsorgungArrivalGas"  type="number"
+                    @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'arrivalGas'))
+                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'arrivalGas') }}"
+                        @else value="0"
+                    @endif>
+                </div>
+                <div class="col">
+                    <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
+                    <input class="form-control" class="date"  name="entsorgungReturnGas"  type="number"
+                    @if($entsorgung && \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'returnGas'))
+                        value="{{ \App\Models\OfferteEntsorgung::InfoEntsorgung($entsorgung,'returnGas') }}"
+                        @else value="0"
+                    @endif>
                 </div>
             </div>
 
