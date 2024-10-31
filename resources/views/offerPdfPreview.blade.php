@@ -988,7 +988,7 @@
                             <td valign="top">
                                 Packtermin:<br>
                                 @if ($auspack['auspackTime']) Arbeitsbeginn:<br>@endif
-                                An- oder Rückfahrt<br>
+                                Anfahrt - Rückfahrt:<br>
                             </td>
 
                             <td valign="top" >
@@ -999,7 +999,7 @@
                                 @endif
                                 <br>
                                 @if ($auspack['auspackTime']) {{ $auspack['auspackTime'] }} <br>@endif
-                                {{ $auspack['arrivalReturn'] }} CHF<br>
+                                {{ $auspack['arrivalGas'] }} - {{ $auspack['returnGas'] }} CHF<br>
                             </td>
                             <td valign="top" colspan="2">
                                 <table border="0">

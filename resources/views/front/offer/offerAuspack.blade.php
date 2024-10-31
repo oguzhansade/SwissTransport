@@ -11,32 +11,40 @@
         <div class="row auspack-tariffs--area" style="display: none;">
             <div class="col">
                 <label class=" col-form-label" for="l0">MA</label>
-                <input class="form-control"  name="auspack1ma" placeholder="0"  type="number" >                                
+                <input class="form-control"  name="auspack1ma" placeholder="0"  type="number" >
             </div>
             <div class="col">
                 <label class=" col-form-label" for="l0">CHF-Ansatz</label>
-                <input class="form-control"  name="auspack1chf" placeholder="0"  type="number" >                                
+                <input class="form-control"  name="auspack1chf" placeholder="0"  type="number" >
             </div>
         </div>
-        
+
         <label class=" col-form-label" for="l0">Packtermin</label>
-        <input class="form-control" class="date"  name="auspackdate"  type="date" > 
+        <input class="form-control" class="date"  name="auspackdate"  type="date" >
 
         <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
-        <input class="form-control" class="time"  name="auspacktime"  type="time" > 
+        <input class="form-control" class="time"  name="auspacktime"  type="time" >
 
-        <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-        <input class="form-control" class="date"  name="auspackroadChf"  type="number" value="0"> 
+        <div class="row">
+            <div class="col">
+                <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
+                <input class="form-control" class="date"  name="auspackArrivalGas"  type="number" value="0">
+            </div>
+            <div class="col">
+                <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
+                <input class="form-control" class="date"  name="auspackReturnGas"  type="number" value="0">
+            </div>
+        </div>
 
     </div>
     <div class="col-md-6">
         <label class="col-form-label" for="l0">Dauer [h]</label>
-        <input class="form-control"  name="auspackHours" placeholder="4-5"  type="text" >  
-        
+        <input class="form-control"  name="auspackHours" placeholder="4-5"  type="text" >
+
         <div class="extra-cost-auspack mt-1">
             <label for="" class="col-form-label">Zusatzkosten</label><br>
-            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>  
-        </div>  
+            <input type="checkbox" name="auspackisExtra" id="auspackisExtra" class="js-switch " data-color="#286090" data-switchery="false" checked>
+        </div>
 
         <div class="auspack--extra--cost--area" style="display: block;">
 
@@ -45,28 +53,28 @@
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="auspackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>                       
-                            </label>                   
+                                <input type="checkbox" name="auspackmasraf" checked> <span class="label-text text-dark"><strong>Spesen</strong></span>
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <input class="form-control" name="auspackextra1" type="number" value="20">
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="row">
                     <div class="col-md-7">
                         <div class="checkbox checkbox-rounded checkbox-color-scheme">
                             <label class="checkbox">
-                                <input type="checkbox" name="auspackmasraf1"> <span class="label-text text-dark"><strong>Verpackungsmaterial</strong></span>                       
-                            </label>                   
+                                <input type="checkbox" name="auspackmasraf1"> <span class="label-text text-dark"><strong>Verpackungsmaterial</strong></span>
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <input class="form-control" name="auspackextra2" type="number" value="250">
                     </div>
-                </div>  
-  
+                </div>
+
                 <div class="row ">
                     <div class="col-md-7">
                         <input class="form-control"  name="auspackCostText1" placeholder="Freier Text"  type="text" >
@@ -86,15 +94,15 @@
                 </div>
             </div>
 
-            
-                        
+
+
         </div>
-        
+
         <label class="col-form-label mt-1 " for="l0">Kosten</label>
-        <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;"> 
+        <input class="form-control" id="auspackCost"  name="auspackCost" placeholder="0"  type="text" style="background-color: #286090;color:white;">
 
         <label class="col-form-label" for="l0">Rabatt</label>
-        <input class="form-control"  name="auspackDiscount" placeholder="0"  type="number" > 
+        <input class="form-control"  name="auspackDiscount" placeholder="0"  type="number" >
 
         <label class="col-form-label" for="l0">Rabatt[%]</label>
         <input class="form-control"  name="auspackDiscountPercent" placeholder="0"  type="number" >
@@ -213,11 +221,11 @@
         if($(this).hasClass("checkbox-checked"))
         {
             $(".auspack--extra--cost--area").show(700);
-            
+
         }
         else{
             $(".auspack--extra--cost--area").hide(500);
-            
+
         }
     })
 </script>
@@ -229,32 +237,33 @@
 
         $("body").on("change",".auspack--area",function(){
             if ($('input[name=auspackmasraf]').is(":checked")){
-               var extra1 = parseFloat($('input[name=auspackextra1]').val());               
+               var extra1 = parseFloat($('input[name=auspackextra1]').val());
             }
             else {
                 extra1 = 0;
             }
             if ($('input[name=auspackmasraf1]').is(":checked")){
-               var extra2 = parseFloat($('input[name=auspackextra2]').val());               
+               var extra2 = parseFloat($('input[name=auspackextra2]').val());
             }
             else {
                 extra2 = 0;
             }
-            
 
-            var extra12Cost = parseFloat($('input[name=auspackCost1]').val());               
-            var extra13Cost = parseFloat($('input[name=auspackCost2]').val()); 
-            var auspackTotalChf = parseFloat($('input[name=auspackroadChf]').val());              
-            
+
+            var extra12Cost = parseFloat($('input[name=auspackCost1]').val());
+            var extra13Cost = parseFloat($('input[name=auspackCost2]').val());
+            var auspackArrivalGas = parseFloat($('input[name=auspackArrivalGas]').val());
+            var auspackReturnGas = parseFloat($('input[name=auspackReturnGas]').val());
+
             var chf = $('input[name=auspack1chf]').val();
             var Hours = $('input[name=auspackHours]').val();
 
             let allHours = Hours.split("-");
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
-            auspackCostLeft = chf * leftHour + extra1+extra2+extra12Cost+extra13Cost+auspackTotalChf;
-            auspackCostRight = chf * rightHour + extra1+extra2+extra12Cost+extra13Cost+auspackTotalChf;
-            
+            auspackCostLeft = chf * leftHour + extra1+extra2+extra12Cost+extra13Cost+auspackArrivalGas+auspackReturnGas;
+            auspackCostRight = chf * rightHour + extra1+extra2+extra12Cost+extra13Cost+auspackArrivalGas+auspackReturnGas;
+
             if(rightHour){
                 $('input[name=auspackCost]').val(auspackCostRight)
             }
@@ -262,13 +271,13 @@
                 $('input[name=auspackCost]').val(auspackCostLeft)
             }
             if(leftHour && rightHour ){
-                $('input[name=auspackCost]').val(auspackCostLeft+'-'+auspackCostRight) 
+                $('input[name=auspackCost]').val(auspackCostLeft+'-'+auspackCostRight)
             }
             if(leftHour == null && rightHour == null)
             {
                 $('input[name=auspackCost]').val('')
             }
-        })  
+        })
         $("body").on("change",".auspack--area",function(){
             var chf = $('input[name=auspack1chf]').val();
             var Hours = $('input[name=auspackHours]').val();
@@ -281,7 +290,7 @@
             var discountPercent = $('input[name=auspackDiscountPercent]').val();
             var compromiser = $('input[name=auspackCompromiser]').val();
             var extraDiscount = $('input[name=auspackExtraDiscount]').val();
-            
+
             auspackTotalPriceLeft = auspackCostLeft - discount - (auspackCostLeft*discountPercent/100) - compromiser - extraDiscount;
             auspackTotalPriceRight = auspackCostRight - discount - (auspackCostRight*discountPercent/100) - compromiser - extraDiscount;
             if(rightHour){
@@ -291,13 +300,13 @@
                 $('input[name=auspackTotalPrice]').val(auspackTotalPriceLeft)
             }
             if(leftHour && rightHour ){
-                $('input[name=auspackTotalPrice]').val(auspackTotalPriceLeft+'-'+auspackTotalPriceRight) 
+                $('input[name=auspackTotalPrice]').val(auspackTotalPriceLeft+'-'+auspackTotalPriceRight)
             }
             if(leftHour == null && rightHour == null)
             {
                 $('input[name=auspackTotalPrice]').val('')
             }
-            
+
         })
         $("body").on("change",".auspack--area",function(){
             var chf = $('input[name=auspack1chf]').val();
@@ -306,7 +315,7 @@
             let auspackTotalPrices = $('input[name=auspackTotalPrice]').val();
             auspackTotalPricesARR = auspackTotalPrices.split("-");
             let auspackTotalPrice = 0;
-            
+
             leftTotal = parseFloat(auspackTotalPricesARR[0]);
             rightTotal = parseFloat(auspackTotalPricesARR[1]);
             if(leftTotal >= rightTotal)
@@ -337,8 +346,8 @@
                 auspackDefaultPrice = auspackTotalPrice + parseFloat(chf);
                 $('input[name=auspackDefaultPrice]').val(auspackTopPrice);
             }
-            
-        })  
+
+        })
     })
 </script>
 @endsection
