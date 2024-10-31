@@ -489,10 +489,10 @@
                                     @endif à CHF {{ $umzug['chf'] }}.-/Stunde
                                 </div>
                                 <div class="col-md-6">
-                                    Anfahrt/Rückfahrt
+                                    Anfahrt - Rückfahrt
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $umzug['arrivalReturn'] }} CHF
+                                    {{ $umzug['arrivalGas'] }} - {{ $umzug['returnGas'] }} CHF
                                 </div>
                                 <div class="col-md-6">
                                     Möbel Ab-/Aufbau
@@ -685,10 +685,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    Anfahrt/Rückfahrt
+                                    Anfahrt - Rückfahrt
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $einpack['arrivalReturn'] }} CHF
+                                    {{ $einpack['arrivalGas'] }} - {{ $einpack['returnGas'] }} CHF
                                 </div>
 
                                 <div class="col-md-6">
@@ -845,10 +845,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    Anfahrt/Rückfahrt
+                                    Anfahrt - Rückfahrt
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $auspack['arrivalReturn'] }} CHF
+                                    {{ $auspack['arrivalGas'] }} - {{ $auspack['returnGas'] }} CHF
                                 </div>
 
                                 <div class="col-md-6">
@@ -1430,10 +1430,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                   <b>Anfahrt/Rückfahrt</b>
+                                   <b>Anfahrt - Rückfahrt</b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['arrivalReturn'] }} CHF
+                                    {{ $entsorgung['arrivalGas'] }} - {{ $entsorgung['returnGas'] }} CHF
                                 </div>
 
                                 <div class="col-md-6">
@@ -1599,10 +1599,10 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    Anfahrt/Rückfahrt
+                                    Anfahrt - Rückfahrt
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $transport['arrivalReturn'] }} CHF
+                                    {{ $transport['arrivalGas'] }} - {{ $transport['returnGas'] }} CHF
                                 </div>
 
                                 <div class="col-md-6">
