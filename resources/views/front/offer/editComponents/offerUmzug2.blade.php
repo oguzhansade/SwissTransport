@@ -91,13 +91,6 @@
                 </div>
             </div>
 
-            <label class=" col-form-label" for="l0">Anfahrt/Rückfahrt [CHF]</label>
-            <input class="form-control" class="date"  name="umzugroadChf"  type="number"
-                @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'arrivalReturn'))
-                        value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'arrivalReturn') }}"
-                        @else value="0"
-                @endif
-            >
 
             <label class=" col-form-label" for="l0">Ab- und Aufbau</label>
             <select class="form-control" class="umzugMontaj" name="umzugMontaj" id="umzugMontaj" >
