@@ -351,13 +351,18 @@
 
 @section('footer')
 
-{{-- // Offerte oluştururken loading bar --}}
+{{-- Offerte oluştururken loading bar --}}
 <script>
     $(document).ready(function() {
-        // Bağlantı tıklandığında 'loading-body' gösterilir
-        $('#submitButton').on('click', function() {
+        $('#submitButton').on('click', function(event) {
+            // Form geçerli mi kontrol ediliyor
+            if (!$('#offerForm')[0].checkValidity()) {
+                // Form geçerli değilse 'loading-body' gizlenir
+                $('#loading-body').hide();
+                return; // Gönderimi durdurur
+            }
+            // Form geçerliyse 'loading-body' gösterilir
             $('#loading-body').show();
-            console.log('PDF ON GÖSTERİM')
         });
 
         // Sayfa tamamen yüklendiğinde 'loading-body' gizlenir

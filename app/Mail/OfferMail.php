@@ -39,9 +39,9 @@ class OfferMail extends Mailable
                 ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
-                ->attach(asset('assets/demo/AGB.pdf'))
-                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
-                ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
+                ->attachData(file_get_contents(public_path('assets/demo/AGB.pdf')), 'AGB.pdf')
+                ->attachData(file_get_contents(public_path('assets/demo/Top-Bewertet.pdf')), 'Top-Bewertet.pdf')
+                ->attachData(file_get_contents(public_path('assets/demo/Leistungsübersicht-Reinigung.pdf')), 'Leistungsübersicht-Reinigung.pdf');
             }
             else {
                 return $this->view('offerEmail')
@@ -50,8 +50,8 @@ class OfferMail extends Mailable
                 ->html($this->data['customEmailContent'].$this->data['customLinks'].$this->data['offerMailFooter'])
                 ->with('data',$this->data)
                 ->attachData($this->data['pdf']->output(), $this->data['name'].' '.$this->data['surname'].'.pdf')
-                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
-                ->attach(asset('assets/demo/AGB.pdf'));
+                ->attachData(file_get_contents(public_path('assets/demo/AGB.pdf')), 'AGB.pdf')
+                ->attachData(file_get_contents(public_path('assets/demo/Top-Bewertet.pdf')), 'Top-Bewertet.pdf');
 
             }
         }
@@ -60,22 +60,25 @@ class OfferMail extends Mailable
 
             if($this->data['isReinigungPdf'] == 'send'){
                 return $this->view('offerEmail')
-                ->subject($this->data['sub'])
-                ->from($this->data['from'],$this->data['companyName'])
-                ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
-                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
-                ->attach(asset('assets/demo/AGB.pdf'))
-                ->attach(asset('assets/demo/Leistungsübersicht-Reinigung.pdf'));
-            }
-            else{
+                    ->subject($this->data['sub'])
+                    ->from($this->data['from'], $this->data['companyName'])
+                    ->with('data', $this->data)
+                    // İlk olarak Offerte PDF'sini ekliyoruz
+                    ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
+                    // Diğer PDF dosyalarını da attachData ile ekliyoruz
+                    ->attachData(file_get_contents(public_path('assets/demo/AGB.pdf')), 'AGB.pdf')
+                    ->attachData(file_get_contents(public_path('assets/demo/Top-Bewertet.pdf')), 'Top-Bewertet.pdf')
+                    ->attachData(file_get_contents(public_path('assets/demo/Leistungsübersicht-Reinigung.pdf')), 'Leistungsübersicht-Reinigung.pdf');
+            } else {
                 return $this->view('offerEmail')
-                ->subject($this->data['sub'])
-                ->from($this->data['from'],$this->data['companyName'])
-                ->with('data',$this->data)
-                ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
-                ->attach(asset('assets/demo/Top-Bewertet.pdf'))
-                ->attach(asset('assets/demo/AGB.pdf'));
+                    ->subject($this->data['sub'])
+                    ->from($this->data['from'], $this->data['companyName'])
+                    ->with('data', $this->data)
+                    // İlk olarak Offerte PDF'sini ekliyoruz
+                    ->attachData($this->data['pdf']->output(), $this->data['name'].'-'.$this->data['surname'].'.pdf')
+                    // Diğer PDF dosyalarını da attachData ile ekliyoruz
+                    ->attachData(file_get_contents(public_path('assets/demo/AGB.pdf')), 'AGB.pdf')
+                    ->attachData(file_get_contents(public_path('assets/demo/Top-Bewertet.pdf')), 'Top-Bewertet.pdf');
             }
 
         }

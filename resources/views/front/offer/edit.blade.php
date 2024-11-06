@@ -258,7 +258,7 @@
                             <div class="form-actions">
                                 <div class="form-group row mt-3">
                                     <div class="col-md-12 ml-md-auto btn-list">
-                                        <input class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.update',['id' => $data['id']]) }}">
+                                        <input id="submitButton" class="btn btn-primary btn-rounded" type="submit" value="Erstellen" formaction="{{ route('offer.update',['id' => $data['id']]) }}">
                                         <input class="btn btn-danger btn-rounded" type="submit" value="PDF Preview" formtarget="_blank" formaction="{{ route('offer.offerPdfPreviewEdit',['id' => $data['id']]) }}">
                                     </div>
                                 </div>
@@ -275,6 +275,28 @@
 @endsection
 
 @section('footer')
+
+{{-- Offerte oluştururken loading bar --}}
+<script>
+    $(document).ready(function() {
+        $('#submitButton').on('click', function(event) {
+            // Form geçerli mi kontrol ediliyor
+            if (!$('#offerForm')[0].checkValidity()) {
+                // Form geçerli değilse 'loading-body' gizlenir
+                $('#loading-body').hide();
+                return; // Gönderimi durdurur
+            }
+
+            // Form geçerliyse 'loading-body' gösterilir
+            $('#loading-body').show();
+        });
+
+        // Sayfa tamamen yüklendiğinde 'loading-body' gizlenir
+        $(window).on('load', function() {
+            $('#loading-body').hide();
+        });
+    });
+</script>
 
 <script>
     var smsFormatbutton = $("div.sms-format");

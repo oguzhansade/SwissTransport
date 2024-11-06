@@ -50,17 +50,17 @@
             <div class="row">
                 <div class="col">
                     <label class=" col-form-label" for="l0">Anfahrt [CHF]</label>
-                    <input class="form-control" class="date"  name="einpackArrivalGas"  type="number"
-                    @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'arrivalGas'))
-                        value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'arrivalGas') }}"
+                    <input class="form-control" class="date"  name="auspackArrivalGas"  type="number"
+                    @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'arrivalGas'))
+                        value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'arrivalGas') }}"
                         @else value="0"
                     @endif>
                 </div>
                 <div class="col">
                     <label class=" col-form-label" for="l0">Rückfahrt [CHF]</label>
-                    <input class="form-control" class="date"  name="einpackReturnGas"  type="number"
-                    @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'returnGas'))
-                        value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'returnGas') }}"
+                    <input class="form-control" class="date"  name="auspackReturnGas"  type="number"
+                    @if($auspack && \App\Models\OfferteAuspack::InfoAuspack($auspack,'returnGas'))
+                        value="{{ \App\Models\OfferteAuspack::InfoAuspack($auspack,'returnGas') }}"
                         @else value="0"
                     @endif>
                 </div>
