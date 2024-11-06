@@ -489,7 +489,7 @@
                                     @endif à CHF {{ $umzug['chf'] }}.-/Stunde
                                 </div>
                                 <div class="col-md-6">
-                                    Anfahrt - Rückfahrt
+                                    <b>Anfahrt - Rückfahrt</b>
                                 </div>
                                 <div class="col-md-6">
                                     {{ $umzug['arrivalGas'] }} - {{ $umzug['returnGas'] }} CHF

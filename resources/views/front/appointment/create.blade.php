@@ -237,7 +237,7 @@
                                                 <label class=" col-form-label" for="l0">CalendarTitle</label>
                                                 <input class="form-control" name="umzug1calendarTitle"
                                                     placeholder="CalendarTitle" type="text"
-                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                    value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                             </div>
 
                                             <div class="col-md-4">
@@ -365,7 +365,7 @@
                                                 <label class=" col-form-label" for="l0">CalendarTitle</label>
                                                 <input class="form-control" name="umzug2calendarTitle"
                                                     placeholder="CalendarTitle" type="text"
-                                                    value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                    value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                             </div>
 
                                             <div class="col-md-4">
@@ -485,7 +485,7 @@
                                                     <label class=" col-form-label" for="l0">CalendarTitle</label>
                                                     <input class="form-control" name="umzug3calendarTitle"
                                                         placeholder="CalendarTitle" type="text"
-                                                        value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                        value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                                 </div>
 
                                                 <div class="col-md-4">
@@ -618,7 +618,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="einpackcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -747,7 +747,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="auspackcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -865,7 +865,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="reinigungcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -977,7 +977,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="reinigung2calendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -1101,7 +1101,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="entsorgungcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -1236,7 +1236,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="transportcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -1336,7 +1336,7 @@
                                             <label class=" col-form-label" for="l0">CalendarTitle</label>
                                             <input class="form-control" name="lagerungcalendarTitle"
                                                 placeholder="CalendarTitle" type="text"
-                                                value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                                value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                         </div>
 
                                         <div class="col-md-4">
@@ -1518,7 +1518,7 @@
                                     <div class="col-md-12">
                                         <label class=" col-form-label" for="l0">Kalender Titel-Zusatz</label>
                                         <input class="form-control" name="calendarTitle" type="text" required
-                                            value="@if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
+                                            value="@if($data['companyName']) {{ $data['companyName'] }} @endif / @if ($data['gender'] == 'male') Herr @else Frau @endif {{ $data['name'] }} {{ $data['surname'] }} / {{ $data['mobile'] }}">
                                     </div>
 
                                     <div class="col-md-12">
@@ -1809,6 +1809,8 @@
         }
 
         let Appgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let AppgenderType = '{{ $data['gender'] }}';
         if (AppgenderType == 'male') {
             Appgender = 'Herr'
@@ -1819,7 +1821,7 @@
         let Appsurname = '{{ $data['surname'] }}';
         let Appmobile = '{{ $data['mobile'] }}';
         let ApppostCode = '{{ $data['postCode'] }}';
-        let bescnewTitle = ApppostCode + ' ' + '/' + ' ' + AppserviceName + ' ' + Appgender + ' ' + Appname + ' ' +
+        let bescnewTitle = ApppostCode + ' ' + '/' + ' ' + AppserviceName + ' ' + companyName + ' ' +Appgender + ' ' + Appname + ' ' +
             Appsurname + ' ' + Appmobile;
 
         if (bescnewTitle !== bescTitle) { // only update if the new title is different
@@ -1854,9 +1856,13 @@
 
     })
 
-    // Umzug / Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
+    // Umzug / CompanyName /Herr Ali Yurdakul +41 76 399 50 02 / 4 MA 2 LW ca. 7-8 Std / 08:00 Uhr
     $('body').on('change', '.umzug-area', function() {
         let serviceName = 'Umzug';
+
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
+
         let gender = '';
         let genderType = '{{ $data['gender'] }}';
         let hours, ma, lkw, time, anhanger;
@@ -1894,7 +1900,7 @@
             time = ''
         }
 
-        let newTitle = serviceName + ' ' + '/' + ' ' + gender + ' ' + name + ' ' + surname + ' ' + mobile +
+        let newTitle = serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + gender + ' ' + name + ' ' + surname + ' ' + mobile +
             ' ' + '/' + ' ' + ma + ' ' + lkw + ' ' + anhanger + ' ' + hours + ' ' + '/' + ' ' + time;
 
         if (newTitle !== umzugTitle) { // only update if the new title is different
@@ -1905,6 +1911,8 @@
 
     $('body').on('change', '.umzug--area2', function() {
         let umzug2serviceName = 'Umzug 2';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let umzug2gender = '';
         let umzug2genderType = '{{ $data['gender'] }}';
         let umzug2hours, umzug2ma, umzug2lkw, umzug2time, umzug2anhanger;
@@ -1942,7 +1950,7 @@
             umzug2time = ''
         }
 
-        let umzug2newTitle = umzug2serviceName + ' ' + '/' + ' ' + umzug2gender + ' ' + umzug2name + ' ' +
+        let umzug2newTitle = umzug2serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + umzug2gender + ' ' + umzug2name + ' ' +
             umzug2surname + ' ' + umzug2mobile + ' ' + '/' + ' ' + umzug2ma + ' ' + umzug2lkw + ' ' +
             umzug2anhanger + ' ' + umzug2hours + ' ' + '/' + ' ' + umzug2time;
 
@@ -1955,6 +1963,8 @@
     $('body').on('change', '.umzug--area3', function() {
         let umzug3serviceName = 'Umzug 3';
         let umzug3gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let umzug3genderType = '{{ $data['gender'] }}';
         let umzug3hours, umzug3ma, umzug3lkw, umzug3time, umzug3anhanger;
         if (umzug3genderType == 'male') {
@@ -1991,7 +2001,7 @@
             umzug3time = ''
         }
 
-        let umzug3newTitle = umzug3serviceName + ' ' + '/' + ' ' + umzug3gender + ' ' + umzug3name + ' ' +
+        let umzug3newTitle = umzug3serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + umzug3gender + ' ' + umzug3name + ' ' +
             umzug3surname + ' ' + umzug3mobile + ' ' + '/' + ' ' + umzug3ma + ' ' + umzug3lkw + ' ' +
             umzug3anhanger + ' ' + umzug3hours + ' ' + '/' + ' ' + umzug3time;
 
@@ -2004,6 +2014,8 @@
     $('body').on('change', '.einpackservice--area', function() {
         let einpackserviceName = 'Einpack';
         let einpackgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let einpackgenderType = '{{ $data['gender'] }}';
         let einpackhours, einpackma, einpacklkw, einpacktime, einpackanhanger;
         if (einpackgenderType == 'male') {
@@ -2040,7 +2052,7 @@
             einpacktime = ''
         }
 
-        let einpacknewTitle = einpackserviceName + ' ' + '/' + ' ' + einpackgender + ' ' + einpackname + ' ' +
+        let einpacknewTitle = einpackserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + einpackgender + ' ' + einpackname + ' ' +
             einpacksurname + ' ' + einpackmobile + ' ' + '/' + ' ' + einpackma + ' ' + einpacklkw + ' ' +
             einpackanhanger + ' ' + einpackhours + ' ' + '/' + ' ' + einpacktime;
 
@@ -2053,6 +2065,8 @@
     $('body').on('change', '.auspackservice--area', function() {
         let auspackserviceName = 'Auspack';
         let auspackgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let auspackgenderType = '{{ $data['gender'] }}';
         let auspackhours, auspackma, auspacklkw, auspacktime, auspackanhanger;
         if (auspackgenderType == 'male') {
@@ -2089,7 +2103,7 @@
             auspacktime = ''
         }
 
-        let auspacknewTitle = auspackserviceName + ' ' + '/' + ' ' + auspackgender + ' ' + auspackname + ' ' +
+        let auspacknewTitle = auspackserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + auspackgender + ' ' + auspackname + ' ' +
             auspacksurname + ' ' + auspackmobile + ' ' + '/' + ' ' + auspackma + ' ' + auspacklkw + ' ' +
             auspackanhanger + ' ' + auspackhours + ' ' + '/' + ' ' + auspacktime;
 
@@ -2103,6 +2117,8 @@
     $('body').on('change', '.entsorgung--area', function() {
         let entsorgungserviceName = 'Entsorgung';
         let entsorgunggender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let entsorgunggenderType = '{{ $data['gender'] }}';
         let entsorgunghours, entsorgungma, entsorgunglkw, entsorgungtime;
         if (entsorgunggenderType == 'male') {
@@ -2139,7 +2155,7 @@
             entsorgungtime = ''
         }
 
-        let entsorgungnewTitle = entsorgungserviceName + ' ' + '/' + ' ' + entsorgunggender + ' ' +
+        let entsorgungnewTitle = entsorgungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + entsorgunggender + ' ' +
             entsorgungname + ' ' + entsorgungsurname + ' ' + entsorgungmobile + ' ' + '/' + ' ' + entsorgungma +
             ' ' + entsorgunglkw + ' ' + entsorgunganhanger + ' ' + entsorgunghours + ' ' + '/' + ' ' +
             entsorgungtime;
@@ -2154,6 +2170,8 @@
     $('body').on('change', '.transport--area', function() {
         let transportserviceName = 'Transport';
         let transportgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let transportgenderType = '{{ $data['gender'] }}';
         let transporthours, transportma, transportlkw, transporttime, transportanhanger;
         if (transportgenderType == 'male') {
@@ -2190,7 +2208,7 @@
             transporttime = ''
         }
 
-        let transportnewTitle = transportserviceName + ' ' + '/' + ' ' + transportgender + ' ' + transportname +
+        let transportnewTitle = transportserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + transportgender + ' ' + transportname +
             ' ' + transportsurname + ' ' + transportmobile + ' ' + '/' + ' ' + transportma + ' ' +
             transportlkw + ' ' + transportanhanger + ' ' + transporthours + ' ' + '/' + ' ' + transporttime;
 
@@ -2205,6 +2223,8 @@
         // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
         let reinigungserviceName = 'Reinigung';
         let reinigunggender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let reinigunggenderType = '{{ $data['gender'] }}';
         let reinigungEndDate, reinigungEndTime;
         if (reinigunggenderType == 'male') {
@@ -2227,7 +2247,7 @@
             reinigungEndTime = ''
         }
 
-        let reinigungnewTitle = reinigungserviceName + ' ' + '/' + ' ' + reinigunggender + ' ' + reinigungname +
+        let reinigungnewTitle = reinigungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + reinigunggender + ' ' + reinigungname +
             ' ' + reinigungsurname + ' ' + reinigungmobile + ' ' + '/' + ' ' + reinigungEndDate + ' ' +
             reinigungEndTime;
 
@@ -2242,6 +2262,8 @@
         // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
         let reinigung2serviceName = 'Reinigung 2';
         let reinigung2gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let reinigung2genderType = '{{ $data['gender'] }}';
         let reinigung2EndDate, reinigung2EndTime;
         if (reinigung2genderType == 'male') {
@@ -2264,7 +2286,7 @@
             reinigung2EndTime = ''
         }
 
-        let reinigung2newTitle = reinigung2serviceName + ' ' + '/' + ' ' + reinigung2gender + ' ' +
+        let reinigung2newTitle = reinigung2serviceName + ' ' + '/' + ' ' +  companyName + ' ' + '/' + ' ' + reinigung2gender + ' ' +
             reinigung2name + ' ' + reinigung2surname + ' ' + reinigung2mobile + ' ' + '/' + ' ' +
             reinigung2EndDate + ' ' + reinigung2EndTime;
 
@@ -2278,6 +2300,8 @@
     $('body').on('change', '.lagerung--area', function() {
         let lagerungserviceName = 'Lagerung';
         let lagerunggender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data['companyName'] !!}';
         let lagerunggenderType = '{{ $data['gender'] }}';
         let lagerunghours, lagerungma, lagerunglkw, lagerungtime, lagerunganhanger;
         if (lagerunggenderType == 'male') {
@@ -2314,7 +2338,7 @@
             lagerungtime = ''
         }
 
-        let lagerungnewTitle = lagerungserviceName + ' ' + '/' + ' ' + lagerunggender + ' ' + lagerungname +
+        let lagerungnewTitle = lagerungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + lagerunggender + ' ' + lagerungname +
             ' ' + lagerungsurname + ' ' + lagerungmobile + ' ' + '/' + ' ' + lagerungtime;
 
         if (lagerungnewTitle !== lagerungTitle) { // only update if the new title is different

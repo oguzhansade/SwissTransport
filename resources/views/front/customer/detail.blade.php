@@ -326,6 +326,13 @@
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="contact-details-cell"><small
+                                    class="heading-font-family fw-500 text-dark">Firmenname</small> <span
+                                    class="text-primary">{{ $data[0]['companyName'] }}</span>
+                            </div>
+                            <!-- /.contact-details-cell -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="contact-details-cell"><small
                                     class="heading-font-family fw-500 text-dark">E-mail</small> <span
                                     class="text-primary">{{ $data[0]['email'] }}</span>
                             </div>

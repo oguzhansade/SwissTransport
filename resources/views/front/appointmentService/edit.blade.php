@@ -882,6 +882,8 @@
     {
         let serviceName = 'Umzug';
         let gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let genderType = '{{ $data2['gender'] }}';
         let hours,ma,lkw,time,anhanger;
         if(genderType == 'male')
@@ -900,7 +902,7 @@
         if($('input[name=umzug1anhanger]').val()>0){  anhanger = $('input[name=umzug1anhanger]').val()+' '+'Anh';}else{ anhanger = ''}
         if($('input[name=umzug1time]').val()){  time = $('input[name=umzug1time]').val()+' '+'Uhr';}else{ time = ''}
 
-        let newTitle = serviceName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
+        let newTitle = serviceName+' '+'/'+' '+companyName+' '+'/'+' '+gender+' '+name+' '+surname+' '+mobile+' '+'/'+' '+ma+' '+lkw+' '+anhanger+' '+hours+' '+'/'+' '+time;
 
         if(newTitle !== umzugTitle) { // only update if the new title is different
             $('input[name=umzug1calendarTitle]').val(newTitle);
@@ -912,6 +914,8 @@
     {
         let umzug2serviceName = 'Umzug 2';
         let umzug2gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let umzug2genderType = '{{ $data2['gender'] }}';
         let umzug2hours,umzug2ma,umzug2lkw,umzug2time,umzug2anhanger;
         if(umzug2genderType == 'male')
@@ -930,7 +934,7 @@
         if($('input[name=umzug2anhanger]').val()>0){  umzug2anhanger = $('input[name=umzug2anhanger]').val()+' '+'ANH';}else{ umzug2anhanger = ''}
         if($('input[name=umzug2time]').val()){  umzug2time = $('input[name=umzug2time]').val()+' '+'Uhr';}else{ umzug2time = ''}
 
-        let umzug2newTitle = umzug2serviceName+' '+'/'+' '+umzug2gender+' '+umzug2name+' '+umzug2surname+' '+umzug2mobile+' '+'/'+' '+umzug2ma+' '+umzug2lkw+' '+umzug2anhanger+' '+umzug2hours+' '+'/'+' '+umzug2time;
+        let umzug2newTitle = umzug2serviceName+' '+'/'+' '+companyName+' '+'/'+' '+umzug2gender+' '+umzug2name+' '+umzug2surname+' '+umzug2mobile+' '+'/'+' '+umzug2ma+' '+umzug2lkw+' '+umzug2anhanger+' '+umzug2hours+' '+'/'+' '+umzug2time;
 
         if(umzug2newTitle !== umzug2Title) { // only update if the new title is different
             $('input[name=umzug2calendarTitle]').val(umzug2newTitle);
@@ -942,6 +946,8 @@
     {
         let umzug3serviceName = 'Umzug 3';
         let umzug3gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let umzug3genderType = '{{ $data2['gender'] }}';
         let umzug3hours,umzug3ma,umzug3lkw,umzug3time,umzug3anhanger;
         if(umzug3genderType == 'male')
@@ -960,7 +966,7 @@
         if($('input[name=umzug3anhanger]').val()>0){  umzug3anhanger = $('input[name=umzug3anhanger]').val()+' '+'ANH';}else{ umzug3anhanger = ''}
         if($('input[name=umzug3time]').val()){  umzug3time = $('input[name=umzug3time]').val()+' '+'Uhr';}else{ umzug3time = ''}
 
-        let umzug3newTitle = umzug3serviceName+' '+'/'+' '+umzug3gender+' '+umzug3name+' '+umzug3surname+' '+umzug3mobile+' '+'/'+' '+umzug3ma+' '+umzug3lkw+' '+umzug3anhanger+' '+umzug3hours+' '+'/'+' '+umzug3time;
+        let umzug3newTitle = umzug3serviceName+' '+'/'+' '+companyName+' '+'/'+' '+umzug3gender+' '+umzug3name+' '+umzug3surname+' '+umzug3mobile+' '+'/'+' '+umzug3ma+' '+umzug3lkw+' '+umzug3anhanger+' '+umzug3hours+' '+'/'+' '+umzug3time;
 
         if(umzug3newTitle !== umzug3Title) { // only update if the new title is different
             $('input[name=umzug3calendarTitle]').val(umzug3newTitle);
@@ -972,6 +978,8 @@
     {
         let einpackserviceName = 'Einpack';
             let einpackgender = '';
+            // Full string alması için ünlemler gerekli
+            let companyName = '{!! $data2['companyName'] !!}';
             let einpackgenderType = '{{ $data2['gender'] }}';
             let einpackhours,einpackma,einpacklkw,einpacktime,einpackanhanger;
             if(einpackgenderType == 'male')
@@ -990,7 +998,7 @@
             if($('input[name=einpackanhanger]').val()>0){  einpackanhanger = $('input[name=einpackanhanger]').val()+' '+'ANH';}else{ einpackanhanger = ''}
             if($('input[name=einpacktime]').val()){  einpacktime = $('input[name=einpacktime]').val()+' '+'Uhr';}else{ einpacktime = ''}
 
-            let einpacknewTitle = einpackserviceName+' '+'/'+' '+einpackgender+' '+einpackname+' '+einpacksurname+' '+einpackmobile+' '+'/'+' '+einpackma+' '+einpacklkw+' '+einpackanhanger+' '+einpackhours+' '+'/'+' '+einpacktime;
+            let einpacknewTitle = einpackserviceName+' '+'/'+' '+companyName+' '+'/'+' '+einpackgender+' '+einpackname+' '+einpacksurname+' '+einpackmobile+' '+'/'+' '+einpackma+' '+einpacklkw+' '+einpackanhanger+' '+einpackhours+' '+'/'+' '+einpacktime;
 
             if(einpacknewTitle !== einpackTitle) { // only update if the new title is different
                 $('input[name=einpackcalendarTitle]').val(einpacknewTitle);
@@ -1002,6 +1010,8 @@
     {
         let auspackserviceName = 'Auspack';
         let auspackgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let auspackgenderType = '{{ $data2['gender'] }}';
         let auspackhours,auspackma,auspacklkw,auspacktime,auspackanhanger;
         if(auspackgenderType == 'male')
@@ -1020,7 +1030,7 @@
         if($('input[name=auspackanhanger]').val()>0){  auspackanhanger = $('input[name=auspackanhanger]').val()+' '+'ANH';}else{ auspackanhanger = ''}
         if($('input[name=auspacktime]').val()){  auspacktime = $('input[name=auspacktime]').val()+' '+'Uhr';}else{ auspacktime = ''}
 
-        let auspacknewTitle = auspackserviceName+' '+'/'+' '+auspackgender+' '+auspackname+' '+auspacksurname+' '+auspackmobile+' '+'/'+' '+auspackma+' '+auspacklkw+' '+auspackanhanger+' '+auspackhours+' '+'/'+' '+auspacktime;
+        let auspacknewTitle = auspackserviceName+' '+'/'+' '+companyName+' '+'/'+' '+auspackgender+' '+auspackname+' '+auspacksurname+' '+auspackmobile+' '+'/'+' '+auspackma+' '+auspacklkw+' '+auspackanhanger+' '+auspackhours+' '+'/'+' '+auspacktime;
 
         if(auspacknewTitle !== auspackTitle) { // only update if the new title is different
             $('input[name=auspackcalendarTitle]').val(auspacknewTitle);
@@ -1032,6 +1042,8 @@
     {
         let entsorgungserviceName = 'Entsorgung';
             let entsorgunggender = '';
+            // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
             let entsorgunggenderType = '{{ $data2['gender'] }}';
             let entsorgunghours,entsorgungma,entsorgunglkw,entsorgungtime;
             if(entsorgunggenderType == 'male')
@@ -1050,7 +1062,7 @@
             if($('input[name=entsorgunganhanger]').val()>0){  entsorgunganhanger = $('input[name=entsorgunganhanger]').val()+' '+'ANH';}else{ entsorgunganhanger = ''}
             if($('input[name=entsorgungtime]').val()){  entsorgungtime = $('input[name=entsorgungtime]').val()+' '+'Uhr';}else{ entsorgungtime = ''}
 
-            let entsorgungnewTitle = entsorgungserviceName+' '+'/'+' '+entsorgunggender+' '+entsorgungname+' '+entsorgungsurname+' '+entsorgungmobile+' '+'/'+' '+entsorgungma+' '+entsorgunglkw+' '+entsorgunganhanger+' '+entsorgunghours+' '+'/'+' '+entsorgungtime;
+            let entsorgungnewTitle = entsorgungserviceName+' '+'/'+' '+companyName+' '+'/'+' '+entsorgunggender+' '+entsorgungname+' '+entsorgungsurname+' '+entsorgungmobile+' '+'/'+' '+entsorgungma+' '+entsorgunglkw+' '+entsorgunganhanger+' '+entsorgunghours+' '+'/'+' '+entsorgungtime;
 
             if(entsorgungnewTitle !== entsorgungTitle) { // only update if the new title is different
                 $('input[name=entsorgungcalendarTitle]').val(entsorgungnewTitle);
@@ -1062,6 +1074,8 @@
     {
         let transportserviceName = 'Transport';
         let transportgender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let transportgenderType = '{{ $data2['gender'] }}';
         let transporthours,transportma,transportlkw,transporttime,transportanhanger;
         if(transportgenderType == 'male')
@@ -1080,7 +1094,7 @@
         if($('input[name=transportanhanger]').val()>0){  transportanhanger = $('input[name=transportanhanger]').val()+' '+'ANH';}else{ transportanhanger = ''}
         if($('input[name=transporttime]').val()){  transporttime = $('input[name=transporttime]').val()+' '+'Uhr';}else{ transporttime = ''}
 
-        let transportnewTitle = transportserviceName+' '+'/'+' '+transportgender+' '+transportname+' '+transportsurname+' '+transportmobile+' '+'/'+' '+transportma+' '+transportlkw+' '+transportanhanger+' '+transporthours+' '+'/'+' '+transporttime;
+        let transportnewTitle = transportserviceName+' '+'/'+' '+companyName+' '+'/'+' '+transportgender+' '+transportname+' '+transportsurname+' '+transportmobile+' '+'/'+' '+transportma+' '+transportlkw+' '+transportanhanger+' '+transporthours+' '+'/'+' '+transporttime;
 
         if(transportnewTitle !== transportTitle) { // only update if the new title is different
             $('input[name=transportcalendarTitle]').val(transportnewTitle);
@@ -1093,6 +1107,8 @@
         // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
         let reinigungserviceName = 'Reinigung';
         let reinigunggender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let reinigunggenderType = '{{ $data2['gender'] }}';
         let reinigungEndDate,reinigungEndTime;
         if(reinigunggenderType == 'male')
@@ -1108,7 +1124,7 @@
         if($('input[name=reinigung1Enddate]').val()){  reinigungEndDate = 'Abgabetermin'+' '+$('input[name=reinigung1Enddate]').val()+' '+'um'}else{ reinigungEndDate = ''}
         if($('input[name=reinigung1Endtime]').val()){  reinigungEndTime = $('input[name=reinigung1Endtime]').val()+' '+'Uhr';}else{ reinigungEndTime = ''}
 
-        let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
+        let reinigungnewTitle = reinigungserviceName+' '+'/'+' '+companyName+' '+'/'+' '+reinigunggender+' '+reinigungname+' '+reinigungsurname+' '+reinigungmobile+' '+'/'+' '+reinigungEndDate+' '+reinigungEndTime;
 
         if(reinigungnewTitle !== reinigungTitle) { // only update if the new title is different
             $('input[name=reinigungcalendarTitle]').val(reinigungnewTitle);
@@ -1121,6 +1137,8 @@
         // Reinigung / Herr Ali Yurdakul +41 76 399 50 02 / Abgabetermin 28. April 2023 um 09:00 Uhr
         let reinigung2serviceName = 'Reinigung 2';
         let reinigung2gender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let reinigung2genderType = '{{ $data2['gender'] }}';
         let reinigung2EndDate,reinigung2EndTime;
         if(reinigung2genderType == 'male')
@@ -1136,7 +1154,7 @@
         if($('input[name=reinigung2Enddate]').val()){  reinigung2EndDate = 'Abgabetermin'+' '+$('input[name=reinigung2Enddate]').val()+' '+'um'}else{ reinigung2EndDate = ''}
         if($('input[name=reinigung2Endtime]').val()){  reinigung2EndTime = $('input[name=reinigung2Endtime]').val()+' '+'Uhr';}else{ reinigung2EndTime = ''}
 
-        let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
+        let reinigung2newTitle = reinigung2serviceName+' '+'/'+' '+companyName+' '+'/'+' '+reinigung2gender+' '+reinigung2name+' '+reinigung2surname+' '+reinigung2mobile+' '+'/'+' '+reinigung2EndDate+' '+reinigung2EndTime;
 
         if(reinigung2newTitle !== reinigung2Title) { // only update if the new title is different
             $('input[name=reinigung2calendarTitle]').val(reinigung2newTitle);
@@ -1148,6 +1166,8 @@
     {
         let lagerungserviceName = 'Lagerung';
         let lagerunggender = '';
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let lagerunggenderType = '{{ $data2['gender'] }}';
         let lagerunghours,lagerungma,lagerunglkw,lagerungtime,lagerunganhanger;
         if(lagerunggenderType == 'male')
@@ -1166,7 +1186,7 @@
         if($('input[name=lagerunganhanger]').val()>0){  lagerunganhanger = $('input[name=lagerunganhanger]').val()+' '+'ANH';}else{ lagerunganhanger = ''}
         if($('input[name=lagerungtime]').val()){  lagerungtime = $('input[name=lagerungtime]').val()+' '+'Uhr';}else{ lagerungtime = ''}
 
-        let lagerungnewTitle = lagerungserviceName+' '+'/'+' '+lagerunggender+' '+lagerungname+' '+lagerungsurname+' '+lagerungmobile+' '+'/'+' '+lagerungtime;
+        let lagerungnewTitle = lagerungserviceName+' '+'/'+' '+companyName+' '+'/'+' '+lagerunggender+' '+lagerungname+' '+lagerungsurname+' '+lagerungmobile+' '+'/'+' '+lagerungtime;
 
         if(lagerungnewTitle !== lagerungTitle) { // only update if the new title is different
             $('input[name=lagerungcalendarTitle]').val(lagerungnewTitle);
@@ -1197,11 +1217,13 @@
         else{
             Appgender = 'Frau'
         }
+        // Full string alması için ünlemler gerekli
+        let companyName = '{!! $data2['companyName'] !!}';
         let Appname = '{{ $data2['name'] }}';
         let Appsurname = '{{ $data2['surname'] }}';
         let Appmobile = '{{ $data2['mobile'] }}';
         let ApppostCode = '{{ $data2['postCode'] }}';
-        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
+        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+companyName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
 
         if(bescnewTitle !== bescTitle) { // only update if the new title is different
             $('input[name=calendarTitle]').val(bescnewTitle);
