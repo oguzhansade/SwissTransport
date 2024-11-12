@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('mobile');
             $table->longText('note')->nullable();
+            $table->integer('blackListed')->default(0);
             $table->timestamps();
         });
     }

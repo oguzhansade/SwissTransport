@@ -154,6 +154,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/data', [App\Http\Controllers\front\customer\indexController::class, 'data'])->name('data');
         Route::get('/reminderTest', [App\Http\Controllers\front\customer\indexController::class, 'reminderTest'])->name('reminderTest');
         Route::post('/offerlessCustomers', [App\Http\Controllers\front\customer\indexController::class, 'offerlessCustomers'])->name('offerlessCustomers');
+        Route::get('/addToBlacklist/{id}', [App\Http\Controllers\front\customer\indexController::class, 'addToBlacklist'])->name('addToBlacklist');
 
 
     });
@@ -234,6 +235,7 @@ Route::group(['namespace' => 'front', 'middleware' => ['auth']], function () {
         Route::get('/manuelDefault/{id}', [App\Http\Controllers\front\offer\indexController::class, 'manuelDefault'])->name('manuelDefault');
         Route::get('/dateTester', [App\Http\Controllers\front\offer\indexController::class, 'dateTester'])->name('dateTester');
         Route::get('/sendSms', [App\Http\Controllers\front\offer\indexController::class, 'sendSms'])->name('sendSms');
+
 
     });
 

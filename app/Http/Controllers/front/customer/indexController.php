@@ -128,13 +128,34 @@ class indexController extends Controller
         }
     }
 
+    public function addToBlacklist($id)
+    {
+        $customer = Customer::where('id', $id)->first();
+
+        if ($customer) {
+            // blackListed alanının değerini tersine çeviriyoruz.
+            $newStatus = $customer->blackListed == 0 ? 1 : 0;
+
+            $update = Customer::where('id', $id)->update(['blackListed' => $newStatus]);
+
+            if ($update) {
+                return redirect()->back()->with('status', $customer['name'].' '.$customer['surname'].' wurde erfolgreich aus der Liste der Angebotslosen Kunden entfernt. (Um die Änderungen rückgängig zu machen, gehen Sie zu den Kundendetails)');
+
+            } else {
+                return redirect()->back()->with('status-err', 'Fehler: ERROR.');
+            }
+        } else {
+            return redirect()->back()->with('status-err', 'Fehler: Customer not found.');
+        }
+    }
+
     public function offerlessCustomers (Request $request) {
 
         $today = Carbon::today();
 
         $offerteCustomerIds = offerte::pluck('customerId');
 
-        $offerteCustomers = Customer::whereNotIn('id', $offerteCustomerIds)->get();
+        $offerteCustomers = Customer::whereNotIn('id', $offerteCustomerIds)->where('blackListed',0)->get();
 
         $array = [];
         $i = 0;
@@ -151,8 +172,10 @@ class indexController extends Controller
         $data = DataTables::of($array)
         ->addColumn('option', function ($array) {
             return '
-                    <a class="btn btn-sm  btn-primary" href="' . route('customer.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i></a>';
+                    <a class="btn btn-sm  btn-primary" href="' . route('customer.detail', ['id' => $array['id']]) . '"><i class="feather feather-eye" ></i></a>
+                    <a class="btn btn-sm  btn-gray"  href="' . route('customer.addToBlacklist', ['id' => $array['id']]) . '" title="Aus dieser Liste verbergen"><i class="feather feather-eye-off" ></i></a>';
         })
+
         ->rawColumns(['option','appType'])
             ->make(true);
 

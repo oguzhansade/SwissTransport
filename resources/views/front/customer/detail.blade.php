@@ -412,6 +412,14 @@
                             </div>
                             <!-- /.contact-details-cell -->
                         </div>
+                        <div class="col-md-6">
+                            <div class="contact-details-cell"><small class="heading-font-family fw-500 text-dark">Angebotslose Kunden Status</small>
+                                <span class="text-primary"><a class="btn btn-sm @if($data[0]['blackListed'] == 0) btn-success @else btn-gray @endif" href={{ route('customer.addToBlacklist', ['id' => $data[0]['id']]) }}>
+                                    @if($data[0]['blackListed'] == 0) <i class="feather feather-eye mr-1" ></i> Non Blacklisted @else <i class="feather feather-eye-off mr-1" ></i> Blacklisted @endif
+                                </a></span>
+                            </div>
+                            <!-- /.contact-details-cell -->
+                        </div>
 
                     </div>
                 </div>

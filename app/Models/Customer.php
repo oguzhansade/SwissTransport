@@ -26,14 +26,15 @@ class Customer extends Model
         'email',
         'phone',
         'mobile',
-        'note'
+        'note',
+        'blackListed'
     ];
 
     static function getPublicName($id)
     {
         $data = Customer::where('id', $id)->first();
         if($data['customerType'] == 0){
-            return $data['name']." ".$data['surname'];            
+            return $data['name']." ".$data['surname'];
         }
         else
         {
@@ -43,7 +44,7 @@ class Customer extends Model
 
     static function getCustomer($id,$param)
     {
-       
+
         $data = Customer::where('id',$id)->first();
         return $data[$param];
     }
