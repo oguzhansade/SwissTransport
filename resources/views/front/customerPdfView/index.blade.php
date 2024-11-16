@@ -489,10 +489,24 @@
                                     @endif à CHF {{ $umzug['chf'] }}.-/Stunde
                                 </div>
                                 <div class="col-md-6">
-                                    <b>Anfahrt - Rückfahrt</b>
+                                    <b>
+                                        @if(!empty($umzug['arrivalGas']) && !empty($umzug['returnGas']))
+                                            Anfahrt - Rückfahrt:<br>
+                                        @elseif(!empty($umzug['arrivalGas']))
+                                            Anfahrt:<br>
+                                        @elseif(!empty($umzug['returnGas']))
+                                            Rückfahrt: <br>
+                                        @endif
+                                    </b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $umzug['arrivalGas'] }} - {{ $umzug['returnGas'] }} CHF
+                                    @if(!empty($umzug['arrivalGas']) && !empty($umzug['returnGas']))
+                                    CHF {{ $umzug['arrivalGas'] }} - {{ $umzug['returnGas'] }}  <br>
+                                    @elseif(!empty($umzug['arrivalGas']))
+                                    CHF {{ $umzug['arrivalGas'] }}  <br>
+                                    @elseif(!empty($umzug['returnGas']))
+                                    CHF {{ $umzug['returnGas'] }}  <br>
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
                                     Möbel Ab-/Aufbau
@@ -517,51 +531,51 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($umzug['extra'])
-                                        Spesen {{ $umzug['extra'] }} CHF <br>
+                                        Spesen CHF {{ $umzug['extra'] }}  <br>
                                     @endif
                                     @if ($umzug['extra1'])
-                                        Klavier {{ $umzug['extra1'] }} CHF <br>
+                                        Klavier CHF {{ $umzug['extra1'] }}  <br>
                                     @endif
                                     @if ($umzug['extra2'])
-                                        Klavier {{ $umzug['extra2'] }} CHF <br>
+                                        Klavier CHF {{ $umzug['extra2'] }}  <br>
                                     @endif
                                     @if ($umzug['extra3'])
-                                        Möbellift {{ $umzug['extra3'] }} CHF <br>
+                                        Möbellift CHF {{ $umzug['extra3'] }}  <br>
                                     @endif
                                     @if ($umzug['extra4'])
-                                        Möbellift {{ $umzug['extra4'] }} CHF <br>
+                                        Möbellift CHF{{ $umzug['extra4'] }}  <br>
                                     @endif
                                     @if ($umzug['extra5'])
-                                        Möbellift {{ $umzug['extra5'] }} CHF <br>
+                                        Möbellift CHF {{ $umzug['extra5'] }}  <br>
                                     @endif
                                     @if ($umzug['extra6'])
-                                        Schwergutzuschlag {{ $umzug['extra6'] }} CHF <br>
+                                        Schwergutzuschlag CHF {{ $umzug['extra6'] }}  <br>
                                     @endif
                                     @if ($umzug['extra7'])
-                                        Schwergutzuschlag {{ $umzug['extra7'] }} CHF <br>
+                                        Schwergutzuschlag CHF {{ $umzug['extra7'] }}  <br>
                                     @endif
                                     @if ($umzug['extra8'])
-                                        Tresor {{ $umzug['extra8'] }} CHF <br>
+                                        Tresor CHF {{ $umzug['extra8'] }}  <br>
                                     @endif
                                     @if ($umzug['extra9'])
-                                        Tresor {{ $umzug['extra9'] }} CHF <br>
+                                        Tresor CHF {{ $umzug['extra9'] }}  <br>
                                     @endif
                                     @if ($umzug['extra10'])
-                                        Wasserbett {{ $umzug['extra10'] }} CHF <br>
+                                        Wasserbett CHF {{ $umzug['extra10'] }}  <br>
                                     @endif
                                     @if ($umzug['customCostPrice1'])
                                         @if ($umzug['customCostName1'])
                                             {{ $umzug['customCostName1'] }}
                                         @else
                                             Freier Text 1
-                                        @endif {{ $umzug['customCostPrice1'] }} CHF
+                                        @endif CHF {{ $umzug['customCostPrice1'] }}
                                     @endif
                                     @if ($umzug['customCostPrice2'])
                                         @if ($umzug['customCostName2'])
                                             {{ $umzug['customCostName2'] }}
                                         @else
                                             Freier Text 2
-                                        @endif {{ $umzug['customCostPrice2'] }} CHF
+                                        @endif CHF {{ $umzug['customCostPrice2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -571,7 +585,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $umzug['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $umzug['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -581,7 +595,7 @@
                                         Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $umzug['discount'] }} CHF
+                                        CHF - {{ $umzug['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -601,7 +615,7 @@
                                 <div class="row mt-3">
                                     <div class="col-md-6">Entgegenkommen</div>
                                     <div class="col-md-6">
-                                        - {{ $umzug['compromiser'] }} CHF
+                                        CHF - {{ $umzug['compromiser'] }}
                                     </div>
                                 </div>
                             @endif
@@ -616,7 +630,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $umzug['extraCostPrice'] }} CHF
+                                        CHF - {{ $umzug['extraCostPrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -626,7 +640,7 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $umzug['defaultPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $umzug['defaultPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -685,10 +699,24 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    Anfahrt - Rückfahrt
+                                    <b>
+                                        @if(!empty($einpack['arrivalGas']) && !empty($einpack['returnGas']))
+                                        Anfahrt - Rückfahrt:<br>
+                                        @elseif(!empty($einpack['arrivalGas']))
+                                            Anfahrt:<br>
+                                        @elseif(!empty($einpack['returnGas']))
+                                            Rückfahrt: <br>
+                                        @endif
+                                    </b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $einpack['arrivalGas'] }} - {{ $einpack['returnGas'] }} CHF
+                                    @if(!empty($einpack['arrivalGas']) && !empty($einpack['returnGas']))
+                                    CHF {{ $einpack['arrivalGas'] }} - {{ $einpack['returnGas'] }}  <br>
+                                    @elseif(!empty($einpack['arrivalGas']))
+                                    CHF {{ $einpack['arrivalGas'] }}  <br>
+                                    @elseif(!empty($einpack['returnGas']))
+                                    CHF {{ $einpack['returnGas'] }}  <br>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
@@ -703,24 +731,24 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($einpack['extra'])
-                                        Spesen {{ $einpack['extra'] }} CHF <br>
+                                        Spesen CHF {{ $einpack['extra'] }}  <br>
                                     @endif
                                     @if ($einpack['extra1'])
-                                        Verpackungsmaterial {{ $einpack['extra1'] }} CHF <br>
+                                        Verpackungsmaterial CHF {{ $einpack['extra1'] }}  <br>
                                     @endif
                                     @if ($einpack['customCostPrice1'])
                                         @if ($einpack['customCostName1'])
                                             {{ $einpack['customCostName1'] }}
                                         @else
                                             Freier Text 1
-                                        @endif {{ $einpack['customCostPrice1'] }} CHF
+                                        @endif CHF {{ $einpack['customCostPrice1'] }}
                                     @endif
                                     @if ($einpack['customCostPrice2'])
                                         @if ($einpack['customCostName2'])
                                             {{ $einpack['customCostName2'] }}
                                         @else
                                             Freier Text 2
-                                        @endif {{ $einpack['customCostPrice2'] }} CHF
+                                        @endif CHF {{ $einpack['customCostPrice2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -730,7 +758,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $einpack['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $einpack['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -740,7 +768,7 @@
                                         Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $einpack['discount'] }} CHF
+                                        CHF - {{ $einpack['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -762,7 +790,7 @@
                                         Entgegenkommen
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $einpack['compromiser'] }} CHF
+                                        CHF - {{ $einpack['compromiser'] }}
                                     </div>
                                 </div>
                             @endif
@@ -777,7 +805,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $einpack['extraCostPrice'] }} CHF
+                                        CHF - {{ $einpack['extraCostPrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -787,7 +815,7 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $einpack['defaultPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $einpack['defaultPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -845,10 +873,24 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    Anfahrt - Rückfahrt
+                                    <b>
+                                        @if(!empty($auspack['arrivalGas']) && !empty($auspack['returnGas']))
+                                    Anfahrt - Rückfahrt:<br>
+                                    @elseif(!empty($auspack['arrivalGas']))
+                                        Anfahrt:<br>
+                                    @elseif(!empty($auspack['returnGas']))
+                                        Rückfahrt: <br>
+                                    @endif
+                                    </b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $auspack['arrivalGas'] }} - {{ $auspack['returnGas'] }} CHF
+                                    @if(!empty($auspack['arrivalGas']) && !empty($auspack['returnGas']))
+                                    CHF {{ $auspack['arrivalGas'] }} - {{ $auspack['returnGas'] }}  <br>
+                                    @elseif(!empty($auspack['arrivalGas']))
+                                    CHF {{ $auspack['arrivalGas'] }}  <br>
+                                    @elseif(!empty($auspack['returnGas']))
+                                    CHF {{ $auspack['returnGas'] }}  <br>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
@@ -863,24 +905,24 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($auspack['extra'])
-                                        Spesen {{ $auspack['extra'] }} CHF <br>
+                                        Spesen CHF {{ $auspack['extra'] }}  <br>
                                     @endif
                                     @if ($auspack['extra1'])
-                                        Verpackungsmaterial {{ $auspack['extra1'] }} CHF <br>
+                                        Verpackungsmaterial CHF {{ $auspack['extra1'] }}  <br>
                                     @endif
                                     @if ($auspack['customCostPrice1'])
                                         @if ($auspack['customCostName1'])
                                             {{ $auspack['customCostName1'] }}
                                         @else
                                             Freier Text 1
-                                        @endif {{ $auspack['customCostPrice1'] }} CHF
+                                        @endif CHF {{ $auspack['customCostPrice1'] }}
                                     @endif
                                     @if ($auspack['customCostPrice2'])
                                         @if ($auspack['customCostName2'])
                                             {{ $auspack['customCostName2'] }}
                                         @else
                                             Freier Text 2
-                                        @endif {{ $auspack['customCostPrice2'] }} CHF
+                                        @endif CHF {{ $auspack['customCostPrice2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -891,7 +933,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $auspack['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $auspack['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -902,7 +944,7 @@
                                         Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $auspack['discount'] }} CHF
+                                        CHF - {{ $auspack['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -924,7 +966,7 @@
                                         Entgegenkommen
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $auspack['compromiser'] }} CHF
+                                        CHF - {{ $auspack['compromiser'] }}
                                     </div>
                                 </div>
                             @endif
@@ -939,7 +981,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $auspack['extraCostPrice'] }} CHF
+                                        CHF - {{ $auspack['extraCostPrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -949,7 +991,7 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $auspack['defaultPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $auspack['defaultPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1067,7 +1109,7 @@
                                         Pauchal
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $reinigung['fixedTariffPrice'] }} CHF
+                                        CHF {{ $reinigung['fixedTariffPrice'] }}
                                     </div>
                                 @else
                                     <div class="col-md-6">
@@ -1083,27 +1125,27 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($reinigung['extra1'])
-                                        Hochdruckreiniger {{ $reinigung['extra1'] }} CHF <br>
+                                        Hochdruckreiniger CHF {{ $reinigung['extra1'] }}  <br>
                                     @endif
                                     @if ($reinigung['extra2'])
-                                        Stein- und Parkettböden {{ $reinigung['extra2'] }} CHF <br>
+                                        Stein- und Parkettböden CHF {{ $reinigung['extra2'] }}  <br>
                                     @endif
                                     @if ($reinigung['extra3'])
-                                        Teppichschamponieren {{ $reinigung['extra3'] }} CHF <br>
+                                        Teppichschamponieren CHF {{ $reinigung['extra3'] }}  <br>
                                     @endif
                                     @if ($reinigung['extraCostValue1'])
                                         @if ($reinigung['extraCostText1'])
                                             {{ $reinigung['extraCostText1'] }}
                                         @else
                                             Zusatzkosten 1
-                                        @endif {{ $reinigung['extraCostValue1'] }} CHF
+                                        @endif CHF {{ $reinigung['extraCostValue1'] }}
                                     @endif
                                     @if ($reinigung['extraCostValue2'])
                                         @if ($reinigung['extraCostText2'])
                                             {{ $reinigung['extraCostText2'] }}
                                         @else
                                             Zusatzkosten 2
-                                        @endif {{ $reinigung['extraCostValue2'] }} CHF
+                                        @endif CHF {{ $reinigung['extraCostValue2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -1113,7 +1155,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $reinigung['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $reinigung['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1128,7 +1170,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $reinigung['discount'] }} CHF
+                                        CHF - {{ $reinigung['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1153,7 +1195,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $reinigung['totalPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $reinigung['totalPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1253,7 +1295,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $reinigung2['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $reinigung2['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1281,7 +1323,7 @@
                                         Pauchal
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $reinigung2['fixedTariffPrice'] }} CHF
+                                        CHF {{ $reinigung2['fixedTariffPrice'] }}
                                     </div>
                                 @else
                                     <div class="col-md-6">
@@ -1297,27 +1339,27 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($reinigung2['extra1'])
-                                        Hochdruckreiniger {{ $reinigung2['extra1'] }} CHF <br>
+                                        Hochdruckreiniger CHF {{ $reinigung2['extra1'] }}  <br>
                                     @endif
                                     @if ($reinigung2['extra2'])
-                                        Stein- und Parkettböden {{ $reinigung2['extra2'] }} CHF <br>
+                                        Stein- und Parkettböden CHF {{ $reinigung2['extra2'] }}  <br>
                                     @endif
                                     @if ($reinigung2['extra3'])
-                                        Teppichschamponieren {{ $reinigung2['extra3'] }} CHF <br>
+                                        Teppichschamponieren CHF {{ $reinigung2['extra3'] }}  <br>
                                     @endif
                                     @if ($reinigung2['extraCostValue1'])
                                         @if ($reinigung2['extraCostText1'])
                                             {{ $reinigung2['extraCostText1'] }}
                                         @else
                                             Zusatzkosten 1
-                                        @endif {{ $reinigung2['extraCostValue1'] }} CHF
+                                        @endif CHF {{ $reinigung2['extraCostValue1'] }}
                                     @endif
                                     @if ($reinigung2['extraCostValue2'])
                                         @if ($reinigung2['extraCostText2'])
                                             {{ $reinigung2['extraCostText2'] }}
                                         @else
                                             Zusatzkosten 2
-                                        @endif {{ $reinigung2['extraCostValue2'] }} CHF
+                                        @endif CHF {{ $reinigung2['extraCostValue2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -1333,7 +1375,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $reinigung2['discount'] }} CHF
+                                        CHF - {{ $reinigung2['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1358,7 +1400,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $reinigung2['totalPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $reinigung2['totalPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1430,10 +1472,22 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                   <b>Anfahrt - Rückfahrt</b>
+                                    <b>@if(!empty($entsorgung['arrivalGas']) && !empty($entsorgung['returnGas']))
+                                        Anfahrt - Rückfahrt:<br>
+                                    @elseif(!empty($entsorgung['arrivalGas']))
+                                        Anfahrt:<br>
+                                    @elseif(!empty($entsorgung['returnGas']))
+                                        Rückfahrt: <br>
+                                    @endif</b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $entsorgung['arrivalGas'] }} - {{ $entsorgung['returnGas'] }} CHF
+                                    @if(!empty($entsorgung['arrivalGas']) && !empty($entsorgung['returnGas']))
+                                    CHF {{ $entsorgung['arrivalGas'] }} - {{ $entsorgung['returnGas'] }}  <br>
+                                    @elseif(!empty($entsorgung['arrivalGas']))
+                                    CHF {{ $entsorgung['arrivalGas'] }}  <br>
+                                    @elseif(!empty($entsorgung['returnGas']))
+                                    CHF {{ $entsorgung['returnGas'] }}  <br>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
@@ -1446,7 +1500,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($entsorgung['fixedCost'])
-                                        {{ $entsorgung['fixedCost'] }} CHF - pauschal (Aufwand an der Entsorgungsstelle)
+                                    CHF {{ $entsorgung['fixedCost'] }}  - pauschal (Aufwand an der Entsorgungsstelle)
                                         @else {{ $entsorgung['hour'] }} Std
                                     @endif
                                 </div>
@@ -1463,21 +1517,21 @@
                                 </div>
                                 <div class="col-md-6">
                                     @if ($entsorgung['entsorgungExtra1'])
-                                        Spesen {{ $entsorgung['entsorgungExtra1'] }} CHF <br>
+                                        Spesen CHF {{ $entsorgung['entsorgungExtra1'] }}  <br>
                                     @endif
                                     @if ($entsorgung['extraCostValue1'])
                                         @if ($entsorgung['extraCostText1'])
                                             <b>{{ $entsorgung['extraCostText1'] }}</b>
                                         @else
                                             <b>Freier Text 1</b>
-                                        @endif {{ $entsorgung['extraCostValue1'] }} CHF
+                                        @endif CHF {{ $entsorgung['extraCostValue1'] }}
                                     @endif
                                     @if ($entsorgung['extraCostValue2'])
                                         @if ($entsorgung['extraCostText2'])
                                             <b>{{ $entsorgung['extraCostText2'] }}</b>
                                         @else
                                             <b>Freier Text 2</b>
-                                        @endif {{ $entsorgung['extraCostValue2'] }} CHF
+                                        @endif CHF {{ $entsorgung['extraCostValue2'] }}
                                     @endif
                                 </div>
                             </div>
@@ -1493,7 +1547,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $entsorgung['discount'] }} CHF
+                                        CHF - {{ $entsorgung['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1519,7 +1573,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $entsorgung['extraDiscountPrice'] }} CHF
+                                        CHF - {{ $entsorgung['extraDiscountPrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1529,8 +1583,8 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $entsorgung['defaultPrice'] }}
-                                            CHF</strong> </span>
+                                    <span class="text-primary"> <strong>CHF {{ $entsorgung['defaultPrice'] }}
+                                            </strong> </span>
                                 </div>
                             </div>
                         </div>
@@ -1585,7 +1639,7 @@
                                         Pauschal
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $transport['fixedChf'] }} CHF
+                                        CHF {{ $transport['fixedChf'] }}
                                     </div>
                                 @else
                                     <div class="col-md-6">
@@ -1599,10 +1653,22 @@
                                     </div>
                                 @endif
                                 <div class="col-md-6">
-                                    Anfahrt - Rückfahrt
+                                    <b>@if(!empty($transport['arrivalGas']) && !empty($transport['returnGas']))
+                                        Anfahrt - Rückfahrt:<br>
+                                    @elseif(!empty($transport['arrivalGas']))
+                                        Anfahrt:<br>
+                                    @elseif(!empty($transport['returnGas']))
+                                        Rückfahrt: <br>
+                                    @endif</b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $transport['arrivalGas'] }} - {{ $transport['returnGas'] }} CHF
+                                    @if(!empty($transport['arrivalGas']) && !empty($transport['returnGas']))
+                                    CHF {{ $transport['arrivalGas'] }} - {{ $transport['returnGas'] }}  <br>
+                                    @elseif(!empty($transport['arrivalGas']))
+                                    CHF {{ $transport['arrivalGas'] }}  <br>
+                                    @elseif(!empty($transport['returnGas']))
+                                    CHF {{ $transport['returnGas'] }}  <br>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
@@ -1621,49 +1687,49 @@
                                             {{ $transport['extraCostText1'] }}
                                         @else
                                             Zusatzkosten 1
-                                        @endif {{ $transport['extraCostValue1'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue1'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue2'] != 0)
                                         @if ($transport['extraCostText2'])
                                             {{ $transport['extraCostText2'] }}
                                         @else
                                             Zusatzkosten 2
-                                        @endif {{ $transport['extraCostValue2'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue2'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue3'] != 0)
                                         @if ($transport['extraCostText3'])
                                             {{ $transport['extraCostText3'] }}
                                         @else
                                             Zusatzkosten 3
-                                        @endif {{ $transport['extraCostValue3'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue3'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue4'] != 0)
                                         @if ($transport['extraCostText4'])
                                             {{ $transport['extraCostText4'] }}
                                         @else
                                             Zusatzkosten 4
-                                        @endif {{ $transport['extraCostValue4'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue4'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue5'] != 0)
                                         @if ($transport['extraCostText5'])
                                             {{ $transport['extraCostText5'] }}
                                         @else
                                             Zusatzkosten 5
-                                        @endif {{ $transport['extraCostValue5'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue5'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue6'] != 0)
                                         @if ($transport['extraCostText6'])
                                             {{ $transport['extraCostText6'] }}
                                         @else
                                             Zusatzkosten 6
-                                        @endif {{ $transport['extraCostValue6'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue6'] }}  <br>
                                     @endif
                                     @if ($transport['extraCostValue7'] != 0)
                                         @if ($transport['extraCostText7'])
                                             {{ $transport['extraCostText7'] }}
                                         @else
                                             Zusatzkosten 7
-                                        @endif {{ $transport['extraCostValue7'] }} CHF <br>
+                                        @endif CHF {{ $transport['extraCostValue7'] }}  <br>
                                     @endif
                                 </div>
                             </div>
@@ -1680,8 +1746,8 @@
                                 <div class="col-md-6">
                                     <span class="text-primary"> <strong>
                                         @if($transport['fixedChf'] != 0)
-                                        {{ $transport['fixedChf'] }} CHF
-                                        @else {{ $transport['totalPrice'] }} CHF
+                                        CHF {{ $transport['fixedChf'] }}
+                                        @else CHF {{ $transport['totalPrice'] }}
                                         @endif
                                     </strong>
                                     </span>
@@ -1694,7 +1760,7 @@
                                         Rabatt
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $transport['discount'] }} CHF
+                                        CHF - {{ $transport['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1716,7 +1782,7 @@
                                         Entgegenkommen
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $transport['compromiser'] }} CHF
+                                        CHF - {{ $transport['compromiser'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1731,7 +1797,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $transport['extraDiscountValue'] }} CHF
+                                        CHF - {{ $transport['extraDiscountValue'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1746,7 +1812,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $transport['extraDiscountValue2'] }} CHF
+                                        CHF - {{ $transport['extraDiscountValue2'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1760,7 +1826,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $transport['defaultPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $transport['defaultPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1813,14 +1879,14 @@
                                             {{ $lagerung['extraCostText1'] }}
                                         @else
                                             Zusatzkosten 1
-                                        @endif {{ $lagerung['extraCostValue1'] }} CHF <br>
+                                        @endif CHF {{ $lagerung['extraCostValue1'] }}  <br>
                                     @endif
                                     @if ($lagerung['extraCostValue2'] != 0)
                                         @if ($lagerung['extraCostText2'])
                                             {{ $lagerung['extraCostText2'] }}
                                         @else
                                             Zusatzkosten 2
-                                        @endif {{ $lagerung['extraCostValue2'] }} CHF <br>
+                                        @endif CHF {{ $lagerung['extraCostValue2'] }}  <br>
                                     @endif
                                 </div>
                             </div>
@@ -1831,7 +1897,7 @@
                                     Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $lagerung['costPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $lagerung['costPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1846,7 +1912,7 @@
                                         @endif
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $lagerung['discountValue'] }} CHF
+                                        CHF - {{ $lagerung['discountValue'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1867,7 +1933,7 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $lagerung['totalPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $lagerung['totalPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -1945,7 +2011,7 @@
                                         Rabatt:
                                     </div>
                                     <div class="col-md-6">
-                                        - {{ $material['discount'] }} CHF
+                                        CHF - {{ $material['discount'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1956,7 +2022,7 @@
                                         Lieferung:
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $material['deliverPrice'] }} CHF
+                                        CHF {{ $material['deliverPrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1967,7 +2033,7 @@
                                         Abholung:
                                     </div>
                                     <div class="col-md-6">
-                                        {{ $material['recievePrice'] }} CHF
+                                        CHF {{ $material['recievePrice'] }}
                                     </div>
                                 </div>
                             @endif
@@ -1977,7 +2043,7 @@
                                     Geschätzte Kosten:
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="text-primary"> <strong>{{ $material['totalPrice'] }} CHF</strong>
+                                    <span class="text-primary"> <strong>CHF {{ $material['totalPrice'] }} </strong>
                                     </span>
                                 </div>
                             </div>
@@ -2003,7 +2069,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Umzug:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $umzug['defaultPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $umzug['defaultPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2015,7 +2081,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Einpack:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $einpack['defaultPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $einpack['defaultPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2027,7 +2093,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Auspack:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $auspack['defaultPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $auspack['defaultPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2039,7 +2105,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Reinigung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $reinigung['totalPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $reinigung['totalPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2051,7 +2117,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Reinigung 2:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $reinigung2['totalPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $reinigung2['totalPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2063,8 +2129,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Entsorgung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $entsorgung['defaultPrice'] }}</span>
-                                                    CHF</b></td>
+                                                        class="ucret">CHF {{ $entsorgung['defaultPrice'] }}</span>
+                                                    </b></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2075,8 +2141,8 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Transport:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $transport['defaultPrice'] }}</span>
-                                                    CHF</b></td>
+                                                        class="ucret">CHF {{ $transport['defaultPrice'] }}</span>
+                                                    </b></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2087,7 +2153,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Lagerung:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $lagerung['totalPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $lagerung['totalPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
@@ -2099,7 +2165,7 @@
                                         <tr>
                                             <td><b class="h6 text-dark custom-font">Material:</b></td>
                                             <td align="right"><b class="h6 text-primary custom-font"><span
-                                                        class="ucret">{{ $material['totalPrice'] }}</span> CHF</b>
+                                                        class="ucret">CHF {{ $material['totalPrice'] }}</span> </b>
                                             </td>
                                         </tr>
                                     </table>
