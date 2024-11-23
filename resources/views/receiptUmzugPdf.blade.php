@@ -113,13 +113,30 @@
                             @if ( $receipt['umzugHour'] ) {{ $receipt['umzugHour'] }} @else _____ @endif h á
                             @if ( $receipt['umzugChf'] ) CHF {{ $receipt['umzugChf'] }} @else CHF_______ @endif <br><br>
                             Spesen <br><br>
-                            Anfahrt / Rückfahrt <br><br>
+
+                            @if(!empty($receipt['umzugArrivalGas']) && !empty($receipt['umzugReturnGas']))
+                                Anfahrt - Rückfahrt:<br><br>
+                            @elseif(!empty($receipt['umzugArrivalGas']))
+                                Anfahrt:<br><br>
+                            @elseif(!empty($receipt['umzugReturnGas']))
+                                Rückfahrt: <br><br>
+                            @endif
+
                             Verpackungsmaterial <br><br>
                         </td>
                         <td>
                             @if ( $receipt['umzugTotalChf'] ) CHF {{ $receipt['umzugTotalChf'] }} @else CHF_______ @endif <br><br>
                             @if ( $receipt['umzugCharge'] ) CHF {{ $receipt['umzugCharge'] }} @else CHF_______ @endif<br><br>
-                            @if ( $receipt['umzugRoadChf'] ) CHF {{ $receipt['umzugRoadChf'] }} @else CHF_______ @endif<br><br>
+
+                            @if(!empty($receipt['umzugArrivalGas']) && !empty($receipt['umzugReturnGas']))
+                            CHF {{ $receipt['umzugArrivalGas'] }} - {{ $receipt['umzugReturnGas'] }}  <br><br>
+                            @elseif(!empty($receipt['umzugArrivalGas']))
+                            CHF {{ $receipt['umzugArrivalGas'] }}  <br><br>
+                            @elseif(!empty($receipt['umzugReturnGas']))
+                            CHF {{ $receipt['umzugReturnGas'] }}  <br><br>
+                            @endif
+
+
                             @if ( $receipt['materialPrice'] ) CHF {{ $receipt['materialPrice'] }} @else CHF_______ @endif<br><br>
                         </td>
                     </tr>

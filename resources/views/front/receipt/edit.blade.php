@@ -162,10 +162,23 @@
                                         <b class="text-dark">Spesen</b>
                                         <input class="form-control" name="umzugSpesenCost"  type="text" value="{{ $data['umzugCharge'] }}">
                                     </div>
+
                                     <div class="col-md-4">
-                                        <b class="text-dark">Anfahrt/Rückfahrt</b>
-                                        <input class="form-control" name="umzugRoadChf"  type="text" placeholder="[CHF]" value="{{ $data['umzugRoadChf'] }}">
+                                        <table class="table">
+                                            <tr>
+                                                <td class="p-0">
+                                                    <b class="text-dark">Anfahrt</b>
+                                                    <input class="form-control" name="umzugArrivalGas"  type="text" placeholder="[CHF]" value="{{ $data['umzugArrivalGas'] }}">
+                                                </td>
+                                                <td style="vertical-align: middle;" class=" px-2">_</td>
+                                                <td class="p-0">
+                                                    <b class="text-dark">Rückfahrt</b>
+                                                    <input class="form-control" name="umzugReturnGas"  type="text" placeholder="[CHF]" {{ $data['umzugReturnGas'] }}>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
+
                                     <div class="col-md-4">
                                         <b class="text-dark">Verpackungsmaterial</b>
                                         <input class="form-control" name="umzugPackCost"  type="text" placeholder="[CHF]" value="{{ $data['materialPrice'] }}">
@@ -817,7 +830,9 @@
                 $("input[name=entsorgungCost]").val('');
             }
             let umzugSpesenCost =  $("input[name=umzugSpesenCost]").val() ? parseFloat($("input[name=umzugSpesenCost]").val()) : 0 ;
-            let umzugRoadChf = $("input[name=umzugRoadChf]").val() ? parseFloat($("input[name=umzugRoadChf]").val()) : 0 ;
+            let umzugArrival = $("input[name=umzugArrivalGas]").val() ? parseFloat($("input[name=umzugArrivalGas]").val()) : 0 ;
+            let umzugReturn = $("input[name=umzugReturnGas]").val() ? parseFloat($("input[name=umzugReturnGas]").val()) : 0 ;
+            let umzugRoadChf = umzugArrival + umzugReturn ;
             let umzugPackCost = $("input[name=umzugPackCost]").val() ? parseFloat($("input[name=umzugPackCost]").val()) : 0 ;
             let entsorgungFixed = $("input[name=entsorgungFixed]").val() ? parseFloat($("input[name=entsorgungFixed]").val()) : 0 ;
             let ekler= 0;

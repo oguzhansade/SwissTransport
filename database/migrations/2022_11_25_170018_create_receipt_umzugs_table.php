@@ -40,7 +40,8 @@ return new class extends Migration
             $table->integer('umzugChf')->nullable();
             $table->integer('umzugTotalChf')->nullable();
             $table->integer('umzugCharge')->nullable();
-            $table->integer('umzugRoadChf')->nullable();
+            $table->integer('umzugArrivalGas')->nullable();
+            $table->integer('umzugReturnGas')->nullable();
             $table->float('materialPrice')->nullable();
             $table->integer('entsorgungVolume')->nullable();
             $table->integer('entsorgungChf')->nullable();

@@ -280,7 +280,8 @@ class bexioHelper
         $positionsData = [
             ["text" => "Umzug", "amount" => $receipt['umzugHour'], "unit_price" => $receipt['umzugChf'], "unit_id" => 2], // Unit id 2 olacak
             ["text" => "Spesen", "amount" => 1, "unit_price" => $receipt['umzugCharge'], "unit_id" => 3], // Unit id boş gidecek
-            ["text" => "Anfahrt/Rückfahrt", "amount" => 1, "unit_price" => $receipt['umzugRoadChf'], "unit_id" => 3],
+            ["text" => "Anfahrt", "amount" => 1, "unit_price" => $receipt['umzugArrivalGas'], "unit_id" => 3],
+            ["text" => "Rückfahrt", "amount" => 1, "unit_price" => $receipt['umzugReturnGas'], "unit_id" => 3],
             ["text" => "Verpackungsmaterial", "amount" => 1, "unit_price" => $receipt['materialPrice'], "unit_id" => 3],
             ["text" => "Entsorgung", "amount" => $receipt['entsorgungVolume'], "unit_price" => $receipt['entsorgungChf'], "unit_id" => 7], // Unit id 6 olacak
             ["text" => "EntsorgungAufwand", "amount" => 1, "unit_price" => $receipt['entsorgungFixedChf'], "unit_id" => 3],

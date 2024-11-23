@@ -161,8 +161,19 @@
                                         <input class="form-control" name="umzugSpesenCost"  type="text" value="{{ $data['umzugCharge'] }}">
                                     </div>
                                     <div class="col-md-4">
-                                        <b class="text-dark">Anfahrt/Rückfahrt</b>
-                                        <input class="form-control" name="umzugRoadChf"  type="text" placeholder="[CHF]" value="{{ $data['umzugRoadChf'] }}">
+                                        <table class="table">
+                                            <tr>
+                                                <td class="p-0">
+                                                    <b class="text-dark">Anfahrt</b>
+                                                    <input class="form-control" name="umzugArrivalGas"  type="text" placeholder="[CHF]" value="{{ $data['umzugArrivalGas'] }}">
+                                                </td>
+                                                <td style="vertical-align: middle;" class=" px-2">_</td>
+                                                <td class="p-0">
+                                                    <b class="text-dark">Rückfahrt</b>
+                                                    <input class="form-control" name="umzugReturnGas"  type="text" placeholder="[CHF]" {{ $data['umzugReturnGas'] }}>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div class="col-md-4">
                                         <b class="text-dark">Verpackungsmaterial</b>
