@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@section('header')
+    <!-- include libraries(jQuery, bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+@endsection
 
 @section('content')
 @section('sidebarType') sidebar-collapse @endsection
@@ -130,9 +137,9 @@
 
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
-                                    <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
-                                            {{-- @include('../../email') --}}
-                                    </textarea>
+
+                                    <textarea id="summernote" class="customEmail" name="customEmail"></textarea>
+
                                 </div>
                             </div>
 
@@ -199,13 +206,8 @@
 </script>
 <script>
 
-    //TinyMce Ayarları
-    tinymce.init({
-        selector: 'textarea.editor',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
+    $('#summernote').summernote({
+            height: '300px',
     });
 
     let dateArray = [];
@@ -235,7 +237,7 @@
         return moment(value, "HH:mm:ss").format("HH:mm");
     }
     function eventChanges() {
-        tinymce.execCommand("mceRepaint");
+        $('#summernote').summernote('code', $('#summernote').summernote('code'));
         $("body").on("change", ".widget-body", function() {
                 let dateArray = [];
                 var tarih1 = $('input[name=date]').val();
@@ -264,8 +266,7 @@
                     }
 
                 }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Besichtigung'])`);
-                tinymce.execCommand("mceRepaint");
+                var content = $('#summernote').summernote('code', `@include('../../cemail', ['date' => '${requestDate}', 'AppTypeC' => 'Besichtigung'])`);
             });
     }
 </script>

@@ -43,7 +43,7 @@ class InformationMail extends Mailable
     public function build()
     {
 
-       
+
         if($this->data['isCustomEmailSend'])
         {
             // foreach ($this->data['appDate'] as $item) {
@@ -56,12 +56,12 @@ class InformationMail extends Mailable
             // }
 
             // $calendar =  Calendar::create($this->data['companyName'])
-            // ->event(Event::create($this->data['sub'])                   
+            // ->event(Event::create($this->data['sub'])
             //     ->organizer($this->data['from'],$this->data['companyName'])
-            //     ->attendee($this->data['email'])  
+            //     ->attendee($this->data['email'])
             //     ->startsAt(new DateTime($this->data['appDate'][0]['date'].' '.$this->data['appDate'][0]['time'], new DateTimeZone('Europe/Istanbul')))
             //     ->endsAt(new DateTime($this->data['appDate'][0]['date']))
-                
+
             // );
 
 
@@ -74,7 +74,7 @@ class InformationMail extends Mailable
                     //     'mime' => 'text/calendar; charset=UTF-8; method=REQUEST',
                     // ]);
         }
-        else 
+        else
         {
             // foreach ($this->data['appDate'] as $item) {
             // $fullDate = $item['date'].' '.$item['time'];
@@ -84,11 +84,11 @@ class InformationMail extends Mailable
             // $comment =  $item['calendarComment'];
             // calendarHelper::companyMail($item['serviceName'],$fullDate,$this->data['name'],$this->data['surname'],$this->data['gender'],$location,$title,$comment,$endDate);
             // }
-            
+
 
         return $this->view('email')
                 ->subject($this->data['sub'])
-                ->from($this->data['from'],$this->data['companyName'])                   
+                ->from($this->data['from'],$this->data['companyName'])
                 ->with('data',$this->data);
                 // ->attachData($calendar->get(), 'invite.ics', [
                 //     'mime' => 'text/calendar; charset=UTF-8; ',

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -5,12 +6,12 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
     <style type="text/css">
-        body {
+        .big-container {
             font-family: arial, helvetica, sans-serif;
             font-size: 12px !important;
         }
 
-        table tbody tr td {
+        .big-container table tbody tr td {
             font-size: 12px !important;
         }
 
@@ -28,7 +29,7 @@
 </head>
 
 <body>
-    <div>
+    <div class="big-container">
         <div>
             @if (isset($data2) && $data2)
             @if ($data2['gender'] == 'male')

@@ -30,9 +30,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
 
-    <script src="https://cdn.tiny.cloud/1/uahyyxnxqnfnc9o1hi72dmh0xvtn65ars5um69t1xufdw2g2/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/kb9vbvevw6clfr8jsv7fc1kxn030z24np2yj3ovp0tv4is2o/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <style>
+        .note-editor.note-frame .note-editing-area .note-editable {
+        color: #000;
+        }
+        .note-editable > p {
+        color: #000;
+        }
+
         /* Header Rengi */
         .navbar {
             background: {{ App\Models\Company::InfoCompany('crmPrimaryColor') }};

@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@section('header')
+    <!-- include libraries(jQuery, bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+@endsection
 @section('content')
 @section('sidebarType') sidebar-collapse @endsection
 <div class="row page-title clearfix">
@@ -131,9 +138,9 @@
 
                             <div class="row form-group email--format" style="display: none;">
                                 <div class="col-md-12 mt-3">
-                                    <textarea class="editor" name="customEmail" id="customEmail" cols="30" rows="10">
 
-                                    </textarea>
+                                    <textarea id="summernote" class="customEmail" name="customEmail"></textarea>
+
                                 </div>
                             </div>
 
@@ -156,174 +163,168 @@
 @endsection
 
 @section('footer')
-<script>
-    function bescFunc(){
-        let bescTitle = $('input[name=calendarTitle]').val();
-        var valueQq = 3;
-        let AppserviceName = '';
-        if (valueQq == 1)
-        {
-            AppserviceName = 'Bes.';
-        }
-        if(valueQq == 3)
-        {
-            AppserviceName = 'Abholung.';
+    <script>
+        function bescFunc(){
+            let bescTitle = $('input[name=calendarTitle]').val();
+            var valueQq = 3;
+            let AppserviceName = '';
+            if (valueQq == 1)
+            {
+                AppserviceName = 'Bes.';
+            }
+            if(valueQq == 3)
+            {
+                AppserviceName = 'Abholung.';
+            }
+
+            let Appgender = '';
+            let AppgenderType = '{{ $data2['gender'] }}';
+            if(AppgenderType == 'male')
+            {
+                Appgender = 'Herr'
+            }
+            else{
+                Appgender = 'Frau'
+            }
+            let Appname = '{{ $data2['name'] }}';
+            let Appsurname = '{{ $data2['surname'] }}';
+            let Appmobile = '{{ $data2['mobile'] }}';
+            let ApppostCode = '{{ $data2['postCode'] }}';
+            let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
+
+            if(bescnewTitle !== bescTitle) { // only update if the new title is different
+                $('input[name=calendarTitle]').val(bescnewTitle);
+                bescTitle = bescnewTitle; // save the new title
+            }
+            console.log(valueQq,'VBALL')
         }
 
-        let Appgender = '';
-        let AppgenderType = '{{ $data2['gender'] }}';
-        if(AppgenderType == 'male')
-        {
-            Appgender = 'Herr'
-        }
-        else{
-            Appgender = 'Frau'
-        }
-        let Appname = '{{ $data2['name'] }}';
-        let Appsurname = '{{ $data2['surname'] }}';
-        let Appmobile = '{{ $data2['mobile'] }}';
-        let ApppostCode = '{{ $data2['postCode'] }}';
-        let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
-
-        if(bescnewTitle !== bescTitle) { // only update if the new title is different
-            $('input[name=calendarTitle]').val(bescnewTitle);
-            bescTitle = bescnewTitle; // save the new title
-        }
-        console.log(valueQq,'VBALL')
-    }
-
-    $(document).ready(function(){
-        bescFunc()
-    })
-</script>
-{{-- TinyMce Email Format Ayarları --}}
-<script>
-    //TinyMce Ayarları
-    tinymce.init({
-        selector: 'textarea.editor',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
-    });
-
-    let dateArray3 = [];
-    var tarih1 = $('input[name=meetingDate]').val();
-
-    if (tarih1 != null || tarih1 != undefined) {
-        dateArray3.push({
-            name: '<b>Lieferung:</b> ',
-            date: tarih1
+        $(document).ready(function(){
+            bescFunc()
         })
-    }
+    </script>
+    {{-- Summernote Email Format Ayarları --}}
+    <script>
+        $('#summernote').summernote({
+                height: '300px',
+        });
 
-    eventChanges();
-    $("body").on("change", ".widget-body", function() {
+        let dateArray3 = [];
+        var tarih1 = $('input[name=meetingDate]').val();
+
+        if (tarih1 != null || tarih1 != undefined) {
+            dateArray3.push({
+                name: '<b>Abholung:</b> ',
+                date: tarih1
+            })
+        }
+
         eventChanges();
-    });
-    function momentConvertValue(value){
-        return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
-    }
-    function momentConvertTimeValue(value){
-        moment.locale('de');
-        return moment(value, "HH:mm:ss").format("HH:mm");
-    }
-    function eventChanges() {
-        tinymce.execCommand("mceRepaint");
         $("body").on("change", ".widget-body", function() {
-            let dateArray3 = [];
-                var tarih1 = $('input[name=meetingDate]').val();
-                var saat1 = $('input[name=meetingHour1]').val();
-                var saat2 = $('input[name=meetingHour2]').val();
-                dateArray3.some(function(entry) {
-                    if (entry.name == "<b>Lieferung:</b> ") {
-                        found = entry;
-                        dateArray.splice(found);
+            eventChanges();
+        });
+        function momentConvertValue(value){
+            return moment(value, "YYYY-MM-DD").format("dddd, DD. MMMM YYYY");
+        }
+        function momentConvertTimeValue(value){
+            moment.locale('de');
+            return moment(value, "HH:mm:ss").format("HH:mm");
+        }
+        function eventChanges() {
+            $('#summernote').summernote('code', $('#summernote').summernote('code'));
+            $("body").on("change", ".widget-body", function() {
+                let dateArray3 = [];
+                    var tarih1 = $('input[name=meetingDate]').val();
+                    var saat1 = $('input[name=meetingHour1]').val();
+                    var saat2 = $('input[name=meetingHour2]').val();
+                    dateArray3.some(function(entry) {
+                        if (entry.name == "<b>Abholung:</b> ") {
+                            found = entry;
+                            dateArray.splice(found);
+                        }
+                    });
+                    if(tarih1!=""){
+                        dateArray3.push({
+                        name: '<b>Abholung:</b> ',
+                        date: momentConvertValue(tarih1),
+                        time1: saat1,
+                        time2: saat2,
+                        })
                     }
+                    var requestDate = "";
+                    for (var i = 0; i <= dateArray3.length - 1; i++) {
+                        if(dateArray3[i].time1 && !dateArray3[i].time2)
+                        {
+                            requestDate +=  dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'Uhr'+ "<br>";
+                        }
+                        else if(dateArray3[i].time1 && dateArray3[i].time2)
+                        {
+                            requestDate += dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'-'+' '+dateArray3[i].time2+' '+'Uhr'+ "<br>";
+                        }
+                        else{
+                            requestDate += dateArray3[i].date + "<br>";
+                        }
+
+                    }
+                    var content = $('#summernote').summernote('code', `@include('../../cemail', ['date' => '${requestDate}', 'AppTypeC' => 'Abholung'])`);
+
                 });
-                if(tarih1!=""){
-                    dateArray3.push({
-                    name: '<b>Lieferung:</b> ',
-                    date: momentConvertValue(tarih1),
-                    time1: saat1,
-                    time2: saat2,
-                    })
-                }
-                var requestDate = "";
-                for (var i = 0; i <= dateArray3.length - 1; i++) {
-                    if(dateArray3[i].time1 && !dateArray3[i].time2)
-                    {
-                        requestDate +=  dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'Uhr'+ "<br>";
-                    }
-                    else if(dateArray3[i].time1 && dateArray3[i].time2)
-                    {
-                        requestDate += dateArray3[i].date+ ' '+dateArray3[i].time1 +' '+'-'+' '+dateArray3[i].time2+' '+'Uhr'+ "<br>";
-                    }
-                    else{
-                        requestDate += dateArray3[i].date + "<br>";
-                    }
+        }
+    </script>
 
-                }
-                tinymce.get("customEmail").setContent(`@include('../../cemail', ['date' => '${requestDate}','AppTypeC' => 'Lieferung'])`);
-                tinymce.execCommand("mceRepaint");
-            });
-    }
-</script>
+    <script>
+        var morebutton = $("div.email-send");
+        morebutton.click(function() {
+            if ($(this).hasClass("checkbox-checked"))
+            {
+                $(".email--area").show(700);
+            }
+            else {
+                $(".email--area").hide(500);
+            }
+        })
+    </script>
 
-<script>
-    var morebutton = $("div.email-send");
-    morebutton.click(function() {
+    <script>
+        var emailFormatbutton = $("div.email-format");
+        emailFormatbutton.click(function() {
         if ($(this).hasClass("checkbox-checked"))
         {
-            $(".email--area").show(700);
+            $(".email--format").show(700);
         }
         else {
-            $(".email--area").hide(500);
+            $(".email--format").hide(500);
         }
-    })
-</script>
+        })
+    </script>
 
-<script>
-    var emailFormatbutton = $("div.email-format");
-    emailFormatbutton.click(function() {
-    if ($(this).hasClass("checkbox-checked"))
-    {
-        $(".email--format").show(700);
-    }
-    else {
-        $(".email--format").hide(500);
-    }
-    })
-</script>
+    <script>
+        $(".appointment-type").click(function() {
+            var value = $(this).val();
+            if(value == 3)
+            {
+                $(".deliverable--area").show(500);
+                $(".contactType--area").hide(300);
 
-<script>
-    $(".appointment-type").click(function() {
-        var value = $(this).val();
-        if(value == 3)
-        {
-            $(".deliverable--area").show(500);
-            $(".contactType--area").hide(300);
+            }
+            else {
+                $(".deliverable--area").hide(300);
+                $(".contactType--area").show(500);
+            }
+        });
+    </script>
 
-        }
-        else {
-            $(".deliverable--area").hide(300);
-            $(".contactType--area").show(500);
-        }
-    });
-</script>
-
-<script>
-    $(".deliverable").click(function() {
-        var value = $(this).val();
-        if(value == 0)
-        {
-            $(".deliveryType--area").show(500);
-        }
-        else {
-            $(".deliveryType--area").hide(300);
-        }
-    });
-</script>
-
+    <script>
+        $(".deliverable").click(function() {
+            var value = $(this).val();
+            if(value == 0)
+            {
+                $(".deliveryType--area").show(500);
+            }
+            else {
+                $(".deliveryType--area").hide(300);
+            }
+        });
+    </script>
 @endsection
 
