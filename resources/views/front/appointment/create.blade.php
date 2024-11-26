@@ -1816,7 +1816,7 @@
 
         let Appgender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '' : '';
         let AppgenderType = '{{ $data['gender'] }}';
         if (AppgenderType == 'male') {
             Appgender = 'Herr'
@@ -1867,7 +1867,7 @@
         let serviceName = 'Umzug';
 
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
 
         let gender = '';
         let genderType = '{{ $data['gender'] }}';
@@ -1906,7 +1906,7 @@
             time = ''
         }
 
-        let newTitle = serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + gender + ' ' + name + ' ' + surname + ' ' + mobile +
+        let newTitle = serviceName + ' ' + '/' + ' ' + companyName +' ' + gender + ' ' + name + ' ' + surname + ' ' + mobile +
             ' ' + '/' + ' ' + ma + ' ' + lkw + ' ' + anhanger + ' ' + hours + ' ' + '/' + ' ' + time;
 
         if (newTitle !== umzugTitle) { // only update if the new title is different
@@ -1918,7 +1918,7 @@
     $('body').on('change', '.umzug--area2', function() {
         let umzug2serviceName = 'Umzug 2';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let umzug2gender = '';
         let umzug2genderType = '{{ $data['gender'] }}';
         let umzug2hours, umzug2ma, umzug2lkw, umzug2time, umzug2anhanger;
@@ -1956,7 +1956,7 @@
             umzug2time = ''
         }
 
-        let umzug2newTitle = umzug2serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + umzug2gender + ' ' + umzug2name + ' ' +
+        let umzug2newTitle = umzug2serviceName + ' ' + '/' + ' ' + companyName + ' ' +  umzug2gender + ' ' + umzug2name + ' ' +
             umzug2surname + ' ' + umzug2mobile + ' ' + '/' + ' ' + umzug2ma + ' ' + umzug2lkw + ' ' +
             umzug2anhanger + ' ' + umzug2hours + ' ' + '/' + ' ' + umzug2time;
 
@@ -1970,7 +1970,7 @@
         let umzug3serviceName = 'Umzug 3';
         let umzug3gender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let umzug3genderType = '{{ $data['gender'] }}';
         let umzug3hours, umzug3ma, umzug3lkw, umzug3time, umzug3anhanger;
         if (umzug3genderType == 'male') {
@@ -2007,7 +2007,7 @@
             umzug3time = ''
         }
 
-        let umzug3newTitle = umzug3serviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + umzug3gender + ' ' + umzug3name + ' ' +
+        let umzug3newTitle = umzug3serviceName + ' ' + '/' + ' ' + companyName + ' ' + umzug3gender + ' ' + umzug3name + ' ' +
             umzug3surname + ' ' + umzug3mobile + ' ' + '/' + ' ' + umzug3ma + ' ' + umzug3lkw + ' ' +
             umzug3anhanger + ' ' + umzug3hours + ' ' + '/' + ' ' + umzug3time;
 
@@ -2021,7 +2021,7 @@
         let einpackserviceName = 'Einpack';
         let einpackgender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let einpackgenderType = '{{ $data['gender'] }}';
         let einpackhours, einpackma, einpacklkw, einpacktime, einpackanhanger;
         if (einpackgenderType == 'male') {
@@ -2058,7 +2058,7 @@
             einpacktime = ''
         }
 
-        let einpacknewTitle = einpackserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + einpackgender + ' ' + einpackname + ' ' +
+        let einpacknewTitle = einpackserviceName + ' ' + '/' + ' ' + companyName + ' ' +  einpackgender + ' ' + einpackname + ' ' +
             einpacksurname + ' ' + einpackmobile + ' ' + '/' + ' ' + einpackma + ' ' + einpacklkw + ' ' +
             einpackanhanger + ' ' + einpackhours + ' ' + '/' + ' ' + einpacktime;
 
@@ -2072,7 +2072,7 @@
         let auspackserviceName = 'Auspack';
         let auspackgender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let auspackgenderType = '{{ $data['gender'] }}';
         let auspackhours, auspackma, auspacklkw, auspacktime, auspackanhanger;
         if (auspackgenderType == 'male') {
@@ -2109,7 +2109,7 @@
             auspacktime = ''
         }
 
-        let auspacknewTitle = auspackserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + auspackgender + ' ' + auspackname + ' ' +
+        let auspacknewTitle = auspackserviceName + ' ' + '/' + ' ' + companyName + ' ' + auspackgender + ' ' + auspackname + ' ' +
             auspacksurname + ' ' + auspackmobile + ' ' + '/' + ' ' + auspackma + ' ' + auspacklkw + ' ' +
             auspackanhanger + ' ' + auspackhours + ' ' + '/' + ' ' + auspacktime;
 
@@ -2124,7 +2124,7 @@
         let entsorgungserviceName = 'Entsorgung';
         let entsorgunggender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let entsorgunggenderType = '{{ $data['gender'] }}';
         let entsorgunghours, entsorgungma, entsorgunglkw, entsorgungtime;
         if (entsorgunggenderType == 'male') {
@@ -2161,7 +2161,7 @@
             entsorgungtime = ''
         }
 
-        let entsorgungnewTitle = entsorgungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + entsorgunggender + ' ' +
+        let entsorgungnewTitle = entsorgungserviceName + ' ' + '/' + ' ' + companyName + ' ' + entsorgunggender + ' ' +
             entsorgungname + ' ' + entsorgungsurname + ' ' + entsorgungmobile + ' ' + '/' + ' ' + entsorgungma +
             ' ' + entsorgunglkw + ' ' + entsorgunganhanger + ' ' + entsorgunghours + ' ' + '/' + ' ' +
             entsorgungtime;
@@ -2177,7 +2177,7 @@
         let transportserviceName = 'Transport';
         let transportgender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let transportgenderType = '{{ $data['gender'] }}';
         let transporthours, transportma, transportlkw, transporttime, transportanhanger;
         if (transportgenderType == 'male') {
@@ -2214,7 +2214,7 @@
             transporttime = ''
         }
 
-        let transportnewTitle = transportserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + transportgender + ' ' + transportname +
+        let transportnewTitle = transportserviceName + ' ' + '/' + ' ' + companyName + ' ' + transportgender + ' ' + transportname +
             ' ' + transportsurname + ' ' + transportmobile + ' ' + '/' + ' ' + transportma + ' ' +
             transportlkw + ' ' + transportanhanger + ' ' + transporthours + ' ' + '/' + ' ' + transporttime;
 
@@ -2230,7 +2230,7 @@
         let reinigungserviceName = 'Reinigung';
         let reinigunggender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let reinigunggenderType = '{{ $data['gender'] }}';
         let reinigungEndDate, reinigungEndTime;
         if (reinigunggenderType == 'male') {
@@ -2253,7 +2253,7 @@
             reinigungEndTime = ''
         }
 
-        let reinigungnewTitle = reinigungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + reinigunggender + ' ' + reinigungname +
+        let reinigungnewTitle = reinigungserviceName + ' ' + '/' + ' ' + companyName + ' ' +  reinigunggender + ' ' + reinigungname +
             ' ' + reinigungsurname + ' ' + reinigungmobile + ' ' + '/' + ' ' + reinigungEndDate + ' ' +
             reinigungEndTime;
 
@@ -2269,7 +2269,7 @@
         let reinigung2serviceName = 'Reinigung 2';
         let reinigung2gender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let reinigung2genderType = '{{ $data['gender'] }}';
         let reinigung2EndDate, reinigung2EndTime;
         if (reinigung2genderType == 'male') {
@@ -2292,7 +2292,7 @@
             reinigung2EndTime = ''
         }
 
-        let reinigung2newTitle = reinigung2serviceName + ' ' + '/' + ' ' +  companyName + ' ' + '/' + ' ' + reinigung2gender + ' ' +
+        let reinigung2newTitle = reinigung2serviceName + ' ' + '/' + ' ' +  companyName + ' ' +  reinigung2gender + ' ' +
             reinigung2name + ' ' + reinigung2surname + ' ' + reinigung2mobile + ' ' + '/' + ' ' +
             reinigung2EndDate + ' ' + reinigung2EndTime;
 
@@ -2307,7 +2307,7 @@
         let lagerungserviceName = 'Lagerung';
         let lagerunggender = '';
         // Full string alması için ünlemler gerekli
-        let companyName = '{!! $data['companyName'] !!}';
+        let companyName = '{!! $data['companyName'] !!}' ? '{!! $data['companyName'] !!} /' : '';
         let lagerunggenderType = '{{ $data['gender'] }}';
         let lagerunghours, lagerungma, lagerunglkw, lagerungtime, lagerunganhanger;
         if (lagerunggenderType == 'male') {
@@ -2344,7 +2344,7 @@
             lagerungtime = ''
         }
 
-        let lagerungnewTitle = lagerungserviceName + ' ' + '/' + ' ' + companyName + ' ' + '/' + ' ' + lagerunggender + ' ' + lagerungname +
+        let lagerungnewTitle = lagerungserviceName + ' ' + '/' + ' ' + companyName + ' ' + lagerunggender + ' ' + lagerungname +
             ' ' + lagerungsurname + ' ' + lagerungmobile + ' ' + '/' + ' ' + lagerungtime;
 
         if (lagerungnewTitle !== lagerungTitle) { // only update if the new title is different

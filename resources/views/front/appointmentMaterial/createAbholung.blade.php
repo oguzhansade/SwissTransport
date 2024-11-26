@@ -177,6 +177,8 @@
                 AppserviceName = 'Abholung.';
             }
 
+            // Full string alması için ünlemler gerekli
+            let companyName = '{!! $data2['companyName'] !!}' ? '{!! $data2['companyName'] !!} /' : '';
             let Appgender = '';
             let AppgenderType = '{{ $data2['gender'] }}';
             if(AppgenderType == 'male')
@@ -190,7 +192,7 @@
             let Appsurname = '{{ $data2['surname'] }}';
             let Appmobile = '{{ $data2['mobile'] }}';
             let ApppostCode = '{{ $data2['postCode'] }}';
-            let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
+            let bescnewTitle = ApppostCode+' '+'/'+' '+AppserviceName+' '+companyName+' '+Appgender+' '+Appname+' '+Appsurname+' '+Appmobile;
 
             if(bescnewTitle !== bescTitle) { // only update if the new title is different
                 $('input[name=calendarTitle]').val(bescnewTitle);
