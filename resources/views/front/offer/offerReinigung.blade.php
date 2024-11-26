@@ -1,8 +1,8 @@
 <div class="form-group row">
     <div class="col-md-12 reinigung-control">
         <label for="" class="col-form-label">Reinigung</label><br>
-        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#286090" data-switchery="false" >  
-    </div>                            
+        <input type="checkbox" name="isReinigung" id="isReinigung" class="js-switch " data-color="#286090" data-switchery="false" >
+    </div>
 </div>
 
 <div class="rounded reinigung--area bg-service-primary" style="display:none; ">
@@ -11,7 +11,7 @@
             <label class=" col-form-label" for="l0">Reinigungsart</label>
             <select class="form-control" class="reinigungType" name="reinigungType" id="reinigungType" >
                 <option data-selection="14" value>Bitte wählen</option>
-                <option data-selection="0" value="Wohnungsreinigung inkl. Abnahmegarantie">Wohnungsreinigung inkl. Abnahmegarantie</option>
+                <option data-selection="0" value="Wohnungsreinigung inkl. Abnahmegarantie" selected>Wohnungsreinigung inkl. Abnahmegarantie</option>
                 <option data-selection="1" value="Wohnungsreinigung inkl. Besenrein">Wohnungsreinigung inkl. Besenrein</option>
                 <option data-selection="2" value="EFH-Reinigung inkl. Abnahmegarantie">EFH-Reinigung inkl. Abnahmegarantie</option>
                 <option data-selection="3" value="EFH-Reinigung inkl. Besenrein">EFH-Reinigung inkl. Besenrein</option>
@@ -30,20 +30,20 @@
             <input class="form-control" class="extraReinigung"  name="extraReinigung"  type="text" maxlength="255">
             <small class="mb-3 text-primary"><i>Maximal 255 Zeichen</i></small><br>
 
-            
+
             <label class="col-form-label" for="l0">Tarif (Pauschal)</label>
             <select class="form-control" class="reinigungFixedPrice" name="reinigungFixedPrice" id="reinigungFixedPrice" >
                 <option data-selection="bos"  value>Bitte wählen</option>
                 @foreach (\App\Models\Tariff::getList(8) as $key=>$value )
                 <option data-selection="0" data-ma="{{ $value['ma'] }}" data-lkw="{{ $value['lkw'] }}" data-an="{{ $value['anhanger'] }}" data-chf ="{{ $value['chf'] }}" value="{{ $value['id'] }}">{{ $value['description'] }}</option>
-                @endforeach           
+                @endforeach
             </select>
-            
+
 
             <div class="row reinigung-fixed--area p-2 mt-1 rounded" style="display: none;background-color:#286090;">
                 <div class="col-md-6">
                     <label class="col-form-label text-white" for="l0">Tarifpreis</label>
-                    <input class="form-control"  name="reinigungFixedPriceValue" placeholder="0"  type="number">                                
+                    <input class="form-control"  name="reinigungFixedPriceValue" placeholder="0"  type="number">
                 </div>
             </div>
 
@@ -53,59 +53,59 @@
                 <option data-selection="bos"  value>Bitte wählen</option>
                 @foreach (\App\Models\Tariff::getList(9) as $key=>$value )
                 <option data-selection="0" data-ma="{{ $value['ma'] }}" data-lkw="{{ $value['lkw'] }}" data-an="{{ $value['anhanger'] }}" data-chf ="{{ $value['chf'] }}" value="{{ $value['id'] }}">{{ $value['description'] }}</option>
-                @endforeach  
+                @endforeach
             </select>
-            
+
 
             <div class="row reinigung-price--area p-2 mt-1 rounded" style="display: none;background-color:#286090;">
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">MA</label>
-                    <input class="form-control"  name="reinigungmaValue"   type="number" value="0">                                
+                    <input class="form-control"  name="reinigungmaValue"   type="number" value="0">
                 </div>
 
                 <div class="col-md-6">
                     <label class="col-form-label" for="l0">CHF-Ansatz</label>
-                    <input class="form-control"  name="reinigungchfValue"   type="number" value="0">                                
+                    <input class="form-control"  name="reinigungchfValue"   type="number" value="0">
                 </div>
 
                 <div class="col-md-12">
                     <label class="col-form-label" for="l0">Dauer [h]</label>
-                    <input class="form-control"  name="reinigunghourValue" placeholder="4-5"   type="text" >                                
+                    <input class="form-control"  name="reinigunghourValue" placeholder="4-5"   type="text" >
                 </div>
             </div>
-            
+
             <div class=" row">
                 <div class="col-md-12">
-                    <label for="" class="col-form-label">Dübellöcher zuspachteln</label>  
-                    <div class="radiobox">                                                
+                    <label for="" class="col-form-label">Dübellöcher zuspachteln</label>
+                    <div class="radiobox">
                         <label class="text-dark">
                             <input type="radio" class="extraReinigungService1"  name="extraReinigungService1" value="1" > <span class="label-text">Ja</span>
                         </label>
                         <label class="text-dark ml-1">
                             <input type="radio"  class="extraReinigungService1"  name="extraReinigungService1" value="0"checked > <span class="label-text">Nein</span>
                         </label>
-                    </div>                                        
-                </div>                            
+                    </div>
+                </div>
             </div>
         </div>
-        
+
         <div class="col-md-6">
             <label class=" col-form-label" for="l0">Reinigungstermin</label>
-            <input class="form-control" class="date"  name="reinigungdate"  type="date" >   
-            
+            <input class="form-control" class="date"  name="reinigungdate"  type="date" >
+
             <label class=" col-form-label" for="l0">Arbeitsbeginn</label>
-            <input class="form-control" class="time"  name="reinigungtime"  type="time" > 
+            <input class="form-control" class="time"  name="reinigungtime"  type="time" >
 
             <label class=" col-form-label" for="l0">Abgabetermin</label>
-            <input class="form-control" class="date"  name="reinigungEnddate"  type="date" >   
-            
+            <input class="form-control" class="date"  name="reinigungEnddate"  type="date" >
+
             <label class=" col-form-label" for="l0">Abgabezeit</label>
-            <input class="form-control" class="time"  name="reinigungEndtime"  type="time" > 
+            <input class="form-control" class="time"  name="reinigungEndtime"  type="time" >
 
             <div class="extra-cost-reinigung mt-1">
                 <label for="" class="col-form-label">Zusatzkosten</label><br>
-                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#286090" data-switchery="false"  >  
-            </div>  
+                <input type="checkbox" name="reinigungisExtra" id="reinigungisExtra" class="js-switch " data-color="#286090" data-switchery="false"  >
+            </div>
 
             <div class="reinigung--extra--cost--area" style="display: none;">
 
@@ -114,41 +114,41 @@
                         <div class="col-md-7">
                             <div class="checkbox checkbox-rounded checkbox-color-scheme">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="reinigungmasraf"> <span class="label-text text-dark"><strong>Hochdruckreiniger</strong></span>                       
-                                </label>                   
+                                    <input type="checkbox" name="reinigungmasraf"> <span class="label-text text-dark"><strong>Hochdruckreiniger</strong></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <input class="form-control" name="reinigungextra1" type="number" value="200">
                         </div>
-                    </div> 
-                    
-                    <div class="row">
-                        <div class="col-md-7">
-                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="reinigungmasraf2"> <span class="label-text text-dark"><strong>Stein- und Parkettböden</strong></span>                       
-                                </label>                   
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input class="form-control" name="reinigungextra2" type="number" value="350">
-                        </div>
-                    </div> 
+                    </div>
 
                     <div class="row">
                         <div class="col-md-7">
                             <div class="checkbox checkbox-rounded checkbox-color-scheme">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="reinigungmasraf3"> <span class="label-text text-dark"><strong>Teppichschamponieren</strong></span>                       
-                                </label>                   
+                                    <input type="checkbox" name="reinigungmasraf2"> <span class="label-text text-dark"><strong>Stein- und Parkettböden</strong></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control" name="reinigungextra2" type="number" value="350">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-rounded checkbox-color-scheme">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="reinigungmasraf3"> <span class="label-text text-dark"><strong>Teppichschamponieren</strong></span>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <input class="form-control" name="reinigungextra3" type="number" value="200">
                         </div>
-                    </div>  
-    
+                    </div>
+
                     <div class="row ">
                         <div class="col-md-7">
                             <input class="form-control"  name="reinigungCostText1" placeholder="Freier Text"  type="text" >
@@ -177,7 +177,7 @@
                     <input class="form-control"  name="reinigungDiscountPercent" placeholder="0"  type="number" value="0">
                 </div>
             </div>
-            
+
             <div class="row ">
                 <div class="col-md-7">
                     <label class="col-form-label" for="l0">Abzug</label>
@@ -198,36 +198,36 @@
 
     {{-- Tarife Ücretleri --}}
     <script>
-       
+
         var morebutton5 = $("div.reinigung-control");
         morebutton5.click(function(){
             if($(this).hasClass("checkbox-checked"))
             {
                 $(".reinigung--area").show(700);
-                $("select[name=reinigungType]").prop('required',true);      
+                $("select[name=reinigungType]").prop('required',true);
                 $("select[name=reinigungFixedPrice]").prop("required",true);
                 $("select[name=reinigungPriceTariff]").prop("required",true);
-                $("input[name=reinigungTotalPrice]").prop('required',true); 
-                $("input[name=reinigungFixedPriceValue]").prop('required',true); 
+                $("input[name=reinigungTotalPrice]").prop('required',true);
+                $("input[name=reinigungFixedPriceValue]").prop('required',true);
                 $("input[name=reinigungmaValue]").prop('required',true);
                 $("input[name=reinigungchfValue]").prop('required',true);
                 $("input[name=reinigunghourValue]").prop('required',true);
-                
-                
+
+
             }
             else{
                 $(".reinigung--area").hide(500);
-                $("select[name=reinigungType]").prop('required',false);      
-                $("input[name=reinigungTotalPrice]").prop('required',false); 
+                $("select[name=reinigungType]").prop('required',false);
+                $("input[name=reinigungTotalPrice]").prop('required',false);
                 $("select[name=reinigungPriceTariff]").prop("required",false);
                 $("select[name=reinigungFixedPrice]").prop("required",false);
-                $("input[name=reinigungFixedPriceValue]").prop('required',false); 
+                $("input[name=reinigungFixedPriceValue]").prop('required',false);
                 $("input[name=reinigungmaValue]").prop('required',false);
                 $("input[name=reinigungchfValue]").prop('required',false);
                 $("input[name=reinigunghourValue]").prop('required',false);
             }
         })
-        
+
         $("select[name=reinigungFixedPrice]").on("change",function () {
             let chf = $(this).find(":selected").data("chf");
             let ma = $(this).find(":selected").data("ma");
@@ -300,30 +300,30 @@
             var extra13Cost = 0;
             var reinigungDiscount = 0;
             var reinigungDiscountPercent = 0;
-            
+
             $('body').on('change','.reinigung--area',function(){
                 var SabitFiyat = $('select[name=reinigungFixedPrice]').val();
-                
+
                 if($('input[name=reinigungmasraf]').is(":checked")){
-                    extra1 = parseFloat($('input[name=reinigungextra1]').val());  
+                    extra1 = parseFloat($('input[name=reinigungextra1]').val());
                 }
                 else {
                     extra1 = 0;
                 }
                 if ($('input[name=reinigungmasraf2]').is(":checked")){
-                    extra2 = parseFloat($('input[name=reinigungextra2]').val());               
+                    extra2 = parseFloat($('input[name=reinigungextra2]').val());
                 }
                 else {
                     extra2 = 0;
                 }
                 if ($('input[name=reinigungmasraf3]').is(":checked")){
-                extra3 = parseFloat($('input[name=reinigungextra3]').val());               
+                extra3 = parseFloat($('input[name=reinigungextra3]').val());
                 }
                 else {
                     extra3 = 0;
                 }
 
-                extra12Cost = parseFloat($('input[name=reinigungCost1]').val());               
+                extra12Cost = parseFloat($('input[name=reinigungCost1]').val());
                 extra13Cost = parseFloat($('input[name=reinigungCost2]').val());
                 reinigungDiscount = parseFloat($('input[name=reinigungExtraDiscount]').val());
                 reinigungDiscountPercent = parseFloat($('input[name=reinigungDiscountPercent]').val());
@@ -335,25 +335,25 @@
                     let reinigungHours = reinigungHour.split("-");
                     let leftHour = parseFloat(reinigungHours[0]);
                     let rightHour = parseFloat(reinigungHours[1]);
-                    
+
                     calcReinigungPriceLeft = reinigungChf * leftHour +extra1+extra2+extra3+extra12Cost+extra13Cost - reinigungDiscount;
                     calcReinigungPriceRight = reinigungChf * rightHour +extra1+extra2+extra3+extra12Cost+extra13Cost - reinigungDiscount;
 
                     calcReinigungLeft = reinigungChf * leftHour +extra1+extra2+extra3+extra12Cost+extra13Cost;
                     calcReinigungRight = reinigungChf * rightHour +extra1+extra2+extra3+extra12Cost+extra13Cost;
-                    
+
                     if(rightHour){
-                        
+
                         if(reinigungDiscountPercent)
                         {
                             calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100)) - reinigungDiscount
-                          
+
                         }
                         $('input[name=reinigungTotalPrice]').val(parseFloat(calcReinigungPriceRight))
                         $('input[name=reinigungCostPrice]').val(calcReinigungRight);
                     }
                     if(leftHour){
-                        
+
                         if(reinigungDiscountPercent)
                         {
                             calcReinigungPriceLeft = calcReinigungLeft-(calcReinigungLeft*reinigungDiscountPercent/100) - reinigungDiscount
@@ -367,7 +367,7 @@
                             calcReinigungPriceLeft = calcReinigungLeft- (calcReinigungLeft*(reinigungDiscountPercent/100)) - reinigungDiscount
                             calcReinigungPriceRight = calcReinigungRight - (calcReinigungRight*(reinigungDiscountPercent/100)) - reinigungDiscount
                         }
-                        $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft + '-' + calcReinigungPriceRight) 
+                        $('input[name=reinigungTotalPrice]').val(calcReinigungPriceLeft + '-' + calcReinigungPriceRight)
                         $('input[name=reinigungCostPrice]').val(calcReinigungLeft + '-' + calcReinigungRight);
                     }
                     if(leftHour == null && rightHour == null)
@@ -388,7 +388,7 @@
                     $('input[name=reinigungTotalPrice]').val(sabitHesapla);
                     $('input[name=reinigungCostPrice]').val(SabitDeger);
                 }
-            })  
+            })
         })
     </script>
 @endsection
