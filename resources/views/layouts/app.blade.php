@@ -32,6 +32,8 @@
 
     <script src="https://cdn.tiny.cloud/1/kb9vbvevw6clfr8jsv7fc1kxn030z24np2yj3ovp0tv4is2o/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+
+
     <style>
         .note-editor.note-frame .note-editing-area .note-editable {
         color: #000;
@@ -193,7 +195,9 @@
         }
    </style>
 
-
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
     @yield('header')
 </head>
 

@@ -164,7 +164,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Bemerkung (in Offerte)</label><br>
-                                    <textarea class="form-control" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
+                                    <textarea id="offertePdfNote" class="form-control" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
                                 </div>
                             </div>
 
@@ -498,6 +498,18 @@
 
 
 <script>
+
+    //Bemerkungen Summernote Disable
+    $('#offertePdfNote').summernote({
+            height: '130px',
+            spellCheck: false,
+    });
+
+    $("#offertePdfNote").summernote("disable");
+    $('#offertePdfNote[disabled="disabled"]').next().find(".note-editable").attr("contenteditable", false);
+
+
+
     // // Offerte Status Changer Accept
     // document.getElementById('manuelAccept').onclick = function(event) {
     //   // Varsayılan davranışı engelle

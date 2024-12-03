@@ -169,6 +169,7 @@
                             <option value="Österreich">Österreich</option>
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
+                            <option value="Ausland">Ausland</option>
                         </select>
 
                         <div class="mt-1 isEinCustomLand1">
@@ -285,6 +286,7 @@
                             <option value="Österreich">Österreich</option>
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
+                            <option value="Ausland">Ausland</option>
                         </select>
 
                         <div class="mt-1 isAusCustomLand2">
@@ -397,6 +399,7 @@
                                 <option value="Österreich">Österreich</option>
                                 <option value="Italien">Italien</option>
                                 <option value="Frankreich">Frankreich</option>
+                                <option value="Ausland">Ausland</option>
                             </select>
 
                             <div class="mt-1 isEinCustomLand2">
@@ -511,6 +514,7 @@
                             <option value="Österreich">Österreich</option>
                             <option value="Italien">Italien</option>
                             <option value="Frankreich">Frankreich</option>
+                            <option value="Ausland">Ausland</option>
                         </select>
 
                         <div class="mt-1 isAusCustomLand3">
@@ -616,6 +620,7 @@
                                 <option value="Österreich">Österreich</option>
                                 <option value="Italien">Italien</option>
                                 <option value="Frankreich">Frankreich</option>
+                                <option value="Ausland">Ausland</option>
                             </select>
 
                             <div class="mt-1 isEinCustomLand3">

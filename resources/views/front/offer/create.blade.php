@@ -181,7 +181,7 @@
                         <div class="form-group row">
                             <div class="col-md-12 ">
                                 <label for="" class="col-form-label">Bemerkung (in Offerte)</label><br>
-                                <textarea class="form-control pdfNoteOfferte " name="offertePdfNote" id="" cols="15" rows="5"></textarea>
+                                <textarea id="offertePdfNote" class="form-control pdfNoteOfferte " name="offertePdfNote" id="" cols="15" rows="5"></textarea>
                             </div>
                         </div>
 
@@ -369,6 +369,11 @@
         $(window).on('load', function() {
             $('#loading-body').hide();
         });
+
+        $('#offertePdfNote').summernote({
+            height: '130px',
+        });
+
     });
 </script>
 
@@ -732,15 +737,6 @@
     })
 </script>
 
-<script>
-    tinymce.init({
-        selector: 'textarea.pdfNoteOfferte',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
-    });
-</script>
 
 <script>
     tinymce.init({

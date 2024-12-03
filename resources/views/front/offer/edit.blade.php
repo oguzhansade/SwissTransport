@@ -134,7 +134,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label ">Bemerkung (in Offerte)</label><br>
-                                    <textarea class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
+                                    <textarea id="offertePdfNote" class="form-control pdfNoteOfferte" name="offertePdfNote" id="" cols="15" rows="5" >{{ $data['offerteNote'] }}</textarea>
                                 </div>
                             </div>
 
@@ -278,6 +278,13 @@
 
 {{-- Offerte oluştururken loading bar --}}
 <script>
+
+    //Bemerkungen Summernote Disable
+    $('#offertePdfNote').summernote({
+            height: '130px',
+            spellCheck: false,
+    });
+
     $(document).ready(function() {
         $('#submitButton').on('click', function(event) {
             // Form geçerli mi kontrol ediliyor
@@ -524,15 +531,7 @@
       plugins: 'code',
     });
 </script>
-<script>
-    tinymce.init({
-      selector: 'textarea.pdfNoteOfferte',
-      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-      toolbar_mode: 'floating',
-      apply_source_formatting : true,
-      plugins: 'code',
-    });
-</script>
+
 <script>
     $("select[name=appOfferType]").on("change",function() {
         value = $(this).val();
