@@ -31,21 +31,21 @@
 <body>
     <div class="big-container">
         <div>
-            @if (isset($data2) && $data2)
-            @if ($data2['gender'] == 'male')
-                Sehr geehrter Herr
-            @else
-                Sehr geehrte Frau
+                @if (isset($data2) && $data2)
+                @if ($data2['gender'] == 'male')
+                    Sehr geehrter Herr
+                @else
+                    Sehr geehrte Frau
+                @endif
+                {{ $data2['surname'] }}
+            @elseif (isset($data) && $data)
+                @if ($data['gender'] == 'male')
+                    Sehr geehrter Herr
+                @else
+                    Sehr geehrte Frau
+                @endif
+                {{ $data['surname'] }}
             @endif
-            {{ $data2['surname'] }}
-        @elseif (isset($data) && $data)
-            @if ($data['gender'] == 'male')
-                Sehr geehrter Herr
-            @else
-                Sehr geehrte Frau
-            @endif
-            {{ $data['surname'] }}
-        @endif
 
         </div>
 

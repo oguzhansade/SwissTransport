@@ -947,6 +947,9 @@ class indexController extends Controller
             if ($isEmailSend) {
                 Mail::to($emailData['email'])->send(new OfferMail($emailData));
                 $mailSuccess = ', E-Mail und Angebotdatei wurden erfolgreich gesendet';
+                $emailSent = offerte::where('id',$offerteId)->update([
+                    'emailSent' => 1
+                ]);
             }
             //return redirect()->back()->with('status',' '.'Teklif Başarıyla Eklendi'.' '.$mailSuccess );
             return redirect()
@@ -3169,6 +3172,9 @@ class indexController extends Controller
             if ($isEmailSend) {
                 Mail::to($emailData['email'])->send(new OfferMail($emailData));
                 $mailSuccess = ', E-Mail und Angebotdatei wurden erfolgreich gesendet';
+                $emailSent = offerte::where('id',$offerteId)->update([
+                    'emailSent' => 1
+                ]);
             }
 
             return redirect()

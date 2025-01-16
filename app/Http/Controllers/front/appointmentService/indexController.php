@@ -711,7 +711,7 @@ class indexController extends Controller
             ];
 
 
-            
+
             $update = AppoinmentService::where('id', $id)->update($appointmentService);
             $randevuTipi = 'Auftragsbestätigung';
             $emailData = [
@@ -746,7 +746,7 @@ class indexController extends Controller
                     $location = $item['calendarLocation'];
                     $title = $item['calendarTitle'];
                     $comment =  $item['calendarComment'];
-                    $event = Calendar::where('serviceId', $item['serviceId'])->first();
+                    $event = Calendar::where('serviceId', $item['serviceId'])->where('serviceType',$item['serviceName'])->first();
                     $serviceId = $item['serviceId'];
                     $colorId = '10';
                     if ($event) {
@@ -778,10 +778,10 @@ class indexController extends Controller
         if ($c != 0) {
             $data = AppoinmentService::where('id', $id)->first();
             $customerId = $data['customerId'];
-            
+
             $serviceTypes = ['umzug','umzug 2','umzug 3','einpack','auspack', 'reinigung', 'reinigung 2', 'entsorgung', 'transport' ,'lagerung'];
             // Düzeltme: serviceId'yi oluştururken boşlukları kaldırın ve küçük harfe çevirin
-            
+
             foreach ($serviceTypes as $serviceType) {
                 $serviceId = strtolower(str_replace(' ', '', $serviceType)) . 'Id';
                 $calendar = Calendar::where('serviceId', $data[$serviceId])

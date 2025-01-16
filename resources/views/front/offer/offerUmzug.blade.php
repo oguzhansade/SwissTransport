@@ -96,7 +96,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label for="" class="col-form-label">Parkplatz:</label>
+                    <label for="" class="col-form-label">Parkplatz absperren:</label>
                     <div class="radiobox">
                         <label class="text-dark">
                             <input type="radio" class="offerte-type"  name="isAusParkplatz1" value="1" > <span class="label-text">Ja</span>
@@ -235,7 +235,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isEinParkplatz1" value="1" > <span class="label-text">Ja</span>
@@ -352,7 +352,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusParkplatz2" value="1" > <span class="label-text">Ja</span>
@@ -465,7 +465,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <label for="" class="col-form-label">Parkplatz absperren:</label>
                             <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-type"  name="isEinParkplatz2" value="1" > <span class="label-text">Ja</span>
@@ -580,7 +580,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusParkplatz3" value="1" > <span class="label-text">Ja</span>
@@ -686,7 +686,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <label for="" class="col-form-label">Parkplatz absperren:</label>
                             <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-type"  name="isEinParkplatz3" value="1" > <span class="label-text">Ja</span>

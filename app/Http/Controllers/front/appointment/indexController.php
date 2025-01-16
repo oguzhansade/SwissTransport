@@ -505,7 +505,7 @@ class indexController extends Controller
                 $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
                 $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
                 $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
-                $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+                $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour2'];
                 $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
                 $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
                 $appDateArray[$ADC]['calendarLocation'] = $request->address;
@@ -793,7 +793,6 @@ class indexController extends Controller
 
 
             $all = $request->except('_token', 'email', 'customEmail', 'isEmail', 'emailContent', 'isCustomEmail');
-
 
             $update = Appointment::where('id', $id)->update($all);
             if ($update) {

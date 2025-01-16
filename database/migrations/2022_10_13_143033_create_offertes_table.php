@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('offerteStatus')->nullable();
             $table->string('isCampaign')->nullable();
             $table->tinyInteger('isOfferVerified')->default(0);
+            $table->integer('emailSent')->default(0);
             $table->timestamps();
         });
     }

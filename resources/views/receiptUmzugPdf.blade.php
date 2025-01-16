@@ -225,11 +225,16 @@
                         <td colspan="2">
                              8.1% MwSt <br><br>
                         </td>
-                        <td >
-                            <?php
-                            $tax = $receipt['totalPrice']*(8.1/100);
-                            ?>
-                             CHF {{ $tax }}<br><br>
+                        <td>
+                            @php
+                                $tax = $receipt['totalPrice'] * (8.1 / 100);
+                            @endphp
+
+                            @if (is_null($receipt['umzugTotalChf']) && is_null($receipt['entsorgungTotalChf']))
+                                CHF_______<br><br>
+                            @else
+                                CHF {{ number_format($tax, 2) }} <br><br> {{-- Vergiyi 2 ondalık basamağa yuvarlar --}}
+                            @endif
                         </td>
                     </tr>
                     @endif

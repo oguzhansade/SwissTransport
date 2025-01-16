@@ -134,7 +134,7 @@ class indexController extends Controller
             $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
             $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
             $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
-            $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+            $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour2'];
             $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
             $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
             $appDateArray[$ADC]['calendarLocation'] = $request->address;
@@ -281,7 +281,7 @@ class indexController extends Controller
         $appDateArray[$ADC]['date'] = $appointmentMaterial['meetingDate'];
         $appDateArray[$ADC]['time'] = $appointmentMaterial['meetingHour1'];
         $appDateArray[$ADC]['endDate'] =  $appointmentMaterial['meetingDate'];
-        $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour1'];
+        $appDateArray[$ADC]['endTime'] = $appointmentMaterial['meetingHour2'];
         $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
         $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
         $appDateArray[$ADC]['calendarLocation'] = $request->address;
@@ -373,7 +373,7 @@ class indexController extends Controller
         $appDateArray[$ADC]['date'] = $request->meetingDate;
         $appDateArray[$ADC]['time'] = $request->meetingHour1;
         $appDateArray[$ADC]['endDate'] = $request->meetingDate;
-        $appDateArray[$ADC]['endTime'] = $request->meetingHour1;
+        $appDateArray[$ADC]['endTime'] = $request->meetingHour2;
         $appDateArray[$ADC]['calendarTitle'] = $request->calendarTitle;
         $appDateArray[$ADC]['calendarComment'] = $request->calendarContent;
         $appDateArray[$ADC]['calendarLocation'] = $request->address;
@@ -461,18 +461,17 @@ class indexController extends Controller
 
         $c = AppointmentMaterial::where('id', $id)->count();
         $appointment = AppointmentMaterial::where('id', $id)->first();
-
-        $customer = Customer::where('id', $appointment['customerId'])->first();
+        $customerId = $appointment['customerId'];
 
         if ($c != 0) {
             $data = AppointmentMaterial::where('id', $id)->get();
-            $calendarBesc = Calendar::where('serviceId', $id)->first();
+            $calendarBesc = Calendar::where('serviceId', $id)->where('serviceType','Lieferung')->first();
             if ($calendarBesc) {
                 calendarDeleteHelper::companyMaildelete($calendarBesc['eventId']);
             }
             AppointmentMaterial::where('id', $id)->delete();
             return redirect()
-                ->route('customer.detail', ['id' => $customer['id']])
+                ->route('customer.detail', ['id' => $customerId])
                 ->with('status', 'Liefertermin wurde erfolgreich gelöscht.')
                 ->with('cat', 'Termine')
                 ->withInput()
@@ -481,4 +480,6 @@ class indexController extends Controller
             return redirect('/');
         }
     }
+
+
 }

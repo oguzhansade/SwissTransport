@@ -124,7 +124,7 @@
 
             <div class=" row">
                 <div class="col-md-12">
-                    <label for="" class="col-form-label">Parkplatz:</label>
+                    <label for="" class="col-form-label">Parkplatz absperren:</label>
                     <div class="radiobox">
                         <label class="text-dark">
                             <input type="radio" class="offerte-type"  name="isAusParkplatz1" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug1,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
@@ -263,7 +263,7 @@
 
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-parkPlatz1"  name="isEinParktplatz1" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug1,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>
@@ -408,7 +408,7 @@
 
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusParkplatz2" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug2,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
@@ -550,7 +550,7 @@
 
                     <div class=" row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <label for="" class="col-form-label">Parkplatz absperren:</label>
                             <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-parkPlatz2"  name="isEinParktplatz2" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug2,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>
@@ -694,7 +694,7 @@
 
                 <div class=" row">
                     <div class="col-md-12">
-                        <label for="" class="col-form-label">Parkplatz:</label>
+                        <label for="" class="col-form-label">Parkplatz absperren:</label>
                         <div class="radiobox">
                             <label class="text-dark">
                                 <input type="radio" class="offerte-type"  name="isAusParkplatz3" value="1"@if (\App\Models\offerteAddress::InfoAdress($auszug3,'parkPlatz') == 1) checked @endif > <span class="label-text">Ja</span>
@@ -825,7 +825,7 @@
 
                     <div class=" row">
                         <div class="col-md-12">
-                            <label for="" class="col-form-label">Parkplatz:</label>
+                            <label for="" class="col-form-label">Parkplatz absperren:</label>
                             <div class="radiobox">
                                 <label class="text-dark">
                                     <input type="radio" class="offerte-parkPlatz3"  name="isEinParktplatz3" value="1" @if ($einzug1 && \App\Models\offerteAddress::InfoAdress($einzug3,'parkPlatz') == 1) checked @endif> <span class="label-text">Ja</span>

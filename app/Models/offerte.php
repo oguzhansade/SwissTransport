@@ -35,7 +35,8 @@ class offerte extends Model
         'contactPerson',
         'offerteStatus',
         'isOfferVerified',
-        'isCampaign'
+        'isCampaign',
+        'emailSent'
     ];
 
     protected $casts = [

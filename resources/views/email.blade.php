@@ -91,7 +91,7 @@
         @php
         Carbon\Carbon::setLocale('de');
         @endphp
-        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
+        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} @if ($item['endTime']) {{ ' - '.Carbon\Carbon::parse($item['endTime'])->translatedFormat('H:i') }} @endif  Uhr</strong>
         <br>
         @endforeach
         @endif
@@ -109,7 +109,7 @@
         @php
         Carbon\Carbon::setLocale('de');
         @endphp
-        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr</strong>
+        <strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} @if ($item['endTime']) {{ ' - '.Carbon\Carbon::parse($item['endTime'])->translatedFormat('H:i') }} @endif  Uhr</strong>
         <br>
         @endforeach
         @endif
