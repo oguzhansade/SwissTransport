@@ -447,12 +447,8 @@
 </script>
 
 <script>
-    tinymce.init({
-        selector: 'textarea.editor',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
+    $('#customEmail').summernote({
+            height: '130px',
     });
 </script>
 

@@ -552,6 +552,9 @@
         $(".email--format").hide(500);
     }
     })
+    $('#customEmail').summernote({
+            height: '130px',
+    });
 </script>
 
 

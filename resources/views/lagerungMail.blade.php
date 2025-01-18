@@ -27,22 +27,22 @@
     <div>
         @if ($data['name'])
         <strong>
-            @if($data['gender'] == 'male') 
-            Herr, 
-            @else Frau, 
+            @if($data['gender'] == 'male')
+            Herr,
+            @else Frau,
             @endif
         </strong>
             {{ $data['name'] }} {{ $data['surname'] }}<br><br><br>
-    
+
         @elseif ($customer['name'])
             <strong>
-                @if($customer['gender'] == 'male') 
-                Herr, 
-                @else Frau, 
+                @if($customer['gender'] == 'male')
+                Herr,
+                @else Frau,
                 @endif
             </strong>
             {{ $customer['name'] }} {{ $customer['surname'] }}  <br><br><br>
-        @endif 
+        @endif
     </div>
     <br><br>
     <div>
@@ -52,7 +52,7 @@
 
         <b>Freundliche Grüsse</b>
     </div>
-    <div class="footer">
+    <div class="mail-footer">
         <br><br>
         <div>Freundliche Grüsse</div>
         <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>

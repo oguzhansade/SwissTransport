@@ -24,10 +24,10 @@
     </style>
 </head>
 <body>
-    <div><strong>Herr,</strong> 
+    <div><strong>Herr,</strong>
         @if ($data['name'])
             {{ $data['name'] }} {{ $data['surname'] }}
-        @endif 
+        @endif
     </div><br><br>
     <div>
         Ihre Panel-Anmeldeinformationen,<br><br>
@@ -37,7 +37,7 @@
 
         Wenn Sie sich mit den oben genannten Informationen nicht anmelden können, kontaktieren Sie uns bitte..<br>
     </div>
-    <div class="footer">
+    <div class="mail-footer">
         <br><br>
         <div>Freundliche Grüsse</div>
         <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>

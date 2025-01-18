@@ -117,7 +117,7 @@
         <br>Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.<br>
 
 @endif
-<div class="footer">
+<div class="mail-footer">
     <br><br>
     <div>Freundliche Grüsse</div>
     <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>

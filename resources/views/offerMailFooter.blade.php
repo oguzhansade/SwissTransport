@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="mail-footer">
     <br><br>
     <div>Freundliche Grüsse</div>
     <div><strong>Ihr {{ \App\Models\Company::InfoCompany('name') }} Team</strong></div> <br><br>

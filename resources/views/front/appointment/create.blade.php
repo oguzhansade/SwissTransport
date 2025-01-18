@@ -2444,6 +2444,11 @@
     var tarih5 = $('input[name=auspackdate]').val();
     var saat5 = $('input[name=auspacktime]').val();
     var tarih6 = $('input[name=reinigung1Startdate]').val();
+
+    // Reinigung İkincil Saatler
+    var tarih11 = $('input[name=reinigung1Enddate]').val();
+    var saat11 = $('input[name=reinigung1Endtime]').val();
+
     var saat6 = $('input[name=reinigung1Starttime]').val();
     var tarih7 = $('input[name=reinigung2Startdate]').val();
     var saat7 = $('input[name=reinigung2Starttime]').val();
@@ -2490,11 +2495,34 @@
         })
     }
     if (tarih6 != null || tarih6 != undefined) {
-        dateArray2.push({
-            name: '<b>Reinigung:</b> ',
-            date: tarih6,
-            time: saat6
-        })
+        if (tarih11 != null || tarih11 != undefined) {
+            if(tarih11 == tarih6)
+            {
+                var reinigungikincitarih = '';
+            }
+            else {
+                var reinigungikincitarih = tarih11;
+            }
+            dateArray2.push({
+                name: '<b>Reinigung:</b> ',
+                date: tarih6,
+                time: saat6
+            })
+
+            dateArray2.push({
+                name: '',
+                date: tarih11,
+                time: saat11
+            })
+        }
+        else {
+            dateArray2.push({
+                name: '<b>Reinigung:</b> ',
+                date: tarih6,
+                time: saat6
+            })
+        }
+
     }
     if (tarih7 != null || tarih7 != undefined) {
         dateArray2.push({
@@ -2584,6 +2612,10 @@
                 var tarih5 = $('input[name=auspackdate]').val();
                 var saat5 = $('input[name=auspacktime]').val();
                 var tarih6 = $('input[name=reinigung1Startdate]').val();
+
+                var tarih11 = $('input[name=reinigung1Enddate]').val();
+                var saat11 = $('input[name=reinigung1Endtime]').val();
+
                 var saat6 = $('input[name=reinigung1Starttime]').val();
                 var tarih7 = $('input[name=reinigung2Startdate]').val();
                 var saat7 = $('input[name=reinigung2Starttime]').val();
@@ -2726,10 +2758,27 @@
                 }
 
                 var requestDate = "";
+
+                if(tarih11 != null && tarih11 != "")
+                {
+                    var reinigungEndDate = momentConvertValue(tarih11);
+                    if(saat11) {
+                        var reinigungEndTime = saat11 + ' Uhr';
+                    }
+
+                }
+                else{
+                    var reinigungEndDate = "";
+                }
                 for (var i = 0; i <= dateArray2.length - 1; i++) {
                     if (dateArray2[i].time) {
-                        requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' + dateArray2[i]
-                            .time + ' ' + 'Uhr' + "<br>";
+                        if(dateArray2[i].name === '<b>Reinigung:</b> ')
+                        {
+                            requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' + dateArray2[i].time + ' Uhr' + ' - ' + reinigungEndDate + ' ' + reinigungEndTime + "<br>";
+                        }
+                        else {
+                            requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' + dateArray2[i].time + ' Uhr'  + "<br>";
+                        }
                     } else {
                         requestDate += dateArray2[i].name + " " + dateArray2[i].date + "<br>";
                     }
