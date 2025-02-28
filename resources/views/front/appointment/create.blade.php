@@ -2771,7 +2771,7 @@
                     var reinigungEndDate = "";
                 }
                 for (var i = 0; i <= dateArray2.length - 1; i++) {
-                    if (dateArray2[i].time) {
+                    if (dateArray2[i].date) {
                         if(dateArray2[i].name === '<b>Reinigung:</b> ')
                         {
                             requestDate += dateArray2[i].name + " " + dateArray2[i].date + ' ' + dateArray2[i].time + ' Uhr' + ' - ' + reinigungEndDate + ' ' + reinigungEndTime + "<br>";

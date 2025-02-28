@@ -274,7 +274,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 @if ($auszug1['street'])
@@ -317,7 +317,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 @if ($einzug1['street'])
@@ -371,7 +371,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 {{ $auszug2['street'] }} <br>
@@ -401,7 +401,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 {{ $einzug2['street'] }} <br>
@@ -452,7 +452,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 {{ $auszug3['street'] }} <br>
@@ -482,7 +482,7 @@
                                 Gebäude: <br>
                                 Etage: <br>
                                 Lift: <br>
-                                Parkplatz:
+                                Parkplatz Absperren:
                             </td>
                             <td align="left">
                                 {{ $einzug3['street'] }} <br>

@@ -141,7 +141,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12 ">
                                     <label for="" class="col-form-label">Notiz (<u>Nicht</u> in Offerte)</label><br>
-                                    <textarea  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>
+                                    <textarea id="offertePdfNote"  class="form-control" name="offerteNote" id="" cols="15" rows="5" >{{ $data['panelNote'] }}</textarea>
                                 </div>
                             </div>
 
@@ -301,6 +301,14 @@
         // Sayfa tamamen yüklendiğinde 'loading-body' gizlenir
         $(window).on('load', function() {
             $('#loading-body').hide();
+        });
+
+        $('#offertePdfNote').summernote({
+            height: '130px',
+        });
+
+        $('#customEmail').summernote({
+            height: '130px',
         });
     });
 </script>
@@ -533,31 +541,27 @@
 </script>
 
 <script>
-    $("select[name=appOfferType]").on("change",function() {
+    $("select[name=appOfferType]").on("change", function() {
         value = $(this).val();
-        tinymce.execCommand("mceRepaint");
-        console.log(value,'AppType')
-        switch(value) {
-        case '0':
+        console.log(value, 'AppType')
+        switch (value) {
+            case '0':
                 // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");
-            break;
-        case '1':
-            // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '1'])`);
-                tinymce.execCommand("mceRepaint");
-            break;
-        case '2':
-            // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '2'])`);
-                tinymce.execCommand("mceRepaint");
-            break;
-        default:
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader',['data2' => '${data}','appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
+                break;
+            case '1':
+                // TODO: bu bölüm blade import değil api olarak kullanılacak
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '1'])`);
+                break;
+            case '2':
+                // TODO: bu bölüm blade import değil api olarak kullanılacak
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '2'])`);
+                break;
+            default:
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
+
         }
-   })
+    })
 </script>
 
 @yield('offerAuspackEdit')

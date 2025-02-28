@@ -374,6 +374,9 @@
             height: '130px',
         });
 
+        $('#customEmail').summernote({
+            height: '130px',
+        });
     });
 </script>
 
@@ -739,38 +742,25 @@
 
 
 <script>
-    tinymce.init({
-        selector: 'textarea.editor',
-        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
-        toolbar_mode: 'floating',
-        apply_source_formatting: true,
-        plugins: 'code',
-    });
-</script>
-<script>
     $("select[name=appOfferType]").on("change", function() {
         value = $(this).val();
-        tinymce.execCommand("mceRepaint");
         console.log(value, 'AppType')
         switch (value) {
             case '0':
                 // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
                 break;
             case '1':
                 // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '1'])`);
-                tinymce.execCommand("mceRepaint");
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '1'])`);
                 break;
             case '2':
                 // TODO: bu bölüm blade import değil api olarak kullanılacak
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '2'])`);
-                tinymce.execCommand("mceRepaint");
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '2'])`);
                 break;
             default:
-                tinymce.get("customEmail").setContent(`@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
-                tinymce.execCommand("mceRepaint");
+                $('#customEmail').summernote('code', `@include('../../offerMailHeader', ['data2' => '${data}', 'appType' => '0'])`);
+
         }
     })
 </script>

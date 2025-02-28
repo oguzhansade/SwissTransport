@@ -236,7 +236,7 @@
                                             <td>@if($auszug1['lift'] == 1) Ja @else Nein @endif</td>
                                         </tr>
                                         <tr>
-                                            <td><b>Parkplatz:</b></td>
+                                            <td><b>Parkplatz Absperren:</b></td>
                                             <td>@if($auszug1['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                         </tr>
                                     </table>
@@ -274,7 +274,7 @@
                                                 <td>@if($einzug1['lift'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Parkplatz:</b></td>
+                                                <td><b>Parkplatz Absperren:</b></td>
                                                 <td>@if($einzug1['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                         </table>
@@ -312,7 +312,7 @@
                                                 <td>@if($auszug2['lift'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Parkplatz:</b></td>
+                                                <td><b>Parkplatz Absperren:</b></td>
                                                 <td>@if($auszug2['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                         </table>
@@ -350,7 +350,7 @@
                                                 <td>@if($einzug2['lift'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Parkplatz:</b></td>
+                                                <td><b>Parkplatz Absperren:</b></td>
                                                 <td>@if($einzug2['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                         </table>
@@ -388,7 +388,7 @@
                                                 <td>@if($auszug3['lift'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Parkplatz:</b></td>
+                                                <td><b>Parkplatz Absperren:</b></td>
                                                 <td>@if($auszug3['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                         </table>
@@ -426,7 +426,7 @@
                                                 <td>@if($einzug3['lift'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                             <tr>
-                                                <td><b>Parkplatz:</b></td>
+                                                <td><b>Parkplatz Absperren:</b></td>
                                                 <td>@if($einzug3['parkPlatz'] == 1) Ja @else Nein @endif</td>
                                             </tr>
                                         </table>
@@ -2248,8 +2248,20 @@
                     </div>
                 </div>
             </div>
-            <div class="sag" style=" ">
 
+            {{-- Bemerkungen Alanı --}}
+            <div class=" bg-container" style="display: block;">
+                <div class="row">
+                    <div class="col-md-12 text-primary">
+                        <h4> <strong class="text-primary">Bemerkungen: </strong> </h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {!! $offer['offerteNote'] !!}
+                    </div>
+                </div>
             </div>
 
             <div class="row border-top mt-3 mb-3">
