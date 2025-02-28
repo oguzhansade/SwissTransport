@@ -372,7 +372,7 @@
            console.log(leftHour,rightHour,roadchf,chf,extra1,extra2,extra3,extra4,extra5,extra6,extra7)
         })
         $("body").on("change",".transport--area",function(){
-            var transportFixedTariff = $('input[name=transportFixedTariff]').val();
+            var transportFixedTariff = parseFloat($('input[name=transportFixedTariff]').val());
             var discount = $('input[name=transportDiscount]').val();
             var discountPercent = $('input[name=transportDiscountPercent]').val();
             var compromiser = $('input[name=transportCompromiser]').val();
@@ -383,11 +383,24 @@
             let leftHour = parseFloat(allHours[0]);
             let rightHour = parseFloat(allHours[1]);
 
+            var textra1 = parseFloat($('input[name=transportCost1]').val())
+            var textra2 = parseFloat($('input[name=transportCost2]').val())
+            var textra3 = parseFloat($('input[name=transportCost3]').val())
+            var textra4 = parseFloat($('input[name=transportCost4]').val())
+            var textra5 = parseFloat($('input[name=transportCost5]').val())
+            var textra6 = parseFloat($('input[name=transportCost6]').val())
+            var textra7 = parseFloat($('input[name=transportCost7]').val())
+
             transportDefaultPriceLeft = transportCostLeft - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
             transportDefaultPriceRight = transportCostRight - discount - (transportCostLeft*discountPercent/100) - compromiser - extraDiscount - extraDiscount2;
 
+
+            console.log('firstMasraf = ',textra1);
             if(transportFixedTariff == 0)
             {
+                $('input[name=transportCost]').val(0);
+                $('input[name=transportDefaultPrice]').val(0);
+
                 if(rightHour){
                 $('input[name=transportDefaultPrice]').val(transportDefaultPriceRight)
                 }
@@ -399,13 +412,17 @@
                 }
                 if(leftHour == null && rightHour == null)
                 {
-                    $('input[name=transportDefaultPrice]').val('')
+                    $('input[name=transportDefaultPrice]').val(0)
                 }
             }
             else{
-                $('input[name=transportDefaultPrice]').val(transportFixedTariff);
-            }
 
+                transportFixedTariff = transportFixedTariff + textra1 + textra2 + textra3 + textra4 + textra5 + textra6 + textra7;
+                $('input[name=transportCost]').val(transportFixedTariff );
+
+                $('input[name=transportDefaultPrice]').val(transportFixedTariff - discount - (transportFixedTariff*discountPercent/100) - compromiser - extraDiscount - extraDiscount2)
+
+            }
         })
         $("body").on("change",".transport--area",function(){
             var chf = $('input[name=transportchf]').val();
