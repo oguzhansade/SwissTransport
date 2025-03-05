@@ -162,7 +162,7 @@
     $("input[name=einpack1ma]").on('change', function() {
         let ma = $("input[name=einpack1ma]").val();
         let spesen = $("input[name=einpackextra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=einpackextra1]").val(spesen);
     })
 
@@ -173,7 +173,7 @@
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
-    let spesen = $("input[name=einpackextra1]").val(20);
+    let spesen = $("input[name=einpackextra1]").val(25);
 
     if (control != 'bos')
     {
@@ -188,7 +188,7 @@
 
     $('input[name=einpack1chf]').val(chf);
     $('input[name=einpack1ma]').val(ma);
-    spesen = ma * 20;
+    spesen = ma * 25;
     $("input[name=einpackextra1]").val(spesen);
     })
 

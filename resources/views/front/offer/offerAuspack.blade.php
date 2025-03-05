@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <input class="form-control" name="auspackextra1" type="number" value="20">
+                        <input class="form-control" name="auspackextra1" type="number" value="25">
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@
     $("input[name=auspack1ma]").on('change', function() {
         let ma = $("input[name=auspack1ma]").val();
         let spesen = $("input[name=auspackextra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=auspackextra1]").val(spesen);
     })
 
@@ -172,7 +172,7 @@
     let lkw = $(this).find(":selected").data("lkw");
     let anhanger = $(this).find(":selected").data("an");
     let control = $(this).find(":selected").data('selection');
-    let spesen = $("input[name=auspackextra1]").val(20);
+    let spesen = $("input[name=auspackextra1]").val(25);
 
     if (control != 'bos')
     {
@@ -187,7 +187,7 @@
 
     $('input[name=auspack1chf]').val(chf);
     $('input[name=auspack1ma]').val(ma);
-    spesen = ma * 20;
+    spesen = ma * 25;
     $("input[name=auspackextra1]").val(spesen);
     })
 

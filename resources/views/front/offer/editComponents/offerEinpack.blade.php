@@ -114,7 +114,7 @@
                             <input class="form-control" name="einpackextra1" type="number"
                             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra'))
                                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra') }}"
-                                @else value="{{ 20 }}"
+                                @else value="{{ 25 }}"
                             @endif>
                         </div>
                     </div>
@@ -271,14 +271,14 @@
     $(document).ready(function(){
         let ma = $("input[name=einpack1ma]").val();
         let spesen = $("input[name=einpackextra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=einpackextra1]").val(spesen);
     })
 
     $("input[name=einpack1ma]").on('change', function() {
         let ma = $("input[name=einpack1ma]").val();
         let spesen = $("input[name=einpackextra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=einpackextra1]").val(spesen);
     })
 
@@ -338,7 +338,7 @@
 
     $('input[name=einpack1chf]').val(chf);
     $('input[name=einpack1ma]').val(ma);
-    spesen = ma * 20;
+    spesen = ma * 25;
     $("input[name=einpackextra1]").val(spesen);
     })
 

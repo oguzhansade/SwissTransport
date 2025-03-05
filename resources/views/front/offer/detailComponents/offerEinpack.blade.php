@@ -114,7 +114,7 @@
                             <input class="form-control" name="einpackextra1" type="number"
                             @if($einpack && \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra'))
                                 value="{{ \App\Models\OfferteEinpack::InfoEinpack($einpack,'extra') }}"
-                                @else value="{{ 20 }}"
+                                @else value="{{ 25 }}"
                             @endif>
                         </div>
                     </div>

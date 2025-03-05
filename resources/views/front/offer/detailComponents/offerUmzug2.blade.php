@@ -163,7 +163,7 @@
                             <input class="form-control" name="extra1" type="number"
                             @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra'))
                                 value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra') }}"
-                                @else value="20"
+                                @else value="25"
                             @endif>
                         </div>
                     </div>

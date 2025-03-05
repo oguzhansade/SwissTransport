@@ -164,7 +164,7 @@
                             <input class="form-control" name="extra1" type="number"
                             @if($umzug && \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra'))
                                 value="{{ \App\Models\OfferteUmzug::InfoUmzug($umzug,'extra') }}"
-                                @else value="20"
+                                @else value="25"
                             @endif>
                         </div>
                     </div>
@@ -536,13 +536,13 @@
 
         let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=extra1]").val(spesen);
     })
     $("input[name=umzug1ma]").on('change', function() {
         let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=extra1]").val(spesen);
     })
     $("select[name=umzugTariff]").on("change",function () {
@@ -571,7 +571,7 @@
         $('input[name=umzug1ma]').val(ma);
         $('input[name=umzug1lkw]').val(lkw);
         $('input[name=umzug1anhanger]').val(anhanger);
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=extra1]").val(spesen);
     })
 

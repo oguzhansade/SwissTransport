@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <input class="form-control" name="extra1" type="number" value="20">
+                            <input class="form-control" name="extra1" type="number" value="25">
                         </div>
                     </div>
 
@@ -314,7 +314,7 @@
         let lkw = $("select[name=umzugTariff] :selected").data("lkw");
         let anhanger = $("select[name=umzugTariff] :selected").data("an");
         let control = $("select[name=umzugTariff] :selected").data('selection');
-        let spesen = $("input[name=extra1]").val(20);
+        let spesen = $("input[name=extra1]").val(25);
 
         if (control != 'bos') {
             $('.umzug-tarif-area').show(300)
@@ -330,7 +330,7 @@
         $('input[name=umzug1ma]').val(ma);
         $('input[name=umzug1lkw]').val(lkw);
         $('input[name=umzug1anhanger]').val(anhanger);
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=extra1]").val(spesen);
     }
 
@@ -408,7 +408,7 @@
     $("input[name=umzug1ma]").on('change', function() {
         let ma = $("input[name=umzug1ma]").val();
         let spesen = $("input[name=extra1]").val();
-        spesen = ma * 20;
+        spesen = ma * 25;
         $("input[name=extra1]").val(spesen);
     })
 
