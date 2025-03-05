@@ -72,9 +72,13 @@
         Carbon\Carbon::setLocale('de');
         @endphp
 
-        <strong>  {{ $item['serviceName'] }}:</strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr<br>
+        <strong>  {{ $item['serviceName'] }}:</strong> {{  Carbon\Carbon::parse($item['date'].' '.$item['time'])->translatedFormat('l j F Y H:i')  }} Uhr<br><br>
         @endforeach
         @endif
+
+        <strong>Zahlungsmodalitäten:</strong><br>
+        Gemäss unseren AGB's sind unsere Dienstleistungen in bar zu bezahlen.
+        Optional Zahlung per Twint möglich. Die Zahlungsgebühr für die Basis QR-Code-Sticker bei TWINT AG beträgt hierfür 1,5% des Transaktionsbetrages.
 
         <br><br><br>
         <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>

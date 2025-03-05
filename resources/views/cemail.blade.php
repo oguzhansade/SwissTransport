@@ -71,8 +71,11 @@
                 </div>
                 <br />
                 <br />
-                {{ $date }}<br>
-                <br /> <br /><br />
+                {{ $date }}<br><br />
+                <strong>Zahlungsmodalitäten:</strong><br>
+                Gemäss unseren AGB's sind unsere Dienstleistungen in bar zu bezahlen.
+                Optional Zahlung per Twint möglich. Die Zahlungsgebühr für die Basis QR-Code-Sticker bei TWINT AG beträgt hierfür 1,5% des Transaktionsbetrages.<br /> <br />
+
                 <span style="color:#CF2E2E;font-size:18px;"><strong>Die Dienstleistungen sind in bar zu bezahlen, gemäss unseren AGB's der ASTAG.</strong> <br><br></span>
                 Für allfällige Fragen stehen wir Ihnen gerne zur Verfügung.
                 </div>
